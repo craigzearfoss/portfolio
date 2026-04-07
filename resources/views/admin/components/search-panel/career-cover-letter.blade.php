@@ -12,9 +12,9 @@
     $content          = $content ?? request()->query('content');
     $created_at_from  = $created_at_from ?? request()->query('created_at_from');
     $created_at_to    = $created_at_to ?? request()->query('created_at_to');
-    $name            = $name ?? request()->query('name');
-    $description     = $description ?? request()->query('description');
-    $notes           = $notes ?? request()->query('notes');
+    $name             = $name ?? request()->query('name');
+    $description      = $description ?? request()->query('description');
+    $notes            = $notes ?? request()->query('notes');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ CoverLetter::SEARCH_ORDER_BY[0], CoverLetter::SEARCH_ORDER_BY[1] ]);

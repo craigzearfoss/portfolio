@@ -1,14 +1,23 @@
 @php
+    use App\Models\Career\CoverLetter;
     use App\Models\System\Admin;
 
-    $action          = $action ?? url()->current();
+    // get variables
+    $action           = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
-    $content         = $content ?? request()->query('content');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
-    $name            = $name ?? request()->query('name');
-    $description     = $description ?? request()->query('description');
-    $notes           = $notes ?? request()->query('notes');
+    $application_id    = $application_id ?? request()->query('application_id');
+    $application_name = $application_id ?? request()->query('application_id');
+    $company_id       = $company_id ?? request()->query('company_id');
+    $company_name     = $company_name ?? request()->query('company_name');
+    $content          = $content ?? request()->query('content');
+    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
+    $name             = $name ?? request()->query('name');
+    $description      = $description ?? request()->query('description');
+    $notes            = $notes ?? request()->query('notes');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ CoverLetter::SEARCH_ORDER_BY[0], CoverLetter::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -18,20 +27,51 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('user.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => [
+                                       //'application_id|asc' => 'application',
+                                       'company_name|asc'     => 'company',
+                                       'apply_date|desc'      => 'date applied',
+                                       'post_date|desc'       => 'date posted',
+                                       'application_role|asc' => 'role',
+                                   ],
+                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('user.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('user.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
-                        </div>
-                        <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-company',
-                                $isRootAdmin ? [] : [ 'owner_id' => $owner_id ]
-                            )
-                        </div>
-                    </div>
 
+                        <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                        </div>
+
+                        <div class="search-form-control">
+                                @include('user.components.search-panel.controls.career-company',
+                                    $isRootAdmin ? [] : [ 'owner_id' => $owner_id ]
+                                )
+                        </div>
+
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'name',
@@ -39,6 +79,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'content',
@@ -46,9 +87,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'description',
@@ -56,6 +98,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'notes',
@@ -63,25 +106,9 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
-                    <div class="floating-div">
-                        @include('user.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
-
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('user.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('user.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

@@ -3,8 +3,10 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action   = $action ?? url()->current();
-    $owner_id = $owner->id ?? -1;
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recipe::SEARCH_ORDER_BY[0], Recipe::SEARCH_ORDER_BY[1] ]);

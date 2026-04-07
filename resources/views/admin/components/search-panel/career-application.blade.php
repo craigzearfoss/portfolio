@@ -67,20 +67,24 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner')
                             </div>
                         @endif
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-status')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-rating')
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.input-basic', [
@@ -96,6 +100,7 @@
                                 @include('admin.components.search-panel.controls.career-company', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'role',
@@ -103,9 +108,11 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-job-board')
                         </div>
+
                         @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.input-basic', [
@@ -121,39 +128,48 @@
                                 @include('admin.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-job-duration-type')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-job-employment-type')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-job-location-type')
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-w2')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-relocation')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-benefits')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-vacation')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-application-health')
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'city',
@@ -161,26 +177,32 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.system-state')
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         @include('admin.components.search-panel.controls.career-application-apply-date', [
                             'applied_from' => $applied_from,
                             'applied_to'   => $applied_to,
                         ])
+
                         @include('admin.components.search-panel.controls.career-application-post-date', [
                             'posted_from' => $posted_from,
                             'posted_to'   => $posted_to,
                         ])
+
                         <div style="display: none;">
                             @include('admin.components.search-panel.controls.career-application-close-date', [
                                 'closed_from' => $closed_from,
                                 'closed_to'   => $closed_to,
                              ])
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

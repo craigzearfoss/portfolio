@@ -3,12 +3,14 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action         = $action ?? url()->current();
-    $owner_id       = $owner->id ?? -1;
-    $category       = $category ?? request()->query('category');
-    $name           = $name ?? request()->query('name');
-    $nominated_work = $nominated_work ?? request()->query('nominated_work');
-    $organization   = $organization ?? request()->query('organization');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $category        = $category ?? request()->query('category');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $nominated_work  = $nominated_work ?? request()->query('nominated_work');
+    $organization    = $organization ?? request()->query('organization');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Award::SEARCH_ORDER_BY[0], Award::SEARCH_ORDER_BY[1] ]);

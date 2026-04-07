@@ -3,9 +3,11 @@
     use App\Models\Career\JobBoard;
 
     // get variables
-    $action       = $action ?? url()->current();
-    $abbreviation = $abbreviation ?? request()->query('abbreviation');
-    $name         = $name ?? request()->query('name');
+    $action          = $action ?? url()->current();
+    $abbreviation    = $abbreviation ?? request()->query('abbreviation');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Certification::SEARCH_ORDER_BY[0], Certification::SEARCH_ORDER_BY[1] ]);

@@ -1,12 +1,19 @@
 @php
     use App\Models\System\Admin;
+    use App\Models\System\AdminResource;
     use App\Models\System\Database;
     use App\Models\System\Resource;
 
-    $action      = $action ?? url()->current();
+    // get variables
+    $action          = $action ?? url()->current();
     $owner_id    = $owner->id ?? -1;
-    $database_id = $database_id ?? request()->query('database_id');
-    $name        = $name ?? request()->query('name');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $database_id     = $database_id ?? request()->query('database_id');
+    $name            = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminResource::SEARCH_ORDER_BY[0], AdminResource::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -69,10 +76,13 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('user.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
                     @include('user.components.button-search', [
                         'id' =>'performSearch',
                     ])

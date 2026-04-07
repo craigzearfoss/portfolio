@@ -3,11 +3,12 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action       = $action ?? url()->current();
-    $owner_id     = $owner->id ?? -1;
-    $academy_id   = $academy_id ?? request()->query('academy_id');
-    $name         = $name ?? request()->query('name');
-    $organization = $organization ?? request()->query('organization');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $organization    = $organization ?? request()->query('organization');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Certificate::SEARCH_ORDER_BY[0], Certificate::SEARCH_ORDER_BY[1] ]);
@@ -68,7 +69,6 @@
                         </div>
 
                     </div>
-
                     <div class="floating-div">
 
                         <div class="search-form-control">

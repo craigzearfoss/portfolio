@@ -1,8 +1,14 @@
 @php
     use App\Models\System\User;
 
-    $action  = $action ?? url()->current();
-    $user_id = $user_id ?? $user->id ?? null;
+    // get variables
+    $action          = $action ?? url()->current();
+    $user_id         = $user->id ?? -1;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ User::SEARCH_ORDER_BY[0], User::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -12,10 +18,39 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    <?php /*
+                    // @TODO: Implement sort select list.
+                    @include('user.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'username'       => 'owner',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                    ])
+                    */ ?>
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('user.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('user.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="control" style="max-width: 28rem;">
+                        <div class="control" style="max-width: 30rem;">
                             @include('user.components.form-select', [
                                 'name'     => 'user_id',
                                 'label'    => 'user',
@@ -25,16 +60,6 @@
                         </div>
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('user.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('user.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

@@ -3,12 +3,14 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action       = $action ?? url()->current();
-    $owner_id     = $owner->id ?? -1;
-    $company_name = $company_name ?? request()->query('company_name');
-    $job_id       = $job_id ?? request()->query('job_id');
-    $name         = $name ?? request()->query('name');
-    $role         = $role ?? request()->query('role');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $company_name    = $company_name ?? request()->query('company_name');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $job_id          = $job_id ?? request()->query('job_id');
+    $name            = $name ?? request()->query('name');
+    $role            = $role ?? request()->query('role');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ JobSkill::SEARCH_ORDER_BY[0], JobSkill::SEARCH_ORDER_BY[1] ]);

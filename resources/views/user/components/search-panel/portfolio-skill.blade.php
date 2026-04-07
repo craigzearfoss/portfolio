@@ -1,12 +1,18 @@
 @php
     use App\Models\Dictionary\Category;
+    use App\Models\Portfolio\Skill;
     use App\Models\System\Admin;
 
-    $action                  = $action ?? url()->current();
-    $owner_id                = $owner->id ?? -1;
-    $name                    = $name ?? request()->query('name');
-    $min_years               = $min_years ?? request()->query('min_years');
-    $years                   = $years ?? request()->query('years');
+    // get variables
+    $action          = $action ?? url()->current();
+    $owner_id         = $owner->id ?? -1;
+    $name            = $name ?? request()->query('name');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $min_years       = $min_years ?? request()->query('min_years');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Skill::SEARCH_ORDER_BY[0], Skill::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -16,9 +22,36 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('user.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'dictionary_category_name|asc' => 'category',
+                                      'level|desc'                   => 'level',
+                                      'name|asc'                     => 'name',
+                                      'years|desc'                   => 'years',
+                                  ],
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('user.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('user.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'name',
@@ -26,21 +59,26 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.dictionary-category')
+                            @include('user.components.search-panel.controls.dictionary-category')
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.portfolio-skill-level', [ 'level' => $level ])
+                            @include('user.components.search-panel.controls.portfolio-skill-level')
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'type'    => 'number',
@@ -52,18 +90,9 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('user.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('user.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

@@ -1,11 +1,18 @@
 @php
+    use App\Models\Portfolio\Video;
     use App\Models\System\Admin;
 
-    $action   = $action ?? url()->current();
-    $owner_id = $owner->id ?? -1;
-    $company  = $company ?? request()->query('company');
-    $name     = $name ?? request()->query('name');
-    $show     = $show ?? request()->query('show');
+    // get variables
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $company         = $company ?? request()->query('company');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $show            = $show ?? request()->query('show');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Video::SEARCH_ORDER_BY[0], Video::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -15,9 +22,36 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('user.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'company|asc' => 'company',
+                                      'name|asc'    => 'name',
+                                      'show|asc'    => 'show',
+                                      'year|asc'    => 'year',
+                                  ],
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('user.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('user.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'name',
@@ -25,9 +59,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'show',
@@ -35,9 +70,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'company',
@@ -45,18 +81,9 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('user.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('user.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

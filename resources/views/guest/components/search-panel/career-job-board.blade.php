@@ -2,8 +2,10 @@
     use App\Models\Career\JobBoard;
 
     // get variables
-    $action        = $action ?? url()->current();
-    $name          = $name ?? request()->query('name');
+    $action          = $action ?? url()->current();
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ JobBoard::SEARCH_ORDER_BY[0], JobBoard::SEARCH_ORDER_BY[1] ]);
@@ -16,27 +18,15 @@
 
             <div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-controls">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                    </div>
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                       'name|asc' => 'name',
+                                   ],
+                    ])
 
-                    <div class="floating-div pl-4">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-job-board-coverage_area')
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="has-text-right pr-2">
                     <?php /*
                     // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
@@ -44,9 +34,35 @@
                         'name' => 'Clear',
                     ])
                     */ ?>
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
+                </div>
+
+                <div class="floating-div-container">
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.career-job-board-coverage_area')
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>

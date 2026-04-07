@@ -3,11 +3,13 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action   = $action ?? url()->current();
-    $owner_id = $owner->id ?? -1;
-    $company  = $company ?? request()->query('company');
-    $name     = $name ?? request()->query('name');
-    $show     = $show ?? request()->query('show');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $company         = $company ?? request()->query('company');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $show            = $show ?? request()->query('show');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Video::SEARCH_ORDER_BY[0], Video::SEARCH_ORDER_BY[1] ]);

@@ -4,11 +4,13 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action      = $action ?? url()->current();
-    $owner_id    = $owner->id ?? -1;
-    $recipe_id   = $recipe_id ?? request()->query('recipe_id');
-    $recipe_name = $recipe_name ?? request()->query('recipe_name');
-    $summary     = $summary ?? request()->query('summary');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $recipe_id       = $recipe_id ?? request()->query('recipe_id');
+    $recipe_name     = $recipe_name ?? request()->query('recipe_name');
+    $summary         = $summary ?? request()->query('summary');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ RecipeStep::SEARCH_ORDER_BY[0], RecipeStep::SEARCH_ORDER_BY[1] ]);

@@ -2,8 +2,10 @@
     use App\Models\Personal\Ingredient;
 
     // get variables
-    $action = $action ?? url()->current();
-    $name   = $name ?? request()->query('name');
+    $action          = $action ?? url()->current();
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Ingredient::SEARCH_ORDER_BY[0], Ingredient::SEARCH_ORDER_BY[1] ]);
@@ -39,14 +41,18 @@
 
                 </div>
 
-                <div class="floating-div">
+                <div class="floating-div-container">
 
-                    <div class="search-form-control">
-                        @include('guest.components.input-basic', [
-                            'name'    => 'name',
-                            'value'   => $name,
-                            'message' => $message ?? '',
-                        ])
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
                     </div>
 
                 </div>

@@ -1,5 +1,5 @@
 @php
-    $applied_from = $applie_from ?? request()->query('applied_from');
+    $applied_from = $applied_from ?? request()->query('applied_from');
     $applied_to   = $applied_to ?? request()->query('applied_to');
 @endphp
 <div class="search-form-control">

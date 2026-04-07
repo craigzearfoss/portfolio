@@ -2,12 +2,10 @@
     use App\Models\Portfolio\School;
     use App\Models\System\Admin;
 
-    // get variables;
-    $action          = $action ?? url()->current();
-    $name            = $name ?? request()->query('name');
-    $city            = $city ?? request()->query('city');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    // get variables
+    $action = $action ?? url()->current();
+    $name   = $name ?? request()->query('name');
+    $city   = $city ?? request()->query('city');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ School::SEARCH_ORDER_BY[0], School::SEARCH_ORDER_BY[1] ]);
@@ -22,7 +20,7 @@
 
                 <div class="search-panel-controls">
 
-                    @include('admin.components.search-sort-select', [
+                    @include('user.components.search-sort-select', [
                         'sort' => $sort,
                         'list' => [
                                       'name|asc'       => 'name',
@@ -32,13 +30,13 @@
 
                     <?php /*
                     // @TODO: Implement clear search form functionality.
-                    @include('admin.components.button-clear', [
+                    @include('user.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
                     */ ?>
 
-                    @include('admin.components.button-search', [
+                    @include('user.components.button-search', [
                         'id' =>'performSearch',
                     ])
 
@@ -49,7 +47,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('user.components.input-basic', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -62,7 +60,7 @@
 
                         <?php /* We don't currently have any cities in the portfolio.schools table.
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('user.components.input-basic', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
@@ -71,19 +69,10 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.system-state')
+                            @include('user.components.search-panel.controls.system-state')
                         </div>
 
                     </div>
-
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-                            @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at_from' => $created_at_from,
-                                'created_at_to'   => $created_at_to,
-                            ])
-                        </div>
-                    @endif
 
                 </div>
 

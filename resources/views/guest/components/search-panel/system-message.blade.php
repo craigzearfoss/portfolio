@@ -8,6 +8,8 @@
     $email           = $email ?? request()->query('email');
     $subject         = $subject ?? request()->query('subject');
     $body            = $body ?? request()->query('body');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Message::SEARCH_ORDER_BY[0], Message::SEARCH_ORDER_BY[1] ]);

@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Course;
     use App\Models\System\Admin;
 
-    // get variable
+    // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');

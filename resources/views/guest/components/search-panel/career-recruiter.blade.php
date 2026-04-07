@@ -2,9 +2,11 @@
     use App\Models\Career\Recruiter;
 
     // get variables
-    $action        = $action ?? url()->current();
-    $name          = $name ?? request()->query('name');
-    $city          = $city ?? request()->query('city');
+    $action          = $action ?? url()->current();
+    $name            = $name ?? request()->query('name');
+    $city            = $city ?? request()->query('city');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recruiter::SEARCH_ORDER_BY[0], Recruiter::SEARCH_ORDER_BY[1] ]);
@@ -17,40 +19,17 @@
 
             <div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-controls">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                    </div>
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                       'city|asc'       => 'city',
+                                       'name|asc'       => 'name',
+                                       'state_name|asc' => 'state',
+                                  ],
+                    ])
 
-                    <div class="floating-div pl-4">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-recruiter-coverage_area')
-                        </div>
-                    </div>
-
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'name'    => 'city',
-                                'value'   => $city,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-state')
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="has-text-right pr-2">
                     <?php /*
                     // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
@@ -58,9 +37,49 @@
                         'name' => 'Clear',
                     ])
                     */ ?>
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
+                </div>
+
+                <div class="floating-div-container">
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.career-recruiter-coverage_area')
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'city',
+                                'value'   => $city,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.system-state')
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>

@@ -4,9 +4,11 @@
 
     // get variables
     $action             = $action ?? url()->current();
-    $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $owner_id           = $owner->id ?? -1;
     $audio              = boolval($audio ?? request()->query('audio'));
     $author             = $author ?? request()->query('author');
+    $created_at_from    = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to      = $created_at_to ?? request()->query('created_at_to');
     $fiction            = boolval($fiction ?? request()->query('fiction'));
     $nonfiction         = boolval($nonfiction ?? request()->query('nonfiction'));
     $paper              = boolval($paper ?? request()->query('paper'));

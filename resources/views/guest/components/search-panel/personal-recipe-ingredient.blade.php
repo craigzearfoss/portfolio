@@ -6,6 +6,8 @@
     // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $ingredient_name = $ingredient_name ?? request()->query('ingredient_name');
     $recipe_id       = $recipe_id ?? request()->query('recipe_id');
     $recipe_name     = $recipe_name ?? request()->query('recipe_name');
@@ -24,13 +26,14 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'ingredient_name|asc' => 'ingredient',
-                                                  'recipe_name|asc'     => 'recipe',
-                                              ],
-                                  )
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'ingredient_name|asc' => 'ingredient',
+                                                   'recipe_name|asc'     => 'recipe',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
                     ])
 
                     <?php /*

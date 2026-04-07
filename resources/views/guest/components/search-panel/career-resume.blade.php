@@ -20,37 +20,17 @@
 
             <div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-controls">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                    </div>
+                    @include('guest.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => [
+                                       'name|asc'         => 'name',
+                                       'resume_date|desc' => 'date',
+                                   ],
+                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                    ])
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.primary')
-                        </div>
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.public')
-                        </div>
-                    </div>
-
-                    <div class="floating-div">
-                        @include('guest.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
-
-                </div>
-
-                <div class="has-text-right pr-2">
                     <?php /*
                     // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
@@ -58,9 +38,38 @@
                         'name' => 'Clear',
                     ])
                     */ ?>
+
                     @include('guest.components.button-search', [
-                        'id'      =>'performSearch',
+                        'id' =>'performSearch',
                     ])
+
+                </div>
+
+                <div class="floating-div-container">
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.primary')
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.public')
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>

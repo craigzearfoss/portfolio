@@ -2,8 +2,14 @@
     use App\Models\Personal\Recipe;
     use App\Models\System\Admin;
 
-    $action   = $action ?? url()->current();
-    $owner_id = $owner->id ?? -1;
+    // get variables
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recipe::SEARCH_ORDER_BY[0], Recipe::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -16,12 +22,6 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-
-                        @if(isRootAdmin())
-
-                            @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-
-                        @endif
 
                         @if(!empty($owner))
 
@@ -59,10 +59,13 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('user.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
                     @include('user.components.button-search', [
                         'id' =>'performSearch',
                     ])
