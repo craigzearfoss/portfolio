@@ -32,7 +32,7 @@
                                        'title|asc'            => 'title',
                                        'publication_year|asc' => 'year',
                                    ],
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ],
                     ])
 
                     <?php /*
@@ -52,6 +52,28 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
+                        <?php /*
+                        // there are too many publications for a select list
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'  => 'search_title',
+                                    'label' => 'title',
+                                    'value' => $search_title,
+                                    'list'  => new Publication()->listOptions(
+                                        [ 'owner_id' => $owner_id ],
+                                        'title',
+                                        'title',
+                                        true,
+                                        false,
+                                        [ 'title', 'asc' ],
+                                    ),
+                                    'style' => 'min-width: 15rem;'
+                                ])
+                            </div>
+                        </div>
+                        */ ?>
 
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [

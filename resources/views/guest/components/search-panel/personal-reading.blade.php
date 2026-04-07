@@ -3,17 +3,17 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action             = $action ?? url()->current();
-    $owner_id           = $owner->id ?? -1;
-    $audio              = boolval($audio ?? request()->query('audio'));
-    $author             = $author ?? request()->query('author');
-    $created_at_from    = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to      = $created_at_to ?? request()->query('created_at_to');
-    $fiction            = boolval($fiction ?? request()->query('fiction'));
-    $nonfiction         = boolval($nonfiction ?? request()->query('nonfiction'));
-    $paper              = boolval($paper ?? request()->query('paper'));
-    $search_title_value = $search_title_value ?? request()->query('search_title_value');
-    $wishlist           = boolval($wishlist ?? request()->query('wishlist'));
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $audio           = boolval($audio ?? request()->query('audio'));
+    $author          = $author ?? request()->query('author');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $fiction         = boolval($fiction ?? request()->query('fiction'));
+    $nonfiction      = boolval($nonfiction ?? request()->query('nonfiction'));
+    $paper           = boolval($paper ?? request()->query('paper'));
+    $search_title    = $search_title ?? request()->query('search_title');
+    $wishlist        = boolval($wishlist ?? request()->query('wishlist'));
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Reading::SEARCH_ORDER_BY[0], Reading::SEARCH_ORDER_BY[1] ]);
@@ -55,12 +55,15 @@
 
                     <div class="floating-div">
 
+                        <?php /*
+                        // there are too many publications for a select list
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('guest.components.form-select', [
-                                    'name'     => 'title',
-                                    'value'    => $search_title_value,
-                                    'list'     => new Reading()->listOptions(
+                                    'name'  => 'search_title',
+                                    'label' => 'title',
+                                    'value' => $search_title,
+                                    'list'  => new Reading()->listOptions(
                                         [ 'owner_id' => $owner_id ],
                                         'title',
                                         'title',
@@ -68,9 +71,19 @@
                                         false,
                                         [ 'title', 'asc' ],
                                     ),
-                                    'style'    => 'min-width: 15rem;'
+                                    'style' => 'min-width: 15rem;'
                                 ])
                             </div>
+                        </div>
+                        */ ?>
+
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'search_title',
+                                'label'   => 'title',
+                                'value'   => $search_title,
+                                'message' => $message ?? '',
+                            ])
                         </div>
 
                     </div>
