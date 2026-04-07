@@ -219,6 +219,8 @@ if (! function_exists('wageRateFormat')) {
             return '';
         }
 
-        return Number::currency($wageRate, $currency, precision: $precision) . '/ hr';
+        return number_format($wageRate, $precision, '.', ',') . ' / hr';
+        // Note: Using the Number::currency() method requires the intl PHP extension.
+        //return Number::currency($wageRate, $currency, precision: $precision) . ' / hr';
     }
 }
