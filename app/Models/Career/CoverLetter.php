@@ -180,7 +180,7 @@ class CoverLetter extends Model
                 $query->where('applications.post_date', '<=', intval($filters['application_post_date_to']));
             })
             ->when(!empty($filters['application_role']), function ($query) use ($filters) {
-                $query->where('applications.application_role', '=', intval($filters['application_role']));
+                $query->where('applications.role', 'like', '%' . $filters['application_role'] . '%');
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
                 $query->where('applications.company_id', '=', intval($filters['company_id']));

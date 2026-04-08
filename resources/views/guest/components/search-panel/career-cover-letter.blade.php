@@ -69,14 +69,17 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-                            <div class="search-form-control">
-                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        </div>
-                    @endif
+                    <div class="floating-div">
 
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
                     <div class="floating-div">
 
                         @if($applicationCount > 20)
@@ -119,8 +122,9 @@
 
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
+                                'name'    => 'application_role',
+                                'label'   => 'role',
+                                'value'   => $application_role,
                                 'message' => $message ?? '',
                             ])
                         </div>

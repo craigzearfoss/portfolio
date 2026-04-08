@@ -9,6 +9,7 @@
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_id ?? request()->query('application_id');
+    $application_role = $application_role ?? request()->query('application_role');
     $company_id       = $company_id ?? request()->query('company_id');
     $company_name     = $company_name ?? request()->query('company_name');
     $content          = $content ?? request()->query('content');
@@ -71,14 +72,23 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
+                    <div class="floating-div">
+
+                        @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        </div>
-                    @endif
+                        @endif
 
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
                     <div class="floating-div">
 
                         @if($isRootAdmin || $applicationCount > 20)
@@ -121,8 +131,9 @@
 
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
+                                'name'    => 'application_role',
+                                'label'   => 'role',
+                                'value'   => $application_role,
                                 'message' => $message ?? '',
                             ])
                         </div>
