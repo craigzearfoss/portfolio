@@ -57,7 +57,7 @@ class UpdateReferencesRequest extends FormRequest
                 'max:255',
                 Rule::unique('career_db.references', 'slug')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
-                        ->where('name', $this['slug'])
+                        ->where('slug', $this['slug'])
                         ->whereNot('id', $this['reference']['id']);
                 })
             ],

@@ -2,13 +2,10 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Listeners\LogLoginFail;
-use App\Models\Career\Application;
 use App\Models\Career\CoverLetter;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 
 class StoreCoverLettersRequest extends FormRequest
@@ -49,20 +46,20 @@ class StoreCoverLettersRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes', 'name')->where(function ($query) use ($ownerId) {
+                Rule::unique('career_db.cover_letters', 'name')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
-                        ->where('date', $this['date'])
-                        ->where('name', $this['name']);
+                        ->where('name', $this['name'])
+                        ->where('cover_letter_date', $this['cover_letter_date']);
                 })
             ],
             'slug'         => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes', 'slug')->where(function ($query) use ($ownerId) {
+                Rule::unique('career_db.cover_letters', 'slug')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
-                        ->where('date', $this['date'])
-                        ->where('slug', $this['slug']);
+                        ->where('slug', $this['slug'])
+                        ->where('cover_letter_date', $this['cover_letter_date']);
                 })
             ],
             'cover_letter_date' => ['date', 'nullable'],

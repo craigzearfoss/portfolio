@@ -66,6 +66,15 @@
                                                  ]),
                                 ])
 
+                                @if (!empty($coverLetter->content))
+
+                                    @include('admin.components.show-row', [
+                                        'name'    => 'content',
+                                        'value'   => $coverLetter->content,
+                                    ])
+
+                                @endif
+
                                 @if (!empty($coverLetter->filepath))
 
                                     @if(in_array($fileExtension, ['doc', 'docx']))

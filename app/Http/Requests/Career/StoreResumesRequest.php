@@ -39,8 +39,8 @@ class StoreResumesRequest extends FormRequest
                 'max:255',
                 Rule::unique('career_db.resumes', 'name')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
-                        ->where('date', $this['date'])
-                        ->where('name', $this['name']);
+                        ->where('name', $this['name'])
+                        ->where('resume_date', $this['resume_date']);
                 })
             ],
             'slug'         => [
@@ -49,8 +49,8 @@ class StoreResumesRequest extends FormRequest
                 'max:255',
                 Rule::unique('career_db.resumes', 'slug')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
-                        ->where('date', $this['date'])
-                        ->where('slug', $this['slug']);
+                        ->where('slug', $this['slug'])
+                        ->where('resume_date', $this['resume_date']);
                 })
             ],
             'date'  => ['date', 'nullable'],

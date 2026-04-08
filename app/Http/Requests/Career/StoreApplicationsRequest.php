@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Application;
 use App\Models\Career\CompensationUnit;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;

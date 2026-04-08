@@ -47,7 +47,7 @@ class UpdateResumesRequest extends FormRequest
                 Rule::unique('career_db.resumes', 'name')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
                         ->where('name', $this['name'])
-                        ->where('date', $this['date'])
+                        ->where('resume_date', $this['resume_date'])
                         ->whereNot('id', $this['resume']['id']);
                 })
             ],
@@ -58,7 +58,7 @@ class UpdateResumesRequest extends FormRequest
                 Rule::unique('career_db.resumes', 'slug')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
                         ->where('slug', $this['slug'])
-                        ->where('date', $this['date'])
+                        ->where('resume_date', $this['resume_date'])
                         ->whereNot('id', $this['resume']['id']);
                 })
             ],

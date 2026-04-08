@@ -41,7 +41,7 @@ class UpdateEventsRequest extends FormRequest
             'event_time'     => ['date_format:H:i:s', 'nullable'],
             'location'       => ['string', 'max:255', 'nullable'],
             'attendees'      => ['string', 'max:500', 'nullable'],
-            'notes'           => ['nullable'],
+            'notes'          => ['nullable'],
             'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'      => ['string', 'max:255', 'nullable'],
             'description'    => ['nullable'],
