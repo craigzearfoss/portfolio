@@ -436,7 +436,7 @@ class Application extends Model
         // add joins
         $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
-        $query->join('resumes', 'resumes.id', '=', 'applications.resume_id');
+        $query->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id');
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('admins.name AS `owner_name`'),

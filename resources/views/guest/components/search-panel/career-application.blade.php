@@ -21,6 +21,11 @@
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Application::SEARCH_ORDER_BY[0], Application::SEARCH_ORDER_BY[1] ]);
+
+    // get counts of companies and resumes
+    // if there are more than 20 resumes then we display an input text box instead of a select list
+    $companyCount = new Company()->query()->where('owner_id', $admin->id)->count();
+    $resumeCount = new Resume()->query()->where('owner_id', $admin->id)->count();
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -77,9 +82,21 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-company', [ 'owner_id' => $owner_id ])
-                        </div>
+                        @if($companyCount > 20)
+                            <div class="search-form-control">
+                                @include('guest.components.input-basic', [
+                                    'name'    => 'company_name',
+                                    'label'   => 'company',
+                                    'value'   => $company_name,
+                                    'message' => $message ?? '',
+                                    'style'   => 'width: 16rem;'
+                                ])
+                            </div>
+                        @else
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.career-company', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
 
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
@@ -93,9 +110,21 @@
                             @include('guest.components.search-panel.controls.career-job-board')
                         </div>
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
-                        </div>
+                        @if($resumeCount > 20)
+                            <div class="search-form-control">
+                                @include('guest.components.input-basic', [
+                                    'name'    => 'resume_name',
+                                    'label'   => 'resume',
+                                    'value'   => $resume_name,
+                                    'message' => $message ?? '',
+                                    'style'   => 'width: 16rem;'
+                                ])
+                            </div>
+                        @else
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
 
                     </div>
                     <div class="floating-div">

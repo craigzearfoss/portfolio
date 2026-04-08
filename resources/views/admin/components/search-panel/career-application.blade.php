@@ -97,7 +97,7 @@
                     </div>
                     <div class="floating-div">
 
-                        @if(!$isRootAdmin || $companyCount > 20)
+                        @if($isRootAdmin || $companyCount > 20)
                             <div class="search-form-control">
                                 @include('admin.components.input-basic', [
                                     'name'    => 'company_name',

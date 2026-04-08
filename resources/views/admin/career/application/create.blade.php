@@ -170,7 +170,7 @@
                     'name'            => 'active',
                     'value'           => 1,
                     'unchecked_value' => 0,
-                    'checked'         => old('active') ?? 0,
+                    'checked'         => old('active') ?? 1,
                     'message'         => $message ?? '',
                 ])
 

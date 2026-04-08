@@ -34,8 +34,8 @@
                         'list'  => [
                                        //'application_id|asc' => 'application',
                                        'company_name|asc'     => 'company',
-                                       'apply_date|desc'      => 'date applied',
-                                       'post_date|desc'       => 'date posted',
+                                       'application_apply_date|desc' => 'date applied',
+                                       'application_post_date|desc'  => 'date posted',
                                        'application_role|asc' => 'role',
                                    ],
                         'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]

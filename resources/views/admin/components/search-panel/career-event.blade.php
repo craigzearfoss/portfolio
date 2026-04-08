@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\Application;
+    use App\Models\Career\Company;
     use App\Models\Career\Event;
     use App\Models\System\Admin;
 
@@ -23,6 +24,16 @@
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Event::SEARCH_ORDER_BY[0], Event::SEARCH_ORDER_BY[1] ]);
+
+    // get counts of companies and resumes
+    // if there are more than 20 then we display an input text box instead of a select list
+    $applicationCount = $isRootAdmin
+        ? new Application()->query()->count()
+        : new Application()->query()->where('owner_id', $admin->id)->count();
+
+    $companyCount = $isRootAdmin
+        ? new Company()->query()->count()
+        : new Company()->query()->where('owner_id', $admin->id)->count();
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -42,8 +53,8 @@
                                                   //'application_id|asc'        => 'application',
                                                   'company_name|asc'            => 'company',
                                                   'communication_datetime|desc' => 'event date',
-                                                  'apply_date|desc'             => 'date applied',
-                                                  'post_date|desc'              => 'date posted',
+                                                  'application_apply_date|desc' => 'date applied',
+                                                  'application_post_date|desc'  => 'date posted',
                                                   'event_date|desc'             => 'date',
                                                   'name|asc'                    => 'name',
                                               ],
@@ -67,40 +78,34 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-
-                        @if($isRootAdmin)
-
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
+                        </div>
+                    @endif
 
+                    <div class="floating-div">
+
+                        @if($isRootAdmin || $applicationCount > 20)
+                            <div class="search-form-control">
+                                @include('admin.components.input-basic', [
+                                    'name'    => 'application_name',
+                                    'label'   => 'application',
+                                    'value'   => $application_name,
+                                    'message' => $message ?? '',
+                                    'style'   => 'width: 16rem;'
+                                ])
+                            </div>
                         @else
-
-                            @php
-                                /* There will be too many applications to create a select list for the root admin,
-                                   so root admins should search by company. */
-                            @endphp
-
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                             </div>
-
                         @endif
 
-                    </div>
-                    <div class="floating-div">
-
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-
-                        <div class="search-form-control">
-                            @if($isRootAdmin)
+                            @if($isRootAdmin || $companyCount > 20)
                                 <div class="search-form-control">
                                     @include('admin.components.input-basic', [
                                         'name'    => 'company_name',
@@ -116,7 +121,17 @@
                             @endif
                         </div>
 
-                        <?php /*
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'description',
@@ -124,7 +139,6 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                        */ ?>
 
                     </div>
                     <div class="floating-div">

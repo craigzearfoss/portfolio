@@ -1,6 +1,7 @@
 @php
     use App\Models\Career\Application;
     use App\Models\Career\Communication;
+    use App\Models\Career\Company;
     use App\Models\System\Admin;
 
     // get variables
@@ -21,6 +22,16 @@
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Communication::SEARCH_ORDER_BY[0], Communication::SEARCH_ORDER_BY[1] ]);
+
+    // get counts of companies and resumes
+    // if there are more than 20 then we display an input text box instead of a select list
+    $applicationCount = $isRootAdmin
+        ? new Application()->query()->count()
+        : new Application()->query()->where('owner_id', $admin->id)->count();
+
+    $companyCount = $isRootAdmin
+        ? new Company()->query()->count()
+        : new Company()->query()->where('owner_id', $admin->id)->count();
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -38,8 +49,8 @@
                                        //'application_id|asc'        => 'application',
                                        'company_name|asc'            => 'company',
                                        'communication_datetime|desc' => 'date',
-                                       'apply_date|desc'             => 'date applied',
-                                       'post_date|desc'              => 'date posted',
+                                       'application_apply_date|desc' => 'date applied',
+                                       'application_post_date|desc'  => 'date posted',
                                        'from|asc'                    => 'from',
                                        'subject|asc'                 => 'subject',
                                        'to|asc'                      => 'to',
@@ -65,13 +76,38 @@
 
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                        </div>
-
+                        @if($applicationCount > 20)
+                            <div class="search-form-control">
+                                @include('guest.components.input-basic', [
+                                    'name'    => 'application_name',
+                                    'label'   => 'application',
+                                    'value'   => $application_name,
+                                    'message' => $message ?? '',
+                                    'style'   => 'width: 16rem;'
+                                ])
+                            </div>
+                        @else
                             <div class="search-form-control">
                                 @include('guest.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                             </div>
+                        @endif
+
+                        <div class="search-form-control">
+                            @if($companyCount > 20)
+                                <div class="search-form-control">
+                                    @include('guest.components.input-basic', [
+                                        'name'    => 'company_name',
+                                        'label'   => 'company',
+                                        'value'   => $company_name,
+                                        'message' => $message ?? '',
+                                    ])
+                                </div>
+                            @else
+                                @include('guest.components.search-panel.controls.career-company',
+                                    $isRootAdmin ? [] : [ 'owner_id' => $owner_id ]
+                                )
+                            @endif
+                        </div>
 
                     </div>
                     <div class="floating-div">
