@@ -71,7 +71,7 @@ class UpdateCoursesRequest extends FormRequest
             'school'          => ['string', 'max:255', 'nullable'],
             'instructor'      => ['string', 'max:255', 'nullable'],
             'sponsor'         => ['string', 'max:255', 'nullable'],
-            'certificate_url' => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'certificate_url' => ['string', 'max:500', 'nullable'],  //@TODO: we aren't using 'url:http,https' because it can be a relative url
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],

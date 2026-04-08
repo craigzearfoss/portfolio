@@ -48,7 +48,7 @@ class UpdateApplicationSkillsRequest extends FormRequest
                 Rule::unique('career_db.companies', 'name')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
                         ->where('name', $this['name'])
-                        ->whereNot('id', $this['id']);
+                        ->whereNot('id', $this['application_skill']['id']);
                 })
             ],
             'level'                  => ['integer', 'between:0,10'],

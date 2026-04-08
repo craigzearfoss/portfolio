@@ -68,7 +68,7 @@ class UpdateAdminResourcesRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(Resource::query()->where('id', '!=', $this['id'])->get()->pluck('id')->toArray()),
+                Rule::in(Resource::query()->where('id', '!=', $this['admin_resource']['id'])->get()->pluck('id')->toArray()),
                 'nullable'
             ],
             'table_name'        => [

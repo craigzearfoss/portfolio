@@ -54,7 +54,7 @@ class StoreAudiosRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(Audio::query()->whereNot('id', $this['audio']['id'])->get('id')->pluck('id')->toArray()),
+                'exists:portfolio_db.audios,id',
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

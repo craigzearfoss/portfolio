@@ -133,7 +133,7 @@
                                 @if(canUpdate($course, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.course.edit', [$admin, $course]),
+                                        'href'  => route('admin.portfolio.course.edit', $course),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

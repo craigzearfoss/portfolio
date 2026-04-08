@@ -59,7 +59,7 @@ class StoreAdminResourcesRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(Resource::query()->where('id', '!=', $this['id'])->all()->pluck('id')->toArray()),
+                Rule::in(Resource::query()->where('id', '!=', $this['admin_resource']['id'])->all()->pluck('id')->toArray()),
                 'nullable'
             ],
             'table_name'        => [

@@ -68,7 +68,7 @@
                 'name'            => 'featured',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('featured') ?? 1,
+                'checked'         => old('featured') ?? 0,
                 'message'         => $message ?? '',
             ])
 

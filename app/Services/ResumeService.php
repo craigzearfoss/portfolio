@@ -62,8 +62,7 @@ class ResumeService {
         $this->educations = new Education()->where('owner_id', '=', $this->admin->id)
             ->where('is_public', '=', 1)
             ->where('is_disabled', '=', 0)
-            ->orderBy('graduation_year', 'desc')->orderBy('graduation_month', 'desc')
-            ->orderBy('enrollment_year', 'desc')->orderBy('enrollment_month', 'desc')
+            ->orderBy('graduation_date', 'desc')
             ->get();
 
         $this->jobs = new Job()->where('owner_id', '=', $this->admin->id)

@@ -81,8 +81,8 @@
                         <td data-field="school.name">
                             {!! $education->school->name ?? '' !!}
                         </td>
-                        <td data-field="graduation_month|graduation_year" class="has-text-centered hide-at-480">
-                            {{ $education->graduation_year }}
+                        <td data-field="graduation_date" class="has-text-centered hide-at-480">
+                            {{ $education->graduation_date }}
                             @if(!empty($education->currently_enrolled))
                                 (currently enrolled)
                             @endif

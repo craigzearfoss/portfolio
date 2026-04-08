@@ -36,7 +36,7 @@ class StoreEducationsRequest extends FormRequest
         return[
             'owner_id'           => ['required', 'integer', 'exists:system_db.admins,id'],
             'degree_type_id'     => ['required', 'integer', 'exists:portfolio_db.degree_types,id'],
-            'major'              => ['required', 'string', 'max:255'],
+            'major'              => ['string', 'max:255'],
             'minor'              => ['string', 'max:255', 'nullable'],
             'school_id'          => ['required', 'integer', 'exists:portfolio_db.schools,id'],
             'slug'               => [
@@ -48,11 +48,9 @@ class StoreEducationsRequest extends FormRequest
                         ->where('slug', $this['slug']);
                 })
             ],
-            'enrollment_month'   => ['integer', 'between:1,12', 'nullable' ],
-            'enrollment_year'    => ['integer', 'between:1980,' . date("Y"), 'nullable'],
+            'enrollment_date'    => ['date', 'nullable' ],
             'graduated'          => ['integer', 'between:0,1'],
-            'graduation_month'   => ['integer', 'between:1,12', 'nullable' ],
-            'graduation_year'    => ['integer', 'between:1980,' . date("Y"), 'nullable'],
+            'graduation_date'    => ['date', 'nullable' ],
             'currently_enrolled' => ['integer', 'between:0,1'],
             'summary'            => ['string', 'max:500', 'nullable'],
             'notes'              => ['nullable'],

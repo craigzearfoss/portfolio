@@ -1,6 +1,6 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Portfolio\Education;
+    use Illuminate\Support\Carbon;
 
     $title    = $pageTitle ?? 'Education';
     $subtitle = $title;
@@ -58,7 +58,7 @@
                         <th>school</th>
                         <th class="has-text-centered">enrolled</th>
                         <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">graduation<br>year</th>
+                        <th class="has-text-centered">grad.<br>month</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>
@@ -77,7 +77,7 @@
                         <th>school</th>
                         <th class="has-text-centered">enrolled</th>
                         <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">graduation<br>year</th>
+                        <th class="has-text-centered">grad.<br>month</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>
@@ -106,14 +106,14 @@
                         <td data-field="school.name">
                             {!! $education->school->name ?? '' !!}
                         </td>
-                        <td data-field="enrollment_month|enrollment_year" class="has-text-centered">
-                            {!! $education->enrollment_year !!}
+                        <td data-field="enrollment_date" class="has-text-centered">
+                            {{ !empty($education->enrollment_date) ? Carbon::parse($education->enrollment_date)->format("M y") : '' }}
                         </td>
                         <td data-field="graduated" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $education->graduated ])
                         </td>
-                        <td data-field="graduation_month|graduation_year" class="has-text-centered">
-                            {!! $education->graduation_year !!}
+                        <td data-field="graduation_date" class="has-text-centered">
+                            {{ !empty($education->graduation_date) ? Carbon::parse($education->graduation_date)->format("M y") : '' }}
                         </td>
                         <td data-field="currently_enrolled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $education->currently_enrolled ])

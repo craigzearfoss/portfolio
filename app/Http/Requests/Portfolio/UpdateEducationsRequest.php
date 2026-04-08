@@ -44,7 +44,7 @@ class UpdateEducationsRequest extends FormRequest
         return[
             'owner_id'           => ['filled', 'integer', 'exists:system_db.admins,id'],
             'degree_type_id'     => ['filled', 'integer', 'exists:portfolio_db.degree_types,id'],
-            'major'              => ['filled', 'string', 'max:255'],
+            'major'              => ['string', 'max:255'],
             'minor'              => ['string', 'max:255', 'nullable'],
             'school_id'          => ['filled', 'integer', 'exists:portfolio_db.schools,id'],
             'slug'               => [
@@ -57,11 +57,9 @@ class UpdateEducationsRequest extends FormRequest
                         ->whereNot('id', $this['education']['id']);
                 })
             ],
-            'enrollment_month'   => ['integer', 'between:1,12', 'nullable' ],
-            'enrollment_year'    => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'enrollment_date'    => ['date', 'nullable' ],
             'graduated'          => ['integer', 'between:0,1'],
-            'graduation_month'   => ['integer', 'between:1,12', 'nullable' ],
-            'graduation_year'    => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'graduation_date'    => ['date', 'nullable' ],
             'currently_enrolled' => ['integer', 'between:0,1'],
             'summary'            => ['string', 'max:500', 'nullable'],
             'notes'              => ['nullable'],
@@ -116,8 +114,8 @@ class UpdateEducationsRequest extends FormRequest
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
 
-            $degreeType = DegreeType::query()->find($this['degree_type_id'])->name;
-            $school = School::query()->find($this['school_id'])->name;
+            $degreeType = DegreeType::query()->find($this['degree_type_id'])['name'];
+            $school = School::query()->find($this['school_id'])['name'];
 
             $this->merge([
                 'slug' => uniqueSlug(
@@ -128,6 +126,14 @@ class UpdateEducationsRequest extends FormRequest
                 'portfolio_db.education',
                 $ownerId
             ]);
+        }
+
+        // add '-01' to the enrollment_date and graduation_date fields
+        if (!empty($this['enrollment_date'])) {
+            $this['enrollment_date'] = $this['enrollment_date'] . '-01';
+        }
+        if (!empty($this['graduation_date'])) {
+            $this['graduation_date'] = $this['graduation_date'] . '-01';
         }
     }
 }

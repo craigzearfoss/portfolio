@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use Illuminate\Support\Carbon;
 
     $title    = $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major;
     $subtitle = $title;
@@ -76,8 +77,8 @@
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'enrollment',
-                'value' => (!empty($education->enrollment_month) ? date('F', mktime(0, 0, 0, $education->enrollment_month, 10)) : '') . ' ' . $education->enrollment_year
+                'name'  => 'enrolled',
+                'value' => !empty($education->enrollment_date) ? Carbon::parse($education->enrollment_date)->format("F Y") : ''
             ])
 
             @include('admin.components.show-row-checkmark', [
@@ -86,8 +87,8 @@
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'enrollment',
-                'value' => (!empty($education->graduation_month) ? date('F', mktime(0, 0, 0, $education->graduation_month, 10)) : '') . ' ' . $education->graduation_year
+                'name'  => 'grad. month',
+                'value' => !empty($education->graduation_date) ? Carbon::parse($education->graduation_date)->format("F Y") : ''
             ])
 
             @include('admin.components.show-row-checkmark', [

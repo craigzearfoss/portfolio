@@ -133,7 +133,7 @@
                                 @if(canUpdate($certificate, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate]),
+                                        'href'  => route('admin.portfolio.certificate.edit', $certificate),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

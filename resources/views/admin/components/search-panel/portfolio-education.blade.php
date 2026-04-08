@@ -7,6 +7,8 @@
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $enrollment_date = $enrollment_date ?? request()->query('$nrollment_date');
+    $graduated_date  = $graduated_date ?? request()->query('graduated_date');
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');
     $school_name     = $school_name ?? request()->query('school_name');
@@ -29,14 +31,14 @@
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
                                                    'degree_type_name|asc'  => 'degree',
+                                                   'enrollment_date|desc'  => 'enrollment month',
+                                                   'graduation_date|desc'  => 'graduation month',
                                                    'major|asc'             => 'major',
                                                    'minor|asc'             => 'minor',
                                                    'school_name|asc'       => 'school',
-                                                   'enrollment_date|desc'  => 'year enrolled',
-                                                   'graduation_date|desc'  => 'year graduated',
                                                ],
                                    ),
-                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

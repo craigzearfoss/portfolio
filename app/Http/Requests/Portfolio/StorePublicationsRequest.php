@@ -54,7 +54,7 @@ class StorePublicationsRequest extends FormRequest
             ],
             'parent_id'      => [
                 'integer',
-                Rule::in(Publication::query()->whereNot('id', $this['id'])->get('id')->pluck('id')->toArray()),
+                'exists:portfolio_db.publications,id',
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

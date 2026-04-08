@@ -54,7 +54,7 @@ class StoreVideosRequest extends FormRequest
             ],
             'parent_id'      => [
                 'integer',
-                Rule::in(Video::query()->whereNot('id', $this['id'])->get('id')->pluck('id')->toArray()),
+                'exists:portfolio_db.videos,id',
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

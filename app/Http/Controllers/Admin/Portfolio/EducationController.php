@@ -34,7 +34,7 @@ class EducationController extends BaseAdminController
             request()->input('sort') ?? implode('|', Education::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('enrollment_month', 'desc')
+        ->orderBy('enrollment_date', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Education';
@@ -85,7 +85,7 @@ class EducationController extends BaseAdminController
             $education['id'],
             'admin.portfolio.education.show',
             $this->owner ?? null,
-            [ 'graduation_year', 'desc' ]
+            [ 'graduation_date', 'desc' ]
         );
 
         return view('admin.portfolio.education.show', compact('education', 'prev', 'next'));

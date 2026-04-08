@@ -45,11 +45,9 @@ class Education extends Model
         'slug',
         'featured',
         'summary',
-        'enrollment_month',
-        'enrollment_year',
+        'enrollment_date',
         'graduated',
-        'graduation_month',
-        'graduation_year',
+        'graduation_date',
         'currently_enrolled',
         'summary',
         'notes',
@@ -73,9 +71,8 @@ class Education extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id',
-        'featured', 'summary', 'enrollment_year', 'enrollment_month', 'graduated', 'graduation_year',
-        'graduation_month', 'currently_enrolled', 'summary', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'featured', 'summary', 'enrollment_date', 'graduated', 'graduation_date', 'currently_enrolled', 'summary',
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -151,11 +148,8 @@ class Education extends Model
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
-            ->when(!empty($filters['enrollment_month']), function ($query) use ($filters) {
-                $query->where($this->table . '.enrollment_month', '=', intval($filters['enrollment_month']));
-            })
-            ->when(!empty($filters['enrollment_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.enrollment_year', '=', intval($filters['enrollment_year']));
+            ->when(!empty($filters['enrollment_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.enrollment_date', '<=', $filters['enrollment_date']);
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
@@ -163,11 +157,8 @@ class Education extends Model
             ->when(!empty($filters['graduated']), function ($query) use ($filters) {
                 $query->where($this->table . '.graduated', '=', intval($filters['graduated']));
             })
-            ->when(!empty($filters['graduation_month']), function ($query) use ($filters) {
-                $query->where($this->table . '.graduation_month', '=', intval($filters['graduation_month']));
-            })
-            ->when(!empty($filters['graduation_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.graduation_year', '=', intval($filters['graduation_year']));
+            ->when(!empty($filters['graduation_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.graduation_date', '<=', $filters['graduation_date']);
             })
             ->when(!empty($filters['major']), function ($query) use ($filters) {
                 $query->where($this->table . '.major', 'like', '%' . $filters['major'] . '%');
@@ -217,11 +208,9 @@ class Education extends Model
 
         // add order by clause
         if (explode('|', $sort ?? '')[0] == 'enrollment_date') {
-            $query->orderBy('enrollment_year', 'desc');
-            $query->orderBy('enrollment_month', 'desc');
+            $query->orderBy('enrollment_date', 'desc');
         } elseif (explode('|', $sort ?? '')[0] == 'graduation_date') {
-            $query->orderBy('graduation_year', 'desc');
-            $query->orderBy('graduation_month', 'desc');
+            $query->orderBy('graduation_date', 'desc');
         } else {
             //dd(explode('|', $sort ?? '')[0]);
             //$query->ddRawSql();

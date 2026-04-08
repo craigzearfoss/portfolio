@@ -363,11 +363,9 @@ class LaverneDeFazio extends Command
                 'minor'              => null,
                 'school_id'          => 1,
                 'slug'               => '',
-                'enrollment_month'   => 8,
-                'enrollment_year'    => 2000,
+                'enrollment_date'    => '2025-01-01'
                 'graduated'          => 1,
-                'graduation_month'   => 6,
-                'graduation_year'    => 2024,
+                'graduation_date'    => '2025-01-01',
                 'currently_enrolled' => 0,
                 'summary'            => null,
                 'link'               => null,

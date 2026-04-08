@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Carbon;
+
     $envType = getEnvType();
 
     $title    = $pageTitle ?? filteredPageTitle('Resume', $owner->name);
@@ -142,13 +144,15 @@
                     <div style="display: inline-block;">
 
                         <div class="list-item-description pt-1">
-                            {!! $education->degreeType->name ?? '' !!} in {!! $education->major !!}
-                            -
-                            {!! (months()[$education->graduation_month] ?? '') !!}, {!! $education->graduation_year !!}
+                            {{ $education->degreeType->name ?? '' }} in {{ $education->major }}
+                            @if(!empty($education->graduation_date))
+                                -
+                                {{ !empty($education->graduation_date) ? Carbon::parse($education->graduation_date)->format("F y") : '' }}
+                            @endif
                         </div>
 
                         <div class="list-item-description pt-1">
-                            {!! $education->school->name !!}
+                            {{ $education->school->name }}
                         </div>
 
                     </div>

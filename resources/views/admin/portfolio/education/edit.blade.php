@@ -79,7 +79,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'major',
                 'value'     => old('major') ?? $education->major,
-                'required'  => true,
+                'required'  => false,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -87,7 +87,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'minor',
                 'value'     => old('minor') ?? $education->minor,
-                'required'  => true,
+                'required'  => false,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -101,36 +101,18 @@
                 'message'   => $message ?? '',
             ])
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">enrollment date</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-
-                            @include('admin.components.form-select', [
-                                'name'      => 'enrollment_month',
-                                'label'     => '',
-                                'value'     => old('enrollment_month') ?? $education->enrollment_month,
-                                'list'      => months(true),
-                                'message'   => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-input', [
-                                'type'      => 'number',
-                                'name'      => 'enrollment_year',
-                                'label'     => '',
-                                'value'     => old('enrollment_year') ?? $education->enrollment_year,
-                                'min'       => 1980,
-                                'max'       => date("Y"),
-                                'message'   => $message ?? '',
-                            ])
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'month',
+                'name'      => 'enrollment_date',
+                'label'     => 'enrollment date',
+                'value'     => old('enrollment_date') ?? !empty($education->enrollment_date)
+                                                             ? substr($education->enrollment_date, 0, -3)
+                                                             : '',
+                'min'       => '1970-01',
+                'max'       => date("Y-m"),
+                'message'   => $message ?? '',
+                'style'     => 'width: 8rem;',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'graduated',
@@ -140,36 +122,18 @@
                 'message'         => $message ?? '',
             ])
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">enrollment date</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-
-                            @include('admin.components.form-select', [
-                                'name'      => 'graduation_month',
-                                'label'     => '',
-                                'value'     => old('graduation_month') ?? $education->graduation_month,
-                                'list'      => months(true),
-                                'message'   => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-input', [
-                                'type'      => 'number',
-                                'name'      => 'graduation_year',
-                                'label'     => '',
-                                'value'     => old('graduation_year') ?? $education->graduation_year,
-                                'min'       => 1980,
-                                'max'       => date("Y"),
-                                'message'   => $message ?? '',
-                            ])
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'month',
+                'name'      => 'graduation_date',
+                'label'     => 'graduation date',
+                'value'     => old('graduation_date') ?? !empty($education->graduation_date)
+                                                             ? substr($education->graduation_date, 0, -3)
+                                                             : '',
+                'min'       => '1970-01',
+                'max'       => date("Y-m"),
+                'message'   => $message ?? '',
+                'style'     => 'width: 8rem;',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'currently_enrolled',

@@ -68,7 +68,7 @@ class UpdateCertificatesRequest extends FormRequest
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'received'        => ['date', 'nullable'],
             'expiration'      => ['date', 'nullable'],
-            'certificate_url' => ['string', 'max:500', 'nullable'],
+            'certificate_url' => ['string', 'max:500', 'nullable'],  //@TODO: we aren't using 'url:http,https' because it can be a relative url
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
