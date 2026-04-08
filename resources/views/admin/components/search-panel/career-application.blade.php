@@ -1,5 +1,7 @@
 @php
     use App\Models\Career\Application;
+    use App\Models\Career\Company;
+    use App\Models\Career\Resume;
     use App\Models\System\Admin;
 
     // get variables
@@ -21,6 +23,16 @@
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Application::SEARCH_ORDER_BY[0], Application::SEARCH_ORDER_BY[1] ]);
+
+    // get counts of companies and resumes
+    // if there are more than 20 resumes then we display an input text box instead of a select list
+    $companyCount = $isRootAdmin
+        ? new Company()->query()->count()
+        : new Company()->query()->where('owner_id', $admin->id)->count();
+
+    $resumeCount = $isRootAdmin
+        ? new Resume()->query()->count()
+        : new Resume()->query()->where('owner_id', $admin->id)->count();
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -85,7 +97,7 @@
                     </div>
                     <div class="floating-div">
 
-                        @if($isRootAdmin)
+                        @if(!$isRootAdmin || $companyCount > 20)
                             <div class="search-form-control">
                                 @include('admin.components.input-basic', [
                                     'name'    => 'company_name',
@@ -113,7 +125,7 @@
                             @include('admin.components.search-panel.controls.career-job-board')
                         </div>
 
-                        @if($isRootAdmin)
+                        @if($isRootAdmin || $resumeCount > 20)
                             <div class="search-form-control">
                                 @include('admin.components.input-basic', [
                                     'name'    => 'resume_name',

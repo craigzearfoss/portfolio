@@ -8,6 +8,7 @@ use App\Http\Requests\Career\StoreCompaniesRequest;
 use App\Http\Requests\Career\UpdateCompaniesRequest;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,6 +23,7 @@ class CompanyController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {

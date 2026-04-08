@@ -10,6 +10,7 @@ use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
 use App\Models\Career\Resume;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,6 +25,7 @@ class ContactController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {

@@ -7,6 +7,7 @@ use App\Http\Requests\Personal\StoreRecipeStepsRequest;
 use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,6 +22,7 @@ class RecipeStepController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {

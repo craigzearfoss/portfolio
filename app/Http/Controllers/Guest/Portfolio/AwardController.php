@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Guest\Portfolio;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Award;
 use App\Models\System\Admin;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class AwardController extends BaseGuestController
 {
     /**
@@ -16,6 +20,7 @@ class AwardController extends BaseGuestController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {

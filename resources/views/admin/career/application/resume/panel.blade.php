@@ -11,6 +11,7 @@
         <span style="display: inline-flex; float: right;">
 
             @if(empty($resume))
+
                 @include('admin.components.link', [
                     'name'  => 'Attach a resume',
                     'href'  => route(
@@ -19,8 +20,26 @@
                                 ),
                     'class' => 'button is-primary is-small px-1 py-0'
                 ])
+
             @else
-                <?php //@TODO: Need to allow them to change the resume. ?>
+
+                <a title="show" class="button is-small px-1 py-0"
+                   href="{!! route('admin.career.resume.show', $resume) !!}">
+                    <i class="fa-solid fa-list"></i>
+                </a>
+
+                <a title="edit" class="button is-small px-1 py-0"
+                   href="{!! route('admin.career.resume.edit',$resume->id) !!}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+
+                @if(!empty($resume->url))
+                    @include('admin.components.button-download', [ 'file' => $resume->url,
+                                                                   'name' =>$resume->slug . '-resume' ])
+                @endif
+
+                @include('admin.components.button-download', [ 'file' => '',
+                                                               'name' =>$resume->slug . '-resume' ])
             @endif
 
         </span>

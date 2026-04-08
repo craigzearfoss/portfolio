@@ -124,7 +124,7 @@
             ])
 
             @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $note->link,
+                'link' => old('link') ?? '',
                 'name' => old('link_name') ?? '',
                 'message'   => $message ?? '',
             ])

@@ -7,6 +7,7 @@ use App\Http\Requests\Career\StoreEventsRequest;
 use App\Http\Requests\Career\UpdateEventsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Event;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,6 +22,7 @@ class EventController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {

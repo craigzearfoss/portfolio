@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Resume;
 use App\Models\System\Admin;
 use App\Services\ResumeService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,6 +26,7 @@ class ResumeController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -115,7 +117,7 @@ class ResumeController extends BaseAdminController
             $resume['id'],
             'admin.career.resume.show',
             $this->owner ?? null,
-            [ 'date', 'asc' ]
+            [ 'resume_date', 'asc' ]
         );
 
         return view('admin.career.resume.show', compact('resume', 'prev', 'next'));
