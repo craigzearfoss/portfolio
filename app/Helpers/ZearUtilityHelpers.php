@@ -576,9 +576,17 @@ if (! function_exists('dateRangeDetails')) {
         bool $shortFormat = true,
         bool $calculateDownToDays = true): array
     {
+        // format start and end values
+        $start = !empty($startDate)
+            ? !$calculateDownToDays ? date("Y-m", strtotime($startDate)) : $startDate
+            : null;
+        $end = !empty($endDate)
+            ? !$calculateDownToDays ? date("Y-m", strtotime($endDate)) : $endDate
+        : null;
+
         $data = [
-            'start'      => longDate($startDate, $shortFormat),
-            'end'        => empty($endDate) ? 'Present' :  longDate($endDate, $shortFormat),
+            'start'      => longDate($start, $shortFormat),
+            'end'        => empty($end) ? 'Present' :  longDate($end, $shortFormat),
             'start_date' => $startDate,
             'end_date'   => $endDate,
         ];

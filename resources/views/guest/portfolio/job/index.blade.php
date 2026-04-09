@@ -60,7 +60,7 @@
                             <div class="list-item-description gray" style="display: inline-block; float: right;">
                                 <div>
                                     @php
-                                        $rangeData = dateRangeDetails($job->start_date, $job->end_year, true, false);
+                                        $rangeData = dateRangeDetails($job->start_date, $job->end_date, true, false);
                                     @endphp
                                     {!! $rangeData['start'] . ' - ' . $rangeData['end'] . ' · ' . $rangeData['range'] !!}
                                 </div>
