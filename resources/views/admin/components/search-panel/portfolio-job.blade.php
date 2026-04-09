@@ -8,7 +8,9 @@
     $company         = $company ?? request()->query('company');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $end_date        = $end_date ?? request()->query('end_date');
     $role            = $role ?? request()->query('role');
+    $start_date      = $start_date ?? request()->query('start_date');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Job::SEARCH_ORDER_BY[0], Job::SEARCH_ORDER_BY[1] ]);

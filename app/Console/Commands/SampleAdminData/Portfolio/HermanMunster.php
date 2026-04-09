@@ -405,14 +405,12 @@ class HermanMunster extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Gateman, Goodbury and Graves Funeral Home',
-                'slug'                   => 'gateman-goodbury-and-graves-funeral-home-(boxer)',
                 'role'                   => 'Boxer',
+                'slug'                   => 'gateman-goodbury-and-graves-funeral-home-(boxer)',
                 'featured'               => 0,
                 'summary'                => 'Build coffins for deceased people.',
-                'start_month'            => 9,
-                'start_year'             => 1964,
-                'end_month'              => 5,
-                'end_year'               => 1966,
+                'start_date'             => '1964-09-01',
+                'end_date'               => '1966-05-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Mockingbird Heights',
@@ -424,6 +422,29 @@ class HermanMunster extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

@@ -51,7 +51,7 @@ class UpdateEducationsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.education', 'slug')->where(function ($query) use ($ownerId) {
+                Rule::unique('portfolio_db.educations', 'slug')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
                         ->where('slug', $this['slug'])
                         ->whereNot('id', $this['education']['id']);
@@ -123,7 +123,7 @@ class UpdateEducationsRequest extends FormRequest
                     . (!empty($this['minor']) ? '-with-a-minor-in-' . $this['minor'] : '')
                     . '-from-' .  $school
                 ),
-                'portfolio_db.education',
+                'portfolio_db.educations',
                 $ownerId
             ]);
         }

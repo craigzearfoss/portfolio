@@ -386,14 +386,12 @@ class MikeBrady extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Generic Architecture Firm',
-                'slug'                   => 'generic-architecture-firm-(architect)',
                 'role'                   => 'Architect',
+                'slug'                   => 'generic-architecture-firm-(architect)',
                 'featured'               => 0,
                 'summary'                => 'Design residential homes with such features as a single bathroom for six children.',
-                'start_month'            => 9,
-                'start_year'             => 1969,
-                'end_month'              => 3,
-                'end_year'               => 1974,
+                'start_date'             => '1969-09-01',
+                'end_date'               => '1974-03-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Studio City',
@@ -405,6 +403,29 @@ class MikeBrady extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

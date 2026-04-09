@@ -449,14 +449,12 @@ class HikaruSulu extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'USS Enterprise',
-                'slug'                   => 'uss-enterprise-(helmsman)',
                 'role'                   => 'Helmsman',
+                'slug'                   => 'uss-enterprise-(helmsman)',
                 'featured'               => 0,
                 'summary'                => 'Served as the physicist and helmsman aboard the USS Enterprise under Captain James T. Kirk.',
-                'start_month'            => 9,
-                'start_year'             => 1966,
-                'end_month'              => 6,
-                'end_year'               => 1969,
+                'start_date'             => '1966-09-01',
+                'end_date'               => '1969-06-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'San Francisco',
@@ -468,6 +466,29 @@ class HikaruSulu extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

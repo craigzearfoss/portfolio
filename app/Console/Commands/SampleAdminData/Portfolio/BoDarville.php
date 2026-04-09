@@ -398,14 +398,12 @@ class BoDarville extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Big and Little Enos Burdett',
-                'slug'                   => 'big-and-little-enos-burdett-(bootlegger)',
                 'role'                   => 'Bootlegger',
+                'slug'                   => 'big-and-little-enos-burdett-(bootlegger)',
                 'featured'               => 0,
                 'summary'                => 'Transported 400 cases of Coors beer from Texarkana to Atlanta.',
-                'start_month'            => null,
-                'start_year'             => 1977,
-                'end_month'              => null,
-                'end_year'               => 1977,
+                'start_date'             => '1977-05-01',
+                'end_date'               => '1977-08-01',
                 'job_employment_type_id' => 5,
                 'job_location_type_id'   => 2,
                 'city'                   => 'Atlanta',
@@ -417,6 +415,29 @@ class BoDarville extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

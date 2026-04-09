@@ -391,14 +391,12 @@ class PeterGibbons extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Initech',
-                'slug'                   => 'initech-(software-engineer)',
                 'role'                   => 'Software Engineer',
+                'slug'                   => 'initech-(software-engineer)',
                 'featured'               => 0,
                 'summary'                => 'Frustrated and unmotivated programmer who finds my job meaningless and unfulfilling.',
-                'start_month'            => 2,
-                'start_year'             => 1999,
-                'end_month'              => null,
-                'end_year'               => null,
+                'start_date'             => '1999-02-01',
+                'end_date'               => null,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Austin',
@@ -410,6 +408,29 @@ class PeterGibbons extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

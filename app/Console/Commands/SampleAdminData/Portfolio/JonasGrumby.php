@@ -401,14 +401,12 @@ class JonasGrumby extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'SS Minnow Island Charter',
-                'slug'                   => 'ss-minnow-island-charter-(boat-captain)',
                 'role'                   => 'Boat Captain',
+                'slug'                   => 'ss-minnow-island-charter-(boat-captain)',
                 'featured'               => 0,
                 'summary'                => 'Captain of a charter boat service that runs three hour cruises.',
-                'start_month'            => 9,
-                'start_year'             => 1964,
-                'end_month'              => 4,
-                'end_year'               => 1967,
+                'start_date'             => '1964-09-01',
+                'end_date'               => '1967-04-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Honolulu',
@@ -420,6 +418,29 @@ class JonasGrumby extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

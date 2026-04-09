@@ -117,6 +117,14 @@ class StoreEducationsRequest extends FormRequest
                 'portfolio_db.education',
                 $ownerId
             ]);
+
+            // add '-01' to the enrollment_date and graduation_date fields
+            if (!empty($this['enrollment_date'])) {
+                $this['enrollment_date'] = $this['enrollment_date'] . '-01';
+            }
+            if (!empty($this['graduation_date'])) {
+                $this['graduation_date'] = $this['graduation_date'] . '-01';
+            }
         }
     }
 }

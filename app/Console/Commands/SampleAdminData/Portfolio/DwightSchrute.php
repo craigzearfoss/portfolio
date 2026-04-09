@@ -401,14 +401,12 @@ class DwightSchrute extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Dunder Mifflin Paper Company',
-                'slug'                   => 'dunder-mifflin-paper-company-(salesman)',
                 'role'                   => 'Salesman',
+                'slug'                   => 'dunder-mifflin-paper-company-(salesman)',
                 'featured'               => 0,
                 'summary'                => 'Act superior to other individuals, crave authority over co-workers, and relish any minor task.',
-                'start_month'            => 3,
-                'start_year'             => 2005,
-                'end_month'              => 5,
-                'end_year'               => 2013,
+                'start_date'             => '2005-03-01',
+                'end_date'               => '2013-05-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Scranton',
@@ -420,6 +418,29 @@ class DwightSchrute extends Command
                 'logo_small'             => null,
                 'is_public'                 => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

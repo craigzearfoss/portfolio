@@ -397,14 +397,12 @@ class RickyRicardo extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Tropicana',
-                'slug'                   => 'tropicana-(bandleader)',
                 'role'                   => 'Bandleader',
+                'slug'                   => 'tropicana-(bandleader)',
                 'featured'               => 0,
                 'summary'                => 'Bandleader of Latin group and conga drum player.',
-                'start_month'            => 10,
-                'start_year'             => 1951,
-                'end_month'              => 5,
-                'end_year'               => 1957,
+                'start_date'             => '1951-10-01',
+                'end_date'               => '1957-05-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'New York',
@@ -416,6 +414,29 @@ class RickyRicardo extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

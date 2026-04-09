@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use Illuminate\Support\Carbon;
 
     $title    = $pageTitle ?? 'Job: ' . $job->name;
     $subtitle = $title;
@@ -109,12 +110,12 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'start',
-                                    'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
+                                    'value' => !empty($job->start_date) ? Carbon::parse($job->start_date)->format("F Y") : ''
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'end',
-                                    'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
+                                    'value' => !empty($job->end_date) ? Carbon::parse($job->end_date)->format("F Y") : ''
                                 ])
 
                                 @include('admin.components.show-row', [

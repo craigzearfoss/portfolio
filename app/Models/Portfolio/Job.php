@@ -58,10 +58,8 @@ class Job extends Model
         'slug',
         'featured',
         'summary',
-        'start_month',
-        'start_year',
-        'end_month',
-        'end_year',
+        'start_date',
+        'end_date',
         'job_employment_type_id',
         'job_location_type_id',
         'street',
@@ -94,10 +92,10 @@ class Job extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company', 'role', 'featured', 'summary', 'start_month',
-        'start_year', 'end_month', 'end_year', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2',
-        'city', 'state_id', 'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company', 'role', 'featured', 'summary', 'start_date',
+        'end_date', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2', 'city', 'state_id',
+        'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -274,11 +272,8 @@ class Job extends Model
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
-            ->when(!empty($filters['end_month']), function ($query) use ($filters) {
-                $query->where($this->table . '.end_month', '=', intval($filters['end_month']));
-            })
-            ->when(!empty($filters['end_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.end_year', '=', intval($filters['end_year']));
+            ->when(!empty($filters['end_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.end_date', '<=', intval($filters['end_date']));
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
@@ -295,11 +290,8 @@ class Job extends Model
             ->when(!empty($filters['role']), function ($query) use ($filters) {
                 $query->where($this->table . '.role', 'like', '%' . $filters['role'] . '%');
             })
-            ->when(!empty($filters['start_month']), function ($query) use ($filters) {
-                $query->where($this->table . '.start_month', '=', intval($filters['start_month']));
-            })
-            ->when(!empty($filters['start_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.start_year', '=', intval($filters['start_year']));
+            ->when(!empty($filters['start_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.start_date', '<=', intval($filters['start_date']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
@@ -315,11 +307,9 @@ class Job extends Model
 
          // add order by clause
         if (explode('|', $sort ?? '')[0] == 'start_date') {
-            $query->orderBy('start_year', 'desc');
-            $query->orderBy('start_month', 'desc');
+            $query->orderBy('start_date', 'desc');
         } elseif (explode('|', $sort ?? '')[0] == 'end_date') {
-            $query->orderBy('end_year', 'desc');
-            $query->orderBy('end_month', 'desc');
+            $query->orderBy('end_date', 'desc');
         } else {
             $query = $this->addOrderBy($query, $sort);
             if (explode('|', $sort ?? '') != 'owner_username') {

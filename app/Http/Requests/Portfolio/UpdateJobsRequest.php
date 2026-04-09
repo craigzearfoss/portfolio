@@ -54,10 +54,8 @@ class UpdateJobsRequest extends FormRequest
             ],
             'featured'               => ['integer', 'between:0,1'],
             'summary'                => ['string', 'max:500', 'nullable'],
-            'start_month'            => ['integer', 'between:1,12', 'nullable' ],
-            'start_year'             => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
-            'end_month'              => ['integer', 'between:1,12', 'nullable' ],
-            'end_year'               => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
+            'start_date'             => ['date', 'nullable' ],
+            'end_date'               => ['date', 'nullable' ],
             'job_employment_type_id' => ['integer', 'exists:portfolio_db.job_employment_types,id', 'nullable'],
             'job_location_type_id'   => ['integer', 'exists:portfolio_db.job_location_types,id', 'nullable'],
             'street'                 => ['string', 'max:255', 'nullable'],
@@ -128,6 +126,14 @@ class UpdateJobsRequest extends FormRequest
                     $ownerId
                 )
             ]);
+        }
+
+        // add '-01' to the start_date and end_date fields
+        if (!empty($this['start_date'])) {
+            $this['start_date'] = $this['start_date'] . '-01';
+        }
+        if (!empty($this['end_date'])) {
+            $this['end_date'] = $this['end_date'] . '-01';
         }
     }
 }

@@ -98,7 +98,7 @@ class ApplicationSkill extends Model
      * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
-     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
+     * @param string|null $sort
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
@@ -129,7 +129,7 @@ class ApplicationSkill extends Model
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['end_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.end_year', '=', intval($filters['end_year']));
+                $query->where($this->table . '.end_year', '<=', intval($filters['end_year']));
             })
             ->when(!empty($filters['level']), function ($query) use ($filters) {
                 $query->where($this->table . '.level', '=', intval($filters['level']));
@@ -138,7 +138,7 @@ class ApplicationSkill extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['start_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.start_year', '=', intval($filters['start_year']));
+                $query->where($this->table . '.start_year', '<=', $filters['start_year']);
             })
             ->when(!empty($filters['years']), function ($query) use ($filters) {
                 $query->where($this->table . '.years', '=', intval($filters['years']));

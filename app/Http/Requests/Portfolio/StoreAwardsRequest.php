@@ -40,7 +40,7 @@ class StoreAwardsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.award', 'slug')->where(function ($query) use ($ownerId) {
+                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) use ($ownerId) {
                     return $query->where('owner_id', $ownerId)
                         ->where('slug', $this['slug']);
                 })

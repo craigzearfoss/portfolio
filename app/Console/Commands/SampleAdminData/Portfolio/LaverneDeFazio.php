@@ -398,14 +398,12 @@ class LaverneDeFazio extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Shotz Brewery',
-                'slug'                   => 'shotz-brewery-(bottle-capper)',
                 'role'                   => 'Bottle Capper',
+                'slug'                   => 'shotz-brewery-(bottle-capper)',
                 'featured'               => 0,
                 'summary'                => 'Assembly line worker applying bottle caps to beer bottles.',
-                'start_month'            => 1,
-                'start_year'             => 1976,
-                'end_month'              => 5,
-                'end_year'               => 1983,
+                'start_date'             => '1976-01-01',
+                'end_date'               => '1983-05-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Milwaukee',
@@ -417,6 +415,29 @@ class LaverneDeFazio extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

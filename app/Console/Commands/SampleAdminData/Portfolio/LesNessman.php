@@ -398,14 +398,12 @@ class LesNessman extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'WKRP Radio',
-                'slug'                   => 'wkrp-radio-(news-director)',
                 'role'                   => 'News Director',
+                'slug'                   => 'wkrp-radio-(news-director)',
                 'featured'               => 0,
                 'summary'                => 'Manage radio station newsroom and oversee daily operations and special promotions like turkey drops.',
-                'start_month'            => 9,
-                'start_year'             => 1978,
-                'end_month'              => 4,
-                'end_year'               => 1982,
+                'start_date'             => '1978-09-01',
+                'end_date'               => '1982-04-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Cincinnati',
@@ -417,6 +415,29 @@ class LesNessman extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

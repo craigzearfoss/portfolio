@@ -91,6 +91,28 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'month',
+                'name'      => 'start_date',
+                'label'     => 'start',
+                'value'     => old('start_date') ?? '',
+                'min'       => '1970-01',
+                'max'       => date("Y-m"),
+                'message'   => $message ?? '',
+                'style'     => 'width: 8rem;',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'month',
+                'name'      => 'end_date',
+                'label'     => 'end',
+                'value'     => old('end_date') ?? '',
+                'min'       => '1970-01',
+                'max'       => date("Y-m"),
+                'message'   => $message ?? '',
+                'style'     => 'width: 8rem;',
+            ])
+
             @php
                 $startMonth = view('admin.components.form-select', [
                     'name'      => 'start_month',

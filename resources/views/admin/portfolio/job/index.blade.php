@@ -1,6 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
     use App\Models\Portfolio\Job;
+    use Illuminate\Support\Carbon;
 
     $title    = $pageTitle ?? 'Jobs';
     $subtitle = $title;
@@ -55,8 +56,8 @@
                         <th>company</th>
                         <th>logo</th>
                         <th>role</th>
-                        <th>start date</th>
-                        <th>end date</th>
+                        <th class="has-text-centered">start</th>
+                        <th class="has-text-centered">end</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -73,8 +74,8 @@
                         <th>company</th>
                         <th>logo</th>
                         <th>role</th>
-                        <th>start date</th>
-                        <th>end date</th>
+                        <th class="has-text-right">start</th>
+                        <th class="has-text-right">end</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -105,17 +106,11 @@
                         <td data-field="role">
                             {!! $job->role !!}
                         </td>
-                        <td data-field="start_month|start_year">
-                            @if(!empty($job->start_month))
-                                {!! date('M', mktime(0, 0, 0, $job->start_month, 10)) !!}
-                            @endif
-                            {!! $job->start_year !!}
+                        <td data-field="start_date" class="has-text-right" style="white-space: nowrap;">
+                            {{ !empty($job->start_date) ? Carbon::parse($job->start_date)->format("M j, Y") : '' }}
                         </td>
-                        <td data-field="end_month|end_year">
-                            @if(!empty($job->end_month))
-                                {!! date('M', mktime(0, 0, 0, $job->end_month, 10)) !!}
-                            @endif
-                            {!! $job->end_year !!}
+                        <td data-field="end_date" class="has-text-right" style="white-space: nowrap;">
+                            {{ !empty($job->end_date) ? Carbon::parse($job->end_date)->format("M j, Y") : '' }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $job->is_public ])

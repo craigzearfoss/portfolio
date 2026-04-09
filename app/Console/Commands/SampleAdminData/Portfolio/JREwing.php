@@ -406,14 +406,12 @@ class JREwing extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Ewing Oil',
-                'slug'                   => 'ewing-oil-(president)',
                 'role'                   => 'President',
+                'slug'                   => 'ewing-oil-(president)',
                 'featured'               => 0,
                 'summary'                => 'President and CEO of large Texas-based fossil fuel company.',
-                'start_month'            => 2,
-                'start_year'             => 1978,
-                'end_month'              => 3,
-                'end_year'               => 1991,
+                'start_date'             => '1978-02-01',
+                'end_date'               => '1991-03-01',
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Dallas',
@@ -425,6 +423,29 @@ class JREwing extends Command
                 'logo_small'             => null,
                 'is_public'              => 1,
             ],
+            /*
+            [
+                'id'                     => $this->jobId[2],
+                'company'                => '',
+                'role'                   => '',
+                'slug'                   => '',
+                'featured'               => 0,
+                'summary'                => null,
+                'start_date'             => '2025-01-01',
+                'end_date'               => '2026-01-01',
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => null,
+                'latitude'               => null,
+                'longitude'              => null,
+                'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'is_public'              => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

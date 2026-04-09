@@ -49,10 +49,8 @@ return new class extends Migration
             $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('start_month')->nullable()->index('start_month_idx');
-            $table->integer('start_year')->nullable()->index('start_year_idx');
-            $table->integer('end_month')->nullable()->index('end_month_idx');
-            $table->integer('end_year')->nullable()->index('end_year_idx');
+            $table->date('start_date')->nullable()->index('start_date_idx');
+            $table->date('end_date')->nullable()->index('end_date_idx');
             $table->foreignId('job_employment_type_id')
                 ->nullable()
                 ->constrained('job_employment_types', 'id')
@@ -107,10 +105,8 @@ return new class extends Migration
                 'slug'                   => '',
                 'featured'               => 0,
                 'summary'                => '',
-                'start_month'            => null,
-                'start_year'             => null,
-                'end_month'              => null,
-                'end_year'               => null,
+                'start_date'             => null,
+                'end_date'               => null,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => null,
