@@ -66,8 +66,7 @@ class ResumeService {
             ->get();
 
         $this->jobs = new Job()->where('owner_id', '=', $this->admin->id)
-            ->orderBy('start_year', 'desc')
-            ->orderBy('start_month', 'desc')
+            ->orderBy('start_date', 'desc')
             ->get();
 
         $this->skills = new Skill()->where('owner_id', '=', $this->admin->id)
