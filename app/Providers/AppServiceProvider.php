@@ -29,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (App::environment('production')) {
+        // use the app.secure_urls setting instead of checking the production environment variable for greater flexibility
+        //if (App::environment('production')) {
+        if (config('app.secure_urls')) {
             URL::forceScheme('https');
         }
 
@@ -41,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         {
             if (!empty($admin->is_root)) return true;
 
-            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
+            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin['id'])) {
                 return true;
             } else {
                 return false;
@@ -53,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
         {
             if (!empty($admin->is_root)) return true;
 
-            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
+            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin['id'])) {
                 return true;
             } else {
                 return false;

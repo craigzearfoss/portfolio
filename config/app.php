@@ -65,6 +65,7 @@ return [
     'readonly'                => boolval(env('APP_READONLY', false)),
     'record_logins'           => boolval(env('APP_RECORD_LOGINS', false)),
     'resume_dir'              => env('RESUME_DIR', ''),
+    'secure_urls'             => boolval(env('APP_SECURE_URLS', false)),
     'share_sites'             => explode('|', env('SHARE_SITES', '')),
     'single_admin_mode'       => boolval(env('APP_SINGLE_ADMIN_MODE')),
     'site_cookie_name'        => env('SITE_COOKIE_NAME', 'portfolioz'),
