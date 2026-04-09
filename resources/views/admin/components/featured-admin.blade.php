@@ -8,6 +8,9 @@
 @if($featuredAdmin)
 
     @php
+        $title = $title ?? 'Featured Candidate';
+        $singleAdminMode = config('app.single_admin_mode');
+
         $resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase(
             $featuredAdmin,
             EnvTypes::GUEST,
@@ -25,7 +28,9 @@
 
         <div class="show-container card p-2 pl-4 pr-4 mb-2" style="width: auto;">
 
-            <h2 class="title is-size-5 p-2 mb-0">{{ $title ?? 'Featured Candidate' }}</h2>
+            @if(!$singleAdminMode)
+                <h2 class="title is-size-5 p-2 mb-0">{{ $title }}</h2>
+            @endif
 
             <div class="show-container floating-div">
 

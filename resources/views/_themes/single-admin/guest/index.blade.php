@@ -22,10 +22,7 @@
     <div class="floating-div-container">
 
         @if ($featuredAdmin)
-            @include('guest.components.featured-admin', [
-                'featuredAdmin' => $featuredAdmin,
-                'title'         => 'Featured Candidate',
-            ])
+            @include('guest.components.featured-admin', [ 'featuredAdmin' => $featuredAdmin ])
         @endif
 
     </div>
