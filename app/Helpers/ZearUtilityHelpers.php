@@ -566,13 +566,16 @@ if (! function_exists('dateRangeDetails')) {
      * @param string $startDate
      * @param string|null $endDate
      * @param bool $shortFormat
+     * @param bool $calculateDownToDays
      * @return array
      * @throws Exception
      */
-    function dateRangeDetails(string $startDate, ?string $endDate = null, bool $shortFormat = true): array
+    function dateRangeDetails(
+        string $startDate,
+        ?string $endDate = null,
+        bool $shortFormat = true,
+        bool $calculateDownToDays = true): array
     {
-        $calculateDownToDays = true;
-
         $data = [
             'start'      => longDate($startDate, $shortFormat),
             'end'        => empty($endDate) ? 'Present' :  longDate($endDate, $shortFormat),
@@ -580,18 +583,8 @@ if (! function_exists('dateRangeDetails')) {
             'end_date'   => $endDate,
         ];
 
-        if (count(explode('-', $data['start_date'])) == 2) {
-            // Assume the date only has a year and a month, but no day like 'Y-m'.
-            $calculateDownToDays = false;
-            $data['start_date'] .= '-01';
-        }
-
         if (empty($data['end_date'])) {
             $data['end_date'] = date("Y-m-d");
-        }
-        if (count(explode('-', $data['end_date'])) == 2) {
-            // Assume the date only has a year and a month, but no day like 'Y-m'.
-            $data['end_date'] .= '-01';
         }
 
         $startDate = new DateTime($data['start_date']);

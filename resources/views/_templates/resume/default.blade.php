@@ -77,10 +77,7 @@
                     <div class="list-item-description gray">
                         <div>
                             @php
-                                $rangeData = dateRangeDetails(
-                                    $job->start_year . (!empty($job->start_month) ? '-' . $job->start_month : ''),
-                                    $job->end_year . (!empty($job->end_month) ? '-' . $job->end_month : '')
-                                );
+                                $rangeData = dateRangeDetails($job->start_date, $job->end_date, true, false);
                             @endphp
                             {!! $rangeData['start'] . ' - ' . $rangeData['end'] . ' · ' . $rangeData['range'] !!}
                         </div>
