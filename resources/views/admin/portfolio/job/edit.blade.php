@@ -109,7 +109,7 @@
                 'min'       => '1970-01',
                 'max'       => date("Y-m"),
                 'message'   => $message ?? '',
-                'style'     => 'width: 8rem;',
+                'style'     => 'width: 12rem;',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -122,7 +122,7 @@
                 'min'       => '1970-01',
                 'max'       => date("Y-m"),
                 'message'   => $message ?? '',
-                'style'     => 'width: 8rem;',
+                'style'     => 'width: 12rem;',
             ])
 
             @include('admin.components.form-select-horizontal', [

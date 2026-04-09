@@ -25,15 +25,18 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                               [
-                                                  'dictionary_category_name|asc' => 'category',
-                                                  'level|desc'                   => 'level',
-                                                  'name|asc'                     => 'name',
-                                                  'years|desc'                   => 'years',
-                                              ],
-                                  )
+                                                   'created_at|desc'              => 'created at',
+                                                   'dictionary_category_name|asc' => 'category',
+                                                   'level|desc'                   => 'level',
+                                                   'name|asc'                     => 'name',
+                                                   'updated_at|desc'              => 'updated at',
+                                                   'years|desc'                   => 'years',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

@@ -48,18 +48,20 @@
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'application_id|asc' => 'application',
-                                                  //'application_id|asc'        => 'application',
-                                                  'company_name|asc'            => 'company',
-                                                  'communication_datetime|desc' => 'event date',
-                                                  'application_apply_date|desc' => 'date applied',
-                                                  'application_post_date|desc'  => 'date posted',
-                                                  'event_date|desc'             => 'date',
-                                                  'name|asc'                    => 'name',
-                                              ],
-                                  ),
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                                               [
+                                                   'application_id|asc' => 'application',
+                                                   //'application_id|asc'         => 'application',
+                                                   'company_name|asc'            => 'company',
+                                                   'created_at|desc'             => 'created at',
+                                                   'application_apply_date|desc' => 'date applied',
+                                                   'application_post_date|desc'  => 'date posted',
+                                                   'event_date|desc'             => 'event date',
+                                                   'communication_datetime|desc' => 'event datetime',
+                                                   'name|asc'                    => 'name',
+                                                   'updated_at|desc'             => 'updated at',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
                     ])
 
                     <?php /*

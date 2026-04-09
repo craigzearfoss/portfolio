@@ -44,19 +44,21 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  //'application_id|asc'        => 'application',
-                                                  'company_name|asc'            => 'company',
-                                                  'communication_datetime|desc' => 'date',
-                                                  'application_apply_date|desc' => 'date applied',
-                                                  'application_post_date|desc'  => 'date posted',
-                                                  'from|asc'                    => 'from',
-                                                  'subject|asc'                 => 'subject',
-                                                  'to|asc'                      => 'to',
-                                              ],
-                                  ),
+                        'sort'   => $sort,
+                        'list'   => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   //'application_id|asc'        => 'application',
+                                                   'company_name|asc'            => 'company',
+                                                   'created_at|desc'             => 'created at',
+                                                   'application_apply_date|desc' => 'date applied',
+                                                   'application_post_date|desc'  => 'date posted',
+                                                   'communication_datetime|desc' => 'datetime',
+                                                   'from|asc'                    => 'from',
+                                                   'subject|asc'                 => 'subject',
+                                                   'to|asc'                      => 'to',
+                                                   'updated_at|desc'             => 'updated at',
+                                               ],
+                                   ),
                         'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
                     ])
 

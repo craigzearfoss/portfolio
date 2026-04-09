@@ -30,9 +30,11 @@
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
                                                    'category|asc'       => 'category',
+                                                   'created_at|desc'    => 'created at',
                                                    'name|asc'           => 'name',
                                                    'nominated_work|asc' => 'nominated_work',
                                                    'organization|asc'   => 'organization',
+                                                   'updated_at|desc'    => 'updated at',
                                                    'year|asc'           => 'year',
                                                ],
                                    ),

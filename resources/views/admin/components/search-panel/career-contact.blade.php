@@ -30,13 +30,15 @@
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'name|asc'          => 'name',
-                                                  //'city|asc'          => 'city',
-                                                  //'state_id|asc'      => 'state',
-                                              ],
-                                  ),
-                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                                               [
+                                                   'created_at|desc'   => 'created at',
+                                                   'name|asc'          => 'name',
+                                                   //'city|asc'          => 'city',
+                                                   //'state_id|asc'      => 'state',
+                                                   'updated_at|desc'   => 'updated at',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem', 'max-width: 7rem' ]
                     ])
 
                     <?php /*

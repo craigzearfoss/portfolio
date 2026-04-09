@@ -21,11 +21,14 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'name|asc'       => 'name',
-                                      'state_name|asc' => 'state',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => [
+                                       'created_at|desc' => 'created at',
+                                       'name|asc'        => 'name',
+                                       'state_name|asc'  => 'state',
+                                       'updated_at|desc' => 'updated at',
+                                   ],
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

@@ -29,8 +29,10 @@
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
+                                                   'created_at|desc'     => 'created at',
                                                    'ingredient_name|asc' => 'ingredient',
                                                    'recipe_name|asc'     => 'recipe',
+                                                   'updated_at|desc'     => 'updated at',
                                                ],
                                    ),
                         'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]

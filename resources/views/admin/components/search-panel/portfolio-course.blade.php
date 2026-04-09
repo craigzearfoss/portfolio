@@ -29,8 +29,10 @@
                                                [
                                                    'academy_name|asc'     => 'academy',
                                                    'completion_date|desc' => 'completion date',
+                                                   'created_at|desc'      => 'created at',
                                                    'name|asc'             => 'name',
                                                    'instructor|asc'       => 'instructor',
+                                                   'updated_at|desc'      => 'updated at',
                                                ],
                                    ),
                         'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]

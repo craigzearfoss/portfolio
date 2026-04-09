@@ -15,6 +15,7 @@
             true,
             false,
             [ 'username', 'asc' ]
-        )
+        ),
+        'style'    =>'width: 12rem',
     ])
 </div>

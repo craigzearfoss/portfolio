@@ -26,8 +26,10 @@
                         'sort'  => $sort,
                         'list'  => [
                                        'abbreviation|asc' => 'abbreviation',
+                                       'created_at|desc'  => 'created at',
                                        'name|asc'         => 'name',
                                        'type_name|asc'    => 'type',
+                                       'updated_at|desc'  => 'updated at',
                                    ],
                         'style' => [ 'width: 8rem important!', 'min-width: 8rem !important' ]
                     ])

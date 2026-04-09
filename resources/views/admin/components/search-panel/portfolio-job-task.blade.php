@@ -26,12 +26,15 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'company_name|asc' => 'company',
-                                              ],
-                                  )
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'company_name|asc' => 'company',
+                                                   'created_at|desc'  => 'created at',
+                                                   'updated_at|desc'  => 'updated at',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*
@@ -67,7 +70,7 @@
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'company_name',
-                                'name'    => 'company',
+                                'label'   => 'company',
                                 'value'   => $company_name,
                                 'message' => $message ?? '',
                             ])

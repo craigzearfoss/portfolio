@@ -152,7 +152,7 @@
 
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
-                                    'href'   => $jon->link,
+                                    'href'   => $job->link,
                                     'target' => '_blank'
                                 ])
 

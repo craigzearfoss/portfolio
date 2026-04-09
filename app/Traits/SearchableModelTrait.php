@@ -561,7 +561,7 @@ trait SearchableModelTrait
             $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
             $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
 
-            if (in_array($orderByCol, $this->sortableColumns())) {
+            if (in_array($orderByCol, array_merge($this->sortableColumns(), ['created_at', 'updated_at', 'deleted_at']))) {
                 $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
             } elseif(in_array($orderByCol, $this->predefinedColumns)) {
                 $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');

@@ -22,12 +22,15 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                       'city|asc'       => 'city',
-                                       'name|asc'       => 'name',
-                                       'state_name|asc' => 'state',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => [
+                                        'city|asc'        => 'city',
+                                        'created_at|desc' => 'created at',
+                                        'name|asc'        => 'name',
+                                        'state_name|asc'  => 'state',
+                                        'updated_at|desc' => 'updated at',
+                                   ],
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

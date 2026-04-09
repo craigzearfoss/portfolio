@@ -28,9 +28,11 @@
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
                                                    'academy_name|asc' => 'academy',
+                                                   'created_at|desc'  => 'created at',
                                                    'expiration|asc'   => 'expiration',
                                                    'name|asc'         => 'name',
                                                    'received|asc'     => 'received',
+                                                   'updated_at|desc'  => 'updated at',
                                                    'year|asc'         => 'year',
                                                ],
                                    ),

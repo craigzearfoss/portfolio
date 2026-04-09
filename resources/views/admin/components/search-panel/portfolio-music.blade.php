@@ -31,9 +31,11 @@
                                                [
                                                    'artist|asc'         => 'artist',
                                                    'catalog_number|asc' => 'catalog number',
+                                                   'created_at|desc'    => 'created at',
                                                    'label|asc'          => 'label',
                                                    'name|asc'           => 'name',
-                                                   'year|asc'          => 'year',
+                                                   'updated_at|desc'    => 'updated at',
+                                                   'year|asc'           => 'year',
                                                ],
                                    ),
                         'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ],

@@ -99,7 +99,7 @@
                 'min'       => '1970-01',
                 'max'       => date("Y-m"),
                 'message'   => $message ?? '',
-                'style'     => 'width: 8rem;',
+                'style'     => 'width: 12rem;',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -110,69 +110,8 @@
                 'min'       => '1970-01',
                 'max'       => date("Y-m"),
                 'message'   => $message ?? '',
-                'style'     => 'width: 8rem;',
+                'style'     => 'width: 12rem;',
             ])
-
-            @php
-                $startMonth = view('admin.components.form-select', [
-                    'name'      => 'start_month',
-                    'label'     => '',
-                    'value'     => old('start_month') ?? '',
-                    'list'      => months(true),
-                    'message'   => $message ?? '',
-                ]);
-                $startYear = view('admin.components.form-input', [
-                    'type'      => 'number',
-                    'name'      => 'start_year',
-                    'label'     => '',
-                    'value'     => old('start_year') ?? '',
-                    'min'       => 1980,
-                    'max'       => 2050,
-                    'message'   => $message ?? '',
-                ]);
-            @endphp
-
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'start',
-                'value' => '<div style="display: flex; gap: 0.4em; margin-left: -0.5em; margin-top: -0.5em;">'
-                            . '<div>'
-                                . $startMonth
-                            . '</div><div>'
-                                . $startYear
-                            . '</div></div>',
-                'raw'   => true
-            ])
-
-            @php
-                $endMonth = view('admin.components.form-select', [
-                    'name'      => 'end_month',
-                    'label'     => '',
-                    'value'     => old('end_month') ?? '',
-                    'list'      => months(true),
-                    'message'   => $message ?? '',
-                ]);
-                $endYear = view('admin.components.form-input', [
-                    'type'      => 'number',
-                    'name'      => 'end_year',
-                    'label'     => '',
-                    'value'     => old('end_year') ?? '',
-                    'min'       => 1980,
-                    'max'       => 2050,
-                    'message'   => $message ?? '',
-                ]);
-            @endphp
-
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'end',
-                'value' => '<div style="display: flex; gap: 0.4em; margin-left: -0.5em; margin-top: -0.5em;">'
-                            . '<div>'
-                                . $endMonth
-                            . '</div><div>'
-                                . $endYear
-                            . '</div></div>',
-                'raw'   => true
-            ])
-
 
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'job_employment_type_id',

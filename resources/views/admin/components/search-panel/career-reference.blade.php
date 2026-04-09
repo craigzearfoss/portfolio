@@ -29,15 +29,16 @@
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'company_name|asc'           => 'company',
-                                                  'communication_datetime|desc' => 'date',
-                                                  'from|asc'                    => 'from',
-                                                  'subject|asc'                 => 'subject',
-                                                  'to|asc'                      => 'to',
-                                              ],
-                                  ),
-                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                                               [
+                                                   'company_name|asc' => 'company',
+                                                   'created_at|desc'  => 'created at',
+                                                   'email|asc'        => 'email',
+                                                   'name|asc'         => 'name',
+                                                   'phone|asc'        => 'phone',
+                                                   'updated_at|desc'  => 'updated at',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem', 'max-width: 7rem' ]
                     ])
 
                     <?php /*

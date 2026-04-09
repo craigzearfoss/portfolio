@@ -24,14 +24,17 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                             [
-                                                 'artist|asc' => 'artist',
-                                                 'name|asc'   => 'name',
-                                                 'year|asc'   => 'year',
-                                             ],
-                                 )
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'artist|asc'      => 'artist',
+                                                   'created_at|desc' => 'created at',
+                                                   'name|asc'        => 'name',
+                                                   'updated_at|desc' => 'updated at',
+                                                   'year|asc'        => 'year',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

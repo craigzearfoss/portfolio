@@ -111,7 +111,7 @@
                 'min'       => '1970-01',
                 'max'       => date("Y-m"),
                 'message'   => $message ?? '',
-                'style'     => 'width: 8rem;',
+                'style'     => 'width: 12rem;',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -132,7 +132,7 @@
                 'min'       => '1970-01',
                 'max'       => date("Y-m"),
                 'message'   => $message ?? '',
-                'style'     => 'width: 8rem;',
+                'style'     => 'width: 12rem;',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

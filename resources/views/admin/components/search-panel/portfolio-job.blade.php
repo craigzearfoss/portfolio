@@ -30,9 +30,11 @@
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
                                                    'company|asc'     => 'company',
+                                                   'created_at'      => 'created at',
                                                    'end_date|desc'   => 'end date',
                                                    'role|asc'        => 'role',
                                                    'start_date|desc' => 'start date',
+                                                   'updated_at'      => 'updated at',
                                                ],
                                    ),
                         'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]

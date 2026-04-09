@@ -42,16 +42,17 @@
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                               [
-                                                  //'application_id|asc'        => 'application',
-                                                  'company_name|asc'            => 'company',
-                                                  'created_at|desc'             => 'datetime created',
-                                                  'application_apply_date|desc' => 'date applied',
-                                                  'application_post_date|desc'  => 'date posted',
-                                                  'from|asc'                    => 'from',
-                                                  'subject|asc'                 => 'subject',
-                                                  'to|asc'                      => 'to',
-                                              ],
-                                  ),
+                                                   //'application_id|asc'          => 'application',
+                                                   'company_name|asc'            => 'company',
+                                                   'created_at|desc'             => 'datetime created',
+                                                   'application_apply_date|desc' => 'date applied',
+                                                   'application_post_date|desc'  => 'date posted',
+                                                   'from|asc'                    => 'from',
+                                                   'subject|asc'                 => 'subject',
+                                                   'to|asc'                      => 'to',
+                                                   'updated_at|desc'             => 'updated at',
+                                               ],
+                                   ),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

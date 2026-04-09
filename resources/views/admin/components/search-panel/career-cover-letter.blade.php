@@ -45,14 +45,17 @@
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  //'application_id|asc'          => 'application',
-                                                  'company_name|asc'            => 'company',
-                                                  'application_apply_date|desc' => 'date applied',
-                                                  'application_post_date|desc'  => 'date posted',
-                                                  'application_role|asc'        => 'role',
-                                              ],
-                                  ),
+                                               [
+                                                   //'application_id|asc'          => 'application',
+                                                   'company_name|asc'            => 'company',
+                                                   'created_at|desc'             => 'created at',
+                                                   'application_apply_date|desc' => 'date applied',
+                                                   'application_post_date|desc'  => 'date posted',
+                                                   'application_role|asc'        => 'role',
+                                                   'updated_at|desc'             => 'updated at',
+
+                                               ],
+                                   ),
                         'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
                     ])
 

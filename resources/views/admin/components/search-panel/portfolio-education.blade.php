@@ -30,12 +30,14 @@
                         'sort'  => $sort,
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
+                                                   'created_at|desc'       => 'created at',
                                                    'degree_type_name|asc'  => 'degree',
                                                    'enrollment_date|desc'  => 'enrollment month',
                                                    'graduation_date|desc'  => 'graduation month',
                                                    'major|asc'             => 'major',
                                                    'minor|asc'             => 'minor',
                                                    'school_name|asc'       => 'school',
+                                                   'updated_at|desc'       => 'updated at',
                                                ],
                                    ),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
