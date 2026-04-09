@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Carbon;
+
     $title    = $pageTitle ?? filteredPageTitle('education', $owner->name);
     $subtitle = $title;
 
@@ -82,7 +84,9 @@
                             {!! $education->school->name ?? '' !!}
                         </td>
                         <td data-field="graduation_date" class="has-text-centered hide-at-480">
-                            {{ $education->graduation_date }}
+                            @if(!empty($education->graduation_date))
+                                {{ Carbon::parse($education->graduation_date)->format("F y") }}
+                            @endif
                             @if(!empty($education->currently_enrolled))
                                 (currently enrolled)
                             @endif

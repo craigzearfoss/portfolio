@@ -144,7 +144,7 @@
                             {{ $education->degreeType->name ?? '' }} in {{ $education->major }}
                             @if(!empty($education->graduation_date))
                                 -
-                                {{ !empty($education->graduation_date) ? Carbon::parse($education->graduation_date)->format("F y") : '' }}
+                                {{ Carbon::parse($education->graduation_date)->format("F y") }}
                             @endif
                         </div>
 
