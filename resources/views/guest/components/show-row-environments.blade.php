@@ -15,8 +15,14 @@
     $styleArray = [];
     if (!empty($width)) $styleArray[] = 'width: '. $width . ';';
     if (!empty($minWidth)) $styleArray[] = 'min-width: '. $minWidth . ';';
-    if (!empty($display)) $styleArray[] = 'display: '. $display . ';';
     if (!empty($whiteSpace)) $styleArray[] = 'white-space: '. $whiteSpace . ';';
+
+    if (!empty($display)) {
+        $styleArray[] = 'display: '. $display;
+    } elseif (!empty($hide)) {
+        $styleArray[] = 'display: none';
+    }
+
     if (!empty($styleArray)) {
         $styles = array_merge($styles, $styleArray);
     }

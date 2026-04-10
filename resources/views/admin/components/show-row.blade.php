@@ -20,6 +20,7 @@
     } elseif (!empty($hide)) {
         $styleArray[] = 'display: none';
     }
+
     if (!empty($styleArray)) {
         $styles = array_merge($styles, $styleArray);
     }
