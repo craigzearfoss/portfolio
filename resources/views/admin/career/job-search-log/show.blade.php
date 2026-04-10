@@ -44,6 +44,13 @@
             ])
         @endif
 
+        @if($isRootAdmin)
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $jobSearchLog->owner->username
+            ])
+        @endif
+
         @include('admin.components.show-row', [
             'name'  => 'id',
             'value' => $jobSearchLog->time_logged

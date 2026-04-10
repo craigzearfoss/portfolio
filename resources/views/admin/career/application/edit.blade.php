@@ -59,21 +59,11 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($admin->is_root)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $application->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, ['username', 'asc']),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $application->owner_id
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of an application */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $application->owner_id
+            ])
 
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'company_id',

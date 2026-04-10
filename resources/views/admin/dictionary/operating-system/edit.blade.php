@@ -39,6 +39,12 @@
                 'hide'  => !$isRootAdmin,
             ])
 
+            <?php /* note that you CANNOT change the owner of a dictionary operating system */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $operatingSystem->owner_id
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'label'     => 'full name',

@@ -44,11 +44,6 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $owner->id
-            ])
-
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'admin_team_id',
                 'label'   => 'team',

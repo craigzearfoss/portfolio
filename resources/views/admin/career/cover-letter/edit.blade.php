@@ -42,21 +42,11 @@
                 'value' => $coverLetter->id
             ])
 
-            @if($admin->is_root)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $coverLetter->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $coverLetter->owner_id
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of a cover letter */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $coverLetter->owner_id
+            ])
 
             <?php /*
             // you CANNOT change the application for a cover letter

@@ -51,12 +51,11 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
-                @include('admin.components.form-text-horizontal', [
-                    'name'  => 'owner',
-                    'value' =>  $adminResource->owner['username']
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of an admin resource */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $adminResource->owner_id
+            ])
 
             @include('admin.components.form-text-horizontal', [
                 'name'      => 'name',

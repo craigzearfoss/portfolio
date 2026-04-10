@@ -58,6 +58,12 @@
             <?php /* note that you CANNOT change the owner of a note */ ?>
             @include('admin.components.form-hidden', [
                 'name'  => 'owner_id',
+                'value' => $event->owner_id
+            ])
+
+            <?php /* note that you CANNOT change the owner of a note */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
                 'value' => $note->owner_id
             ])
 

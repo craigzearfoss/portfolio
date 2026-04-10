@@ -50,6 +50,12 @@
                 'hide'  => !$isRootAdmin,
             ])
 
+            <?php /* note that you CANNOT change the owner of a award */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $award->owner_id
+            ])
+
             @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',

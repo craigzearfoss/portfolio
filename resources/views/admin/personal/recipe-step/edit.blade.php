@@ -43,21 +43,11 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $recipeStep->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $recipeStep->owner_id
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of a recipe step */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $recipeStep->owner_id
+            ])
 
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'recipe_id',

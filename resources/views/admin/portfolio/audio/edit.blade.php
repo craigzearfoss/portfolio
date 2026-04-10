@@ -45,28 +45,17 @@
                 'value' => referer('admin.portfolio.audio.index')
             ])
 
-
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
                 'value' => $audio->id,
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $audio->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $audio->owner_id
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of an audio */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $audio->owner_id
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',

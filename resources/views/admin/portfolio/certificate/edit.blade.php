@@ -51,6 +51,12 @@
                 'hide'  => !$isRootAdmin,
             ])
 
+            <?php /* note that you CANNOT change the owner of a certificate */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $certificate->owner_id
+            ])
+
             @if($admin->is_root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
