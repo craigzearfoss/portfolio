@@ -233,7 +233,7 @@ class ApplicationController extends BaseAdminController
      *
      * @param Application $application
      * @param Request $request
-     * @return View
+     * @return RedirectResponse
      */
     public function attachResumeStore(Application $application, Request $request): RedirectResponse
     {
@@ -246,12 +246,18 @@ class ApplicationController extends BaseAdminController
                 Rule::in(new Application()->where('owner_id', $application['owner_id'])
                     ->get()->pluck('id')->toArray()),
             ],
+            [
+                'application_id.in' => 'Application ' . $request['application_id'] . ' does not belong to admin ' . $application['owner_id'] . '.'
+            ],
             'resume_id' => [
                 'integer',
                 'required',
                 Rule::in(new Resume()->where('owner_id', $application['owner_id'])
                     ->get()->pluck('id')->toArray()),
-            ]
+            ],
+            [
+                'resume_id.in' => 'Resume ' . $request['resume_id'] . ' does not belong to admin ' . $application['owner_id'] . '.'
+            ],
         ]);
 
         $application['resume_id'] = $request['resume_id'];

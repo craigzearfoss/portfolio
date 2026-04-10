@@ -26,7 +26,11 @@
     $navButtons = [];
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render();
 
-    $resumeOptionsList = new Resume()->listOptions([], 'id', 'name', true)
+    $resumeOptionsList = new Resume()->listOptions([], 'id', 'name', true);
+
+    $selectedResumeId = !empty($errors->any()) || !empty($errors->get('GLOBAL'))
+        ? null
+        : old('resume_id') ?? $application->resume_id ?? null
 @endphp
 
 @extends('admin.layouts.default')
@@ -54,7 +58,7 @@
                 @include('admin.components.form-select', [
                     'name'     => 'resume_id',
                     'label'    => 'Select a resume',
-                    'value'    => old('resume_id') ?? '',
+                    'value'    => $selectedResumeId,
                     'required' => true,
                     'list'     => $resumeOptionsList,
                     'onchange' => "document.getElementById('selectCompanyForm').submit();",

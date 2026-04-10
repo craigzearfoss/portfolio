@@ -40,6 +40,8 @@ class UpdateCoverLettersRequest extends FormRequest
 
         return [
             'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            /*
+            // you CANNOT change the application for a cover letter
             'application_id'    => [
                 'filled',
                 'integer',
@@ -49,6 +51,7 @@ class UpdateCoverLettersRequest extends FormRequest
                         ->whereNot('id', $this['cover_letter']['id']);
                 })
             ],
+            */
             'name'              => [
                 'filled',
                 'string',

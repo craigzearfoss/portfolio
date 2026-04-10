@@ -58,6 +58,8 @@
                 ])
             @endif
 
+            <?php /*
+            // you CANNOT change the application for a cover letter
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'application_id',
                 'label'   => 'application',
@@ -65,6 +67,7 @@
                 'list'    => new Application()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
+            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
@@ -83,7 +86,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'url',
-                'name'      => 'cover letter url',
+                'label'      => 'cover letter url',
                 'value'     => old('url') ?? $coverLetter->url,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
