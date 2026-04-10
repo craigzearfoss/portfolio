@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use App\Models\Career\Event;
+use DateMalformedStringException;
+use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,8 +37,20 @@ class UpdateEventsRequest extends FormRequest
     public function rules(): array
     {
         return [
+            /*
+            // you CANNOT change the owner for an event
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
+            */
+            /*
+            // you CANNOT change the application for an event
+            'application_id' => [
+                'filled',
+                'integer',
+                'exists:career_db.applications,id',
+                Rule::in(new Application()->where('owner_id', $this['owner_id'])
+                    ->get()->pluck('id')->toArray())
+            ],
+            */
             'name'           => ['filled', 'string', 'max:255'],
             'event_date'     => ['date_format:Y-m-d', 'nullable'],
             'event_time'     => ['date_format:H:i:s', 'nullable'],
@@ -67,6 +82,7 @@ class UpdateEventsRequest extends FormRequest
             'owner_id.exists'       => 'The specified owner does not exist.',
             'application_id.filled' => 'Please select an application for the event.',
             'application_id.exists' => 'The specified application does not exist.',
+            'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
         ];
     }
 
@@ -74,14 +90,13 @@ class UpdateEventsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
         if (!empty($this['event_time'])) {
-            $parts = explode(':', $this['event_time']);
-            $parts[] = '00';
-            $parts[] = '00';
-            $this['event_time'] = implode(':', array_slice($parts, 0, 3));
+            $communication_datetime = new DateTime($this['event_time']);
+            $this['event_time'] = $communication_datetime->format('H:i:s');
         }
     }
 }

@@ -22,7 +22,7 @@
             [ 'name' => 'Home',            'href' => route('guest.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-            [ 'name' => 'Communication',   'href' => route('admin.career.communication.index') ],
+            [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],
             [ 'name' => 'Add' ]
         ];
     }
@@ -31,6 +31,36 @@
     $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render(),
     ];
+
+    // get the options for the application select list
+    if (!empty($application->owner_id)) {
+        $applicationListOptions = new Application()->listOptions(
+            [ 'owner_id' => $application->owner_id ],
+            'id',
+            'name',
+            true,
+            false,
+            [ 'name', 'asc' ]
+        );
+    } elseif ($isRootAdmin) {
+        $applicationListOptions = new Application()->listOptions(
+            [],
+            'id',
+            'name',
+            true,
+            false,
+            [ 'name', 'asc' ]
+        );
+    } else {
+        $applicationListOptions = new Application()->listOptions(
+            [ 'owner_id' => $admin->id ],
+            'id',
+            'name',
+            true,
+            false,
+            [ 'name', 'asc' ]
+        );
+    }
 @endphp
 
 @extends('admin.layouts.default')
@@ -51,7 +81,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? old('owner_id') ?? $application->owner_id ?? '',
+                    'value'    => old('owner_id') ?? $application->owner_id ?? '',
                     'required' => true,
                     'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
@@ -63,13 +93,21 @@
                 ])
             @endif
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'application_id',
-                'label'   => 'application',
-                'value'   => old('application_id') ?? $application->id ?? '',
-                'list'    => new Application()->listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
+            @if(empty($application->id))
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'application_id',
+                    'label'   => 'application',
+                    'value'   => old('application_id') ?? $application->id ?? '',
+                    'list'    => $applicationListOptions,
+                    'message' => $message ?? '',
+                ])
+            @else
+                @include('admin.components.form-hidden', [
+                    'name'    => 'application_id',
+                    'value'   => $application->id,
+                    'message' => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'communication_type_id',

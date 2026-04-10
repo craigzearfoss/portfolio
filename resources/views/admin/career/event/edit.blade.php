@@ -51,32 +51,24 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $event->id
+                'value' => $event->id,
+                'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $event->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $event->owner_id
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of an event */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $event->owner_id
+            ])
 
-            @include('admin.components.form-select-horizontal', [
+            <?php /*
+            // you CANNOT change the application for a communication
+            @include('admin.components.form-hidden', [
                 'name'    => 'application_id',
-                'label'   => 'application',
-                'value'   => old('application_id') ?? $event->application_id,
-                'list'    => new Application()->listOptions([], 'id', 'name', true),
+                'value'   => $Event->application_id,
                 'message' => $message ?? '',
             ])
+            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',

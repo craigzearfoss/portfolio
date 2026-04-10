@@ -41,8 +41,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.communication.update', array_merge([$communication], request()->all())) }}"
-              method="POST">
+        <form action="{{ route('admin.career.communication.update', array_merge([$communication], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -53,32 +52,24 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $communication->id
+                'value' => $communication->id,
+                'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $communication->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $communication->owner_id
-                ])
-            @endif
+            <?php /* note that you CANNOT change the owner of a communication */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'owner_id',
+                'value' => $communication->owner_id
+            ])
 
-            @include('admin.components.form-select-horizontal', [
+            <?php /*
+            // you CANNOT change the application for a communication
+            @include('admin.components.form-hidden', [
                 'name'    => 'application_id',
-                'label'   => 'application',
-                'value'   => old('application_id') ?? $communication->application_id,
-                'list'    => new Application()->listOptions([], 'id', 'name', true),
+                'value'   => $communication->application_id,
                 'message' => $message ?? '',
             ])
+            */ ?>
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'communication_type_id',

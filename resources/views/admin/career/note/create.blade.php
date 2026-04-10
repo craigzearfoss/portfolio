@@ -30,6 +30,36 @@
     $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render(),
     ];
+
+    // get the options for the application select list
+    if (!empty($application->owner_id)) {
+        $applicationListOptions = new Application()->listOptions(
+            [ 'owner_id' => $application->owner_id ],
+            'id',
+            'name',
+            true,
+            false,
+            [ 'name', 'asc' ]
+        );
+    } elseif ($isRootAdmin) {
+        $applicationListOptions = new Application()->listOptions(
+            [],
+            'id',
+            'name',
+            true,
+            false,
+            [ 'name', 'asc' ]
+        );
+    } else {
+        $applicationListOptions = new Application()->listOptions(
+            [ 'owner_id' => $admin->id ],
+            'id',
+            'name',
+            true,
+            false,
+            [ 'name', 'asc' ]
+        );
+    }
 @endphp
 
 @extends('admin.layouts.default')
@@ -66,7 +96,7 @@
                 'name'    => 'application_id',
                 'label'   => 'application',
                 'value'   => old('application_id') ?? $application->id ?? '',
-                'list'    => new Application()->listOptions([], 'id', 'name', true),
+                'list'    => $applicationListOptions,
                 'message' => $message ?? '',
             ])
 
@@ -92,7 +122,7 @@
             ])
 
             @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $note->link,
+                'link' => old('link') ?? '',
                 'name' => old('link_name') ?? '',
                 'message'   => $message ?? '',
             ])

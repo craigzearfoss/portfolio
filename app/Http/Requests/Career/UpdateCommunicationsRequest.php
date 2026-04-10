@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCommunicationsRequest extends FormRequest
 {
@@ -36,8 +38,20 @@ class UpdateCommunicationsRequest extends FormRequest
     public function rules(): array
     {
         return [
+            /*
+            // you CANNOT change the owner for a communication
             'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'application_id'         => ['filled', 'integer', 'exists:career_db.applications,id'],
+            */
+            /*
+            // you CANNOT change the application for a communication
+            'application_id'         => [
+                'filled',
+                'integer',
+                'exists:career_db.applications,id',
+                Rule::in(new Application()->where('owner_id', $this['owner_id'])
+                    ->get()->pluck('id')->toArray())
+            ],
+            */
             'communication_type_id'  => ['filled', 'integer', 'exists:career_db.communication_types,id'],
             'subject'                => ['filled', 'string', 'max:255'],
             'to'                     => ['string', 'max:500', 'nullable'],
@@ -70,6 +84,7 @@ class UpdateCommunicationsRequest extends FormRequest
             'owner_id.exists'              => 'The specified owner does not exist.',
             'application_id.filled'        => 'Please select an application for the communication.',
             'application_id.exists'        => 'The specified application does not exist.',
+            'application_id.in'            => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
             'communication_type_id.filled' => 'Please select the type of communication.',
         ];
     }

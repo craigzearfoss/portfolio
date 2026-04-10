@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use App\Models\Career\Note;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -34,8 +35,20 @@ class UpdateNotesRequest extends FormRequest
     public function rules(): array
     {
         return [
+            /*
+            // you CANNOT change the owner for a note
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
+            */
+            /*
+            // you CANNOT change the application for a note
+            'application_id' => [
+                'filled',
+                'integer',
+                'exists:career_db.applications,id',
+                Rule::in(new Application()->where('owner_id', $this['owner_id'])
+                    ->get()->pluck('id')->toArray())
+            ],
+            */
             'subject'        => ['filled', 'string', 'max:255'],
             'body'           => ['nullable'],
             'notes'          => ['nullable'],
@@ -62,22 +75,8 @@ class UpdateNotesRequest extends FormRequest
         return [
             'owner_id.filled'       => 'Please select an owner for the note.',
             'owner_id.exists'       => 'The specified owner does not exist.',
-            'application_id.filled' => 'Please select an application for the note.',
             'application_id.exists' => 'The specified application does not exist.',
+            'application_id.filled' => 'Please select an application for the note.',
         ];
-    }
-
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
-    public function prepareForValidation(): void
-    {
-        if (!empty($this->time)) {
-            $this->merge([
-                'time' => $this->time . ':00',
-            ]);
-        }
     }
 }

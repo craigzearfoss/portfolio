@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCommunicationsRequest extends FormRequest
 {
@@ -30,7 +32,13 @@ class StoreCommunicationsRequest extends FormRequest
     {
         return [
             'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
-            'application_id'         => ['required', 'integer', 'exists:career_db.applications,id'],
+            'application_id'         => [
+                'required',
+                'integer',
+                'exists:career_db.applications,id',
+                Rule::in(new Application()->where('owner_id', $this['owner_id'])
+                    ->get()->pluck('id')->toArray())
+            ],
             'communication_type_id'  => ['required', 'integer', 'exists:career_db.communication_types,id'],
             'subject'                => ['required', 'string', 'max:255'],
             'to'                     => ['string', 'max:500', 'nullable'],
@@ -63,6 +71,7 @@ class StoreCommunicationsRequest extends FormRequest
             'owner_id.exists'                => 'The specified owner does not exist.',
             'application_id.required'        => 'Please select an application for the communication.',
             'application_id.exists'          => 'The specified application does not exist.',
+            'application_id.in'              => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
             'communication_type_id.required' => 'Please select the type of communication.',
        ];
     }
