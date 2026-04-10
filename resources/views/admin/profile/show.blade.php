@@ -59,46 +59,46 @@
                                 <hr class="navbar-divider">
                                 <div style="height: 12px; margin: 0; padding: 0;"></div>
 
-            @include('admin.components.show-row', [
-                'name'  => 'username',
-                'value' => $admin->username,
-                'style' => 'white-space: nowrap;',
-            ])
+                                @include('admin.components.show-row', [
+                                    'name'  => 'username',
+                                    'value' => $admin->username,
+                                    'style' => 'white-space: nowrap;',
+                                ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'name',
-                'value' => $admin->name
-            ])
+                                @include('admin.components.show-row', [
+                                    'name'  => 'name',
+                                    'value' => $admin->name
+                                ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'phone',
-                'value' => $admin->phone
-            ])
+                                @include('admin.components.show-row', [
+                                    'name'  => 'phone',
+                                    'value' => $admin->phone
+                                ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'email',
-                'value' => $admin->email
-            ])
+                                @include('admin.components.show-row', [
+                                    'name'  => 'email',
+                                    'value' => $admin->email
+                                ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'created at',
-                'value' => longDateTime($admin->created_at)
-            ])
+                                @include('admin.components.show-row', [
+                                    'name'  => 'created at',
+                                    'value' => longDateTime($admin->created_at)
+                                ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'updated at',
-                'value' => longDateTime($admin->updated_at),
-                'style' => 'white-space: nowrap;',
-            ])
+                                @include('admin.components.show-row', [
+                                    'name'  => 'updated at',
+                                    'value' => longDateTime($admin->updated_at),
+                                    'style' => 'white-space: nowrap;',
+                                ])
 
-        </div>
-        <div class="show-container card floating-div">
+                            </div>
+                            <div class="show-container card floating-div">
 
-            @include('admin.components.show-row-images', [
-                'resource' => $admin,
-                'download' => true,
-                'external' => true,
-            ])
+                                @include('admin.components.show-row-images', [
+                                    'resource' => $admin,
+                                    'download' => true,
+                                    'external' => true,
+                                ])
 
 
                             </div>

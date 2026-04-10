@@ -37,7 +37,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $message->id
+                'value' => $message->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row-checkmark', [

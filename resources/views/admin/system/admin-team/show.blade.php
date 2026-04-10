@@ -41,7 +41,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $adminTeam->id
+                'value' => $adminTeam->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if(!empty($adminTeam->owner))

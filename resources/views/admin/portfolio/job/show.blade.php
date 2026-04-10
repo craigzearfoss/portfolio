@@ -73,7 +73,8 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'id',
-                                    'value' => $job->id
+                                    'value' => $job->id,
+                                    'hide'  => !$isRootAdmin,
                                 ])
 
                                 @if($admin->is_root)

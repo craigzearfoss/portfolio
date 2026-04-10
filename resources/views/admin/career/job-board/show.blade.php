@@ -32,7 +32,8 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $jobBoard->id
+            'value' => $jobBoard->id,
+            'hide'  => !$isRootAdmin,
         ])
 
         @include('admin.components.show-row', [

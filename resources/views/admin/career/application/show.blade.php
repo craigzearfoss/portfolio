@@ -79,13 +79,14 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'id',
-                                    'value' => $application->id
+                                    'value' => $application->id,
+                                    'hide'  => !$isRootAdmin,
                                 ])
 
-                                @if($admin->is_root)
+                                @if($isRootAdmin)
                                     @include('admin.components.show-row', [
                                         'name'  => 'owner',
-                                        'value' => $application->owner->username
+                                        'value' => $application->owner->username,
                                     ])
                                 @endif
 

@@ -37,7 +37,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $userEmail->id
+                'value' => $userEmail->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if(!empty($userEmail->user))

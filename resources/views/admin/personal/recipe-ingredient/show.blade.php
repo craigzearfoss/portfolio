@@ -34,7 +34,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $recipeIngredient->id
+                'value' => $recipeIngredient->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($admin->is_root)

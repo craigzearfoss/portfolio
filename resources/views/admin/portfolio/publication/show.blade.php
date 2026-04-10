@@ -39,6 +39,12 @@
         <div class="show-container card floating-div">
 
             @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $publication->id,
+                'hide'  => !$isRootAdmin,
+            ])
+
+            @include('admin.components.show-row', [
                 'name'  => 'title',
                 'value' => $publication->title
             ])

@@ -49,7 +49,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $adminResource->id
+                'value' => $adminResource->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

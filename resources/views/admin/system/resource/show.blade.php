@@ -30,7 +30,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $resource->id
+                'value' => $resource->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($admin->is_root)

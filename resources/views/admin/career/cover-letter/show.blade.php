@@ -122,10 +122,17 @@
                                     'value' => $coverLetter->id
                                 ])
 
-                                @if($admin->is_root)
+                                @include('admin.components.show-row', [
+                                    'name'  => 'id',
+                                    'value' => $coverLetter->id,
+                                    'hide'  => !$isRootAdmin,
+                                ])
+
+                                @if($isRootAdmin)
                                     @include('admin.components.show-row', [
                                         'name'  => 'owner',
-                                        'value' => $coverLetter->owner->username
+                                        'value' => $coverLetter->owner->username,
+                                        'hide' => !$isRootAdmin,
                                     ])
                                 @endif
 

@@ -32,7 +32,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $academy->id
+                'value' => $academy->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row', [

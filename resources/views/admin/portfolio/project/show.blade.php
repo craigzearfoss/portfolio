@@ -39,7 +39,8 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $project->id
+            'value' => $project->id,
+            'hide'  => !$isRootAdmin,
         ])
 
         @if($admin->is_root)

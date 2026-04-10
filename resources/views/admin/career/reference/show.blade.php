@@ -39,10 +39,11 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $reference->id
+            'value' => $reference->id,
+            'hide'  => !$isRootAdmin,
         ])
 
-        @if($admin->is_root)
+        @if($isRootAdmin)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $reference->owner->username

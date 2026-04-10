@@ -40,7 +40,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $photo->id
+                'value' => $photo->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

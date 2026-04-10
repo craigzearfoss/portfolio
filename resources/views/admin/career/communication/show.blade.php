@@ -45,13 +45,14 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $communication->id
+            'value' => $communication->id,
+            'hide'  => !$isRootAdmin,
         ])
 
-        @if($admin->is_root)
+        @if($isRootAdmin)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $communication->owner->username
+                'value' => $communication->owner->username,
             ])
         @endif
 

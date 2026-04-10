@@ -35,7 +35,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $jobSkill->id
+                'value' => $jobSkill->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

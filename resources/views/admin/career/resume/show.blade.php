@@ -102,7 +102,8 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'id',
-                                    'value' => $resume->id
+                                    'value' => $resume->id,
+                                    'hide'  => !$isRootAdmin,
                                 ])
 
                                 @if($admin->is_root)

@@ -32,7 +32,8 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $language->id
+            'value' => $language->id,
+            'hide'  => !$isRootAdmin,
         ])
 
         @include('admin.components.show-row', [

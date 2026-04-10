@@ -39,7 +39,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $userGroup->id
+                'value' => $userGroup->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

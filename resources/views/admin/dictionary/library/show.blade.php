@@ -32,7 +32,8 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $library->id
+            'value' => $library->id,
+            'hide'  => !$isRootAdmin,
         ])
 
         @include('admin.components.show-row', [

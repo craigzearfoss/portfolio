@@ -33,7 +33,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $ingredient->id
+                'value' => $ingredient->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row', [

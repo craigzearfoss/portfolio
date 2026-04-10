@@ -45,10 +45,11 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $note->id
+            'value' => $note->id,
+            'hide'  => !$isRootAdmin,
         ])
 
-        @if($admin->is_root)
+        @if($isRootAdmin)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $note->owner->username

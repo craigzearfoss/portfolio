@@ -32,7 +32,8 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $operatingSystem->id
+            'value' => $operatingSystem->id,
+            'hide'  => !$isRootAdmin,
         ])
 
         @include('admin.components.show-row', [

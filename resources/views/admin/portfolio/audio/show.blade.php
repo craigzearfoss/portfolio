@@ -40,7 +40,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $audio->id
+                'value' => $audio->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

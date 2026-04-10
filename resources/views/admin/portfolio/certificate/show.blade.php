@@ -40,7 +40,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $certificate->id
+                'value' => $certificate->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($admin->is_root)
