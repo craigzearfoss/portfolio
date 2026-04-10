@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Models\System\SettingType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,6 +13,11 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class StoreSettingTypesRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      */

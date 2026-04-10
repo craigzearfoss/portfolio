@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\School;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -12,6 +14,11 @@ use Illuminate\Validation\Rule;
  */
 class StoreSchoolsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      */

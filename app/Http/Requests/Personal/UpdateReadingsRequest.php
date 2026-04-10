@@ -2,14 +2,24 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Dictionary\Database;
 use App\Models\Personal\Reading;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateReadingsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -110,6 +120,31 @@ class UpdateReadingsRequest extends FormRequest
                 'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
                 'personal_db.readings',
                 $ownerId
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the reading exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the reading exists
+        if (!Reading::find($this['reading']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Reading ' . $this['reading']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the reading
+        if (!$this->loggedInAdmin['is_root'] || (new Reading()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update reading '. $this['reading']['id'] . '.'
+                    : 'Unauthorized to update reading '. $this['reading']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

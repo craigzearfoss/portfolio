@@ -3,15 +3,24 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\Framework;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
  */
 class UpdateFrameworksRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -90,6 +99,31 @@ class UpdateFrameworksRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'dictionary_db.frameworks ', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the dictionary framework exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the dictionary framework exists
+        if (!Framework::find($this['framework']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Dictionary framework ' . $this['framework']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the dictionary framework
+        if (!$this->loggedInAdmin['is_root'] || (new Framework()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update dictionary framework '. $this['framework']['id'] . '.'
+                    : 'Unauthorized to update dictionary framework '. $this['database']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

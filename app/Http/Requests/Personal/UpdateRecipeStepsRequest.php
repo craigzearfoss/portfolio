@@ -4,13 +4,22 @@ namespace App\Http\Requests\Personal;
 
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateRecipeStepsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -73,5 +82,30 @@ class UpdateRecipeStepsRequest extends FormRequest
             'owner_id.exists'  => 'The specified owner does not exist.',
             'recipe_id.filled' => 'Please select a recipe.',
         ];
+    }
+
+    /**
+     * Verifies the recipe step exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the recipe step exists
+        if (!Recipe::find($this['recipe_step']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Recipe step ' . $this['recipe_step']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the recipe
+        if (!$this->loggedInAdmin['is_root'] || (new RecipeStep()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update recipe step '. $this['recipe_step']['id'] . '.'
+                    : 'Unauthorized to update recipe step '. $this['recipe_step']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+            ]);
+        }
     }
 }

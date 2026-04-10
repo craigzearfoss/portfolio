@@ -2,12 +2,19 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreUserGroupsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the user is authorized to make this request.
      */

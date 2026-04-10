@@ -3,15 +3,24 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\OperatingSystem;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
  */
 class UpdateOperatingSystemsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -90,6 +99,31 @@ class UpdateOperatingSystemsRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the dictionary operating system exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the dictionary operating system exists
+        if (!OperatingSystem::find($this['operating_system']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Dictionary operating system ' . $this['operating_system']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the dictionary operating system
+        if (!$this->loggedInAdmin['is_root'] || (new OperatingSystem()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update dictionary operating system '. $this['operating_system']['id'] . '.'
+                    : 'Unauthorized to update dictionary operating system '. $this['operating_system']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

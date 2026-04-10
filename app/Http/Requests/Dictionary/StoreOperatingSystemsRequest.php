@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\OperatingSystem;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;

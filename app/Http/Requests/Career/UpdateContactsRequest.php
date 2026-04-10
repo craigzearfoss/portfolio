@@ -3,13 +3,22 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Contact;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateContactsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -128,6 +137,31 @@ class UpdateContactsRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'career_db.contacts', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the contact exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the contact exists
+        if (!Contact::find($this['contact']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Contact ' . $this['contact']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the contact
+        if (!$this->loggedInAdmin['is_root'] || (new Contact()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update contact '. $this['contact']['id'] . '.'
+                    : 'Unauthorized to update contact '. $this['contact']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

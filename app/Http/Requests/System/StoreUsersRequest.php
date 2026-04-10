@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Models\System\User;
 use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -12,6 +14,11 @@ use Illuminate\Validation\Rules\Password;
 
 class StoreUsersRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the user is authorized to make this request.
      */

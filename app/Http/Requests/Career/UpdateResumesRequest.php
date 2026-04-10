@@ -2,14 +2,24 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use App\Models\Career\Resume;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateResumesRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -124,6 +134,31 @@ class UpdateResumesRequest extends FormRequest
                 'slug' => uniqueSlug($slug),
                 'career_db.resumes',
                 $ownerId
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the resume exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the resume exists
+        if (!Application::find($this['resume']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Resume ' . $this['resume']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the resume
+        if (!$this->loggedInAdmin['is_root'] || (new Resume()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update resume '. $this['resume']['id'] . '.'
+                    : 'Unauthorized to update resume '. $this['resume']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

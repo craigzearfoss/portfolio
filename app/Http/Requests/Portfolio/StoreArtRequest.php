@@ -2,13 +2,23 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Art;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreArtRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      */
@@ -98,6 +108,31 @@ class StoreArtRequest extends FormRequest
                     'portfolio_db.art',
                     $ownerId
                 ),
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the art exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the art exists
+        if (!Art::find($this['art']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Art ' . $this['art']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the art
+        if (!$this->loggedInAdmin['is_root'] || (new Art()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update art '. $this['art']['id'] . '.'
+                    : 'Unauthorized to update art '. $this['art']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

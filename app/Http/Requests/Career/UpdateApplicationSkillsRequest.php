@@ -3,13 +3,22 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\ApplicationSkill;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateApplicationSkillsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -79,5 +88,30 @@ class UpdateApplicationSkillsRequest extends FormRequest
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];
+    }
+
+    /**
+     * Verifies the application skill exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the application skill exists
+        if (!ApplicationSkill::find($this['application_skill']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Application skill ' . $this['application_skill']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the application skill
+        if (!$this->loggedInAdmin['is_root'] || (new ApplicationSkill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update application skill '. $this['application_skill']['id'] . '.'
+                    : 'Unauthorized to update application skill '. $this['application_skill']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+            ]);
+        }
     }
 }

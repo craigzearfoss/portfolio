@@ -2,16 +2,24 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Application;
 use App\Models\Career\Event;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 class UpdateEventsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -97,6 +105,31 @@ class UpdateEventsRequest extends FormRequest
         if (!empty($this['event_time'])) {
             $communication_datetime = new DateTime($this['event_time']);
             $this['event_time'] = $communication_datetime->format('H:i:s');
+        }
+    }
+
+    /**
+     * Verifies the event exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the event exists
+        if (!Event::find($this['event']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Event ' . $this['event']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the event
+        if (!$this->loggedInAdmin['is_root'] || (new Event()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update event '. $this['event']['id'] . '.'
+                    : 'Unauthorized to update event '. $this['event']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+            ]);
         }
     }
 }

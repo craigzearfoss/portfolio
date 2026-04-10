@@ -3,13 +3,22 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\CoverLetter;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateCoverLettersRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -136,6 +145,31 @@ class UpdateCoverLettersRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'career_db.cover_letters', $this['slug'])
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the cover letter exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the cover letter exists
+        if (!CoverLetter::find($this['cover_letter']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Cover letter ' . $this['cover_letter']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the cover letter
+        if (!$this->loggedInAdmin['is_root'] || (new CoverLetter()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update cover letter '. $this['cover_letter']['id'] . '.'
+                    : 'Unauthorized to update cover letter '. $this['cover_letter']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

@@ -3,13 +3,22 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Company;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateCompaniesRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -130,6 +139,31 @@ class UpdateCompaniesRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'career_db.companies', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the company exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the company exists
+        if (!Company::find($this['company']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Company ' . $this['company']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the company
+        if (!$this->loggedInAdmin['is_root'] || (new Company()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update company '. $this['company']['id'] . '.'
+                    : 'Unauthorized to update company '. $this['company']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

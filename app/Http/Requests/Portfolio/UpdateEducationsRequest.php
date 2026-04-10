@@ -5,6 +5,8 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Portfolio\DegreeType;
 use App\Models\Portfolio\Education;
 use App\Models\Portfolio\School;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -12,6 +14,11 @@ use Illuminate\Validation\Rule;
 
 class UpdateEducationsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *

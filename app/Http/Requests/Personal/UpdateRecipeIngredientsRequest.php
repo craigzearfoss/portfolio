@@ -5,13 +5,22 @@ namespace App\Http\Requests\Personal;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\RecipeIngredient;
 use App\Models\Personal\Recipe;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateRecipeIngredientsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -79,5 +88,30 @@ class UpdateRecipeIngredientsRequest extends FormRequest
             'ingredient_id.filled' => 'Please select an ingredient.',
             'unit_id.filled'       => 'Please select a unit.',
         ];
+    }
+
+    /**
+     * Verifies the recipe ingredient exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the recipe ingredient exists
+        if (!RecipeIngredient::find($this['recipe_ingredient']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Recipe ingredient ' . $this['recipe_ingredient']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the recipe ingredient
+        if (!$this->loggedInAdmin['is_root'] || (new RecipeIngredient()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update recipe ingredient '. $this['recipe_ingredient']['id'] . '.'
+                    : 'Unauthorized to update recipe ingredient '. $this['recipe_ingredient']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+            ]);
+        }
     }
 }

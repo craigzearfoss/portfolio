@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Models\System\User;
 use App\Rules\CaseInsensitiveNotIn;
 use Exception;
@@ -13,6 +15,11 @@ use Illuminate\Validation\Rules\Password;
 
 class UpdateUsersRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *

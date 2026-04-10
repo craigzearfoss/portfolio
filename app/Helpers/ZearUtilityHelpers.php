@@ -423,7 +423,18 @@ if (! function_exists('createGate')) {
     function createGate(string $resourceClass, Admin|null $admin = null): void
     {
         if (!canCreate($resourceClass, $admin)) {
-            abort(403, 'Create not authorized.');
+
+            if (App::environment('production')) {
+                $message = 'Create not authorized.';
+            } else {
+                $resourceTypeName = strtolower(substr($resourceClass, strrpos("\\$resourceClass", '\\')));
+                $message = 'Create not authorized for ' . $resourceTypeName;
+                $message .= !empty($admin)
+                    ? ' by admin ' . $admin['id'] . '.'
+                    : '';
+            }
+
+            abort(403, $message);
         }
     }
 }
@@ -437,7 +448,19 @@ if (! function_exists('readGate')) {
     function readGate($resourceObject, Admin|null $admin = null): void
     {
         if (!canRead($resourceObject, $admin)) {
-            abort(403, 'Read not authorized.');
+
+            if (App::environment('production')) {
+                $message = 'Read not authorized.';
+            } else {
+                $class = get_class($resourceObject);
+                $resourceTypeName = strtolower(substr($class, strrpos("\\$class", '\\')));
+                $message = 'Read not authorized on ' . $resourceTypeName . ' ' . $resourceObject->id;
+                $message .= !empty($admin)
+                    ? ' by admin ' . $admin['id'] . '.'
+                    : '';
+            }
+
+            abort(403, $message);
         }
     }
 }
@@ -451,7 +474,19 @@ if (! function_exists('updateGate')) {
     function updateGate($resourceObject, Admin|null $admin = null):void
     {
         if (!canUpdate($resourceObject, $admin)) {
-            abort(403, 'Update not authorized.');
+
+            if (App::environment('production')) {
+                $message = 'Update not authorized.';
+            } else {
+                $class = get_class($resourceObject);
+                $resourceTypeName = strtolower(substr($class, strrpos("\\$class", '\\')));
+                $message = 'Update not authorized on ' . $resourceTypeName . ' ' . $resourceObject->id;
+                $message .= !empty($admin)
+                    ? ' by admin ' . $admin['id'] . '.'
+                    : '';
+            }
+
+            abort(403, $message);
         }
     }
 }
@@ -465,7 +500,19 @@ if (! function_exists('deleteGate')) {
     function deleteGate($resourceObject, Admin|null $admin = null): void
     {
         if (!canDelete($resourceObject, $admin)) {
-            abort(403, 'Delete not authorized.');
+
+            if (App::environment('production')) {
+                $message = 'Delete not authorized.';
+            } else {
+                $class = get_class($resourceObject);
+                $resourceTypeName = strtolower(substr($class, strrpos("\\$class", '\\')));
+                $message = 'Delete not authorized on ' . $resourceTypeName . ' ' . $resourceObject->id;
+                $message .= !empty($admin)
+                    ? ' by admin ' . $admin['id'] . '.'
+                    : '';
+            }
+
+            abort(403, $message);
         }
     }
 }

@@ -3,15 +3,24 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\Stack;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
  */
 class UpdateStacksRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -90,6 +99,31 @@ class UpdateStacksRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the dictionary stack exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the dictionary stack exists
+        if (!Stack::find($this['stack']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Dictionary stack ' . $this['stack']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the dictionary stack
+        if (!$this->loggedInAdmin['is_root'] || (new Stack()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update dictionary stack '. $this['stack']['id'] . '.'
+                    : 'Unauthorized to update dictionary stack '. $this['stack']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

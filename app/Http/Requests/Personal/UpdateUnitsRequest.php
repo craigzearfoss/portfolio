@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Personal;
 
 use App\Models\Personal\Unit;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -12,6 +14,11 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class UpdateUnitsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *

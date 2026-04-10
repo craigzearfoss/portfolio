@@ -4,13 +4,23 @@ namespace App\Http\Requests\Career;
 
 use App\Models\Career\Application;
 use App\Models\Career\CompensationUnit;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateApplicationsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -18,11 +28,9 @@ class UpdateApplicationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$application = Application::find($this['application']['id']) ) {
-            throw new Exception('Application ' . $this['application']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($application, loggedInAdmin());
+        $this->validateAuthorization();
 
         return true;
     }
@@ -36,7 +44,17 @@ class UpdateApplicationsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'               => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id',
+                Rule::in(
+                    $this->loggedInAdmin['is_root']
+                        ? true
+                        : new Application()->where('owner_id', 5)
+                        ->get()->pluck('id')->toArray()
+                )
+            ],
             'company_id'             => ['filled', 'integer', 'exists:career_db.companies,id'],
             'role'                   => ['filled', 'string', 'max:255'],
             'job_board_id'           => ['integer', 'exists:career_db.job_boards,id', 'nullable'],
@@ -104,6 +122,8 @@ class UpdateApplicationsRequest extends FormRequest
         return [
             'owner_id.filled'               => 'Please select an owner for the application.',
             'owner_id.exists'               => 'The specified owner does not exist.',
+            'owner_id.in'                   => 'Unauthorized to update application '
+                                                    . $this['application']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.',
             'company_id.filled'             => 'Please select a company for the application.',
             'company_id.exists'             => 'The specified company does not exist.',
             'job_board_id.exists'           => 'The specified job board does not exist.',
@@ -136,5 +156,30 @@ class UpdateApplicationsRequest extends FormRequest
             $interval,
             $this['estimated_hours'] ?? 0
         );
+    }
+
+    /**
+     * Verifies the application exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the application exists
+        if (!Application::find($this['application']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Application ' . $this['application']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the application
+        if (!$this->loggedInAdmin['is_root'] || (new Application()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update application '. $this['application']['id'] . '.'
+                    : 'Unauthorized to update application '. $this['application']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+            ]);
+        }
     }
 }

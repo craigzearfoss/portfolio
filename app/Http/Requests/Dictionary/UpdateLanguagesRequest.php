@@ -3,15 +3,24 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\Language;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
  */
 class UpdateLanguagesRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -90,6 +99,31 @@ class UpdateLanguagesRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the dictionary language exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the dictionary language exists
+        if (!Language::find($this['language']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Dictionary language ' . $this['language']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the dictionary language
+        if (!$this->loggedInAdmin['is_root'] || (new Language()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update dictionary language '. $this['language']['id'] . '.'
+                    : 'Unauthorized to update dictionary language '. $this['language']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

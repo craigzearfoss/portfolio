@@ -3,12 +3,21 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\JobSearchLog;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 class UpdateJobSearchLogsRequest extends FormRequest
 {
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|null|Owner $loggedInAdmin = null;
+
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -46,5 +55,30 @@ class UpdateJobSearchLogsRequest extends FormRequest
             'note_id'          => ['integer', 'exists:career_db.notes,id', 'nullable'],
             'recruiter_id'     => ['integer', 'exists:career_db.recruiters,id', 'nullable'],
         ];
+    }
+
+    /**
+     * Verifies the job search log exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the job search log exists
+        if (!JobSearchLog::find($this['job_search_log']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Job search log ' . $this['job_search_log']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the job search log
+        if (!$this->loggedInAdmin['is_root'] || (new JobSearchLog()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update job search log '. $this['job_search_log']['id'] . '.'
+                    : 'Unauthorized to update job search log '. $this['job_search_log']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+            ]);
+        }
     }
 }
