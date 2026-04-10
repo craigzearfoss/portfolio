@@ -14,7 +14,7 @@ $notes = $notes ?? [];
 
     @foreach($applications as $application)
 
-        <tr>
+        <tr data-id="{{ $application->id }}">
             <td>
                 @include('admin.components.link', [
                     'name' => $application->company->name,

@@ -13,7 +13,7 @@
 
     @foreach($phones as $phone)
 
-        <tr>
+        <tr data-id="{{ $phone->id }}">
             <td>
                 {!! $phone->phone !!}
             </td>

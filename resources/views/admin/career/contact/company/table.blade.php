@@ -14,7 +14,7 @@ $companies = $companies ?? [];
 
     @foreach($companies as $company)
 
-        <tr>
+        <tr data-id="{{ $company->id }}">
             <td>
                 @include('admin.components.link', [
                     'name' => $company->name,

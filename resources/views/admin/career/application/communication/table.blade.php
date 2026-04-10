@@ -14,7 +14,7 @@
 
     @foreach($communications as $communication)
 
-        <tr>
+        <tr data-id="{{ $communication->id }}">
             <td>
                 {!! $communication->communicationType->name ?? '' !!}
             </td>

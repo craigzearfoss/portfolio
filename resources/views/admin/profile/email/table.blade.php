@@ -13,7 +13,7 @@
 
     @foreach($emails as $email)
 
-        <tr>
+        <tr data-id="{{ $email->id }}">
             <td>
                 {!! $email->email !!}
             </td>

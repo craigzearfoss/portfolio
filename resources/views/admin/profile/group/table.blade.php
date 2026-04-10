@@ -12,7 +12,7 @@
 
     @foreach($groups as $group)
 
-        <tr>
+        <tr data-id="{{ $group->id }}">
             <td>
                 {!! $group->name !!}
             </td>

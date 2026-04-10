@@ -12,7 +12,7 @@
 
     @foreach($contacts as $contact)
 
-        <tr>
+        <tr data-id="{{ $contact->id }}">
             <td>
                 {!! $contact->name !!}
             </td>

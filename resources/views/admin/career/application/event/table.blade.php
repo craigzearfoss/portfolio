@@ -15,7 +15,7 @@
 
     @foreach($events as $event)
 
-        <tr>
+        <tr data-id="{{ $event->id }}">
             <td>
                 {!! $event->name !!}
             </td>
