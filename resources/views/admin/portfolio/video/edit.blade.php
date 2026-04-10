@@ -48,7 +48,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $video->id
+                'value' => $video->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($admin->is_root)

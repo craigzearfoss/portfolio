@@ -24,7 +24,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $session->id
+                'value' => $session->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row', [

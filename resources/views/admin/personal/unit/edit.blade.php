@@ -37,7 +37,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $unit->id
+                'value' => $unit->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.form-input-horizontal', [

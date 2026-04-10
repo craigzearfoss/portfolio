@@ -39,7 +39,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $userGroup->id
+                'value' => $userGroup->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

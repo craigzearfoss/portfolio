@@ -47,14 +47,15 @@
                 'value' => referer('admin.career.company.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $company->id,
+                'hide'  => !$isRootAdmin,
+            ])
+
             @include('admin.components.form-hidden', [
                 'name'  => 'owner_id',
                 'value' => $company->owner_id
-            ])
-
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $company->id
             ])
 
             @if($admin->is_root)

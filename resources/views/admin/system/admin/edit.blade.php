@@ -40,6 +40,12 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
+                'value' => $owner->id,
+                'hide'  => !$isRootAdmin,
+            ])
+
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
                 'value' => $owner->id
             ])
 

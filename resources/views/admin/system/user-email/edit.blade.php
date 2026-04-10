@@ -36,6 +36,12 @@
                 'value' => referer('admin.system.user-email.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $userEmail->id,
+                'hide'  => !$isRootAdmin,
+            ])
+
             @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'user_id',

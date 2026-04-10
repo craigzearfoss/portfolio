@@ -45,18 +45,17 @@
                 'value' => referer('admin.system.resource.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $adminResource->id,
+                'hide'  => !$isRootAdmin,
+            ])
+
             @if($isRootAdmin)
-
-                @include('admin.components.form-text-horizontal', [
-                    'name'  => 'id',
-                    'value' => $adminResource->id
-                ])
-
                 @include('admin.components.form-text-horizontal', [
                     'name'  => 'owner',
                     'value' =>  $adminResource->owner['username']
                 ])
-
             @endif
 
             @include('admin.components.form-text-horizontal', [

@@ -35,7 +35,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $jobBoard->id
+                'value' => $jobBoard->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.form-input-horizontal', [

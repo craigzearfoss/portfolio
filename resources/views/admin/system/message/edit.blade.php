@@ -34,7 +34,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $message['id']
+                'value' => $message['id'],
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

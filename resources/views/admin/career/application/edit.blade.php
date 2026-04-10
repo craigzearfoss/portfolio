@@ -55,7 +55,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $application->id
+                'value' => $application->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($admin->is_root)

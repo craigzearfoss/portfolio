@@ -36,6 +36,12 @@
                 'value' => referer('admin.system.user-phone.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $userPhone->id,
+                'hide'  => !$isRootAdmin,
+            ])
+
             @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'user_id',

@@ -47,7 +47,8 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $recipeStep->id
+                'value' => $recipeStep->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row', [

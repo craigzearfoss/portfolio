@@ -48,7 +48,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $audio->id
+                'value' => $audio->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

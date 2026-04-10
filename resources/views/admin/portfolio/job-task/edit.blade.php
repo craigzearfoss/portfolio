@@ -40,7 +40,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $jobTask->id
+                'value' => $jobTask->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($isRootAdmin)

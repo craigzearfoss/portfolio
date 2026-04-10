@@ -43,7 +43,8 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $recipeIngredient->id
+                'value' => $recipeIngredient->id,
+                'hide'  => !$isRootAdmin,
             ])
 
             @if($admin->is_root)
