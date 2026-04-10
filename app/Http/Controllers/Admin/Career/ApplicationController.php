@@ -12,6 +12,8 @@ use App\Models\Career\Resume;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -210,5 +212,52 @@ class ApplicationController extends BaseAdminController
         }
 
         return $application;
+    }
+
+
+    /**
+     * Show the form for attaching a resume to a specified application.
+     *
+     * @param Application $application
+     * @return View
+     */
+    public function attachResume(Application $application): View
+    {
+        updateGate($application, $this->admin);
+
+        return view('admin.career.application.resume.attach', compact('application'));
+    }
+
+    /**
+     * Attach a resume to an application.
+     *
+     * @param Application $application
+     * @param Request $request
+     * @return View
+     */
+    public function attachResumeStore(Application $application, Request $request): RedirectResponse
+    {
+        updateGate($application, $this->admin);
+
+        $request->validate([
+            'application_id' => [
+                'integer',
+                'required',
+                Rule::in(new Application()->where('owner_id', $application['owner_id'])
+                    ->get()->pluck('id')->toArray()),
+            ],
+            'resume_id' => [
+                'integer',
+                'required',
+                Rule::in(new Resume()->where('owner_id', $application['owner_id'])
+                    ->get()->pluck('id')->toArray()),
+            ]
+        ]);
+
+        $application['resume_id'] = $request['resume_id'];
+        $application->save();
+
+        return redirect()->route('admin.career.application.show', $application)
+            ->with('success', 'Resume has been attached to the application.');
     }
 }

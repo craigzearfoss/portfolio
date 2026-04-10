@@ -14,9 +14,9 @@
     if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',   'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Career',   'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
     }
     $breadcrumbs[] = [ 'name' => 'Applications' ];
 

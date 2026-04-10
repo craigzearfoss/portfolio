@@ -139,7 +139,7 @@ class Resume extends Model
                                 string              $labelColumn = 'name',
                                 bool                $includeBlank = false,
                                 bool                $includeOther = false,
-                                array               $orderBy = [],
+                                array               $orderBy = ['resume_date', 'desc'],
                                 EnvTypes $envType = EnvTypes::GUEST): array
     {
         $other = null;
@@ -150,6 +150,8 @@ class Resume extends Model
         $selectColumns = [
             $this->table . '.id',
             'CONCAT(resume_date, " - ", ' . $this->table . '.name) AS name',
+            $this->table . '.primary',
+            $this->table . '.is_disabled',
         ];
 
         foreach ([$valueColumn, $labelColumn] as $field) {
@@ -171,7 +173,8 @@ class Resume extends Model
 
         // create the query
         $query = new self()->selectRaw(implode(',', $selectColumns))
-            ->orderBy($sortColumn, $sortDir);
+            ->orderBy($sortColumn, $sortDir)
+            ->orderBy($this->table . '.name');
 
         // apply filters to the query
         foreach ($filters as $col => $value) {
@@ -211,7 +214,7 @@ class Resume extends Model
             if ($row->{$labelColumn} == 'other') {
                 $other = $row;
             } else {
-                $options[$row->{$valueColumn}] = $row->{$labelColumn};
+                $options[$row->{$valueColumn}] = $row->{$labelColumn} . ($row->primary ? '*' : '');
             }
         }
 

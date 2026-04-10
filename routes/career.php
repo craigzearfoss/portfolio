@@ -27,7 +27,9 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('recruiter', AdminCareerRecruiterController::class);
 
     Route::resource('application', AdminCareerApplicationController::class);
-    Route::resource('application/skill', AdminCareerApplicationSkillController::class);
+    Route::resource('application/{application}/skill', AdminCareerApplicationSkillController::class);
+    Route::get('application/{application}/resume/attach', [AdminCareerApplicationController::class, 'attachResume'])->name('application.resume.attach');
+    Route::post('application/{application}/resume/attach', [AdminCareerApplicationController::class, 'attachResumeStore'])->name('application.resume.attach.store');
     Route::resource('communication', AdminCareerCommunicationController::class);
     Route::resource('company', AdminCareerCompanyController::class);
     Route::get('company/{company}/contact/add', [AdminCareerCompanyController::class, 'addContact'])->name('company.contact.add');

@@ -1,4 +1,6 @@
 @php
+    use App\Models\Career\Resume;
+
     $applicationId = $applicationId ?? null;
     $resume        = $resume ?? null;
 @endphp
@@ -10,28 +12,17 @@
 
         <span style="display: inline-flex; float: right;">
 
-            @if(empty($resume))
-
-                @include('admin.components.link', [
-                    'name'  => 'Attach a resume',
-                    'href'  => route(
-                                    'admin.career.resume.create',
-                                    !empty($applicationId) ? ['application_id' => $applicationId] : []
-                                ),
-                    'class' => 'button is-primary is-small px-1 py-0'
-                ])
-
-            @else
+            @if(!empty($resume))
 
                 <a title="show" class="button is-small px-1 py-0"
                    href="{!! route('admin.career.resume.show', $resume) !!}">
-                    <i class="fa-solid fa-list"></i>
-                </a>
+                        <i class="fa-solid fa-list"></i>
+                    </a>
 
                 <a title="edit" class="button is-small px-1 py-0"
                    href="{!! route('admin.career.resume.edit',$resume->id) !!}">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </a>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
 
                 @if(!empty($resume->url))
                     @include('admin.components.button-download', [ 'file' => $resume->url,
@@ -39,7 +30,8 @@
                 @endif
 
                 @include('admin.components.button-download', [ 'file' => '',
-                                                               'name' =>$resume->slug . '-resume' ])
+                                                                   'name' =>$resume->slug . '-resume' ])
+
             @endif
 
         </span>
@@ -48,11 +40,35 @@
 
     <hr class="navbar-divider">
 
-    <div style="height: 12px; margin: 0; padding: 0;"></div>
+    @if(empty($resume))
 
-    @if (!empty($resume))
+        <div class="has-text-centered" style="max-width: 30rem;">
 
-        <div style="display: flex; align-items: flex-start; column-gap: 20px;">
+            @include('admin.components.link', [
+                'name'  => 'Attach an existing resume',
+                'href'  => route('admin.career.application.resume.attach', $application ?? null),
+                'class'    => 'button is-primary my-0',
+            ])
+
+
+            <h4 class="subtitle has-text-centered pt-4">or</h4>
+
+            @include('admin.components.link', [
+                'name'  => 'Add a new resume',
+                'href'  => route(
+                                'admin.career.resume.create',
+                                !empty($applicationId) ? ['application_id' => $applicationId] : []
+                            ),
+                'class'    => 'button is-primary my-0',
+            ])
+
+        </div>
+
+    @else
+
+        <div style="height: 12px; margin: 0; padding: 0;"></div>
+
+        <div style="display: flex; align-items: flex-start; column-gap: 20px; max-width: 30rem;">
 
             <div style="flex: 1; padding: 5px;">
 
@@ -115,14 +131,6 @@
                 </div>
 
             @endif
-
-            </div>
-
-    @else
-
-        <div class="has-text-centered">
-
-            <i>No resume selected.</i>
 
         </div>
 
