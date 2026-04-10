@@ -50,12 +50,11 @@
             'hide'  => !$isRootAdmin,
         ])
 
-        @if($isRootAdmin)
-            @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $event->owner->username
-            ])
-        @endif
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $event->owner->username,
+            'hide'  => !$isRootAdmin,
+        ])
 
         @php
             $application = !empty($event->application_id)

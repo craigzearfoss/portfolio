@@ -44,12 +44,11 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
-                @include('admin.components.show-row', [
-                    'name'  => 'owner',
-                    'value' => $award->owner->username
-                ])
-            @endif
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $award->owner->username,
+                'hide'  => !$isRootAdmin,
+            ])
 
             @include('admin.components.show-row', [
                 'name'  => 'name',

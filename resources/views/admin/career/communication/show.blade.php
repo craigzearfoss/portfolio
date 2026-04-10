@@ -49,12 +49,11 @@
             'hide'  => !$isRootAdmin,
         ])
 
-        @if($isRootAdmin)
-            @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $communication->owner->username,
-            ])
-        @endif
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $communication->owner->username,
+            'hide'  => !$isRootAdmin,
+        ])
 
         @php
             $application = !empty($communication->application_id)

@@ -128,13 +128,11 @@
                                     'hide'  => !$isRootAdmin,
                                 ])
 
-                                @if($isRootAdmin)
-                                    @include('admin.components.show-row', [
-                                        'name'  => 'owner',
-                                        'value' => $coverLetter->owner->username,
-                                        'hide' => !$isRootAdmin,
-                                    ])
-                                @endif
+                                @include('admin.components.show-row', [
+                                    'name'  => 'owner',
+                                    'value' => $coverLetter->owner->username,
+                                    'hide'  => !$isRootAdmin,
+                                ])
 
                                 @include('admin.components.show-row', [
                                     'name'    => 'application',

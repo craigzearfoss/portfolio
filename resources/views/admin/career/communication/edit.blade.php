@@ -62,14 +62,11 @@
                 'value' => $communication->owner_id
             ])
 
-            <?php /*
-            // you CANNOT change the application for a communication
+            <?php /* note you CANNOT change the application for a communication */ ?>
             @include('admin.components.form-hidden', [
-                'name'    => 'application_id',
-                'value'   => $communication->application_id,
-                'message' => $message ?? '',
+                'name'  => 'application_id',
+                'value' => $communication->application_id,
             ])
-            */ ?>
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'communication_type_id',

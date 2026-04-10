@@ -58,23 +58,14 @@
             <?php /* note that you CANNOT change the owner of a note */ ?>
             @include('admin.components.form-hidden', [
                 'name'  => 'owner_id',
-                'value' => $event->owner_id
-            ])
-
-            <?php /* note that you CANNOT change the owner of a note */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
                 'value' => $note->owner_id
             ])
 
-            <?php /*
-            // you CANNOT change the application for a note
+            <?php /* note you CANNOT change the application for a note */ ?>
             @include('admin.components.form-hidden', [
                 'name'    => 'application_id',
-                'value'   => $communication->application_id,
-                'message' => $message ?? '',
+                'value'   => $note->application_id,
             ])
-            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'subject',

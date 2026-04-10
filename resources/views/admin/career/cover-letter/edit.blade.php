@@ -48,16 +48,11 @@
                 'value' => $coverLetter->owner_id
             ])
 
-            <?php /*
-            // you CANNOT change the application for a cover letter
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'application_id',
-                'label'   => 'application',
-                'value'   => old('application_id') ?? $coverLetter->application_id,
-                'list'    => new Application()->listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+            <?php /* note you CANNOT change the application for a cover letter */ ?>
+            @include('admin.components.form-hidden', [
+                'name'  => 'application_id',
+                'value' => $coverLetter->application_id,
             ])
-            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',

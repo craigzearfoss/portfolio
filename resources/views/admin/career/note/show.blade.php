@@ -49,12 +49,11 @@
             'hide'  => !$isRootAdmin,
         ])
 
-        @if($isRootAdmin)
-            @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $note->owner->username
-            ])
-        @endif
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $note->owner->username,
+            'hide'  => !$isRootAdmin,
+        ])
 
         @php
             $application = !empty($note->application_id)

@@ -52,8 +52,9 @@
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'user name',
-                'value' => $thisAdmin->username
+                'name'  => 'owner',
+                'value' => $thisAdmin->owner->username,
+                'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row', [

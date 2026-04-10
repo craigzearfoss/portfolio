@@ -45,6 +45,12 @@
             ])
 
             @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $publication->owner->username,
+                'hide'  => !$isRootAdmin,
+            ])
+
+            @include('admin.components.show-row', [
                 'name'  => 'title',
                 'value' => $publication->title
             ])

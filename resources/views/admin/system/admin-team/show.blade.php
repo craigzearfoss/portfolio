@@ -45,18 +45,11 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if(!empty($adminTeam->owner))
-                @include('admin.components.show-row-link', [
-                    'name' => 'owner',
-                    'label' => $adminTeam->owner->username,
-                    'href' => route('admin.system.admin.show', $adminTeam->owner)
-                ])
-            @else
-                @include('admin.components.show-row', [
-                    'name'  => 'owner',
-                    'value' => '?'
-                ])
-            @endif
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $adminTeam->owner->username,
+                'hide'  => !$isRootAdmin,
+            ])
 
             @include('admin.components.show-row', [
                 'name'  => 'name',

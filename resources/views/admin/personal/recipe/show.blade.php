@@ -72,12 +72,11 @@
                                     'hide'  => !$isRootAdmin,
                                 ])
 
-                                @if($admin->is_root)
-                                    @include('admin.components.show-row', [
-                                        'name'  => 'owner',
-                                        'value' => $recipe->owner->username ?? ''
-                                    ])
-                                @endif
+                                @include('admin.components.show-row', [
+                                    'name'  => 'owner',
+                                    'value' => $recipe->owner->username,
+                                    'hide'  => !$isRootAdmin,
+                                ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'name',

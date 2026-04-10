@@ -61,14 +61,11 @@
                 'value' => $event->owner_id
             ])
 
-            <?php /*
-            // you CANNOT change the application for a communication
+            <?php /* note you CANNOT change the application for an event */ ?>
             @include('admin.components.form-hidden', [
-                'name'    => 'application_id',
-                'value'   => $Event->application_id,
-                'message' => $message ?? '',
+                'name'  => 'application_id',
+                'value' => $event->application_id,
             ])
-            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
