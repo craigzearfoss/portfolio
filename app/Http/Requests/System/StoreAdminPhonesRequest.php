@@ -7,7 +7,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreAdminPhonesRequest extends FormRequest
 {
@@ -18,10 +20,21 @@ class StoreAdminPhonesRequest extends FormRequest
 
     /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\System\AdminPhone', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+
+        if (!canCreate('App\Models\System\AdminPhone', $this->loggedInAdmin)) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to create admin phone.'
+                    : 'Unauthorized to create admin phone for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+
+        }
 
         return true;
     }

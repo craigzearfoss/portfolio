@@ -24,7 +24,7 @@
 
     </div>
 
-    @if($admin->is_root)
+    @if($isRootAdmin)
 
         <div class="floating-div-container">
             <div class="show-container card floating-div">

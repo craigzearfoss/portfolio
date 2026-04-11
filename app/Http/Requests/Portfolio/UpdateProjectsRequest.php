@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateProjectsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateProjectsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$project = Project::find($this['project']['id']) ) {
-            throw new Exception('Project ' . $this['project']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($project, loggedInAdmin());
+        // verify the project exists
+        $project = Project::query()->findOrFail($this['project']['id']);
+
+        // verify the admin is authorized to update the project
+        if (!$this->loggedInAdmin['is_root'] || (new Project()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update project '. $project['id'] . '.'
+                    : 'Unauthorized to update project '. $project['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateProjectsRequest extends FormRequest
         }
 
         return [
-            'owner_id'         => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'         => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'             => [
                 'filled',
                 'string',
@@ -100,8 +114,10 @@ class UpdateProjectsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the project.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the project.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update project.'
+                . $this['project']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

@@ -9,6 +9,12 @@
     use App\Models\System\Owner;
     use App\Models\System\State;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $application = $application ?? null;
+
     $ownerModel = new Owner();
 
     $title    = $pageTitle ?? 'Add New Application';
@@ -19,7 +25,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->is_root) {
+    if (!empty($owner) && $isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -49,7 +55,7 @@
                 <form id="selectCompanyForm" action="{{ route('admin.career.application.create', request()->all()) }}"
                       method="GET">
 
-                    @if($admin->is_root)
+                    @if($isRootAdmin)
                         @include('admin.components.form-select-horizontal', [
                             'name'     => 'owner_id',
                             'label'    => 'owner',
@@ -105,7 +111,7 @@
                     'value' => referer('admin.career.application.index')
                 ])
 
-                @if($admin->is_root)
+                @if($isRootAdmin)
                     @include('admin.components.form-select-horizontal', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',

@@ -1,6 +1,12 @@
 @php
     use App\Models\System\User;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $userEmail   = $userEmail ?? null;
+
     $title    = $pageTitle ?? ($isRootAdmin ? 'Edit User Email: ' . $userEmail->email : 'Edit Email: ' . $userEmail->email);
     $subtitle = $title;
 

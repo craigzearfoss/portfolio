@@ -1,6 +1,10 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;use App\Models\Career\Communication;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application['name'] . ' application' : '');
     $subtitle = $title;
@@ -54,7 +58,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(empty($application))
@@ -71,7 +75,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(empty($application))
@@ -90,7 +94,7 @@
                 @forelse ($communications as $communication)
 
                     <tr data-id="{{ $communication->id }}">
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $communication->owner->username }}
                             </td>
@@ -186,7 +190,7 @@
 
                     <tr>
                         @php
-                            $colspan = $admin->is_root ? '5' : '4';
+                            $colspan = $isRootAdmin ? '5' : '4';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">No communications found.</td>

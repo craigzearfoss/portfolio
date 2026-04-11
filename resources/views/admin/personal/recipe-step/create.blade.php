@@ -2,6 +2,12 @@
     use App\Models\Personal\Recipe;
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $recipeStep  = $recipeStep ?? null;
+
     $title    = $pageTitle ?? 'Add New Recipe Step';
     $subtitle = $title;
 

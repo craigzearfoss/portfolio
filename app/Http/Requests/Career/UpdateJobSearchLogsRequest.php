@@ -25,11 +25,19 @@ class UpdateJobSearchLogsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$job_search_log = JobSearchLog::query()->find($this['job_search_log']['id']) ) {
-            throw new Exception('Job search log ' . $this['job_search_log']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($job_search_log, loggedInAdmin());
+        // verify the job search log exists
+        $jobSearchLog = JobSearchLog::query()->findOrFail($this['job_search_log']['id']);
+
+        // verify the admin is authorized to update the job search log
+        if (!$this->loggedInAdmin['is_root'] || (new JobSearchLog()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update job search log entry '. $jobSearchLog['id'] . '.'
+                    : 'Unauthorized to update job search log entry'. $jobSearchLog['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -42,7 +50,14 @@ class UpdateJobSearchLogsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'         => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'         => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
+            'owner_id.exists'  => 'The specified owner does not exist.',
+            'owner_id.in'      => 'Unauthorized to update joo search log '
+                . $this['job_search_log']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'message'          => ['filled', 'string', 'max:500'],
             'time_logged'      => ['filled', 'date_format:Y-m-d H:i:s'],
             'application_id'   => ['integer', 'exists:career_db.applications,id', 'nullable'],
@@ -58,27 +73,17 @@ class UpdateJobSearchLogsRequest extends FormRequest
     }
 
     /**
-     * Verifies the job search log exists and the owner is authorized to update it.
+     * Return error messages.
      *
-     * @return void
-     * @throws ValidationException
+     * @return string[]
      */
-    protected function validateAuthorization(): void
+    public function messages(): array
     {
-        // verify the job search log exists
-        if (!JobSearchLog::find($this['job_search_log']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Job search log ' . $this['job_search_log']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the job search log
-        if (!$this->loggedInAdmin['is_root'] || (new JobSearchLog()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update job search log '. $this['job_search_log']['id'] . '.'
-                    : 'Unauthorized to update job search log '. $this['job_search_log']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
-            ]);
-        }
+        return [
+            'owner_id.filled'   => 'Please select an owner for the job search log.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update job search log '
+                . $this['job_search_log']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+        ];
     }
 }

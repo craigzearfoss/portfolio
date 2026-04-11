@@ -1,5 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $thisUser    = $thisUser ?? null;
 
     $title    = $pageTitle ?? 'User: ' . $thisUser->username;
     $subtitle = $title;
@@ -24,7 +28,7 @@
     if (canCreate($thisUser, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User',
                                                                'href' => route('admin.system.user.create',
-                                                                               $admin->is_root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }

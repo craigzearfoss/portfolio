@@ -1,6 +1,10 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Career\CoverLetter;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Cover Letters';
     $subtitle = $title;
@@ -43,7 +47,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>company</th>
@@ -59,7 +63,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>company</th>
@@ -77,7 +81,7 @@
                 @forelse ($coverLetters as $coverLetter)
 
                     <tr data-id="{{ $coverLetter->id }}">
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $coverLetter->owner->username }}
                             </td>
@@ -154,7 +158,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">No cover letters found.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No cover letters found.</td>
                     </tr>
 
                 @endforelse

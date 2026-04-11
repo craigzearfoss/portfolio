@@ -1,7 +1,13 @@
 @php
     use App\Models\System\User;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Edit User Phone: ' . $adminPhone->phone : 'Edit Phone: ' . $adminPhone->phone);
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $userPhone   = $userPhone ?? null;
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Edit User Phone: ' . $userPhone->phone : 'Edit Phone: ' . $userPhone->phone);
     $subtitle = $title;
 
     // set breadcrumbs

@@ -1,6 +1,12 @@
 @php
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
+    $adminEmail    = $adminEmail ?? null;
+
     $title    = $pageTitle ?? ($isRootAdmin ? 'Add New Admin Email Address' : 'Add New Email Address');
     $subtitle = $title;
 

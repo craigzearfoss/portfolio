@@ -1,6 +1,11 @@
 @php
     use App\Models\System\Admin;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     $title    = $pageTitle ?? 'Log';
     $subtitle = $title;
 
@@ -59,7 +64,7 @@
                 ])
             </div>
             <div class="control">
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'name'     => 'ip_address',
                     'label'    => 'ip address',
                     'value'    => Request::get('ip_address'),

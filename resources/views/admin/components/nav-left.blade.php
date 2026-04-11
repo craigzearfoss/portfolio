@@ -34,7 +34,7 @@
             <?php /*
             <div class="has-text-light">admins</div>
 
-            @include('admin.components.form-select-nolabel', [
+            @include('admin.components.select-list', [
                 'value'    => $owner->id ?? '',
                 'list'     => new Owner()->listOptions([], 'id', 'name', true, false, ['name', 'asc']),
                 'style'    => 'font-size: 1.1rem; font-weight: 700',

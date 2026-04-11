@@ -7,7 +7,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreJobsRequest extends FormRequest
 {
@@ -18,10 +20,21 @@ class StoreJobsRequest extends FormRequest
 
     /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\Portfolio\Job', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+
+        if (!canCreate('App\Models\Portfolio\Job', $this->loggedInAdmin)) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to create job.'
+                    : 'Unauthorized to create job  for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+
+        }
 
         return true;
     }

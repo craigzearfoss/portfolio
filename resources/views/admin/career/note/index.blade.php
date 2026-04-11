@@ -1,6 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Note;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -54,7 +57,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(!empty($application))
@@ -70,7 +73,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(!empty($application))
@@ -88,7 +91,7 @@
                 @forelse ($notes as $note)
 
                     <tr data-id="{{ $note->id }}">
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $note->owner->username ?? '' }}
                             </td>
@@ -166,7 +169,7 @@
 
                     <tr>
                         @php
-                            $colspan = $admin->is_root ? '4' : '3';
+                            $colspan = $isRootAdmin ? '4' : '3';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">No notes found.</td>

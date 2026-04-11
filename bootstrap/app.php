@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -29,5 +31,13 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        if (App::environment('production')) {
+            // don't show detailed model not found message in production
+            $exceptions->map(
+                ModelNotFoundException::class,
+                function (ModelNotFoundException $exception): NotFoundHttpException {
+                    return new NotFoundHttpException("Not found.", $exception);
+                }
+            );
+        }
     })->create();

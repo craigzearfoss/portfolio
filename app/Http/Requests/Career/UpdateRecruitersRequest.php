@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Event;
 use App\Models\Career\Recruiter;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -24,13 +25,12 @@ class UpdateRecruitersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$recruiter = Recruiter::query()->find($this['recruiter']['id']) ) {
-            throw new Exception('Recruiter ' . $this['recruiter']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($recruiter, loggedInAdmin());
+        // verify the recruiter exists
+        $recruiter = Event::query()->findOrFail($this['recruiter']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

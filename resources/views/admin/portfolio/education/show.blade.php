@@ -1,6 +1,11 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use Illuminate\Support\Carbon;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $education   = $education ?? null;
 
     $title    = $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major;
     $subtitle = $title;

@@ -2,6 +2,12 @@
     use App\Models\Career\Resume;
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $resume      = $resume ?? null;
+
     $title    = $pageTitle ??  'Add Resume' . (!empty($application) ? ' to ' . $application->name . ' application' : '');
     $subtitle = $title;
 
@@ -44,7 +50,7 @@
                 'value' => referer('admin.career.resume.index')
             ])
 
-            @if($admin->is_root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

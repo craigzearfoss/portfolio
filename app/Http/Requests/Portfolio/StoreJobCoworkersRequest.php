@@ -7,7 +7,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreJobCoworkersRequest extends FormRequest
 {
@@ -18,10 +20,21 @@ class StoreJobCoworkersRequest extends FormRequest
 
     /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\Portfolio\JobCoworker', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+
+        if (!canCreate('App\Models\Portfolio\JobCoworker', $this->loggedInAdmin)) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to create job coworker.'
+                    : 'Unauthorized to create job coworker for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+
+        }
 
         return true;
     }

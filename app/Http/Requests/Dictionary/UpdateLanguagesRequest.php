@@ -28,13 +28,12 @@ class UpdateLanguagesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$language = Language::query()->find($this['language']['id']) ) {
-            throw new Exception('Language ' . $this['language']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($language, loggedInAdmin());
+        // verify the dictionary language exists
+        $language = Language::query()->findOrFail($this['language']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateLanguagesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary language.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary language '
+                . $this['language']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateLanguagesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary language exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary language exists
-        if (!Language::find($this['language']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary language ' . $this['language']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary language
-        if (!$this->loggedInAdmin['is_root'] || (new Language()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary language '. $this['language']['id'] . '.'
-                    : 'Unauthorized to update dictionary language '. $this['language']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $this->loggedInAdmin['id'])
             ]);
         }
     }

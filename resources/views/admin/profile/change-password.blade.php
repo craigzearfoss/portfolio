@@ -1,4 +1,9 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     $title    = $pageTitle ?? 'Change Password';
     $subtitle = $title;
 
@@ -36,7 +41,7 @@
 
             <div class="column">
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'type'        => 'password',
                     'name'        => 'password',
                     'label'       => 'Password',
@@ -47,7 +52,7 @@
                     'message'     => $message ?? '',
                 ])
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'type'        => 'password',
                     'name'        => 'confirm_password',
                     'label'       => 'Confirm Password',

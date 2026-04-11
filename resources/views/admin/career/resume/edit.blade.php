@@ -1,8 +1,13 @@
 @php
     use App\Models\Career\Resume;
-    use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $resume      = $resume ?? null;
+
+    $title    = $pageTitle ?? 'Edit Resume' . (!empty($resume) ? ' for ' . $resume->name . ' application' : '');
     $subtitle = $title;
 
     // set breadcrumbs

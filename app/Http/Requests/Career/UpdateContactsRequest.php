@@ -20,17 +20,32 @@ class UpdateContactsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the contact.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$contact = Contact::find($this['contact']['id']) ) {
-            throw new Exception('Contact ' . $this['contact']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($contact, loggedInAdmin());
+        // verify the contact exists
+        $contact = Contact::query()->findOrFail($this['contact']['id']);
+
+        // verify the admin is authorized to update the contact
+        if (!$this->loggedInAdmin['is_root'] || (new Contact()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update contact '. $contact['id'] . '.'
+                    : 'Unauthorized to update contact '. $contact['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +63,11 @@ class UpdateContactsRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'            => [
                 'filled',
                 'string',
@@ -116,6 +135,8 @@ class UpdateContactsRequest extends FormRequest
         return [
             'owner_id.filled'   => 'Please select an owner for the contact.',
             'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update contact '
+                . $this['contact']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
@@ -129,39 +150,10 @@ class UpdateContactsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.contacts', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the contact exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the contact exists
-        if (!Contact::find($this['contact']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Contact ' . $this['contact']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the contact
-        if (!$this->loggedInAdmin['is_root'] || (new Contact()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update contact '. $this['contact']['id'] . '.'
-                    : 'Unauthorized to update contact '. $this['contact']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'career_db.contacts', $this->loggedInAdmin['id']),
             ]);
         }
     }

@@ -4,6 +4,12 @@
     use App\Models\System\Country;
     use App\Models\System\State;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $thisAdmin   = $thisAdmin ?? null;
+
     $title    = $pageTitle ?? 'Create New Admin';
     $subtitle = $title;
 

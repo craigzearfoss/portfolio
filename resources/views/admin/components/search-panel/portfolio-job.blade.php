@@ -67,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',
@@ -78,7 +78,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',

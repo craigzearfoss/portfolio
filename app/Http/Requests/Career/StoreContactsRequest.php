@@ -7,7 +7,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreContactsRequest extends FormRequest
 {
@@ -17,11 +19,29 @@ class StoreContactsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the contact.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\Career\Contact', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+
+        if (!canCreate('App\Models\Career\Contact', $this->loggedInAdmin)) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to create contact.'
+                    : 'Unauthorized to create contact for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+
+        }
 
         return true;
     }

@@ -8,6 +8,8 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -21,10 +23,21 @@ class StoreFrameworksRequest extends FormRequest
 
     /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\Dictionary\Framework', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+
+        if (!canCreate('App\Models\Dictionary\Framework', $this->loggedInAdmin)) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to create dictionary framework.'
+                    : 'Unauthorized to create dictionary framework for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+
+        }
 
         return true;
     }

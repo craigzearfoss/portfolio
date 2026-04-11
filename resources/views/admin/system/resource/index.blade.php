@@ -1,5 +1,8 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Resources';
     $subtitle = $title;
@@ -37,7 +40,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>database</th>
@@ -60,7 +63,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin))
                             <th>owner</th>
                         @endif
                         <th>database</th>
@@ -85,7 +88,7 @@
                 @forelse ($resources as $resource)
 
                     <tr data-id="{{ $resource->id }}">
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($resource->owner))
                                     @include('admin.components.link', [
@@ -166,7 +169,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '15' : '14' }}">No resources found.</td>
+                        <td colspan="{{ $isRootAdmin ? '15' : '14' }}">No resources found.</td>
                     </tr>
 
                 @endforelse

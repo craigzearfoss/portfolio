@@ -1,4 +1,10 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $envSettings = $envSettings ?? null;
+
     $title    = $pageTitle ?? 'Settings';
     $subtitle = $title;
 

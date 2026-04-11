@@ -4,11 +4,14 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Models\System\UserEmail;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateUserEmailsRequest extends FormRequest
 {
@@ -18,19 +21,39 @@ class UpdateUserEmailsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$user_email = UserEmail::query()->find($this['user_email']['id']) ) {
-            throw new Exception('User email ' . $this['user_email']['id'] . ' not found');
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
+
+        // verify the user email exists
+        $userEmail = UserEmail::query()->findOrFail($this['user_email']['id']);
+
+        if (canUpdate($userEmail, $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (canUpdate($userEmail, $this->loggedInUser)) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update user email ' . $userEmail['id'] . '.'
+                    : 'Unauthorized to update user email ' . $userEmail['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+            ]);
         }
-
-        updateGate($user_email, loggedInAdmin());
-
-        return true;
     }
 
     /**

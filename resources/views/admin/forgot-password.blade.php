@@ -38,7 +38,7 @@
 
             <div class="column">
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'type'        => 'email',
                     'name'        => 'email',
                     'placeholder' => 'Email',

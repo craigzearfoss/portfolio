@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 
 class StoreUsersRequest extends FormRequest
 {
@@ -20,13 +21,34 @@ class StoreUsersRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\System\User', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
 
-        return true;
+        if (canCreate('App\Models\System\User', $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (canCreate('App\Models\System\User', $this->loggedInUser)) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Unauthorized to create user.'
+            ]);
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Event;
 use App\Models\Career\Industry;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -26,13 +27,12 @@ class UpdateIndustriesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$industry = Industry::query()->find($this['industry']['id']) ) {
-            throw new Exception('Industry ' . $this['industry']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($industry, loggedInAdmin());
+        // verify the industry exists
+        $industry = Event::query()->findOrFail($this['industry']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

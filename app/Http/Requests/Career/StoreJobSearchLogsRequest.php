@@ -6,6 +6,8 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -18,11 +20,29 @@ class StoreJobSearchLogsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the job search log entry.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\Career\JobSearchLog', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+
+        if (!canCreate('App\Models\Career\JobSearchLog', $this->loggedInAdmin)) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to create job search log entry.'
+                    : 'Unauthorized to create job search log entry for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+
+        }
 
         return true;
     }

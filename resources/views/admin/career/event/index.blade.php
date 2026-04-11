@@ -1,8 +1,12 @@
 @php
     use Carbon\Carbon;
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Event;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;

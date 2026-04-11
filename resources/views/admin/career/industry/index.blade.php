@@ -1,5 +1,10 @@
 @php
-    use App\Enums\PermissionEntityTypes;use App\Models\Career\Industry;
+    use App\Models\Career\Industry;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Industries';
     $subtitle = $title;

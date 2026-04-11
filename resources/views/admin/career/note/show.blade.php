@@ -1,6 +1,11 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $note        = $note ?? null;
 
     $title    = $pageTitle ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;

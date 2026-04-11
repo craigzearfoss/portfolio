@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateArtRequest extends FormRequest
 {
@@ -18,17 +20,34 @@ class UpdateArtRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$art = Art::query()->find($this['art']['id']) ) {
-            throw new Exception('Art ' . $this['art']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($art, loggedInAdmin());
+        if (!$this->ownerId = $this['owner_id'] ?? null) {
+            throw ValidationException::withMessages(['GLOBAL' => 'Now owner_id specified']);
+        };
+
+        // verify the art exists
+        $art = Art::query()->findOrFail($this['art']['id']);
+
+        // verify the admin is authorized to update the art
+        if (!$this->loggedInAdmin['is_root'] || (new Art()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update art '. $art['id'] . '.'
+                    : 'Unauthorized to update art '. $art['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -47,7 +66,11 @@ class UpdateArtRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'         => ['filled', 'string', 'max:255'],
             'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => [
@@ -91,6 +114,8 @@ class UpdateArtRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the art.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update art.'
+                . $this['art']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

@@ -3,7 +3,7 @@
     $posted_to   = $posted_to ?? request()->query('posted_to');
 @endphp
 <div class="search-form-control">
-    @include('admin.components.input-basic', [
+    @include('admin.components.form-input-with-icon', [
         'type'     => 'date',
         'name'     => 'posted_from',
         'label'    => 'posted from',
@@ -12,7 +12,7 @@
     ])
 </div>
 <div class="search-form-control">
-    @include('admin.components.input-basic', [
+    @include('admin.components.form-input', [
         'type'     => 'date',
         'name'     => 'posted_to',
         'label'    => 'posted to',

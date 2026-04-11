@@ -1,7 +1,13 @@
 @php
     use App\Models\Dictionary\Category;
     use App\Models\Portfolio\Job;
-    use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $job         = $job ?? null;
+    $jobSkill    = $jobSkill ?? null;
 
     $title    = $pageTitle ?? 'Job Skill Edit: ' . $jobSkill->name;
     $subtitle = $title;
@@ -77,7 +83,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-with-icon', [
                 'type'      => 'hidden',
                 'name'      => 'dictionary_term_id',
                 'value'     => old('dictionary_term_id') ?? $jobSkill->dictionary_term_id,

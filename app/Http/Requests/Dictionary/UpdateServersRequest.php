@@ -6,6 +6,7 @@ use App\Models\Dictionary\Server;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
+use http\Env\Request;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
@@ -28,13 +29,12 @@ class UpdateServersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$server = Server::find($this['server']['id']) ) {
-            throw new Exception('Server ' . $this['server']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($server, loggedInAdmin());
+        // verify the dictionary server exists
+        $server = Server::query()->findOrFail($this['server']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +79,10 @@ class UpdateServersRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary server.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary server.'
+                . $this['server']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +90,13 @@ class UpdateServersRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary server exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary server exists
-        if (!Server::find($this['server']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary server ' . $this['server']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary server
-        if (!$this->loggedInAdmin['is_root'] || (new Server()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary server '. $this['server']['id'] . '.'
-                    : 'Unauthorized to update dictionary server '. $this['server']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->loggedInAdmin['id'])
             ]);
         }
     }

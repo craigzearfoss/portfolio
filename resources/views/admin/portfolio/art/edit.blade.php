@@ -1,5 +1,9 @@
 @php
-    use App\Models\System\Owner;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $art         = $art ?? null;
 
     $title    = $pageTitle ?? 'Edit Art: ' . $art->name;
 

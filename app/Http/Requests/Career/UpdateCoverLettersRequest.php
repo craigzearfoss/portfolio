@@ -20,17 +20,32 @@ class UpdateCoverLettersRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the communication.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$cover_letter = CoverLetter::find($this['cover_letter']['id']) ) {
-            throw new Exception('Cover letter ' . $this['cover_letter']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($cover_letter, loggedInAdmin());
+        // verify the cover letter exists
+        $coverLetter = CoverLetter::query()->findOrFail($this['event']['id']);
+
+        // verify the admin is authorized to update the cover letter
+        if (!$this->loggedInAdmin['is_root'] || (new CoverLetter()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update cover letter '. $coverLetter['id'] . '.'
+                    : 'Unauthorized to update cover letter '. $coverLetter['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,13 +63,16 @@ class UpdateCoverLettersRequest extends FormRequest
         }
 
         return [
-            'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'          => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             /*
             // you CANNOT change the application for a cover letter
             'application_id'    => [
                 'filled',
                 'integer',
-                'exists:career_db.applications,id',
                 Rule::unique('career_db.cover_letters', 'application_id')->where(function ($query) {
                     return $query->where('application_id', $this['application_id'])
                         ->whereNot('id', $this['cover_letter']['id']);
@@ -114,8 +132,11 @@ class UpdateCoverLettersRequest extends FormRequest
         return [
             'owner_id.filled'       => 'Please select an owner for the cover letter.',
             'owner_id.exists'       => 'The specified owner does not exist.',
+            'owner_id.in'           => 'Unauthorized to update cover letter '
+                . $this['communication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'application_id.filled' => 'Please select an application for the cover letter.',
             'application_id.exists' => 'The specified application does not exist.',
+            'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
             'application_id.unique' => 'Application already has a cover letter.  Edit it to make changes.',
             'name.unique'           => 'There is already a cover letter with the same name for this date.',
             'slug.unique'           => 'There is already a cover letter with the same slug for this date.'
@@ -145,31 +166,6 @@ class UpdateCoverLettersRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'career_db.cover_letters', $this['slug'])
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the cover letter exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the cover letter exists
-        if (!CoverLetter::find($this['cover_letter']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Cover letter ' . $this['cover_letter']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the cover letter
-        if (!$this->loggedInAdmin['is_root'] || (new CoverLetter()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update cover letter '. $this['cover_letter']['id'] . '.'
-                    : 'Unauthorized to update cover letter '. $this['cover_letter']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

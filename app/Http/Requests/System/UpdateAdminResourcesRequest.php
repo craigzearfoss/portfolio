@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use App\Models\System\Resource;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -27,11 +29,19 @@ class UpdateAdminResourcesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_resource = AdminResource::query()->find($this['admin_resource']['id']) ) {
-            throw new Exception('Admin resource ' . $this['admin_resource']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin_resource, loggedInAdmin());
+        // verify the admin resource exists
+        $adminResource = AdminResource::query()->findOrFail($this['admin_resource']['id']);
+
+        // verify the admin is authorized to update the admin resource
+        if (!$this->loggedInAdmin['is_root'] || (new AdminResource()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin resource '. $adminResource['id'] . '.'
+                    : 'Unauthorized to update admin resource '. $adminResource['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +59,11 @@ class UpdateAdminResourcesRequest extends FormRequest
         }
 
         return [
-            'admin_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'admin_id'          => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'resource_id'       => [
                 'filled',
                 'integer',
@@ -117,8 +131,10 @@ class UpdateAdminResourcesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.exists'    => 'Owner not found.',
-            'owner_id.filled'    => 'Owner not specified.',
+            'owner_id.filled'    => 'Please select an owner for the admin resource.',
+            'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.in'        => 'Unauthorized to update admin resource.'
+                . $this['admin_resource']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'resource_id.filled' => 'Resource not specified.',
             'resource_id.exists' => 'Resource not found.',
             'resource_id.unique' => 'Owner already has an entry for the specified resource.',

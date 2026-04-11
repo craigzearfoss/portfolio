@@ -23,13 +23,12 @@ class UpdateSettingTypesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$setting_type = SettingType::query()->find($this['setting_type']['id']) ) {
-            throw new Exception('Setting type ' . $this['setting_type']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($setting_type, loggedInAdmin());
+        // verify the setting type exists
+        $settingType = SettingType::query()->findOrFail($this['setting_type']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

@@ -66,7 +66,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -93,7 +93,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'type'    => 'number',
                                 'name'    => 'min_years',
                                 'label'    => 'min years',

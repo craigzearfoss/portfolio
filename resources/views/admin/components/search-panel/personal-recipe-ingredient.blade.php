@@ -65,7 +65,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'ingredient_name',
                                 'label'   => 'ingredient',
                                 'value'   => $ingredient_name,
@@ -77,7 +77,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'recipe_name',
                                 'label'   => 'recipe',
                                 'value'   => $recipe_name,

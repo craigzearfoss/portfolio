@@ -92,7 +92,7 @@
 
                         @if($isRootAdmin || $applicationCount > 20)
                             <div class="search-form-control">
-                                @include('admin.components.input-basic', [
+                                @include('admin.components.form-input-with-icon', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,
@@ -109,7 +109,7 @@
                         <div class="search-form-control">
                             @if($isRootAdmin || $companyCount > 20)
                                 <div class="search-form-control">
-                                    @include('admin.components.input-basic', [
+                                    @include('admin.components.form-input-with-icon', [
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
@@ -127,7 +127,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -135,7 +135,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'description',
                                 'value'   => $description,
                                 'message' => $message ?? '',
@@ -146,7 +146,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'location',
                                 'value'   => $location,
                                 'message' => $message ?? '',
@@ -154,7 +154,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'attendees',
                                 'value'   => $attendees,
                                 'message' => $message ?? '',
@@ -165,7 +165,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'type'    => 'date',
                                 'name'    => 'date_from',
                                 'label'   => 'from date',
@@ -175,7 +175,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'type'    => 'date',
                                 'name'    => 'date_to',
                                 'label'   => 'to date',
@@ -188,7 +188,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'type'    => 'time',
                                 'name'    => 'time_from',
                                 'label'   => 'from time',
@@ -198,7 +198,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'type'    => 'time',
                                 'name'    => 'time_to',
                                 'label'   => 'to time',

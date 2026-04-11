@@ -20,17 +20,32 @@ class UpdateCompaniesRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the company.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$company = Company::find($this['company']['id']) ) {
-            throw new Exception('Company ' . $this['company']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($company, loggedInAdmin());
+        // verify the company exists
+        $company = Company::query()->findOrFail($this['company']['id']);
+
+        // verify the admin is authorized to update the company
+        if (!$this->loggedInAdmin['is_root'] || (new Company()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update company '. $company['id'] . '.'
+                    : 'Unauthorized to update company '. $company['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +63,11 @@ class UpdateCompaniesRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'            => [
                 'filled',
                 'string',
@@ -116,6 +135,8 @@ class UpdateCompaniesRequest extends FormRequest
         return [
             'owner_id.filled'    => 'Please select an owner for the company.',
             'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.in'        => 'Unauthorized to update company '
+                . $this['company']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'industry_id.filled' => 'Please select an industry for the company.',
             'industry_id.exists' => 'The specified industry does not exist.',
             'state_id.exists'    => 'The specified state does not exist.',
@@ -131,39 +152,10 @@ class UpdateCompaniesRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.companies', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the company exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the company exists
-        if (!Company::find($this['company']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Company ' . $this['company']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the company
-        if (!$this->loggedInAdmin['is_root'] || (new Company()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update company '. $this['company']['id'] . '.'
-                    : 'Unauthorized to update company '. $this['company']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'career_db.companies', $this->loggedInAdmin['id']),
             ]);
         }
     }

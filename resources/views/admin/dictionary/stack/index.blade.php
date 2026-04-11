@@ -1,8 +1,11 @@
 @php
-    use App\Enums\EnvTypes;
-    use App\Enums\PermissionEntityTypes;
-    use App\Models\Dictionary\DictionarySection;
     use App\Models\Dictionary\Stack;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $stack       = $stack ?? null;
 
     $title    = 'Dictionary (stacks)';
     $subtitle = $title;

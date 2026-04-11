@@ -1,8 +1,11 @@
 @php
-    use App\Enums\PermissionEntityTypes;
-    use App\Models\System\UserPhone;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $userPhone   = $userPhone ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'User Phone: ' . $adminPhone->phone : 'Phone: ' . $adminPhone->phone);
+    $title    = $pageTitle ?? ($isRootAdmin ? 'User Phone: ' . $userPhone->phone : 'Phone: ' . $userPhone->phone);
     $subtitle = $title;
 
     // set breadcrumbs

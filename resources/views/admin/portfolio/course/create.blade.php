@@ -5,6 +5,12 @@
     $title    = $pageTitle ?? 'Add New Course';
     $subtitle = $title;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $course      = $course ?? null;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -75,7 +81,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
-                'value'     => old('name') ?? '',
+                'value'     => old('summary') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

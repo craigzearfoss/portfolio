@@ -8,6 +8,8 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAdminEmailsRequest extends FormRequest
 {
@@ -23,11 +25,19 @@ class UpdateAdminEmailsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_email = AdminEmail::query()->find($this['admin_email']['id']) ) {
-            throw new Exception('Admin email ' . $this['admin_email']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin_email, loggedInAdmin());
+        // verify the admin email exists
+        $adminEmail = AdminEmail::query()->findOrFail($this['admin_email']['id']);
+
+        // verify the admin is authorized to update the admin email
+        if (!$this->loggedInAdmin['is_root'] || (new AdminEmail()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin email '. $adminEmail['id'] . '.'
+                    : 'Unauthorized to update admin email '. $adminEmail['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -40,7 +50,11 @@ class UpdateAdminEmailsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'email'        => ['filled', 'string', 'lowercase', 'email', 'max:255'],
             'label'        => ['string', 'max:100', 'nullable'],
             'description'  => ['nullable'],
@@ -52,5 +66,45 @@ class UpdateAdminEmailsRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled' => 'Please select an owner for the admin email.',
+            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update admin email'
+                . $this['admin_email']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+        ];
+    }
+
+    /**
+     * Verifies the admin email exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the admin email exists
+        if (!AdminEmail::find($this['admin_email']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Admin email ' . $this['admin_email']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the admin email
+        if (!$this->loggedInAdmin['is_root'] || (new AdminEmail()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin email '. $this['admin_email']['id'] . '.'
+                    : 'Unauthorized to update admin email '. $this['admin_email']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
     }
 }

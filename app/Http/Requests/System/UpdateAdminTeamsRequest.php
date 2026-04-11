@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAdminTeamsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateAdminTeamsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_team = AdminTeam::query()->find($this['admin_team']['id']) ) {
-            throw new Exception('Admin team ' . $this['admin_team']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin_team, loggedInAdmin());
+        // verify the admin team exists
+        $adminTeam = AdminTeam::query()->findOrFail($this['admin_team']['id']);
+
+        // verify the admin is authorized to update the admin team
+        if (!$this->loggedInAdmin['is_root'] || (new AdminTeam()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin team '. $adminTeam['id'] . '.'
+                    : 'Unauthorized to update admin team '. $adminTeam['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -45,7 +55,11 @@ class UpdateAdminTeamsRequest extends FormRequest
             throw new Exception('No owner_id specified.');
         }
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'         => [
                 'filled',
                 'string',
@@ -97,8 +111,10 @@ class UpdateAdminTeamsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the admin team.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the admin team.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update admin team.'
+                . $this['admin_team']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

@@ -28,13 +28,12 @@ class UpdateDatabasesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$database = Database::query()->find($this['database']['id']) ) {
-            throw new Exception('Database ' . $this['database']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($database, loggedInAdmin());
+        // verify the dictionary database exists
+        $database = Database::query()->findOrFail($this['database']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateDatabasesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary database.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary database.'
+                . $this['database']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateDatabasesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary database exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary database exists
-        if (!Database::find($this['database']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary database ' . $this['database']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary database
-        if (!$this->loggedInAdmin['is_root'] || (new Database()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary database '. $this['database']['id'] . '.'
-                    : 'Unauthorized to update dictionary database '. $this['database']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->loggedInAdmin['id'])
             ]);
         }
     }

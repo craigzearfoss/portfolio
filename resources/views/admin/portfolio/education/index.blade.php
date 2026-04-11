@@ -2,6 +2,11 @@
     use App\Models\Portfolio\Education;
     use Illuminate\Support\Carbon;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     $title    = $pageTitle ?? 'Education';
     $subtitle = $title;
 

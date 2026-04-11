@@ -4,8 +4,12 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
+use App\Models\System\UserEmail;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 class StoreUserEmailsRequest extends FormRequest
 {
@@ -15,13 +19,34 @@ class StoreUserEmailsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\System\UserEmail', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
 
-        return true;
+        if (canCreate('App\Models\System\UserEmail', $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (canCreate('App\Models\System\UserEmail', $this->loggedInUser)) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Unauthorized to create user email.'
+            ]);
+        }
     }
 
     /**

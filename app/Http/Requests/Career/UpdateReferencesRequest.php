@@ -27,11 +27,19 @@ class UpdateReferencesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$reference = Reference::query()->find($this['reference']['id']) ) {
-            throw new Exception('Recruiter ' . $this['reference']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($reference, loggedInAdmin());
+        // verify the reference exists
+        $reference = Reference::query()->findOrFail($this['reference']['id']);
+
+        // verify the admin is authorized to update the reference
+        if (!$this->loggedInAdmin['is_root'] || (new Reference()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update reference '. $reference['id'] . '.'
+                    : 'Unauthorized to update reference '. $reference['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +57,11 @@ class UpdateReferencesRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'            => [
                 'filled',
                 'string',
@@ -124,6 +136,8 @@ class UpdateReferencesRequest extends FormRequest
         return [
             'owner_id.filled'   => 'Please select an owner for the reference.',
             'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update reference '
+                . $this['reference']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
@@ -137,39 +151,10 @@ class UpdateReferencesRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.references', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the reference exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the reference exists
-        if (!Reference::find($this['reference']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Reference ' . $this['reference']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the reference
-        if (!$this->loggedInAdmin['is_root'] || (new Reference()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update reference '. $this['reference']['id'] . '.'
-                    : 'Unauthorized to update reference '. $this['reference']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->loggedInAdmin['id']),
             ]);
         }
     }

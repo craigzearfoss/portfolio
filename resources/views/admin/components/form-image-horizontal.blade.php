@@ -74,7 +74,7 @@
             <div class="content mb-0 mr-2">
                 <div class="control">
 
-                    @include('admin.components.form-input', [
+                    @include('admin.components.form-input-with-icon', [
                         'name'      => 'image_credit',
                         'label'     =>  '',
                         'value'     => $credit,
@@ -95,7 +95,7 @@
             <div class="content mb-0 ">
                 <div class="control">
 
-                    @include('admin.components.form-input', [
+                    @include('admin.components.form-input-with-icon', [
                         'name'        => 'image_source',
                         'label'       =>  '',
                         'value'       => $source,

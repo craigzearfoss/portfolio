@@ -1,15 +1,22 @@
 @php
-    $name    = !empty($name) ? $name : '';
-    $id      = !empty($id) ? $id : ('input' . (!empty($name) ? ucfirst(trim($name, '#')) : 'Name'));
-    $type    = !empty($type) ? $type : 'text';
-    $label   = !empty($label) ? $label : (!empty($name) ? $name : '');
+    $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $name  = $name ?? null;
+    $label = $label ?? $name ?? null;
+    $title = $title ?? null;
     $value   = $value ?? '';
-    $class   = !empty($class) ? $class : '';
-    if (!empty($style)) {
-        $style = is_array($style) ? implode('; ', $style) . ';' : $style;
-    } else {
-        $style = '';
-    }
+
+    $type    = !empty($type) ? $type : 'text';
+
+    $required = $required ?? false;
+
+    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    if (!in_array('input', $class)) $class[] = 'input';
+
+    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+
+    $labelClass = [ 'label' ];
+    if ($required && !in_array('label-required', $labelClass)) $labelClass[] = 'label-required';
+
     $hasIcon = in_array($name, [
         'username',
         'password', 'confirm_password',
@@ -21,31 +28,51 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        @if($label !== '-')<label class="label" for="{{ $id }}">{!! $label !!}</label> @endif
+
+        @if(isset($label) && ($label === '') )
+        @else
+
+            <label
+                @if($id)
+                   for="{{ $id }}"
+                @endif
+                class="{{ implode(' ', $labelClass) }}"
+                @if($title)
+                    title="{{ $title }}"
+                @endif
+            >
+                {!! $label ?? $name !!}
+            </label>
+
+        @endif
+
     </div>
     <div class="field-body">
         <div class="field">
             <div class="control {{ !empty($hasIcon) ? 'has-icons-left' : '' }}">
-                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
-                       type="{{ $type }}"
-                       id="{!! $id !!}"
-                       name="{!! $name !!}"
-                       value="{!! $value !!}"
-                       style="{{ $style }}"
-                       @if (!empty($autocomplete))autocomplete="{{ $autocomplete }}" @endif
-                       @if (!empty($autofocus))autofocus @endif
-                       @if (!empty($disabled))disabled @endif
-                       @if (!empty($form))form="{!! $form !!}" @endif
-                       @if (!empty($height))height="{{ $height }}" @endif
-                       @if (!empty($max))max="{{ $max }}" @endif
-                       @if (!empty($maxlength))maxlength="{{ $maxlength }}" @endif
-                       @if (!empty($min))min="{{ $min }}" @endif
-                       @if (!empty($minlength))minlength="{{ $minlength }}" @endif
-                       @if (!empty($placeholder))placeholder="{!! $placeholder !!}" @endif
-                       @if (!empty($readonly))readonly @endif
-                       @if (!empty($required))required @endif
-                       @if (!empty($width))width="{{ $width }}" @endif
-                >
+
+                @include('admin.components.input', [
+                    'type'         => $type,
+                    'id'           => $id,
+                    'name'         => $name,
+                    'label'        => $label,
+                    'title'        => $title,
+                    'class'        => $class,
+                    'style'        => $style,
+                    'autocomplete' => $autocomplete ?? false,
+                    'autofocus'    => $autofocus ?? false,
+                    'form'         => $form ?? null,
+                    'height'       => $height ?? null,
+                    'max'          => $max ?? null,
+                    'maxlength'    => $maxlength ?? null,
+                    'multiple'     => $multiple ?? null,
+                    'pattern'      => $pattern ?? null,
+                    'placeholder'  => $placeholder ?? null,
+                    'readonly'     => $readonly ?? null,
+                    'required'     => $required ?? null,
+                    'step'         => $step ?? false,
+                    'width'         => $width ?? false,
+                ])
 
                 @if ($name === 'username')
                     <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
@@ -67,10 +94,6 @@
                 @endif
 
             </div>
-
-            @error($name ?? 'name')
-                <p class="help is-danger">{!! $message !!}</p>
-            @enderror
 
         </div>
 

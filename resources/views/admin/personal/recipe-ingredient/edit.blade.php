@@ -2,7 +2,12 @@
     use App\Models\Personal\Ingredient;
     use App\Models\Personal\Recipe;
     use App\Models\Personal\Unit;
-    use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin            = $admin ?? null;
+    $owner            = $owner ?? null;
+    $isRootAdmin      = $isRootAdmin ?? false;
+    $recipeIngredient = $recipeIngredient ?? null;
 
     $title    = $pageTitle ?? 'Edit Recipe Ingredient: ' . $recipeIngredient->name ;
     $subtitle = $title;

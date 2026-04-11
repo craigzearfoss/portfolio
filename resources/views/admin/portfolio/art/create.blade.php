@@ -1,6 +1,12 @@
 @php
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $art         = $art ?? null;
+
     $title    = $pageTitle ?? 'Add New Art';
     $subtitle = $title;
 
@@ -52,7 +58,7 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => Auth::guard('admin')->user()->id
+                    'value' => $admin->id
                 ])
             @endif
 
@@ -81,7 +87,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
-                'value'     => old('name') ?? '',
+                'value'     => old('summary') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

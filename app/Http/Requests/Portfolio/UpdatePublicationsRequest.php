@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdatePublicationsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdatePublicationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$publication = Publication::query()->find($this['publication']['id']) ) {
-            throw new Exception('Publication ' . $this['publication']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($publication, loggedInAdmin());
+        // verify the publication exists
+        $publication = Publication::query()->findOrFail($this['publication']['id']);
+
+        // verify the admin is authorized to update the publication
+        if (!$this->loggedInAdmin['is_root'] || (new Publication()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update publication '. $publication['id'] . '.'
+                    : 'Unauthorized to update publication '. $publication['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdatePublicationsRequest extends FormRequest
         }
 
         return [
-            'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'          => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'title'             => [
                 'filled',
                 'string',
@@ -126,8 +140,10 @@ class UpdatePublicationsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the publication.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the publication.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update publication.'
+                . $this['publication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

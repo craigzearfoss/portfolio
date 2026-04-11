@@ -1,6 +1,11 @@
 @php
     use App\Models\Portfolio\Publication;
-    use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $publication = $publication ?? null;
 
     $title    = $pageTitle ?? 'Edit Publication: ' . $publication->title;
     $subtitle = $title;

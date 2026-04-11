@@ -10,7 +10,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateEducationsRequest extends FormRequest
 {
@@ -26,11 +28,19 @@ class UpdateEducationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$education = Education::query()->find($this['education']['id']) ) {
-            throw new Exception('Education ' . $this['education']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($education, loggedInAdmin());
+        // verify the education exists
+        $education = Education::query()->findOrFail($this['education']['id']);
+
+        // verify the admin is authorized to update the education
+        if (!$this->loggedInAdmin['is_root'] || (new Education()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update education '. $education['id'] . '.'
+                    : 'Unauthorized to update education '. $education['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +59,11 @@ class UpdateEducationsRequest extends FormRequest
         }
 
         return[
-            'owner_id'           => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'           => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'degree_type_id'     => ['filled', 'integer', 'exists:portfolio_db.degree_types,id'],
             'major'              => ['string', 'max:255'],
             'minor'              => ['string', 'max:255', 'nullable'],
@@ -97,6 +111,8 @@ class UpdateEducationsRequest extends FormRequest
         return [
             'owner_id.filled'       => 'Please select an owner for the education.',
             'owner_id.exists'       => 'The specified owner does not exist.',
+            'owner_id.in'           => 'Unauthorized to update education.'
+                . $this['education']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'degree_type_id.filled' => 'Please select an degree type for the education.',
             'degree_type_id.exists' => 'The specified degree type does not exist.',
             'school_id.filled'      => 'Please select a school for the education.',

@@ -28,13 +28,12 @@ class UpdateOperatingSystemsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$operating_system = OperatingSystem::find($this['operating_system']['id']) ) {
-            throw new Exception('Operating system ' . $this['operating_system']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($operating_system, loggedInAdmin());
+        // verify the dictionary operating system exists
+        $operatingSystem = OperatingSystem::query()->findOrFail($this['operating_system']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateOperatingSystemsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary operating system.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary operating system.'
+                . $this['operating_system']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateOperatingSystemsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary operating system exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary operating system exists
-        if (!OperatingSystem::find($this['operating_system']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary operating system ' . $this['operating_system']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary operating system
-        if (!$this->loggedInAdmin['is_root'] || (new OperatingSystem()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary operating system '. $this['operating_system']['id'] . '.'
-                    : 'Unauthorized to update dictionary operating system '. $this['operating_system']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $this->loggedInAdmin['id'])
             ]);
         }
     }

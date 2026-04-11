@@ -1,7 +1,12 @@
 @php
     use App\Models\Portfolio\DegreeType;
     use App\Models\Portfolio\School;
-    use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $education   = $education ?? null;
 
     $title    = $pageTitle ?? 'Edit Education: ' . $education->degreeType->name . ' ' . $education->major;
     $subtitle = $title;

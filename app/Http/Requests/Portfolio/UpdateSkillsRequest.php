@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateSkillsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateSkillsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$skill = Skill::query()->find($this['skill']['id']) ) {
-            throw new Exception('Skill ' . $this['skill']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($skill, loggedInAdmin());
+        // verify the skill exists
+        $skill = Skill::query()->findOrFail($this['skill']['id']);
+
+        // verify the admin is authorized to update the skill
+        if (!$this->loggedInAdmin['is_root'] || (new Skill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update skill '. $skill['id'] . '.'
+                    : 'Unauthorized to update skill '. $skill['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateSkillsRequest extends FormRequest
         }
 
         return [
-            'owner_id'                => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'                => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'                    => [
                 'filled',
                 'string',
@@ -104,6 +118,8 @@ class UpdateSkillsRequest extends FormRequest
         return [
             'owner_id.filled'    => 'Please select an owner for the skill.',
             'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.in'        => 'Unauthorized to update skill.'
+                . $this['skill']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'category_id.filled' => 'Please select an category for the skill.',
             'category_id.exists' => 'The specified category does not exist.',
         ];

@@ -1,6 +1,12 @@
 @php
     use App\Models\System\User;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $userPhone   = $userPhone ?? null;
+
     $title    = $pageTitle ?? ($isRootAdmin ? 'Add New User Phone Number' : 'Add New Phone Number');
     $subtitle = $title;
 

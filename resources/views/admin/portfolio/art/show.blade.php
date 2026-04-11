@@ -1,5 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $art         = $art ?? null;
 
     $title    = $pageTitle ?? 'Art: ' . $art->name;
     $subtitle = $title;
@@ -46,7 +50,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $admin->owner->username,
+                'value' => $art->owner->username,
                 'hide'  => !$isRootAdmin,
             ])
 

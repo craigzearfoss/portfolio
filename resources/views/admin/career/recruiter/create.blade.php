@@ -2,6 +2,12 @@
     use App\Models\System\Country;
     use App\Models\System\State;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $recruiter   = $recruiter ?? null;
+
     $title    = $pageTitle ?? 'Add New Recruiter';
     $subtitle = $title;
 

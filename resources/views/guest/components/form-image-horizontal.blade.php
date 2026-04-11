@@ -48,6 +48,7 @@
                        style="" maxlength="500"
                 >
 
+                <?php /* @TODO: need to implement file uploads  */ ?>
                 @if(config('app.upload_enabled'))
 
                     @include('guest.components.form-button-upload', [
@@ -94,7 +95,7 @@
             <div class="content mb-0 ">
                 <div class="control">
 
-                    @include('guest.components.form-input', [
+                    @include('guest.components.form-input-with-icon', [
                         'name'        => 'image_source',
                         'label'       =>  '',
                         'value'       => $source,

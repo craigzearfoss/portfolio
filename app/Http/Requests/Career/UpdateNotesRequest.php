@@ -10,6 +10,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\ValidationException;
+use Mockery\Matcher\Not;
 
 class UpdateNotesRequest extends FormRequest
 {
@@ -25,11 +26,19 @@ class UpdateNotesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$note = Note::find($this['note']['id']) ) {
-            throw new Exception('Note ' . $this['note']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($note, loggedInAdmin());
+        // verify the note exists
+        $note = Note::query()->findOrFail($this['note']['id']);
+
+        // verify the admin is authorized to update the note
+        if (!$this->loggedInAdmin['is_root'] || (new Note()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update note '. $note['id'] . '.'
+                    : 'Unauthorized to update note '. $note['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -40,12 +49,18 @@ class UpdateNotesRequest extends FormRequest
      * @return array<string, ValidationRule|array|string>
      * @throws Exception
      */
+
+
     public function rules(): array
     {
         return [
             /*
             // you CANNOT change the owner for a note
-            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             */
             /*
             // you CANNOT change the application for a note
@@ -81,35 +96,13 @@ class UpdateNotesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'       => 'Please select an owner for the note.',
+            'owner_id.filled'       => 'Please select an owner for the event.',
             'owner_id.exists'       => 'The specified owner does not exist.',
+            'owner_id.in'           => 'Unauthorized to update event '
+                . $this['communication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            'application_id.filled' => 'Please select an application for the event.',
             'application_id.exists' => 'The specified application does not exist.',
-            'application_id.filled' => 'Please select an application for the note.',
+            'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
         ];
-    }
-
-    /**
-     * Verifies the note exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the note exists
-        if (!Note::find($this['note']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Note ' . $this['note']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the application
-        if (!$this->loggedInAdmin['is_root'] || (new Note()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update note '. $this['note']['id'] . '.'
-                    : 'Unauthorized to update note '. $this['note']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
-            ]);
-        }
     }
 }

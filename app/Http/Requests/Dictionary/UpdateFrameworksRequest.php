@@ -28,13 +28,12 @@ class UpdateFrameworksRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$framework = Framework::find($this['framework']['id']) ) {
-            throw new Exception('Framework ' . $this['framework']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($framework, loggedInAdmin());
+        // verify the dictionary framework exists
+        $framework = Framework::query()->findOrFail($this['framework']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateFrameworksRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary framework.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary framework.'
+                . $this['framework']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateFrameworksRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.frameworks ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary framework exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary framework exists
-        if (!Framework::find($this['framework']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary framework ' . $this['framework']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary framework
-        if (!$this->loggedInAdmin['is_root'] || (new Framework()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary framework '. $this['framework']['id'] . '.'
-                    : 'Unauthorized to update dictionary framework '. $this['database']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.frameworks ', $this->loggedInAdmin['id'])
             ]);
         }
     }

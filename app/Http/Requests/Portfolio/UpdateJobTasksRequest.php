@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateJobTasksRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateJobTasksRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$jobTask = JobTask::query()->find($this['job_task']['id']) ) {
-            throw new Exception('Job Task ' . $this['job_task']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($jobTask, loggedInAdmin());
+        // verify the job task exists
+        $jobTask = JobTask::query()->findOrFail($this['job_task']['id']);
+
+        // verify the admin is authorized to update the job_task
+        if (!$this->loggedInAdmin['is_root'] || (new JobTask()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update job task '. $jobTask['id'] . '.'
+                    : 'Unauthorized to update job task '. $jobTask['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateJobTasksRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled','integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
             'summary'         => [
                 'filled',
@@ -85,11 +99,38 @@ class UpdateJobTasksRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the task.',
+            'owner_id.filled' => 'Please select an owner for the job task.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update job task.'
+                . $this['job_task']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'job_id.filled'   => 'Please select a job for the task.',
             'job_id.exists'   => 'The specified job does not exist.',
             'summary.unique'  => '`' . $this['summary'] . '` has already been added.',
         ];
+    }
+
+    /**
+     * Verifies the job task exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the job_task exists
+        if (!JobTask::find($this['job_task']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Job task ' . $this['job_task']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the job_task
+        if (!$this->loggedInAdmin['is_root'] || (new JobTask()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update job task '. $this['job_task']['id'] . '.'
+                    : 'Unauthorized to update job task '. $this['job_task']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
     }
 }

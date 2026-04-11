@@ -27,13 +27,12 @@ class UpdateSchoolsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$school = School::query()->find($this['school']['id']) ) {
-            throw new Exception('School ' . $this['school']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($school, loggedInAdmin());
+        // verify the school exists
+        $school = School::query()->findOrFail($this['school']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

@@ -28,13 +28,12 @@ class UpdateLibrariesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$library = Library::query()->find($this['library']['id']) ) {
-            throw new Exception('Library ' . $this['library']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($library, loggedInAdmin());
+        // verify the dictionary library exists
+        $library = Library::query()->findOrFail($this['library']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateLibrariesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary library.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary library.'
+                . $this['category']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateLibrariesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.libraries ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary library exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary library exists
-        if (!Library::find($this['library']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary library ' . $this['library']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary library
-        if (!$this->loggedInAdmin['is_root'] || (new Library()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary library '. $this['library']['id'] . '.'
-                    : 'Unauthorized to update dictionary library '. $this['library']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.libraries ', $this->loggedInAdmin['id'])
             ]);
         }
     }

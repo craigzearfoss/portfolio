@@ -21,17 +21,30 @@ class UpdateEventsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$event = Event::query()->find($this['event']['id']) ) {
-            throw new Exception('Event ' . $this['event']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($event, loggedInAdmin());
+        // verify the event exists
+        $event = Event::query()->findOrFail($this['event']['id']);
+
+        // verify the admin is authorized to update the event
+        if (!$this->loggedInAdmin['is_root'] || (new Event()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update event '. $event['id'] . '.'
+                    : 'Unauthorized to update event '. $event['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -47,7 +60,11 @@ class UpdateEventsRequest extends FormRequest
         return [
             /*
             // you CANNOT change the owner for an event
-            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             */
             /*
             // you CANNOT change the application for an event
@@ -88,6 +105,8 @@ class UpdateEventsRequest extends FormRequest
         return [
             'owner_id.filled'       => 'Please select an owner for the event.',
             'owner_id.exists'       => 'The specified owner does not exist.',
+            'owner_id.in'           => 'Unauthorized to update event '
+                . $this['communication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'application_id.filled' => 'Please select an application for the event.',
             'application_id.exists' => 'The specified application does not exist.',
             'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
@@ -105,31 +124,6 @@ class UpdateEventsRequest extends FormRequest
         if (!empty($this['event_time'])) {
             $communication_datetime = new DateTime($this['event_time']);
             $this['event_time'] = $communication_datetime->format('H:i:s');
-        }
-    }
-
-    /**
-     * Verifies the event exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the event exists
-        if (!Event::find($this['event']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Event ' . $this['event']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the event
-        if (!$this->loggedInAdmin['is_root'] || (new Event()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update event '. $this['event']['id'] . '.'
-                    : 'Unauthorized to update event '. $this['event']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
-            ]);
         }
     }
 }

@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateLinksRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateLinksRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$link = Link::find($this['link']['id']) ) {
-            throw new Exception('Link ' . $this['link']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($link, loggedInAdmin());
+        // verify the link exists
+        $link = Link::query()->findOrFail($this['link']['id']);
+
+        // verify the admin is authorized to update the link
+        if (!$this->loggedInAdmin['is_root'] || (new Link()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update link '. $link['id'] . '.'
+                    : 'Unauthorized to update link '. $link['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,10 @@ class UpdateLinksRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'         => [
                 'filled',
                 'string',
@@ -110,6 +123,8 @@ class UpdateLinksRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the link.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update link.'
+                . $this['link']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

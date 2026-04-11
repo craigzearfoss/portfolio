@@ -4,10 +4,14 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
+use App\Models\System\UserEmail;
 use App\Models\System\UserGroup;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -20,19 +24,39 @@ class UpdateUserGroupsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$user_group = UserGroup::query()->find($this['user_group']['id']) ) {
-            throw new Exception('User group ' . $this['user_group']['id'] . ' not found');
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
+
+        // verify the user group exists
+        $userGroup = UserGroup::query()->findOrFail($this['user_group']['id']);
+
+        if (canUpdate($userGroup, $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (canUpdate($userGroup, $this->loggedInUser)) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update user group ' . $userGroup['id'] . '.'
+                    : 'Unauthorized to update user group ' . $userGroup['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+            ]);
         }
-
-        updateGate($user_group, loggedInAdmin());
-
-        return true;
     }
 
     /**

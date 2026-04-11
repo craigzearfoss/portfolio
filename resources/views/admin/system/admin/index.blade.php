@@ -1,8 +1,12 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\System\Admin;
     use App\Models\System\AdminGroup;
     use App\Models\System\UserTeam;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Admins';
     $subtitle = $title;

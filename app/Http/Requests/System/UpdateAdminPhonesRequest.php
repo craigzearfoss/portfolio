@@ -8,6 +8,8 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAdminPhonesRequest extends FormRequest
 {
@@ -23,11 +25,19 @@ class UpdateAdminPhonesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_phone = AdminPhone::query()->find($this['admin_phone']['id']) ) {
-            throw new Exception('Admin phone ' . $this['admin_phone']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin_phone, loggedInAdmin());
+        // verify the admin phone exists
+        $adminPhone = AdminPhone::query()->findOrFail($this['admin_phone']['id']);
+
+        // verify the admin is authorized to update the admin phone
+        if (!$this->loggedInAdmin['is_root'] || (new AdminPhone()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin phone '. $adminPhone['id'] . '.'
+                    : 'Unauthorized to update admin phone '. $adminPhone['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -40,7 +50,11 @@ class UpdateAdminPhonesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'phone'        => ['filled', 'string', 'max:20',],
             'label'        => ['string', 'max:100', 'nullable'],
             'description'  => ['nullable'],
@@ -51,6 +65,21 @@ class UpdateAdminPhonesRequest extends FormRequest
             'is_disabled'  => ['integer', 'between:0,1'],
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
+        ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'  => 'Please select an owner for the admin phone.',
+            'owner_id.exists'  => 'The specified owner does not exist.',
+            'owner_id.in'      => 'Unauthorized to update admin phone.'
+                . $this['admin_phone']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Ingredient;
 use App\Models\Personal\Unit;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -26,13 +27,12 @@ class UpdateUnitsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$unit = Unit::query()->find($this['unit']['id']) ) {
-            throw new Exception('Unit ' . $this['unit']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($unit, loggedInAdmin());
+        // verify the unit exists
+        $unit = Unit::query()->findOrFail($this['unit']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

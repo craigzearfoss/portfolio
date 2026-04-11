@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -27,11 +29,19 @@ class UpdateAdminDatabasesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_database = AdminDatabase::query()->find($this['admin_database']['id']) ) {
-            throw new Exception('Admin database ' . $this['admin_database']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin_database, loggedInAdmin());
+        // verify the admin database exists
+        $adminDatabase = AdminDatabase::query()->findOrFail($this['admin_database']['id']);
+
+        // verify the admin is authorized to update the admin database
+        if (!$this->loggedInAdmin['is_root'] || (new AdminDatabase()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin database '. $adminDatabase['id'] . '.'
+                    : 'Unauthorized to update admin database '. $adminDatabase['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +59,10 @@ class UpdateAdminDatabasesRequest extends FormRequest
         }
 
         return [
-            'owner_id'       => ['integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'],
             'database_id'    => [
                 'filled',
                 'integer',
@@ -89,11 +102,38 @@ class UpdateAdminDatabasesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.exists'    => 'Owner not found.',
-            'owner_id.filled'    => 'Owner not specified.',
+            'owner_id.filled'   => 'Please select an owner for the admin database.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update admin database.'
+                . $this['admin_database']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'database_id.filled' => 'Database not specified.',
             'database_id.exists' => 'Database not found.',
             'database_id.unique' => 'Owner already has an entry for the specified database.',
         ];
+    }
+
+    /**
+     * Verifies the admin database exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the admin database exists
+        if (!AdminDatabase::find($this['admin_database']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Admin database ' . $this['admin_database']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the admin database
+        if (!$this->loggedInAdmin['is_root'] || (new AdminDatabase()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin database '. $this['admin_database']['id'] . '.'
+                    : 'Unauthorized to update admin database '. $this['admin_database']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
     }
 }

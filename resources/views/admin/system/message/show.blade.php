@@ -1,5 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $message     = $message ?? null;
 
     $title    = $pageTitle ?? 'Message';
     $subtitle = $title;
@@ -21,7 +25,7 @@
     if (canCreate($message, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
                                                                'href' => route('admin.system.message.create',
-                                                                               $admin->is_root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }

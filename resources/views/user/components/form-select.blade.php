@@ -1,49 +1,62 @@
 @php
-    $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $name  = $name ?? null;
+    $label = $label ?? $name ?? null;
+    $title = $title ?? null;
+    $value = $value ?? '';
+
+    $list = $list ?? [];
+
+    // if a value was specified that's not in the options list then add it to the options list
     if (!empty($value) && !in_array($value, array_keys($list))) {
         $list[$value] = $value;
     }
-    $title = $title ?? '';
+
+    $required = $required ?? false;
+
+    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    if (!in_array('form-select', $class)) $class[] = 'form-select';
+
+    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+
+    $labelClass = [ 'label' ];
+    if ($required && !in_array('label-required', $labelClass)) $labelClass[] = 'label-required';
 @endphp
+
 <div class="field">
-    @if(isset($label) && ($label === '') )
-    @else
-        <label class="label"
-               for="{{ $name }}"
-               @if($title)
-                   title="{{ $title }}"
-               @endif
-        >
-            {!! $label ?? $name !!}
-        </label>
+
+    @if(isset($label) && ($label !== ''))
+
+        <label
+            @if($id)
+                for="{{ $id }}"
+            @endif
+            class="{{ implode(' ', $labelClass) }}"
+            @if($title)
+                title="{{ $title }}"
+            @endif
+        >{!! $label !!}</label>
 
     @endif
+
     <div class="select">
-        <select
-            id="{!! $id !!}"
-            name="{!! $name ?? 'name' !!}"
-            class="form-select {!! $class ?? '' !!}"
-            @if (!empty($style))style="{!! is_array($style) ? (implode('; ', $style) . ';') : $style !!}" @endif
-            @if (!empty($autofocus))autofocus @endif
-            @if (!empty($readonly))disabled @endif
-            @if (!empty($form))form="{!! $form !!}" @endif
-            @if (!empty($multiple))multiple @endif
-            @if (!empty($required))required @endif
-            @if (!empty($size))size="{{ $size }}" @endif
-            @if (!empty($onchange))onchange="{!! $onchange !!}" @endif
-        >
-            @foreach ($list as $listValue=>$listName)
-                <option value="{!! $listValue !!}"
-                        {{ $listValue == $value ? 'selected' : '' }}
-                >
-                    {!! $listName !!}
-                </option>
-            @endforeach
-        </select>
+
+        @include('user.components.select-list', [
+            'id'        => $id,
+            'name'      => $name,
+            'value'     => $value,
+            'list'      => $list,
+            'class='    => $class,
+            'style'     => $style,
+            'autofocus' => $autofocus ?? false,
+            'readonly'  => $readonly ?? false,
+            'form'      => $form ?? null,
+            'hasIcon'   => $hasIcon ?? false,
+            'multiple'  => $multiple ?? false,
+            'onchange'  => $onchange ?? null,
+            'required'  => $required ?? false,
+            'size'      => $size ?? null,
+        ])
+
     </div>
-
-    @error($name ?? 'name')
-        <p class="help is-danger">{!! $message !!}</p>
-    @enderror
-
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Event;
 use App\Models\Career\JobBoard;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -26,13 +27,12 @@ class UpdateJobBoardsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$job_board = JobBoard::query()->find($this['job_board']['id']) ) {
-            throw new Exception('Job board ' . $this['job_board']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($job_board, loggedInAdmin());
+        // verify the job board exists
+        $jobBoard = JobBoard::query()->findOrFail($this['job_board']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

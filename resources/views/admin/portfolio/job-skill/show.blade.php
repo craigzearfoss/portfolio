@@ -1,5 +1,10 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $job         = $job ?? null;
+    $jobSkill    = $jobSkill ?? null;
 
     $title    = $pageTitle ?? $jobSkill->name;
     $subtitle = $title;
@@ -10,7 +15,7 @@
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobSkill->job) ],
+        [ 'name' => $jobSkill->job->name, 'href' => route('admin.portfolio.job.show', $jobSkill->job) ],
         [ 'name' => 'Skills',            'href' => route('admin.portfolio.job-skill.index', ['job_id' => $jobSkill->job->id]) ],
         [ 'name' => 'Show' ],
     ];

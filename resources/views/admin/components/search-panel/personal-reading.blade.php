@@ -91,7 +91,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'search_title',
                                 'label'   => 'title',
                                 'value'   => $search_title,

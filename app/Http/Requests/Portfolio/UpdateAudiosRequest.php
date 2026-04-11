@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAudiosRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateAudiosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$audio = Audio::query()->find($this['audio']['id']) ) {
-            throw new Exception('Audio ' . $this['audio']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($audio, loggedInAdmin());
+        // verify the audio exists
+        $audio = Audio::query()->findOrFail($this['audio']['id']);
+
+        // verify the admin is authorized to update the audio
+        if (!$this->loggedInAdmin['is_root'] || (new Audio()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update audio '. $audio['id'] . '.'
+                    : 'Unauthorized to update audio '. $audio['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateAudiosRequest extends FormRequest
         }
 
         return [
-            'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'          => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'              => [
                 'filled',
                 'string',
@@ -120,6 +134,8 @@ class UpdateAudiosRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the audio.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update audio.'
+                . $this['audio']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

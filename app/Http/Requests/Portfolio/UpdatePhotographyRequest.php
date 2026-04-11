@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdatePhotographyRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdatePhotographyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$photography = Photography::query()->find($this['photography']['id']) ) {
-            throw new Exception('Photography ' . $this['photography']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($photography, loggedInAdmin());
+        // verify the photography exists
+        $photography = Photography::query()->findOrFail($this['photography']['id']);
+
+        // verify the admin is authorized to update the photography
+        if (!$this->loggedInAdmin['is_root'] || (new Photography()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update photography '. $photography['id'] . '.'
+                    : 'Unauthorized to update photography '. $photography['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdatePhotographyRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'         => ['filled', 'string', 'max:255'],
             'slug'         => [
                 'filled',
@@ -88,8 +102,10 @@ class UpdatePhotographyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the photograph.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the photography.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update photography.'
+                . $this['photography']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -101,10 +117,6 @@ class UpdatePhotographyRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([

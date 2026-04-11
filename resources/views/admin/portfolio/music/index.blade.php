@@ -1,6 +1,10 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Portfolio\Music;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title = $pageTitle ?? 'Music';
     $subtitle = $title;
@@ -10,7 +14,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->is_root) {
+    if (!empty($owner) && $isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -49,7 +53,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -67,7 +71,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -87,7 +91,7 @@
                 @forelse ($musics as $music)
 
                     <tr data-id="{{ $music->id }}">
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $music->owner->username ?? '' }}
                             </td>
@@ -169,7 +173,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '9' : '8' }}">No music found.</td>
+                        <td colspan="{{$isRootAdmin ? '9' : '8' }}">No music found.</td>
                     </tr>
 
                 @endforelse

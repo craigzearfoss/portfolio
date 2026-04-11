@@ -26,11 +26,19 @@ class UpdateRecipesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$recipe = Recipe::find($this['recipe']['id']) ) {
-            throw new Exception('Recipe ' . $this['recipe']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($recipe, loggedInAdmin());
+        // verify the recipe exists
+        $recipe = Recipe::query()->findOrFail($this['recipe']['id']);
+
+        // verify the admin is authorized to update the recipe
+        if (!$this->loggedInAdmin['is_root'] || (new Recipe()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update recipe '. $recipe['id'] . '.'
+                    : 'Unauthorized to update recipe '. $recipe['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +56,11 @@ class UpdateRecipesRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'         => [
                 'filled',
                 'string',
@@ -110,8 +122,10 @@ class UpdateRecipesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the recipe.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the recipe.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update recipe.'
+                . $this['recipe']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -131,31 +145,6 @@ class UpdateRecipesRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'personal_db.recipes ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the recipe exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the recipe exists
-        if (!Recipe::find($this['recipe']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Recipe ' . $this['recipe']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the recipe
-        if (!$this->loggedInAdmin['is_root'] || (new Recipe()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update recipe '. $this['recipe']['id'] . '.'
-                    : 'Unauthorized to update recipe '. $this['recipe']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

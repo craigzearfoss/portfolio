@@ -1,6 +1,12 @@
 @php
     use App\Models\Portfolio\Job;
-    use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $job         = $job ?? null;
+    $jobTask     = $jobTask ?? null;
 
     $title    = $pageTitle ?? 'Edit Job Task';
     $subtitle = $title;

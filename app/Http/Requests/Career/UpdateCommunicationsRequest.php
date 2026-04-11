@@ -22,17 +22,32 @@ class UpdateCommunicationsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the communication.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$communication = Communication::find($this['communication']['id']) ) {
-            throw new Exception('Communication ' . $this['communication']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($communication, loggedInAdmin());
+        // verify the communication exists
+        $communication = Communication::query()->findOrFail($this['communication']['id']);
+
+        // verify the admin is authorized to update the communication
+        if (!$this->loggedInAdmin['is_root'] || (new Communication()->where('owner_id', $this['owner__id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update communication '. $communication['id'] . '.'
+                    : 'Unauthorized to update communication '. $communication['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +63,11 @@ class UpdateCommunicationsRequest extends FormRequest
         return [
             /*
             // you CANNOT change the owner for a communication
-            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             */
             /*
             // you CANNOT change the application for a communication
@@ -88,11 +107,13 @@ class UpdateCommunicationsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'              => 'Please select an owner for the communication.',
-            'owner_id.exists'              => 'The specified owner does not exist.',
-            'application_id.filled'        => 'Please select an application for the communication.',
-            'application_id.exists'        => 'The specified application does not exist.',
-            'application_id.in'            => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
+            'owner_id.filled'       => 'Please select an owner for the communication.',
+            'owner_id.exists'       => 'The specified owner does not exist.',
+            'owner_id.in'           => 'Unauthorized to update communication '
+                . $this['communication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            'application_id.filled' => 'Please select an application for the communication.',
+            'application_id.exists' => 'The specified application does not exist.',
+            'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
             'communication_type_id.filled' => 'Please select the type of communication.',
         ];
     }
@@ -108,31 +129,6 @@ class UpdateCommunicationsRequest extends FormRequest
         if (!empty($this['communication_datetime'])) {
             $communication_datetime = new DateTime($this['communication_datetime']);
             $this['communication_datetime'] = $communication_datetime->format('Y-m-d H:i:s');
-        }
-    }
-
-    /**
-     * Verifies the communication exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the communication exists
-        if (!Communication::find($this['communication']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Communication ' . $this['communication']['id'] . ' not found,'
-            ]);
-        }
-
-        // verify the admin is authorized to update the communication
-        if (!$this->loggedInAdmin['is_root'] || (new Communication()->where('owner_id', $this['owner__id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update communication '. $this['communication']['id'] . '.'
-                    : 'Unauthorized to update communication '. $this['communication']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
-            ]);
         }
     }
 }

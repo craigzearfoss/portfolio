@@ -27,11 +27,19 @@ class UpdateReadingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$reading = Reading::query()->find($this['reading']['id']) ) {
-            throw new Exception('Reading ' . $this['reading']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($reading, loggedInAdmin());
+        // verify the reading exists
+        $reading = Reading::query()->findOrFail($this['reading']['id']);
+
+        // verify the admin is authorized to update the reading
+        if (!$this->loggedInAdmin['is_root'] || (new Reading()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update reading '. $reading['id'] . '.'
+                    : 'Unauthorized to update reading '. $reading['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +57,11 @@ class UpdateReadingsRequest extends FormRequest
         }
 
         return [
-            'owner_id'         => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'         => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'title'            => ['filled', 'string', 'max:255', 'unique:personal_db.readings,name,' . $this['reading']['id']],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
@@ -97,8 +109,10 @@ class UpdateReadingsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the reading.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the reading.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update reading.'
+                . $this['reading']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -120,31 +134,6 @@ class UpdateReadingsRequest extends FormRequest
                 'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
                 'personal_db.readings',
                 $ownerId
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the reading exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the reading exists
-        if (!Reading::find($this['reading']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Reading ' . $this['reading']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the reading
-        if (!$this->loggedInAdmin['is_root'] || (new Reading()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update reading '. $this['reading']['id'] . '.'
-                    : 'Unauthorized to update reading '. $this['reading']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
             ]);
         }
     }

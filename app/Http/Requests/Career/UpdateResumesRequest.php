@@ -27,11 +27,19 @@ class UpdateResumesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$resume = Resume::find($this['resume']['id']) ) {
-            throw new Exception('Resume ' . $this['resume']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($resume, loggedInAdmin());
+        // verify the resume exists
+        $resume = Resume::query()->findOrFail($this['resume']['id']);
+
+        // verify the admin is authorized to update the resume
+        if (!$this->loggedInAdmin['is_root'] || (new Resume()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update resume '. $resume['id'] . '.'
+                    : 'Unauthorized to update resume '. $resume['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +57,11 @@ class UpdateResumesRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'         => [
                 'filled',
                 'string',
@@ -105,8 +117,10 @@ class UpdateResumesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the resume.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the resume.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update resume '
+                . $this['resume']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'name.unique'       => 'There is already a resume with the same name for this date.',
             'slug.unique'       => 'There is already a resume with the same slug for this date.'
         ];
@@ -120,10 +134,6 @@ class UpdateResumesRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $slug = !empty($this['date'])
@@ -133,32 +143,7 @@ class UpdateResumesRequest extends FormRequest
             $this->merge([
                 'slug' => uniqueSlug($slug),
                 'career_db.resumes',
-                $ownerId
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the resume exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the resume exists
-        if (!Application::find($this['resume']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Resume ' . $this['resume']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the resume
-        if (!$this->loggedInAdmin['is_root'] || (new Resume()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update resume '. $this['resume']['id'] . '.'
-                    : 'Unauthorized to update resume '. $this['resume']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                $this->loggedInAdmin['id']
             ]);
         }
     }

@@ -26,13 +26,12 @@ class UpdateIngredientsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$ingredient = Ingredient::query()->find($this['ingredient']['id']) ) {
-            throw new Exception('Ingredient ' . $this['ingredient']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($ingredient, loggedInAdmin());
+        // verify the ingredient exists
+        $ingredient = Ingredient::query()->findOrFail($this['ingredient']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

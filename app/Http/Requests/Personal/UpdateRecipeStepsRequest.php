@@ -27,11 +27,19 @@ class UpdateRecipeStepsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$recipe_step = RecipeStep::query()->find($this['recipe_step']['id']) ) {
-            throw new Exception('Recipe step ' . $this['recipe_step']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($recipe_step, loggedInAdmin());
+        // verify the recipe step exists
+        $recipeStep = RecipeStep::query()->findOrFail($this['recipe_step']['id']);
+
+        // verify the admin is authorized to update the recipe
+        if (!$this->loggedInAdmin['is_root'] || (new RecipeStep()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update recipe step '. $recipeStep['id'] . '.'
+                    : 'Unauthorized to update recipe step '. $recipeStep['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -49,7 +57,11 @@ class UpdateRecipeStepsRequest extends FormRequest
         }
 
         return [
-            'owner_id'    => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'    => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'recipe_id'   => [
                 'filled',
                 'integer',
@@ -78,8 +90,10 @@ class UpdateRecipeStepsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'  => 'Please select an owner.',
-            'owner_id.exists'  => 'The specified owner does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the recipe step.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update recipe step.'
+                . $this['recipe_step']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'recipe_id.filled' => 'Please select a recipe.',
         ];
     }
@@ -104,7 +118,7 @@ class UpdateRecipeStepsRequest extends FormRequest
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
                     ? 'Unauthorized to update recipe step '. $this['recipe_step']['id'] . '.'
-                    : 'Unauthorized to update recipe step '. $this['recipe_step']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                    : 'Unauthorized to update recipe step '. $this['recipe_step']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
             ]);
         }
     }

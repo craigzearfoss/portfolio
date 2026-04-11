@@ -23,13 +23,12 @@ class UpdateSiteSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$site_setting = SiteSetting::find($this['site_setting']['id']) ) {
-            throw new Exception('Site setting ' . $this['site_setting']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($site_setting, loggedInAdmin());
+        // verify the site setting exists
+        $siteSetting = SiteSetting::query()->findOrFail($this['site_setting']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

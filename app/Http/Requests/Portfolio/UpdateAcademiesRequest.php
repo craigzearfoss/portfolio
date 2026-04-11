@@ -26,13 +26,12 @@ class UpdateAcademiesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$academy = Academy::query()->find($this['academy']['id']) ) {
-            throw new Exception('Academy ' . $this['academy']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($academy, loggedInAdmin());
+        // verify the academy exists
+        $academy = Academy::query()->findOrFail($this['academy']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAwardsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateAwardsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$award = Award::query()->find($this['award']['id']) ) {
-            throw new Exception('Award ' . $this['award']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($award, loggedInAdmin());
+        // verify the award exists
+        $award = Award::query()->findOrFail($this['award']['id']);
+
+        // verify the admin is authorized to update the award
+        if (!$this->loggedInAdmin['is_root'] || (new Award()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update award '. $award['id'] . '.'
+                    : 'Unauthorized to update award '. $award['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -47,7 +57,11 @@ class UpdateAwardsRequest extends FormRequest
         }
 
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'           => ['filled', 'string', 'max:255'],
             'category'       => ['string', 'max:255', 'nullable'],
             'nominated_work' => ['string', 'max:255', 'nullable'],
@@ -94,6 +108,8 @@ class UpdateAwardsRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the award.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update award.'
+                . $this['award']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -105,10 +121,6 @@ class UpdateAwardsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
@@ -116,7 +128,7 @@ class UpdateAwardsRequest extends FormRequest
                 $label .= ' for ' . $this['category'];
             }
             $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.awards', $ownerId)
+                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->loggedInAdmin['id'])
             ]);
         }
     }

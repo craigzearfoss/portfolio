@@ -20,6 +20,13 @@ class UpdateApplicationsRequest extends FormRequest
      */
     protected Admin|null|Owner $loggedInAdmin = null;
 
+    /**
+     * The id of the owner of the application.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
 
     /**
      * Determine if the admin is authorized to make this request.
@@ -30,7 +37,17 @@ class UpdateApplicationsRequest extends FormRequest
     {
         $this->loggedInAdmin = loggedInAdmin();
 
-        $this->validateAuthorization();
+        // verify the application exists
+        $application = Application::query()->findOrFail($this['application']['id']);
+
+        // verify the admin is authorized to update the application
+        if (!$this->loggedInAdmin['is_root'] || (new Application()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update application '. $application['id'] . '.'
+                    : 'Unauthorized to update application '. $application['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -123,7 +140,7 @@ class UpdateApplicationsRequest extends FormRequest
             'owner_id.filled'               => 'Please select an owner for the application.',
             'owner_id.exists'               => 'The specified owner does not exist.',
             'owner_id.in'                   => 'Unauthorized to update application '
-                                                    . $this['application']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.',
+                                                    . $this['application']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'company_id.filled'             => 'Please select a company for the application.',
             'company_id.exists'             => 'The specified company does not exist.',
             'job_board_id.exists'           => 'The specified job board does not exist.',
@@ -156,30 +173,5 @@ class UpdateApplicationsRequest extends FormRequest
             $interval,
             $this['estimated_hours'] ?? 0
         );
-    }
-
-    /**
-     * Verifies the application exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the application exists
-        if (!Application::find($this['application']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Application ' . $this['application']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the application
-        if (!$this->loggedInAdmin['is_root'] || (new Application()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update application '. $this['application']['id'] . '.'
-                    : 'Unauthorized to update application '. $this['application']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
-            ]);
-        }
     }
 }

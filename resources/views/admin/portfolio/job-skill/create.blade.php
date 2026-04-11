@@ -3,6 +3,13 @@
     use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $job         = $job ?? null;
+    $jobSkill    = $jobSkill ?? null;
+
     $title    = $pageTitle ?? 'Add Job Skill';
     $subtitle = $title;
 
@@ -83,7 +90,7 @@
             ])
 
             <div style="display: none;">
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'type'      => 'hidden',
                     'name'      => 'dictionary_term_id',
                     'value'     => old('dictionary_term_id') ?? '',

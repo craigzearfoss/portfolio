@@ -27,13 +27,12 @@ class UpdateAdminsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin = Admin::query()->find($this['admin']['id']) ) {
-            throw new Exception('Admin ' . $this['admin']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin, loggedInAdmin());
+        // verify the admin exists
+        $admin = Admin::query()->findOrFail($this['addmin']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

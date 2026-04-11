@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateCertificatesRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateCertificatesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$certificate  = Certificate::query()->find($this['certificate']['id']) ) {
-            throw new Exception('Certificate ' . $this['certificate']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($certificate, loggedInAdmin());
+        // verify the certificate exists
+        $certificate = Certificate::query()->findOrFail($this['certificate']['id']);
+
+        // verify the admin is authorized to update the certificate
+        if (!$this->loggedInAdmin['is_root'] || (new Certificate()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update certificate '. $certificate['id'] . '.'
+                    : 'Unauthorized to update certificate '. $certificate['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -47,7 +57,11 @@ class UpdateCertificatesRequest extends FormRequest
         }
 
         return[
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'            => ['string',
                 'filled',
                 'string',
@@ -101,8 +115,10 @@ class UpdateCertificatesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'   => 'Please select an owner for the certificate.',
+            'owner_id.filled'   => 'Please select an owner for the cerfiticate.',
             'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update certificate.'
+                . $this['certificate']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'academy_id.filled' => 'Please select an academy for the certificate.',
             'academy_id.exists' => 'The specified academy does not exist.',
         ];
@@ -116,10 +132,6 @@ class UpdateCertificatesRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([

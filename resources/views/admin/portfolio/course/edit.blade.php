@@ -2,6 +2,12 @@
     use App\Models\Portfolio\Academy;
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $course      = $course ?? null;
+
     $title    = $pageTitle ?? 'Edit Course: ' . $course->name;
     $subtitle = $title;
 

@@ -1,6 +1,12 @@
 @php
     use App\Models\Personal\Unit;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $unit        = $unit ?? null;
+
     $title    = $pageTitle ?? 'Edit Unit: ' . $unit->name;
     $subtitle = $title;
 

@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateVideosRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateVideosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$video = Video::find($this['video']['id']) ) {
-            throw new Exception('Video ' . $this['video']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($video, loggedInAdmin());
+        // verify the video exists
+        $video = Video::query()->findOrFail($this['video']['id']);
+
+        // verify the admin is authorized to update the video
+        if (!$this->loggedInAdmin['is_root'] || (new Video()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update video '. $video['id'] . '.'
+                    : 'Unauthorized to update video '. $video['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateVideosRequest extends FormRequest
         }
 
         return [
-            'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'          => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'              => [
                 'filled',
                 'string',
@@ -120,6 +134,8 @@ class UpdateVideosRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the video.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update video.'
+                . $this['reading']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -139,6 +155,31 @@ class UpdateVideosRequest extends FormRequest
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'portfolio_db.videos', $ownerId)
+            ]);
+        }
+    }
+
+    /**
+     * Verifies the video exists and the owner is authorized to update it.
+     *
+     * @return void
+     * @throws ValidationException
+     */
+    protected function validateAuthorization(): void
+    {
+        // verify the video exists
+        if (!Video::find($this['video']['id']) ) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Video ' . $this['video']['id'] . ' not found.'
+            ]);
+        }
+
+        // verify the admin is authorized to update the video
+        if (!$this->loggedInAdmin['is_root'] || (new Video()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update video '. $this['video']['id'] . '.'
+                    : 'Unauthorized to update video '. $this['video']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
             ]);
         }
     }

@@ -1,6 +1,10 @@
 @php
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Personal\Reading;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Readings';
     $subtitle = $title;
@@ -10,7 +14,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->is_root) {
+    if (!empty($owner) && $isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
@@ -49,7 +53,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>title</th>
@@ -68,7 +72,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->is_root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -89,7 +93,7 @@
                 @forelse ($readings as $reading)
 
                     <tr data-id="{{ $reading->id }}">
-                        @if($admin->is_root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $reading->owner->username ?? '' }}
                             </td>
@@ -187,7 +191,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '10' : '9' }}">No readings found.</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">No readings found.</td>
                     </tr>
 
                 @endforelse

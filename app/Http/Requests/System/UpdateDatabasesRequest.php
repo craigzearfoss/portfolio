@@ -2,13 +2,17 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\Portfolio\Art;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Owner;
+use Dflydev\DotAccessData\Data;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -27,11 +31,19 @@ class UpdateDatabasesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$database = Database::query()->find($this['database']['id']) ) {
-            throw new Exception('Database ' . $this['database']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($database, loggedInAdmin());
+        // verify the database exists
+        $database = Database::query()->findOrFail($this['database']['id']);
+
+        // verify the admin is authorized to update the database
+        if (!$this->loggedInAdmin['is_root'] || (new Database()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update database '. $database['id'] . '.'
+                    : 'Unauthorized to update database '. $database['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +60,11 @@ class UpdateDatabasesRequest extends FormRequest
         }
 
         return [
-            'owner_id'       => ['integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'           => ['filled', 'string', 'max:50', 'unique:system_db.databases,name,' . $database['id']],
             'database'       => ['filled', 'string', 'max:50', 'unique:system_db.databases,database,' . $database['id']],
             'tag'            => ['filled', 'string', 'max:50', 'unique:system_db.databases,tag,' . $database['id']],
@@ -81,6 +97,8 @@ class UpdateDatabasesRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the database.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update database.'
+                . $this['database']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 }

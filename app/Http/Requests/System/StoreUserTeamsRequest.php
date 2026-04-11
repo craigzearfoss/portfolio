@@ -4,9 +4,11 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreUserTeamsRequest extends FormRequest
 {
@@ -16,13 +18,34 @@ class StoreUserTeamsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
-        createGate('App\Models\System\UserTeam', loggedInAdmin());
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
 
-        return true;
+        if (canCreate('App\Models\System\UserTeam', $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (canCreate('App\Models\System\UserTeam', $this->loggedInUser)) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => 'Unauthorized to create user team.'
+            ]);
+        }
     }
 
     /**

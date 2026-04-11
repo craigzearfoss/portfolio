@@ -1,6 +1,12 @@
 @php
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
+    $jobSearchLog  = $jobSearchLog ?? null;
+
     $title    = $pageTitle ?? 'Add Job Search Log Entry';
     $subtitle = $title;
 

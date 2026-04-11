@@ -5,13 +5,16 @@ namespace App\Http\Requests\System;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
+use App\Models\System\UserTeam;
 use App\Rules\CaseInsensitiveNotIn;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 
 class UpdateUsersRequest extends FormRequest
 {
@@ -21,19 +24,39 @@ class UpdateUsersRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$user = User::query()->find($this['user']['id']) ) {
-            throw new Exception('User ' . $this['user']['id'] . ' not found');
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
+
+        // verify the user exists
+        $user = User::query()->findOrFail($this['user']['id']);
+
+        if (canUpdate($user, $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (!empty($this->loggedInUser) && ($user['id'] == $this->loggedInUser['id'])) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update user phone ' . $user['id'] . '.'
+                    : 'Unauthorized to update user phone ' . $user['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+            ]);
         }
-
-        updateGate($user, loggedInAdmin());
-
-        return true;
     }
 
     /**

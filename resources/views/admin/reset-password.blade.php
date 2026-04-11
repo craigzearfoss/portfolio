@@ -37,7 +37,7 @@
                 'value' => referer('admin.index')
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-with-icon', [
                 'type'        => 'password',
                 'name'        => 'password',
                 'label'       => 'New Password',
@@ -48,7 +48,7 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-with-icon', [
                 'type'        => 'password',
                 'name'        => 'confirm_password',
                 'label'       => 'Confirm New Password',

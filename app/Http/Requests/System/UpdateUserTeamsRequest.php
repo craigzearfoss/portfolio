@@ -4,11 +4,15 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
+use App\Models\System\UserPhone;
 use App\Models\System\UserTeam;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateUserTeamsRequest extends FormRequest
 {
@@ -18,19 +22,39 @@ class UpdateUserTeamsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * @var User|null
+     */
+    protected User|null $loggedInUser = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$user_team = UserTeam::query()->find($this['user_team']['id']) ) {
-            throw new Exception('User team ' . $this['user_team']['id'] . ' not found');
+        $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
+
+        // verify the user team exists
+        $userTeam = UserTeam::query()->findOrFail($this['user_team']['id']);
+
+        if (canUpdate($userTeam, $this->loggedInAdmin)) {
+
+            return true;
+
+        } elseif (canUpdate($userTeam, $this->loggedInUser)) {
+
+            return true;
+
+        } else {
+
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update user phone ' . $userTeam['id'] . '.'
+                    : 'Unauthorized to update user phone ' . $userTeam['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+            ]);
         }
-
-        updateGate($user_team, loggedInAdmin());
-
-        return true;
     }
 
     /**

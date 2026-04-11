@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateJobsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateJobsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$job = Job::query()->find($this['job']['id']) ) {
-            throw new Exception('Job ' . $this['job']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($job, loggedInAdmin());
+        // verify the job exists
+        $job = Job::query()->findOrFail($this['job']['id']);
+
+        // verify the admin is authorized to update the job
+        if (!$this->loggedInAdmin['is_root'] || (new Job()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update job '. $job['id'] . '.'
+                    : 'Unauthorized to update job '. $job['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateJobsRequest extends FormRequest
         }
 
         return [
-            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'               => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'company'                => ['filled', 'string', 'max:255'],
             'role'                   => ['filled', 'string', 'max:255',],
             'slug'                   => [
@@ -103,6 +117,8 @@ class UpdateJobsRequest extends FormRequest
         return [
             'owner_id.filled'               => 'Please select an owner for the job.',
             'owner_id.exists'               => 'The specified owner does not exist.',
+            'owner_id.in'                   => 'Unauthorized to update job.'
+                . $this['job']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'job_employment_type_id.filled' => 'Please select an employment type for the job.',
             'job_employment_type_id.exists' => 'The specified employment type does not exist.',
             'job_location_type_id.filled'   => 'Please select a location type for the job.',

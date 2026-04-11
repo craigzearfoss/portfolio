@@ -1,6 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
-    use App\Models\System\UserEmail;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $userEmail   = $userEmail ?? null;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'User Email: ' . $userEmail->email : 'Email: ' . $userEmail->email);
     $subtitle = $title;

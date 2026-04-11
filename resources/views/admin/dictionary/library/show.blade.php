@@ -1,5 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $library     = $library ?? null;
 
     $title    = 'Dictionary: ' . $library->name . ' (library)';
     $subtitle = $title;
@@ -10,7 +14,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Libraries',       'href' => route('admin.dictionary.library.index') ],
-        [ 'name' => $language->name ]
+        [ 'name' => $library->name ]
     ];
 
     // set navigation buttons

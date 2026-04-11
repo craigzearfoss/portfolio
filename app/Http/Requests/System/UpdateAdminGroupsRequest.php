@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateAdminGroupsRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateAdminGroupsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_group = AdminGroup::query()->find($this['admin_group']['id']) ) {
-            throw new Exception('Admin group ' . $this['admin_group']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($admin_group, loggedInAdmin());
+        // verify the admin group exists
+        $adminGroup = AdminGroup::query()->findOrFail($this['admin_group']['id']);
+
+        // verify the admin is authorized to update the admin group
+        if (!$this->loggedInAdmin['is_root'] || (new AdminGroup()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update admin group '. $adminGroup['id'] . '.'
+                    : 'Unauthorized to update admin group '. $adminGroup['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateAdminGroupsRequest extends FormRequest
         }
 
         return [
-            'owner_id'      => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'      => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'admin_team_id' => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
             'name'          => [
                 'filled',
@@ -101,6 +115,8 @@ class UpdateAdminGroupsRequest extends FormRequest
         return [
             'owner_id.filled'      => 'Please select an owner for the admin group.',
             'owner_id.exists'      => 'The specified owner does not exist.',
+            'owner_id.in'          => 'Unauthorized to update admin group.'
+                . $this['admin_group']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'admin_team_id.filled' => 'Please select an admin team for the admin group.',
             'admin_team_id.exists' => 'The specified admin team does not exist.',
         ];

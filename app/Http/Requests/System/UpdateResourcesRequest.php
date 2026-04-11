@@ -2,13 +2,16 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\Portfolio\Art;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\Resource;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -27,11 +30,19 @@ class UpdateResourcesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$resource = Resource::query()->find($this['resource']['id']) ) {
-            throw new Exception('Resource ' . $this['resource']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($resource, loggedInAdmin());
+        // verify the resource exists
+        $resource = Resource::query()->findOrFail($this['resource']['id']);
+
+        // verify the admin is authorized to update the resource
+        if (!$this->loggedInAdmin['is_root'] || (new Resource()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update resource '. $resource['id'] . '.'
+                    : 'Unauthorized to update resource '. $resource['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +59,11 @@ class UpdateResourcesRequest extends FormRequest
             throw new Exception('No owner_id specified.');
         }
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'database_id'    => [
                 'filled',
                 'integer',
@@ -113,6 +128,8 @@ class UpdateResourcesRequest extends FormRequest
         return [
             'owner_id.filled'    => 'Please select an owner for the resource.',
             'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.in'        => 'Unauthorized to update resource.'
+                . $this['resource']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'database_id.filled' => 'Please select a database for the resource.',
             'database_id.exists' => 'The specified database does not exist.',
         ];

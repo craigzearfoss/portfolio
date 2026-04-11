@@ -26,13 +26,12 @@ class UpdateMessagesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$message = Message::query()->find($this['message']['id']) ) {
-            throw new Exception('Message ' . $this['message']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($message, loggedInAdmin());
+        // verify the school exists
+        $message = Message::query()->findOrFail($this['message']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

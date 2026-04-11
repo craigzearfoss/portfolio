@@ -47,7 +47,7 @@
                     'value' => referer('admin.index')
                 ])
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'name'        => 'username',
                     'label'       => 'User Name',
                     'value'       => $username ?? '',
@@ -57,7 +57,7 @@
                     'message'     => $message ?? '',
                 ])
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'type'        => 'password',
                     'name'        => 'password',
                     'label'       => 'Password',

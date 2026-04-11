@@ -20,17 +20,32 @@ class UpdateApplicationSkillsRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * The id of the owner of the application.
+     *
+     * @var int|null
+     */
+    protected int|null $ownerId = null;
+
+    /**
      * Determine if the admin is authorized to make this request.
      *
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$application_skill = ApplicationSkill::query()->find($this['application_skill']['id']) ) {
-            throw new Exception('Application skill ' . $this['application_skill']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($application_skill, loggedInAdmin());
+        // verify the application skill exists
+        $applicationSkill = ApplicationSkill::query()->findOrFail($this['application_skill']['id']);
+
+        // verify the admin is authorized to update the application skill
+        if (!$this->loggedInAdmin['is_root'] || (new ApplicationSkill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update application skill '. $applicationSkill['id'] . '.'
+                    : 'Unauthorized to update application skill '. $applicationSkill['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +63,11 @@ class UpdateApplicationSkillsRequest extends FormRequest
         }
 
         return [
-            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'               => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'application_id'         => ['filled', 'integer', 'exists:career_db.applications,id'],
             'name'                   => [
                 'filled',
@@ -85,33 +104,10 @@ class UpdateApplicationSkillsRequest extends FormRequest
         return [
             'owner_id.filled'    => 'Please select an owner for the tag.',
             'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.in'        => 'Unauthorized to update application skill '
+                . $this['application_skill']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];
-    }
-
-    /**
-     * Verifies the application skill exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the application skill exists
-        if (!ApplicationSkill::find($this['application_skill']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Application skill ' . $this['application_skill']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the application skill
-        if (!$this->loggedInAdmin['is_root'] || (new ApplicationSkill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update application skill '. $this['application_skill']['id'] . '.'
-                    : 'Unauthorized to update application skill '. $this['application_skill']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
-            ]);
-        }
     }
 }

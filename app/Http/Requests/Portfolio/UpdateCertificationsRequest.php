@@ -26,13 +26,12 @@ class UpdateCertificationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$academy = Certification::query()->find($this['certification']['id']) ) {
-            throw new Exception('Certification ' . $this['certification']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($academy, loggedInAdmin());
+        // verify the certification exists
+        $certification = Certification::query()->findOrFail($this['certification']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**

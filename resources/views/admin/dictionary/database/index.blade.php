@@ -1,8 +1,10 @@
 @php
-    use App\Enums\EnvTypes;
-    use App\Enums\PermissionEntityTypes;
     use App\Models\Dictionary\Database;
-    use App\Models\Dictionary\DictionarySection;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = 'Dictionary (databases)';
     $subtitle = $title;

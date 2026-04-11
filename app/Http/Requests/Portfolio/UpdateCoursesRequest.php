@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateCoursesRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateCoursesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$course = Course::query()->find($this['course']['id']) ) {
-            throw new Exception('Course ' . $this['course']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($course, loggedInAdmin());
+        // verify the course exists
+        $course = Course::query()->findOrFail($this['course']['id']);
+
+        // verify the admin is authorized to update the course
+        if (!$this->loggedInAdmin['is_root'] || (new Course()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update course '. $course['id'] . '.'
+                    : 'Unauthorized to update course '. $course['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -47,7 +57,11 @@ class UpdateCoursesRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'            => [
                 'filled',
                 'string',
@@ -107,6 +121,8 @@ class UpdateCoursesRequest extends FormRequest
         return [
             'owner_id.filled'   => 'Please select an owner for the course.',
             'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update course.'
+                . $this['course']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'academy_id.filled' => 'Please select an academy for the course.',
             'academy_id.exists' => 'The specified academy does not exist.',
         ];
@@ -120,10 +136,6 @@ class UpdateCoursesRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([

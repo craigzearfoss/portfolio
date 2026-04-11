@@ -28,13 +28,12 @@ class UpdateStacksRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$stack = Stack::find($this['stack']['id']) ) {
-            throw new Exception('Stack ' . $this['stack']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($stack, loggedInAdmin());
+        // verify the dictionary stack exists
+        $stack = Stack::query()->findOrFail($this['stack']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateStacksRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary stack.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary stack.'
+                . $this['stack']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateStacksRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary stack exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary stack exists
-        if (!Stack::find($this['stack']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary stack ' . $this['stack']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary stack
-        if (!$this->loggedInAdmin['is_root'] || (new Stack()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary stack '. $this['stack']['id'] . '.'
-                    : 'Unauthorized to update dictionary stack '. $this['stack']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->loggedInAdmin['id'])
             ]);
         }
     }

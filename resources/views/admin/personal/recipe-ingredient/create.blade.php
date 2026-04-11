@@ -4,6 +4,12 @@
     use App\Models\Personal\Unit;
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin            = $admin ?? null;
+    $owner            = $owner ?? null;
+    $isRootAdmin      = $isRootAdmin ?? false;
+    $recipeIngredient = $recipeIngredient ?? null;
+
     $title    = $pageTitle ?? 'Add New Recipe Ingredient';
     $subtitle = $title;
 
@@ -37,7 +43,7 @@
                 'value' => referer('admin.personal.recipe-ingredient.index')
             ])
 
-            @if($admin->is_root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

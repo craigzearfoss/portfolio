@@ -1,6 +1,12 @@
 @php
     use App\Models\Portfolio\CertificationType;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
+    $certification = $certification ?? null;
+
     $title    = $pageTitle ?? 'Edit Certification: ' . $certification->name;
     $subtitle = $title;
 
@@ -10,7 +16,7 @@
         [ 'name' => 'Admin Dashboard',     'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',           'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications',      'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => $certification->name, 'href' => route('admin.portfolio.certification.show', $ceertification) ],
+        [ 'name' => $certification->name, 'href' => route('admin.portfolio.certification.show', $certification) ],
         [ 'name' => 'Edit' ]
     ];
 

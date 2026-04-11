@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateJobCoworkersRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateJobCoworkersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$jobCoworker = JobCoworker::query()->find($this['job_coworker']['id']) ) {
-            throw new Exception('Job Coworker ' . $this['job_coworker']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($jobCoworker, loggedInAdmin());
+        // verify the job coworker exists
+        $jobCoworker = JobCoworker::query()->findOrFail($this['job_coworker']['id']);
+
+        // verify the admin is authorized to update the job coworker
+        if (!$this->loggedInAdmin['is_root'] || (new JobCoworker()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update job coworker '. $jobCoworker['id'] . '.'
+                    : 'Unauthorized to update job coworker '. $jobCoworker['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -46,7 +56,11 @@ class UpdateJobCoworkersRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
             'name'            => [
                 'filled',
@@ -91,11 +105,13 @@ class UpdateJobCoworkersRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the coworker.',
+            'owner_id.filled' => 'Please select an owner for the job coworker.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update job coworker.'
+                . $this['job_coworker']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'job_id.filled'   => 'Please select a job for the coworker.',
             'job_id.exists'   => 'The specified job does not exist.',
-            'name.unique'        => '`' . $this['name'] . '` has already been added.',
+            'name.unique'     => '`' . $this['name'] . '` has already been added.',
             'level_id.filled' => 'Please select a level type for the coworker.',
             'level_id.exists' => 'The specified level does not exist.',
         ];

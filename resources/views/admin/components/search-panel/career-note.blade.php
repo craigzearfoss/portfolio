@@ -84,7 +84,7 @@
 
                         @if(!$isRootAdmin || $applicationCount > 20)
                             <div class="search-form-control">
-                                @include('admin.components.input-basic', [
+                                @include('admin.components.form-input-with-icon', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,
@@ -101,7 +101,7 @@
                         <div class="search-form-control">
                             @if($isRootAdmin || $companyCount > 20)
                                 <div class="search-form-control">
-                                    @include('admin.components.input-basic', [
+                                    @include('admin.components.form-input', [
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
@@ -119,7 +119,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',

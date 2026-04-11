@@ -2,13 +2,16 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\Portfolio\Art;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\Tag;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateTagsRequest extends FormRequest
 {
@@ -23,11 +26,19 @@ class UpdateTagsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$tag = Tag::query()->find($this['tag']['id']) ) {
-            throw new Exception('Tag ' . $this['tag']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($tag, loggedInAdmin());
+        // verify the tag exists
+        $tag = Tag::query()->findOrFail($this['tag']['id']);
+
+        // verify the admin is authorized to update the tag
+        if (!$this->loggedInAdmin['is_root'] || (new Tag()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update tag '. $tag['id'] . '.'
+                    : 'Unauthorized to update tag '. $tag['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -45,7 +56,11 @@ class UpdateTagsRequest extends FormRequest
         }
 
         return [
-            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'               => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'                   => [
                 'filled',
                 'string',
@@ -75,6 +90,8 @@ class UpdateTagsRequest extends FormRequest
         return [
             'owner_id.filled'    => 'Please select an owner for the tag.',
             'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.in'        => 'Unauthorized to update tag.'
+                . $this['tag']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];

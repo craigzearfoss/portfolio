@@ -8,7 +8,9 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateMusicRequest extends FormRequest
 {
@@ -24,11 +26,19 @@ class UpdateMusicRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$music = Music::query()->find($this['music']['id']) ) {
-            throw new Exception('Music ' . $this['music']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($music, loggedInAdmin());
+        // verify the music exists
+        $music = Music::query()->findOrFail($this['music']['id']);
+
+        // verify the admin is authorized to update the music
+        if (!$this->loggedInAdmin['is_root'] || (new Music()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
+            throw ValidationException::withMessages([
+                'GLOBAL' => App::environment('production')
+                    ? 'Unauthorized to update music '. $music['id'] . '.'
+                    : 'Unauthorized to update music '. $music['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+            ]);
+        }
 
         return true;
     }
@@ -48,7 +58,11 @@ class UpdateMusicRequest extends FormRequest
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'name'           => ['filled', 'string', 'max:255', 'unique:portfolio_db.music,name,'.$this['music']['id']],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [
@@ -99,6 +113,8 @@ class UpdateMusicRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the music.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.in'     => 'Unauthorized to update music.'
+                . $this['music']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 

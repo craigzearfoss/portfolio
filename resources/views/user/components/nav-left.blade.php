@@ -37,7 +37,7 @@
 
                 <div class="has-text-light">candidates</div>
 
-                @include('user.components.form-select-nolabel', [
+                @include('user.components.select-list', [
                     'value'    => !empty($owner->label) ? $owner->label : '',
                     'list'     => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',

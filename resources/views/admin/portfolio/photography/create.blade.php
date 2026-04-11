@@ -1,6 +1,12 @@
 @php
     use App\Models\System\Owner;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $photo       = $photo ?? null;
+
     $title    = $pageTitle ?? 'Add New Photo';
     $subtitle = $title;
 
@@ -81,7 +87,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
-                'value'     => old('name') ?? '',
+                'value'     => old('summary') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

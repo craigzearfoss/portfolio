@@ -1,4 +1,10 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $user        = $user ?? null;
+
     $title    = 'Change password for ' . $user->name;
 
     // set breadcrumbs
@@ -34,7 +40,7 @@
 
             <div class="card p-4 mb-3">
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'type'        => 'password',
                     'name'        => 'password',
                     'label'       => 'new password',
@@ -46,7 +52,7 @@
                     'placeholder' => 'Password'
                 ])
 
-                @include('admin.components.form-input', [
+                @include('admin.components.form-input-with-icon', [
                     'label'       => 'confirm password',
                     'type'        => 'password',
                     'name'        => 'confirm_password',

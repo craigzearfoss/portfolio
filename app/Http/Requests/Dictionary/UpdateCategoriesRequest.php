@@ -28,13 +28,12 @@ class UpdateCategoriesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$category = Category::query()->find($this['category']['id']) ) {
-            throw new Exception('Category ' . $this['category']['id'] . ' not found');
-        }
+        $this->loggedInAdmin = loggedInAdmin();
 
-        updateGate($category, loggedInAdmin());
+        // verify the dictionary category exists
+        $category = Category::query()->findOrFail($this['category']['id']);
 
-        return true;
+        return boolval($this->loggedInAdmin['is_root']);
     }
 
     /**
@@ -79,7 +78,10 @@ class UpdateCategoriesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'owner_id.filled'   => 'Please select an owner for the dictionary category.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to update dictionary category.'
+                . $this['category']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -87,43 +89,13 @@ class UpdateCategoriesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.categories ', $ownerId)
-            ]);
-        }
-    }
-
-    /**
-     * Verifies the dictionary category exists and the owner is authorized to update it.
-     *
-     * @return void
-     * @throws ValidationException
-     */
-    protected function validateAuthorization(): void
-    {
-        // verify the dictionary category exists
-        if (!Category::find($this['application']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Dictionary category ' . $this['category']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the dictionary category
-        if (!$this->loggedInAdmin['is_root'] || (new Category()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update dictionary category '. $this['category']['id'] . '.'
-                    : 'Unauthorized to update dictionary category '. $this['category']['id'] . ' for ' . $this->loggedInAdmin['username'] . '.'
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.categories ', $this->loggedInAdmin['id'])
             ]);
         }
     }

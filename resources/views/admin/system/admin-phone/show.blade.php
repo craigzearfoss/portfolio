@@ -1,5 +1,9 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin         = $admin ?? null;
+    $owner         = $owner ?? null;
+    $isRootAdmin   = $isRootAdmin ?? false;
+    $adminPhone    = $adminPhone ?? null;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phone: ' . $adminPhone->phone : 'Phone: ' . $adminPhone->phone);
     $subtitle = $title;

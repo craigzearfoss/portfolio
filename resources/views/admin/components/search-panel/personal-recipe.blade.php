@@ -65,7 +65,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input-with-icon', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -76,7 +76,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'author',
                                 'value'   => $author,
                                 'message' => $message ?? '',
@@ -98,7 +98,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'prep_time',
                                 'label'   => 'prep time',
                                 'value'   => $prep_time,
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.input-basic', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'total_time',
                                 'label'   => 'total time',
                                 'value'   => $total_time,
