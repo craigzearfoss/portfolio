@@ -247,6 +247,11 @@ class InitSampleAdmin extends Command
 
         $this->insertSystemAdmin($username, $password, $adminId, $adminTeamId);
 
+        // set the owner_id values in the admins table
+        DB::update(
+            'update `' .  dbName(self::DB_TAG) . '`.`admins` set `owner_id` = `id` where `owner_id` is null'
+        );
+
         $admin = Admin::find($adminId);
 
         $this->insertSystemAdminAdminTeams($admin, $adminTeamId);

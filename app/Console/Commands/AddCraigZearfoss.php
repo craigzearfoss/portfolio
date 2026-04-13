@@ -436,6 +436,12 @@ class AddCraigZearfoss extends Command
         if (!empty($data)) {
             new Admin()->insert($this->additionalColumns($data, true, null, ['is_demo' => $this->is_demo]));
         }
+
+        // set the owner_id values in the admins table
+        DB::update(
+            'update `' .  dbName(self::DB_TAG) . '`.`admins` set `owner_id` = `id` where `owner_id` is null'
+        );
+
         $this->admin = Admin::find($adminId);
     }
 

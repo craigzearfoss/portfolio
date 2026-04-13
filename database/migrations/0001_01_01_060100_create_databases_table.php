@@ -91,6 +91,16 @@ return new class extends Migration
         }
 
         new Database()->insert($data);
+
+        // set the owner_id values in the admins table
+        DB::update(
+            'update `' .  dbName($this->database_tag) . '`.`admins` set `owner_id` = `id` where `owner_id` is null'
+        );
+
+        // set the user_id values in the users table
+        DB::update(
+            'update `' .  dbName($this->database_tag) . '`.`users` set `user_id` = `id` where `user_id` is null'
+        );
     }
 
     /**
