@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\JobTask;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateJobTasksRequest extends FormRequest
+/**
+ *
+ */
+class UpdateJobTasksRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the job task exists
-        $jobTask = JobTask::query()->findOrFail($this['job_task']['id']);
-
-        // verify the admin is authorized to update the job_task
-        if (!$this->loggedInAdmin['is_root'] || (new JobTask()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update job task '. $jobTask['id'] . '.'
-                    : 'Unauthorized to update job task '. $jobTask['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'job_tasks',
+        'key'          => 'job_task',
+        'name'         => 'job-task',
+        'label'        => 'job task',
+        'class'        => 'App\Models\Portfolio\JobTask',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,10 +42,6 @@ class UpdateJobTasksRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'        => [
                 'filled',
@@ -66,8 +53,8 @@ class UpdateJobTasksRequest extends FormRequest
                 'filled',
                 'string',
                 'max:500',
-                Rule::unique('portfolio_db.job_tasks', 'summary')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.job_tasks', 'summary')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('job_id', $this['job_id'])
                         ->where('summary', $this['summary'])
                         ->whereNot('id', $this['job_task']['id']);
@@ -110,27 +97,11 @@ class UpdateJobTasksRequest extends FormRequest
     }
 
     /**
-     * Verifies the job task exists and the owner is authorized to update it.
+     * Prepare the data for validation.
      *
      * @return void
-     * @throws ValidationException
      */
-    protected function validateAuthorization(): void
+    public function prepareForValidation(): void
     {
-        // verify the job_task exists
-        if (!JobTask::find($this['job_task']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Job task ' . $this['job_task']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the job_task
-        if (!$this->loggedInAdmin['is_root'] || (new JobTask()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update job task '. $this['job_task']['id'] . '.'
-                    : 'Unauthorized to update job task '. $this['job_task']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
     }
 }

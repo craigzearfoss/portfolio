@@ -2,6 +2,7 @@
     use App\Models\System\Admin;
     use App\Models\System\AdminTeam;
     use App\Models\System\Country;
+    use App\Models\System\EmploymentStatus;
     use App\Models\System\State;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)

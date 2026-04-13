@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Dictionary\Stack;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -14,27 +15,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class UpdateStacksRequest extends FormRequest
+class UpdateStacksRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the dictionary stack exists
-        $stack = Stack::query()->findOrFail($this['stack']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'stacks',
+        'key'          => 'stack',
+        'name'         => 'stack',
+        'label'        => 'stack',
+        'class'        => 'App\Models\Dictionary\Stack',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -78,10 +75,7 @@ class UpdateStacksRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'   => 'Please select an owner for the dictionary stack.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'owner_id.in'       => 'Unauthorized to update dictionary stack.'
-                . $this['stack']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            //
         ];
     }
 
@@ -93,10 +87,6 @@ class UpdateStacksRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->loggedInAdmin['id'])
-            ]);
-        }
+        $this->generateSlug();
     }
 }

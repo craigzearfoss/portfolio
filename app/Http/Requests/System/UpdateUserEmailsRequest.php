@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
@@ -10,39 +11,56 @@ use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateUserEmailsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateUserEmailsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
+     */
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'user_emails',
+        'key'          => 'user_email',
+        'name'         => 'user-email',
+        'label'        => 'user email',
+        'class'        => 'App\Models\System\UserEmail',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
+
+    /**
+     * Determine if the admin or user is authorized to make this request and set some class variables.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        // verify the user email exists
-        $userEmail = UserEmail::query()->findOrFail($this['user_email']['id']);
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
 
-        if (canUpdate($userEmail, $this->loggedInAdmin)) {
+        // verify the resource exists
+        $this->resource = $this->props['class']::findOrFail($this[$this->props['key']]['id']);
+
+        if (canUpdate($this->resource, $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (canUpdate($userEmail, $this->loggedInUser)) {
+        } elseif (canUpdate($this->resource, $this->loggedInUser)) {
 
             return true;
 
@@ -50,8 +68,8 @@ class UpdateUserEmailsRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update user email ' . $userEmail['id'] . '.'
-                    : 'Unauthorized to update user email ' . $userEmail['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+                    ? 'Unauthorized to update ' . $this->props['label'] . '.'
+                    : 'Unauthorized to update ' . $this->props['label'] . ' ' . $this->resource['id'] . '.'
             ]);
         }
     }
@@ -91,5 +109,18 @@ class UpdateUserEmailsRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        // lowercase the email
+        $this->merge([
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
+        ]);
     }
 }

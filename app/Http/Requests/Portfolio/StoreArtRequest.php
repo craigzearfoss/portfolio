@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
+/**
+ *
+ */
 class StoreArtRequest extends StoreAppBaseRequest
 {
     /**
@@ -20,11 +23,13 @@ class StoreArtRequest extends StoreAppBaseRequest
      */
     protected array $props = [
         'database_tag' => 'portfolio_db',
+        'table'        => 'art',
+        'key'          => 'art',
         'name'         => 'art',
         'label'        => 'art',
-        'class'        => 'App\Models\Portfolio\Art',   // like "App\Models\Portfolio\Skill" or "App\Models\System\AdminEmail"
-        'table'        => 'art',
+        'class'        => 'App\Models\Portfolio\Art',
         'has_owner'    => true,
+        'has_user'     => false,
     ];
 
     /**
@@ -70,13 +75,28 @@ class StoreArtRequest extends StoreAppBaseRequest
     }
 
     /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return array_merge(
+            parent::messages(),
+            [
+                //
+            ]
+        );
+    }
+
+    /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        // generate the slug
         $this->generateSlug();
     }
 }

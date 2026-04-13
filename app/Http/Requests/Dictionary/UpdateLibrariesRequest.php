@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Dictionary\Library;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -14,27 +15,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class UpdateLibrariesRequest extends FormRequest
+class UpdateLibrariesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the dictionary library exists
-        $library = Library::query()->findOrFail($this['library']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'libraries',
+        'key'          => 'library',
+        'name'         => 'library',
+        'label'        => 'library',
+        'class'        => 'App\Models\Dictionary\Library',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -78,10 +75,7 @@ class UpdateLibrariesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'   => 'Please select an owner for the dictionary library.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'owner_id.in'       => 'Unauthorized to update dictionary library.'
-                . $this['category']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            //
         ];
     }
 
@@ -93,10 +87,6 @@ class UpdateLibrariesRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.libraries ', $this->loggedInAdmin['id'])
-            ]);
-        }
+        $this->generateSlug();
     }
 }

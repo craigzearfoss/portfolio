@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\Certification;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,27 +13,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateCertificationsRequest extends FormRequest
+class UpdateCertificationsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the certification exists
-        $certification = Certification::query()->findOrFail($this['certification']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'certifications',
+        'key'          => 'certification',
+        'name'         => 'certification',
+        'label'        => 'certification',
+        'class'        => 'App\Models\Portfolio\Certification',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -86,10 +83,6 @@ class UpdateCertificationsRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Company;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -9,46 +10,30 @@ use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateCompaniesRequest extends FormRequest
+/**
+ *
+ */
+class UpdateCompaniesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the company.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws Exception
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the company exists
-        $company = Company::query()->findOrFail($this['company']['id']);
-
-        // verify the admin is authorized to update the company
-        if (!$this->loggedInAdmin['is_root'] || (new Company()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update company '. $company['id'] . '.'
-                    : 'Unauthorized to update company '. $company['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'companies',
+        'key'          => 'company',
+        'name'         => 'company',
+        'label'        => 'company',
+        'class'        => 'App\Models\Career\Company',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -58,10 +43,6 @@ class UpdateCompaniesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'        => [
                 'filled',
@@ -72,8 +53,8 @@ class UpdateCompaniesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.companies', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['company']['id']);
                 })
@@ -82,8 +63,8 @@ class UpdateCompaniesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.companies', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['slug'])
                         ->whereNot('id', $this['company']['id']);
                 })
@@ -116,7 +97,7 @@ class UpdateCompaniesRequest extends FormRequest
             'thumbnail'       => ['string', 'max:500', 'nullable'],
             'logo'            => ['string', 'max:500', 'nullable'],
             'logo_small'      => ['string', 'max:500', 'nullable'],
-            'is_public'       =>  ['integer', 'between:0,1'],
+            'is_public'       => ['integer', 'between:0,1'],
             'is_readonly'     => ['integer', 'between:0,1'],
             'is_root'         => ['integer', 'between:0,1'],
             'is_disabled'     => ['integer', 'between:0,1'],
@@ -132,31 +113,31 @@ class UpdateCompaniesRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'    => 'Please select an owner for the company.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'owner_id.in'        => 'Unauthorized to update company '
-                . $this['company']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-            'industry_id.filled' => 'Please select an industry for the company.',
-            'industry_id.exists' => 'The specified industry does not exist.',
-            'state_id.exists'    => 'The specified state does not exist.',
-            'country_id.exists'  => 'The specified country does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'industry_id.filled' => 'Please select an industry for the company.',
+                'industry_id.exists' => 'The specified industry does not exist.',
+                'state_id.exists'    => 'The specified state does not exist.',
+                'country_id.exists'  => 'The specified country does not exist.',
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.companies', $this->loggedInAdmin['id']),
-            ]);
-        }
+        $this->generateSlug();
+
+        // lowercase the email and alt_email
+        $this->merge([
+            'email'     => !empty($this['email']) ? Str::lower($this['email']) : null,
+            'alt_email' => !empty($this['alt_email']) ? Str::lower($this['alt_email']) : null,
+        ]);
     }
 }

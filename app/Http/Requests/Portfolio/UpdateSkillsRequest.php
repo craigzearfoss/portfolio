@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\Skill;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateSkillsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateSkillsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the skill exists
-        $skill = Skill::query()->findOrFail($this['skill']['id']);
-
-        // verify the admin is authorized to update the skill
-        if (!$this->loggedInAdmin['is_root'] || (new Skill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update skill '. $skill['id'] . '.'
-                    : 'Unauthorized to update skill '. $skill['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'skills',
+        'key'          => 'skill',
+        'name'         => 'skill',
+        'label'        => 'skill',
+        'class'        => 'App\Models\Portfolio\Skill',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,10 +42,6 @@ class UpdateSkillsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'                => [
                 'filled',
@@ -65,8 +52,8 @@ class UpdateSkillsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.skills', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.skills', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['skill']['id']);
                 })
@@ -77,8 +64,8 @@ class UpdateSkillsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.skills', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.skills', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
                         ->whereNot('id', $this['skill']['id']);
                 })
@@ -129,23 +116,10 @@ class UpdateSkillsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug(
-                    $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
-                    'portfolio_db.skills',
-                    $ownerId
-                )
-            ]);
-        }
+        $this->generateSlug();
     }
 }

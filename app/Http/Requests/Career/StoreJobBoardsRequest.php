@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\JobBoard;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,33 +14,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreJobBoardsRequest extends FormRequest
+class StoreJobBoardsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\JobBoard', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create job board.'
-                    : 'Unauthorized to create job board for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'job_boards',
+        'key'          => 'job_board',
+        'name'         => 'job-board',
+        'label'        => 'job board',
+        'class'        => 'App\Models\Career\JobBoard',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -92,10 +83,6 @@ class StoreJobBoardsRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Application;
 use App\Models\Career\CompensationUnit;
 use App\Models\System\Admin;
@@ -13,44 +14,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateApplicationsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateApplicationsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the application.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws Exception
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the application exists
-        $application = Application::query()->findOrFail($this['application']['id']);
-
-        // verify the admin is authorized to update the application
-        if (!$this->loggedInAdmin['is_root'] || (new Application()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update application '. $application['id'] . '.'
-                    : 'Unauthorized to update application '. $application['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'applications',
+        'key'          => 'application',
+        'name'         => 'application',
+        'label'        => 'application',
+        'class'        => 'App\Models\Career\Application',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -136,25 +119,26 @@ class UpdateApplicationsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'               => 'Please select an owner for the application.',
-            'owner_id.exists'               => 'The specified owner does not exist.',
-            'owner_id.in'                   => 'Unauthorized to update application '
-                                                    . $this['application']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-            'company_id.filled'             => 'Please select a company for the application.',
-            'company_id.exists'             => 'The specified company does not exist.',
-            'job_board_id.exists'           => 'The specified job board does not exist.',
-            'resume_id.exists'              => 'The specified resume does not exist.',
-            'compensation_unit_id.exists'   => 'The specified compensation unit type does not exist.',
-            'job_duration_type_id.filled'   => 'Please select a duration type for the application.',
-            'job_duration_type_id.exists'   => 'The specified duration type does not exist.',
-            'job_employment_type_id.filled' => 'Please select an employment type for the application.',
-            'job_employment_type_id.exists' => 'The specified employment type does not exist.',
-            'job_location_type_id.filled'   => 'Please select an location type for the application.',
-            'job_location_type_id.exists'   => 'The specified location type does not exist.',
-            'state_id.exists'               => 'The specified state does not exist.',
-            'country_id.exists'             => 'The specified country does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'resource_id.exists' => 'The specified resource does not exist.',
+                'category_id.exists' => 'The specified category does not exist.',
+                'company_id.filled'             => 'Please select a company for the application.',
+                'company_id.exists'             => 'The specified company does not exist.',
+                'job_board_id.exists'           => 'The specified job board does not exist.',
+                'resume_id.exists'              => 'The specified resume does not exist.',
+                'compensation_unit_id.exists'   => 'The specified compensation unit type does not exist.',
+                'job_duration_type_id.filled'   => 'Please select a duration type for the application.',
+                'job_duration_type_id.exists'   => 'The specified duration type does not exist.',
+                'job_employment_type_id.filled' => 'Please select an employment type for the application.',
+                'job_employment_type_id.exists' => 'The specified employment type does not exist.',
+                'job_location_type_id.filled'   => 'Please select an location type for the application.',
+                'job_location_type_id.exists'   => 'The specified location type does not exist.',
+                'state_id.exists'               => 'The specified state does not exist.',
+                'country_id.exists'             => 'The specified country does not exist.',
+            ]
+        );
     }
 
     /**

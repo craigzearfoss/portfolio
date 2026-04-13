@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Event;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,41 +14,26 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\ValidationException;
 
-class UpdateEventsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateEventsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var int|null
-     */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the event exists
-        $event = Event::query()->findOrFail($this['event']['id']);
-
-        // verify the admin is authorized to update the event
-        if (!$this->loggedInAdmin['is_root'] || (new Event()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update event '. $event['id'] . '.'
-                    : 'Unauthorized to update event '. $event['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'events',
+        'key'          => 'event',
+        'name'         => 'event',
+        'label'        => 'event',
+        'class'        => 'App\Models\Career\Event',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -102,28 +88,22 @@ class UpdateEventsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'       => 'Please select an owner for the event.',
-            'owner_id.exists'       => 'The specified owner does not exist.',
-            'owner_id.in'           => 'Unauthorized to update event '
-                . $this['communication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-            'application_id.filled' => 'Please select an application for the event.',
-            'application_id.exists' => 'The specified application does not exist.',
-            'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'application_id.filled' => 'Please select an application for the event.',
+                'application_id.exists' => 'The specified application does not exist.',
+                'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
-        if (!empty($this['event_time'])) {
-            $communication_datetime = new DateTime($this['event_time']);
-            $this['event_time'] = $communication_datetime->format('H:i:s');
-        }
     }
 }

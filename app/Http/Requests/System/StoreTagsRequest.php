@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
@@ -11,33 +12,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreTagsRequest extends FormRequest
+/**
+ *
+ */
+class StoreTagsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\System\Tag', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create tag.'
-                    : 'Unauthorized to create tag for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'tags',
+        'key'          => 'tag',
+        'name'         => 'tag',
+        'label'        => 'tag',
+        'class'        => 'App\Models\System\Tag',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,18 +41,14 @@ class StoreTagsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'                   => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('system_db.tags', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.tags', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name']);
                 })
             ],
@@ -84,5 +74,14 @@ class StoreTagsRequest extends FormRequest
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

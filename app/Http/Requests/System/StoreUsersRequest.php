@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
@@ -13,17 +14,26 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
-class StoreUsersRequest extends FormRequest
+/**
+ *
+ */
+class StoreUsersRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
+     * Database and table properties for the resource.
+     *
+     * @var array|string[]
      */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'users',
+        'key'          => 'user',
+        'name'         => 'user',
+        'label'        => 'user',
+        'class'        => 'App\Models\System\User',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
 
     /**
      * Determine if the admin is authorized to make this request.
@@ -32,21 +42,28 @@ class StoreUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        if (canCreate('App\Models\System\User', $this->loggedInAdmin)) {
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
+
+        if (canCreate($this->props['class'], $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (canCreate('App\Models\System\User', $this->loggedInUser)) {
+        } elseif (canCreate($this->props['class'], $this->loggedInUser)) {
 
             return true;
 
         } else {
 
             throw ValidationException::withMessages([
-                'GLOBAL' => 'Unauthorized to create user.'
+                'GLOBAL' => 'Unauthorized to create ' . $this->props['label'] . '.'
             ]);
         }
     }
@@ -137,12 +154,18 @@ class StoreUsersRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
+        // lowercase the username, label, and email
         $this->merge([
-            'username' => Str::lower($this['username']),
-            'label'    => Str::lower($this['label']),
-            'email'    => Str::lower($this['email']),
+            'username' => !empty($this['username']) ? Str::lower($this['username']) : null,
+            'label'    => !empty($this['label']) ? Str::lower($this['label']) : null,
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
         ]);
+
+        // if the account is disabled then force current session to logout
+        if (!empty($this['is_disabled'])) {
+            $this->merge(['requires_relogin' => 1]);
+        }
     }
 }

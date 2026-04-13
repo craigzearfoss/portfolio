@@ -7,6 +7,7 @@ use App\Models\System\Owner;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -171,9 +172,9 @@ if (! function_exists('loggedInAdmin')) {
     /**
      * Returns Admin object of the logged-in admin or null if there is not one.
      *
-     * @return Admin|null
+     * @return Authenticatable|null
      */
-    function loggedInAdmin(): Admin|null
+    function loggedInAdmin(): Authenticatable|null
     {
         if (!Auth::guard('admin')->check()) {
             return null;
@@ -247,30 +248,45 @@ if (! function_exists('canCreate')) {
      */
     function canCreate(string $resourceClass, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        $isRootAdmin = $admin['is_root'] ?? false;
-
-        if (empty($admin)) {
+        // resources can only be created in the admin environment
+        if ($envType != EnvTypes::ADMIN) {
             return false;
-        } elseif ($isRootAdmin) {
-            return true;
+        }
+
+        // determine the authorization
+        if (empty($admin)) {
+            $retValue = false;
+        } elseif (boolval($admin['is_root'] ?? 0)) {
+            // root admins can create anything
+            // @TODO: should we add some limitations
+            $retValue = true;
         } else {
 
-            $adminResource = AdminResource::query()
-                ->where('class', '=', $resourceClass)
+            // check the admin's permission for this resource type in the environment
+            if (!$adminResource = AdminResource::query()->where('class', '=', $resourceClass)
                 ->where('owner_id', '=', $admin['id'])
-                ->where($envType->value, '=', true)
-                ->first();
-
-            if (empty($adminResource)) {
-                return false;
-            } elseif (!$adminResource->admin) {
-                return false;
+                ->where($envType->value, '=', true)->first()
+            ) {
+                $retValue = false;
+            } else {
+                if (!$adminResource->has_owner) {
+                    // only admins can update ownerless resources
+                    $retValue = false;
+                } else {
+                    $retValue = true;
+                }
             }
         }
 
-        return $admin['is_demo']
-            ? config('app.demo_admin_can_edit')
-            : true;
+        // return the authorization
+        if (!$retValue) {
+            return false;
+        } else {
+            // before returning true make sure it's not for a demo user with editing disabled
+            return $admin['is_demo']
+                ? config('app.demo_admin_can_edit')
+                : true;
+        }
     }
 }
 
@@ -286,45 +302,40 @@ if (! function_exists('canRead')) {
      */
     function canRead($resourceObjectOrClass, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        $isRootAdmin = $admin['is_root'] ?? false;
-
-        if (is_string($resourceObjectOrClass)) {
-            $resourceClass = $resourceObjectOrClass;
-            $resourceObject = null;
+        if (boolval($admin['is_root'] ?? 0)) {
+            $retValue = true;
         } else {
-            $resourceClass = get_class($resourceObjectOrClass);
-            $resourceObject = $resourceObjectOrClass;
-        }
 
-        // get the admin resource (Note that is not admin is specified we pull it from the system.resources table.)
-        if (empty($admin) || $admin['is_root']) {
-            $adminResource = Resource::query()->where('class', '=', $resourceClass)
-                ->where($envType->value, '=', true)
-                ->first();
-        } else {
-            $adminResource = AdminResource::query()->where('class', '=', $resourceClass)
-                ->where('owner_id', '=', $admin['id'])
-                ->where($envType->value, '=', true)
-                ->first();
-        }
-//dd($resourceClass, $resourceObject, $admin, $envType, $adminResource);
-        if (empty($adminResource)) {
-            return false;
-        } elseif ( $adminResource->is_root && !$isRootAdmin) {
-            return false;
-        } elseif (!$adminResource->admin) {
-            return false;
-        } elseif (!$adminResource->has_owner) {
-            return true;
-        } elseif (!empty($admin)) {
-            if ($adminResource->owner_id == $admin['id']) {
-                return true;
+            if (is_string($resourceObjectOrClass)) {
+
+                $resourceClass = $resourceObjectOrClass;
+                $resourceObject = null;
+
+                $resource = Resource::query()->where('class', '=', $resourceClass)
+                    ->where($envType->value, '=', true)
+                    ->first();
+
             } else {
-                return false;
+
+                $resourceClass = get_class($resourceObjectOrClass);
+                $resourceObject = $resourceObjectOrClass;
+
+                $resource = AdminResource::query()->where('class', '=', $resourceClass)
+                    ->where('owner_id', '=', $admin['id'])
+                    ->where($envType->value, '=', true)
+                    ->first();
             }
-        } else {
-            return false;
+
+            if (empty($resource)) {
+                $retValue = false;
+            } else {
+                // @TODO: should we check the is_public property
+                $retValue = true;
+            }
+
         }
+
+        return $retValue;
     }
 }
 
@@ -340,33 +351,48 @@ if (! function_exists('canUpdate')) {
      */
     function canUpdate($resourceObject, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        $isRootAdmin = $admin['is_root'] ?? false;
+        // resources can only be updated in the admin environment
+        if ($envType != EnvTypes::ADMIN) {
+            return false;
+        }
 
+        // determine the authorization
         if (empty($admin)) {
-            return false;
-        } elseif ($resourceObject->is_root && !$isRootAdmin) {
-            return false;
-        } elseif (!$isRootAdmin) {
+            $retValue = false;
+        } elseif (boolval($admin['is_root'] ?? 0)) {
+            // root admins can update anything
+            // @TODO: should we add some limitations
+            $retValue = true;
+        } elseif ($resourceObject->is_root) {
+            // non-root admins cannot update root resources
+            $retValue = false;
+        } elseif (!$resourceObject->has_owner) {
+            // only admins can update ownerless resources
+            $retValue = false;
+        } elseif ($resourceObject->owner_id !== $admin['id']) {
+            $retValue = false;
+        } else {
 
-            $adminResource = AdminResource::query()->where('class', '=', get_class($resourceObject))
+            // check the admin's permission for this resource type in the environment
+            if (AdminResource::query()->where('class', '=', get_class($resourceObject))
                 ->where('owner_id', '=', $admin['id'])
-                ->where($envType->value, '=', true)
-                ->first();
-
-            if (empty($adminResource)) {
-                return false;
-            } elseif (!$adminResource->has_owner) {
-                // only admins can update resources that don't have an owner
-                return false;
-            } elseif ($admin['id'] != $resourceObject->owner_id) {
-                return false;
+                ->where($envType->value, '=', true)->first()
+            ) {
+                $retValue = true;
+            } else {
+                $retValue = false;
             }
         }
 
-        // before returning true make sure it's not for a demo user with editing disabled
-        return $admin['is_demo']
-            ? config('app.demo_admin_can_edit')
-            : true;
+        // return the authorization
+        if (!$retValue) {
+            return false;
+        } else {
+            // before returning true make sure it's not for a demo user with editing disabled
+            return $admin['is_demo']
+                ? config('app.demo_admin_can_edit')
+                : true;
+        }
     }
 }
 
@@ -382,35 +408,48 @@ if (! function_exists('canDelete')) {
      */
     function canDelete($resourceObject, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        $isRootAdmin = $admin['is_root'] ?? false;
+        // resources can only be deleted in the admin environment
+        if ($envType != EnvTypes::ADMIN) {
+            return false;
+        }
 
+        // determine the authorization
         if (empty($admin)) {
-            return false;
-        } elseif (!$resourceObject->has_owner && !$isRootAdmin) {
-            // only admins can delete resources that don't have an owner
-            return false;
-        } elseif ($resourceObject->is_root && !$isRootAdmin) {
-            return false;
-        } elseif ($isRootAdmin) {
-            return true;
+            $retValue = false;
+        } elseif (boolval($admin['is_root'] ?? 0)) {
+            // root admins can delete anything
+            // @TODO: should we add some limitations
+            $retValue = true;
+        } elseif ($resourceObject->is_root) {
+            // non-root admins cannot delete root resources
+            $retValue = false;
+        } elseif (!$resourceObject->has_owner) {
+            // only admins can delete ownerless resources
+            $retValue = false;
+        } elseif ($resourceObject->owner_id !== $admin['id']) {
+            $retValue = false;
         } else {
 
-            $adminResource = AdminResource::query()->where('class', '=', get_class($resourceObject))
+            // check the admin's permission for this resource type in the environment
+            if (AdminResource::query()->where('class', '=', get_class($resourceObject))
                 ->where('owner_id', '=', $admin['id'])
-                ->where($envType->value, '=', true)
-                ->first();
-
-            if (!$adminResource->has_owner) {
-                // only admins can delete resources that don't have an owner
-                return false;
-            } elseif (!empty($adminResource)) {
-                return false;
+                ->where($envType->value, '=', true)->first()
+            ) {
+                $retValue = true;
+            } else {
+                $retValue = false;
             }
         }
 
-        return $admin['is_demo']
-            ? config('app.demo_admin_can_edit')
-            : true;
+        // return the authorization
+        if (!$retValue) {
+            return false;
+        } else {
+            // before returning true make sure it's not for a demo user with editing disabled
+            return $admin['is_demo']
+                ? config('app.demo_admin_can_edit')
+                : true;
+        }
     }
 }
 

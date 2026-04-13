@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\School;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,27 +14,23 @@ use Illuminate\Validation\Rule;
 /**
  *
  */
-class UpdateSchoolsRequest extends FormRequest
+class UpdateSchoolsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the school exists
-        $school = School::query()->findOrFail($this['school']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'schools',
+        'key'          => 'school',
+        'name'         => 'school',
+        'label'        => 'school',
+        'class'        => 'App\Models\Portfolio\School',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -97,10 +94,6 @@ class UpdateSchoolsRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.schools')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -12,33 +13,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreMessagesRequest extends FormRequest
+class StoreMessagesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\System\Message', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create message.'
-                    : 'Unauthorized to create message for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'messages',
+        'key'          => 'message',
+        'name'         => 'message',
+        'label'        => 'message',
+        'class'        => 'App\Models\System\Message',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -48,6 +39,7 @@ class StoreMessagesRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
             'from_admin'   => ['integer', 'between:0,1'],
             'name'         => ['required', 'max:255'],
             'email'        => ['required', 'email:rfc,dns', 'max:255'],
@@ -72,5 +64,16 @@ class StoreMessagesRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        // set the owner_id to the id of the default root admin
+        $this->merge(['owner_id' => 1]);
     }
 }

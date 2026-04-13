@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Http\Middleware\Admin;
 use App\Models\System\Owner;
 use App\Rules\CaseInsensitiveNotIn;
@@ -14,29 +15,62 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
-class StoreAdminsRequest extends FormRequest
+/**
+ *
+ */
+class StoreAdminsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
+     * Database and table properties for the resource.
+     *
+     * @var array|string[]
      */
-    protected Admin|null|Owner $loggedInAdmin = null;
+    protected array $props = [
+        'owner_id'     => ['integer', 'exists:system_db.admins,id', 'nullable'],
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admins',
+        'key'          => 'admin',
+        'name'         => 'admin',
+        'label'        => 'admin',
+        'class'        => 'App\Models\System\Admin',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
+
 
     /**
-     * Determine if the admin is authorized to make this request.
+     * Determine if the admin is authorized to make this request and set some class variables.
      *
      * @throws ValidationException
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
+        $this->loggedInUser  = loggedInUser();
 
-        if (!canCreate('App\Models\System\Admin', $this->loggedInAdmin)) {
+        // get the admin id of the owner of the resource (this will be null if there is no owner)
+// the owner_id field does not need to be specified when an admin is added. it is updated after the admin is created
+//        if ($this->props['has_owner']) {
+//            if (!$this->ownerId = $this['owner_id'] ?? null) {
+//                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+//            }
+//        }
+
+        // get the user id of the owner of the resource (this only applies to resources like user_teams,
+        // user_groups, user_emails, and email phones
+        if ($this->props['has_user']) {
+            if (!$this->userId = $this['user_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No user_id provided.' ]);
+            }
+        }
+
+        if (!canCreate($this->props['class'], $this->loggedInAdmin)) {
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create admin.'
-                    : 'Unauthorized to create admin for admin ' . $this->loggedInAdmin['id'] . '.'
+                    ? 'Unauthorized to create ' . $this->props['label'] . '.'
+                    : 'Unauthorized to create ' . $this->props['label'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
             ]);
-
         }
 
         return true;
@@ -141,12 +175,13 @@ class StoreAdminsRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
+        // lowercase the username, label, and email
         $this->merge([
-            'username' => Str::lower($this['username']),
-            'label'    => Str::lower($this['label']),
-            'email'    => Str::lower($this['email']),
+            'username' => !empty($this['username']) ? Str::lower($this['username']) : null,
+            'label'    => !empty($this['label']) ? Str::lower($this['label']) : null,
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
         ]);
 
         // if the account is disabled then force current session to logout

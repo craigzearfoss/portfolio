@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Portfolio\Music;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,33 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreMusicRequest extends FormRequest
+/**
+ *
+ */
+class StoreMusicRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\Music', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create music.'
-                    : 'Unauthorized to create music for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'music',
+        'key'          => 'music',
+        'name'         => 'music',
+        'label'        => 'music',
+        'class'        => 'App\Models\Portfolio\Music',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -48,10 +42,6 @@ class StoreMusicRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         $maxYear = intval(date("Y")) + 1;
 
         return [
@@ -62,8 +52,8 @@ class StoreMusicRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.music', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.music', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -106,5 +96,16 @@ class StoreMusicRequest extends FormRequest
             'owner_id.required' => 'Please select an owner for the music.',
             'owner_id.exists'   => 'The specified owner does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        // generate the slug
+        $this->generateSlug();
     }
 }

@@ -33,6 +33,7 @@ class Message extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'from_admin',
         'name',
         'email',
@@ -49,8 +50,8 @@ class Message extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'from_admin', 'name', 'email', 'subject', 'body', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'from_admin', 'name', 'email', 'subject', 'body', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Portfolio\Art;
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\Tag;
@@ -13,35 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateTagsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateTagsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
+     * Database and table properties for the resource.
+     *
+     * @var array|string[]
      */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     * @throws Exception
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the tag exists
-        $tag = Tag::query()->findOrFail($this['tag']['id']);
-
-        // verify the admin is authorized to update the tag
-        if (!$this->loggedInAdmin['is_root'] || (new Tag()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update tag '. $tag['id'] . '.'
-                    : 'Unauthorized to update tag '. $tag['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'tags',
+        'key'          => 'tag',
+        'name'         => 'tag',
+        'label'        => 'tag',
+        'class'        => 'App\Models\System\Tag',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,10 +42,6 @@ class UpdateTagsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'               => [
                 'filled',
@@ -65,8 +52,8 @@ class UpdateTagsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('system_db.tags', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.tags', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['tag']['id']);
                 })
@@ -95,5 +82,14 @@ class UpdateTagsRequest extends FormRequest
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

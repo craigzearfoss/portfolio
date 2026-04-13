@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Portfolio\Certification;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,33 +14,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreCertificationsRequest extends FormRequest
+class StoreCertificationsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\Certification', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create certification.'
-                    : 'Unauthorized to create certification for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'certifications',
+        'key'          => 'certification',
+        'name'         => 'certification',
+        'label'        => 'certification',
+        'class'        => 'App\Models\Portfolio\Certification',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -93,10 +84,6 @@ class StoreCertificationsRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

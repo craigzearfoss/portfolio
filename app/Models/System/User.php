@@ -3,8 +3,10 @@
 namespace App\Models\System;
 
 use App\Models\System\User as UserModel;
+use App\Observers\System\UserObserver;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\System\UserFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +18,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  *
  */
+#[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -37,6 +40,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'user_id',
         'user_team_id',
         'username',
         'name',
@@ -117,10 +121,10 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'user_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
-        'employer', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'birthday', 'bio',
-        'notes', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'user_id', 'user_team_id', 'username', 'name', 'label', 'salutation', 'title',
+        'role', 'employer', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'birthday',
+        'bio', 'notes', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *

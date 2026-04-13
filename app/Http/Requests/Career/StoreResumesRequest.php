@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
@@ -11,40 +12,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreResumesRequest extends FormRequest
+/**
+ *
+ */
+class StoreResumesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the resume.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Resume', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create resume.'
-                    : 'Unauthorized to create resume for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'resumes',
+        'key'          => 'resume',
+        'name'         => 'resume',
+        'label'        => 'resume',
+        'class'        => 'App\Models\Career\Resume',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -54,18 +41,14 @@ class StoreResumesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'         => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.resumes', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->where('resume_date', $this['resume_date']);
                 })
@@ -74,8 +57,8 @@ class StoreResumesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.resumes', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
                         ->where('resume_date', $this['resume_date']);
                 })
@@ -112,34 +95,23 @@ class StoreResumesRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required' => 'Please select an owner for the resume.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'name.unique'       => 'There is already a resume with the same name for this date.',
-            'slug.unique'       => 'There is already a resume with the same slug for this date.'
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'name.unique' => 'There is already a resume with the same name for this date.',
+                'slug.unique' => 'There is already a resume with the same slug for this date.'
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $slug = !empty($this['date']) . !empty($this['name']) ? '-' . $this['name'] : '';
-            $this->merge([
-                'slug' => uniqueSlug($slug),
-                'career_db.resumes',
-                $ownerId
-            ]);
-        }
+        $this->generateSlug();
     }
 }

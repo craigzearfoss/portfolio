@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\Award;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateAwardsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateAwardsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the award exists
-        $award = Award::query()->findOrFail($this['award']['id']);
-
-        // verify the admin is authorized to update the award
-        if (!$this->loggedInAdmin['is_root'] || (new Award()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update award '. $award['id'] . '.'
-                    : 'Unauthorized to update award '. $award['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'awards',
+        'key'          => 'award',
+        'name'         => 'award',
+        'label'        => 'award',
+        'class'        => 'App\Models\Portfolio\Award',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -52,10 +43,6 @@ class UpdateAwardsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'       => [
                 'filled',
@@ -69,8 +56,8 @@ class UpdateAwardsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
                         ->whereNot('id', $this['award']['id']);
                 })
@@ -117,19 +104,10 @@ class UpdateAwardsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
-            if (!empty($this['category'])) {
-                $label .= ' for ' . $this['category'];
-            }
-            $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->loggedInAdmin['id'])
-            ]);
-        }
+        $this->generateSlug();
     }
 }

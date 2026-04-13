@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\AdminPhone;
 use App\Models\System\Owner;
@@ -11,36 +12,26 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\ValidationException;
 
-class UpdateAdminPhonesRequest extends FormRequest
+/**
+ *
+ */
+class UpdateAdminPhonesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the admin phone exists
-        $adminPhone = AdminPhone::query()->findOrFail($this['admin_phone']['id']);
-
-        // verify the admin is authorized to update the admin phone
-        if (!$this->loggedInAdmin['is_root'] || (new AdminPhone()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update admin phone '. $adminPhone['id'] . '.'
-                    : 'Unauthorized to update admin phone '. $adminPhone['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admin_phones',
+        'key'          => 'admin_phone',
+        'name'         => 'admin-phone',
+        'label'        => 'admin phone',
+        'class'        => 'App\Models\System\AdminPhone',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -81,5 +72,14 @@ class UpdateAdminPhonesRequest extends FormRequest
             'owner_id.in'      => 'Unauthorized to update admin phone.'
                 . $this['admin_phone']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

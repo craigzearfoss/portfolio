@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Personal\Unit;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,33 +14,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreUnitsRequest extends FormRequest
+class StoreUnitsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Personal\Unit', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create unit.'
-                    : 'Unauthorized to create unit for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'units',
+        'key'          => 'unit',
+        'name'         => 'unit',
+        'label'        => 'unit',
+        'class'        => 'App\Models\Personal\Unit',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -71,5 +62,14 @@ class StoreUnitsRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

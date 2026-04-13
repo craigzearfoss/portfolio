@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
@@ -11,33 +12,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreJobsRequest extends FormRequest
+/**
+ *
+ */
+class StoreJobsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\Job', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create job.'
-                    : 'Unauthorized to create job  for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'jobs',
+        'key'          => 'job',
+        'name'         => 'job',
+        'label'        => 'job',
+        'class'        => 'App\Models\Portfolio\Job',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,10 +41,6 @@ class StoreJobsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
             'company'                => ['required', 'string', 'max:255'],
@@ -59,8 +49,8 @@ class StoreJobsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) use ($ownerId)  {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -121,23 +111,11 @@ class StoreJobsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug(
-                    $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
-                    'portfolio_db.jobs ',
-                    $ownerId)
-            ]);
-        }
+        $this->generateSlug();
 
         // add '-01' to the start_date and end_date fields
         if (!empty($this['start_date'])) {

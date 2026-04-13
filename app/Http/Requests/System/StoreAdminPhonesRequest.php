@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
+use App\Models\System\AdminPhone;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -11,33 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreAdminPhonesRequest extends FormRequest
+/**
+ *
+ */
+class StoreAdminPhonesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\System\AdminPhone', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create admin phone.'
-                    : 'Unauthorized to create admin phone for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admin_phones',
+        'key'          => 'admin_phone',
+        'name'         => 'admin-phone',
+        'label'        => 'admin phone',
+        'class'        => 'App\Models\System\AdminPhone',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,10 +42,6 @@ class StoreAdminPhonesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
             'phone'        => [
@@ -58,8 +49,8 @@ class StoreAdminPhonesRequest extends FormRequest
                 'string',
                 'max:20',
                 'nullable',
-                Rule::unique('system_db.admin_phones', 'phone')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_phones', 'phone')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('phone', $this['phone']);
                 })
             ],
@@ -73,5 +64,14 @@ class StoreAdminPhonesRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Communication;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -14,43 +15,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateCommunicationsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateCommunicationsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the communication.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws Exception
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the communication exists
-        $communication = Communication::query()->findOrFail($this['communication']['id']);
-
-        // verify the admin is authorized to update the communication
-        if (!$this->loggedInAdmin['is_root'] || (new Communication()->where('owner_id', $this['owner__id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update communication '. $communication['id'] . '.'
-                    : 'Unauthorized to update communication '. $communication['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'communications',
+        'key'          => 'communication',
+        'name'         => 'communication',
+        'label'        => 'communication',
+        'class'        => 'App\Models\Career\Communication',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -106,16 +90,15 @@ class UpdateCommunicationsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'       => 'Please select an owner for the communication.',
-            'owner_id.exists'       => 'The specified owner does not exist.',
-            'owner_id.in'           => 'Unauthorized to update communication '
-                . $this['communication']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-            'application_id.filled' => 'Please select an application for the communication.',
-            'application_id.exists' => 'The specified application does not exist.',
-            'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
-            'communication_type_id.filled' => 'Please select the type of communication.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'application_id.filled' => 'Please select an application for the communication.',
+                'application_id.exists' => 'The specified application does not exist.',
+                'application_id.in'     => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
+                'communication_type_id.filled' => 'Please select the type of communication.',
+            ]
+        );
     }
 
     /**
@@ -126,6 +109,7 @@ class UpdateCommunicationsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
+        // make sure the communication_datetime is formatted correctly
         if (!empty($this['communication_datetime'])) {
             $communication_datetime = new DateTime($this['communication_datetime']);
             $this['communication_datetime'] = $communication_datetime->format('Y-m-d H:i:s');

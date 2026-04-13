@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
@@ -9,17 +10,26 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class StoreUserPhonesRequest extends FormRequest
+/**
+ *
+ */
+class StoreUserPhonesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
+     * Database and table properties for the resource.
+     *
+     * @var array|string[]
      */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'user_phones',
+        'key'          => 'user_phone',
+        'name'         => 'user-phone',
+        'label'        => 'user phone',
+        'class'        => 'App\Models\System\UserPhone',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
 
     /**
      * Determine if the admin is authorized to make this request.
@@ -28,21 +38,28 @@ class StoreUserPhonesRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        if (canCreate('App\Models\System\UserPhone', $this->loggedInAdmin)) {
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
+
+        if (canCreate($this->props['class'], $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (canCreate('App\Models\System\UserPhone', $this->loggedInUser)) {
+        } elseif (canCreate($this->props['class'], $this->loggedInUser)) {
 
             return true;
 
         } else {
 
             throw ValidationException::withMessages([
-                'GLOBAL' => 'Unauthorized to create user phone.'
+                'GLOBAL' => 'Unauthorized to create ' . $this->props['label'] . '.'
             ]);
         }
     }
@@ -67,5 +84,14 @@ class StoreUserPhonesRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

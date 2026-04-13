@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
@@ -11,33 +12,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreAwardsRequest extends FormRequest
+/**
+ *
+ */
+class StoreAwardsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\Award', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create award.'
-                    : 'Unauthorized to create award for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'awards',
+        'key'          => 'award',
+        'name'         => 'award',
+        'label'        => 'award',
+        'class'        => 'App\Models\Portfolio\Award',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,10 +41,6 @@ class StoreAwardsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'           => ['required', 'string', 'max:255'],
@@ -60,8 +50,8 @@ class StoreAwardsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -105,23 +95,10 @@ class StoreAwardsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
-            if (!empty($this['category'])) {
-                $label .= ' for ' . $this['category'];
-            }
-            $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.awards', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
     }
 }

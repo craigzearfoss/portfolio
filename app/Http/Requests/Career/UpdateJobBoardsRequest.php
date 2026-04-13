@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Event;
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\JobBoard;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,27 +13,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateJobBoardsRequest extends FormRequest
+class UpdateJobBoardsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the job board exists
-        $jobBoard = JobBoard::query()->findOrFail($this['job_board']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'job_boards',
+        'key'          => 'job_board',
+        'name'         => 'job-board',
+        'label'        => 'job board',
+        'class'        => 'App\Models\Career\JobBoard',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -86,10 +82,6 @@ class UpdateJobBoardsRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

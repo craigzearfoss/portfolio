@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
@@ -14,36 +15,52 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateUserTeamsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateUserTeamsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
+     */
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'user_teams',
+        'key'          => 'user_team',
+        'name'         => 'user-team',
+        'label'        => 'user team',
+        'class'        => 'App\Models\System\UserTeam',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
+
+    /**
+     * Determine if the admin or user is authorized to make this request and set some class variables.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        // verify the user team exists
-        $userTeam = UserTeam::query()->findOrFail($this['user_team']['id']);
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
 
-        if (canUpdate($userTeam, $this->loggedInAdmin)) {
+        // verify the resource exists
+        $this->resource = $this->props['class']::findOrFail($this[$this->props['key']]['id']);
+
+        if (canUpdate($this->resource, $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (canUpdate($userTeam, $this->loggedInUser)) {
+        } elseif (canUpdate($this->resource, $this->loggedInUser)) {
 
             return true;
 
@@ -51,8 +68,8 @@ class UpdateUserTeamsRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update user phone ' . $userTeam['id'] . '.'
-                    : 'Unauthorized to update user phone ' . $userTeam['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+                    ? 'Unauthorized to update ' . $this->props['label'] . '.'
+                    : 'Unauthorized to update ' . $this->props['label'] . ' ' . $this->resource['id'] . '.'
             ]);
         }
     }
@@ -137,19 +154,10 @@ class UpdateUserTeamsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
-        if (!$userId = $this['user_id']) {
-            throw new Exception('No user_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.user_teams', $userId)
-            ]);
-        }
+        $this->generateSlug();
     }
 }

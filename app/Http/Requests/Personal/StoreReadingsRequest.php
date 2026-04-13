@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Personal\Reading;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,33 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreReadingsRequest extends FormRequest
+/**
+ *
+ */
+class StoreReadingsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Personal\Reading', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create reading.'
-                    : 'Unauthorized to create reading for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'readings',
+        'key'          => 'reading',
+        'name'         => 'reading',
+        'label'        => 'reading',
+        'class'        => 'App\Models\Personal\Reading',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -48,10 +42,6 @@ class StoreReadingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'         => ['required', 'integer', 'exists:system_db.admins,id'],
             'title'            => ['required', 'string', 'max:255', 'unique:' . Reading::class],
@@ -60,8 +50,8 @@ class StoreReadingsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.readings', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('personal_db.readings', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -99,31 +89,22 @@ class StoreReadingsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required' => 'Please select an owner for the reading.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                //
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['title'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
-                'personal_db.readings',
-                $ownerId
-            ]);
-        }
+        $this->generateSlug();
     }
 }

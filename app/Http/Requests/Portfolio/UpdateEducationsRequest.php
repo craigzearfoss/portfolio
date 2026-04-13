@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\DegreeType;
 use App\Models\Portfolio\Education;
 use App\Models\Portfolio\School;
@@ -14,36 +15,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateEducationsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateEducationsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the education exists
-        $education = Education::query()->findOrFail($this['education']['id']);
-
-        // verify the admin is authorized to update the education
-        if (!$this->loggedInAdmin['is_root'] || (new Education()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update education '. $education['id'] . '.'
-                    : 'Unauthorized to update education '. $education['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'education',
+        'key'          => 'education',
+        'name'         => 'education',
+        'label'        => 'education',
+        'class'        => 'App\Models\Portfolio\Education',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -54,10 +45,6 @@ class UpdateEducationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return[
             'owner_id'           => [
                 'filled',
@@ -72,8 +59,8 @@ class UpdateEducationsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.educations', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.educations', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
                         ->whereNot('id', $this['education']['id']);
                 })
@@ -126,14 +113,9 @@ class UpdateEducationsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
 
@@ -147,7 +129,7 @@ class UpdateEducationsRequest extends FormRequest
                     . '-from-' .  $school
                 ),
                 'portfolio_db.educations',
-                $ownerId
+                $this->ownerId
             ]);
         }
 

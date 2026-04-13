@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Recipe;
 use App\Models\System\Admin;
@@ -16,33 +17,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreRecipeIngredientsRequest extends FormRequest
+class StoreRecipeIngredientsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Personal\RecipeIngredient', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create recipe ingredient.'
-                    : 'Unauthorized to create recipe ingredient for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'recipe_ingredients',
+        'key'          => 'recipe_ingredient',
+        'name'         => 'recipe-ingredient',
+        'label'        => 'recipe ingredient',
+        'class'        => 'App\Models\Personal\RecipeIngredient',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -52,16 +43,12 @@ class StoreRecipeIngredientsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'      => ['required', 'integer', 'exists:system_db.admins,id'],
             'recipe_id'     => [
                 'required',
                 'integer',
-                Rule::in(new Recipe()->where('owner_id', $ownerId)->get()->pluck('id')->toArray())
+                Rule::in(new Recipe()->where('owner_id', $this->ownerId)->get()->pluck('id')->toArray())
             ],
             'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
@@ -88,12 +75,21 @@ class StoreRecipeIngredientsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'      => 'Please select an owner.',
-            'owner_id.exists'        => 'The specified owner does not exist.',
-            'recipe_id.required'     => 'Please select a recipe.',
-            'ingredient_id.required' => 'Please select an ingredient.',
-            'unit_id.required'       => 'Please select a unit.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'recipe_id.required' => 'Please select a recipe.',
+                'unit_id.required'   => 'Please select a unit.',
+            ]
+        );
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

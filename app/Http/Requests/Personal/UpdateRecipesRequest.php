@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Personal\Recipe;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateRecipesRequest extends FormRequest
+/**
+ *
+ */
+class UpdateRecipesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the recipe exists
-        $recipe = Recipe::query()->findOrFail($this['recipe']['id']);
-
-        // verify the admin is authorized to update the recipe
-        if (!$this->loggedInAdmin['is_root'] || (new Recipe()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update recipe '. $recipe['id'] . '.'
-                    : 'Unauthorized to update recipe '. $recipe['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'recipes',
+        'key'          => 'recipe',
+        'name'         => 'recipe',
+        'label'        => 'recipe',
+        'class'        => 'App\Models\Personal\Recipe',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,10 +42,6 @@ class UpdateRecipesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'     => [
                 'filled',
@@ -65,8 +52,8 @@ class UpdateRecipesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.recipes', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('personal_db.recipes', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['recipe']['id']);
                 })
@@ -75,8 +62,8 @@ class UpdateRecipesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.recipes', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('personal_db.recipes', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['slug'])
                         ->whereNot('id', $this['recipe']['id']);
                 })
@@ -133,19 +120,10 @@ class UpdateRecipesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.recipes ', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
     }
 }

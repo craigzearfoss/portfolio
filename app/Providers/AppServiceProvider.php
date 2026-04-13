@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
-use App\Http\Middleware\Admin;
+use App\Models\System\Admin;
+use App\Models\System\User;
+use App\Observers\System\AdminObserver;
+use App\Observers\System\UserObserver;
 use App\Services\PermissionService;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // register observers
+        Admin::observe(AdminObserver::class);
+        User::observe(UserObserver::class);
+
         // use the app.secure_urls setting instead of checking the production environment variable for greater flexibility
         //if (App::environment('production')) {
         if (config('app.secure_urls')) {

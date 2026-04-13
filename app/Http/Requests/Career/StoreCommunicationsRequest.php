@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\Application;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -14,40 +15,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreCommunicationsRequest extends FormRequest
+/**
+ *
+ */
+class StoreCommunicationsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the communication.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Communication', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create communication'
-                    : 'Unauthorized to create communication for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'communications',
+        'key'          => 'communication',
+        'name'         => 'communication',
+        'label'        => 'communication',
+        'class'        => 'App\Models\Career\Communication',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -93,14 +80,15 @@ class StoreCommunicationsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'              => 'Please select an owner for the communication.',
-            'owner_id.exists'                => 'The specified owner does not exist.',
-            'application_id.required'        => 'Please select an application for the communication.',
-            'application_id.exists'          => 'The specified application does not exist.',
-            'application_id.in'              => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
-            'communication_type_id.required' => 'Please select the type of communication.',
-       ];
+        return array_merge(
+            parent::messages(),
+            [
+                'application_id.required'        => 'Please select an application for the communication.',
+                'application_id.exists'          => 'The specified application does not exist.',
+                'application_id.in'              => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
+                'communication_type_id.required' => 'Please select the type of communication.',
+            ]
+        );
     }
 
     /**
@@ -111,6 +99,7 @@ class StoreCommunicationsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
+        // make sure the communication_datetime is formatted correctly
         if (!empty($this['communication_datetime'])) {
             $communication_datetime = new DateTime($this['communication_datetime']);
             $this['communication_datetime'] = $communication_datetime->format('Y-m-d H:i:s');

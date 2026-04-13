@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\AdminEmail;
 use App\Models\System\Owner;
@@ -9,38 +10,29 @@ use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class UpdateAdminEmailsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateAdminEmailsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the admin email exists
-        $adminEmail = AdminEmail::query()->findOrFail($this['admin_email']['id']);
-
-        // verify the admin is authorized to update the admin email
-        if (!$this->loggedInAdmin['is_root'] || (new AdminEmail()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update admin email '. $adminEmail['id'] . '.'
-                    : 'Unauthorized to update admin email '. $adminEmail['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admin_emails',
+        'key'          => 'admin_email',
+        'name'         => 'admin-email',
+        'label'        => 'admin email',
+        'class'        => 'App\Models\System\AdminEmail',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -84,27 +76,15 @@ class UpdateAdminEmailsRequest extends FormRequest
     }
 
     /**
-     * Verifies the admin email exists and the owner is authorized to update it.
+     * Prepare the data for validation.
      *
      * @return void
-     * @throws ValidationException
      */
-    protected function validateAuthorization(): void
+    public function prepareForValidation(): void
     {
-        // verify the admin email exists
-        if (!AdminEmail::find($this['admin_email']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Admin email ' . $this['admin_email']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the admin email
-        if (!$this->loggedInAdmin['is_root'] || (new AdminEmail()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update admin email '. $this['admin_email']['id'] . '.'
-                    : 'Unauthorized to update admin email '. $this['admin_email']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
+        // lowercase the email
+        $this->merge([
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
+        ]);
     }
 }

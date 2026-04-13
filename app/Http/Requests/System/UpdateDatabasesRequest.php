@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Portfolio\Art;
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Owner;
@@ -17,36 +17,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class UpdateDatabasesRequest extends FormRequest
+class UpdateDatabasesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the database exists
-        $database = Database::query()->findOrFail($this['database']['id']);
-
-        // verify the admin is authorized to update the database
-        if (!$this->loggedInAdmin['is_root'] || (new Database()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update database '. $database['id'] . '.'
-                    : 'Unauthorized to update database '. $database['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'databases',
+        'key'          => 'database',
+        'name'         => 'database',
+        'label'        => 'database',
+        'class'        => 'App\Models\System\Database',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -100,5 +87,14 @@ class UpdateDatabasesRequest extends FormRequest
             'owner_id.in'     => 'Unauthorized to update database.'
                 . $this['database']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
@@ -11,33 +12,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreJobCoworkersRequest extends FormRequest
+/**
+ *
+ */
+class StoreJobCoworkersRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\JobCoworker', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create job coworker.'
-                    : 'Unauthorized to create job coworker for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'job_coworkers',
+        'key'          => 'job_coworker',
+        'name'         => 'job-coworker',
+        'label'        => 'job coworker',
+        'class'        => 'App\Models\Portfolio\JobCoworker',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,10 +41,6 @@ class StoreJobCoworkersRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
@@ -58,8 +48,8 @@ class StoreJobCoworkersRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.job_coworkers', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.job_coworkers', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('job_id', $this['job_id'])
                         ->where('name', $this['name']);
                 })
@@ -104,5 +94,14 @@ class StoreJobCoworkersRequest extends FormRequest
             'level_id.required' => 'Please select a level type for the coworker.',
             'level_id.exists'   => 'The specified level does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

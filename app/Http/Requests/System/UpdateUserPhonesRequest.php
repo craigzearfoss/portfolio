@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
-use App\Models\System\UserGroup;
 use App\Models\System\UserPhone;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -14,36 +14,52 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateUserPhonesRequest extends FormRequest
+/**
+ *
+ */
+class UpdateUserPhonesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
+     */
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'user_phones',
+        'key'          => 'user_phone',
+        'name'         => 'user-phone',
+        'label'        => 'user phone',
+        'class'        => 'App\Models\System\UserPhone',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
+
+    /**
+     * Determine if the admin or user is authorized to make this request and set some class variables.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        // verify the user phone exists
-        $userPhone = UserPhone::query()->findOrFail($this['user_phone']['id']);
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
 
-        if (canUpdate($userPhone, $this->loggedInAdmin)) {
+        // verify the resource exists
+        $this->resource = $this->props['class']::findOrFail($this[$this->props['key']]['id']);
+
+        if (canUpdate($this->resource, $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (canUpdate($userPhone, $this->loggedInUser)) {
+        } elseif (canUpdate($this->resource, $this->loggedInUser)) {
 
             return true;
 
@@ -51,8 +67,8 @@ class UpdateUserPhonesRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update user phone ' . $userPhone['id'] . '.'
-                    : 'Unauthorized to update user phone ' . $userPhone['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+                    ? 'Unauthorized to update ' . $this->props['label'] . '.'
+                    : 'Unauthorized to update ' . $this->props['label'] . ' ' . $this->resource['id'] . '.'
             ]);
         }
     }
@@ -90,5 +106,14 @@ class UpdateUserPhonesRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

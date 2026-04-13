@@ -2,42 +2,38 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
+use App\Models\System\AdminEmail;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreAdminEmailsRequest extends FormRequest
+/**
+ *
+ */
+class StoreAdminEmailsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\System\AdminEmail', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create admin email.'
-                    : 'Unauthorized to create admin email for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admin_emails',
+        'key'          => 'admin_email',
+        'name'         => 'admin-email',
+        'label'        => 'admin email',
+        'class'        => 'App\Models\System\AdminEmail',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,10 +43,6 @@ class StoreAdminEmailsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
             'email'        => [
@@ -58,8 +50,8 @@ class StoreAdminEmailsRequest extends FormRequest
                 'string',
                 'lowercase',
                 'email', 'max:255',
-                Rule::unique('system_db.admin_emails', 'email')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_emails', 'email')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('email', $this['email']);
                 })
             ],
@@ -73,5 +65,18 @@ class StoreAdminEmailsRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        // lowercase the email
+        $this->merge([
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
+        ]);
     }
 }

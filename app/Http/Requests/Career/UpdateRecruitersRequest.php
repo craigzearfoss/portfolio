@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Event;
 use App\Models\Career\Recruiter;
 use App\Models\System\Admin;
@@ -9,29 +10,29 @@ use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class UpdateRecruitersRequest extends FormRequest
+/**
+ *
+ */
+class UpdateRecruitersRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the recruiter exists
-        $recruiter = Event::query()->findOrFail($this['recruiter']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'recruiters',
+        'key'          => 'recruiter',
+        'name'         => 'recruiter',
+        'label'        => 'recruiter',
+        'class'        => 'App\Models\Career\Recruiter',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -101,10 +102,12 @@ class UpdateRecruitersRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
-            ]);
-        }
+        $this->generateSlug();
+
+        // lowercase the email and alt_email
+        $this->merge([
+            'email'     => !empty($this['email']) ? Str::lower($this['email']) : null,
+            'alt_email' => !empty($this['alt_email']) ? Str::lower($this['alt_email']) : null,
+        ]);
     }
 }

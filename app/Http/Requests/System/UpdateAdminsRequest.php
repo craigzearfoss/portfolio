@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Rules\CaseInsensitiveNotIn;
@@ -13,27 +14,26 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class UpdateAdminsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateAdminsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the admin exists
-        $admin = Admin::query()->findOrFail($this['addmin']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admins',
+        'key'          => 'admin',
+        'name'         => 'admin',
+        'label'        => 'admin',
+        'class'        => 'App\Models\System\Admin',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -44,6 +44,11 @@ class UpdateAdminsRequest extends FormRequest
     public function rules(): array
     {
         $ruleArray = [
+            'owner_id'         => [
+                'integer',
+                'exists:system_db.admins,id',
+                'nullable',
+            ],
             'admin_team_id'    => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
             /* ADMIN USERNAMES CANNOT BE CHANGED
             'username'         => [
@@ -148,12 +153,13 @@ class UpdateAdminsRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
+        // lowercase the username, label, and email
         $this->merge([
-            'username' => Str::lower($this['username']),
-            'label'    => Str::lower($this['label']),
-            'email'    => Str::lower($this['email']),
+            'username' => !empty($this['username']) ? Str::lower($this['username']) : null,
+            'label'    => !empty($this['label']) ? Str::lower($this['label']) : null,
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
         ]);
 
         // if the account is disabled then force current session to logout

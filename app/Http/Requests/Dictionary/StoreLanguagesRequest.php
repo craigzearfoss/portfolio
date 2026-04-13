@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Dictionary\Language;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -14,33 +15,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreLanguagesRequest extends FormRequest
+class StoreLanguagesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Dictionary\Language', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create dictionary language.'
-                    : 'Unauthorized to create dictionary language for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'languages',
+        'key'          => 'language',
+        'name'         => 'language',
+        'label'        => 'language',
+        'class'        => 'App\Models\Dictionary\Language',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -92,19 +83,10 @@ class StoreLanguagesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
     }
 }

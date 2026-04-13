@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
@@ -11,40 +12,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreApplicationSkillsRequest extends FormRequest
+/**
+ *
+ */
+class StoreApplicationSkillsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the application skill.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\ApplicationSkill', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create application skill.'
-                    : 'Unauthorized to create application skill for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'application_skills',
+        'key'          => 'application_skill',
+        'name'         => 'application-skill',
+        'label'        => 'application skill',
+        'class'        => 'App\Models\Career\ApplicationSkill',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -54,10 +41,6 @@ class StoreApplicationSkillsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
             'application_id'         => ['required', 'integer', 'exists:career_db.applications,id'],
@@ -65,8 +48,8 @@ class StoreApplicationSkillsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.application_skills', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.application_skills', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name']);
                 })
             ],
@@ -92,11 +75,22 @@ class StoreApplicationSkillsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'  => 'Please select an owner for the tag.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'resource_id.exists' => 'The specified resource does not exist.',
-            'category_id.exists' => 'The specified category does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'resource_id.exists' => 'The specified resource does not exist.',
+                'category_id.exists' => 'The specified category does not exist.',
+            ]
+        );
+    }
+
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

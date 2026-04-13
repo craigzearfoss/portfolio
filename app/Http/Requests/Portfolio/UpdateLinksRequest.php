@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\Link;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateLinksRequest extends FormRequest
+/**
+ *
+ */
+class UpdateLinksRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the link exists
-        $link = Link::query()->findOrFail($this['link']['id']);
-
-        // verify the admin is authorized to update the link
-        if (!$this->loggedInAdmin['is_root'] || (new Link()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update link '. $link['id'] . '.'
-                    : 'Unauthorized to update link '. $link['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'links',
+        'key'          => 'link',
+        'name'         => 'link',
+        'label'        => 'link',
+        'class'        => 'App\Models\Portfolio\Link',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,10 +42,6 @@ class UpdateLinksRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'     => [
                 'integer',
@@ -64,8 +51,8 @@ class UpdateLinksRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.links', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.links', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['link']['id']);
                 })
@@ -75,8 +62,8 @@ class UpdateLinksRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.links', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.links', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
                         ->whereNot('id', $this['link']['id']);
                 })
@@ -89,8 +76,8 @@ class UpdateLinksRequest extends FormRequest
                 'filled',
                 'url:http,https',
                 'max:500',
-                Rule::unique('portfolio_db.links', 'url')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.links', 'url')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('url', $this['url'])
                         ->whereNot('id', $this['link']['id']);
                 })
@@ -132,19 +119,10 @@ class UpdateLinksRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.links', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
     }
 }

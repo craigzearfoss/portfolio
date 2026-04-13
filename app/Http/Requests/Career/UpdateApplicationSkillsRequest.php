@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\ApplicationSkill;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,43 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateApplicationSkillsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateApplicationSkillsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the application.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws Exception
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the application skill exists
-        $applicationSkill = ApplicationSkill::query()->findOrFail($this['application_skill']['id']);
-
-        // verify the admin is authorized to update the application skill
-        if (!$this->loggedInAdmin['is_root'] || (new ApplicationSkill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update application skill '. $applicationSkill['id'] . '.'
-                    : 'Unauthorized to update application skill '. $applicationSkill['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'application_skills',
+        'key'          => 'application_skill',
+        'name'         => 'application-skill',
+        'label'        => 'application skill',
+        'class'        => 'App\Models\Career\ApplicationSkill',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -58,10 +42,6 @@ class UpdateApplicationSkillsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'               => [
                 'filled',
@@ -73,8 +53,8 @@ class UpdateApplicationSkillsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.companies', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['application_skill']['id']);
                 })
@@ -101,13 +81,21 @@ class UpdateApplicationSkillsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'    => 'Please select an owner for the tag.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'owner_id.in'        => 'Unauthorized to update application skill '
-                . $this['application_skill']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-            'resource_id.exists' => 'The specified resource does not exist.',
-            'category_id.exists' => 'The specified category does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'resource_id.exists' => 'The specified resource does not exist.',
+                'category_id.exists' => 'The specified category does not exist.',
+            ]
+        );
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

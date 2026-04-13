@@ -76,7 +76,7 @@ class UserController extends BaseAdminController
 
         $user->save();
 
-        return redirect()->route('user.user.show', $user)
+        return redirect()->route('admin.system.user.show', $user)
             ->with('success', 'User ' . $user['username'] . ' successfully added.');
     }
 
@@ -126,7 +126,7 @@ class UserController extends BaseAdminController
     {
         $user->update($request->validated());
 
-        return redirect()->route('user.user.show', $user)
+        return redirect()->route('admin.system.user.show', $user)
             ->with('success', $user['username'] . ' successfully updated.');
     }
 

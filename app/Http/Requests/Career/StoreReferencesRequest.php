@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\Company;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -9,43 +10,30 @@ use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreReferencesRequest extends FormRequest
+/**
+ *
+ */
+class StoreReferencesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the reference.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Reference', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create reference.'
-                    : 'Unauthorized to create reference for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'references',
+        'key'          => 'reference',
+        'name'         => 'reference',
+        'label'        => 'reference',
+        'class'        => 'App\Models\Career\Reference',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -55,18 +43,14 @@ class StoreReferencesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.references', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name']);
                 })
             ],
@@ -74,8 +58,8 @@ class StoreReferencesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.references', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -130,31 +114,32 @@ class StoreReferencesRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required' => 'Please select an owner for the reference.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'state_id.exists'   => 'The specified state does not exist.',
-            'country_id.exists' => 'The specified country does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'application_id.required' => 'Please select an application for the note.',
+                'application_id.exists'   => 'The specified application does not exist.',
+                'application_id.in'       => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
+                'state_id.exists'         => 'The specified state does not exist.',
+                'country_id.exists'       => 'The specified country does not exist.',
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.references', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
+
+        // lowercase the email and alt_email
+        $this->merge([
+            'email'     => !empty($this['email']) ? Str::lower($this['email']) : null,
+            'alt_email' => !empty($this['alt_email']) ? Str::lower($this['alt_email']) : null,
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\JobSearchLog;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -11,36 +12,26 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\ValidationException;
 
-class UpdateJobSearchLogsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateJobSearchLogsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the job search log exists
-        $jobSearchLog = JobSearchLog::query()->findOrFail($this['job_search_log']['id']);
-
-        // verify the admin is authorized to update the job search log
-        if (!$this->loggedInAdmin['is_root'] || (new JobSearchLog()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update job search log entry '. $jobSearchLog['id'] . '.'
-                    : 'Unauthorized to update job search log entry'. $jobSearchLog['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'job_search_log',
+        'key'          => 'job_search_log',
+        'name'         => 'job-search-log',
+        'label'        => 'job search log',
+        'class'        => 'App\Models\Career\JobSearchLog',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -79,11 +70,20 @@ class UpdateJobSearchLogsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'   => 'Please select an owner for the job search log.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'owner_id.in'       => 'Unauthorized to update job search log '
-                . $this['job_search_log']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                //
+            ]
+        );
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

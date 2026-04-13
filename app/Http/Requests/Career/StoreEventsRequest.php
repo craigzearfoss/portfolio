@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\Application;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -14,40 +15,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreEventsRequest extends FormRequest
+/**
+ *
+ */
+class StoreEventsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the event.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Event', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create event.'
-                    : 'Unauthorized to create event for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'events',
+        'key'          => 'event',
+        'name'         => 'event',
+        'label'        => 'event',
+        'class'        => 'App\Models\Career\Event',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -92,26 +79,22 @@ class StoreEventsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'       => 'Please select an owner for the event.',
-            'owner_id.exists'         => 'The specified owner does not exist.',
-            'application_id.required' => 'Please select an application for the event.',
-            'application_id.exists'   => 'The specified application does not exist.',
-            'application_id.in'       => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'application_id.required' => 'Please select an application for the event.',
+                'application_id.exists'   => 'The specified application does not exist.',
+                'application_id.in'       => 'Application ' . $this['application_id'] . ' does not belong to admin ' . $this['owner_id'] . '.',
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
-        if (!empty($this['event_time'])) {
-            $communication_datetime = new DateTime($this['event_time']);
-            $this['event_time'] = $communication_datetime->format('H:i:s');
-        }
     }
 }

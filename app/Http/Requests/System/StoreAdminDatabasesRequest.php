@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Owner;
@@ -15,33 +16,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreAdminDatabasesRequest extends FormRequest
+class StoreAdminDatabasesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\System\AdminDatabase', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create admin database.'
-                    : 'Unauthorized to create admin database for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admin_databases',
+        'key'          => 'admin_database',
+        'name'         => 'admin-database',
+        'label'        => 'admin database',
+        'class'        => 'App\Models\System\AdminDatabase',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,18 +42,14 @@ class StoreAdminDatabasesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'       => ['integer', 'exists:system_db.admins,id'],
             'database_id'    => [
                 'required',
                 'integer',
                 'exists:system_db.admin_databases,id',
-                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('database_id', $this['database_id']);
                 }),
             ],
@@ -102,5 +89,14 @@ class StoreAdminDatabasesRequest extends FormRequest
             'database_id.exists'   => 'Database not found.',
             'database_id.unique'   => 'Owner already has an entry for the specified database.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

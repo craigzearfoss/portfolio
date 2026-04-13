@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,27 +13,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateIngredientsRequest extends FormRequest
+class UpdateIngredientsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the ingredient exists
-        $ingredient = Ingredient::query()->findOrFail($this['ingredient']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'ingredients',
+        'key'          => 'ingredient',
+        'name'         => 'ingredient',
+        'label'        => 'ingredient',
+        'class'        => 'App\Models\Personal\Ingredient',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -80,11 +77,5 @@ class UpdateIngredientsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
-            ]);
-        }
     }
 }

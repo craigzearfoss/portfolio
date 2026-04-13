@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -12,40 +13,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreJobSearchLogsRequest extends FormRequest
+class StoreJobSearchLogsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the job search log entry.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\JobSearchLog', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create job search log entry.'
-                    : 'Unauthorized to create job search log entry for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'job_search_log',
+        'key'          => 'job_search_log',
+        'name'         => 'job-search-log',
+        'label'        => 'job search log',
+        'class'        => 'App\Models\Career\JobSearchLog',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -68,5 +52,29 @@ class StoreJobSearchLogsRequest extends FormRequest
             'note_id'          => ['integer', 'exists:career_db.notes,id', 'nullable'],
             'recruiter_id'     => ['integer', 'exists:career_db.recruiters,id', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return array_merge(
+            parent::messages(),
+            [
+                //
+            ]
+        );
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

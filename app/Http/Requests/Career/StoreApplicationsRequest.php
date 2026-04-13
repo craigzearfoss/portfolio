@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\CompensationUnit;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,40 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreApplicationsRequest extends FormRequest
+/**
+ *
+ */
+class StoreApplicationsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the application.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Application', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create application.'
-                    : 'Unauthorized to create application for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'applications',
+        'key'          => 'application',
+        'name'         => 'application',
+        'label'        => 'application',
+        'class'        => 'App\Models\Career\Application',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -121,23 +108,24 @@ class StoreApplicationsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'               => 'Please select an owner for the application.',
-            'owner_id.exists'                 => 'The specified owner does not exist.',
-            'company_id.required'             => 'Please select a company for the application.',
-            'company_id.exists'               => 'The specified company does not exist.',
-            'job_board_id.exists'             => 'The specified job board does not exist.',
-            'resume_id.exists'                => 'The specified resume does not exist.',
-            'compensation_unit_id.exists'     => 'The specified compensation unit type does not exist.',
-            'job_duration_type_id.required'   => 'Please select a duration type for the application.',
-            'job_duration_type_id.exists'     => 'The specified duration type does not exist.',
-            'job_employment_type_id.required' => 'Please select an employment type for the application.',
-            'job_employment_type_id.exists'   => 'The specified employment type does not exist.',
-            'job_location_type_id.required'   => 'Please select an location type for the application.',
-            'job_location_type_id.exists'     => 'The specified location type does not exist.',
-            'state_id.exists'                 => 'The specified state does not exist.',
-            'country_id.exists'               => 'The specified country does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'company_id.required'             => 'Please select a company for the application.',
+                'company_id.exists'               => 'The specified company does not exist.',
+                'job_board_id.exists'             => 'The specified job board does not exist.',
+                'resume_id.exists'                => 'The specified resume does not exist.',
+                'compensation_unit_id.exists'     => 'The specified compensation unit type does not exist.',
+                'job_duration_type_id.required'   => 'Please select a duration type for the application.',
+                'job_duration_type_id.exists'     => 'The specified duration type does not exist.',
+                'job_employment_type_id.required' => 'Please select an employment type for the application.',
+                'job_employment_type_id.exists'   => 'The specified employment type does not exist.',
+                'job_location_type_id.required'   => 'Please select an location type for the application.',
+                'job_location_type_id.exists'     => 'The specified location type does not exist.',
+                'state_id.exists'                 => 'The specified state does not exist.',
+                'country_id.exists'               => 'The specified country does not exist.',
+            ]
+        );
     }
 
     /**

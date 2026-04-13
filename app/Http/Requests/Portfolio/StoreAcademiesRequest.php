@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Portfolio\Academy;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,33 +14,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class StoreAcademiesRequest extends FormRequest
+class StoreAcademiesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\Academy',$this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create academy.'
-                    : 'Unauthorized to create academy for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'academies',
+        'key'          => 'academy',
+        'name'         => 'academy',
+        'label'        => 'academy',
+        'class'        => 'App\Models\Portfolio\Academy',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -89,10 +80,6 @@ class StoreAcademiesRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.academies')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

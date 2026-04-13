@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Portfolio\DegreeType;
 use App\Models\Portfolio\School;
 use App\Models\System\Admin;
@@ -13,33 +14,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreEducationsRequest extends FormRequest
+/**
+ *
+ */
+class StoreEducationsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Portfolio\Education', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create education.'
-                    : 'Unauthorized to create education for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'education',
+        'key'          => 'education',
+        'name'         => 'education',
+        'label'        => 'education',
+        'class'        => 'App\Models\Portfolio\Education',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -49,10 +43,6 @@ class StoreEducationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return[
             'owner_id'           => ['required', 'integer', 'exists:system_db.admins,id'],
             'degree_type_id'     => ['required', 'integer', 'exists:portfolio_db.degree_types,id'],
@@ -63,8 +53,8 @@ class StoreEducationsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.education', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.education', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -114,19 +104,14 @@ class StoreEducationsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
 
-            $degreeType = DegreeType::query()->find($this['degree_type_id'])->name;
-            $school = School::query()->find($this['school_id'])->name;
+            $degreeType = DegreeType::query()->find($this['degree_type_id'])['name'];
+            $school = School::query()->find($this['school_id'])['name'];
 
             $this->merge([
                 'slug' => uniqueSlug(
@@ -134,17 +119,17 @@ class StoreEducationsRequest extends FormRequest
                     . (!empty($this['minor']) ? '-with-a-minor-in-' . $this['minor'] : '')
                     . '-from-' .  $school
                 ),
-                'portfolio_db.education',
-                $ownerId
+                'portfolio_db.educations',
+                $this->ownerId
             ]);
+        }
 
-            // add '-01' to the enrollment_date and graduation_date fields
-            if (!empty($this['enrollment_date'])) {
-                $this['enrollment_date'] = $this['enrollment_date'] . '-01';
-            }
-            if (!empty($this['graduation_date'])) {
-                $this['graduation_date'] = $this['graduation_date'] . '-01';
-            }
+        // add '-01' to the enrollment_date and graduation_date fields
+        if (!empty($this['enrollment_date'])) {
+            $this['enrollment_date'] = $this['enrollment_date'] . '-01';
+        }
+        if (!empty($this['graduation_date'])) {
+            $this['graduation_date'] = $this['graduation_date'] . '-01';
         }
     }
 }

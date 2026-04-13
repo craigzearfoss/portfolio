@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Personal\Recipe;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,33 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreRecipeStepsRequest extends FormRequest
+/**
+ *
+ */
+class StoreRecipeStepsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Personal\RecipeStep', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create recipe step.'
-                    : 'Unauthorized to create recipe step for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'recipe_steps',
+        'key'          => 'recipe_step',
+        'name'         => 'recipe-step',
+        'label'        => 'recipe step',
+        'class'        => 'App\Models\Personal\RecipeStep',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -48,16 +42,12 @@ class StoreRecipeStepsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'    => ['required', 'integer', 'exists:system_db.admins,id'],
             'recipe_id'   => [
                 'required',
                 'integer',
-                Rule::in(new Recipe()->where('owner_id', $ownerId)->get()->pluck('id')->toArray())
+                Rule::in(new Recipe()->where('owner_id', $this->ownerId)->get()->pluck('id')->toArray())
             ],
             'step'         => ['integer', 'min:1'],
             'description'  => ['nullable'],
@@ -81,10 +71,20 @@ class StoreRecipeStepsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'  => 'Please select an owner.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'recipe_id.required' => 'Please select a recipe.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'recipe_id.required' => 'Please select a recipe.',
+            ]
+        );
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

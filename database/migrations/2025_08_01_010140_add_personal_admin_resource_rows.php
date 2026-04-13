@@ -45,6 +45,7 @@ return new class extends Migration
                         'title'             => $resource->title,
                         'plural'            => $resource->plural,
                         'has_owner'         => $resource->has_owner,
+                        'has_user'          => $resource->has_user,
                         'guest'             => $resource->guest,
                         'user'              => $resource->user,
                         'admin'             => $resource->admin,

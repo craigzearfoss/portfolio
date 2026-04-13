@@ -2,50 +2,37 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreCompaniesRequest extends FormRequest
+/**
+ *
+ */
+class StoreCompaniesRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * The id of the owner of the company.
+     * Database and table properties for the resource.
      *
-     * @var int|null
+     * @var array|string[]
      */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
-     *
-     * @throws ValidationException
-     */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Company', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create company.'
-                    : 'Unauthorized to create company for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
-
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'companies',
+        'key'          => 'company',
+        'name'         => 'company',
+        'label'        => 'company',
+        'class'        => 'App\Models\Career\Company',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -55,18 +42,14 @@ class StoreCompaniesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.companies', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name']);
                 })
             ],
@@ -74,8 +57,8 @@ class StoreCompaniesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('career_db.companies', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -123,33 +106,31 @@ class StoreCompaniesRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.required'    => 'Please select an owner for the company.',
-            'owner_id.exists'      => 'The specified owner does not exist.',
-            'industry_id.required' => 'Please select an industry for the company.',
-            'industry_id.exists'   => 'The specified industry does not exist.',
-            'state_id.exists'      => 'The specified state does not exist.',
-            'country_id.exists'    => 'The specified country does not exist.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'industry_id.required' => 'Please select an industry for the company.',
+                'industry_id.exists'   => 'The specified industry does not exist.',
+                'state_id.exists'      => 'The specified state does not exist.',
+                'country_id.exists'    => 'The specified country does not exist.',
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.companies', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
+
+        // lowercase the email and alt_email
+        $this->merge([
+            'email'     => !empty($this['email']) ? Str::lower($this['email']) : null,
+            'alt_email' => !empty($this['alt_email']) ? Str::lower($this['alt_email']) : null,
+        ]);
     }
 }

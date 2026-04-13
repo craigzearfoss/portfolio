@@ -123,6 +123,7 @@ return new class extends Migration
 
         Schema::connection($this->database_tag)->create('admins', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('owner_id')->nullable();
             $table->string('username', 200)->unique('username_unique');
             $table->string('name')->index('name_idx');
             $table->string('label', 200)->unique('label_unique');

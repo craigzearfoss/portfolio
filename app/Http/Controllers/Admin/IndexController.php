@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -70,6 +71,7 @@ class IndexController extends BaseAdminController
      *
      * @param Request $request
      * @return RedirectResponse|View
+     * @throws ValidationException
      */
     public function login(Request $request): RedirectResponse|View
     {
@@ -109,7 +111,7 @@ class IndexController extends BaseAdminController
             if (Auth::guard('admin')->attempt($data)) {
 
                 $admin = Auth::guard('admin')->user();
-                if ($admin->disabled) {
+                if ($admin->is_disabled) {
                     return view(themedTemplate('admin.login'))
                         ->with('username', $username)
                         ->withErrors($admin->username . ' account has been disabled.');

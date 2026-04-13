@@ -2,47 +2,37 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\Recruiter;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class StoreRecruitersRequest extends FormRequest
+/**
+ *
+ */
+class StoreRecruitersRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var int|null
-     */
-    protected int|null $ownerId = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws ValidationException
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        if (!canCreate('App\Models\Career\Recruiter', $this->loggedInAdmin)) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create recruiter.'
-                    : 'Unauthorized to create recruiter for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'recruiters',
+        'key'          => 'recruiter',
+        'name'         => 'recruiter',
+        'label'        => 'recruiter',
+        'class'        => 'App\Models\Career\Recruiter',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -112,10 +102,12 @@ class StoreRecruitersRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
-            ]);
-        }
+        $this->generateSlug();
+
+        // lowercase the email and alt_email
+        $this->merge([
+            'email'     => !empty($this['email']) ? Str::lower($this['email']) : null,
+            'alt_email' => !empty($this['alt_email']) ? Str::lower($this['alt_email']) : null,
+        ]);
     }
 }

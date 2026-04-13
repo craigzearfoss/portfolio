@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Dictionary\Database;
 use App\Models\Personal\Reading;
 use App\Models\System\Admin;
@@ -13,36 +14,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateReadingsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateReadingsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the user is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the reading exists
-        $reading = Reading::query()->findOrFail($this['reading']['id']);
-
-        // verify the admin is authorized to update the reading
-        if (!$this->loggedInAdmin['is_root'] || (new Reading()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update reading '. $reading['id'] . '.'
-                    : 'Unauthorized to update reading '. $reading['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'readings',
+        'key'          => 'reading',
+        'name'         => 'reading',
+        'label'        => 'reading',
+        'class'        => 'App\Models\Personal\Reading',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -52,10 +43,6 @@ class UpdateReadingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'         => [
                 'filled',
@@ -68,8 +55,8 @@ class UpdateReadingsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.readings', 'slug')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('personal_db.readings', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['slug'])
                         ->whereNot('id', $this['reading']['id']);
                 })
@@ -108,33 +95,22 @@ class UpdateReadingsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'   => 'Please select an owner for the reading.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'owner_id.in'       => 'Unauthorized to update reading.'
-                . $this['reading']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                //
+            ]
+        );
     }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['title'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
-                'personal_db.readings',
-                $ownerId
-            ]);
-        }
+        $this->generateSlug();
     }
 }

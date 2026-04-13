@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\JobSkill;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -15,36 +16,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class UpdateJobSkillsRequest extends FormRequest
+class UpdateJobSkillsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the job skill exists
-        $jobSkill = JobSkill::query()->findOrFail($this['job_skill']['id']);
-
-        // verify the admin is authorized to update the job skill
-        if (!$this->loggedInAdmin['is_root'] || (new JobSkill()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update job skill '. $jobSkill['id'] . '.'
-                    : 'Unauthorized to update job skill '. $jobSkill['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'job_skills',
+        'key'          => 'job_skill',
+        'name'         => 'job-skill',
+        'label'        => 'job skill',
+        'class'        => 'App\Models\Portfolio\JobSkill',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -54,10 +42,6 @@ class UpdateJobSkillsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'        => [
                 'filled',
@@ -69,8 +53,8 @@ class UpdateJobSkillsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.job_skills', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('portfolio_db.job_skills', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('job_id', $this['job_id'])
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['job_skill']['id']);
@@ -116,5 +100,14 @@ class UpdateJobSkillsRequest extends FormRequest
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

@@ -11,20 +11,23 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\ValidationException;
 
+/**
+ *
+ */
 class StoreAppBaseRequest extends FormRequest
 {
-
     /**
      * Database and table properties for the resource.
      *
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => '',   // like "system_db","dictionary_db", or "portfolio_db"
-        'name'         => '',   // like "award", "admin_mail", or "operating_system"
-        'label'        => '',   // like "award", "admin email", or "operating system"
-        'class'        => '',   // like "App\Models\Portfolio\Skill" or "App\Models\System\AdminEmail"
-        'table'        => '',   // like "awards", "admin_emails", or "operating_systems"
+        'database_tag' => '',       // like "system_db","dictionary_db", or "portfolio_db"
+        'table'        => '',       // like "awards", "admin_emails", or "operating_systems"
+        'key'          => '',       // like "award", "admin_email", or "operating_system"
+        'name'         => '',       // like "award", "admin_mail", or "operating_system"
+        'label'        => '',       // like "award", "admin email", or "operating system"
+        'class'        => '',       // like "App\Models\Portfolio\Skill" or "App\Models\System\AdminEmail"
         'has_owner'    => false,    // do resource table entries have owners?
     ];
 
@@ -43,14 +46,21 @@ class StoreAppBaseRequest extends FormRequest
     protected User|null $loggedInUser = null;
 
     /**
-     * The id of the owner of the company.
+     * The admin id of the owner of the resource.
      *
      * @var int|null
      */
     protected int|null $ownerId = null;
 
     /**
-     * Determine if the admin is authorized to make this request.
+     * The user id of the owner of the resource. (This is for things like user_teams, user_groups, user_emails, and user_phones)
+     *
+     * @var int|null
+     */
+    protected int|null $userId = null;
+
+    /**
+     * Determine if the admin is authorized to make this request and set some class variables.
      *
      * @throws ValidationException
      */
@@ -60,17 +70,26 @@ class StoreAppBaseRequest extends FormRequest
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
+        // get the admin id of the owner of the resource (this will be null if there is no owner)
         if ($this->props['has_owner']) {
             if (!$this->ownerId = $this['owner_id'] ?? null) {
                 throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
             }
         }
 
+        // get the user id of the owner of the resource (this only applies to resources like user_teams,
+        // user_groups, user_emails, and email phones
+        if ($this->props['has_user']) {
+            if (!$this->userId = $this['user_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No user_id provided.' ]);
+            }
+        }
+
         if (!canCreate($this->props['class'], $this->loggedInAdmin)) {
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create ' . $this->props['name'] . '.'
-                    : 'Unauthorized to create ' . $this->props['name']. ' for admin ' . $this->loggedInAdmin['id'] . '.'
+                    ? 'Unauthorized to create ' . $this->props['label'] . '.'
+                    : 'Unauthorized to create ' . $this->props['label'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
             ]);
         }
 
@@ -80,7 +99,7 @@ class StoreAppBaseRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -88,7 +107,6 @@ class StoreAppBaseRequest extends FormRequest
             //
         ];
     }
-
 
     /**
      * Return error messages.
@@ -98,9 +116,9 @@ class StoreAppBaseRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'    => 'Please select an owner for the ' . $this->props['name'] . '.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'owner_id.in'        => 'Unauthorized to create ' . $this[$this->props['name']] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            'owner_id.required' => 'Please select an owner for the ' . $this->props['name'] . '.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.in'       => 'Unauthorized to create ' . $this[$this->props['name']] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
         ];
     }
 
@@ -112,11 +130,22 @@ class StoreAppBaseRequest extends FormRequest
     protected function generateSlug(): void
     {
         $baseName = match ($this->props['name']) {
-            'art' => $this['name'] . (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
-            default => (isset($this['name']) && !empty($this['name'])) ? $this['name'] : 'empty',
+            'art', 'music' => $this['name'] . (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
+            'award' => (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name']
+                . (!empty($this['category']) ? ' for ' . $this['category'] : ''),
+            'job' => $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
+            'publication' => $this['title'],
+            'reading' => $this['title'] . (!empty($this['author']) ? ' by ' . $this['author'] : ''),
+            'resume' => !empty($this['date']) ? $this['date'] . '-' . $this['name'] : $this['name'],
+            'skill' =>  $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
+            default => (isset($this['name']) && !empty($this['name'])) ? $this['name'] : 'no-name',
         };
 
-        $slug = uniqueSlug($baseName, $this->props['database_tag'] . '.' . $this->props['table'], $this->ownerId);
+        $slug = uniqueSlug(
+            $baseName,
+            $this->props['database_tag'] . '.' . $this->props['table'],
+            $this->ownerId
+        );
 
         $this->merge([ 'slug' => $slug ]);
     }

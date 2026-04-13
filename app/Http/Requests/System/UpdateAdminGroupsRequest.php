@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\AdminGroup;
 use App\Models\System\Owner;
@@ -12,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateAdminGroupsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateAdminGroupsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the admin group exists
-        $adminGroup = AdminGroup::query()->findOrFail($this['admin_group']['id']);
-
-        // verify the admin is authorized to update the admin group
-        if (!$this->loggedInAdmin['is_root'] || (new AdminGroup()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update admin group '. $adminGroup['id'] . '.'
-                    : 'Unauthorized to update admin group '. $adminGroup['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'user_groups',
+        'key'          => 'user_group',
+        'name'         => 'user-group',
+        'label'        => 'user group',
+        'class'        => 'App\Models\System\UserGroup',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -51,10 +42,6 @@ class UpdateAdminGroupsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'      => [
                 'filled',
@@ -67,8 +54,8 @@ class UpdateAdminGroupsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id',  $this['admin_group']['id']);
                 })
@@ -78,8 +65,8 @@ class UpdateAdminGroupsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
                         ->whereNot('id', $this['admin_group']['id']);
                 })
@@ -88,8 +75,8 @@ class UpdateAdminGroupsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:20',
-                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('abbreviation', $this['abbreviation'])
                         ->whereNot('id', $this['admin_group']['id']);
                 }),
@@ -126,19 +113,10 @@ class UpdateAdminGroupsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws Exception
      */
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.admin_groups', $ownerId)
-            ]);
-        }
+        $this->generateSlug();
     }
 }

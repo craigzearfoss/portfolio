@@ -29,6 +29,8 @@ class Admin
             $method = $request->method();
             $owner_id = $request->get('owner_id');
 /*
+// @TODO: is ths still needed?
+
             if (!empty($owner_id)
                 && in_array($method, [/*'POST',* / 'PUT', 'PATCH', 'DELETE'])
                 && ($admin['id'] != $owner_id)

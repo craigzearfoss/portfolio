@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\AdminDatabase;
+use App\Models\System\Database;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -15,36 +16,23 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class UpdateAdminDatabasesRequest extends FormRequest
+class UpdateAdminDatabasesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the admin database exists
-        $adminDatabase = AdminDatabase::query()->findOrFail($this['admin_database']['id']);
-
-        // verify the admin is authorized to update the admin database
-        if (!$this->loggedInAdmin['is_root'] || (new AdminDatabase()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update admin database '. $adminDatabase['id'] . '.'
-                    : 'Unauthorized to update admin database '. $adminDatabase['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'admin_databases',
+        'key'          => 'admin_database',
+        'name'         => 'admin-database',
+        'label'        => 'admin database',
+        'class'        => 'App\Models\System\AdminDatabase',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -54,10 +42,6 @@ class UpdateAdminDatabasesRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'       => [
                 'filled',
@@ -67,8 +51,8 @@ class UpdateAdminDatabasesRequest extends FormRequest
                 'filled',
                 'integer',
                 'exists:system_db.databases,id',
-                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('database_id', $this['database_id']);
                 }),
             ],
@@ -113,27 +97,11 @@ class UpdateAdminDatabasesRequest extends FormRequest
     }
 
     /**
-     * Verifies the admin database exists and the owner is authorized to update it.
+     * Prepare the data for validation.
      *
      * @return void
-     * @throws ValidationException
      */
-    protected function validateAuthorization(): void
+    public function prepareForValidation(): void
     {
-        // verify the admin database exists
-        if (!AdminDatabase::find($this['admin_database']['id']) ) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => 'Admin database ' . $this['admin_database']['id'] . ' not found.'
-            ]);
-        }
-
-        // verify the admin is authorized to update the admin database
-        if (!$this->loggedInAdmin['is_root'] || (new AdminDatabase()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update admin database '. $this['admin_database']['id'] . '.'
-                    : 'Unauthorized to update admin database '. $this['admin_database']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
     }
 }

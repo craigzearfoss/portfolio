@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\Academy;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,27 +13,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateAcademiesRequest extends FormRequest
+class UpdateAcademiesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the academy exists
-        $academy = Academy::query()->findOrFail($this['academy']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'academies',
+        'key'          => 'academy',
+        'name'         => 'academy',
+        'label'        => 'academy',
+        'class'        => 'App\Models\Portfolio\Academy',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -82,10 +79,6 @@ class UpdateAcademiesRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.academies')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

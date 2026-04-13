@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Portfolio\Art;
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\ResourceSetting;
@@ -13,36 +13,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateResourceSettingsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateResourceSettingsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the resource setting exists
-        $resourceSetting = ResourceSetting::query()->findOrFail($this['resource_setting']['id']);
-
-        // verify the admin is authorized to update the resource setting
-        if (!$this->loggedInAdmin['is_root'] || (new ResourceSetting()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update resource setting '. $resourceSetting['id'] . '.'
-                    : 'Unauthorized to update resource setting '. $resourceSetting['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'resource_settings',
+        'key'          => 'resource_setting',
+        'name'         => 'resource-setting',
+        'label'        => 'resource setting',
+        'class'        => 'App\Models\System\ResourceSetting',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -52,9 +42,6 @@ class UpdateResourceSettingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
         return [
             'owner_id'        => [
                 'filled',
@@ -67,8 +54,8 @@ class UpdateResourceSettingsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('system_db.user_teams', 'name')->where(function ($query) use ($ownerId) {
-                    return $query->where('owner_id', $ownerId)
+                Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
                         ->whereNot('id', $this['resource_setting']['id']);
                 })
@@ -96,5 +83,14 @@ class UpdateResourceSettingsRequest extends FormRequest
             'setting_type_id.filled' => 'Please select a setting type for the resource setting.',
             'setting_type_id.exists' => 'The specified user team does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

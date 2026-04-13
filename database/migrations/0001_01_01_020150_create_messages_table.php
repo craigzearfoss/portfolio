@@ -18,6 +18,10 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('owner_id')
+                ->default(1)
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
             $table->boolean('from_admin')->default(false);
             $table->string('name')->index('name_idx');
             $table->string('email', 255)->index('email_idx');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Event;
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Industry;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,27 +13,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateIndustriesRequest extends FormRequest
+class UpdateIndustriesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the industry exists
-        $industry = Event::query()->findOrFail($this['industry']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'career_db',
+        'table'        => 'industries',
+        'key'          => 'industry',
+        'name'         => 'industry',
+        'label'        => 'industry',
+        'class'        => 'App\Models\Career\Industry',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -69,10 +65,6 @@ class UpdateIndustriesRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.industries')
-            ]);
-        }
+        $this->generateSlug();
     }
 }

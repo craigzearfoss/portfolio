@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('title', 50)->index('title_idx');
             $table->string('plural', 50);
             $table->boolean('has_owner')->default(true);
+            $table->boolean('has_user')->default(false);
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);

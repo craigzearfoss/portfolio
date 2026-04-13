@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Message;
 use App\Models\System\Owner;
@@ -12,27 +13,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateMessagesRequest extends FormRequest
+class UpdateMessagesRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the school exists
-        $message = Message::query()->findOrFail($this['message']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'messages',
+        'key'          => 'message',
+        'name'         => 'message',
+        'label'        => 'message',
+        'class'        => 'App\Models\System\Message',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -42,6 +39,11 @@ class UpdateMessagesRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'owner_id'    => [
+                'filled',
+                'integer',
+                'exists:system_db.admins,id'
+            ],
             'from_admin'  => ['integer', 'between:0,1'],
             'name'        => ['filled', 'string', 'max:255'],
             'email'       => ['filled', 'email:rfc,dns', 'max:255'],
@@ -66,5 +68,14 @@ class UpdateMessagesRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

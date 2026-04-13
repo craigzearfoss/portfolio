@@ -83,6 +83,7 @@ return new class extends Migration
 
         Schema::connection($this->database_tag)->create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('username', 200)->unique();
             $table->string('name')->index('name_idx');
             $table->string('label', 200)->unique();

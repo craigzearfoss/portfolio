@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\RecipeIngredient;
 use App\Models\Personal\Recipe;
@@ -14,36 +15,26 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateRecipeIngredientsRequest extends FormRequest
+/**
+ *
+ */
+class UpdateRecipeIngredientsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the recipe ingredient exists
-        $recipeIngredient = RecipeIngredient::query()->findOrFail($this['recipe_ingredient']['id']);
-
-        // verify the admin is authorized to update the recipe ingredient
-        if (!$this->loggedInAdmin['is_root'] || (new RecipeIngredient()->where('owner_id', $this['owner_id'])->get()->isEmpty())) {
-            throw ValidationException::withMessages([
-                'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update recipe ingredient '. $recipeIngredient['id'] . '.'
-                    : 'Unauthorized to update recipe ingredient '. $recipeIngredient['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
-            ]);
-        }
-
-        return true;
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'recipe_ingredients',
+        'key'          => 'recipe_ingredient',
+        'name'         => 'recipe-ingredient',
+        'label'        => 'recipe ingredient',
+        'class'        => 'App\Models\Personal\RecipeIngredient',
+        'has_owner'    => true,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -53,10 +44,6 @@ class UpdateRecipeIngredientsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
-        }
-
         return [
             'owner_id'      => [
                 'filled',
@@ -66,7 +53,7 @@ class UpdateRecipeIngredientsRequest extends FormRequest
             'recipe_id'     => [
                 'filled',
                 'integer',
-                Rule::in(new Recipe()->where('owner_id', $ownerId)->get()->pluck('id')->toArray()),
+                Rule::in(new Recipe()->where('owner_id', $this->ownerId)->get()->pluck('id')->toArray()),
             ],
             'ingredient_id' => ['filled', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
@@ -93,14 +80,12 @@ class UpdateRecipeIngredientsRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'owner_id.filled'   => 'Please select an owner for the recipe ingredient.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'owner_id.in'       => 'Unauthorized to update recipe ingredient.'
-                . $this['recipe_ingredient']['id'] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
-            'recipe_id.filled'     => 'Please select a recipe.',
-            'ingredient_id.filled' => 'Please select an ingredient.',
-            'unit_id.filled'       => 'Please select a unit.',
-        ];
+        return array_merge(
+            parent::messages(),
+            [
+                'recipe_id.filled' => 'Please select a recipe.',
+                'unit_id.filled'   => 'Please select a unit.',
+            ]
+        );
     }
 }

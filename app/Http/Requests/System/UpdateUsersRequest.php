@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
@@ -16,36 +17,52 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
-class UpdateUsersRequest extends FormRequest
+/**
+ *
+ */
+class UpdateUsersRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
+     */
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'users',
+        'key'          => 'user',
+        'name'         => 'user',
+        'label'        => 'user',
+        'class'        => 'App\Models\System\User',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
+
+    /**
+     * Determine if the admin or user is authorized to make this request and set some class variables.
+     *
+     * @throws ValidationException
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        // verify the user exists
-        $user = User::query()->findOrFail($this['user']['id']);
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
 
-        if (canUpdate($user, $this->loggedInAdmin)) {
+        // verify the resource exists
+        $this->resource = $this->props['class']::findOrFail($this[$this->props['key']]['id']);
+
+        if (canUpdate($this->resource, $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (!empty($this->loggedInUser) && ($user['id'] == $this->loggedInUser['id'])) {
+        } elseif (canUpdate($this->resource, $this->loggedInUser)) {
 
             return true;
 
@@ -53,8 +70,8 @@ class UpdateUsersRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to update user phone ' . $user['id'] . '.'
-                    : 'Unauthorized to update user phone ' . $user['id'] . ' for user ' . $this->loggedInUser['id'] . '.'
+                    ? 'Unauthorized to update ' . $this->props['label'] . '.'
+                    : 'Unauthorized to update ' . $this->props['label'] . ' ' . $this->resource['id'] . '.'
             ]);
         }
     }
@@ -157,12 +174,18 @@ class UpdateUsersRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
+        // lowercase the username, label, and email
         $this->merge([
-            'username' => Str::lower($this['username']),
-            'label'    => Str::lower($this['label']),
-            'email'    => Str::lower($this['email']),
+            'username' => !empty($this['username']) ? Str::lower($this['username']) : null,
+            'label'    => !empty($this['label']) ? Str::lower($this['label']) : null,
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
         ]);
+
+        // if the account is disabled then force current session to logout
+        if (!empty($this['is_disabled'])) {
+            $this->merge(['requires_relogin' => 1]);
+        }
     }
 }

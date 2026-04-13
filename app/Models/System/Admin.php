@@ -27,7 +27,9 @@ use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
+use App\Observers\System\AdminObserver;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,6 +43,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  *
  */
+#[ObservedBy([AdminObserver::class])]
 class Admin extends Authenticatable
 {
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
@@ -61,6 +64,7 @@ class Admin extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'owmer_id',
         'admin_team_id',
         'username',
         'name',
@@ -142,10 +146,10 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
-        'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone',
-        'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'admin_team_id', 'username', 'name', 'label', 'salutation',
+        'title', 'role', 'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip',
+        'country_id', 'phone', 'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin',
+        'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *

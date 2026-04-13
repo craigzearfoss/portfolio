@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Unit;
 use App\Models\System\Admin;
@@ -13,27 +14,23 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class UpdateUnitsRequest extends FormRequest
+class UpdateUnitsRequest extends UpdateAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
-     */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * Determine if the admin is authorized to make this request.
+     * Database and table properties for the resource.
      *
-     * @throws Exception
+     * @var array|string[]
      */
-    public function authorize(): bool
-    {
-        $this->loggedInAdmin = loggedInAdmin();
-
-        // verify the unit exists
-        $unit = Unit::query()->findOrFail($this['unit']['id']);
-
-        return boolval($this->loggedInAdmin['is_root']);
-    }
+    protected array $props = [
+        'database_tag' => 'personal_db',
+        'table'        => 'units',
+        'key'          => 'unit',
+        'name'         => 'unit',
+        'label'        => 'unit',
+        'class'        => 'App\Models\Personal\Unit',
+        'has_owner'    => false,
+        'has_user'     => false,
+    ];
 
     /**
      * Get the validation rules that apply to the request.
@@ -65,5 +62,14 @@ class UpdateUnitsRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
     }
 }

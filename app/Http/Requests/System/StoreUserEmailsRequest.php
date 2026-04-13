@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
@@ -9,19 +10,29 @@ use App\Models\System\UserEmail;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class StoreUserEmailsRequest extends FormRequest
+/**
+ *
+ */
+class StoreUserEmailsRequest extends StoreAppBaseRequest
 {
     /**
-     * @var Admin|Owner|null
+     * Database and table properties for the resource.
+     *
+     * @var array|string[]
      */
-    protected Admin|null|Owner $loggedInAdmin = null;
-
-    /**
-     * @var User|null
-     */
-    protected User|null $loggedInUser = null;
+    protected array $props = [
+        'database_tag' => 'portfolio_db',
+        'table'        => 'user_emails',
+        'key'          => 'user_email',
+        'name'         => 'user-email',
+        'label'        => 'user email',
+        'class'        => 'App\Models\System\UserEmail',
+        'has_owner'    => false,
+        'has_user'     => true,
+    ];
 
     /**
      * Determine if the admin is authorized to make this request.
@@ -30,21 +41,28 @@ class StoreUserEmailsRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
-        if (canCreate('App\Models\System\UserEmail', $this->loggedInAdmin)) {
+        if ($this->props['has_owner']) {
+            if (!$this->ownerId = $this['owner_id'] ?? null) {
+                throw ValidationException::withMessages([ 'GLOBAL' => 'No owner_id provided.' ]);
+            }
+        }
+
+        if (canCreate($this->props['class'], $this->loggedInAdmin)) {
 
             return true;
 
-        } elseif (canCreate('App\Models\System\UserEmail', $this->loggedInUser)) {
+        } elseif (canCreate($this->props['class'], $this->loggedInUser)) {
 
             return true;
 
         } else {
 
             throw ValidationException::withMessages([
-                'GLOBAL' => 'Unauthorized to create user email.'
+                'GLOBAL' => 'Unauthorized to create ' . $this->props['label'] . '.'
             ]);
         }
     }
@@ -69,5 +87,18 @@ class StoreUserEmailsRequest extends FormRequest
             'is_demo'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        // lowercase the email
+        $this->merge([
+            'email'    => !empty($this['email']) ? Str::lower($this['email']) : null,
+        ]);
     }
 }
