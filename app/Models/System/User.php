@@ -119,6 +119,11 @@ class User extends Authenticatable
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'user_id', 'user_team_id', 'username', 'name', 'label', 'salutation', 'title',
@@ -127,9 +132,27 @@ class User extends Authenticatable
         'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc' => 'datetime created',
+            'updated_at|desc' => 'datetime updated',
+            'email|asc'       => 'email',
+            'employer|asc'    => 'employer',
+            'id|asc'          => 'id',
+            'label|asc'       => 'label',
+            'name|asc'        => 'name',
+            'role|asc'        => 'role',
+            'sequence|asc'    => 'sequence',
+            'username|asc'    => 'username',
+        ],
+    ];
 
     /**
      *
@@ -137,8 +160,6 @@ class User extends Authenticatable
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

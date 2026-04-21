@@ -2,6 +2,7 @@
     use App\Models\Portfolio\Video;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Portfolio\Video';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;

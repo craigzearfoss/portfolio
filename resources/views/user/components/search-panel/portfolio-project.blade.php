@@ -30,7 +30,7 @@
                                        'language|asc'       => 'language',
                                        'name|asc'           => 'name',
                                        'repository_url|asc' => 'repository',
-                                       'year|asc'           => 'year',
+                                       'year|desc'          => 'year',
                                    ],
                         'style' => [ 'width: 7rem', 'max-width: 7rem' ],
                     ])
@@ -54,7 +54,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -65,7 +65,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'language',
                                 'value'   => $language,
                                 'message' => $message ?? '',
@@ -76,7 +76,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'repository',
                                 'value'   => $repository,
                                 'message' => $message ?? '',

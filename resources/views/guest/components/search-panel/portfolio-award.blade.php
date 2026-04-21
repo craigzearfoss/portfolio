@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Award;
     use App\Models\System\Admin;
 
@@ -27,14 +28,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'category|asc'       => 'category',
-                                       'name|asc'           => 'name',
-                                       'nominated_work|asc' => 'nominated work',
-                                       'organization|asc'   => 'organization',
-                                       'year|asc'           => 'year',
-                                   ],
-				        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'list'  => new Award()->getSearchOptions($sort, EnvTypes::GUEST),
+				        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -56,7 +51,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -66,7 +61,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'category',
                                 'value'   => $category,
                                 'message' => $message ?? '',
@@ -77,7 +72,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'nominated_work',
                                 'label'   => 'nominated work',
                                 'value'   => $nominated_work,
@@ -88,7 +83,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'organization',
                                 'value'   => $organization,
                                 'message' => $message ?? '',

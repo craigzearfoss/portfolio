@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Ingredient;
 
     // get variables
@@ -21,10 +22,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'name|asc'    => 'name',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Ingredient()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*
@@ -46,7 +46,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',

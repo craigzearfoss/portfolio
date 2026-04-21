@@ -1,8 +1,13 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Note;
     use App\Models\System\Admin;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action           = $action ?? url()->current();
@@ -40,16 +45,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       //'application_id|asc'        => 'application',
-                                       'company_name|asc'            => 'company',
-                                       'created_at|desc'             => 'datetime created',
-                                       'application_apply_date|desc' => 'date applied',
-                                       'application_post_date|desc'  => 'date posted',
-                                       'from|asc'                    => 'from',
-                                       'subject|asc'                 => 'subject',
-                                       'to|asc'                      => 'to',
-                                   ],
+                        'list'  => new Note()->getSearchOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -81,7 +77,7 @@
 
                         @if(!$isRootAdmin || $applicationCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.input-basic', [
+                                @include('guest.components.form-input', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,
@@ -98,7 +94,7 @@
                         <div class="search-form-control">
                             @if($isRootAdmin || $companyCount > 20)
                                 <div class="search-form-control">
-                                    @include('guest.components.input-basic', [
+                                    @include('guest.components.form-input', [
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
@@ -116,7 +112,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
@@ -124,7 +120,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',

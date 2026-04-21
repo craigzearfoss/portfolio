@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\JobTask;
     use App\Models\System\Admin;
 
@@ -27,14 +28,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'company_name|asc' => 'company',
-                                                   'created_at|desc'  => 'created at',
-                                                   'updated_at|desc'  => 'updated at',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
+                        'list'  => new JobTask()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

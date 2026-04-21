@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
@@ -30,16 +31,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                   'author|asc'           => 'author',
-                                                   'created_at|desc'      => 'created at',
-                                                   'title|asc'            => 'title',
-                                                   'updated_at|desc'      => 'updated at',
-                                                   'publication_year|asc' => 'year',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
+                        'list'  => new Reading()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

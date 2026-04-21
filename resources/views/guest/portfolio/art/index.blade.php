@@ -1,4 +1,10 @@
 @php
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className        = 'App\Models\Portfolio\Art';
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('art', $owner->name);
     $subtitle = $title;
 
@@ -39,25 +45,37 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
+                @foreach($labelElems as $labelElem)
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>artist</th>
-                        <th class="has-text-centered hide-at-480">year</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort' => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'artist',
+                                'sort' => 'artist|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-480">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort' => 'year|asc',
+                            ])
+                        </th>
                     </tr>
-                    </thead>
-                @endif
-
-                @if($bottom_column_headings)
-                    <tfoot>
-                    <tr>
-                        <th>name</th>
-                        <th>artist</th>
-                        <th class="has-text-centered hide-at-480">year</th>
-                    </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+                @endforeach
 
                 <tbody>
 

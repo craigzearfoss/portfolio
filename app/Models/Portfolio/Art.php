@@ -56,24 +56,58 @@ class Art extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'is_public',
-        'is_readonly',
-        'is_root',
-        'is_disabled',
-        'is_demo',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
+        'demo',
         'sequence',
+    ];
+
+    /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'artist', 'featured', 'summary', 'year', 'notes',
-        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'name', 'artist', 'slug',
+        'featured', 'summary', 'year', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'image',
+        'image_credit', 'image_source', 'thumbnail', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'demo',
+        'sequence', 'created_at', 'updated_at', 'deleted_at'
+    ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'artist|asc'         => 'artist',
+            'created_at|desc'    => 'date created',
+            'updated_at|desc'    => 'date updated',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'featured|desc'      => 'featured',
+            'id|asc'             => 'id',
+            'name|asc'           => 'name',
+            'is_public|desc'     => 'public',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_readonly|desc'   => 'read-only',
+            'is_root|desc'       => 'root',
+            'sequence|asc'       => 'sequence',
+            'year|asc'           => 'year',
+        ],
+    ];
 
     /**
      *
@@ -81,8 +115,6 @@ class Art extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -127,30 +159,43 @@ class Art extends Model
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })
+            ->when(!empty($filters['image']), function ($query) use ($filters) {
+                $query->where($this->table . '.image', 'like', '%' . $filters['image'] . '%');
+            })
+            ->when(!empty($filters['image_credit']), function ($query) use ($filters) {
+                $query->where($this->table . '.image_credit', 'like', '%' . $filters['image_credit'] . '%');
+            })
+            ->when(!empty($filters['image_source']), function ($query) use ($filters) {
+                $query->where($this->table . '.image_source', 'like', '%' . $filters['image_source'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
+            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['slug']), function ($query) use ($filters) {
+                $query->where($this->table . '.slug', 'like', '%' . $filters['slug'] . '%');
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
+            ->when(!empty($filters['thumbnail']), function ($query) use ($filters) {
+                $query->where($this->table . '.thumbnail', 'like', '%' . $filters['thumbnail'] . '%');
+            })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', $filters['year']);
+                $query->where($this->table . '.year', '=', intval($filters['year']));
             });
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'portfolio_db');
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

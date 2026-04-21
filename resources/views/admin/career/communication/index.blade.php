@@ -2,9 +2,10 @@
     use App\Models\Career\Application;use App\Models\Career\Communication;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin         = $admin ?? null;
-    $owner         = $owner ?? null;
-    $isRootAdmin   = $isRootAdmin ?? false;
+    $className   = 'App\Models\Career\Communication';
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application['name'] . ' application' : '');
     $subtitle = $title;

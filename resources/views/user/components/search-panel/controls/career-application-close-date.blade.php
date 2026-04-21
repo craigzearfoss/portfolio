@@ -3,7 +3,7 @@
     $closed_to   = $closed_to ?? request()->query('closed_to');
 @endphp
 <div class="search-form-control">
-    @include('user.components.input-basic', [
+    @include('user.components.input', [
         'type'     => 'date',
         'name'     => 'closed_from',
         'label'    => 'closed from',
@@ -12,7 +12,7 @@
     ])
 </div>
 <div class="search-form-control">
-    @include('user.components.input-basic', [
+    @include('user.components.input', [
         'type'     => 'date',
         'name'     => 'closed_to',
         'label'    => 'closed to',

@@ -21,6 +21,8 @@
 
     $labelClass = [ 'label' ];
     if ($required && !in_array('label-required', $labelClass)) $labelClass[] = 'label-required';
+
+    $add_undefined_option = !isset($add_undefined_option) || boolval($add_undefined_option);
 @endphp
 
 <div class="field">
@@ -41,21 +43,22 @@
 
     <div class="select">
 
-        @include('user.components.select-list', [
-            'id'        => $id,
-            'name'      => $name,
-            'value'     => $value,
-            'list'      => $list,
-            'class='    => $class,
-            'style'     => $style,
-            'autofocus' => $autofocus ?? false,
-            'readonly'  => $readonly ?? false,
-            'form'      => $form ?? null,
-            'hasIcon'   => $hasIcon ?? false,
-            'multiple'  => $multiple ?? false,
-            'onchange'  => $onchange ?? null,
-            'required'  => $required ?? false,
-            'size'      => $size ?? null,
+        @include('admin.components.select-list', [
+            'id'                   => $id,
+            'name'                 => $name,
+            'value'                => $value,
+            'list'                 => $list,
+            'class='               => $class,
+            'style'                => $style,
+            'autofocus'            => $autofocus ?? false,
+            'readonly'             => $readonly ?? false,
+            'form'                 => $form ?? null,
+            'hasIcon'              => $hasIcon ?? false,
+            'multiple'             => $multiple ?? false,
+            'onchange'             => $onchange ?? null,
+            'required'             => $required ?? false,
+            'size'                 => $size ?? null,
+            'add_undefined_option' => $add_undefined_option,
         ])
 
     </div>

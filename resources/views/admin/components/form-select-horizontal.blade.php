@@ -30,6 +30,8 @@
         'email', 'alt_email', 'work_email', 'personal_email',
         'birthday'
     ]);
+
+    $add_undefined_option = !isset($add_undefined_option) || boolval($add_undefined_option);
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
@@ -51,17 +53,18 @@
             <div class="select">
 
                 @include('admin.components.select-list', [
-                    'id'        => $id,
-                    'name'      => $name,
-                    'class='    => $class,
-                    'style'     => $style,
-                    'autofocus' => $autofocus ?? false,
-                    'readonly'  => $readonly ?? false,
-                    'form'      => $form ?? null,
-                    'multiple'  => $multiple ?? false,
-                    'required'  => $required ?? false,
-                    'size'      => $size ?? null,
-                    'onchange'  => $onchange ?? null,
+                    'id'                   => $id,
+                    'name'                 => $name,
+                    'class='               => $class,
+                    'style'                => $style,
+                    'autofocus'            => $autofocus ?? false,
+                    'readonly'             => $readonly ?? false,
+                    'form'                 => $form ?? null,
+                    'multiple'             => $multiple ?? false,
+                    'required'             => $required ?? false,
+                    'size'                 => $size ?? null,
+                    'onchange'             => $onchange ?? null,
+                    'add_undefined_option' => $add_undefined_option,
                 ])
 
             </div>

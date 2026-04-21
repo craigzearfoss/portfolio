@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Resume;
     use App\Models\System\Admin;
 
@@ -24,15 +25,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'created_at|desc'  => 'created at',
-                                                   'name|asc'         => 'name',
-                                                   'resume_date|desc' => 'date',
-                                                   'updated_at|desc'  => 'updated at',
-],
-                                   ),
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ]
+                        'list'  => new Resume()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
                     <?php /*

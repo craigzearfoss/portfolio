@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Course;
     use App\Models\System\Admin;
 
@@ -25,13 +26,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'academy_name|asc'     => 'academy',
-                                       'completion_date|desc' => 'completion date',
-                                       'name|asc'             => 'name',
-                                       'instructor|asc'       => 'instructor',
-                                   ],
-                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'list'  => new Course()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -53,7 +49,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -71,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'instructor',
                                 'value'   => $instructor,
                                 'message' => $message ?? '',

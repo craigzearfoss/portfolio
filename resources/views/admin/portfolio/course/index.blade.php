@@ -3,6 +3,7 @@
     use App\Models\Portfolio\Course;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Portfolio\Course';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;

@@ -1,5 +1,6 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Dictionary\Library';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
@@ -68,7 +69,7 @@
 
                     @php
                         // don't displace the entry for "other"
-                        if ($server->name == 'other') continue;
+                        if ($library->name == 'other') continue;
                     @endphp
 
                     <tr data-id="{{ $library->id }}">

@@ -2,9 +2,10 @@
     use App\Models\Career\JobBoard;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin         = $admin ?? null;
-    $owner         = $owner ?? null;
-    $isRootAdmin   = $isRootAdmin ?? false;
+    $className   = 'App\Models\Career\JobBoard';
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Job Boards';
     $subtitle = $title;

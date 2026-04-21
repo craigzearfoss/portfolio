@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Award;
     use App\Models\System\Admin;
 
@@ -27,18 +28,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'category|asc'       => 'category',
-                                                   'created_at|desc'    => 'created at',
-                                                   'name|asc'           => 'name',
-                                                   'nominated_work|asc' => 'nominated_work',
-                                                   'organization|asc'   => 'organization',
-                                                   'updated_at|desc'    => 'updated at',
-                                                   'year|asc'           => 'year',
-                                               ],
-                                   ),
-				        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'list'  => new Award()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+				        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

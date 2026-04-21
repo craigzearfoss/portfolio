@@ -59,6 +59,13 @@ class Database extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'has_owner', 'guest',
@@ -66,9 +73,31 @@ class Database extends Model
         'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'sequence', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'database|asc'       => 'database',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'icon|asc'           => 'icon',
+            'id|asc'             => 'id',
+            'menu|desc'          => 'menu',
+            'menu_level|asc'     => 'menu level',
+            'name|asc'           => 'name',
+            //'owner_username|asc' => 'owner',      // owner_username is always root
+            //'owner_id|asc'       => 'owner id',   // owner_id is always 1
+            'plural|asc'         => 'plural',
+            'sequence|asc'       => 'sequence',
+            'tag|asc'            => 'tag',
+            'title|asc'          => 'title',
+        ],
+    ];
 
     /**
      *
@@ -76,8 +105,6 @@ class Database extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

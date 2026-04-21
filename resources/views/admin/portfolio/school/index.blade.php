@@ -2,6 +2,7 @@
     use App\Models\Portfolio\School;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Portfolio\School';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;

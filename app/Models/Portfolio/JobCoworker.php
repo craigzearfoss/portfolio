@@ -85,6 +85,16 @@ class JobCoworker extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email',
+        'role',
+        'company_name',
+        'coworker_title'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'job_id', 'name', 'title', 'featured', 'summary', 'level_id',
@@ -92,9 +102,32 @@ class JobCoworker extends Model
         'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'company_name|asc'   => 'company',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'featured|desc'      => 'featured',
+            'id|asc'             => 'id',
+            'name|asc'           => 'name',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'is_root|desc'       => 'root',
+            'sequence|asc'       => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -102,11 +135,6 @@ class JobCoworker extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'company_name',
-            'role',
-        ];
     }
 
     /**
@@ -202,7 +230,10 @@ class JobCoworker extends Model
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
-        $query->join( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id');
+        // join to jobs table
+        $query->join( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id')
+            ->addSelect(DB::Raw('jobs.company as company_name'))
+            ->addSelect(DB::Raw('jobs.role as role'));
 
         // add additional filters
         $query = $this->appendPhoneFilters($query, $filters);
@@ -210,23 +241,8 @@ class JobCoworker extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable(
-            $query,
-            'portfolio_db',
-            [
-                DB::raw('jobs.company as company_name'),
-                DB::raw('jobs.role as role')
-            ]
-        );
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

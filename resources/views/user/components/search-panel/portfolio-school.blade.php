@@ -49,7 +49,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -62,7 +62,7 @@
 
                         <?php /* We don't currently have any cities in the portfolio.schools table.
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

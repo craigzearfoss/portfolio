@@ -4,9 +4,10 @@
     use App\Models\Career\Event;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin         = $admin ?? null;
-    $owner         = $owner ?? null;
-    $isRootAdmin   = $isRootAdmin ?? false;
+    $className   = 'App\Models\Career\Event';
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;

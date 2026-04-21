@@ -34,14 +34,32 @@ class CommunicationType extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'name' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'sequence', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'id|asc'       => 'id',
+            'name|asc'     => 'name',
+            'sequence|asc' => 'sequence',
+        ]
+    ];
 
     /**
      *
@@ -49,8 +67,6 @@ class CommunicationType extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

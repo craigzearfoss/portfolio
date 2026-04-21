@@ -64,7 +64,7 @@ class Admin extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'owmer_id',
+        'owner_id',
         'admin_team_id',
         'username',
         'name',
@@ -146,7 +146,12 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'admin_team_id', 'username', 'name', 'label', 'salutation',
+    const array PREDEFINED_SEARCH_COLUMNS = [];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'admin_team_id', 'username', 'name', 'label', 'salutation',
         'title', 'role', 'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin',
         'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
@@ -157,13 +162,29 @@ class Admin extends Authenticatable
     const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
 
     /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc' => 'datetime created',
+            'updated_at|desc' => 'datetime updated',
+            'email|asc'       => 'email',
+            'employer|asc'    => 'employer',
+            'id|asc'          => 'id',
+            'label|asc'       => 'label',
+            'name|asc'        => 'name',
+            'role|asc'        => 'role',
+            'sequence|asc'    => 'sequence',
+            'username|asc'    => 'username',
+        ],
+    ];
+
+    /**
      *
      */
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

@@ -42,14 +42,31 @@ class Country extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'm49', 'iso_alpha3' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'id|asc'         => 'id',
+            'iso_alpha3|asc' => 'iso alpha3',
+            'm49|asc'        => 'm49',
+            'name|asc'       => 'name',
+        ],
+    ];
 
     /**
      *
@@ -57,8 +74,6 @@ class Country extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

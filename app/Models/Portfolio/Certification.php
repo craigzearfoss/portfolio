@@ -59,15 +59,35 @@ class Certification extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [ 'type_name' ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'abbreviation', 'certification_type_id', 'organization',
         'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'abbreviation|asc' => 'abbreviation',
+            'created_at|desc'  => 'datetime created',
+            'updated_at|desc'  => 'datetime updated',
+            'id|asc'           => 'id',
+            'name|asc'         => 'name',
+            'sequence|asc'     => 'sequence',
+            'type_name|asc'    => 'type',
+        ],
+    ];
 
     /**
      *
@@ -75,10 +95,6 @@ class Certification extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'type_name'
-        ];
     }
 
     /**
@@ -100,7 +116,9 @@ class Certification extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner);
+        $query = new self()->select(
+            DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
+        );
 
         $query = $this->appendStandardFilters($query, $filters)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
@@ -122,11 +140,14 @@ class Certification extends Model
                 $query->where('organization', 'like', '%' . $filters['organization'] . '%');
             });
 
-        $query->join( dbName('portfolio_db') . '.certification_types', 'certification_types.id', '=', $this->table . '.certification_type_id');
+        // join to certification_types table
+        $query->join( dbName('portfolio_db') . '.certification_types', 'certification_types.id', '=', $this->table . '.certification_type_id')
+            ->addSelect(DB::Raw('certification_types.name as type_name'));
 
+        // select columns
         $query->select(
-            DB::raw($this->table . '.*'),
-            DB::raw('certification_types.name AS `type_name`')
+            DB::raw(dbName($this->connection) . '.' . $this->table . '.*'),
+            DB::raw(dbName('portfolio_db') . '.certification_types.name AS `type_name`')
         );
 
         // add additional filters

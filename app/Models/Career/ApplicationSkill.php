@@ -61,6 +61,13 @@ class ApplicationSkill extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'application_id', 'name', 'level', 'dictionary_category_id',
@@ -68,9 +75,37 @@ class ApplicationSkill extends Model
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            //'application_id|asc'           => 'application id',
+            'created_at|desc'              => 'datetime created',
+            'updated_at|desc'              => 'datetime updated',
+            'is_demo|desc'                 => 'demo',
+            'dictionary_category_name|asc' => 'dictionary category',
+            'dictionary_tern_name|asc'     => 'dictionary term',
+            'is_disabled|desc'             => 'disabled',
+            'id|asc'                       => 'id',
+            'level|desc'                   => 'level',
+            'name|asc'                     => 'name',
+            'owner_id|asc'                 => 'owner id',
+            'owner_name|asc'               => 'owner name',
+            'owner_username|asc'           => 'owner username',
+            'is_public|desc'               => 'public',
+            'is_readonly|desc'             => 'read-only',
+            'is_root|desc'                 => 'root',
+            'sequence|asc'                 => 'sequence',
+            'year_ended|desc'              => 'year ended',
+            'year_started|desc'            => 'year started',
+            'years|desc'                   => 'years',
+        ],
+    ];
 
     /**
      *
@@ -78,8 +113,6 @@ class ApplicationSkill extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -150,9 +183,6 @@ class ApplicationSkill extends Model
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
 
         return $query;
     }

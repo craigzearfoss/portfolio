@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Company;
     use App\Models\System\Admin;
 
@@ -28,12 +29,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'name|asc'          => 'name',
-                                       'industry_name|asc' => 'industry',
-                                       'city|asc'          => 'city',
-                                       'state_id|asc'      => 'state',
-                                   ],
+                        'list'  => new Company()->getSearchOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -56,7 +52,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -71,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

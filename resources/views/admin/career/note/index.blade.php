@@ -1,6 +1,7 @@
 @php
     use App\Models\Career\Note;
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Career\Note';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;

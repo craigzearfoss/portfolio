@@ -3,7 +3,7 @@
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="search-form-control">
-    @include('guest.components.input-basic', [
+    @include('guest.components.form-input', [
         'type'    => 'datetime-local',
         'name'    => 'created_at_from',
         'label'   => 'created from',
@@ -12,7 +12,7 @@
     ])
 </div>
 <div class="search-form-control">
-    @include('guest.components.input-basic', [
+    @include('guest.components.form-input', [
         'type'    => 'datetime-local',
         'name'    => 'created_at_to',
         'label'   => 'created to',

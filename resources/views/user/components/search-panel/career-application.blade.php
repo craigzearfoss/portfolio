@@ -1,6 +1,11 @@
 @php
     use App\Models\Career\Application;
-    use App\Models\System\Admin;
+    use App\Models\Career\Company;
+    use App\Models\Career\Resume;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();
@@ -84,7 +89,7 @@
 
                         @if($companyCount > 20)
                             <div class="search-form-control">
-                                @include('user.components.input-basic', [
+                                @include('user.components.input', [
                                     'name'    => 'company_name',
                                     'label'   => 'company',
                                     'value'   => $company_name,
@@ -99,7 +104,7 @@
                         @endif
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
@@ -112,7 +117,7 @@
 
                         @if($resumeCount > 20)
                             <div class="search-form-control">
-                                @include('user.components.input-basic', [
+                                @include('user.components.input', [
                                     'name'    => 'resume_name',
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
@@ -168,7 +173,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

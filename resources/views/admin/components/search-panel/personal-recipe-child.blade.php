@@ -23,7 +23,7 @@
 
                     <div class="floating-div">
 
-                        @if(isRootAdmin())
+                        @if($isRootAdmin)
 
                             @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 

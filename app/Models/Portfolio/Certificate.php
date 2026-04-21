@@ -69,6 +69,14 @@ class Certificate extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email',
+        'academy_name'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'organization', 'academy_id',
@@ -76,9 +84,35 @@ class Certificate extends Model
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'academy_name|asc'   => 'academy',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'expiration|asc'     => 'expiration',
+            'featured|desc'      => 'featured',
+            'id|asc'             => 'id',
+            'name|asc'           => 'name',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'received|asc'       => 'received',
+            'is_root|desc'       => 'root',
+            'sequence|asc'       => 'sequence',
+            'year|asc'           => 'year',
+        ],
+    ];
 
     /**
      *
@@ -86,10 +120,6 @@ class Certificate extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'academy_name'
-        ];
     }
 
     /**
@@ -159,28 +189,16 @@ class Certificate extends Model
                 $query->where($this->table . '.year', '=', $filters['year']);
             });
 
-        $query->join( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id');
+        // join to academies table
+        $query->join( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id')
+            ->addSelect(DB::Raw('academies.name as academy_name'));
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable(
-            $query,
-            'portfolio_db',
-            [
-                DB::raw('academies.name AS `academy_name`')
-            ]
-        );
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

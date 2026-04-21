@@ -2,6 +2,7 @@
     use App\Models\Dictionary\Language;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Dictionary\Language';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
@@ -68,7 +69,7 @@
 
                     @php
                         // don't displace the entry for "other"
-                        if ($server->name == 'other') continue;
+                        if ($language->name == 'other') continue;
                     @endphp
 
                     <tr data-id="{{ $language->id }}">

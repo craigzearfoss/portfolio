@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\JobSkill;
     use App\Models\System\Admin;
 
@@ -26,12 +27,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'company_name|asc' => 'company',
-                                      'name|asc'         => 'name',
-                                      'role|asc'         => 'role',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new JobSkill()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -53,7 +51,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -69,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',
@@ -77,7 +75,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',

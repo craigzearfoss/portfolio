@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Certification;
     use App\Models\Career\JobBoard;
 
@@ -24,14 +25,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'abbreviation|asc' => 'abbreviation',
-                                       'created_at|desc'  => 'created at',
-                                       'name|asc'         => 'name',
-                                       'type_name|asc'    => 'type',
-                                       'updated_at|desc'  => 'updated at',
-                                   ],
-                        'style' => [ 'width: 8rem important!', 'min-width: 8rem !important' ]
+                        'list'  => new Certification()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
                     <?php /*

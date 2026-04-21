@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Certificate;
     use App\Models\System\Admin;
 
@@ -25,18 +26,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'academy_name|asc' => 'academy',
-                                                   'created_at|desc'  => 'created at',
-                                                   'expiration|asc'   => 'expiration',
-                                                   'name|asc'         => 'name',
-                                                   'received|asc'     => 'received',
-                                                   'updated_at|desc'  => 'updated at',
-                                                   'year|asc'         => 'year',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
+                        'list'  => new Certificate()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
                     <?php /*

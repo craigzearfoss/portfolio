@@ -3,7 +3,7 @@
     $applied_to   = $applied_to ?? request()->query('applied_to');
 @endphp
 <div class="search-form-control">
-    @include('user.components.input-basic', [
+    @include('user.components.input', [
         'type'     => 'date',
         'name'     => 'applied_from',
         'label'    => 'applied from',
@@ -12,7 +12,7 @@
     ])
 </div>
 <div class="search-form-control">
-    @include('user.components.input-basic', [
+    @include('user.components.input', [
         'type'     => 'date',
         'name'     => 'applied_to',
         'label'    => 'applied to',

@@ -53,19 +53,10 @@ trait SearchableModelTrait
     ];
 
     /**
-     * These are column names that will never be fully qualified. Usually they are aliases as defined like:
-     *       `academies`.`name` as 'academy_name'
-     *
-     * @var string[]
-     */
-    protected array $predefinedColumns = [];
-
-    /**
      *
      */
     public function __construct()
     {
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -108,7 +99,7 @@ trait SearchableModelTrait
 
         // set the order by
         $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, self::PREDEFINED_SEARCH_COLUMNS)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -286,7 +277,23 @@ trait SearchableModelTrait
             $filters['owner_id'] = $owner['id'];
         }
 
-        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        // get resource table and join to admins table
+        $query = new self()
+            ->join( dbName('system_db') . '.admins',
+                dbName('system_db') . '.admins.id',
+                '=',
+                dbName($this->connection) . '.' . $this->table . '.owner_id'
+            )
+            ->select([
+                DB::Raw($this->table . '.*'),
+                //DB::Raw('admins.name as owner_id'),
+                DB::Raw('admins.name as owner_name'),
+                DB::Raw('admins.username as owner_username'),
+                DB::Raw('admins.username as owner_email'),
+            ]);
+
+        // add filters
+        return $query->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
@@ -294,6 +301,12 @@ trait SearchableModelTrait
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['owner_name']), function ($query) use ($filters) {
+                $query->where(dbName('system_db')  . '.admins.name', 'like', '%' . $filters['owner_name'] . '%');
+            })
+            ->when(!empty($filters['owner_username']), function ($query) use ($filters) {
+                $query->where(dbName('system_db')  . '.admins.username', 'like', '%' . $filters['owner_username'] . '%');
             });
     }
 
@@ -404,23 +417,23 @@ trait SearchableModelTrait
      */
     public function appendStandardFilters(Builder $query, array $filters = []): Builder
     {
-        $query->when(isset($filters['is_public']), function ($query) use ($filters) {
-                $query->where($this->table . '.is_public', '=', boolval(['is_public']));
+        $query->when(!empty($filters['demo']), function ($query) use ($filters) {
+                $query->where('`' . $this->table . '`.`demo`', '=', true);
             })
-            ->when(isset($filters['is_readonly']), function ($query) use ($filters) {
-                $query->where($this->table . '.is_readonly', '=', boolval(['is_readonly']));
+            ->when(!empty($filters['disabled']), function ($query) use ($filters) {
+                $query->where('`' . $this->table . '`.`disabled`', '=', true);
             })
-            ->when(isset($filters['is_root']), function ($query) use ($filters) {
-                $query->where($this->table . '.is_root', '=', boolval(['is_root']));
+            ->when(!empty($filters['public']), function ($query) use ($filters) {
+                $query->where('`' . $this->table . '`.`public`', '=', true);
             })
-            ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
-                $query->where($this->table . '.is_disabled', '=', boolval(['is_disabled']));
+            ->when(!empty($filters['readonly']), function ($query) use ($filters) {
+                $query->where('`' . $this->table . '`.`readonly`', '=', true);
             })
-            ->when(isset($filters['is_demo']), function ($query) use ($filters) {
-                $query->where($this->table . '.is_demo', '=', intval(['is_demo']));
+            ->when(!empty($filters['root']), function ($query) use ($filters) {
+                $query->where('`' . $this->table . '`.`root`', '=', true);
             })
             ->when(isset($filters['sequence']), function ($query) use ($filters) {
-                $query->where($this->table . '.sequence', '=', intval(['sequence']));
+                $query->where('`' . $this->table . '`.`sequence`', '=', intval(['sequence']));
             });
 
         return $query;
@@ -483,14 +496,12 @@ trait SearchableModelTrait
     {
         if (empty($field)) {
             return null;
-        } elseif (strpos($field, '.')) {
+        } elseif (str_contains($field, '.')) {
             return $field;
-        } elseif (in_array($field, $this->predefinedColumns)) {
-            return $field;
-        } elseif (in_array($field, [ 'created_at', 'updated_at', 'deleted_at'])) {
+        } elseif (in_array($field, self::PREDEFINED_SEARCH_COLUMNS)) {
             return $field;
         } elseif (!in_array($field, self::SEARCH_COLUMNS)) {
-            throw new Exception('Invalid sort column "' . $field . '" specified.');
+            throw new Exception('Invalid search column "' . $field . '" specified.');
         } else {
             return $this->table . '.' . $field;
         }
@@ -514,7 +525,7 @@ trait SearchableModelTrait
             array_merge($this->fillable, [ 'created_at', 'deleted_at', 'updated_at', 'deleted_at' ])
         );
 
-        return array_merge($cols, $additionalCols, $this->predefinedColumns);
+        return array_merge($cols, $additionalCols, self::PREDEFINED_SEARCH_COLUMNS);
     }
 
     /**
@@ -539,7 +550,11 @@ trait SearchableModelTrait
         }
 
         $query->from(dbName($dbTag) . '.' . $this->table);
-        $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
+        $query->join(dbName('system_db') . '.admins',
+            dbName('system_db') . '.admins.id',
+            '=',
+            dbName($this->connection) . '.' . $this->table . '.owner_id'
+        );
         $query->select($selectColumns);
 
         return $query;
@@ -561,17 +576,52 @@ trait SearchableModelTrait
             $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
             $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
 
+            if (!empty($orderByCol) && !empty($orderByDir)) {
+                $query->orderBy($orderByCol, $orderByDir);
+            }
+/*
             if (in_array($orderByCol, array_merge($this->sortableColumns(), ['created_at', 'updated_at', 'deleted_at']))) {
                 $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
-            } elseif(in_array($orderByCol, $this->predefinedColumns)) {
+            } elseif(in_array($orderByCol, self::PREDEFINED_SEARCH_COLUMNS)) {
                 $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
             } elseif (str_starts_with($orderByCol, 'owner.')) {
                 $query->orderBy('admins.' . explode('.',  $orderByCol)[1], in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
             } else {
                 $query->orderBy($this->table . '.' . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
             }
+            */
         }
 
         return $query;
+    }
+
+    /**
+     * Returns the options for a search select list for the resource. If the $currentSort is not
+     * in the defined options, it will be added to the options list.
+     *
+     * @param string|null $currentSort
+     * @param EnvTypes $envType
+     * @param bool $isRootAdmin
+     * @return array
+     */
+    public function getSearchOptions(
+        string|null $currentSort = null,
+        EnvTypes $envType = EnvTypes::GUEST,
+        bool $isRootAdmin = false,
+    ): array
+    {
+        $sortOptions = array_map(function ($value) {
+            return $value;
+        }, self::SORT_OPTIONS);
+
+        if (
+            !empty($currentSort)
+            && !array_key_exists(explode('|', $currentSort)[0] . '|asc', $sortOptions)
+            && !array_key_exists(explode('|', $currentSort)[0] . '|desc', $sortOptions)
+        ) {
+            $sortOptions[$currentSort] = explode('|', $currentSort)[0];
+        }
+
+        return $sortOptions;
     }
 }

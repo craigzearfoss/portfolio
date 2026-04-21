@@ -3,6 +3,7 @@
     use App\Models\Career\Company;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Career\Application';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
@@ -35,7 +36,10 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.career-application', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
+    @include('admin.components.search-panel.career-application', [
+        'owner_id' => $isRootAdmin ? null : $owner->id,
+        'ignore'   => [ 'active', 'compensation', 'location', 'office', 'type' ]
+    ])
 
     <div class="floating-div-container">
 
@@ -57,25 +61,135 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        <th style="display: none;">name</th>
-                        <th>company</th>
-                        <th>role</th>
-                        <th class="has-text-centered hide-at-1400">active</th>
-                        <th class="hide-at-1024">rating</th>
-                        <th style="display: none;">posted</th>
-                        <th>applied</th>
-                        <th class="hide-at-1024">compensation</th>
-                        <th class="hide-at-1024 has-text-centered">wage</th>
-                        <th style="display: none;">duration</th>
-                        <th class="has-text-centered hide-at-1300">type</th>
-                        <th class="has-text-centered hide-at-1300">office</th>
-                        <th class="hide-at-1400">location</th>
-                        <th class="has-text-centered" style="display: none;">w2</th>
-                        <th class="has-text-centered" style="display: none;">relo</th>
-                        <th class="has-text-centered" style="display: none;">ben</th>
-                        <th class="has-text-centered" style="display: none;">vac</th>
-                        <th class="has-text-centered" style="display: none;">health</th>
-                        <th style="display: none;">source</th>
+                        <th style="display: none;">
+                            @include('admin.components.column-heading', [ 'name'  => 'name' ])
+                        </th>
+                        <th>
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'company',
+                                'sort' => 'company_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'role',
+                                'sort'  => 'role|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-1400">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'active',
+                                'sort'  => 'active|desc',
+                            ])
+                        </th>
+                        <th class="hide-at-1024">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'rating',
+                                'sort'  => 'rating|desc',
+                            ])
+                        </th>
+                        <th style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'posted',
+                                'sort'  => 'post_date|desc',
+                            ])
+                        </th>
+                        <th>
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'applied',
+                                'sort'  => 'apply_date|desc',
+                            ])
+                        </th>
+                        <th class="hide-at-1024">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'compensation',
+                                'sort'  => 'wage_rate|desc',
+                            ])
+                        </th>
+                        <th class="hide-at-1024 has-text-centered" style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'wage',
+                                'sort'  => 'wage_rate|desc',
+                            ])
+                        </th>
+                        <th style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'duration',
+                                'sort'  => 'job_duration_type_id|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-1300">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'type',
+                                'sort'  => 'job_location_type_id|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-1300">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'office',
+                                'sort'  => 'office|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-1400">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'location',
+                                'sort'  => 'job_location_type_id|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered" style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'w2',
+                                'sort'  => 'w2|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered" style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'relocation',
+                                'sort'  => 'relocation|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered" style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'benefits',
+                                'sort'  => 'benefits|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered" style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'vacation',
+                                'sort'  => 'vacation|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered" style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'health',
+                                'sort'  => 'health|desc',
+                            ])
+                        </th>
+                        <th style="display: none;">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'source',
+                                'sort'  => 'source|asc',
+                            ])
+                        </th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -160,7 +274,7 @@
                                 ])
                             !!}
                         </td>
-                        <td data-field="wage_rate" class="has-text-centered whitespace-nowrap" style="white-space: nowrap;">
+                        <td data-field="wage_rate" class="has-text-centered whitespace-nowrap" style="white-space: nowrap; display: none;">
                             {{ wageRateFormat($application->wage_rate, 0) }}
                         </td>
                         <td data-field="job_duration_id" style="display: none;">

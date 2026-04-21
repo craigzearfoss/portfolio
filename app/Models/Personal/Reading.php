@@ -67,6 +67,13 @@ class Reading extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'author', 'featured', 'summary', 'publication_year',
@@ -74,9 +81,33 @@ class Reading extends Model
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'title', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'author|asc'           => 'author',
+            'created_at|desc'      => 'datetime created',
+            'updated_at|desc'      => 'datetime updated',
+            'is_demo|desc'         => 'demo',
+            'is_disabled|desc'     => 'disabled',
+            'featured|desc'        => 'featured',
+            'id|asc'               => 'id',
+            'owner_id|asc'         => 'owner id',
+            'owner_name|asc'       => 'owner name',
+            'owner_username|asc'   => 'owner username',
+            'is_public|desc'       => 'public',
+            'is_readonly|desc'     => 'read-only',
+            'is_root|desc'         => 'root',
+            'sequence|asc'         => 'sequence',
+            'title|asc'            => 'title',
+            'publication_year|asc' => 'year',
+        ],
+    ];
 
     /**
      *
@@ -84,8 +115,6 @@ class Reading extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -124,7 +153,9 @@ class Reading extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->select(
+                DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
+            )->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
@@ -163,33 +194,12 @@ class Reading extends Model
                 $query->where($this->table . '.wishlist', '=', true);
             });
 
-        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
-        $query->select([
-            DB::raw($this->table . '.*'),
-            DB::raw('admins.name AS `owner_name`'),
-            DB::raw('admins.username AS `owner_username`'),
-            DB::raw('admins.email AS `owner_email`'),
-        ]);
-
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add order by clause
-        if (empty($sort)) {
-            $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
-        } else {
-            $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
-            $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
-
-            if (in_array($orderByCol, $this->sortableColumns())) {
-                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
-            } else {
-                $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
-            }
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

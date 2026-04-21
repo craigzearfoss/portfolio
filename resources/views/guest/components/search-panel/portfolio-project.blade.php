@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Project;
     use App\Models\System\Admin;
 
@@ -26,13 +27,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'language|asc'       => 'language',
-                                       'name|asc'           => 'name',
-                                       'repository_url|asc' => 'repository',
-                                       'year|asc'           => 'year',
-                                   ],
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'list'  => new Project()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*
@@ -54,7 +50,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -65,7 +61,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'language',
                                 'value'   => $language,
                                 'message' => $message ?? '',
@@ -76,7 +72,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'repository',
                                 'value'   => $repository,
                                 'message' => $message ?? '',

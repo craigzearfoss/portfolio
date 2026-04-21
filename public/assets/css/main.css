@@ -187,7 +187,8 @@ div.field.is-horizontal div.field-label label.label {
 form#searchForm div.floating-div-container div.floating-div {
     width: auto;
 }
-form#searchForm div.floating-div-container div.floating-div div.search-form-control {
+form#searchForm div.floating-div-container div.floating-div div.search-form-control input {
+    font-size: .75rem;
     padding: 0 0 0 4px;
     display: block;
 }
@@ -462,6 +463,13 @@ table.table.admin-table tbody tr:not(.is-selected):hover:nth-child(even),
 table.table.user-table tbody tr:not(.is-selected):hover:nth-child(even),
 table.table.guest-table tbody tr:not(.is-selected):hover:nth-child(even) {
     background-color:#e0e0e0
+}
+
+table.admin-table thead tr th span.col-heading,
+table.admin-table thead tr th a.col-heading, table.admin-table tbody tr th a.col-heading:visited,
+table.admin-table tbody tr td span.col-heading,
+table.admin-table tbody tr td a, table.admin-table tbody tr td a:visited {
+    color: #363636;
 }
 
 p.admin-table-caption,

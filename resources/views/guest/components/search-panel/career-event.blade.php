@@ -1,8 +1,13 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Event;
     use App\Models\System\Admin;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action           = $action ?? url()->current();
@@ -47,17 +52,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'application_id|asc' => 'application',
-                                       //'application_id|asc'        => 'application',
-                                       'company_name|asc'            => 'company',
-                                       'communication_datetime|desc' => 'event date',
-                                       'application_apply_date|desc' => 'date applied',
-                                       'application_post_date|desc'  => 'date posted',
-                                       'event_date|desc'             => 'date',
-                                       'name|asc'                    => 'name',
-                                   ],
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                        'list'  => new Event()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -88,7 +84,7 @@
 
                         @if($applicationCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.input-basic', [
+                                @include('guest.components.form-input', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,
@@ -105,7 +101,7 @@
                         <div class="search-form-control">
                             @if($companyCount > 20)
                                 <div class="search-form-control">
-                                    @include('guest.components.input-basic', [
+                                    @include('guest.components.form-input', [
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
@@ -123,7 +119,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -131,7 +127,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'description',
                                 'value'   => $description,
                                 'message' => $message ?? '',
@@ -142,7 +138,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'location',
                                 'value'   => $location,
                                 'message' => $message ?? '',
@@ -150,7 +146,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'attendees',
                                 'value'   => $attendees,
                                 'message' => $message ?? '',
@@ -161,7 +157,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'type'    => 'date',
                                 'name'    => 'date_from',
                                 'label'   => 'from date',
@@ -171,7 +167,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'type'    => 'date',
                                 'name'    => 'date_to',
                                 'label'   => 'to date',
@@ -184,7 +180,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'type'    => 'time',
                                 'name'    => 'time_from',
                                 'label'   => 'from time',
@@ -194,7 +190,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'type'    => 'time',
                                 'name'    => 'time_to',
                                 'label'   => 'to time',

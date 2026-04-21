@@ -71,6 +71,14 @@ class Skill extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email',
+        'dictionary_category_name'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'featured', 'summary', 'type_id', 'level',
@@ -78,13 +86,36 @@ class Skill extends Model
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'level', 'desc' ];
 
     /**
-     *
+     * These are the options in the sort select list on the search panel.
      */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'dictionary_category_name|asc' => 'category',
+            'created_at|desc'              => 'datetime created',
+            'updated_at|desc'              => 'datetime updated',
+            'is_demo|desc'                 => 'demo',
+            'is_disabled|desc'             => 'disabled',
+            'featured|desc'                => 'featured',
+            'id|asc'                       => 'id',
+            'level|desc'                   => 'level',
+            'name|asc'                     => 'name',
+            'owner_id|asc'                 => 'owner id',
+            'owner_name|asc'               => 'owner name',
+            'owner_username|asc'           => 'owner username',
+            'is_public|desc'               => 'public',
+            'is_readonly|desc'             => 'read-only',
+            'is_root|desc'                 => 'root',
+            'sequence|asc'                 => 'sequence',
+            'end_year|asc'                 => 'year ended',
+            'start_year|asc'               => 'year started',
+            'years|desc'                   => 'years',
+        ],
+    ];
     const array TYPE = [
         0 => 'soft skill',
         1 => 'hard skill',
@@ -112,10 +143,6 @@ class Skill extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'dictionary_category_name'
-        ];
     }
 
     /**
@@ -214,26 +241,16 @@ class Skill extends Model
                 $query->where($this->table . '.years', '>=', intval($filters['min_years']));
             });
 
-        $query->join( dbName('dictionary_db') . '.categories', 'categories.id', '=', $this->table . '.dictionary_category_id');
+        // join to dictionary.categories table
+        $query->join( dbName('dictionary_db') . '.categories', 'categories.id', '=', $this->table . '.dictionary_category_id')
+            ->addSelect(DB::Raw('categories.name as dictionary_category_name'));
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable(
-            $query,
-            'portfolio_db',
-            [ DB::raw('categories.name AS `dictionary_category_name`') ]
-        );
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

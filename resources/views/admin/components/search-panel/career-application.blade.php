@@ -1,8 +1,12 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Resume;
     use App\Models\System\Admin;
+
+    $admin       =     $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();
@@ -46,22 +50,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'company_name|asc'      => 'company',
-                                                   //'compensation_max|desc' => 'compensation (max)',
-                                                   //'compensation_min|desc' => 'compensation (min)',
-                                                   'created_at|desc'       => 'created at',
-                                                   'apply_date|desc'       => 'date applied',
-                                                   'close_date|desc'       => 'date closed',
-                                                   'post_date|desc'        => 'date posted',
-                                                   'rating|desc'           => 'rating',
-                                                   'role|asc'              => 'role',
-                                                   'updated_at|desc'       => 'updated at',
-                                                   'wage_rate|desc'        => 'wage',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important'],
+                        'list'  => new Application()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 
                     <?php /*

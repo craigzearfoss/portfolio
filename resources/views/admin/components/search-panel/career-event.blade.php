@@ -1,8 +1,13 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Event;
     use App\Models\System\Admin;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action           = $action ?? url()->current();
@@ -47,21 +52,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'application_id|asc' => 'application',
-                                                   //'application_id|asc'         => 'application',
-                                                   'company_name|asc'            => 'company',
-                                                   'created_at|desc'             => 'created at',
-                                                   'application_apply_date|desc' => 'date applied',
-                                                   'application_post_date|desc'  => 'date posted',
-                                                   'event_date|desc'             => 'event date',
-                                                   'communication_datetime|desc' => 'event datetime',
-                                                   'name|asc'                    => 'name',
-                                                   'updated_at|desc'             => 'updated at',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'list'  => new Event()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

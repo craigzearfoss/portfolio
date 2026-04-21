@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Education;
     use App\Models\System\Admin;
 
@@ -26,15 +27,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'degree_type_name|asc'  => 'degree',
-                                       'major|asc'             => 'major',
-                                       'minor|asc'             => 'minor',
-                                       'school_name|asc'       => 'school',
-                                       'enrollment_date|desc'  => 'year enrolled',
-                                       'graduation_date|desc'  => 'year graduated',
-                                   ],
-                        'style' => [ 'width: 9rem', 'max-width: 9rem' ]
+                        'list'  => new Education()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -63,7 +57,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'school_name',
                                 'label'   => 'school',
                                 'value'   => $school_name,
@@ -82,7 +76,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'major',
                                 'value'   => $major,
                                 'message' => $message ?? '',
@@ -90,7 +84,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'minor',
                                 'value'   => $minor,
                                 'message' => $message ?? '',

@@ -90,6 +90,13 @@ class Job extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company', 'role', 'featured', 'summary', 'start_date',
@@ -98,9 +105,34 @@ class Job extends Model
         'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'start_date', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'company|asc'        => 'company',
+            'end_date|desc'      => 'date ended',
+            'start_date|desc'    => 'date started',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'featured|desc'      => 'featured',
+            'id|asc'             => 'id',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'role|asc'           => 'role',
+            'is_root|desc'       => 'root',
+            'sequence|asc'       => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -108,11 +140,6 @@ class Job extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'end_date',
-            'start_date',
-        ];
     }
 
     /**
@@ -168,7 +195,7 @@ class Job extends Model
 
         // set the order by
         $sortColumn = $orderBy[0] ?? $this->table . '.company';
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, self::PREDEFINED_SEARCH_COLUMNS)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? 'asc';
@@ -250,14 +277,8 @@ class Job extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -302,22 +323,8 @@ class Job extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'portfolio_db');
-
-         // add order by clause
-        if (explode('|', $sort ?? '')[0] == 'start_date') {
-            $query->orderBy('start_date', 'desc');
-        } elseif (explode('|', $sort ?? '')[0] == 'end_date') {
-            $query->orderBy('end_date', 'desc');
-        } else {
-            $query = $this->addOrderBy($query, $sort);
-            if (explode('|', $sort ?? '') != 'owner_username') {
-                $query->orderBy('owner_username');
-            }
-        }
-
-        return $query;
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

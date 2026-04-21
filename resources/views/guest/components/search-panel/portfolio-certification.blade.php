@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Certification;
     use App\Models\Career\JobBoard;
 
@@ -24,12 +25,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'abbreviation|asc' => 'abbreviation',
-                                       'name|asc'         => 'name',
-                                       'type_name|asc'    => 'type',
-                                   ],
-                        'style' => [ 'width: 8rem important!', 'min-width: 8rem !important' ]
+                        'list'  => new Certification()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -51,7 +48,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -62,7 +59,7 @@
                     <div class="floating-div pl-4">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'abbreviation',
                                 'value'   => $abbreviation,
                                 'message' => $message ?? '',

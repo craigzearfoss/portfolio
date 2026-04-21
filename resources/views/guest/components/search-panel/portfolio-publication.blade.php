@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Publication;
     use App\Models\System\Admin;
 
@@ -26,13 +27,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'publication_name|asc' => 'publication',
-                                       'publisher|asc'        => 'publisher',
-                                       'title|asc'            => 'title',
-                                       'publication_year|asc' => 'year',
-                                   ],
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ],
+                        'list'  => new Publication()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*
@@ -76,7 +72,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'search_title',
                                 'label'   => 'title',
                                 'value'   => $search_title,
@@ -88,7 +84,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'publication_name',
                                 'label'   => 'publication',
                                 'value'   => $publication_name,
@@ -100,7 +96,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'publisher',
                                 'value'   => $publisher,
                                 'message' => $message ?? '',

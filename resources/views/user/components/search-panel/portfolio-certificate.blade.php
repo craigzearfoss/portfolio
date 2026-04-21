@@ -30,7 +30,7 @@
                                        'expiration|asc'   => 'expiration',
                                        'name|asc'         => 'name',
                                        'received|asc'     => 'received',
-                                       'year|asc'         => 'year',
+                                       'year|desc'        => 'year',
                                    ],
                         'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
                     ])
@@ -54,7 +54,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -72,7 +72,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'organization',
                                 'value'   => $organization,
                                 'message' => $message ?? '',

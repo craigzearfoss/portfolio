@@ -51,6 +51,13 @@ class JobSearchLog extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'message', 'time_logged', 'application_id', 'cover_letter_id',
@@ -58,9 +65,20 @@ class JobSearchLog extends Model
         'recruiter_id' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'time_logged', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc' => 'datetime created',
+            'updated_at|desc' => 'datetime updated',
+            'id|asc'          => 'id',
+        ],
+    ];
 
     /**
      *
@@ -68,8 +86,6 @@ class JobSearchLog extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -154,9 +170,6 @@ class JobSearchLog extends Model
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
 
         return $query;
     }

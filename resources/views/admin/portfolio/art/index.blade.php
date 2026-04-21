@@ -2,6 +2,7 @@
     use App\Models\Portfolio\Art;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Portfolio\Art';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
@@ -59,11 +60,21 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        <th>name</th>
-                        <th>artist</th>
-                        <th>year</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>
+                            @include('admin.components.column-heading', [ 'name' => 'name', 'class' => $className ])
+                        </th>
+                        <th>
+                            @include('admin.components.column-heading', [ 'name' => 'artist', 'class' => $className ])
+                        </th>
+                        <th>
+                            @include('admin.components.column-heading', [ 'name' => 'year', 'class' => $className ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('admin.components.column-heading', [ 'name' => 'public', 'class' => $className ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('admin.components.column-heading', [ 'name' => 'disabled', 'class' => $className ])
+                        </th>
                         <th>actions</th>
                     </tr>
                     </thead>

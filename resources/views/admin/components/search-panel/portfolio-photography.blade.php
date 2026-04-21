@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Photography;
     use App\Models\System\Admin;
 
@@ -25,15 +26,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'created_at|desc' => 'created at',
-                                                   'credit|asc'      => 'credit',
-                                                   'name|asc'        => 'name',
-                                                   'updated_at|desc' => 'updated at',
-                                                   'year|asc'        => 'year',
-                                               ],
-                                   ),
+                        'list'  => new Photography()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 

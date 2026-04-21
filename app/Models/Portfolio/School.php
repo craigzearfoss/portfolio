@@ -70,6 +70,13 @@ class School extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'state_code', 'state_name',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
@@ -77,16 +84,39 @@ class School extends Model
         'is_demo' ];
 
     /**
+     * This is the default sort order for searches.
+     */
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'featured|desc'      => 'featured',
+            'id|asc'             => 'id',
+            'name|asc'           => 'name',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'is_root|desc'       => 'root',
+            'sequence|asc'       => 'sequence',
+            'state_name|asc'     => 'state',
+        ],
+    ];
+
+    /**
      *
      */
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'state_code',
-            'state_name',
-        ];
     }
 
     /**
@@ -108,7 +138,9 @@ class School extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['name']), function ($query) use ($filters) {
+        $query = new self()->select(
+                DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
+            )->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
@@ -127,27 +159,18 @@ class School extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
-        $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id');
-
-        $query->select([
-            DB::raw('schools.*'),
-            DB::raw('states.code AS `state_code`'),
-            DB::raw('states.name AS `state_name`')
-        ] );
+        // join to states table
+        $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id')
+            ->addSelect(DB::Raw('states.code as state_id'))
+            ->addSelect(DB::Raw('states.name as state_name'));
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-
         // add order by clause
         return $this->addOrderBy($query, $sort);
     }
-
-    /**
-     *
-     */
-    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Get the system country that owns the school.

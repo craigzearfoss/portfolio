@@ -55,9 +55,9 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'company_name',
-                                'name'    => 'company',
+                                'label'    => 'company',
                                 'value'   => $company_name,
                                 'message' => $message ?? '',
                             ])
@@ -67,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'summary',
                                 'value'   => $summary,
                                 'message' => $message ?? '',

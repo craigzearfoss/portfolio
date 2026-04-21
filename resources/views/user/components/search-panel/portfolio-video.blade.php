@@ -30,7 +30,7 @@
                                       'company|asc' => 'company',
                                       'name|asc'    => 'name',
                                       'show|asc'    => 'show',
-                                      'year|asc'    => 'year',
+                                      'year|desc'   => 'year',
                                   ],
                     ])
 
@@ -53,7 +53,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -64,7 +64,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'show',
                                 'value'   => $show,
                                 'message' => $message ?? '',
@@ -75,7 +75,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',

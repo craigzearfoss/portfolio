@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Music;
     use App\Models\System\Admin;
 
@@ -27,18 +28,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'artist|asc'         => 'artist',
-                                                   'catalog_number|asc' => 'catalog number',
-                                                   'created_at|desc'    => 'created at',
-                                                   'label|asc'          => 'label',
-                                                   'name|asc'           => 'name',
-                                                   'updated_at|desc'    => 'updated at',
-                                                   'year|asc'           => 'year',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ],
+                        'list'  => new Music()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*

@@ -91,6 +91,13 @@ class Publication extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'parent_id', 'id', 'owner_id', 'title', 'featured', 'publication_name', 'publisher',
@@ -99,9 +106,34 @@ class Publication extends Model
         'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_emo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'title', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc'      => 'datetime created',
+            'updated_at|desc'      => 'datetime updated',
+            'is_demo|desc'         => 'demo',
+            'is_disabled|desc'     => 'disabled',
+            'featured|desc'        => 'featured',
+            'id|asc'               => 'id',
+            'owner_id|asc'         => 'owner id',
+            'owner_name|asc'       => 'owner name',
+            'owner_username|asc'   => 'owner username',
+            'is_public|desc'       => 'public',
+            'publication_name|asc' => 'publication',
+            'publisher|asc'        => 'publisher',
+            'is_readonly|desc'     => 'read-only',
+            'is_root|desc'         => 'root',
+            'sequence|asc'         => 'sequence',
+            'title|asc'            => 'title',
+            'publication_year|asc' => 'year',
+        ],
+    ];
 
     /**
      *
@@ -109,8 +141,6 @@ class Publication extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -141,13 +171,6 @@ class Publication extends Model
         User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
-
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['article']), function ($query) use ($filters) {
@@ -247,16 +270,8 @@ class Publication extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'portfolio_db');
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

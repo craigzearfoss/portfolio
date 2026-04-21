@@ -51,7 +51,7 @@ class Audio extends Model
         'podcast',
         'source_recording',
         'audio_date',
-        'year',
+        'year',     // @TODO: rename data to audio_date
         'company',
         'credit',
         'show',
@@ -82,17 +82,49 @@ class Audio extends Model
     ];
 
     /**
-     * SearchableModelTrait variables.
+     * These are columns that are used in searches that should NOT be prepended with the table.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'name', 'featured', 'summary', 'full_episode',
-        'clip', 'podcast', 'source_recording', 'audio_date', 'year', 'company', 'credit', 'show', 'location', 'audio_url',
-        'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name', 'review_link3', 'review_link3_name',
-        'notes','description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
 
     /**
-     *
+     * SearchableModelTrait variables.
+     */
+    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'owner_name', 'owner_username', 'name', 'slug',
+        'featured', 'summary', 'full_episode', 'clip', 'podcast', 'source_recording', 'audio_date', 'year', 'company',
+        'credit', 'show', 'location', 'audio_url', 'review_link1', 'review_link1_name', 'review_link2',
+        'review_link2_name', 'review_link3', 'review_link3_name', 'notes', 'link', ';link_name', 'description',
+        'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'created_at', 'updated_at', 'deleted_at'
+    ];
+
+    /**
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc' => 'datetime created',
+            'updated_at|desc' => 'datetime updated',
+            'is_demo|desc'       => 'demo',
+            'featured|desc'      => 'featured',
+            'is_disabled|desc'   => 'disabled',
+            'id|asc'          => 'id',
+            'name|asc'        => 'name',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'is_root|desc'       => 'root',
+            'sequence|asc'    => 'sequence',
+            'year|asc'        => 'year',
+        ],
+    ];
 
     /**
      *
@@ -109,8 +141,6 @@ class Audio extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -218,16 +248,8 @@ class Audio extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'portfolio_db');
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

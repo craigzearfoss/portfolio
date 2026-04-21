@@ -53,15 +53,33 @@ class Ingredient extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'full_name', 'name', 'description', 'is_public', 'is_readonly', 'is_root',
         'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc' => 'date created',
+            'updated_at|desc' => 'date updated',
+            'id|asc'          => 'id',
+            'name|asc'        => 'name',
+            'sequence|asc'    => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -69,8 +87,6 @@ class Ingredient extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

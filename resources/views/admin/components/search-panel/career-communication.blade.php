@@ -1,8 +1,13 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Communication;
     use App\Models\Career\Company;
     use App\Models\System\Admin;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action           = $action ?? url()->current();
@@ -44,22 +49,9 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort'   => $sort,
-                        'list'   => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   //'application_id|asc'        => 'application',
-                                                   'company_name|asc'            => 'company',
-                                                   'created_at|desc'             => 'created at',
-                                                   'application_apply_date|desc' => 'date applied',
-                                                   'application_post_date|desc'  => 'date posted',
-                                                   'communication_datetime|desc' => 'datetime',
-                                                   'from|asc'                    => 'from',
-                                                   'subject|asc'                 => 'subject',
-                                                   'to|asc'                      => 'to',
-                                                   'updated_at|desc'             => 'updated at',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                        'sort'  => $sort,
+                        'list'  => new Communication()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

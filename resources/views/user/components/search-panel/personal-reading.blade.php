@@ -78,7 +78,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'search_title',
                                 'label'   => 'title',
                                 'value'   => $search_title,

@@ -27,10 +27,10 @@
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => [
-                                       'publication_name|asc' => 'publication',
-                                       'publisher|asc'        => 'publisher',
-                                       'title|asc'            => 'title',
-                                       'publication_year|asc' => 'year',
+                                       'publication_name|asc'  => 'publication',
+                                       'publisher|asc'         => 'publisher',
+                                       'title|asc'             => 'title',
+                                       'publication_year|desc' => 'year',
                                    ],
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ],
                     ])
@@ -76,7 +76,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'search_title',
                                 'label'   => 'title',
                                 'value'   => $search_title,
@@ -88,7 +88,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'publication_name',
                                 'label'   => 'publication',
                                 'value'   => $publication_name,
@@ -100,7 +100,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'publisher',
                                 'value'   => $publisher,
                                 'message' => $message ?? '',

@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Recipe;
     use App\Models\System\Admin;
 
@@ -26,11 +27,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'author|asc' => 'author',
-                                      'name|asc'   => 'name',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Recipe()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -52,7 +51,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -63,7 +62,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'author',
                                 'value'   => $author,
                                 'message' => $message ?? '',
@@ -85,7 +84,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'prep_time',
                                 'label'   => 'prep time',
                                 'value'   => $prep_time,
@@ -96,7 +95,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'total_time',
                                 'label'   => 'total time',
                                 'value'   => $total_time,

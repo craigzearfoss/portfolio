@@ -6,7 +6,8 @@
     $list = $list ?? [];
 
     // if a value was specified that's not in the options list then add it to the options list
-    if (!empty($value) && !in_array($value, array_keys($list))) {
+    $add_undefined_option = !isset($add_undefined_option) || boolval($add_undefined_option);
+    if ($add_undefined_option && !empty($value) && !in_array($value, array_keys($list))) {
         $list[$value] = $value;
     }
 

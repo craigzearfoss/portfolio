@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Certificate;
     use App\Models\System\Admin;
 
@@ -25,14 +26,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'academy_name|asc' => 'academy',
-                                       'expiration|asc'   => 'expiration',
-                                       'name|asc'         => 'name',
-                                       'received|asc'     => 'received',
-                                       'year|asc'         => 'year',
-                                   ],
-                        'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
+                        'list'  => new Certificate()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -54,7 +49,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -72,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'organization',
                                 'value'   => $organization,
                                 'message' => $message ?? '',

@@ -26,8 +26,8 @@
                     @include('user.components.search-sort-select', [
                         'sort' => $sort,
                         'list' => [
-                                      'name|asc'   => 'name',
-                                      'year|asc'   => 'year',
+                                      'name|asc'  => 'name',
+                                      'year|desc' => 'year',
                                   ],
                     ])
 
@@ -50,7 +50,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',

@@ -134,6 +134,13 @@ class Resource extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'database_id', 'name', 'table_name', 'class', 'title',
@@ -141,9 +148,35 @@ class Resource extends Model
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'sequence', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'class|asc'          => 'class',
+            'database_id|asc'    => 'database id',
+            'database_name|asc'  => 'database name',
+            'database_tag|asc'   => 'database tag',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'icon|asc'           => 'icon',
+            'id|asc'             => 'id',
+            'menu|desc'          => 'menu',
+            'menu_level|asc'     => 'menu level',
+            'name|asc'           => 'name',
+            //'owner_username|asc' => 'owner',      // owner_username is always root
+            //'owner_id|asc'       => 'owner id',   // owner_id is always 1
+            'parent_id|asc'      => 'parent id',
+            'plural|asc'         => 'plural',
+            'sequence|asc'       => 'sequence',
+            'table_name|asc'     => 'table name',
+            'title|asc'          => 'title',
+        ],
+    ];
 
     /**
      *
@@ -151,8 +184,6 @@ class Resource extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

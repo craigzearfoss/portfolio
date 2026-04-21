@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Music;
     use App\Models\System\Admin;
 
@@ -27,14 +28,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'artist|asc'         => 'artist',
-                                       'catalog_number|asc' => 'catalog number',
-                                       'label|asc'          => 'label',
-                                       'name|asc'           => 'name',
-                                       'year|asc'          => 'year',
-                                   ],
-                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ],
+                        'list'  => new Music()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*
@@ -56,7 +51,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -67,7 +62,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'artist',
                                 'value'   => $artist,
                                 'message' => $message ?? '',
@@ -78,7 +73,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'search_label',
                                 'label'   => 'label',
                                 'value'   => $search_label,
@@ -89,7 +84,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'catalog_number',
                                 'label'   => 'catalog number',
                                 'value'   => $catalog_number,

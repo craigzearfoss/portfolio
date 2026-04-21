@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Recruiter;
 
     // get variables
@@ -22,12 +23,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                       'city|asc'       => 'city',
-                                       'name|asc'       => 'name',
-                                       'state_name|asc' => 'state',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Recruiter()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*
@@ -49,7 +47,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -67,7 +65,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

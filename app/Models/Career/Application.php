@@ -103,6 +103,14 @@ class Application extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email',
+        'company_name',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating',
@@ -114,9 +122,41 @@ class Application extends Model
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'post_date', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            //'active|desc'           => 'active',
+            'company_name|asc'      => 'company',
+            'wage_rate|desc'        => 'compensation',
+            //'compensation_max|desc' => 'compensation (max)',
+            //'compensation_min|desc' => 'compensation (min)',
+            'apply_date|desc'       => 'date applied',
+            'close_date|desc'       => 'date closed',
+            'post_date|desc'        => 'date posted',
+            'created_at|desc'       => 'datetime created',
+            'updated_at|desc'       => 'datetime updated',
+            'is_demo|desc'          => 'demo',
+            'is_disabled|desc'      => 'disabled',
+            'id|asc'                => 'id',
+            'owner_id|asc'          => 'owner id',
+            'owner_name|asc'        => 'owner name',
+            'owner_username|asc'    => 'owner username',
+            'is_public|desc'        => 'public',
+            'rating|desc'           => 'rating',
+            'is_readonly|desc'      => 'read-only',
+            'role|asc'              => 'role',
+            'is_root|desc'          => 'root',
+            'job_location_type'     => 'type',
+            'sequence|asc'          => 'sequence',
+            //'wage_rate|desc'        => 'wage',
+        ]
+    ];
 
     /**
      *
@@ -134,10 +174,6 @@ class Application extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'company_name',
-        ];
     }
 
     /**
@@ -194,7 +230,7 @@ class Application extends Model
 
         // set the order by
         $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, self::PREDEFINED_SEARCH_COLUMNS)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -448,9 +484,6 @@ class Application extends Model
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
 
         return $query;
     }

@@ -44,15 +44,41 @@ class Tag extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'name', 'resource_id', 'model_class', 'model_item_id',
         'dictionary_term_id', 'dictionary_category_id' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'model_class|asc'            => 'class',
+            'model_class_item_id|asc'    => 'class item id',
+            //'dictionary_category|asc'    => 'dictionary category',
+            //'dictionary_category_id|asc' => 'dictionary category id',
+            //'dictionary_term|asc'        => 'dictionary term',
+            //'dictionary_term_id|asc'     => 'dictionary term id',
+            'id|asc'                     => 'id',
+            'name|asc'                   => 'name',
+            'owner_username|asc'         => 'owner',
+            'owner_id|asc'               => 'owner id',
+
+        ]
+    ];
 
     /**
      *
@@ -60,8 +86,6 @@ class Tag extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -107,3 +131,4 @@ class Tag extends Model
             });
     }
 }
+

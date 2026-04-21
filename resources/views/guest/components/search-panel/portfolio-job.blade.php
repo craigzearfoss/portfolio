@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Job;
     use App\Models\System\Admin;
 
@@ -24,13 +25,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'company|asc'     => 'company',
-                                      'end_date|desc'   => 'end date',
-                                      'role|asc'        => 'role',
-                                      'start_date|desc' => 'start date',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Job()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -52,7 +49,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',
@@ -63,7 +60,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',

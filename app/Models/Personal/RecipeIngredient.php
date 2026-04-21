@@ -58,15 +58,46 @@ class RecipeIngredient extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email', 'recipe_name', 'recipe_author', 'ingredient_name',
+        'ingredient_name',
+        'recipe_name',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'recipe_id', 'ingredient_id', 'amount', 'unit_id', 'qualifier',
         'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'ingredient_name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc'     => 'datetime created',
+            'updated_at|desc'     => 'datetime updated',
+            'is_demo|desc'        => 'demo',
+            'is_disabled|desc'    => 'disabled',
+            'id|asc'              => 'id',
+            'ingredient_name|asc' => 'ingredient',
+            'owner_id|asc'        => 'owner id',
+            'owner_name|asc'      => 'owner name',
+            'owner_username|asc'  => 'owner username',
+            'is_public|desc'      => 'public',
+            'is_readonly|desc'    => 'read-only',
+            'recipe_name|asc'     => 'recipe',
+            'is_root|desc'        => 'root',
+            'sequence|asc'        => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -74,11 +105,6 @@ class RecipeIngredient extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'ingredient_name',
-            'recipe_name'
-        ];
     }
 
     /**
@@ -117,7 +143,9 @@ class RecipeIngredient extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->select(
+                DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
+            )->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -149,27 +177,16 @@ class RecipeIngredient extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to other tables
-        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
-        $query->join( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id');
-        $query->join( dbName('personal_db') . '.ingredients', 'ingredients.id', '=', $this->table . '.ingredient_id');
-        $query->select([
-            DB::raw($this->table . '.*'),
-            DB::raw('admins.name AS `owner_name`'),
-            DB::raw('admins.username AS `owner_username`'),
-            DB::raw('admins.email AS `owner_email`'),
-            DB::raw('ingredients.name AS `ingredient_name`'),
-            DB::raw('recipes.name AS `recipe_name`')
-        ]);
+        // join to recipes table
+        $query->join( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id')
+            ->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
 
+        // join to ingredients table
+        $query->join( dbName('personal_db') . '.ingredients', 'ingredients.id', '=', $this->table . '.ingredient_id')
+            ->addSelect(DB::raw(dbName($this->connection) . '.ingredients.name AS ingredient_name'));
 
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

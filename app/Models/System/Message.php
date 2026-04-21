@@ -48,15 +48,37 @@ class Message extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'from_admin', 'name', 'email', 'subject', 'body', 'is_public',
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'created_at', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'email|asc'          => 'email',
+            'name|asc'           => 'name',
+            //'owner_username|asc' => 'owner',      // owner_username is always root
+            //'owner_id|asc'       => 'id owner',   // owner_id is always 1
+            'subject|asc'        => 'subject',
+        ],
+    ];
 
     /**
      *
@@ -64,8 +86,6 @@ class Message extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

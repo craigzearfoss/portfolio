@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Recruiter;
 
     // get variables
@@ -23,13 +24,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                        'city|asc'        => 'city',
-                                        'created_at|desc' => 'created at',
-                                        'name|asc'        => 'name',
-                                        'state_name|asc'  => 'state',
-                                        'updated_at|desc' => 'updated at',
-                                   ],
+                        'list'  => new Recruiter()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 

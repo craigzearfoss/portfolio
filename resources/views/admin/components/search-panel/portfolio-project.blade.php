@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Project;
     use App\Models\System\Admin;
 
@@ -26,17 +27,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'created_at|desc'    => 'created at',
-                                                   'language|asc'       => 'language',
-                                                   'name|asc'           => 'name',
-                                                   'repository_url|asc' => 'repository',
-                                                   'updated_at|desc'    => 'updated at',
-                                                   'year|asc'           => 'year',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ],
+                        'list'  => new Project()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*

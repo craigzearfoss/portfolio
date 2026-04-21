@@ -63,7 +63,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'school_name',
                                 'label'   => 'school',
                                 'value'   => $school_name,
@@ -82,7 +82,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'major',
                                 'value'   => $major,
                                 'message' => $message ?? '',
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'minor',
                                 'value'   => $minor,
                                 'message' => $message ?? '',

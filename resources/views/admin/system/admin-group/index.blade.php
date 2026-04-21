@@ -3,9 +3,10 @@
     use App\Models\System\AdminTeam;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin         = $admin ?? null;
-    $owner         = $owner ?? null;
-    $isRootAdmin   = $isRootAdmin ?? false;
+    $className   = 'App\Models\System\AdminGroup';
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = $pageTitle ?? 'Admin Groups';
     $subtitle = $title;

@@ -88,6 +88,14 @@ class Resume extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email',
+        'name',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'resume_date', 'primary', 'doc_filepath',
@@ -95,9 +103,33 @@ class Resume extends Model
         'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'resume_date', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            //'application_id|asc' => 'application id',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'resume_date|desc'   => 'date',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'id|asc'             => 'id',
+            'name|asc'           => 'name',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'primary|desc'       => 'primary',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'is_root|desc'       => 'root',
+            'sequence|asc'     => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -105,10 +137,6 @@ class Resume extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'name',
-        ];
     }
 
     /**
@@ -166,7 +194,7 @@ class Resume extends Model
 
         // set the order by
         $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, self::PREDEFINED_SEARCH_COLUMNS)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -293,9 +321,6 @@ class Resume extends Model
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
-        }
 
         return $query;
     }

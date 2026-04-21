@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Video;
     use App\Models\System\Admin;
 
@@ -25,13 +26,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'company|asc' => 'company',
-                                      'name|asc'    => 'name',
-                                      'show|asc'    => 'show',
-                                      'year|asc'    => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Video()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -53,7 +50,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -64,7 +61,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'show',
                                 'value'   => $show,
                                 'message' => $message ?? '',
@@ -75,7 +72,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',

@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\School;
     use App\Models\System\Admin;
 
@@ -22,13 +23,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'created_at|desc' => 'created at',
-                                       'name|asc'        => 'name',
-                                       'state_name|asc'  => 'state',
-                                       'updated_at|desc' => 'updated at',
-                                   ],
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
+                        'list'  => new School()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -50,7 +46,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -63,7 +59,7 @@
 
                         <?php /* We don't currently have any cities in the portfolio.schools table.
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

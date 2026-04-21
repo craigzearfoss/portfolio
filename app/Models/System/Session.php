@@ -38,9 +38,22 @@ class Session extends Model
         'last_activity' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'last_activity', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'admin_id|asc'       => 'admin id',
+            'ip_address|asc'     => 'ip address',
+            'id|asc'             => 'id',
+            'last_activity|desc' => 'last activity',
+            'user_id|asc'        => 'user id',
+        ],
+    ];
 
     /**
      *
@@ -48,8 +61,6 @@ class Session extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

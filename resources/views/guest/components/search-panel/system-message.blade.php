@@ -26,14 +26,14 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
@@ -43,14 +43,14 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',

@@ -28,7 +28,7 @@
                         'list' => [
                                       'credit|asc' => 'credit',
                                       'name|asc'   => 'name',
-                                      'year|asc'   => 'year',
+                                      'year|desc'  => 'year',
                                   ],
                     ])
 
@@ -51,7 +51,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -62,7 +62,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'credit',
                                 'value'   => $credit,
                                 'message' => $message ?? '',

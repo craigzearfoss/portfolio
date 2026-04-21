@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Recipe;
     use App\Models\Personal\RecipeStep;
     use App\Models\System\Admin;
@@ -27,13 +28,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'created_at|desc' => 'created at',
-                                                   'recipe_name|asc' => 'recipe',
-                                                   'updated_at|desc' => 'updated at',
-                                               ],
-                                   ),
+                        'list'  => new RecipeStep()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 

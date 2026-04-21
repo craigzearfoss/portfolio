@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Ingredient;
 
     // get variables
@@ -22,11 +23,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'created_at|desc' => 'created at',
-                                       'name|asc'        => 'name',
-                                       'updated_at|desc' => 'updated at',
-                                   ],
+                        'list'  => new Ingredient()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 

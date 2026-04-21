@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Education;
     use App\Models\System\Admin;
 
@@ -28,18 +29,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                               [
-                                                   'created_at|desc'       => 'created at',
-                                                   'degree_type_name|asc'  => 'degree',
-                                                   'enrollment_date|desc'  => 'enrollment month',
-                                                   'graduation_date|desc'  => 'graduation month',
-                                                   'major|asc'             => 'major',
-                                                   'minor|asc'             => 'minor',
-                                                   'school_name|asc'       => 'school',
-                                                   'updated_at|desc'       => 'updated at',
-                                               ],
-                                   ),
+                        'list'  => new Education()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

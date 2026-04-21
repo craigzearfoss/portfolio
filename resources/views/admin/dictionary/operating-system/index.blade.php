@@ -2,9 +2,10 @@
     use App\Models\Dictionary\OperatingSystem;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin           = $admin ?? null;
-    $owner           = $owner ?? null;
-    $isRootAdmin     = $isRootAdmin ?? false;
+    $className   = 'App\Models\Dictionary\OperatingSystem';
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     $title    = 'Dictionary (operating systems)';
     $subtitle = $title;
@@ -67,8 +68,8 @@
                 @forelse ($operatingSystems as $operatingSystem)
 
                     @php
-                        // don't displace the entry for "other"
-                        if ($server->name == 'other') continue;
+                        // don't display the entry for "other"
+                        if ($operatingSystem->name == 'other') continue;
                     @endphp
 
                     <tr data-id="{{ $operatingSystem->id }}">

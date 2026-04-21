@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Dictionary\Category;
     use App\Models\Portfolio\Skill;
     use App\Models\System\Admin;
@@ -26,17 +27,8 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                   'created_at|desc'              => 'created at',
-                                                   'dictionary_category_name|asc' => 'category',
-                                                   'level|desc'                   => 'level',
-                                                   'name|asc'                     => 'name',
-                                                   'updated_at|desc'              => 'updated at',
-                                                   'years|desc'                   => 'years',
-                                               ],
-                                   ),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
+                        'list'  => new Skill()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

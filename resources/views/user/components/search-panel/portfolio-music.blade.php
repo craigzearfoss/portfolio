@@ -32,7 +32,7 @@
                                        'catalog_number|asc' => 'catalog number',
                                        'label|asc'          => 'label',
                                        'name|asc'           => 'name',
-                                       'year|asc'          => 'year',
+                                       'year|desc'          => 'year',
                                    ],
                         'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ],
                     ])
@@ -56,7 +56,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -67,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'artist',
                                 'value'   => $artist,
                                 'message' => $message ?? '',
@@ -78,7 +78,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'search_label',
                                 'label'   => 'label',
                                 'value'   => $search_label,
@@ -89,7 +89,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'catalog_number',
                                 'label'   => 'catalog number',
                                 'value'   => $catalog_number,

@@ -2,6 +2,7 @@
     use App\Models\Dictionary\Category;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Dictionary\Category';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
@@ -68,7 +69,7 @@
 
                     @php
                         // don't displace the entry for "other"
-                        if ($server->name == 'other') continue;
+                        if ($category->name == 'other') continue;
                     @endphp
 
                     <tr data-id="{{ $category->id }}">

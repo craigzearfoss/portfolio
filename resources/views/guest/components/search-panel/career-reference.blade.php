@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Reference;
     use App\Models\System\Admin;
 
@@ -28,13 +29,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'company_name|asc'           => 'company',
-                                       'communication_datetime|desc' => 'date',
-                                       'from|asc'                    => 'from',
-                                       'subject|asc'                 => 'subject',
-                                       'to|asc'                      => 'to',
-                                   ],
+                        'list'  => new Reference()->getSearchOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -57,7 +52,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -72,7 +67,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
@@ -80,7 +75,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'phone',
                                 'value'   => $phone,
                                 'message' => $message ?? '',
@@ -92,7 +87,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

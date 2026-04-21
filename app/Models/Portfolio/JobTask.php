@@ -60,15 +60,46 @@ class JobTask extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email',
+        'company_name',
+        'role',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'featured', 'summary', 'notes', 'description', 'disclaimer',
         'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'company_name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'company_name|asc'   => 'company',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'is_demo|desc'       => 'demo',
+            'is_disabled|desc'   => 'disabled',
+            'featured|desc'      => 'featured',
+            'id|asc'             => 'id',
+            'owner_id|asc'       => 'owner id',
+            'owner_name|asc'     => 'owner name',
+            'owner_username|asc' => 'owner username',
+            'is_public|desc'     => 'public',
+            'is_readonly|desc'   => 'read-only',
+            'is_root|desc'       => 'root',
+            'sequence|asc'       => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -76,11 +107,6 @@ class JobTask extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'company_name',
-            'role',
-        ];
     }
 
     /**
@@ -119,7 +145,8 @@ class JobTask extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -150,21 +177,14 @@ class JobTask extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
-        $query->join( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id');
+        // join to jobs table
+        $query->join( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id')
+            ->addSelect(DB::Raw('jobs.company as company_name'))
+            ->addSelect(DB::Raw('jobs.role as role'));
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
-
-        // join to owner
-        $query = $this->addJoinToAdminTable(
-            $query,
-            'portfolio_db',
-            [
-                DB::raw('jobs.company as company_name'),
-                DB::raw('jobs.role as role')
-            ]
-        );
 
         // add order by clause
         return $this->addOrderBy($query, $sort);

@@ -42,15 +42,38 @@ class AdminPhone extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'owner_name', 'owner_username', 'owner_email'
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'phone', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'id|asc'             => 'id',
+            'created_at|desc'    => 'datetime created',
+            'updated_at|desc'    => 'datetime updated',
+            'label|asc'          => 'label',
+            'owner_username|asc' => 'owner',
+            'owner_id|asc'       => 'owner id',
+            'phone|asc'          => 'phone',
+            'sequence|asc'       => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -58,8 +81,6 @@ class AdminPhone extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**

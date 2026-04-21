@@ -2,9 +2,11 @@
     use App\Models\System\UserEmail;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\System\UserEmail';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
+    $user        = $user ?? null;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'User Email Addresses' : 'Email Addresses');
     $subtitle = $title;

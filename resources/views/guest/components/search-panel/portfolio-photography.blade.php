@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Photography;
     use App\Models\System\Admin;
 
@@ -24,12 +25,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'credit|asc' => 'credit',
-                                      'name|asc'   => 'name',
-                                      'year|asc'   => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Photography()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*
@@ -51,7 +49,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -62,7 +60,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'credit',
                                 'value'   => $credit,
                                 'message' => $message ?? '',

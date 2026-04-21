@@ -68,6 +68,19 @@ class Education extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'all' => [
+            'owner_name', 'owner_username', 'owner_email',
+            'degree_type_name',
+            'enrollment_date',
+            'graduation_date',
+            'school_name',
+        ],
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id',
@@ -75,9 +88,27 @@ class Education extends Model
         'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'graduation_date', 'desc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            'created_at|desc'       => 'datetime created',
+            'updated_at|desc'       => 'datetime updated',
+            'degree_type_name|asc'  => 'degree',
+            'enrollment_date|desc'  => 'enrollment month',
+            'graduation_date|desc'  => 'graduation month',
+            'id|asc'                => 'id',
+            'major|asc'             => 'major',
+            'minor|asc'             => 'minor',
+            'school_name|asc'       => 'school',
+            'sequence|asc'          => 'sequence',
+        ],
+    ];
 
     /**
      *
@@ -85,13 +116,6 @@ class Education extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [
-            'degree_type_name',
-            'enrollment_date',
-            'graduation_date',
-            'school_name',
-        ];
     }
 
     /**
@@ -123,14 +147,8 @@ class Education extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -179,48 +197,20 @@ class Education extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
-        $query->join( dbName('portfolio_db') . '.schools', 'schools.id', '=', $this->table . '.school_id');
-        $query->join( dbName('portfolio_db') . '.degree_types', 'degree_types.id', '=', $this->table . '.degree_type_id');
+        // join to schools table
+        $query->join( dbName('portfolio_db') . '.schools', 'schools.id', '=', $this->table . '.school_id')
+            ->addSelect(DB::Raw('schools.name as school_name'));
+
+        // join to degree types
+        $query->join( dbName('portfolio_db') . '.degree_types', 'degree_types.id', '=', $this->table . '.degree_type_id')
+            ->addSelect(DB::Raw('degree_types.name as degree_type_name'));
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
-        $query->select([
-            DB::raw($this->table . '.*'),
-            DB::raw('schools.name as school_name'),
-            DB::raw('degree_types.name as degree_type_name'),
-            DB::raw('admins.name AS `owner_name`'),
-            DB::raw('admins.username AS `owner_username`'),
-            DB::raw('admins.email AS `owner_email`'),
-        ]);
-        /*
-        $query = $this->addJoinToAdminTable($query,
-            portfolio_db,
-             [
-                DB::raw('`schools`.`name` as school_name'),
-                DB::raw('`degree_types`.`name` as degree_type_name') ,
-            ]
-        );
-*/
-
         // add order by clause
-        if (explode('|', $sort ?? '')[0] == 'enrollment_date') {
-            $query->orderBy('enrollment_date', 'desc');
-        } elseif (explode('|', $sort ?? '')[0] == 'graduation_date') {
-            $query->orderBy('graduation_date', 'desc');
-        } else {
-            //dd(explode('|', $sort ?? '')[0]);
-            //$query->ddRawSql();
-            $query = $this->addOrderBy($query, $sort);
-            if (explode('|', $sort ?? '') != 'owner_username') {
-                $query->orderBy('owner_username');
-            }
-        }
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

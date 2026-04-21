@@ -4,6 +4,10 @@
     use App\Models\Career\CoverLetter;
     use App\Models\System\Admin;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     // get variables
     $action           = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
@@ -72,7 +76,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -84,7 +88,7 @@
 
                         @if($applicationCount > 20)
                             <div class="search-form-control">
-                                @include('user.components.input-basic', [
+                                @include('user.components.input', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,
@@ -102,7 +106,7 @@
 
                             @if($companyCount > 20)
                                 <div class="search-form-control">
-                                    @include('user.components.input-basic', [
+                                    @include('user.components.input', [
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
@@ -121,7 +125,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'application_role',
                                 'label'   => 'role',
                                 'value'   => $application_role,
@@ -130,7 +134,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'content',
                                 'value'   => $content,
                                 'message' => $message ?? '',
@@ -141,7 +145,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'description',
                                 'value'   => $description,
                                 'message' => $message ?? '',
@@ -149,7 +153,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
+                            @include('user.components.input', [
                                 'name'    => 'notes',
                                 'value'   => $notes,
                                 'message' => $message ?? '',

@@ -1,6 +1,12 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
-    use App\Models\System\Admin;
+    use App\Models\Career\Company;
+    use App\Models\Career\Resume;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();
@@ -39,18 +45,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'company_name|asc'      => 'company',
-                                       //'compensation_max|desc' => 'compensation (max)',
-                                       //'compensation_min|desc' => 'compensation (min)',
-                                       'apply_date|desc'       => 'date applied',
-                                       'close_date|desc'       => 'date closed',
-                                       'post_date|desc'        => 'date posted',
-                                       'rating|desc'           => 'rating',
-                                       'role|asc'              => 'role',
-                                       'wage_rate|desc'        => 'wage',
-                                   ],
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important'],
+                        'list'  => new Application()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 
                     <?php /*
@@ -84,7 +80,7 @@
 
                         @if($companyCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.input-basic', [
+                                @include('guest.components.form-input', [
                                     'name'    => 'company_name',
                                     'label'   => 'company',
                                     'value'   => $company_name,
@@ -99,7 +95,7 @@
                         @endif
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
@@ -112,7 +108,7 @@
 
                         @if($resumeCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.input-basic', [
+                                @include('guest.components.form-input', [
                                     'name'    => 'resume_name',
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
@@ -168,7 +164,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

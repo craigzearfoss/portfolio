@@ -68,15 +68,29 @@ class Category extends Model
     ];
 
     /**
+     * These are columns that are used in searches that should NOT be prepended with the table.
+     */
+    const array PREDEFINED_SEARCH_COLUMNS = [];
+
+    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled',
         'owner', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
-     *
+     * This is the default sort order for searches.
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     * These are the options in the sort select list on the search panel.
+     */
+    const array SORT_OPTIONS = [
+        'all' => [
+            //
+        ],
+    ];
 
     /**
      *
@@ -84,8 +98,6 @@ class Category extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->predefinedColumns = [];
     }
 
     /**
@@ -126,7 +138,7 @@ class Category extends Model
 
         // set the order by
         $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $this->predefinedColumns)) {
+        if (!in_array($sortColumn, self::PREDEFINED_SEARCH_COLUMNS)) {
             $sortColumn = 'name';
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];

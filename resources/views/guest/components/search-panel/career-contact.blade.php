@@ -1,5 +1,5 @@
 @php
-    //@TODO: Need to add joins for company_ids to be searched.
+    use App\Enums\EnvTypes;
     use App\Models\Career\Contact;
     use App\Models\System\Admin;
 
@@ -29,11 +29,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'name|asc'          => 'name',
-                                       //'city|asc'          => 'city',
-                                       //'state_id|asc'      => 'state',
-                                   ],
+                        'list'  => new Contact()->getSearchOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -56,7 +52,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -74,7 +70,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
@@ -82,7 +78,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'phone',
                                 'value'   => $phone,
                                 'message' => $message ?? '',
@@ -95,8 +91,8 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'nameguest    => 'city',
+                            @include('guest.components.form-input', [
+                                'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
                             ])

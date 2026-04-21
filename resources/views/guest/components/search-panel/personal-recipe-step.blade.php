@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Recipe;
     use App\Models\Personal\RecipeStep;
     use App\Models\System\Admin;
@@ -26,12 +27,9 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'recipe_name|asc'     => 'recipe',
-                                              ],
-                                  )
+                        'sort'  => $sort,
+                        'list'  => new RecipeStep()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*
@@ -53,7 +51,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'recipe_name',
                                 'label'   => 'recipe',
                                 'value'   => $recipe_name,
@@ -65,7 +63,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.input-basic', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'summary',
                                 'label'   => 'summary',
                                 'value'   => $summary,
