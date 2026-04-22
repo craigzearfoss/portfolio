@@ -24,6 +24,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.system-resource', [ 'owner_id' => $owner->id ?? null])
+
     <div class="floating-div-container">
 
         <div class="show-container card floating-div">

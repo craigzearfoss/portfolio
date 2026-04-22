@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Company;
     use App\Models\System\Admin;
 
@@ -28,12 +29,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'name|asc'          => 'name',
-                                       'industry_name|asc' => 'industry',
-                                       'city|asc'          => 'city',
-                                       'state_id|asc'      => 'state',
-                                   ],
+                        'list'  => new Company()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

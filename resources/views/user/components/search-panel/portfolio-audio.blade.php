@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Audio;
     use App\Models\System\Admin;
 
@@ -24,11 +25,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'name|asc'  => 'name',
-                                      'year|desc' => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Audio()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

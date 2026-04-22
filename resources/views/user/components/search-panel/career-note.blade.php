@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Note;
@@ -44,16 +45,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       //'application_id|asc'        => 'application',
-                                       'company_name|asc'            => 'company',
-                                       'created_at|desc'             => 'datetime created',
-                                       'application_apply_date|desc' => 'date applied',
-                                       'application_post_date|desc'  => 'date posted',
-                                       'from|asc'                    => 'from',
-                                       'subject|asc'                 => 'subject',
-                                       'to|asc'                      => 'to',
-                                   ],
+                        'list'  => new Note()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

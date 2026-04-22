@@ -62,7 +62,8 @@ class Academy extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+        'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -73,11 +74,18 @@ class Academy extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'id|asc'       => 'id',
-            'name|asc'     => 'name',
-            'sequence|asc' => 'sequence',
-        ],
+        'id|asc'       => 'id',
+        'name|asc'     => 'name',
+        'sequence|asc' => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'name', 'is_public', 'is_disabled' ],
+        'guest' => [ 'name' ],
     ];
 
     /**

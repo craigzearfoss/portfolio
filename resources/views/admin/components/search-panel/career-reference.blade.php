@@ -29,7 +29,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Reference()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Reference()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

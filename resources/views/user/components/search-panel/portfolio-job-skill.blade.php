@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\JobSkill;
     use App\Models\System\Admin;
 
@@ -26,12 +27,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'company_name|asc' => 'company',
-                                      'name|asc'         => 'name',
-                                      'role|asc'         => 'role',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new JobSkill()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

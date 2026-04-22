@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Certificate;
     use App\Models\System\Admin;
 
@@ -25,14 +26,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'academy_name|asc' => 'academy',
-                                       'expiration|asc'   => 'expiration',
-                                       'name|asc'         => 'name',
-                                       'received|asc'     => 'received',
-                                       'year|desc'        => 'year',
-                                   ],
-                        'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
+                        'list'  => new Certificate()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
                     <?php /*

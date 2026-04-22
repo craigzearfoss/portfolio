@@ -67,7 +67,8 @@ class RecipeStep extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'recipe_id', 'step', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -78,21 +79,28 @@ class RecipeStep extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'id|asc'             => 'id',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'recipe_name|asc'    => 'recipe',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-        ],
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'id|asc'             => 'id',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'recipe_name|asc'    => 'recipe',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'is_disabled', 'description', 'is_public', 'recipe_name', 'step', ],
+        'guest' => [ 'description', 'recipe_name', 'step', ],
     ];
 
     /**

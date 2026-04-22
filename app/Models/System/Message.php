@@ -58,7 +58,8 @@ class Message extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'from_admin', 'name', 'email', 'subject', 'body', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -69,15 +70,22 @@ class Message extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'email|asc'          => 'email',
-            'name|asc'           => 'name',
-            //'owner_username|asc' => 'owner',      // owner_username is always root
-            //'owner_id|asc'       => 'id owner',   // owner_id is always 1
-            'subject|asc'        => 'subject',
-        ],
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'email|asc'          => 'email',
+        'name|asc'           => 'name',
+        //'owner_username|asc' => 'owner',      // owner_username is always root
+        //'owner_id|asc'       => 'id owner',   // owner_id is always 1
+        'subject|asc'        => 'subject',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'created_at', 'email', 'name', 'subject', ],
+        'guest' => [ 'created_at', 'email', 'name', 'subject', ],
     ];
 
     /**

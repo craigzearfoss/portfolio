@@ -52,7 +52,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Event()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Event()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

@@ -60,12 +60,19 @@ class Country extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'id|asc'         => 'id',
-            'iso_alpha3|asc' => 'iso alpha3',
-            'm49|asc'        => 'm49',
-            'name|asc'       => 'name',
-        ],
+        'id|asc'         => 'id',
+        'iso_alpha3|asc' => 'iso alpha3',
+        'm49|asc'        => 'm49',
+        'name|asc'       => 'name',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'iso_alpha3', 'm49', 'name', ],
+        'guest' => [ 'iso_alpha3', 'm49', 'name', ],
     ];
 
     /**

@@ -29,7 +29,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Contact()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Contact()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

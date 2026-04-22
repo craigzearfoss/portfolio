@@ -77,7 +77,7 @@ class Art extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'name', 'artist', 'slug',
         'featured', 'summary', 'year', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'image',
         'image_credit', 'image_source', 'thumbnail', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'demo',
-        'sequence', 'created_at', 'updated_at', 'deleted_at'
+        'sequence', 'created_at', 'updated_at'
     ];
 
     /**
@@ -89,24 +89,31 @@ class Art extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'artist|asc'         => 'artist',
-            'created_at|desc'    => 'date created',
-            'updated_at|desc'    => 'date updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'is_public|desc'     => 'public',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'year|asc'           => 'year',
-        ],
+        'artist|asc'         => 'artist',
+        'created_at|desc'    => 'date created',
+        'updated_at|desc'    => 'date updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'is_public|desc'     => 'public',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'year|asc'           => 'year',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'year', ],
+        'guest' => [ 'artist', 'name', 'year' ],
     ];
 
     /**

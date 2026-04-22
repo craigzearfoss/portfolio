@@ -9,6 +9,7 @@
     $link        = $link ?? null;
 
     $title    = $pageTitle ?? 'Links';
+    $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [

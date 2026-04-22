@@ -1,6 +1,11 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\System\Admin;
     use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();
@@ -21,18 +26,11 @@
 
                 <div class="search-panel-controls">
 
-                    <?php /*
-                    // @TODO: Implement sort select list.
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'username'       => 'owner',
-                                              ],
-                                  ),
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'sort'  => $sort,
+                        'list'  => new Admin()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
-                    */ ?>
 
                     <?php /*
                     // @TODO: Implement clear search form functionality.

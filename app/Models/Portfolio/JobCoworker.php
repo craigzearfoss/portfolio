@@ -99,7 +99,9 @@ class JobCoworker extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'job_id', 'name', 'title', 'featured', 'summary', 'level_id',
         'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
+        'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -110,23 +112,30 @@ class JobCoworker extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'company_name|asc'   => 'company',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-        ],
+        'company_name|asc'   => 'company',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'company_name', 'is_disabled', 'level', 'name', 'is_public', ],
+        'guest' => [ 'company_name', 'level', 'name', ],
     ];
 
     /**

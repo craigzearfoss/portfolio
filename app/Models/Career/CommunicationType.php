@@ -54,11 +54,18 @@ class CommunicationType extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'id|asc'       => 'id',
-            'name|asc'     => 'name',
-            'sequence|asc' => 'sequence',
-        ]
+        'id|asc'       => 'id',
+        'name|asc'     => 'name',
+        'sequence|asc' => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'name', ],
+        'guest' => [ 'name', ],
     ];
 
     /**

@@ -31,7 +31,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Reading()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Reading()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
@@ -76,7 +76,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('admin.components.form-input', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'search_title',
                                 'label'   => 'title',
                                 'value'   => $search_title,

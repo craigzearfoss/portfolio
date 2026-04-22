@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\CoverLetter;
@@ -10,9 +11,10 @@
 
     // get variables
     $action           = $action ?? url()->current();
-    $owner_id        = $owner->id ?? -1;
-    $application_id    = $application_id ?? request()->query('application_id');
+    $owner_id         = $owner->id ?? -1;
+    $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_id ?? request()->query('application_id');
+    $application_role = $application_role ?? request()->query('application_role');
     $company_id       = $company_id ?? request()->query('company_id');
     $company_name     = $company_name ?? request()->query('company_name');
     $content          = $content ?? request()->query('content');
@@ -47,14 +49,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       //'application_id|asc' => 'application',
-                                       'company_name|asc'     => 'company',
-                                       'application_apply_date|desc' => 'date applied',
-                                       'application_post_date|desc'  => 'date posted',
-                                       'application_role|asc' => 'role',
-                                   ],
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                        'list'  => new CoverLetter()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

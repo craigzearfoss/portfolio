@@ -3,6 +3,7 @@
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Resume;
+    use App\Models\System\Admin;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
@@ -45,7 +46,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Application()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Application()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 

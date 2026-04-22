@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\JobBoard;
 
     // get variables
@@ -21,10 +22,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                       'name|asc' => 'name',
-                                   ],
+                        'sort'  => $sort,
+                        'list'  => new JobBoard()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

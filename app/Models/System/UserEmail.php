@@ -52,7 +52,8 @@ class UserEmail extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'email', 'label', 'description', 'notes', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -63,16 +64,23 @@ class UserEmail extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc'   => 'datetime created',
-            'updated_at|desc'   => 'datetime updated',
-            'email|asc'         => 'email',
-            'id|asc'            => 'id',
-            'label|asc'         => 'label',
-            'sequence|asc'      => 'sequence',
-            'user_username|asc' => 'username',
-            'user_id|asc'       => 'user id',
-        ],
+        'created_at|desc'   => 'datetime created',
+        'updated_at|desc'   => 'datetime updated',
+        'email|asc'         => 'email',
+        'id|asc'            => 'id',
+        'label|asc'         => 'label',
+        'sequence|asc'      => 'sequence',
+        'user_username|asc' => 'username',
+        'user_id|asc'       => 'user id',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'email', 'label', 'is_public', ],
+        'guest' => [ 'email', 'label', 'is_public', ],
     ];
 
     /**

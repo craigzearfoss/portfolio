@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Resume;
     use App\Models\System\Admin;
 
@@ -24,10 +25,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'name|asc'         => 'name',
-                                       'resume_date|desc' => 'date',
-                                   ],
+                        'list'  => new Resume()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

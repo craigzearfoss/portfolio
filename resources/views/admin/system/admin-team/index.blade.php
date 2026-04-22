@@ -42,9 +42,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-owner')
-    @endif
+    @include('admin.components.search-panel.system-admin-team')
 
     <div class="floating-div-container">
 

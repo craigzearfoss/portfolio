@@ -47,7 +47,9 @@ class LoginAttemptsUser extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'user_id', 'username', 'action', 'ip_address', 'success', 'created_at' ];
+    const array SEARCH_COLUMNS = [ 'id', 'user_id', 'username', 'action', 'ip_address', 'success', 'created_at',
+        'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -58,15 +60,22 @@ class LoginAttemptsUser extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'admin_id|asc'    => 'admin_id',
-            'action|desc'     => 'action',
-            'created_at|desc' => 'datetime created',
-            'updated_at|desc' => 'datetime updated',
-            'id|asc'          => 'id',
-            'ip_address|asc'  => 'ip_address',
-            'username|asc'    => 'username',
-        ],
+        'action|desc'     => 'action',
+        'created_at|desc' => 'datetime created',
+        'updated_at|desc' => 'datetime updated',
+        'id|asc'          => 'id',
+        'ip_address|asc'  => 'ip_address',
+        'user_id|asc'     => 'user_id',
+        'username|asc'    => 'username',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'action', 'id', 'ip_address', 'user_id', 'username', ],
+        'guest' => [ 'action', 'id', 'ip_address', 'user_id', 'username', ],
     ];
 
     /**

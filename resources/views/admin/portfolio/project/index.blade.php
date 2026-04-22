@@ -30,6 +30,7 @@
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
     }
 @endphp
+
 @extends('admin.layouts.default')
 
 @section('content')

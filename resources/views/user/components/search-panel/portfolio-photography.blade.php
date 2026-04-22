@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Photography;
     use App\Models\System\Admin;
 
@@ -24,12 +25,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'credit|asc' => 'credit',
-                                      'name|asc'   => 'name',
-                                      'year|desc'  => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Photography()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

@@ -20,6 +20,28 @@
 
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
+                <div class="search-panel-controls">
+
+                    @include('user.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => new Message()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('user.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('user.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
             <div>
 
                 <div class="floating-div-container">
@@ -58,19 +80,6 @@
                         </div>
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('user.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('user.components.button-search', [
-                        'id' => 'performSearch',
-                    ])
                 </div>
 
             </div>

@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\System\User;
 
     // get variables
@@ -20,18 +21,11 @@
 
                 <div class="search-panel-controls">
 
-                    <?php /*
-                    // @TODO: Implement sort select list.
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'username'       => 'owner',
-                                              ],
-                                  ),
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'sort'  => $sort,
+                        'list'  => new User()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
-                    */ ?>
 
                     <?php /*
                     // @TODO: Implement clear search form functionality.
@@ -52,10 +46,11 @@
                     <div class="floating-div">
                         <div class="control" style="max-width: 30rem;">
                             @include('admin.components.form-select', [
-                                'name'     => 'user_id',
-                                'label'    => 'user',
-                                'value'    => $user_id,
-                                'list'     => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                                'name'  => 'user_id',
+                                'label' => 'user',
+                                'value' => $user_id,
+                                'list'  => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                                'style' => 'min-width: 10rem;'
                             ])
                         </div>
                     </div>

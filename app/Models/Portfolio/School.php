@@ -81,7 +81,8 @@ class School extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+        'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -92,23 +93,30 @@ class School extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'state_name|asc'     => 'state',
-        ],
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'state_name|asc'     => 'state',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'name', 'state', ],
+        'guest' => [ 'name', 'state' ],
     ];
 
     /**

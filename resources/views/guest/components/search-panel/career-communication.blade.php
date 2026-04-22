@@ -50,8 +50,8 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Communication()->getSearchOptions($sort, EnvTypes::GUEST),
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                        'list'  => new Communication()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

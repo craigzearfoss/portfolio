@@ -28,7 +28,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new JobTask()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new JobTask()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

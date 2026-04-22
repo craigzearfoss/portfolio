@@ -24,6 +24,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.system-session', [ 'owner_id' => $owner->id ?? null])
+
     <div class="floating-div-container">
 
         <div class="show-container card floating-div">
@@ -81,9 +83,11 @@
                             {!! $session->last_activity !!}
                         </td>
                         <td>
+                            <?php /* @TODO:
                             <a class="button is-small px-1 py-0" href="{!! route('admin.session.show', $session->id) !!}">
                                 <i class="fa-solid fa-list"></i>
                             </a>
+                            */ ?>
                         </td>
                     </tr>
 

@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Publication;
     use App\Models\System\Admin;
 
@@ -26,13 +27,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'publication_name|asc'  => 'publication',
-                                       'publisher|asc'         => 'publisher',
-                                       'title|asc'             => 'title',
-                                       'publication_year|desc' => 'year',
-                                   ],
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ],
+                        'list'  => new Publication()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*

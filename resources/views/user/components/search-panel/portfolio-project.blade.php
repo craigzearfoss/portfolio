@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Project;
     use App\Models\System\Admin;
 
@@ -26,13 +27,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'language|asc'       => 'language',
-                                       'name|asc'           => 'name',
-                                       'repository_url|asc' => 'repository',
-                                       'year|desc'          => 'year',
-                                   ],
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'list'  => new Project()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ],
                     ])
 
                     <?php /*

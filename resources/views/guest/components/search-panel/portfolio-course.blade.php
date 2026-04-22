@@ -26,7 +26,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Course()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Course()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

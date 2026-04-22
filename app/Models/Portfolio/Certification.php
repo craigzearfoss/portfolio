@@ -67,7 +67,8 @@ class Certification extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'abbreviation', 'certification_type_id', 'organization',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -78,15 +79,22 @@ class Certification extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'abbreviation|asc' => 'abbreviation',
-            'created_at|desc'  => 'datetime created',
-            'updated_at|desc'  => 'datetime updated',
-            'id|asc'           => 'id',
-            'name|asc'         => 'name',
-            'sequence|asc'     => 'sequence',
-            'type_name|asc'    => 'type',
-        ],
+        'abbreviation|asc' => 'abbreviation',
+        'created_at|desc'  => 'datetime created',
+        'updated_at|desc'  => 'datetime updated',
+        'id|asc'           => 'id',
+        'name|asc'         => 'name',
+        'sequence|asc'     => 'sequence',
+        'type_name|asc'    => 'type',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'abbreviation', 'is_disabled', 'name', 'is_public', ],
+        'guest' => [ 'abbreviation', 'name', ],
     ];
 
     /**

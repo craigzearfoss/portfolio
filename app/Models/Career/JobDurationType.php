@@ -52,11 +52,18 @@ class JobDurationType extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'id|asc'           => 'id',
-            'name|asc'         => 'name',
-            'abbreviation|asc' => 'abbreviation',
-        ],
+        'id|asc'           => 'id',
+        'name|asc'         => 'name',
+        'abbreviation|asc' => 'abbreviation',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'abbreviation', 'name', ],
+        'guest' => [ 'abbreviation', 'name', ],
     ];
 
     /**

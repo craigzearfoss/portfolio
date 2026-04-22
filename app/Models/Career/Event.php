@@ -44,8 +44,7 @@ class Event extends Model
         'owner_id',
         'application_id',
         'name',
-        'event_date',
-        'event_time',
+        'event_datetime',
         'location',
         'attendees',
         'notes',
@@ -76,41 +75,49 @@ class Event extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'event_date', 'event_time', 'location',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'event_datetime', 'location',
         'attendees', 'notes', 'link', 'link_name,', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
      */
-    const array SEARCH_ORDER_BY = [ 'event_date', 'desc' ];
+    const array SEARCH_ORDER_BY = [ 'event_datetime', 'desc' ];
 
     /**
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'application_id|asc'         => 'application id',
-            'attendees|asc'               => 'attendees',
-            'company_name|asc'            => 'company',
-            'application_apply_date|desc' => 'date applied',
-            'application_post_date|desc'  => 'date posted',
-            'created_at|desc'             => 'datetime created',
-            'updated_at|desc'             => 'datetime updated',
-            'is_demo|desc'                => 'demo',
-            'is_disabled|desc'            => 'disabled',
-            'event_datetime|desc'         => 'event datetime',
-            'id|asc'                      => 'id',
-            'location|asc'                => 'location',
-            'name|asc'                    => 'name',
-            'owner_id|asc'                => 'owner id',
-            'owner_name|asc'              => 'owner name',
-            'owner_username|asc'          => 'owner username',
-            'is_public|desc'              => 'public',
-            'is_readonly|desc'            => 'read-only',
-            'is_root|desc'                => 'root',
-            'sequence|asc'                => 'sequence',
-        ],
+        //'application_id|asc'         => 'application id',
+        'attendees|asc'               => 'attendees',
+        'company_name|asc'            => 'company',
+        'application_apply_date|desc' => 'date applied',
+        'application_post_date|desc'  => 'date posted',
+        'created_at|desc'             => 'datetime created',
+        'updated_at|desc'             => 'datetime updated',
+        'is_demo|desc'                => 'demo',
+        'is_disabled|desc'            => 'disabled',
+        'event_datetime|desc'         => 'event datetime',
+        'id|asc'                      => 'id',
+        'location|asc'                => 'location',
+        'name|asc'                    => 'name',
+        'owner_id|asc'                => 'owner id',
+        'owner_name|asc'              => 'owner name',
+        'owner_username|asc'          => 'owner username',
+        'is_public|desc'              => 'public',
+        'is_readonly|desc'            => 'read-only',
+        'is_root|desc'                => 'root',
+        'sequence|asc'                => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'application_id', 'attendees', 'event_datetime', 'is_disabled', 'location', 'name', 'is_public', ],
+        'guest' => [ 'application_id', 'attendees', 'event_datetime', 'location', 'name', ]
     ];
 
     /**
@@ -215,7 +222,6 @@ class Event extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
         $query->select([

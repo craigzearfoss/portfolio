@@ -34,9 +34,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-user')
-    @endif
+    @include('admin.components.search-panel.system-user-phone')
 
     <div class="floating-div-container">
 
@@ -58,7 +56,7 @@
                         @if($isRootAdmin)
                             <th>user</th>
                         @endif
-                        <th>email</th>
+                        <th>phone</th>
                         <th>label</th>
                         <th class="has-text-centered">public</th>
                         <th>actions</th>
@@ -72,7 +70,7 @@
                         @if($isRootAdmin)
                             <th>user</th>
                         @endif
-                        <th>email</th>
+                        <th>phone</th>
                         <th>label</th>
                         <th class="has-text-centered">public</th>
                         <th>actions</th>

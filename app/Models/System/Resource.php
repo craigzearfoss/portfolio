@@ -145,7 +145,8 @@ class Resource extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'database_id', 'name', 'table_name', 'class', 'title',
         'plural', 'has_owner', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -156,26 +157,33 @@ class Resource extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'class|asc'          => 'class',
-            'database_id|asc'    => 'database id',
-            'database_name|asc'  => 'database name',
-            'database_tag|asc'   => 'database tag',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'icon|asc'           => 'icon',
-            'id|asc'             => 'id',
-            'menu|desc'          => 'menu',
-            'menu_level|asc'     => 'menu level',
-            'name|asc'           => 'name',
-            //'owner_username|asc' => 'owner',      // owner_username is always root
-            //'owner_id|asc'       => 'owner id',   // owner_id is always 1
-            'parent_id|asc'      => 'parent id',
-            'plural|asc'         => 'plural',
-            'sequence|asc'       => 'sequence',
-            'table_name|asc'     => 'table name',
-            'title|asc'          => 'title',
-        ],
+        'class|asc'          => 'class',
+        'database_id|asc'    => 'database id',
+        'database_name|asc'  => 'database name',
+        'database_tag|asc'   => 'database tag',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'icon|asc'           => 'icon',
+        'id|asc'             => 'id',
+        'menu|desc'          => 'menu',
+        'menu_level|asc'     => 'menu level',
+        'name|asc'           => 'name',
+        //'owner_username|asc' => 'owner',      // owner_username is always root
+        //'owner_id|asc'       => 'owner id',   // owner_id is always 1
+        'parent_id|asc'      => 'parent id',
+        'plural|asc'         => 'plural',
+        'sequence|asc'       => 'sequence',
+        'table_name|asc'     => 'table name',
+        'title|asc'          => 'title',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'is_public', 'sequence', 'table', 'title', 'user', ],
+        'guest' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'guest', 'icon', 'menu', 'menu_level', 'name', 'sequence', 'table', 'title', 'user', ],
     ];
 
     /**

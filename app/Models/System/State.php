@@ -62,12 +62,19 @@ class State extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'id|asc'           => 'id',
-            'code|asc'         => 'code',
-            'country_name|asc' => 'country',
-            'name|asc'         => 'name',
-        ],
+        'id|asc'           => 'id',
+        'code|asc'         => 'code',
+        'country_name|asc' => 'country',
+        'name|asc'         => 'name',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'code', 'country_name', 'name', ],
+        'guest' => [ 'code', 'country_name', 'name', ],
     ];
 
     /**

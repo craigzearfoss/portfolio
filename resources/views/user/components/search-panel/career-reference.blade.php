@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Reference;
     use App\Models\System\Admin;
 
@@ -28,13 +29,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'company_name|asc'           => 'company',
-                                       'communication_datetime|desc' => 'date',
-                                       'from|asc'                    => 'from',
-                                       'subject|asc'                 => 'subject',
-                                       'to|asc'                      => 'to',
-                                   ],
+                        'list'  => new Reference()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

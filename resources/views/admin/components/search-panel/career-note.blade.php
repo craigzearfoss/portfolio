@@ -45,7 +45,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Note()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Note()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

@@ -85,13 +85,20 @@ class JobBoard extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc' => 'date created',
-            'updated_at|desc' => 'date updated',
-            'id|asc'          => 'id',
-            'name|asc'        => 'name',
-            'sequence|asc'    => 'sequence',
-        ],
+        'created_at|desc' => 'date created',
+        'updated_at|desc' => 'date updated',
+        'id|asc'          => 'id',
+        'name|asc'        => 'name',
+        'sequence|asc'    => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'name', ],
+        'guest' => [ 'name', ],
     ];
 
     /**

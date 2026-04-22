@@ -48,7 +48,9 @@ class ResourceSetting extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'resource_id', 'name', 'setting_type_id', 'value' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'resource_id', 'name', 'setting_type_id', 'value', 'created_at',
+        'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -59,18 +61,25 @@ class ResourceSetting extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc'       => 'datetime created',
-            'updated_at|desc'       => 'datetime updated',
-            'id|asc'                => 'id',
-            'name|asc'              => 'name',
-            'owner_username|asc'    => 'owner',
-            'owner_id|asc'          => 'owner id',
-            'resource_id|asc'       => 'resource id',
-            'resource_name|asc'     => 'resource name',
-            'setting_type_name|asc' => 'setting type',
-            'value|asc'             => 'value',
-        ],
+        'created_at|desc'       => 'datetime created',
+        'updated_at|desc'       => 'datetime updated',
+        'id|asc'                => 'id',
+        'name|asc'              => 'name',
+        'owner_username|asc'    => 'owner',
+        'owner_id|asc'          => 'owner id',
+        'resource_id|asc'       => 'resource id',
+        'resource_name|asc'     => 'resource name',
+        'setting_type_name|asc' => 'setting type',
+        'value|asc'             => 'value',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'name', 'resource_name', 'setting_type_name', 'value' ],
+        'guest' => [ 'name', 'resource_name', 'setting_type_name', 'value' ],
     ];
 
     /**

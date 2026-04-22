@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Communication;
     use App\Models\Career\Company;
@@ -49,17 +50,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       //'application_id|asc'        => 'application',
-                                       'company_name|asc'            => 'company',
-                                       'communication_datetime|desc' => 'date',
-                                       'application_apply_date|desc' => 'date applied',
-                                       'application_post_date|desc'  => 'date posted',
-                                       'from|asc'                    => 'from',
-                                       'subject|asc'                 => 'subject',
-                                       'to|asc'                      => 'to',
-                                   ],
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important' ]
+                        'list'  => new Communication()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

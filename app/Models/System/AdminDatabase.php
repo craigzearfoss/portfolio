@@ -70,7 +70,8 @@ class AdminDatabase extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'database_id', 'name', 'database', 'tag', 'title', 'plural',
         'has_owner', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -81,23 +82,35 @@ class AdminDatabase extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'database|asc'       => 'database',
-            'database_id|asc'    => 'database id',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'icon|asc'           => 'icon',
-            'id|asc'             => 'id',
-            'menu|desc'          => 'menu',
-            'menu_level|asc'     => 'menu level',
-            'name|asc'           => 'name',
-            'owner_username|asc' => 'owner',
-            'owner_id|asc'       => 'owner id',
-            'plural|asc'         => 'plural',
-            'sequence|asc'       => 'sequence',
-            'tag|asc'            => 'tag',
-            'title|asc'          => 'title',
-        ],
+        'admin|desc'         => 'admin',
+        'database|asc'       => 'database',
+        'database_id|asc'    => 'database id',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_disabled|desc'   => 'disabled',
+        'guest|desc'         => 'guest',
+        'icon|asc'           => 'icon',
+        'id|asc'             => 'id',
+        'menu|desc'          => 'menu',
+        'menu_level|asc'     => 'menu level',
+        'name|asc'           => 'name',
+        'owner_username|asc' => 'owner',
+        'owner_id|asc'       => 'owner id',
+        'plural|asc'         => 'plural',
+        'is_public|asc'      => 'public',
+        'sequence|asc'       => 'sequence',
+        'tag|asc'            => 'tag',
+        'title|asc'          => 'title',
+        'user|desc'          => 'user',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'admin', 'database', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'is_public', 'sequence', 'tag', 'user', ],
+        'guest' => [ 'admin', 'database', 'guest', 'icon', 'menu', 'menu_level', 'name', 'sequence', 'tag', 'user', ],
     ];
 
     /**

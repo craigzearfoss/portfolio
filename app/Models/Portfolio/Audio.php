@@ -95,7 +95,7 @@ class Audio extends Model
         'featured', 'summary', 'full_episode', 'clip', 'podcast', 'source_recording', 'audio_date', 'year', 'company',
         'credit', 'show', 'location', 'audio_url', 'review_link1', 'review_link1_name', 'review_link2',
         'review_link2_name', 'review_link3', 'review_link3_name', 'notes', 'link', ';link_name', 'description',
-        'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'created_at', 'updated_at', 'deleted_at'
+        'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -107,23 +107,30 @@ class Audio extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc' => 'datetime created',
-            'updated_at|desc' => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'featured|desc'      => 'featured',
-            'is_disabled|desc'   => 'disabled',
-            'id|asc'          => 'id',
-            'name|asc'        => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'    => 'sequence',
-            'year|asc'        => 'year',
-        ],
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'featured|desc'      => 'featured',
+        'is_disabled|desc'   => 'disabled',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'year|asc'           => 'year',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'is_disabled', 'name', 'is_public', 'year', ],
+        'guest' => [ 'name', 'year' ],
     ];
 
     /**

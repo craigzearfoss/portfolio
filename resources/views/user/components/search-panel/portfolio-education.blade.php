@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Education;
     use App\Models\System\Admin;
 
@@ -7,6 +8,8 @@
     $owner_id        = $owner->id ?? -1;
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $enrollment_date = $enrollment_date ?? request()->query('enrollment_date');
+    $graduation_date = $graduation_date ?? request()->query('graduation_date');
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');
     $school_name     = $school_name ?? request()->query('school_name');
@@ -26,15 +29,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'degree_type_name|asc'  => 'degree',
-                                       'major|asc'             => 'major',
-                                       'minor|asc'             => 'minor',
-                                       'school_name|asc'       => 'school',
-                                       'enrollment_date|desc'  => 'year enrolled',
-                                       'graduation_date|desc'  => 'year graduated',
-                                   ],
-                        'style' => [ 'width: 9rem', 'max-width: 9rem' ]
+                        'list'  => new Education()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

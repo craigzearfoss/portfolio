@@ -1,6 +1,11 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\System\Admin;
     use App\Models\System\Owner;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();
@@ -9,7 +14,7 @@
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 
     // set sort order
-    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Admin::SEARCH_ORDER_BY[0], Admin::SEARCH_ORDER_BY[1] ]);
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Owner::SEARCH_ORDER_BY[0], Owner::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -21,16 +26,10 @@
 
                 <div class="search-panel-controls">
 
-                    <?php /*
-                    // @TODO: Implement sort select list.
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'username'       => 'owner',
-                                              ],
-                                  ),
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'sort'  => $sort,
+                        'list'  => new Admin()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
                     */ ?>
 
@@ -45,6 +44,14 @@
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
+                </div>
+
+                <div class="floating-div-container">
+
+                    <div class="floating-div">
+                        @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                    </div>
 
                 </div>
 

@@ -52,7 +52,8 @@ class AdminPhone extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -63,16 +64,23 @@ class AdminPhone extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'id|asc'             => 'id',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'label|asc'          => 'label',
-            'owner_username|asc' => 'owner',
-            'owner_id|asc'       => 'owner id',
-            'phone|asc'          => 'phone',
-            'sequence|asc'       => 'sequence',
-        ],
+        'id|asc'             => 'id',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'label|asc'          => 'label',
+        'owner_username|asc' => 'owner',
+        'owner_id|asc'       => 'owner id',
+        'phone|asc'          => 'phone',
+        'sequence|asc'       => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'label', 'phone', 'is_public', ],
+        'guest' => [ 'label', 'phone', 'is_public', ],
     ];
 
     /**

@@ -75,7 +75,8 @@ class Photography extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'year', 'credit', 'model',
         'location', 'copyright', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -86,24 +87,31 @@ class Photography extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'credit|asc'         => 'credit',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'year|asc'           => 'year',
-        ],
+        'credit|asc'         => 'credit',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'year|asc'           => 'year',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'credit', 'is_disabled', 'name', 'is_public', 'year', ],
+        'guest' => [ 'credit', 'name', 'year', ],
     ];
 
     /**

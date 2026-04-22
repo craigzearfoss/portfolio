@@ -95,7 +95,8 @@ class Recruiter extends Model
     const array SEARCH_COLUMNS = [ 'id', 'name', 'postings_url', 'local', 'regional', 'national', 'international',
         'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone',
         'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'sequence' ];
+        'is_root', 'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -106,25 +107,23 @@ class Recruiter extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'city|asc'           => 'city',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'email|asc'          => 'email',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'phone|asc'          => 'phone',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'state_name|asc'     => 'state',
-        ],
+        'city|asc'           => 'city',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'email|asc'          => 'email',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'phone|asc'          => 'phone',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'state_name|asc'     => 'state',
     ];
 
     /**

@@ -1,7 +1,9 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Resume;
+    use App\Models\System\Admin;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
@@ -44,18 +46,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'company_name|asc'      => 'company',
-                                       //'compensation_max|desc' => 'compensation (max)',
-                                       //'compensation_min|desc' => 'compensation (min)',
-                                       'apply_date|desc'       => 'date applied',
-                                       'close_date|desc'       => 'date closed',
-                                       'post_date|desc'        => 'date posted',
-                                       'rating|desc'           => 'rating',
-                                       'role|asc'              => 'role',
-                                       'wage_rate|desc'        => 'wage',
-                                   ],
-                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important'],
+                        'list'  => new Application()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 
                     <?php /*

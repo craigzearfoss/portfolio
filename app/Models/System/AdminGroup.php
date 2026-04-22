@@ -64,7 +64,8 @@ class AdminGroup extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'admin_team_id', 'name', 'abbreviation', 'description',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      *
@@ -75,18 +76,25 @@ class AdminGroup extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'abbreviation|asc'    => 'abbreviation',
-            'created_at|desc'     => 'datetime created',
-            'updated_at|desc'     => 'datetime updated',
-            'id|asc'              => 'id',
-            'name|asc'            => 'name',
-            'owner_username|asc'  => 'owner',
-            'owner_id|asc'        => 'owner id',
-            'sequence|asc'        => 'sequence',
-            'admin_team_name|asc' => 'team',
-            'admin_team_id|asc'   => 'team id',
-        ],
+        'abbreviation|asc'    => 'abbreviation',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'id|asc'              => 'id',
+        'name|asc'            => 'name',
+        'owner_username|asc'  => 'owner',
+        'owner_id|asc'        => 'owner id',
+        'sequence|asc'        => 'sequence',
+        'admin_team_name|asc' => 'team',
+        'admin_team_id|asc'   => 'team id',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'abbreviation', 'name', 'admin_team_name', ],
+        'guest' => [ 'abbreviation', 'name', 'admin_team_name', ],
     ];
 
     /**

@@ -95,7 +95,8 @@ class Video extends Model
         'clip', 'public_access', 'source_recording', 'video_date', 'year', 'company', 'credit', 'show',
         'location', 'video_url', 'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name',
         'review_link3', 'review_link3_name', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -106,28 +107,35 @@ class Video extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'company|asc'        => 'company',
-            'credit|asc'         => 'credit',
-            'video_date|desc'    => 'date',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'location|asc'       => 'location',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'show|asc'           => 'show',
-            'year|asc'           => 'year',
-        ],
+        'company|asc'        => 'company',
+        'credit|asc'         => 'credit',
+        'video_date|desc'    => 'date',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'location|asc'       => 'location',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'show|asc'           => 'show',
+        'year|asc'           => 'year',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'company', 'is_disabled', 'name', 'show', 'is_public', 'year', ],
+        'guest' => [ 'company', 'name', 'show', 'year', ],
     ];
 
     /**

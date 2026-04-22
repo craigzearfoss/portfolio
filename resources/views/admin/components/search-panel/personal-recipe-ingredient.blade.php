@@ -28,7 +28,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new RecipeIngredient()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new RecipeIngredient()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 

@@ -28,7 +28,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new RecipeIngredient()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new RecipeIngredient()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 

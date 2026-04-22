@@ -46,13 +46,20 @@ class Session extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'admin_id|asc'       => 'admin id',
-            'ip_address|asc'     => 'ip address',
-            'id|asc'             => 'id',
-            'last_activity|desc' => 'last activity',
-            'user_id|asc'        => 'user id',
-        ],
+        'admin_id|asc'       => 'admin id',
+        'ip_address|asc'     => 'ip address',
+        'id|asc'             => 'id',
+        'last_activity|desc' => 'last activity',
+        'user_id|asc'        => 'user id',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'admin_id', 'ip_address', 'id', 'last_activity', 'user_id' ],
+        'guest' => [ 'admin_id', 'ip_address', 'id', 'last_activity', 'user_id' ],
     ];
 
     /**

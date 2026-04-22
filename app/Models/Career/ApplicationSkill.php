@@ -72,7 +72,8 @@ class ApplicationSkill extends Model
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'application_id', 'name', 'level', 'dictionary_category_id',
         'dictionary_term_id', 'start_year', 'end_year', 'years', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -83,28 +84,35 @@ class ApplicationSkill extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'application_id|asc'           => 'application id',
-            'created_at|desc'              => 'datetime created',
-            'updated_at|desc'              => 'datetime updated',
-            'is_demo|desc'                 => 'demo',
-            'dictionary_category_name|asc' => 'dictionary category',
-            'dictionary_tern_name|asc'     => 'dictionary term',
-            'is_disabled|desc'             => 'disabled',
-            'id|asc'                       => 'id',
-            'level|desc'                   => 'level',
-            'name|asc'                     => 'name',
-            'owner_id|asc'                 => 'owner id',
-            'owner_name|asc'               => 'owner name',
-            'owner_username|asc'           => 'owner username',
-            'is_public|desc'               => 'public',
-            'is_readonly|desc'             => 'read-only',
-            'is_root|desc'                 => 'root',
-            'sequence|asc'                 => 'sequence',
-            'year_ended|desc'              => 'year ended',
-            'year_started|desc'            => 'year started',
-            'years|desc'                   => 'years',
-        ],
+        //'application_id|asc'           => 'application id',
+        'created_at|desc'              => 'datetime created',
+        'updated_at|desc'              => 'datetime updated',
+        'is_demo|desc'                 => 'demo',
+        'dictionary_category_name|asc' => 'dictionary category',
+        'dictionary_tern_name|asc'     => 'dictionary term',
+        'is_disabled|desc'             => 'disabled',
+        'id|asc'                       => 'id',
+        'level|desc'                   => 'level',
+        'name|asc'                     => 'name',
+        'owner_id|asc'                 => 'owner id',
+        'owner_name|asc'               => 'owner name',
+        'owner_username|asc'           => 'owner username',
+        'is_public|desc'               => 'public',
+        'is_readonly|desc'             => 'read-only',
+        'is_root|desc'                 => 'root',
+        'sequence|asc'                 => 'sequence',
+        'year_ended|desc'              => 'year ended',
+        'year_started|desc'            => 'year started',
+        'years|desc'                   => 'years',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'level', 'name', 'year_started', 'year_ended', 'years' ],
+        'guest' => [ 'level', 'name', 'year_started', 'year_ended', 'years' ],
     ];
 
     /**

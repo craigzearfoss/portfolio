@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Career\Recruiter;
 
     // get variables
@@ -22,12 +23,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                       'city|asc'       => 'city',
-                                       'name|asc'       => 'name',
-                                       'state_name|asc' => 'state',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Recruiter()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

@@ -1,5 +1,5 @@
 @php
-    use App\Models\System\Admin;
+    use App\Enums\EnvTypes;
     use App\Models\System\Message;
 
     // get variables
@@ -19,6 +19,28 @@
     <div class="search-container card p-2">
 
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+
+                <div class="search-panel-controls">
+
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => new Message()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
 
             <div>
 
@@ -67,19 +89,6 @@
                         </div>
                     @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('admin.components.button-search', [
-                        'id' => 'performSearch',
-                    ])
                 </div>
 
             </div>

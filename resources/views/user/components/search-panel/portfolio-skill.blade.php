@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Dictionary\Category;
     use App\Models\Portfolio\Skill;
     use App\Models\System\Admin;
@@ -25,13 +26,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'dictionary_category_name|asc' => 'category',
-                                      'level|desc'                   => 'level',
-                                      'name|asc'                     => 'name',
-                                      'years|desc'                   => 'years',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Skill()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

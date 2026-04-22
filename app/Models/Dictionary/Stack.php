@@ -74,7 +74,8 @@ class Stack extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled',
-        'owner', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'owner', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -85,9 +86,7 @@ class Stack extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //
-        ],
+        //
     ];
 
     /**

@@ -80,7 +80,17 @@ class JobSkill extends Model
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'name', 'featured', 'summary', 'type',
         'dictionary_category_id', 'dictionary_term_id', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'company_name', 'is_disabled', 'name', 'role', 'is_public', ],
+        'guest' => [ 'company_name', 'name', 'role', ],
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -91,24 +101,22 @@ class JobSkill extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'company_name|asc'   => 'company',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'role|asc'           => 'role',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-        ]
+        'company_name|asc'   => 'company',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'role|asc'           => 'role',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
     ];
 
     /**

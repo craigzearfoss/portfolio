@@ -1,10 +1,11 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Link;
     use App\Models\System\Admin;
 
     // get variables
     $action          = $action ?? url()->current();
-    $owner_id = $owner->id ?? -1;
+    $owner_id        = $owner->id ?? -1;
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $name            = $name ?? request()->query('name');
@@ -24,11 +25,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'name|asc' => 'name',
-                                      'url|asc'  => 'url',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Link()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

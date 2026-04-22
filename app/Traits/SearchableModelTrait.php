@@ -8,6 +8,7 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
 use Exception;
+use http\Env;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -604,16 +605,30 @@ trait SearchableModelTrait
      * @param bool $isRootAdmin
      * @return array
      */
-    public function getSearchOptions(
+    public function getSortOptions(
         string|null $currentSort = null,
         EnvTypes $envType = EnvTypes::GUEST,
         bool $isRootAdmin = false,
     ): array
     {
+        if (($envType == EnvTypes::ADMIN) && $isRootAdmin) {
+            // root admins see all sort options in the admin area
+            $sortOptions = self::SORT_OPTIONS;
+        } elseif (array_key_exists($envType->value, self::SORT_FIELDS)) {
+            $sortOptions = [];
+            foreach (self::SORT_OPTIONS as $key=>$value) {
+                if (in_array(explode('|', $key)[0], self::SORT_FIELDS[$envType->value]) ) {
+                    $sortOptions[$key] = $value;
+                }
+            }
+        } else {
+            $sortOptions = self::SORT_OPTIONS;
+        }
+/*
         $sortOptions = array_map(function ($value) {
             return $value;
-        }, self::SORT_OPTIONS);
-
+        }, self::SORT_OPTIONS['all']);   // need to do by environment
+*/
         if (
             !empty($currentSort)
             && !array_key_exists(explode('|', $currentSort)[0] . '|asc', $sortOptions)

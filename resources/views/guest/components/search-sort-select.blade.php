@@ -5,7 +5,6 @@
     $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
 
     $sort = $sort ?? '';
-    $list = $list ?? [];
 @endphp
 <div class="control sort-control">
     <div class="field">
@@ -15,7 +14,7 @@
                  style="{{ implode('; ', $style) }}"
              @endif
         >
-            @include('admin.components.select-list', [
+            @include('guest.components.select-list', [
                 'name'                 => 'sort',
                 'label'                => null,
                 'value'                => $sort ?? '',

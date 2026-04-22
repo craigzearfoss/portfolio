@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -109,7 +110,9 @@ class Contact extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'salutation', 'title', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
-        'alt_email', 'alt_email_label', 'birthday', 'is_public', 'is_readonly', 'is_root','is_disabled','is_demo' ];
+        'alt_email', 'alt_email_label', 'birthday', 'is_public', 'is_readonly', 'is_root','is_disabled','is_demo',
+        'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -120,26 +123,33 @@ class Contact extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'application_id|asc' => 'application id',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'id|asc'             => 'id',
-            'city|asc'           => 'city',
-            'email|asc'          => 'email',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'phone|asc'          => 'phone',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'state_id|asc'       => 'state',
-        ],
+        //'application_id|asc' => 'application id',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'id|asc'             => 'id',
+        'city|asc'           => 'city',
+        'email|asc'          => 'email',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'phone|asc'          => 'phone',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'state_id|asc'       => 'state',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'city', 'is_disabled', 'email', 'industry_name', 'name', 'is_public', 'state_id', ],
+        'guest' => [ 'city', 'email', 'industry_name', 'name', 'state_id', ],
     ];
 
     /**
@@ -224,13 +234,17 @@ class Contact extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'career_db');
+
+        // join to companies table
+        $query->join( dbName('career_db') . '.company_contact', 'company_contact.contact_id', '=', $this->table . '.id')
+            ->join( dbName('career_db') . '.companies', 'companies.id', '=', 'company_contact.company_id')
+            ->addSelect(
+                DB::raw(dbName($this->connection) . '.companies.id AS company_id'),
+                DB::raw(dbName($this->connection) . '.companies.name AS company_name')
+            );
 
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

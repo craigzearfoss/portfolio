@@ -79,7 +79,8 @@ class Communication extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'communication_type_id', 'subject', 'to',
         'from', 'communication_datetime', 'body', 'notes', 'link', 'link_name,', 'description', 'disclaimer',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -90,28 +91,36 @@ class Communication extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'application_id|asc'          => 'application id',
-            'company_name|asc'            => 'company',
-            'application_apply_date|desc' => 'date applied',
-            'application_post_date|desc'  => 'date posted',
-            'created_at|desc'             => 'datetime created',
-            'updated_at|desc'             => 'datetime updated',
-            'communication_datetime|desc' => 'datetime',
-            'is_demo|desc'                => 'demo',
-            'is_disabled|desc'            => 'disabled',
-            'from|asc'                    => 'from',
-            'id|asc'                      => 'id',
-            'owner_id|asc'                => 'owner id',
-            'owner_name|asc'              => 'owner name',
-            'owner_username|asc'          => 'owner username',
-            'is_public|desc'              => 'public',
-            'is_readonly|desc'            => 'read-only',
-            'is_root|desc'                => 'root',
-            'sequence|asc'                => 'sequence',
-            'subject|asc'                 => 'subject',
-            'to|asc'                      => 'to',
-        ],
+        //'application_id|asc'          => 'application id',
+        'company_name|asc'            => 'company',
+        'application_apply_date|desc' => 'date applied',
+        'application_post_date|desc'  => 'date posted',
+        'communication_type_id|asc'   => 'type',
+        'created_at|desc'             => 'datetime created',
+        'updated_at|desc'             => 'datetime updated',
+        'communication_datetime|desc' => 'datetime',
+        'is_demo|desc'                => 'demo',
+        'is_disabled|desc'            => 'disabled',
+        'from|asc'                    => 'from',
+        'id|asc'                      => 'id',
+        'owner_id|asc'                => 'owner id',
+        'owner_name|asc'              => 'owner name',
+        'owner_username|asc'          => 'owner username',
+        'is_public|desc'              => 'public',
+        'is_readonly|desc'            => 'read-only',
+        'is_root|desc'                => 'root',
+        'sequence|asc'                => 'sequence',
+        'subject|asc'                 => 'subject',
+        'to|asc'                      => 'to',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'application_id', 'body', 'communication_datetime', 'is_disabled', 'from', 'is_public', 'role', 'to', ],
+        'guest' => [ 'application_id', 'body', 'communication_datetime', 'from', 'role', 'to', ]
     ];
 
     /**

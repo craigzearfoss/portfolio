@@ -62,7 +62,8 @@ class JobSearchLog extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'message', 'time_logged', 'application_id', 'cover_letter_id',
         'resume_id', 'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id', 'reference_id',
-        'recruiter_id' ];
+        'recruiter_id', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -73,12 +74,10 @@ class JobSearchLog extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc' => 'datetime created',
-            'updated_at|desc' => 'datetime updated',
-            'id|asc'          => 'id',
-        ],
-    ];
+        'created_at|desc' => 'datetime created',
+        'updated_at|desc' => 'datetime updated',
+        'id|asc'          => 'id',
+];
 
     /**
      *

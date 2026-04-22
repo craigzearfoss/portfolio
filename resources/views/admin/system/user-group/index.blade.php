@@ -39,6 +39,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.system-user-group')
+
     <div class="floating-div-container">
 
         <div class="show-container card floating-div">

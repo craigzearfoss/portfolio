@@ -100,7 +100,8 @@ class Resume extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'resume_date', 'primary', 'doc_filepath',
         'pdf_filepath', 'content', 'file_type', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -111,24 +112,31 @@ class Resume extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'application_id|asc' => 'application id',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'resume_date|desc'   => 'date',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'primary|desc'       => 'primary',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'     => 'sequence',
-        ],
+        //'application_id|asc' => 'application id',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'resume_date|desc'   => 'date',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'primary|desc'       => 'primary',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'     => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'is_disabled', 'publication', 'publisher', 'title', 'is_public', 'year', ],
+        'guest' => [ 'publication', 'publisher', 'title', 'year', ],
     ];
 
     /**

@@ -65,19 +65,25 @@ class Tag extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'model_class|asc'            => 'class',
-            'model_class_item_id|asc'    => 'class item id',
-            //'dictionary_category|asc'    => 'dictionary category',
-            //'dictionary_category_id|asc' => 'dictionary category id',
-            //'dictionary_term|asc'        => 'dictionary term',
-            //'dictionary_term_id|asc'     => 'dictionary term id',
-            'id|asc'                     => 'id',
-            'name|asc'                   => 'name',
-            'owner_username|asc'         => 'owner',
-            'owner_id|asc'               => 'owner id',
+        'model_class|asc'            => 'class',
+        'model_class_item_id|asc'    => 'class item id',
+        //'dictionary_category|asc'    => 'dictionary category',
+        //'dictionary_category_id|asc' => 'dictionary category id',
+        //'dictionary_term|asc'        => 'dictionary term',
+        //'dictionary_term_id|asc'     => 'dictionary term id',
+        'id|asc'                     => 'id',
+        'name|asc'                   => 'name',
+        'owner_username|asc'         => 'owner',
+        'owner_id|asc'               => 'owner id',
+    ];
 
-        ]
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'class', 'model_class_item_id', 'id', 'name' ],
+        'guest' => [ 'class', 'model_class_item_id', 'id', 'name' ],
     ];
 
     /**

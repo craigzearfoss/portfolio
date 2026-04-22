@@ -25,7 +25,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Certification()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Certification()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 

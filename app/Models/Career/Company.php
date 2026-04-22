@@ -98,7 +98,8 @@ class Company extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -109,27 +110,35 @@ class Company extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'application_id|asc' => 'application id',
-            'city|asc'           => 'city',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'email|asc'          => 'email',
-            'id|asc'             => 'id',
-            'industry_name|asc'  => 'industry',
-            'name|asc'           => 'name',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'phone|asc'          => 'phone',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'state_id|asc'       => 'state',
-        ],
+        //'application_id|asc' => 'application id',
+        'city|asc'           => 'city',
+        'company_name|asc'   => 'company',      //@TODO: Need to implement company_name sort
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'email|asc'          => 'email',
+        'id|asc'             => 'id',
+        'industry_name|asc'  => 'industry',
+        'name|asc'           => 'name',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'phone|asc'          => 'phone',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'state_id|asc'       => 'state',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'city', 'company_name', 'is_disabled', 'email', 'industry_name', 'name', 'is_public', 'state_id', ],
+        'guest' => [ 'city', 'company_name', 'email', 'industry_name', 'name', 'state_id', ],
     ];
 
     /**
@@ -193,18 +202,11 @@ class Company extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query,
-            'career_db',
-            [
-                DB::raw('industries.name as industry_name'),
-            ]
-        );
+        // add extra selects
+        $query ->addSelect(DB::raw('industries.name as industry_name'));
 
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

@@ -28,8 +28,7 @@ return new class extends Migration
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->date('event_date')->nullable()->index('event_date_idx');
-            $table->time('event_time')->nullable()->index('event_time_idx');
+            $table->datetime('event_datetime')->nullable()->index('event_datetime_idx');
             $table->string('location')->nullable()->index('location_idx');
             $table->string('attendees', 500)->nullable()->index('attendees_idx');
             $table->text('notes')->nullable();

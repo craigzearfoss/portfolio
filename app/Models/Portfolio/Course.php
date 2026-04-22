@@ -84,7 +84,9 @@ class Course extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'year', 'completed',
         'completion_date', 'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'certificate_url',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'.
+        'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -95,25 +97,32 @@ class Course extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'academy_name|asc'     => 'academy',
-            'completion_date|desc' => 'completion date',
-            'created_at|desc'      => 'datetime created',
-            'updated_at|desc'      => 'datetime updated',
-            'is_demo|desc'         => 'demo',
-            'is_disabled|desc'     => 'disabled',
-            'featured|desc'        => 'featured',
-            'id|asc'               => 'id',
-            'instructor|asc'       => 'instructor',
-            'name|asc'             => 'name',
-            'owner_id|asc'         => 'owner id',
-            'owner_name|asc'       => 'owner name',
-            'owner_username|asc'   => 'owner username',
-            'is_public|desc'       => 'public',
-            'is_readonly|desc'     => 'read-only',
-            'is_root|desc'         => 'root',
-            'sequence|asc'         => 'sequence',
-        ],
+        'academy_name|asc'     => 'academy',
+        'completion_date|desc' => 'completion date',
+        'created_at|desc'      => 'datetime created',
+        'updated_at|desc'      => 'datetime updated',
+        'is_demo|desc'         => 'demo',
+        'is_disabled|desc'     => 'disabled',
+        'featured|desc'        => 'featured',
+        'id|asc'               => 'id',
+        'instructor|asc'       => 'instructor',
+        'name|asc'             => 'name',
+        'owner_id|asc'         => 'owner id',
+        'owner_name|asc'       => 'owner name',
+        'owner_username|asc'   => 'owner username',
+        'is_public|desc'       => 'public',
+        'is_readonly|desc'     => 'read-only',
+        'is_root|desc'         => 'root',
+        'sequence|asc'         => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'academy_name', 'completion_date', 'is_disabled', 'instructor', 'name', 'is_public', ],
+        'guest' => [ 'academy_name', 'completion_date', 'instructor', 'name', ],
     ];
 
     /**

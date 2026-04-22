@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\School;
     use App\Models\System\Admin;
 
@@ -23,11 +24,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'name|asc'       => 'name',
-                                      'state_name|asc' => 'state',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new School()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

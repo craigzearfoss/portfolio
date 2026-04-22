@@ -76,7 +76,7 @@ class Award extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'name', 'slug', 'featured',
         'summary', 'category', 'nominated_work', 'year', 'date_received', 'organization', 'notes', 'link',
         'link_name', 'description', 'disclaimer', 'image', 'image_credit', 'image_source', 'thumbnail', 'public',
-        'readonly', 'root', 'disabled', 'demo', 'sequence', 'created_at', 'updated_at', 'deleted_at'
+        'readonly', 'root', 'disabled', 'demo', 'sequence', 'created_at', 'updated_at'
     ];
 
     /**
@@ -88,26 +88,33 @@ class Award extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'category|asc'       => 'category',
-            'created_at|desc'    => 'datetime created',
-            'updated_at|desc'    => 'datetime updated',
-            'is_demo|desc'       => 'demo',
-            'is_disabled|desc'   => 'disabled',
-            'featured|desc'      => 'featured',
-            'id|asc'             => 'id',
-            'name|asc'           => 'name',
-            'nominated_work|asc' => 'nominated_work',
-            'organization|asc'   => 'organization',
-            'owner_id|asc'       => 'owner id',
-            'owner_name|asc'     => 'owner name',
-            'owner_username|asc' => 'owner username',
-            'is_public|desc'     => 'public',
-            'is_readonly|desc'   => 'read-only',
-            'is_root|desc'       => 'root',
-            'sequence|asc'       => 'sequence',
-            'year|asc'           => 'year',
-        ],
+        'category|asc'       => 'category',
+        'created_at|desc'    => 'datetime created',
+        'updated_at|desc'    => 'datetime updated',
+        'is_demo|desc'       => 'demo',
+        'is_disabled|desc'   => 'disabled',
+        'featured|desc'      => 'featured',
+        'id|asc'             => 'id',
+        'name|asc'           => 'name',
+        'nominated_work|asc' => 'nominated_work',
+        'organization|asc'   => 'organization',
+        'owner_id|asc'       => 'owner id',
+        'owner_name|asc'     => 'owner name',
+        'owner_username|asc' => 'owner username',
+        'is_public|desc'     => 'public',
+        'is_readonly|desc'   => 'read-only',
+        'is_root|desc'       => 'root',
+        'sequence|asc'       => 'sequence',
+        'year|asc'           => 'year',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'year', ],
+        'guest' => [ 'artist', 'name', 'year' ],
     ];
 
     /**
@@ -182,9 +189,6 @@ class Award extends Model
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
-
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'portfolio_db');
 
         // add order by clause
         return $this->addOrderBy($query, $sort);

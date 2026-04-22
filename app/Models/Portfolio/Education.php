@@ -85,7 +85,9 @@ class Education extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id',
         'featured', 'summary', 'enrollment_date', 'graduated', 'graduation_date', 'currently_enrolled', 'summary',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
+        'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -96,18 +98,25 @@ class Education extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            'created_at|desc'       => 'datetime created',
-            'updated_at|desc'       => 'datetime updated',
-            'degree_type_name|asc'  => 'degree',
-            'enrollment_date|desc'  => 'enrollment month',
-            'graduation_date|desc'  => 'graduation month',
-            'id|asc'                => 'id',
-            'major|asc'             => 'major',
-            'minor|asc'             => 'minor',
-            'school_name|asc'       => 'school',
-            'sequence|asc'          => 'sequence',
-        ],
+        'created_at|desc'       => 'datetime created',
+        'updated_at|desc'       => 'datetime updated',
+        'degree_type_name|asc'  => 'degree',
+        'enrollment_date|desc'  => 'enrollment date',
+        'graduation_date|desc'  => 'graduation date',
+        'id|asc'                => 'id',
+        'major|asc'             => 'major',
+        'minor|asc'             => 'minor',
+        'school_name|asc'       => 'school',
+        'sequence|asc'          => 'sequence',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'degree', 'enrollment_date', 'expiration', 'graduated', 'graduation_date', 'major', 'minor', 'school_name', ],
+        'guest' => [ 'degree', 'graduation_date', 'major', 'school_name', ],
     ];
 
     /**

@@ -26,7 +26,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Audio()->getSearchOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Audio()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

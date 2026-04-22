@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Video;
     use App\Models\System\Admin;
 
@@ -25,13 +26,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'company|asc' => 'company',
-                                      'name|asc'    => 'name',
-                                      'show|asc'    => 'show',
-                                      'year|desc'   => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Video()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

@@ -119,7 +119,8 @@ class Application extends Model
         'job_employment_type_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2',
         'relocation', 'benefits', 'vacation', 'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
         'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -130,32 +131,42 @@ class Application extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'all' => [
-            //'active|desc'           => 'active',
-            'company_name|asc'      => 'company',
-            'wage_rate|desc'        => 'compensation',
-            //'compensation_max|desc' => 'compensation (max)',
-            //'compensation_min|desc' => 'compensation (min)',
-            'apply_date|desc'       => 'date applied',
-            'close_date|desc'       => 'date closed',
-            'post_date|desc'        => 'date posted',
-            'created_at|desc'       => 'datetime created',
-            'updated_at|desc'       => 'datetime updated',
-            'is_demo|desc'          => 'demo',
-            'is_disabled|desc'      => 'disabled',
-            'id|asc'                => 'id',
-            'owner_id|asc'          => 'owner id',
-            'owner_name|asc'        => 'owner name',
-            'owner_username|asc'    => 'owner username',
-            'is_public|desc'        => 'public',
-            'rating|desc'           => 'rating',
-            'is_readonly|desc'      => 'read-only',
-            'role|asc'              => 'role',
-            'is_root|desc'          => 'root',
-            'job_location_type'     => 'type',
-            'sequence|asc'          => 'sequence',
-            //'wage_rate|desc'        => 'wage',
-        ]
+        'active|desc'               => 'active',
+        'company_name|asc'          => 'company',
+        'wage_rate|desc'            => 'compensation',
+        //'compensation_max|desc'     => 'compensation (max)',
+        //'compensation_min|desc'     => 'compensation (min)',
+        'apply_date|desc'           => 'date applied',
+        'close_date|desc'           => 'date closed',
+        'post_date|desc'            => 'date posted',
+        'created_at|desc'           => 'datetime created',
+        'updated_at|desc'           => 'datetime updated',
+        'is_demo|desc'              => 'demo',
+        'is_disabled|desc'          => 'disabled',
+        'id|asc'                    => 'id',
+        'job_location_type_name'    => 'location',
+        'owner_id|asc'              => 'owner id',
+        'owner_name|asc'            => 'owner name',
+        'owner_username|asc'        => 'owner username',
+        'is_public|desc'            => 'public',
+        'rating|desc'               => 'rating',
+        'is_readonly|desc'          => 'read-only',
+        'role|asc'                  => 'role',
+        'is_root|desc'              => 'root',
+        'sequence|asc'              => 'sequence',
+        'job_employment_type_name'  => 'type',
+        //'wage_rate|desc'            => 'wage',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'active', 'city', 'company_name', 'wage_rate', 'date_applied', 'is_disabled', 'job_location_type',
+            'rating', 'role', 'state_name', 'is_public', 'job_employment_type' ],
+        'guest' => [ 'active', 'company_name', 'wage_rate', 'date_applied', 'job_location_type', 'rating', 'role',
+            'state_name', 'job_employment_type', 'year', ],
     ];
 
     /**

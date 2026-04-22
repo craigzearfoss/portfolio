@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Course;
     use App\Models\System\Admin;
 
@@ -25,13 +26,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'academy_name|asc'     => 'academy',
-                                       'completion_date|desc' => 'completion date',
-                                       'name|asc'             => 'name',
-                                       'instructor|asc'       => 'instructor',
-                                   ],
-                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'list'  => new Course()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

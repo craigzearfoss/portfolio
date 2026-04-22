@@ -52,7 +52,7 @@
         <div class="field">
             <div class="select">
 
-                @include('admin.components.select-list', [
+                @include('guest.components.select-list', [
                     'id'                   => $id,
                     'name'                 => $name,
                     'class='               => $class,

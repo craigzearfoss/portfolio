@@ -28,9 +28,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-admin-resource', [ 'owner_id' => $owner->id ?? null])
-    @endif
+    @include('admin.components.search-panel.system-admin-resource', [ 'owner_id' => $owner->id ?? null])
 
     <div class="floating-div-container">
 

@@ -1,5 +1,5 @@
 @php
-    //@TODO: Need to add joins for company_ids to be searched.
+    use App\Enums\EnvTypes;
     use App\Models\Career\Contact;
     use App\Models\System\Admin;
 
@@ -29,11 +29,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'name|asc'          => 'name',
-                                       //'city|asc'          => 'city',
-                                       //'state_id|asc'      => 'state',
-                                   ],
+                        'list'  => new Contact()->getSortOptions($sort, EnvTypes::GUEST),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -96,7 +92,7 @@
 
                         <div class="search-form-control">
                             @include('user.components.input', [
-                                'nameguest    => 'city',
+                                'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
                             ])

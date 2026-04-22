@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
@@ -29,12 +30,9 @@
                 <div class="search-panel-controls">
 
                     @include('user.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'author|asc'           => 'author',
-                                      'title|asc'            => 'title',
-                                      'publication_year|asc' => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => new Reading()->getSortOptions($sort, EnvTypes::GUEST),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

@@ -1,4 +1,5 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\Portfolio\Award;
     use App\Models\System\Admin;
 
@@ -27,14 +28,8 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => [
-                                       'category|asc'       => 'category',
-                                       'name|asc'           => 'name',
-                                       'nominated_work|asc' => 'nominated work',
-                                       'organization|asc'   => 'organization',
-                                       'year|desc'          => 'year',
-                                   ],
-				        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
+                        'list'  => new Award()->getSortOptions($sort, EnvTypes::GUEST),
+				        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

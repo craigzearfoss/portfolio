@@ -5,7 +5,8 @@
     use App\Models\Career\Resume;
     use App\Models\System\Admin;
 
-    $admin       =     $admin ?? null;
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
@@ -50,7 +51,7 @@
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Application()->getSearchOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Application()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 

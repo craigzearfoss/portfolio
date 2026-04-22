@@ -34,9 +34,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-user')
-    @endif
+    @include('admin.components.search-panel.system-user-email')
 
     <div class="floating-div-container">
 

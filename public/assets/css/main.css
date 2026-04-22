@@ -184,6 +184,9 @@ div.field.is-horizontal div.field-label label.label {
     line-height: 1;
     height: calc(1em + .75em) !important;
 }
+.search-form-control .field label.label {
+    margin-bottom: 0;
+}
 form#searchForm div.floating-div-container div.floating-div {
     width: auto;
 }
