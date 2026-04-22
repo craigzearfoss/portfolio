@@ -103,8 +103,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? date('Y'),
+                'name'      => 'certificate_year',
+                'label'     => 'year',
+                'value'     => old('certificate_year') ?? date('Y'),
                 'min'       => 1980,
                 'max'       => 2050,
                 'message'   => $message ?? '',

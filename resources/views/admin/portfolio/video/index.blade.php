@@ -98,8 +98,8 @@
                         <td data-field="name">
                             {!! $video->name !!}{!! !empty($video->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="year">
-                            {!! $video->year !!}
+                        <td data-field="video_year">
+                            {!! $video->video_year !!}
                         </td>
                         <td data-field="show">
                             {!! $video->show !!}

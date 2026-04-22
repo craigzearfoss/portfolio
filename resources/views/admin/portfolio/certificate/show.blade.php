@@ -91,7 +91,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $certificate->year
+                'value' => $certificate->certificate_year
             ])
 
             @include('admin.components.show-row', [

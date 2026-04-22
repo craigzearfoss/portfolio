@@ -59,7 +59,7 @@
                         @endif
                         <th>name</th>
                         <th>type</th>
-                        <th>year</th>
+                        <th>year(</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -104,8 +104,8 @@
                             @endphp
                             {{ implode(', ', $types) }}
                         </td>
-                        <td data-field="year">
-                            {!! $audio->year !!}
+                        <td data-field="audio_year">
+                            {!! $audio->audio_year !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $audio->is_public ])

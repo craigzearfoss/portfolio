@@ -103,8 +103,8 @@
                         <td data-field="artist">
                             {!! $music->artist !!}
                         </td>
-                        <td data-field="year" class="hide-at-900">
-                            {!! $music->year !!}
+                        <td data-field="music_year" class="hide-at-900">
+                            {!! $music->music_year !!}
                         </td>
                         <td data-field="label" class="hide-at-750">
                             {!! $music->label !!}

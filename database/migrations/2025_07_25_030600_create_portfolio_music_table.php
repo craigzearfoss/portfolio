@@ -37,7 +37,7 @@ return new class extends Migration
             $table->boolean('track')->default(true);
             $table->string('label')->nullable()->index('label_idx');
             $table->string('catalog_number', 50)->nullable()->index('catalog_number_idx');
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('music_year')->nullable()->index('music_year_idx');
             $table->date('release_date')->nullable()->index('release_date_idx');
             $table->text('embed')->nullable();
             $table->string('audio_url')->nullable();
@@ -78,7 +78,7 @@ return new class extends Migration
                 'track'          => null,
                 'label'          => null,
                 'catalog_number' => null,
-                'year'           => null,
+                'music_year'     => null,
                 'embed'          => null,
                 'audio_url'      => null,
                 'link'           => null,

@@ -44,7 +44,7 @@ class Project extends Model
         'slug',
         'featured',
         'summary',
-        'year',
+        'project_year',
         'language',
         'language_version',
         'repository_url',
@@ -76,7 +76,7 @@ class Project extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'year', 'language',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'project_year', 'language',
         'language_version', 'repository_url', 'repository_name', 'notes', 'description', 'disclaimer',  'is_public',
         'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
@@ -106,7 +106,7 @@ class Project extends Model
         'repository_url|asc' => 'repository',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'year|desc'          => 'year',
+        'project_year|desc'  => 'year',
     ];
 
     /**
@@ -114,8 +114,8 @@ class Project extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'language', 'name', 'is_public', 'repository', 'year', ],
-        'guest' => [ 'language', 'name', 'repository', 'year', ],
+        'admin' => [ 'is_disabled', 'language', 'name', 'is_public', 'repository', 'project_year', ],
+        'guest' => [ 'language', 'name', 'repository', 'project_year', ],
     ];
 
     /**
@@ -190,8 +190,8 @@ class Project extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', intval($filters['year']));
+            ->when(!empty($filters['project_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.project_year', '=', intval($filters['project_year']));
             });
 
         // add additional filters

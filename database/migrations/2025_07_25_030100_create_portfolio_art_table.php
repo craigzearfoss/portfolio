@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('art_year')->nullable()->index('art_year_idx');
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
@@ -60,7 +60,7 @@ return new class extends Migration
                 'slug'        => '',
                 'featured'    => 0,
                 'summary'     => null,
-                'year'        => null,
+                'art_year'    => null,
                 'thumbnail'   => null,
                 'notes'       => null,
                 'description' => '',

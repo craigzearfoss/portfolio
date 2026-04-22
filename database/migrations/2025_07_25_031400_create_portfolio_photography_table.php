@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('photo_year')->nullable()->index('photo_year_idx');
             $table->string('credit')->nullable()->index('credit_idx');
             $table->string('model')->nullable()->index('model_idx');
             $table->string('location')->nullable()->index('location_idx');
@@ -69,7 +69,7 @@ return new class extends Migration
                 'slug'        => '',
                 'featured'    => 0,
                 'summary'     => null,
-                'year'        => null,
+                'photo_year'  => null,
                 'model'       => null,
                 'location'    => null,
                 'copyright'   => null,

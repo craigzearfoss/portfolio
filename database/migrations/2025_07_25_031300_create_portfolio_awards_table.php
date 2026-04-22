@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('summary', 500)->nullable();
             $table->string('category')->nullable()->index('category_idx');
             $table->string('nominated_work')->nullable()->index('nominated_work_idx');
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('award_year')->nullable()->index('award_year_idx');
             $table->date('received')->nullable()->index('received_idx');
             $table->string('organization')->nullable()->index('organization_idx');
             $table->text('notes')->nullable();
@@ -70,7 +70,7 @@ return new class extends Migration
                 'nominated_work' => null,
                 'featured'       => 0,
                 'summary'        => null,
-                'year'           => null,
+                'award_year'     => null,
                 'received'       => null,
                 'organization'   => null,
                 'notes'          => null,

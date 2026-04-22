@@ -102,8 +102,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? '',
+                'name'      => 'award_year',
+                'label'     => 'year',
+                'value'     => old('award_year') ?? '',
                 'min'       => -2000,
                 'max'       => date("Y"),
                 'message'   => $message ?? '',

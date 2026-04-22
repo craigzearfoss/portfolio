@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'year',
-            'value' => $project->year
+            'value' => $project->project_year
         ])
 
         @include('admin.components.show-row', [

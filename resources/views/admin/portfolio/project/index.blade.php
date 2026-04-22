@@ -103,8 +103,8 @@
                                 : ''
                             !!}
                         </td>
-                        <td data-field="year">
-                            {!! $project->year !!}
+                        <td data-field="project_year">
+                            {!! $project->project_year !!}
                         </td>
                         <td data-field="repository_url">
                             @if(!empty($project->repository_url))

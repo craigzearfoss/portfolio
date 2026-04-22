@@ -41,7 +41,7 @@ class Photography extends Model
         'slug',
         'featured',
         'summary',
-        'year',
+        'photo_year',
         'credit',
         'model',
         'location',
@@ -73,7 +73,7 @@ class Photography extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'year', 'credit', 'model',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'photo_year', 'credit', 'model',
         'location', 'copyright', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
         'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
@@ -102,7 +102,7 @@ class Photography extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'year|asc'           => 'year',
+        'photo_year|asc'     => 'year',
     ];
 
     /**
@@ -110,8 +110,8 @@ class Photography extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'credit', 'is_disabled', 'name', 'is_public', 'year', ],
-        'guest' => [ 'credit', 'name', 'year', ],
+        'admin' => [ 'credit', 'is_disabled', 'name', 'is_public', 'photo_year', ],
+        'guest' => [ 'credit', 'name', 'photo_year', ],
     ];
 
     /**
@@ -179,8 +179,8 @@ class Photography extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', intval(['year']));
+            ->when(!empty($filters['photo_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.photo_year', '=', intval(['photo_year']));
             });
 
         // add additional filters

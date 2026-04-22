@@ -43,7 +43,7 @@ class Award extends Model
         'summary',
         'category',
         'nominated_work',
-        'year', //@TODO: change year to award_year
+        'award_year',
         'date_received',
         'organization',
         'notes',
@@ -74,7 +74,7 @@ class Award extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'name', 'slug', 'featured',
-        'summary', 'category', 'nominated_work', 'year', 'date_received', 'organization', 'notes', 'link',
+        'summary', 'category', 'nominated_work', 'award_year', 'date_received', 'organization', 'notes', 'link',
         'link_name', 'description', 'disclaimer', 'image', 'image_credit', 'image_source', 'thumbnail', 'public',
         'readonly', 'root', 'disabled', 'demo', 'sequence', 'created_at', 'updated_at'
     ];
@@ -105,7 +105,7 @@ class Award extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'year|asc'           => 'year',
+        'award_year|asc'           => 'year',
     ];
 
     /**
@@ -113,8 +113,8 @@ class Award extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'year', ],
-        'guest' => [ 'artist', 'name', 'year' ],
+        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'award_year', ],
+        'guest' => [ 'artist', 'name', 'award_year' ],
     ];
 
     /**
@@ -182,8 +182,8 @@ class Award extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', intval($filters['year']));
+            ->when(!empty($filters['award_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.award_year', '=', intval($filters['award_year']));
             });
 
         // add additional filters

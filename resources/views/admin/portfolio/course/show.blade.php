@@ -80,7 +80,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $course->year
+                'value' => $course->course_year
             ])
 
             @include('admin.components.show-row-checkmark', [

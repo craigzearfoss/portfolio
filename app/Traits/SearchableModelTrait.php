@@ -286,11 +286,11 @@ trait SearchableModelTrait
                 dbName($this->connection) . '.' . $this->table . '.owner_id'
             )
             ->select([
-                DB::Raw($this->table . '.*'),
+                DB::Raw('`' . $this->table . '`.*'),
                 //DB::Raw('admins.name as owner_id'),
                 DB::Raw('admins.name as owner_name'),
                 DB::Raw('admins.username as owner_username'),
-                DB::Raw('admins.username as owner_email'),
+                DB::Raw('admins.email as owner_email'),
             ]);
 
         // add filters

@@ -111,7 +111,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $video->year
+                'value' => $video->video_year
             ])
 
             @include('admin.components.show-row', [

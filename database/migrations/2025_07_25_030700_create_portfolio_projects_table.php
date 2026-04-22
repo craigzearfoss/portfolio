@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('project_year')->nullable()->index('project_year_idx');
             $table->string('language', 50)->nullable()->index('language_idx');
             $table->string('language_version', 20)->nullable();
             $table->string('repository_url')->nullable();
@@ -64,7 +64,7 @@ return new class extends Migration
                 'slug'             => '',
                 'featured'         => 0,
                 'summary'          => null,
-                'year'             => null,
+                'project_year'     => null,
                 'language'         => null,
                 'language_version' => null,
                 'repository_url'   => null,

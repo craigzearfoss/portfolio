@@ -152,8 +152,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? $video->year,
+                'name'      => 'video_year',
+                'label'     => 'year',
+                'value'     => old('video_year') ?? $video->video_year,
                 'min'       => 1950,
                 'max'       => date('Y'),
                 'message'   => $message ?? '',

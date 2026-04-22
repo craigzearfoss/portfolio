@@ -37,7 +37,7 @@ return new class extends Migration
             $table->boolean('podcast')->default(false);
             $table->boolean('source_recording')->default(false);
             $table->date('audio_date')->nullable()->index('audio_date_idx');
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('audio_year')->nullable()->index('audio_year_idx');
             $table->string('company')->nullable()->index('company_idx');
             $table->string('credit')->nullable()->index('credit_idx');
             $table->string('show')->nullable()->index('show_idx');
@@ -85,7 +85,7 @@ return new class extends Migration
                 'clip'             => 0,
                 'public_access'    => 0,
                 'source_recording' => 0,
-                'year'             => 2025,
+                'audio_year'       => 2025,
                 'company'          => '',
                 'credit'           => '',
                 'show'             => null,

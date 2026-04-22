@@ -111,7 +111,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $audio->year
+                'value' => $audio->audio_year
             ])
 
             @include('admin.components.show-row', [

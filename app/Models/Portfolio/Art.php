@@ -46,7 +46,7 @@ class Art extends Model
         'slug',
         'featured',
         'summary',
-        'year',
+        'art_year',
         'notes',
         'link',
         'link_name',
@@ -75,7 +75,7 @@ class Art extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'name', 'artist', 'slug',
-        'featured', 'summary', 'year', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'image',
+        'featured', 'summary', 'art_year', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'image',
         'image_credit', 'image_source', 'thumbnail', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'demo',
         'sequence', 'created_at', 'updated_at'
     ];
@@ -104,7 +104,7 @@ class Art extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'year|asc'           => 'year',
+        'art_year|asc'       => 'year',
     ];
 
     /**
@@ -112,8 +112,8 @@ class Art extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'year', ],
-        'guest' => [ 'artist', 'name', 'year' ],
+        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'art_year', ],
+        'guest' => [ 'artist', 'name', 'art_year' ],
     ];
 
     /**
@@ -193,8 +193,8 @@ class Art extends Model
             ->when(!empty($filters['thumbnail']), function ($query) use ($filters) {
                 $query->where($this->table . '.thumbnail', 'like', '%' . $filters['thumbnail'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', intval($filters['year']));
+            ->when(!empty($filters['art_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.art_year', '=', intval($filters['art_year']));
             });
 
         // add additional filters

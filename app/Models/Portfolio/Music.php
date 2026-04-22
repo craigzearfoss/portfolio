@@ -51,7 +51,7 @@ class Music extends Model
         'track',
         'label',
         'catalog_number',
-        'year',
+        'music_year',
         'release_date',
         'embed',
         'audio_url',
@@ -83,8 +83,8 @@ class Music extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'name', 'artist', 'featured', 'summary', 'collection',
-        'track', 'label', 'catalog_number', 'year', 'release_date', 'audio_url', 'notes', 'description', 'disclaimer',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'track', 'label', 'catalog_number', 'music_year', 'release_date', 'audio_url', 'notes', 'description',
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -113,7 +113,7 @@ class Music extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'year|asc'           => 'year',
+        'music_year|asc'     => 'year',
     ];
 
     /**
@@ -121,8 +121,8 @@ class Music extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'catalog number', 'is_disabled', 'label', 'name', 'is_public', 'year', ],
-        'guest' => [ 'artist', 'catalog_number','label', 'name', 'year', ],
+        'admin' => [ 'artist', 'catalog number', 'is_disabled', 'label', 'name', 'is_public', 'music_year', ],
+        'guest' => [ 'artist', 'catalog_number','label', 'name', 'music_year', ],
     ];
 
     /**
@@ -202,8 +202,8 @@ class Music extends Model
             ->when(!empty($filters[$this->table . '.track']), function ($query) use ($filters) {
                 $query->where('track', '=', true);
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval($filters['year']));
+            ->when(!empty($filters['music_year']), function ($query) use ($filters) {
+                $query->where('music_year', '=', intval($filters['music_year']));
             });
 
         // add additional filters

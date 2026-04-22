@@ -33,7 +33,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('academies', 'id')
                 ->onDelete('cascade');
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('certificate_year')->nullable()->index('certificate_year_idx');
             $table->date('received')->nullable()->index('received_idx');
             $table->date('expiration')->nullable()->index('expiration_idx');
             $table->string('certificate_url', 500)->nullable();
@@ -62,19 +62,19 @@ return new class extends Migration
         /*
         $data = [
             [
-                'owner_id'        => null,
-                'name'            => '',
-                'slug'            => '',
-                'featured'        => 1,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => null,
-                'received'        => null,
-                'certificate_url' => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
+                'owner_id'         => null,
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 1,
+                'summary'          => null,
+                'organization'     => null,
+                'academy_id'       => 3,
+                'certificate_year' => null,
+                'received'         => null,
+                'certificate_url'  => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
             ]
         ];
 

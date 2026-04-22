@@ -47,7 +47,7 @@ class Certificate extends Model
         'summary',
         'organization',
         'academy_id',
-        'year',
+        'certificate_year',
         'received',
         'expiration',
         'certificate_url',
@@ -80,8 +80,8 @@ class Certificate extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'organization', 'academy_id',
-        'year', 'received', 'expiration', 'certificate_url', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'certificate_year', 'received', 'expiration', 'certificate_url', 'notes', 'description', 'disclaimer',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -93,24 +93,24 @@ class Certificate extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'academy_name|asc'   => 'academy',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        'is_disabled|desc'   => 'disabled',
-        'expiration|asc'     => 'expiration',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'name|asc'           => 'name',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'received|asc'       => 'received',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'year|asc'           => 'year',
+        'academy_name|asc'     => 'academy',
+        'created_at|desc'      => 'datetime created',
+        'updated_at|desc'      => 'datetime updated',
+        'is_demo|desc'         => 'demo',
+        'is_disabled|desc'     => 'disabled',
+        'expiration|asc'       => 'expiration',
+        'featured|desc'        => 'featured',
+        'id|asc'               => 'id',
+        'name|asc'             => 'name',
+        'owner_id|asc'         => 'owner id',
+        'owner_name|asc'       => 'owner name',
+        'owner_username|asc'   => 'owner username',
+        'is_public|desc'       => 'public',
+        'is_readonly|desc'     => 'read-only',
+        'received|asc'         => 'received',
+        'is_root|desc'         => 'root',
+        'sequence|asc'         => 'sequence',
+        'certificate_year|asc' => 'year',
     ];
 
     /**
@@ -118,8 +118,8 @@ class Certificate extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'academy_name', 'is_disabled', 'expiration', 'name', 'organization', 'is_public', 'received','year', ],
-        'guest' => [ 'academy_name', 'expiration', 'name', 'organization', 'received','year', ],
+        'admin' => [ 'academy_name', 'is_disabled', 'expiration', 'name', 'organization', 'is_public', 'received','certificate_year', ],
+        'guest' => [ 'academy_name', 'expiration', 'name', 'organization', 'received','certificate_year', ],
     ];
 
     /**
@@ -193,8 +193,8 @@ class Certificate extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', $filters['year']);
+            ->when(!empty($filters['certificate_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.certificate_year', '=', $filters['certificate_year']);
             });
 
         // join to academies table

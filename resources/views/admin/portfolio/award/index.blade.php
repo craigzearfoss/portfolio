@@ -101,8 +101,8 @@
                             <td data-field="category">
                                 {!! $award->category !!}
                             </td>
-                        <td data-field="year">
-                            {!! $award->year !!}
+                        <td data-field="award_year">
+                            {!! $award->award_year !!}
                         </td>
                         <td data-field="organization">
                             {!! $award->organization !!}

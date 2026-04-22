@@ -85,8 +85,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? $project->year,
+                'name'      => 'project_year',
+                'label'     => 'year',
+                'value'     => old('project_year') ?? $project->project_year,
                 'min'       => 1980,
                 'max'       => 2050,
                 'message'   => $message ?? '',

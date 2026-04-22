@@ -81,7 +81,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $art->year
+                'value' => $art->art_year
             ])
 
             @include('admin.components.show-row', [

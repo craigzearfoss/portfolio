@@ -134,7 +134,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $music->year
+                'value' => $music->music_year
             ])
 
             @include('admin.components.show-row', [

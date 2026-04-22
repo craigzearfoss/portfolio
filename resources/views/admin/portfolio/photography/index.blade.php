@@ -103,8 +103,8 @@
                         <td data-field="credit">
                             {!! $photo->credit !!}
                         </td>
-                        <td data-field="year">
-                            {!! $photo->year !!}
+                        <td data-field="photo_year">
+                            {!! $photo->photo_year !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $photo->is_public ])

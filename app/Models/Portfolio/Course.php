@@ -45,7 +45,7 @@ class Course extends Model
         'slug',
         'featured',
         'summary',
-        'year',
+        'course_year',
         'completed',
         'completion_date',
         'duration_hours',
@@ -82,7 +82,7 @@ class Course extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'year', 'completed',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'course_year', 'completed',
         'completion_date', 'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'certificate_url',
         'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'.
         'created_at', 'updated_at'
@@ -121,8 +121,8 @@ class Course extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'academy_name', 'completion_date', 'is_disabled', 'instructor', 'name', 'is_public', ],
-        'guest' => [ 'academy_name', 'completion_date', 'instructor', 'name', ],
+        'admin' => [ 'academy_name', 'completion_date', 'is_disabled', 'instructor', 'name', 'is_public', 'course_year', ],
+        'guest' => [ 'academy_name', 'completion_date', 'instructor', 'name', 'course_year', ],
     ];
 
     /**
@@ -202,8 +202,8 @@ class Course extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', $filters['year']);
+            ->when(!empty($filters['course_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.course_year', '=', $filters['course_year']);
             });
 
         // join to academies table

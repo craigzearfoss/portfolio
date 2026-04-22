@@ -37,7 +37,7 @@ return new class extends Migration
             $table->boolean('public_access')->default(false);
             $table->boolean('source_recording')->default(false);
             $table->date('video_date')->nullable()->index('video_date_idx');
-            $table->integer('year')->nullable()->index('year_idx');
+            $table->integer('video_year')->nullable()->index('video_year_idx');
             $table->string('company')->nullable()->index('company_idx');
             $table->string('credit')->nullable()->index('credit_idx');
             $table->string('show')->nullable()->index('show_idx');

@@ -109,7 +109,7 @@
                                 ])
                             @endif
                         </td>
-                        <td data-field="year">
+                        <td data-field="certificate_year">
                             {!! $certificate->year !!}
                         </td>
                         <td data-field="received">

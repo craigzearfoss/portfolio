@@ -103,8 +103,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? $course->year,
+                'name'      => 'course_year',
+                'label'     => 'year',
+                'value'     => old('course_year') ?? $course->course_year,
                 'min'       => 1980,
                 'max'       => 2050,
                 'message'   => $message ?? '',

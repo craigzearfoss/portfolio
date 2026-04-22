@@ -125,8 +125,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? '',
+                'name'      => 'music_year',
+                'label'     => 'year',
+                'value'     => old('music_year') ?? '',
                 'min'       => 1900,
                 'max'       => intval(date('Y')) + 1,
                 'message'   => $message ?? '',

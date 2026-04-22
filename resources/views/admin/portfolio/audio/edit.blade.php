@@ -152,8 +152,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? $audio->year,
+                'name'      => 'audio_year',
+                'label'     => 'year',
+                'value'     => old('audio_year') ?? $audio->audio_year,
                 'min'       => 1950,
                 'max'       => date('Y'),
                 'message'   => $message ?? '',

@@ -51,7 +51,7 @@ class Video extends Model
         'public_access',
         'source_recording',
         'video_date',
-        'year',
+        'video_year',
         'company',
         'credit',
         'show',
@@ -92,7 +92,7 @@ class Video extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'parent_id', 'id', 'owner_id', 'name', 'featured', 'summary', 'full_episode',
-        'clip', 'public_access', 'source_recording', 'video_date', 'year', 'company', 'credit', 'show',
+        'clip', 'public_access', 'source_recording', 'video_date', 'video_year', 'company', 'credit', 'show',
         'location', 'video_url', 'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name',
         'review_link3', 'review_link3_name', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
@@ -126,7 +126,7 @@ class Video extends Model
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
         'show|asc'           => 'show',
-        'year|asc'           => 'year',
+        'video_year|asc'           => 'year',
     ];
 
     /**
@@ -134,8 +134,8 @@ class Video extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'company', 'is_disabled', 'name', 'show', 'is_public', 'year', ],
-        'guest' => [ 'company', 'name', 'show', 'year', ],
+        'admin' => [ 'company', 'is_disabled', 'name', 'show', 'is_public', 'video_year', ],
+        'guest' => [ 'company', 'name', 'show', 'video_year', ],
     ];
 
     /**
@@ -238,8 +238,8 @@ class Video extends Model
             ->when(!empty($filters['video_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.video_url', 'like', '%' . $filters['video_url'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', intval($filters['year']));
+            ->when(!empty($filters['video_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.video_year', '=', intval($filters['video_year']));
             });
 
         // add additional filters

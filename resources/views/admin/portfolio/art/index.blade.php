@@ -67,7 +67,7 @@
                             @include('admin.components.column-heading', [ 'name' => 'artist', 'class' => $className ])
                         </th>
                         <th>
-                            @include('admin.components.column-heading', [ 'name' => 'year', 'class' => $className ])
+                            @include('admin.components.column-heading', [ 'name' => 'art_year', 'class' => $className ])
                         </th>
                         <th class="has-text-centered">
                             @include('admin.components.column-heading', [ 'name' => 'public', 'class' => $className ])
@@ -112,8 +112,8 @@
                         <td data-field="artist">
                             {!! $art->artist !!}
                         </td>
-                        <td data-field="year">
-                            {!! $art->year !!}
+                        <td data-field="art_year">
+                            {!! $art->art_year !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $art->is_public ])

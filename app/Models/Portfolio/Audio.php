@@ -51,7 +51,7 @@ class Audio extends Model
         'podcast',
         'source_recording',
         'audio_date',
-        'year',     // @TODO: rename data to audio_date
+        'audio_year',
         'company',
         'credit',
         'show',
@@ -92,8 +92,8 @@ class Audio extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'owner_name', 'owner_username', 'name', 'slug',
-        'featured', 'summary', 'full_episode', 'clip', 'podcast', 'source_recording', 'audio_date', 'year', 'company',
-        'credit', 'show', 'location', 'audio_url', 'review_link1', 'review_link1_name', 'review_link2',
+        'featured', 'summary', 'full_episode', 'clip', 'podcast', 'source_recording', 'audio_date', 'audio_year',
+        'company', 'credit', 'show', 'location', 'audio_url', 'review_link1', 'review_link1_name', 'review_link2',
         'review_link2_name', 'review_link3', 'review_link3_name', 'notes', 'link', ';link_name', 'description',
         'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'created_at', 'updated_at'
     ];
@@ -121,7 +121,7 @@ class Audio extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'year|asc'           => 'year',
+        'audio_year|asc'     => 'year',
     ];
 
     /**
@@ -129,8 +129,8 @@ class Audio extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'name', 'is_public', 'year', ],
-        'guest' => [ 'name', 'year' ],
+        'admin' => [ 'is_disabled', 'name', 'is_public', 'audio_year', ],
+        'guest' => [ 'name', 'audio_year' ],
     ];
 
     /**
@@ -247,8 +247,8 @@ class Audio extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', $filters['year']);
+            ->when(!empty($filters['audio_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.audio_year', '=', $filters['audio_year']);
             });
 
         // add additional filters
