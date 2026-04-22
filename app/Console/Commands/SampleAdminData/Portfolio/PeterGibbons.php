@@ -164,21 +164,21 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Hot Dog',                 'artist' => 'Kevin Dixon',      'slug' => 'hot-dog-by-by-kevin-dixon',                                           'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                                              'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
-            [ 'name' => 'Woman with a Parasol - Madame Monet and Her Son', 'artist' => 'Claude Monet',     'slug' => 'woman-with-a-parasol-madame-monet-and-her-son-by-claude-monet',    'summary' => null, 'year' => 1875, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet177.jpg',                                            'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Manifest Destiny',        'artist' => 'Kevin Dixon',      'slug' => 'manifest-destiny-by-by-kevin-dixon',                                  'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                                              'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
-            [ 'name' => '(untitled)',              'artist' => 'Wes Freed',        'slug' => '(untitled-5)-by-wes-freed',                                        'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null ],
-            [ 'name' => 'Vase with Irises Against a Yellow Background',    'artist' => 'Vincent van Gogh', 'slug' => 'vase-with-irises-against-a-yellow-background-by-vincent-van-gogh', 'summary' => null, 'year' => 1890, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh108.jpg',                                               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Self Portrait',           'artist' => 'Vincent van Gogh', 'slug' => 'self-portrait-by-vincent-van-gogh',                                'summary' => null, 'year' => 1889, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh058.jpg',                                               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Hot Dog',                                         'artist' => 'Kevin Dixon',      'slug' => 'hot-dog-by-by-kevin-dixon',                                        'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                                              'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
+            [ 'name' => 'Woman with a Parasol - Madame Monet and Her Son', 'artist' => 'Claude Monet',     'slug' => 'woman-with-a-parasol-madame-monet-and-her-son-by-claude-monet',    'summary' => null, 'art_year' => 1875, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet177.jpg',                                            'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Manifest Destiny',                                'artist' => 'Kevin Dixon',      'slug' => 'manifest-destiny-by-by-kevin-dixon',                               'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                                              'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
+            [ 'name' => '(untitled)',                                      'artist' => 'Wes Freed',        'slug' => '(untitled-5)-by-wes-freed',                                        'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null ],
+            [ 'name' => 'Vase with Irises Against a Yellow Background',    'artist' => 'Vincent van Gogh', 'slug' => 'vase-with-irises-against-a-yellow-background-by-vincent-van-gogh', 'summary' => null, 'art_year' => 1890, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh108.jpg',                                               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Self Portrait',                                   'artist' => 'Vincent van Gogh', 'slug' => 'self-portrait-by-vincent-van-gogh',                                'summary' => null, 'art_year' => 1889, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh058.jpg',                                               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
                 'summary'     => null,
-                'year'        => 2025,
+                'art_year'    => 2025,
                 'featured'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -215,7 +215,7 @@ class PeterGibbons extends Command
                 'podcast'           => 0,
                 'source_recording'  => 0,
                 'audio_date'        => null,
-                'year'              => null,
+                'audio_year'        => null,
                 'company'           => null,
                 'credit'            => null,
                 'show'              => 0,
@@ -251,12 +251,12 @@ class PeterGibbons extends Command
                 'featured'        => 0,
                 'summary'         => null,
                 'date_received'   => null,
-                'year'            => null,
+                'award_year'      => null,
                 'organization'    => null,
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
             ],
             */
         ];
@@ -277,19 +277,19 @@ class PeterGibbons extends Command
         $data = [
             /*
             [
-                'name'            => '',
-                'slug'            => '',
-                'featured'        => 0,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '0000-00-00',
-                'certificate_url' => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
-                'is_public'          => 1,
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 0,
+                'summary'          => null,
+                'organization'     => null,
+                'academy_id'       => 3,
+                'certificate_year' => 2023,
+                'received'         => '0000-00-00',
+                'certificate_url'  => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -308,20 +308,20 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'JavaScript Deep Dive',                                    'slug' => 'javascript-deep-dive',                                    'completed' => 1, 'completion_date' => '2016-08-25', 'year' => 2016, 'duration_hours' => 14.1, 'academy_id' => 6, 'instructor' => 'Reed Barger',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-deep-dive-c0a',                              'link_name' => null, 'is_public' => 1, 'summary' => 'This course will teach you advanced JavaScript from the ground up. It features a systematic walk-through of the most important concepts of the language, and teaches you to build a Google Keep clone and a Hacker News clone in vanilla JavaScript.' ],
-            [ 'name' => 'Learn TypeScript',                                        'slug' => 'learn-typescript',                                        'completed' => 1, 'completion_date' => '2018-06-02', 'year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                                 'link_name' => null, 'is_public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
-            [ 'name' => 'Master JavaScript Animations with Greensock',             'slug' => 'master-javascript-animations-with-greensock',             'completed' => 1, 'completion_date' => '2014-10-22', 'year' => 2014, 'duration_hours' => 2.5,  'academy_id' => 8, 'instructor' => 'Enzo Ustariz',    'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/master-javascript-animations-with-greensock/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Upgrade your Front-End Skills' ],
-            [ 'name' => 'Vue JS - The Complete Guide [2025]',                      'slug' => 'vue-js-the-complete-guide-[2025]',                        'completed' => 1, 'completion_date' => '2017-03-23', 'year' => 2017, 'duration_hours' => 11,   'academy_id' => 8, 'instructor' => 'Bhrugen Patel',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-the-complete-guide-2025/',              'link_name' => null, 'is_public' => 1, 'summary' => 'Master Vue.js from Scratch: Learn Fundamentals, Router, Pinia & Firebase to Build Real-World Projects!' ],
-            [ 'name' => 'Ultimate AWS Certified AI Practitioner AIF-C01',          'slug' => 'ultimate-aws-certified-ai-practitioner-aif-c01',    'completed' => 1, 'completion_date' => '2017-05-29', 'year' => 2017, 'duration_hours' => 10,   'academy_id' => 8, 'instructor' => 'Stephane Maarek', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-ai-practitioner-certified/',               'link_name' => null, 'is_public' => 1, 'summary' => 'Practice Exam included + explanations | Learn Artificial Intelligence | Pass the AWS AI Practitioner AIF-C01 exam!' ],
-            [ 'name' => 'The Frontend Developer Career Path',                      'slug' => 'the-frontend-developer-career-path',                      'completed' => 1, 'completion_date' => '2019-07-21', 'year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                     'link_name' => null, 'is_public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
-            [ 'name' => 'Ultimate AWS Certified Developer Associate 2025 DVA-C02', 'slug' => 'ultimate-aws-certified-developer-associate-2025-dva-c02', 'completed' => 1, 'completion_date' => '2023-02-06', 'year' => 2023, 'duration_hours' => 32,   'academy_id' => 8, 'instructor' => 'Stephane Maarek', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-developer-associate-dva-c01/',   'link_name' => null, 'is_public' => 1, 'summary' => 'Full Practice Exam with Explanations included! PASS the Amazon Web Services Certified Developer Certification DVA-C02' ],
+            [ 'name' => 'JavaScript Deep Dive',                                    'slug' => 'javascript-deep-dive',                                    'completed' => 1, 'completion_date' => '2016-08-25', 'course_year' => 2016, 'duration_hours' => 14.1, 'academy_id' => 6, 'instructor' => 'Reed Barger',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-deep-dive-c0a',                              'link_name' => null, 'is_public' => 1, 'summary' => 'This course will teach you advanced JavaScript from the ground up. It features a systematic walk-through of the most important concepts of the language, and teaches you to build a Google Keep clone and a Hacker News clone in vanilla JavaScript.' ],
+            [ 'name' => 'Learn TypeScript',                                        'slug' => 'learn-typescript',                                        'completed' => 1, 'completion_date' => '2018-06-02', 'course_year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                                 'link_name' => null, 'is_public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
+            [ 'name' => 'Master JavaScript Animations with Greensock',             'slug' => 'master-javascript-animations-with-greensock',             'completed' => 1, 'completion_date' => '2014-10-22', 'course_year' => 2014, 'duration_hours' => 2.5,  'academy_id' => 8, 'instructor' => 'Enzo Ustariz',    'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/master-javascript-animations-with-greensock/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Upgrade your Front-End Skills' ],
+            [ 'name' => 'Vue JS - The Complete Guide [2025]',                      'slug' => 'vue-js-the-complete-guide-[2025]',                        'completed' => 1, 'completion_date' => '2017-03-23', 'course_year' => 2017, 'duration_hours' => 11,   'academy_id' => 8, 'instructor' => 'Bhrugen Patel',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-the-complete-guide-2025/',              'link_name' => null, 'is_public' => 1, 'summary' => 'Master Vue.js from Scratch: Learn Fundamentals, Router, Pinia & Firebase to Build Real-World Projects!' ],
+            [ 'name' => 'Ultimate AWS Certified AI Practitioner AIF-C01',          'slug' => 'ultimate-aws-certified-ai-practitioner-aif-c01',          'completed' => 1, 'completion_date' => '2017-05-29', 'course_year' => 2017, 'duration_hours' => 10,   'academy_id' => 8, 'instructor' => 'Stephane Maarek', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-ai-practitioner-certified/',               'link_name' => null, 'is_public' => 1, 'summary' => 'Practice Exam included + explanations | Learn Artificial Intelligence | Pass the AWS AI Practitioner AIF-C01 exam!' ],
+            [ 'name' => 'The Frontend Developer Career Path',                      'slug' => 'the-frontend-developer-career-path',                      'completed' => 1, 'completion_date' => '2019-07-21', 'course_year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                     'link_name' => null, 'is_public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
+            [ 'name' => 'Ultimate AWS Certified Developer Associate 2025 DVA-C02', 'slug' => 'ultimate-aws-certified-developer-associate-2025-dva-c02', 'completed' => 1, 'completion_date' => '2023-02-06', 'course_year' => 2023, 'duration_hours' => 32,   'academy_id' => 8, 'instructor' => 'Stephane Maarek', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-developer-associate-dva-c01/',   'link_name' => null, 'is_public' => 1, 'summary' => 'Full Practice Exam with Explanations included! PASS the Amazon Web Services Certified Developer Certification DVA-C02' ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
                 'completed'       => 1,
                 'completion_date' => null,
-                'year'            => null,
+                'course_year'     => null,
                 'duration_hours'  => 0,
                 'academy_id'      => null,
                 'instructor'      => null,
@@ -487,7 +487,7 @@ class PeterGibbons extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ]
             */
         ];
@@ -508,10 +508,10 @@ class PeterGibbons extends Command
         $data = [
             /*
             [
-                'job_id'   => $this->jobId[1],
-                'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
-                'sequence' => 0,
-                'is_public'   => 1,
+                'job_id'    => $this->jobId[1],
+                'summary'   => 'Upgraded to modern PHP and Vue.js frameworks.',
+                'sequence'  => 0,
+                'is_public' => 1,
             ],
             */
         ];
@@ -538,7 +538,7 @@ class PeterGibbons extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Ron_Livingston',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Wikipedia (Office Space movie)',
@@ -548,7 +548,7 @@ class PeterGibbons extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Office_Space',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Rotten Tomatoes (Office Space movie)',
@@ -558,7 +558,7 @@ class PeterGibbons extends Command
                 'url'         => 'https://www.rottentomatoes.com/m/office_space',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             /*
             [
@@ -569,7 +569,7 @@ class PeterGibbons extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'    => 1,
             ],
             */
         ];
@@ -590,20 +590,20 @@ class PeterGibbons extends Command
         $data = [
             /*
             [
-                'owner_id'          => $this->adminId,
-                'name'              => null,
-                'slug'              => null,
-                'featured'          => 0,
-                'summary'           => null,
-                'year'              => null,
-                'credit'            => null,
-                'model'             => null,
-                'location'          => null,
-                'copyright'         => null,
-                'link'              => null,
-                'link_name'         => null,
-                'image'             => null,
-                'is_public'            => 1,
+                'owner_id'   => $this->adminId,
+                'name'       => null,
+                'slug'       => null,
+                'featured'   => 0,
+                'summary'    => null,
+                'photo_year' => null,
+                'credit'     => null,
+                'model'      => null,
+                'location'   => null,
+                'copyright'  => null,
+                'link'       => null,
+                'link_name'  => null,
+                'image'      => null,
+                'is_public'  => 1,
             ]
             */
         ];
@@ -622,21 +622,21 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Tempted',                   'artist' => 'Squeeze',                                        'slug' => 'tempted-by-squeeze',                                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1981, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Girls with Glasses',        'artist' => 'Terry Anderson and the Olympic Ass Kickin Team', 'slug' => 'girls-with-glasses-by-terry-anderson-and-the-olympic-ass-kickin-team', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 2012, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RBVL519dMfs?si=KD44HgrK5vSenUrC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RBVL519dMfs?si=KD44HgrK5vSenUrC', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Little Sister',             'artist' => 'Rockpile with Robert Plant',                     'slug' => 'little-sister-by-rockpile-with-robert-plant',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Atlantic',    'catalog_number' => null, 'year' => 1981, 'release_date' => '1981-03-30', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Q5XJX8sjYDE?si=1u_IV_cfqNOSsN3p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Q5XJX8sjYDE?si=1u_IV_cfqNOSsN3p', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Race with the Devil',       'artist' => 'Gene Vincent',                                   'slug' => 'race-with-the-devil-by-gene-vincent',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Cowboy Boots',              'artist' => 'The Backsliders',                                'slug' => 'cowboy-boots-by-the-backsliders',                                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Satellite of Love',         'artist' => 'Lou Reed',                                       'slug' => 'satellite-of-love-by-lou-reed',                                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Records', 'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kJoHspUta-E?si=1OesZ2HWc3GM1msx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kJoHspUta-E?si=1OesZ2HWc3GM1msx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Blackbird',                 'artist' => 'The Beatles',                                    'slug' => 'blackbird-by-the-beatles',                                             'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Man4Xw8Xypo?si=gVHSSxJtmM-TLr5E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Man4Xw8Xypo?si=gVHSSxJtmM-TLr5E', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Career Opportunities',      'artist' => 'The Clash',                                      'slug' => 'career-opportunities-by-the-clash',                                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ihPenaGJ6P4?si=pscqSXfOmtbYTiqK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ihPenaGJ6P4?si=pscqSXfOmtbYTiqK', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Whistle Bait',              'artist' => 'The Collins Kids',                               'slug' => 'whistle-bait-by-the-collins-kids',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1956, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lklk1DokLig?si=DyDha9egneIUxR_f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lklk1DokLig?si=DyDha9egneIUxR_f', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Dime a Dozen',              'artist' => 'Tuscadero',                                      'slug' => 'dime-a-dozen-by-tuscadero',                                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FyQLHHMSaMU?si=01wTlKnowosppF48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FyQLHHMSaMU?si=01wTlKnowosppF48', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Penny Lane',                'artist' => 'The Beatles',                                    'slug' => 'penny-lane-by-the-beatles',                                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/S-rB0pHI9fU?si=rBxJc3nyiVgJ4gn7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/S-rB0pHI9fU?si=rBxJc3nyiVgJ4gn7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'I\'m Tight',                'artist' => 'Louis Cole',                                     'slug' => 'im-tight-by-louis-cole',                                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 2022, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Internettin\'',             'artist' => 'Terry Anderson',                                 'slug' => 'internettin-by-terry-anderson',                                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 2017, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'In the City',               'artist' => 'The Jam',                                        'slug' => 'in-the-city-by-the-jam',                                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'I Love a Man in a Uniform', 'artist' => 'Gang of Four',                                   'slug' => 'i-love-a-main-in-a-uniform-by-gang-of-four',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1982, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Tempted',                   'artist' => 'Squeeze',                                        'slug' => 'tempted-by-squeeze',                                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1981, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Girls with Glasses',        'artist' => 'Terry Anderson and the Olympic Ass Kickin Team', 'slug' => 'girls-with-glasses-by-terry-anderson-and-the-olympic-ass-kickin-team', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 2012, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RBVL519dMfs?si=KD44HgrK5vSenUrC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RBVL519dMfs?si=KD44HgrK5vSenUrC', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Little Sister',             'artist' => 'Rockpile with Robert Plant',                     'slug' => 'little-sister-by-rockpile-with-robert-plant',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Atlantic',    'catalog_number' => null, 'music_year' => 1981, 'release_date' => '1981-03-30', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Q5XJX8sjYDE?si=1u_IV_cfqNOSsN3p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Q5XJX8sjYDE?si=1u_IV_cfqNOSsN3p', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Race with the Devil',       'artist' => 'Gene Vincent',                                   'slug' => 'race-with-the-devil-by-gene-vincent',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Cowboy Boots',              'artist' => 'The Backsliders',                                'slug' => 'cowboy-boots-by-the-backsliders',                                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Satellite of Love',         'artist' => 'Lou Reed',                                       'slug' => 'satellite-of-love-by-lou-reed',                                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Records', 'catalog_number' => null, 'music_year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kJoHspUta-E?si=1OesZ2HWc3GM1msx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kJoHspUta-E?si=1OesZ2HWc3GM1msx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Blackbird',                 'artist' => 'The Beatles',                                    'slug' => 'blackbird-by-the-beatles',                                             'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Man4Xw8Xypo?si=gVHSSxJtmM-TLr5E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Man4Xw8Xypo?si=gVHSSxJtmM-TLr5E', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Career Opportunities',      'artist' => 'The Clash',                                      'slug' => 'career-opportunities-by-the-clash',                                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ihPenaGJ6P4?si=pscqSXfOmtbYTiqK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ihPenaGJ6P4?si=pscqSXfOmtbYTiqK', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Whistle Bait',              'artist' => 'The Collins Kids',                               'slug' => 'whistle-bait-by-the-collins-kids',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1956, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lklk1DokLig?si=DyDha9egneIUxR_f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lklk1DokLig?si=DyDha9egneIUxR_f', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Dime a Dozen',              'artist' => 'Tuscadero',                                      'slug' => 'dime-a-dozen-by-tuscadero',                                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FyQLHHMSaMU?si=01wTlKnowosppF48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FyQLHHMSaMU?si=01wTlKnowosppF48', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Penny Lane',                'artist' => 'The Beatles',                                    'slug' => 'penny-lane-by-the-beatles',                                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/S-rB0pHI9fU?si=rBxJc3nyiVgJ4gn7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/S-rB0pHI9fU?si=rBxJc3nyiVgJ4gn7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I\'m Tight',                'artist' => 'Louis Cole',                                     'slug' => 'im-tight-by-louis-cole',                                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 2022, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Internettin\'',             'artist' => 'Terry Anderson',                                 'slug' => 'internettin-by-terry-anderson',                                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 2017, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'In the City',               'artist' => 'The Jam',                                        'slug' => 'in-the-city-by-the-jam',                                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Love a Man in a Uniform', 'artist' => 'Gang of Four',                                   'slug' => 'i-love-a-main-in-a-uniform-by-gang-of-four',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'music_year' => 1982, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -648,14 +648,14 @@ class PeterGibbons extends Command
                 'track'          => 1,
                 'label'          => null,
                 'catalog_number' => null,
-                'year'           => 2012,
+                'music_year'     => 2012,
                 'release_date'   => null,
                 'embed'          => null,
                 'audio_url'      => null,
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'is_public'         => 1,
+                'is_public'      => 1,
             ],
             */
         ];
@@ -680,13 +680,13 @@ class PeterGibbons extends Command
                 'slug'             => '',
                 'featured'         => 0,
                 'summary'          => null,
-                'year'             => 2016,
+                'project_year'     => 2016,
                 'language'         => null,
                 'language_version' => null,
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'is_public'           => 1,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -799,7 +799,7 @@ class PeterGibbons extends Command
                 'clip'             => 1,
                 'public_access'    => 0,
                 'source_recording' => 0,
-                'year'             => 2020,
+                'video_year'       => 2020,
                 'company'          => null,
                 'credit'           => null,
                 'show'             => null,

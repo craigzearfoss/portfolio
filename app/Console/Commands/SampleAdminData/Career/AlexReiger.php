@@ -368,11 +368,11 @@ class AlexReiger extends Command
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'body'           => null,
+                'application_id'     => $this->applicationId[1],
+                'subject'            => '',
+                'communication_date' => '0000-00-00',
+                'time'               => '00:00:00',
+                'body'               => null,
             ]
             */
         ];
@@ -420,14 +420,13 @@ EOD,
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'subject'     => '',
-                'event_date'  => null,
-                'event_time'  => null,
-                'location'    => null,
-                'attendees'   => null,
-                'notes'       => null,
-                'description' => null,
+                'application_id'  => $this->applicationId[1],
+                'subject'         => '',
+                'event_datetime'  => null,
+                'location'        => null,
+                'attendees'       => null,
+                'notes'           => null,
+                'description'     => null,
             ]
             */
         ];

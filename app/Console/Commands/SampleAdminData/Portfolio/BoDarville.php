@@ -170,9 +170,9 @@ class BoDarville extends Command
                 'artist'      => null,
                 'slug'        => '',
                 'summary'     => null,
-                'year'        => 2025,
+                'art_year'    => 2025,
                 'featured'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -209,7 +209,7 @@ class BoDarville extends Command
                 'podcast'           => 0,
                 'source_recording'  => 0,
                 'audio_date'        => null,
-                'year'              => null,
+                'audio_year'        => null,
                 'company'           => null,
                 'credit'            => null,
                 'show'              => 0,
@@ -235,12 +235,12 @@ class BoDarville extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Golden Globe Award',     'slug' => '1992-golden-globe-award-for-best-actor-in-a-television-series-musical-or-comedy', 'category' => 'Best Actor in a Television Series-Musical or Comedy', 'nominated_work' => 'Evening Shade', 'featured' => 1, 'year' => 1992, 'organization' => 'Hollywood Foreign Correspondents Association', 'is_public' => 1 ],
-            [ 'name' => 'People\'s Choice Award', 'slug' => '1983-peoples-choice-award-for-favorite-motion-picture-actor',                     'category' => 'Favorite Motion Picture Actor',                       'nominated_work' => null,            'featured' => 0, 'year' => 1983, 'organization' => 'Procter & Gamble', 'is_public' => 1 ],
-            [ 'name' => 'People\'s Choice Award', 'slug' => '1983-peoples-choice-award-for-favorite-all-around-male',                          'category' => 'Favorite All-Around Male',                            'nominated_work' => null,            'featured' => 1, 'year' => 1983, 'organization' => 'Procter & Gamble', 'is_public' => 1 ],
-            [ 'name' => 'People\'s Choice Award', 'slug' => '1984-peoples-choice-award-for-favorite-motion-picture-actor',                     'category' => 'Favorite Motion Picture Actor',                       'nominated_work' => null,            'featured' => 0, 'year' => 1984, 'organization' => 'Procter & Gamble', 'is_public' => 1 ],
-            [ 'name' => 'People\'s Choice Award', 'slug' => '1991-peoples-choice-award-for-favorite-male-performer-in-a-new-tv-series',        'category' => 'Favorite Male Performer in a New TV Series',          'nominated_work' => null,            'featured' => 0, 'year' => 1991, 'organization' => null, 'is_public' => 1 ],
-            [ 'name' => 'Honorary Doctorate',     'slug' => 'honorary-doctorate-from-florida-state-university',                                'category' => null,                                                  'nominated_work' => null,            'featured' => 0, 'year' => 1981, 'organization' => 'Florida State University', 'is_public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1992-golden-globe-award-for-best-actor-in-a-television-series-musical-or-comedy', 'category' => 'Best Actor in a Television Series-Musical or Comedy', 'nominated_work' => 'Evening Shade', 'featured' => 1, 'award_year' => 1992, 'organization' => 'Hollywood Foreign Correspondents Association', 'is_public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1983-peoples-choice-award-for-favorite-motion-picture-actor',                     'category' => 'Favorite Motion Picture Actor',                       'nominated_work' => null,            'featured' => 0, 'award_year' => 1983, 'organization' => 'Procter & Gamble', 'is_public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1983-peoples-choice-award-for-favorite-all-around-male',                          'category' => 'Favorite All-Around Male',                            'nominated_work' => null,            'featured' => 1, 'award_year' => 1983, 'organization' => 'Procter & Gamble', 'is_public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1984-peoples-choice-award-for-favorite-motion-picture-actor',                     'category' => 'Favorite Motion Picture Actor',                       'nominated_work' => null,            'featured' => 0, 'award_year' => 1984, 'organization' => 'Procter & Gamble', 'is_public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1991-peoples-choice-award-for-favorite-male-performer-in-a-new-tv-series',        'category' => 'Favorite Male Performer in a New TV Series',          'nominated_work' => null,            'featured' => 0, 'award_year' => 1991, 'organization' => null, 'is_public' => 1 ],
+            [ 'name' => 'Honorary Doctorate',     'slug' => 'honorary-doctorate-from-florida-state-university',                                'category' => null,                                                  'nominated_work' => null,            'featured' => 0, 'award_year' => 1981, 'organization' => 'Florida State University', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -250,12 +250,12 @@ class BoDarville extends Command
                 'featured'        => 0,
                 'summary'         => null,
                 'date_received'   => null,
-                'year'            => null,
+                'award_year'      => null,
                 'organization'    => null,
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
             ],
             */
         ];
@@ -276,19 +276,19 @@ class BoDarville extends Command
         $data = [
             /*
             [
-                'name'            => '',
-                'slug'            => '',
-                'featured'        => 0,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '0000-00-00',
-                'certificate_url' => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
-                'is_public'          => 1,
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 0,
+                'summary'          => null,
+                'organization'     => null,
+                'academy_id'       => 3,
+                'certificate_year' => 2023,
+                'received'         => '0000-00-00',
+                'certificate_url'  => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -313,7 +313,7 @@ class BoDarville extends Command
                 'slug'            => '',
                 'completed'       => 1,
                 'completion_date' => null,
-                'year'            => null,
+                'course_year'     => null,
                 'duration_hours'  => 0,
                 'academy_id'      => null,
                 'instructor'      => null,
@@ -477,7 +477,7 @@ class BoDarville extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ]
             */
         ];
@@ -498,10 +498,10 @@ class BoDarville extends Command
         $data = [
             /*
             [
-                'job_id'   => $this->jobId[1],
-                'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
-                'sequence' => 0,
-                'is_public'   => 1,
+                'job_id'    => $this->jobId[1],
+                'summary'   => 'Upgraded to modern PHP and Vue.js frameworks.',
+                'sequence'  => 0,
+                'is_public' => 1,
             ],
             */
         ];
@@ -528,7 +528,7 @@ class BoDarville extends Command
                 'url'         => 'https://www.imdb.com/title/tt0076729/',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Smokey and the Bandit Rotten Tomatoes page',
@@ -538,7 +538,7 @@ class BoDarville extends Command
                 'url'         => 'https://www.rottentomatoes.com/m/smokey_and_the_bandit',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Bo Darville Charactour page',
@@ -548,7 +548,7 @@ class BoDarville extends Command
                 'url'         => 'https://www.charactour.com/hub/characters/view/Bo-Darville.Smokey-and-the-Bandit',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Wikipedia (Burt Reynolds)',
@@ -558,7 +558,7 @@ class BoDarville extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Burt_Reynolds',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Getty Images',
@@ -568,7 +568,7 @@ class BoDarville extends Command
                 'url'         => 'https://www.gettyimages.com/photos/smokey-and-the-bandit',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             /*
             [
@@ -579,7 +579,7 @@ class BoDarville extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             */
         ];
@@ -600,20 +600,20 @@ class BoDarville extends Command
         $data = [
             /*
             [
-                'owner_id'          => $this->adminId,
-                'name'              => null,
-                'slug'              => null,
-                'featured'          => 0,
-                'summary'           => null,
-                'year'              => null,
-                'credit'            => null,
-                'model'             => null,
-                'location'          => null,
-                'copyright'         => null,
-                'link'              => null,
-                'link_name'         => null,
-                'image'             => null,
-                'is_public'            => 1,
+                'owner_id'   => $this->adminId,
+                'name'       => null,
+                'slug'       => null,
+                'featured'   => 0,
+                'summary'    => null,
+                'photo_year' => null,
+                'credit'     => null,
+                'model'      => null,
+                'location'   => null,
+                'copyright'  => null,
+                'link'       => null,
+                'link_name'  => null,
+                'image'      => null,
+                'is_public'  => 1,
             ]
             */
         ];
@@ -632,30 +632,30 @@ class BoDarville extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => '(What\'s So Funny \'Bout) Peace, Love And Understanding', 'artist' => 'Elvis Costello & The Attractions', 'slug' => '(whats-so-funny-bout)-peace-love-and-understanding-by-elvis-costello-and-the-attractions', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-01-05', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ssd3U_zicAI?si=mwDtI85dUwvBkK0-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ssd3U_zicAI?si=mwDtI85dUwvBkK0-', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'I Love the Sound of Breaking Glass',                      'artist' => 'Nick Lowe',                        'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',                                          'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Premature Rejection',                                     'artist' => 'Pacifica',                         'slug' => 'premature-rejection-by-pacifica',                                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 2023, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Big Brown Eyes',                                          'artist' => 'Old 97\'s',                        'slug' => 'big-brown-eyes-by-old-97s',                                                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LrOOQtcdwwQ?si=ACisure9flUrty_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LrOOQtcdwwQ?si=Ihqd1m784Dj2DDwR', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Roadside Wreck',                                          'artist' => 'Southern Culture on the Skids',    'slug' => 'roadside-wreck-by-southern-culture-on-the-skids',                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cTpmU8bZnXY?si=0V9JZfkLyRDE_dds" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cTpmU8bZnXY?si=0V9JZfkLyRDE_dds', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => '8 Piece Box',                                             'artist' => 'Southern Culture on the Skids',    'slug' => '8-piece-box-by-southern-culture-on-the-skids',                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Geffen Records',   'catalog_number' => null, 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/KVN6HCmFFF4?si=NTmT22ApAfSsQQOL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/KVN6HCmFFF4?si=NTmT22ApAfSsQQOL', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Blue Skies Over Dundalk',                                 'artist' => 'Mary Prankster',                   'slug' => 'blue-skies-over-dundalk-by-mary-prankster',                                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 2002, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Dunga (Old Dying Millionaire)',                           'artist' => 'Zen Frisbee',                      'slug' => 'dunga-(old-dying-millionaire)-by-zen-frisbee',                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Fixer Upper',                                             'artist' => 'Pacifica',                         'slug' => 'fixer-upper-by-pacifica',                                                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 2025, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3111XBfRZ_w?si=Fd2ni6MrRKRoCk5a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/3111XBfRZ_w?si=Fd2ni6MrRKRoCk5a', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Ratatata',                                                'artist' =>  'Babymetal with Electric Callboy', 'slug' => 'ratatata-by-babymetal-with-electric-callboy',                                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/EDnIEWyVIlE?si=YH9KkA-lh4K8__7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/EDnIEWyVIlE?si=DWkBji5GiMh1fKKO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Dime a Dozen',                                            'artist' => 'Tuscadero',                        'slug' => 'dime-a-dozen-by-tuscadero',                                                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FyQLHHMSaMU?si=01wTlKnowosppF48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FyQLHHMSaMU?si=01wTlKnowosppF48', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Hold Me Baby, kiss! kiss! kiss!',                         'artist' => 'The DO DO DO\'s',                  'slug' => 'hold-me-baby-kiss-kiss-kiss-by-the-do-do-dos',                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/bVFYuCNgM2w?si=U-ZNyeL60xkN5C1H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/bVFYuCNgM2w?si=pX8VfKNd5wF16LFt', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'I Love a Man in a Uniform',                               'artist' => 'Gang of Four',                     'slug' => 'i-love-a-main-in-a-uniform-by-gang-of-four',                                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1982, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Web in Front',                                            'artist' => 'Archers of Loaf',                  'slug' => 'web-in-front-by-archers-of-loaf',                                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',    'catalog_number' => null, 'year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'That Thing You Do',                                       'artist' => 'The Wonders',                      'slug' => 'that-thing-you-do-by-the-wonders',                                                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ajNTIklt8do?si=QrqWvBDvicpvGy-L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ajNTIklt8do?si=QrqWvBDvicpvGy-L', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Ridiculous',                                              'artist' => 'Dynamite Shakers',                 'slug' => 'ridiculous-by-dynamite-shakers',                                                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Pump It',                                                 'artist' => 'Electric Callboy',                 'slug' => 'pump-it-by-electric-callboy',                                                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 2021, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Jonesin\'',                                               'artist' => 'Zen Frisbee',                      'slug' => 'jonesin-by-zen-frisbee',                                                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Precision Auto',                                          'artist' => 'Superchunk',                       'slug' => 'precision-auto-by-superchunk',                                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',    'catalog_number' => null, 'year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FgaZGl_G8Nw?si=Z-_2p7Fpb0pxLJMe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FgaZGl_G8Nw?si=3Ef0c7uGLQ2xG1Ka', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'RC Cola and a Moon Pie',                                  'artist' => 'NRBQ',                             'slug' => 'rc-cola-and-a-moon-pie-by-nrbq',                                                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1973, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1DJZpsAkWys?si=MJknSSNjNJPHWBti" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/1DJZpsAkWys?si=MJknSSNjNJPHWBti', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'My Favorite Shirt',                                       'artist' => 'The Figgs',                        'slug' => 'my-favorite-shirt-by-the-figgs',                                                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Here Comes the Sun',                                      'artist' => 'The Beatles',                      'slug' => 'here-comes-the-sun-by-the beatles',                                                        'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/KQetemT1sWc?si=MgVZjBuZb5aJNSNX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/KQetemT1sWc?si=TTSAj-USmVaUJJRr', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Someday, Someway',                                        'artist' => 'Marshall Crenshaw',                'slug' => 'someday-someway-by-marshall-crenshaw',                                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',     'catalog_number' => null, 'year' => 1982, 'release_date' => '1982-04-28', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Start',                                                   'artist' => 'The Jam',                          'slug' => 'start-by-the-jam',                                                                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vI8AOkbfgNE?si=elM-E8CQsf69L-qN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vI8AOkbfgNE?si=90nzouKw8N3gqmx8', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => '(What\'s So Funny \'Bout) Peace, Love And Understanding', 'artist' => 'Elvis Costello & The Attractions', 'slug' => '(whats-so-funny-bout)-peace-love-and-understanding-by-elvis-costello-and-the-attractions', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'music_year' => 1979, 'release_date' => '1979-01-05', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ssd3U_zicAI?si=mwDtI85dUwvBkK0-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ssd3U_zicAI?si=mwDtI85dUwvBkK0-', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Love the Sound of Breaking Glass',                      'artist' => 'Nick Lowe',                        'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',                                          'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'music_year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Premature Rejection',                                     'artist' => 'Pacifica',                         'slug' => 'premature-rejection-by-pacifica',                                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 2023, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Big Brown Eyes',                                          'artist' => 'Old 97\'s',                        'slug' => 'big-brown-eyes-by-old-97s',                                                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LrOOQtcdwwQ?si=ACisure9flUrty_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LrOOQtcdwwQ?si=Ihqd1m784Dj2DDwR', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Roadside Wreck',                                          'artist' => 'Southern Culture on the Skids',    'slug' => 'roadside-wreck-by-southern-culture-on-the-skids',                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cTpmU8bZnXY?si=0V9JZfkLyRDE_dds" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cTpmU8bZnXY?si=0V9JZfkLyRDE_dds', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => '8 Piece Box',                                             'artist' => 'Southern Culture on the Skids',    'slug' => '8-piece-box-by-southern-culture-on-the-skids',                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Geffen Records',   'catalog_number' => null, 'music_year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/KVN6HCmFFF4?si=NTmT22ApAfSsQQOL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/KVN6HCmFFF4?si=NTmT22ApAfSsQQOL', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Blue Skies Over Dundalk',                                 'artist' => 'Mary Prankster',                   'slug' => 'blue-skies-over-dundalk-by-mary-prankster',                                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 2002, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Dunga (Old Dying Millionaire)',                           'artist' => 'Zen Frisbee',                      'slug' => 'dunga-(old-dying-millionaire)-by-zen-frisbee',                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Fixer Upper',                                             'artist' => 'Pacifica',                         'slug' => 'fixer-upper-by-pacifica',                                                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 2025, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3111XBfRZ_w?si=Fd2ni6MrRKRoCk5a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/3111XBfRZ_w?si=Fd2ni6MrRKRoCk5a', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ratatata',                                                'artist' =>  'Babymetal with Electric Callboy', 'slug' => 'ratatata-by-babymetal-with-electric-callboy',                                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/EDnIEWyVIlE?si=YH9KkA-lh4K8__7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/EDnIEWyVIlE?si=DWkBji5GiMh1fKKO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Dime a Dozen',                                            'artist' => 'Tuscadero',                        'slug' => 'dime-a-dozen-by-tuscadero',                                                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FyQLHHMSaMU?si=01wTlKnowosppF48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FyQLHHMSaMU?si=01wTlKnowosppF48', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Hold Me Baby, kiss! kiss! kiss!',                         'artist' => 'The DO DO DO\'s',                  'slug' => 'hold-me-baby-kiss-kiss-kiss-by-the-do-do-dos',                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/bVFYuCNgM2w?si=U-ZNyeL60xkN5C1H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/bVFYuCNgM2w?si=pX8VfKNd5wF16LFt', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Love a Man in a Uniform',                               'artist' => 'Gang of Four',                     'slug' => 'i-love-a-main-in-a-uniform-by-gang-of-four',                                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1982, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/I4-ppm5VbYI?si=-HPrWuOxwdUkQl64', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Web in Front',                                            'artist' => 'Archers of Loaf',                  'slug' => 'web-in-front-by-archers-of-loaf',                                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',    'catalog_number' => null, 'music_year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'That Thing You Do',                                       'artist' => 'The Wonders',                      'slug' => 'that-thing-you-do-by-the-wonders',                                                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ajNTIklt8do?si=QrqWvBDvicpvGy-L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ajNTIklt8do?si=QrqWvBDvicpvGy-L', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ridiculous',                                              'artist' => 'Dynamite Shakers',                 'slug' => 'ridiculous-by-dynamite-shakers',                                                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Pump It',                                                 'artist' => 'Electric Callboy',                 'slug' => 'pump-it-by-electric-callboy',                                                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 2021, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Jonesin\'',                                               'artist' => 'Zen Frisbee',                      'slug' => 'jonesin-by-zen-frisbee',                                                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Precision Auto',                                          'artist' => 'Superchunk',                       'slug' => 'precision-auto-by-superchunk',                                                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',    'catalog_number' => null, 'music_year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FgaZGl_G8Nw?si=Z-_2p7Fpb0pxLJMe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FgaZGl_G8Nw?si=3Ef0c7uGLQ2xG1Ka', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'RC Cola and a Moon Pie',                                  'artist' => 'NRBQ',                             'slug' => 'rc-cola-and-a-moon-pie-by-nrbq',                                                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1973, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1DJZpsAkWys?si=MJknSSNjNJPHWBti" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/1DJZpsAkWys?si=MJknSSNjNJPHWBti', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'My Favorite Shirt',                                       'artist' => 'The Figgs',                        'slug' => 'my-favorite-shirt-by-the-figgs',                                                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Here Comes the Sun',                                      'artist' => 'The Beatles',                      'slug' => 'here-comes-the-sun-by-the beatles',                                                        'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/KQetemT1sWc?si=MgVZjBuZb5aJNSNX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/KQetemT1sWc?si=TTSAj-USmVaUJJRr', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Someday, Someway',                                        'artist' => 'Marshall Crenshaw',                'slug' => 'someday-someway-by-marshall-crenshaw',                                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',     'catalog_number' => null, 'music_year' => 1982, 'release_date' => '1982-04-28', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Start',                                                   'artist' => 'The Jam',                          'slug' => 'start-by-the-jam',                                                                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,               'catalog_number' => null, 'music_year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vI8AOkbfgNE?si=elM-E8CQsf69L-qN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vI8AOkbfgNE?si=90nzouKw8N3gqmx8', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -667,14 +667,14 @@ class BoDarville extends Command
                 'track'          => 1,
                 'label'          => null,
                 'catalog_number' => null,
-                'year'           => 2012,
+                'music_year'     => 2012,
                 'release_date'   => null,
                 'embed'          => null,
                 'audio_url'      => null,
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'is_public'         => 1,
+                'is_public'      => 1,
             ],
             */
         ];
@@ -699,13 +699,13 @@ class BoDarville extends Command
                 'slug'             => '',
                 'featured'         => 0,
                 'summary'          => null,
-                'year'             => 2016,
+                'project_year'     => 2016,
                 'language'         => null,
                 'language_version' => null,
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'is_public'           => 1,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -818,7 +818,7 @@ class BoDarville extends Command
                 'clip'             => 1,
                 'public_access'    => 0,
                 'source_recording' => 0,
-                'year'             => 2020,
+                'video_year'       => 2020,
                 'company'          => null,
                 'credit'           => null,
                 'show'             => null,

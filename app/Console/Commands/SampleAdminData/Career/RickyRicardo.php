@@ -422,13 +422,12 @@ EOD,
             /*
             [
                 'application_id' => $this->applicationId[1],
-                'subject'     => '',
-                'event_date'  => null,
-                'event_time'  => null,
-                'location'    => null,
-                'attendees'   => null,
-                'notes'       => null,
-                'description' => null,
+                'subject'        => '',
+                'event_datetime' => null,
+                'location'       => null,
+                'attendees'      => null,
+                'notes'          => null,
+                'description'    => null,
             ]
             */
         ];

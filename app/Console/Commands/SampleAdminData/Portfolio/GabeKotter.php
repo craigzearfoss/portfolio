@@ -164,20 +164,20 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Dance at the Moulin de la Galette',  'artist' => 'Pierre-Auguste Renoir',  'slug' => 'dance-at-the-moulin-de-la-galette-by-pierre-auguste-renoir', 'summary' => null, 'year' => 1876, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir061.jpg',                                              'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
-            [ 'name' => 'Hands Up',                           'artist' => 'Ron Liberti',            'slug' => 'hands-up-by-by-ron-liberti',                                    'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
-            [ 'name' => 'Boulevard des Capucines',            'artist' => 'Claude Monet',           'slug' => 'boulevard-des-capucines-by-claude-monet',                    'summary' => null, 'year' => 1873, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet195.jpg',                                                  'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
-            [ 'name' => 'Liberty Leading the People',         'artist' => 'Eugene Delacroix',       'slug' => 'liberty-leading-the-people-by-eugene-delacroix',             'summary' => null, 'year' => 1830, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Delacroix/paintings-wm/delacroix-005.jpg',                                                      'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
-            [ 'name' => 'The Polar Sea (The Sea of Ice)',     'artist' => 'Caspar David Friedrich', 'slug' => 'the-polar-sea-(the-sea-of-ice)-by-caspar-david-friedrich',   'summary' => null, 'year' => 1823, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich003.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Dance at the Moulin de la Galette',  'artist' => 'Pierre-Auguste Renoir',  'slug' => 'dance-at-the-moulin-de-la-galette-by-pierre-auguste-renoir', 'summary' => null, 'art_year' => 1876, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir061.jpg',                                              'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Hands Up',                           'artist' => 'Ron Liberti',            'slug' => 'hands-up-by-by-ron-liberti',                                 'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'Boulevard des Capucines',            'artist' => 'Claude Monet',           'slug' => 'boulevard-des-capucines-by-claude-monet',                    'summary' => null, 'art_year' => 1873, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet195.jpg',                                                  'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Liberty Leading the People',         'artist' => 'Eugene Delacroix',       'slug' => 'liberty-leading-the-people-by-eugene-delacroix',             'summary' => null, 'art_year' => 1830, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Delacroix/paintings-wm/delacroix-005.jpg',                                                      'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'The Polar Sea (The Sea of Ice)',     'artist' => 'Caspar David Friedrich', 'slug' => 'the-polar-sea-(the-sea-of-ice)-by-caspar-david-friedrich',   'summary' => null, 'art_year' => 1823, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich003.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
                 'summary'     => null,
-                'year'        => 2025,
+                'art_year'    => 2025,
                 'featured'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -214,7 +214,7 @@ class GabeKotter extends Command
                 'podcast'           => 0,
                 'source_recording'  => 0,
                 'audio_date'        => null,
-                'year'              => null,
+                'audio_year'        => null,
                 'company'           => null,
                 'credit'            => null,
                 'show'              => 0,
@@ -240,7 +240,7 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Super Bowl of Poker', 'slug' => '1980-super-bowl-of-poker', 'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 1980, 'organization' => 'Amarillo Slim', 'is_public' => 1 ],
+            [ 'name' => 'Super Bowl of Poker', 'slug' => '1980-super-bowl-of-poker', 'category' => null, 'nominated_work' => null, 'featured' => 0, 'award_year' => 1980, 'organization' => 'Amarillo Slim', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -250,12 +250,12 @@ class GabeKotter extends Command
                 'featured'        => 0,
                 'summary'         => null,
                 'date_received'   => null,
-                'year'            => null,
+                'award_year'      => null,
                 'organization'    => null,
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
             ],
             */
         ];
@@ -276,19 +276,19 @@ class GabeKotter extends Command
         $data = [
             /*
             [
-                'name'            => '',
-                'slug'            => '',
-                'featured'        => 0,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '0000-00-00',
-                'certificate_url' => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
-                'is_public'          => 1,
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 0,
+                'summary'          => null,
+                'organization'     => null,
+                'academy_id'       => 3,
+                'certificate_year' => 2023,
+                'received'         => '0000-00-00',
+                'certificate_url'  => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -307,18 +307,18 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'AWS Cloud Practitioner (CLF-C02)',                             'slug' => 'aws-cloud-practitioner-(clf-c02)',                     'completed' => 1, 'completion_date' => '2016-03-21', 'year' => 2016, 'duration_hours' => 15,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-cloud-practitioner-clf-c02',        'link_name' => null, 'is_public' => 1, 'summary' => 'Transform your career with our comprehensive AWS Cloud Practitioner course, unlocking endless possibilities in cloud computing' ],
-            [ 'name' => 'The Complete Full-Stack Web Development Bootcamp',             'slug' => 'the-complete-full-stack-web-development-bootcamp',     'completed' => 1, 'completion_date' => '2021-06-28', 'year' => 2021, 'duration_hours' => 61,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-web-development-bootcamp/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and Dapps' ],
-            [ 'name' => 'The AI Engineer Path',                                         'slug' => 'the-ai-engineer-path',                                 'completed' => 1, 'completion_date' => '2016-10-02', 'year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',                                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                       'link_name' => null, 'is_public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
-            [ 'name' => 'React Interview Questions',                                    'slug' => 'react-interview-questions',                            'completed' => 1, 'completion_date' => '2018-09-04', 'year' => 2018, 'duration_hours' => 0.7,  'academy_id' => 6, 'instructor' => 'Cassidy Williams',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-interview-questions-c01t',                  'link_name' => null, 'is_public' => 1, 'summary' => 'Learn to ace a React Interview with a Principal Developer Experience Engineer as your guide!' ],
-            [ 'name' => 'React JS- Complete Guide for Frontend Web Development',        'slug' => 'react-js-complete-guide-for-frontend-web-development', 'completed' => 1, 'completion_date' => '2019-01-03', 'year' => 2019, 'duration_hours' => 22,   'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',           'link_name' => null, 'is_public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
+            [ 'name' => 'AWS Cloud Practitioner (CLF-C02)',                      'slug' => 'aws-cloud-practitioner-(clf-c02)',                     'completed' => 1, 'completion_date' => '2016-03-21', 'course_year' => 2016, 'duration_hours' => 15,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-cloud-practitioner-clf-c02',        'link_name' => null, 'is_public' => 1, 'summary' => 'Transform your career with our comprehensive AWS Cloud Practitioner course, unlocking endless possibilities in cloud computing' ],
+            [ 'name' => 'The Complete Full-Stack Web Development Bootcamp',      'slug' => 'the-complete-full-stack-web-development-bootcamp',     'completed' => 1, 'completion_date' => '2021-06-28', 'course_year' => 2021, 'duration_hours' => 61,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-web-development-bootcamp/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and Dapps' ],
+            [ 'name' => 'The AI Engineer Path',                                  'slug' => 'the-ai-engineer-path',                                 'completed' => 1, 'completion_date' => '2016-10-02', 'course_year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',                                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                       'link_name' => null, 'is_public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
+            [ 'name' => 'React Interview Questions',                             'slug' => 'react-interview-questions',                            'completed' => 1, 'completion_date' => '2018-09-04', 'course_year' => 2018, 'duration_hours' => 0.7,  'academy_id' => 6, 'instructor' => 'Cassidy Williams',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-interview-questions-c01t',                  'link_name' => null, 'is_public' => 1, 'summary' => 'Learn to ace a React Interview with a Principal Developer Experience Engineer as your guide!' ],
+            [ 'name' => 'React JS- Complete Guide for Frontend Web Development', 'slug' => 'react-js-complete-guide-for-frontend-web-development', 'completed' => 1, 'completion_date' => '2019-01-03', 'course_year' => 2019, 'duration_hours' => 22,   'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',           'link_name' => null, 'is_public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
                 'completed'       => 1,
                 'completion_date' => null,
-                'year'            => null,
+                'course_year'     => null,
                 'duration_hours'  => 0,
                 'academy_id'      => null,
                 'instructor'      => null,
@@ -520,7 +520,7 @@ class GabeKotter extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ]
             */
         ];
@@ -541,10 +541,10 @@ class GabeKotter extends Command
         $data = [
             /*
             [
-                'job_id'   => $this->jobId[1],
-                'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
-                'sequence' => 0,
-                'is_public'   => 1,
+                'job_id'    => $this->jobId[1],
+                'summary'   => 'Upgraded to modern PHP and Vue.js frameworks.',
+                'sequence'  => 0,
+                'is_public' => 1,
             ],
             */
         ];
@@ -633,20 +633,20 @@ class GabeKotter extends Command
         $data = [
             /*
             [
-                'owner_id'          => $this->adminId,
-                'name'              => null,
-                'slug'              => null,
-                'featured'          => 0,
-                'summary'           => null,
-                'year'              => null,
-                'credit'            => null,
-                'model'             => null,
-                'location'          => null,
-                'copyright'         => null,
-                'link'              => null,
-                'link_name'         => null,
-                'image'             => null,
-                'is_public'            => 1,
+                'owner_id'   => $this->adminId,
+                'name'       => null,
+                'slug'       => null,
+                'featured'   => 0,
+                'summary'    => null,
+                'photo_year' => null,
+                'credit'     => null,
+                'model'      => null,
+                'location'   => null,
+                'copyright'  => null,
+                'link'       => null,
+                'link_name'  => null,
+                'image'      => null,
+                'is_public'  => 1,
             ]
             */
         ];
@@ -665,17 +665,17 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Action Slacks',                                     'artist' => 'Zen Frisbee',               'slug' => 'action-slacks-by-zen-frisbee',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1992, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_Zx4grPeiY?si=Plk0mwANotW8JPh7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_Zx4grPeiY?si=xlRgcHjUeN4K821Z', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Tempted',                                           'artist' => 'Squeeze',                   'slug' => 'tempted-by-squeeze',                                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1981, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Finding It Hard To Believe That There Was A Floor', 'artist' => 'Small 23',                  'slug' => 'finding-it-hard-to-believe-that-there-was-a-floor-by-small-23', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',   'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/F5NFn4nOjbs?si=e4AxBlwoXWecFbFJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/F5NFn4nOjbs?si=e4AxBlwoXWecFbFJ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'You\'re My Favorite Waste of Time',                 'artist' => 'Marshall Crenshaw',         'slug' => 'youre-my-favorite-waste-of-time-by-marshall-crenshaw',          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',    'catalog_number' => null, 'year' => 1982, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tpyRvpX7Z7Y?si=3TLRhUfHBvvAZ_kg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tpyRvpX7Z7Y?si=nqA15jc0jiJwEKun', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Beatrice',                                          'artist' => 'Worn-Tin & Boyo',           'slug' => 'beatrice-by-worn-tin-and-boyo',                                 'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2012, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Web in Front',                                      'artist' => 'Archers of Loaf',           'slug' => 'web-in-front-by-archers-of-loaf',                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',   'catalog_number' => null, 'year' => 1993, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Dunga (Old Dying Millionaire)',                     'artist' => 'Zen Frisbee',               'slug' => 'dunga-(old-dying-millionaire)-by-zen-frisbee',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1998, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Oblivious',                                         'artist' => 'Aztec Camera',              'slug' => 'oblivious-by-aztec-camera',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1983, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2B2Sc2G_5ZA?si=9rBxbczZUIAjof55" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2B2Sc2G_5ZA?si=9rBxbczZUIAjof55', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Drivin\' on 9',                                     'artist' => 'Ed\'s Redeeming Qualities', 'slug' => 'drivin-on-9-by-eds-redeeming-qualities',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1989, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Twenty Flight Rock',                                'artist' => 'Eddie Cochran',             'slug' => 'twenty-flight-rock-by-eddie-cochran',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1957, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/sRaa9loXllY?si=2UONZDDNUeyeYIa0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/sRaa9loXllY?si=2UONZDDNUeyeYIa0', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Green Lights',                                      'artist' => 'NRBQ',                      'slug' => 'green-lights-by-nrbq',                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Mercury Records', 'catalog_number' => null, 'year' => 1978, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Action Slacks',                                     'artist' => 'Zen Frisbee',               'slug' => 'action-slacks-by-zen-frisbee',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1992, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_Zx4grPeiY?si=Plk0mwANotW8JPh7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_Zx4grPeiY?si=xlRgcHjUeN4K821Z', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Tempted',                                           'artist' => 'Squeeze',                   'slug' => 'tempted-by-squeeze',                                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1981, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Finding It Hard To Believe That There Was A Floor', 'artist' => 'Small 23',                  'slug' => 'finding-it-hard-to-believe-that-there-was-a-floor-by-small-23', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',   'catalog_number' => null, 'music_year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/F5NFn4nOjbs?si=e4AxBlwoXWecFbFJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/F5NFn4nOjbs?si=e4AxBlwoXWecFbFJ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'You\'re My Favorite Waste of Time',                 'artist' => 'Marshall Crenshaw',         'slug' => 'youre-my-favorite-waste-of-time-by-marshall-crenshaw',          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',    'catalog_number' => null, 'music_year' => 1982, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tpyRvpX7Z7Y?si=3TLRhUfHBvvAZ_kg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tpyRvpX7Z7Y?si=nqA15jc0jiJwEKun', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Beatrice',                                          'artist' => 'Worn-Tin & Boyo',           'slug' => 'beatrice-by-worn-tin-and-boyo',                                 'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 2012, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Web in Front',                                      'artist' => 'Archers of Loaf',           'slug' => 'web-in-front-by-archers-of-loaf',                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',   'catalog_number' => null, 'music_year' => 1993, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/4ZkEob55qso?si=Z5OZ8OKjg8YjEaSZ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Dunga (Old Dying Millionaire)',                     'artist' => 'Zen Frisbee',               'slug' => 'dunga-(old-dying-millionaire)-by-zen-frisbee',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1998, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Oblivious',                                         'artist' => 'Aztec Camera',              'slug' => 'oblivious-by-aztec-camera',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1983, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2B2Sc2G_5ZA?si=9rBxbczZUIAjof55" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2B2Sc2G_5ZA?si=9rBxbczZUIAjof55', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Drivin\' on 9',                                     'artist' => 'Ed\'s Redeeming Qualities', 'slug' => 'drivin-on-9-by-eds-redeeming-qualities',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1989, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Twenty Flight Rock',                                'artist' => 'Eddie Cochran',             'slug' => 'twenty-flight-rock-by-eddie-cochran',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1957, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/sRaa9loXllY?si=2UONZDDNUeyeYIa0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/sRaa9loXllY?si=2UONZDDNUeyeYIa0', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Green Lights',                                      'artist' => 'NRBQ',                      'slug' => 'green-lights-by-nrbq',                                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Mercury Records', 'catalog_number' => null, 'music_year' => 1978, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -687,14 +687,14 @@ class GabeKotter extends Command
                 'track'          => 1,
                 'label'          => null,
                 'catalog_number' => null,
-                'year'           => 2012,
+                'music_year'     => 2012,
                 'release_date'   => null,
                 'embed'          => null,
                 'audio_url'      => null,
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'is_public'         => 1,
+                'is_public'      => 1,
             ],
             */
         ];
@@ -719,7 +719,7 @@ class GabeKotter extends Command
                 'slug'             => '',
                 'featured'         => 0,
                 'summary'          => null,
-                'year'             => 2016,
+                'project_year'     => 2016,
                 'language'         => null,
                 'language_version' => null,
                 'repository_url'   => null,
@@ -839,7 +839,7 @@ class GabeKotter extends Command
                 'clip'             => 1,
                 'public_access'    => 0,
                 'source_recording' => 0,
-                'year'             => 2020,
+                'video_year'       => 2020,
                 'company'          => null,
                 'credit'           => null,
                 'show'             => null,

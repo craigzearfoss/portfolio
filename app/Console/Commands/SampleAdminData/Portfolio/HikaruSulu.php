@@ -164,21 +164,21 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Hands Up',       'artist' => 'Ron Liberti',              'slug' => 'hands-up-by-by-ron-liberti',                                      'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null ],
-            [ 'name' => 'Inside Out',     'artist' => 'Ron Liberti',              'slug' => 'inside-out-by-by-ron-liberti',                                    'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1464447723872-J7GVW0O5Y1WJYDBIV76Q/InsideOut.JPG?format=750w',   'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null ],
-            [ 'name' => 'Sgt. Pepper\'s Lonely Hearts Club Band', 'artist' => 'Peter Blake',              'slug' => 'sgt-peppers-lonely-hearts-club-band-by-peter-blake',           'summary' => null, 'year' => 1967, 'featured' => 0, 'is_public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/article-2123734-003A1F8A00000258-74_964x911.jpg',                           'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null ],
-            [ 'name' => 'The Hunters in the Snow (Winter)',       'artist' => 'Pieter Bruegel the Elder', 'slug' => 'the-hunters-in-the-snow-(winter)-by-pieter-bruegel-the-elder', 'summary' => null, 'year' => 1565, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Pieter_the_Elder_Bruegel/paintings-wm/bruegel001.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Postage Due',    'artist' => 'Kevin Dixon',              'slug' => 'postage-due-by-by-kevin-dixon',                                   'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                                                    'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
-            [ 'name' => '(untitled)',     'artist' => 'Wes Freed',                'slug' => '(untitled-5)-by-wes-freed',                                    'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg',       'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null ],
+            [ 'name' => 'Hands Up',                               'artist' => 'Ron Liberti',              'slug' => 'hands-up-by-by-ron-liberti',                                   'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null ],
+            [ 'name' => 'Inside Out',                             'artist' => 'Ron Liberti',              'slug' => 'inside-out-by-by-ron-liberti',                                 'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1464447723872-J7GVW0O5Y1WJYDBIV76Q/InsideOut.JPG?format=750w',   'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null ],
+            [ 'name' => 'Sgt. Pepper\'s Lonely Hearts Club Band', 'artist' => 'Peter Blake',              'slug' => 'sgt-peppers-lonely-hearts-club-band-by-peter-blake',           'summary' => null, 'art_year' => 1967, 'featured' => 0, 'is_public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/article-2123734-003A1F8A00000258-74_964x911.jpg',                           'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null ],
+            [ 'name' => 'The Hunters in the Snow (Winter)',       'artist' => 'Pieter Bruegel the Elder', 'slug' => 'the-hunters-in-the-snow-(winter)-by-pieter-bruegel-the-elder', 'summary' => null, 'art_year' => 1565, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Pieter_the_Elder_Bruegel/paintings-wm/bruegel001.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Postage Due',                            'artist' => 'Kevin Dixon',              'slug' => 'postage-due-by-by-kevin-dixon',                                'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                                                    'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
+            [ 'name' => '(untitled)',                             'artist' => 'Wes Freed',                'slug' => '(untitled-5)-by-wes-freed',                                    'summary' => null, 'art_year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg',       'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
                 'summary'     => null,
-                'year'        => 2025,
+                'art_year'    => 2025,
                 'featured'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -215,7 +215,7 @@ class HikaruSulu extends Command
                 'podcast'           => 0,
                 'source_recording'  => 0,
                 'audio_date'        => null,
-                'year'              => null,
+                'audio_year'        => null,
                 'company'           => null,
                 'credit'            => null,
                 'show'              => 0,
@@ -241,11 +241,11 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Hollywood Walk of Fame',                          'slug' => 'hollywood-walk-of-fame',                         'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 1986, 'organization' => null, 'is_public' => 1 ],
-            [ 'name' => 'Order of the Rising Sun, Gold Rays with Rosette', 'slug' => 'order-of-the-rising-sun-gold-rays-with-rosette', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'year' => 2004, 'organization' => 'Japan', 'is_public' => 1 ],
-            [ 'name' => 'GLAAD Vito Russo Award',                          'slug' => 'glaad-vito-russo-award',                         'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 2014, 'organization' => 'Gay & Lesbian Alliance Against Defamation', 'is_public' => 1 ],
-            [ 'name' => 'LGBT Humanist Award',                             'slug' => 'lgbt-humanist-award',                            'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 2012, 'organization' => 'American Humanist Association', 'is_public' => 1 ],
-            [ 'name' => 'Doctorate of Humane Letters',                     'slug' => 'doctorate-of-humane-letters-from-ucla',          'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 2016, 'organization' => 'California State University, Los Angeles', 'is_public' => 1 ],
+            [ 'name' => 'Hollywood Walk of Fame',                          'slug' => 'hollywood-walk-of-fame',                         'category' => null, 'nominated_work' => null, 'featured' => 0, 'award_year' => 1986, 'organization' => null, 'is_public' => 1 ],
+            [ 'name' => 'Order of the Rising Sun, Gold Rays with Rosette', 'slug' => 'order-of-the-rising-sun-gold-rays-with-rosette', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'award_year' => 2004, 'organization' => 'Japan', 'is_public' => 1 ],
+            [ 'name' => 'GLAAD Vito Russo Award',                          'slug' => 'glaad-vito-russo-award',                         'category' => null, 'nominated_work' => null, 'featured' => 0, 'award_year' => 2014, 'organization' => 'Gay & Lesbian Alliance Against Defamation', 'is_public' => 1 ],
+            [ 'name' => 'LGBT Humanist Award',                             'slug' => 'lgbt-humanist-award',                            'category' => null, 'nominated_work' => null, 'featured' => 0, 'award_year' => 2012, 'organization' => 'American Humanist Association', 'is_public' => 1 ],
+            [ 'name' => 'Doctorate of Humane Letters',                     'slug' => 'doctorate-of-humane-letters-from-ucla',          'category' => null, 'nominated_work' => null, 'featured' => 0, 'award_year' => 2016, 'organization' => 'California State University, Los Angeles', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -255,7 +255,7 @@ class HikaruSulu extends Command
                 'featured'        => 0,
                 'summary'         => null,
                 'date_received'   => null,
-                'year'            => null,
+                'award_year'      => null,
                 'organization'    => null,
                 'link'            => null,
                 'link_name'       => null,
@@ -281,19 +281,19 @@ class HikaruSulu extends Command
         $data = [
             /*
             [
-                'name'            => '',
-                'slug'            => '',
-                'featured'        => 0,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '0000-00-00',
-                'certificate_url' => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
-                'is_public'          => 1,
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 0,
+                'summary'          => null,
+                'organization'     => null,
+                'academy_id'       => 3,
+                'certificate_year' => 2023,
+                'received'         => '0000-00-00',
+                'certificate_url'  => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -317,7 +317,7 @@ class HikaruSulu extends Command
                 'slug'            => 'pcap-python-certification-course',
                 'completed'       => 1,
                 'completion_date' => '2017-10-02',
-                'year'            => 2017,
+                'course_year'     => 2017,
                 'duration_hours'  => 1.3,
                 'academy_id'      => 4,
                 'instructor'      => 'Lydia Halie',
@@ -334,7 +334,7 @@ class HikaruSulu extends Command
                 'slug'            => '',
                 'completed'       => 1,
                 'completion_date' => null,
-                'year'            => null,
+                'course_year'     => null,
                 'duration_hours'  => 0,
                 'academy_id'      => null,
                 'instructor'      => null,
@@ -534,7 +534,7 @@ class HikaruSulu extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ]
             */
         ];
@@ -555,10 +555,10 @@ class HikaruSulu extends Command
         $data = [
             /*
             [
-                'job_id'   => $this->jobId[1],
-                'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
-                'sequence' => 0,
-                'is_public'   => 1,
+                'job_id'    => $this->jobId[1],
+                'summary'   => 'Upgraded to modern PHP and Vue.js frameworks.',
+                'sequence'  => 0,
+                'is_public' => 1,
             ],
             */
         ];
@@ -585,7 +585,7 @@ class HikaruSulu extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/George_Takei',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Wikipedia',
@@ -595,7 +595,7 @@ class HikaruSulu extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Hikaru_Sulu',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'Wikipedia (List of Star Trek: The Original Series cast members)',
@@ -605,7 +605,7 @@ class HikaruSulu extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/List_of_Star_Trek:_The_Original_Series_cast_members',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'IMDb (Star Trek TV show)',
@@ -615,7 +615,7 @@ class HikaruSulu extends Command
                 'url'         => 'https://www.imdb.com/title/tt0060028/fullcredits/',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             /*
             [
@@ -626,7 +626,7 @@ class HikaruSulu extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             */
         ];
@@ -647,20 +647,20 @@ class HikaruSulu extends Command
         $data = [
             /*
             [
-                'owner_id'          => $this->adminId,
-                'name'              => null,
-                'slug'              => null,
-                'featured'          => 0,
-                'summary'           => null,
-                'year'              => null,
-                'credit'            => null,
-                'model'             => null,
-                'location'          => null,
-                'copyright'         => null,
-                'link'              => null,
-                'link_name'         => null,
-                'image'             => null,
-                'is_public'            => 1,
+                'owner_id'   => $this->adminId,
+                'name'       => null,
+                'slug'       => null,
+                'featured'   => 0,
+                'summary'    => null,
+                'photo_year' => null,
+                'credit'     => null,
+                'model'      => null,
+                'location'   => null,
+                'copyright'  => null,
+                'link'       => null,
+                'link_name'  => null,
+                'image'      => null,
+                'is_public'  => 1,
             ]
             */
         ];
@@ -679,19 +679,19 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Pressure Drop',             'artist' => 'The Clash',     'slug' => 'pressure-drop-by-the-clash',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Do How Girls Like Chords?', 'artist' => 'KNOWER',        'slug' => 'do-how-girls-like-chords-by-knower', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'KNOWER MUSIC',    'catalog_number' => null, 'year' => 2023, 'release_date' => '2023-06-02', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ois3gfcwKSA?si=6LFqok8QSZXn_HZ_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ois3gfcwKSA?si=NOYHfzRMhpaMcFB_', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Timebomb',                  'artist' => 'Old 97\'s',     'slug' => 'timebomb-by-old-97s',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'year' => 1997, 'release_date' => '1997-06-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Perfect Day',               'artist' => 'Lou Reed',      'slug' => 'perfect-day-by-lou-reed',            'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record',      'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Killer-Tune',               'artist' => 'Tokyo Jihen',   'slug' => 'killer-tune-by-tokyo-jihen',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Start',                     'artist' => 'The Jam',       'slug' => 'start-by-the-jam',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vI8AOkbfgNE?si=elM-E8CQsf69L-qN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vI8AOkbfgNE?si=90nzouKw8N3gqmx8', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Premature Rejection',       'artist' => 'Pacifica',      'slug' => 'premature-rejection-by-pacifica',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2023, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Me And The Boys',           'artist' => 'NRBQ',          'slug' => 'me-and-the-boys-by-nrbq',            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uuDHObqo99g?si=miNcriynbchibddV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uuDHObqo99g?si=miNcriynbchibddV', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'There Was a Time',          'artist' => 'Ginger Root',   'slug' => 'there-was-a-time-by-ginger-root',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2eUf4rWtxLU?si=Eht2mBc3dwx4IvK9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2eUf4rWtxLU?si=2Stc9oPVQoaa3b80', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Get Rhythm',                'artist' => 'NRBQ',          'slug' => 'get-rhythm-by-nrbq',                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MLXAQFTAjVw?si=T4aiTTEI6z_UqOdZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MLXAQFTAjVw?si=T4aiTTEI6z_UqOdZ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'When You\'re Ugly',         'artist' => 'Louis Cole',    'slug' => 'when-youre-ugly-by-louis-cole',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2018, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vS4NxiURhEw?si=wvudbar_HDN7hXZe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vS4NxiURhEw?si=wvudbar_HDN7hXZe', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Rockin\' Bones',            'artist' => 'Ronnie Dawson', 'slug' => 'rockin-bones-by-ronnie-dawson',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1959, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lIGtGj0VJcg?si=3nh7Dz4lFz9t7cdx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lIGtGj0VJcg?si=3nh7Dz4lFz9t7cdx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Queen for a Day',           'artist' => 'Tuscadero',     'slug' => 'queen-for-a-day-by-tuscadero',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Pressure Drop',             'artist' => 'The Clash',     'slug' => 'pressure-drop-by-the-clash',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Do How Girls Like Chords?', 'artist' => 'KNOWER',        'slug' => 'do-how-girls-like-chords-by-knower', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'KNOWER MUSIC',    'catalog_number' => null, 'music_year' => 2023, 'release_date' => '2023-06-02', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ois3gfcwKSA?si=6LFqok8QSZXn_HZ_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ois3gfcwKSA?si=NOYHfzRMhpaMcFB_', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Timebomb',                  'artist' => 'Old 97\'s',     'slug' => 'timebomb-by-old-97s',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'music_year' => 1997, 'release_date' => '1997-06-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Perfect Day',               'artist' => 'Lou Reed',      'slug' => 'perfect-day-by-lou-reed',            'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record',      'catalog_number' => null, 'music_year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Killer-Tune',               'artist' => 'Tokyo Jihen',   'slug' => 'killer-tune-by-tokyo-jihen',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Start',                     'artist' => 'The Jam',       'slug' => 'start-by-the-jam',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vI8AOkbfgNE?si=elM-E8CQsf69L-qN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vI8AOkbfgNE?si=90nzouKw8N3gqmx8', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Premature Rejection',       'artist' => 'Pacifica',      'slug' => 'premature-rejection-by-pacifica',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 2023, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xXHW9gQjUJI?si=a4Bh3IAtPRDZVp5U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Me And The Boys',           'artist' => 'NRBQ',          'slug' => 'me-and-the-boys-by-nrbq',            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uuDHObqo99g?si=miNcriynbchibddV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uuDHObqo99g?si=miNcriynbchibddV', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'There Was a Time',          'artist' => 'Ginger Root',   'slug' => 'there-was-a-time-by-ginger-root',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2eUf4rWtxLU?si=Eht2mBc3dwx4IvK9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2eUf4rWtxLU?si=2Stc9oPVQoaa3b80', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Get Rhythm',                'artist' => 'NRBQ',          'slug' => 'get-rhythm-by-nrbq',                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MLXAQFTAjVw?si=T4aiTTEI6z_UqOdZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MLXAQFTAjVw?si=T4aiTTEI6z_UqOdZ', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'When You\'re Ugly',         'artist' => 'Louis Cole',    'slug' => 'when-youre-ugly-by-louis-cole',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 2018, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vS4NxiURhEw?si=wvudbar_HDN7hXZe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vS4NxiURhEw?si=wvudbar_HDN7hXZe', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Rockin\' Bones',            'artist' => 'Ronnie Dawson', 'slug' => 'rockin-bones-by-ronnie-dawson',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'music_year' => 1959, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lIGtGj0VJcg?si=3nh7Dz4lFz9t7cdx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lIGtGj0VJcg?si=3nh7Dz4lFz9t7cdx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Queen for a Day',           'artist' => 'Tuscadero',     'slug' => 'queen-for-a-day-by-tuscadero',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'music_year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -703,7 +703,7 @@ class HikaruSulu extends Command
                 'track'          => 1,
                 'label'          => null,
                 'catalog_number' => null,
-                'year'           => 2012,
+                'music_year'     => 2012,
                 'release_date'   => null,
                 'embed'          => null,
                 'audio_url'      => null,
@@ -735,7 +735,7 @@ class HikaruSulu extends Command
                 'slug'             => '',
                 'featured'         => 0,
                 'summary'          => null,
-                'year'             => 2016,
+                'project_year'     => 2016,
                 'language'         => null,
                 'language_version' => null,
                 'repository_url'   => null,
@@ -858,7 +858,7 @@ class HikaruSulu extends Command
                 'clip'             => 1,
                 'public_access'    => 0,
                 'source_recording' => 0,
-                'year'             => 2020,
+                'video_year'       => 2020,
                 'company'          => null,
                 'credit'           => null,
                 'show'             => null,

@@ -164,16 +164,16 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Starry Night', 'artist' => 'Vincent van Gogh', 'slug' => 'starry-night-by-vincent-van-gogh', 'summary' => null, 'year' => 1889, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh001.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'Starry Night', 'artist' => 'Vincent van Gogh', 'slug' => 'starry-night-by-vincent-van-gogh', 'summary' => null, 'art_year' => 1889, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh001.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
                 'summary'     => null,
-                'year'        => 2025,
+                'art_year'    => 2025,
                 'featured'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -210,7 +210,7 @@ class DwightSchrute extends Command
                 'podcast'           => 0,
                 'source_recording'  => 0,
                 'audio_date'        => null,
-                'year'              => null,
+                'audio_year'        => null,
                 'company'           => null,
                 'credit'            => null,
                 'show'              => 0,
@@ -236,10 +236,10 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Writers Guild of America Award', 'slug' => '2009-writers-guild-of-america-award-for-best-comedy-variety-specials',                         'category' => 'Best Comedy/Variety – Specials',                            'nominated_work' => '23rd Independent Spirit Awards', 'featured' => 0, 'year' => 2009, 'organization' => 'Writers Guild of America', 'is_public' => 1 ],
-            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2008-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-comedy-series', 'category' => 'Outstanding Performance by an Ensemble in a Comedy Series', 'nominated_work' => null,                             'featured' => 0, 'year' => 2008, 'organization' => 'Screen Actors Guild', 'is_public' => 1 ],
-            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2004-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-drama-series',  'category' => 'Outstanding Performance by an Ensemble in a Drama Series',  'nominated_work' => 'Six Feet Under',                 'featured' => 0, 'year' => 2004, 'organization' => 'Screen Actors Guild', 'is_public' => 1 ],
-            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2007-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-comedy-series', 'category' => 'Outstanding Performance by an Ensemble in a Comedy Series', 'nominated_work' => 'Six Feet Under',                 'featured' => 0, 'year' => 2007, 'organization' => 'Screen Actors Guild', 'is_public' => 1 ],
+            [ 'name' => 'Writers Guild of America Award', 'slug' => '2009-writers-guild-of-america-award-for-best-comedy-variety-specials',                         'category' => 'Best Comedy/Variety – Specials',                            'nominated_work' => '23rd Independent Spirit Awards', 'featured' => 0, 'award_year' => 2009, 'organization' => 'Writers Guild of America', 'is_public' => 1 ],
+            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2008-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-comedy-series', 'category' => 'Outstanding Performance by an Ensemble in a Comedy Series', 'nominated_work' => null,                             'featured' => 0, 'award_year' => 2008, 'organization' => 'Screen Actors Guild', 'is_public' => 1 ],
+            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2004-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-drama-series',  'category' => 'Outstanding Performance by an Ensemble in a Drama Series',  'nominated_work' => 'Six Feet Under',                 'featured' => 0, 'award_year' => 2004, 'organization' => 'Screen Actors Guild', 'is_public' => 1 ],
+            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2007-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-comedy-series', 'category' => 'Outstanding Performance by an Ensemble in a Comedy Series', 'nominated_work' => 'Six Feet Under',                 'featured' => 0, 'award_year' => 2007, 'organization' => 'Screen Actors Guild', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -249,12 +249,12 @@ class DwightSchrute extends Command
                 'featured'        => 0,
                 'summary'         => null,
                 'date_received'   => null,
-                'year'            => null,
+                'award_year'      => null,
                 'organization'    => null,
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
             ],
             */
         ];
@@ -275,19 +275,19 @@ class DwightSchrute extends Command
         $data = [
             /*
             [
-                'name'            => '',
-                'slug'            => '',
-                'featured'        => 0,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '0000-00-00',
-                'certificate_url' => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
-                'is_public'          => 1,
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 0,
+                'summary'          => null,
+                'organization'     => null,
+                'academy_id'       => 3,
+                'certificate_year' => 2023,
+                'received'         => '0000-00-00',
+                'certificate_url'  => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -306,17 +306,17 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'Learn Game Development with JavaScript',        'slug' => 'learn-game-development-with-javascript',       'completed' => 1, 'completion_date' => '2023-09-01', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 8, 'instructor' => 'Frank Dvorak', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/learn-game-development-with-javascript/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Make your own animated 2D games' ],
-            [ 'name' => 'React Challenges',                              'slug' => 'react-challenges',                             'completed' => 1, 'completion_date' => '2017-09-15', 'year' => 2017, 'duration_hours' => 9.8,  'academy_id' => 6, 'instructor' => 'Daniel Rose',  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-challenges-c02n',                            'link_name' => null, 'is_public' => 1, 'summary' => 'Transform your coding skills and unlock your success through real-world problem-solving across 40 immersive challenges.' ],
-            [ 'name' => 'The Frontend Developer Career Path',            'slug' => 'the-frontend-developer-career-path',           'completed' => 1, 'completion_date' => '2019-07-21', 'year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                'link_name' => null, 'is_public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
-            [ 'name' => 'Vue.js 3 Masterclass: Build 7 Real-World Apps', 'slug' => 'vue.js-3-masterclass-build-7-real-world-apps', 'completed' => 1, 'completion_date' => '2017-09-09', 'year' => 2017, 'duration_hours' => 15.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-in-action/',                          'link_name' => null, 'is_public' => 1, 'summary' => 'Master Vue 3 & the Composition API by building 7 production-ready apps and launching your frontend developer career!' ],
+            [ 'name' => 'Learn Game Development with JavaScript',        'slug' => 'learn-game-development-with-javascript',       'completed' => 1, 'completion_date' => '2023-09-01', 'course_year' => 2023, 'duration_hours' => 3,    'academy_id' => 8, 'instructor' => 'Frank Dvorak', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/learn-game-development-with-javascript/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Make your own animated 2D games' ],
+            [ 'name' => 'React Challenges',                              'slug' => 'react-challenges',                             'completed' => 1, 'completion_date' => '2017-09-15', 'course_year' => 2017, 'duration_hours' => 9.8,  'academy_id' => 6, 'instructor' => 'Daniel Rose',  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-challenges-c02n',                            'link_name' => null, 'is_public' => 1, 'summary' => 'Transform your coding skills and unlock your success through real-world problem-solving across 40 immersive challenges.' ],
+            [ 'name' => 'The Frontend Developer Career Path',            'slug' => 'the-frontend-developer-career-path',           'completed' => 1, 'completion_date' => '2019-07-21', 'course_year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                'link_name' => null, 'is_public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
+            [ 'name' => 'Vue.js 3 Masterclass: Build 7 Real-World Apps', 'slug' => 'vue.js-3-masterclass-build-7-real-world-apps', 'completed' => 1, 'completion_date' => '2017-09-09', 'course_year' => 2017, 'duration_hours' => 15.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-in-action/',                          'link_name' => null, 'is_public' => 1, 'summary' => 'Master Vue 3 & the Composition API by building 7 production-ready apps and launching your frontend developer career!' ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
                 'completed'       => 1,
                 'completion_date' => null,
-                'year'            => null,
+                'course_year'     => null,
                 'duration_hours'  => 0,
                 'academy_id'      => null,
                 'instructor'      => null,
@@ -416,7 +416,7 @@ class DwightSchrute extends Command
                 'longitude'              => -75.6621294,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ],
             /*
             [
@@ -494,7 +494,7 @@ class DwightSchrute extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ]
             */
         ];
@@ -515,10 +515,10 @@ class DwightSchrute extends Command
         $data = [
             /*
             [
-                'job_id'   => $this->jobId[1],
-                'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
-                'sequence' => 0,
-                'is_public'   => 1,
+                'job_id'    => $this->jobId[1],
+                'summary'   => 'Upgraded to modern PHP and Vue.js frameworks.',
+                'sequence'  => 0,
+                'is_public' => 1,
             ],
             */
         ];
@@ -545,7 +545,7 @@ class DwightSchrute extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Rainn_Wilson',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'    => 1,
             ],
             [
                 'name'        => 'IMDb (The Office TV show)',
@@ -555,7 +555,7 @@ class DwightSchrute extends Command
                 'url'         => 'https://www.imdb.com/title/tt0386676/',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             [
                 'name'        => 'LinkedIn (Dunder-Mifflin)',
@@ -565,7 +565,7 @@ class DwightSchrute extends Command
                 'url'         => 'https://www.linkedin.com/company/dunder-mifflin-scranton/',
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'    => 1,
             ],
             /*
             [
@@ -576,7 +576,7 @@ class DwightSchrute extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'is_public'      => 1,
+                'is_public'   => 1,
             ],
             */
         ];
@@ -597,20 +597,20 @@ class DwightSchrute extends Command
         $data = [
             /*
             [
-                'owner_id'          => $this->adminId,
-                'name'              => null,
-                'slug'              => null,
-                'featured'          => 0,
-                'summary'           => null,
-                'year'              => null,
-                'credit'            => null,
-                'model'             => null,
-                'location'          => null,
-                'copyright'         => null,
-                'link'              => null,
-                'link_name'         => null,
-                'image'             => null,
-                'is_public'            => 1,
+                'owner_id'   => $this->adminId,
+                'name'       => null,
+                'slug'       => null,
+                'featured'   => 0,
+                'summary'    => null,
+                'photo_year' => null,
+                'credit'     => null,
+                'model'      => null,
+                'location'   => null,
+                'copyright'  => null,
+                'link'       => null,
+                'link_name'  => null,
+                'image'      => null,
+                'is_public'  => 1,
             ]
             */
         ];
@@ -629,12 +629,12 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Bad Word For A Good Thing',     'artist' => 'The Friggs',      'slug' => 'bad-word-for-a-good-thing-by-the-friggs',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'year' => 1997, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Let It Be',                     'artist' => 'The Beatles',     'slug' => 'let-it-be-by-the-beatles',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/egCy1KoE1Ss?si=lz7-zITN539d48Z9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/egCy1KoE1Ss?si=lz7-zITN539d48Z9', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Timebomb',                      'artist' => 'Old 97\'s',       'slug' => 'timebomb-by-old-97s',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null,   'year' => 1997, 'release_date' => '1997-06-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Dunga (Old Dying Millionaire)', 'artist' => 'Zen Frisbee',     'slug' => 'dunga-(old-dying-millionaire)-by-zen-frisbee', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'What Is Life',                  'artist' => 'George Harrison', 'slug' => 'what-is-life-by-george-harrison',              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/fiH9edd25Bc?si=VmSSB-7meR0EQtmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/fiH9edd25Bc?si=VmSSB-7meR0EQtmE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
-            [ 'name' => 'Fraidy Cat',                    'artist' => 'Zen Frisbee',     'slug' => 'fraidy-cat-by-zen-frisbee',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Flavor-Contra',   'catalog_number' => '0000', 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Bu9iMLMtCkc?si=Ebgipdq5KGC0jX84" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Bu9iMLMtCkc?si=Ebgipdq5KGC0jX84', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Bad Word For A Good Thing',     'artist' => 'The Friggs',      'slug' => 'bad-word-for-a-good-thing-by-the-friggs',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'music_year' => 1997, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Let It Be',                     'artist' => 'The Beatles',     'slug' => 'let-it-be-by-the-beatles',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/egCy1KoE1Ss?si=lz7-zITN539d48Z9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/egCy1KoE1Ss?si=lz7-zITN539d48Z9', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Timebomb',                      'artist' => 'Old 97\'s',       'slug' => 'timebomb-by-old-97s',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null,   'music_year' => 1997, 'release_date' => '1997-06-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/is83WB7Ue1Y?si=00hRVMl8XH6eSwCE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Dunga (Old Dying Millionaire)', 'artist' => 'Zen Frisbee',     'slug' => 'dunga-(old-dying-millionaire)-by-zen-frisbee', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'music_year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/E_nb4eVpAvU?si=12wmRDjjB0o3U1IS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'What Is Life',                  'artist' => 'George Harrison', 'slug' => 'what-is-life-by-george-harrison',              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'music_year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/fiH9edd25Bc?si=VmSSB-7meR0EQtmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/fiH9edd25Bc?si=VmSSB-7meR0EQtmE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Fraidy Cat',                    'artist' => 'Zen Frisbee',     'slug' => 'fraidy-cat-by-zen-frisbee',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Flavor-Contra',   'catalog_number' => '0000', 'music_year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Bu9iMLMtCkc?si=Ebgipdq5KGC0jX84" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Bu9iMLMtCkc?si=Ebgipdq5KGC0jX84', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -646,7 +646,7 @@ class DwightSchrute extends Command
                 'track'          => 1,
                 'label'          => null,
                 'catalog_number' => null,
-                'year'           => 2012,
+                'music_year'     => 2012,
                 'release_date'   => null,
                 'embed'          => null,
                 'audio_url'      => null,
@@ -678,13 +678,13 @@ class DwightSchrute extends Command
                 'slug'             => '',
                 'featured'         => 0,
                 'summary'          => null,
-                'year'             => 2016,
+                'project_year'     => 2016,
                 'language'         => null,
                 'language_version' => null,
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'is_public'           => 1,
+                'is_public'        => 1,
             ],
             */
         ];
@@ -796,7 +796,7 @@ class DwightSchrute extends Command
                 'clip'             => 1,
                 'public_access'    => 0,
                 'source_recording' => 0,
-                'year'             => 2020,
+                'video_year'       => 2020,
                 'company'          => null,
                 'credit'           => null,
                 'show'             => null,
