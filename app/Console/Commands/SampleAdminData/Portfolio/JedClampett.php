@@ -240,7 +240,7 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Disney Legend', 'slug' => 'disney-legend', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'year' => 1993, 'organization' => 'Disney', 'is_public' => 1 ],
+            [ 'name' => 'Disney Legend', 'slug' => 'disney-legend', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'award_year' => 1993, 'organization' => 'Disney', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
