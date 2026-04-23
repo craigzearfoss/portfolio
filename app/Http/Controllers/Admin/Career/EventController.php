@@ -108,7 +108,7 @@ class EventController extends BaseAdminController
             $event['id'],
             'admin.career.event.show',
             $this->owner ?? null,
-            [ 'event_date', 'desc' ]
+            [ 'event_datetime', 'desc' ]
         );
 
         return view('admin.career.event.show', compact('event', 'prev', 'next'));

@@ -599,7 +599,7 @@ class Application extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'application_id')
-            ->orderBy('event_date', 'desc');
+            ->orderBy('event_datetime', 'desc');
     }
 
     /**

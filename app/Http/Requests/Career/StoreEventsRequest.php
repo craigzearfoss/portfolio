@@ -54,8 +54,7 @@ class StoreEventsRequest extends StoreAppBaseRequest
                     ->get()->pluck('id')->toArray())
             ],
             'name'           => ['required', 'string', 'max:255'],
-            'event_date'     => ['date_format:Y-m-d', 'nullable'],
-            'event_time'     => ['date_format:H:i:s', 'nullable'],
+            'event_datetime' => ['date_format:Y-m-d H:i:s', 'nullable'],
             'location'       => ['string', 'max:255', 'nullable'],
             'attendees'      => ['string', 'max:500', 'nullable'],
             'notes'          => ['nullable'],
