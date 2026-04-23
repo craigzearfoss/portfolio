@@ -1,4 +1,9 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $photo            = $photo ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('Photography: ' . $photo->name, $owner->name);
     $subtitle = $title;
 
@@ -64,10 +69,10 @@
                 </tr>
             @endif
 
-            @if(!empty($photo->year))
+            @if(!empty($photo->photo_year))
                 <tr>
                     <th>year:</th>
-                    <td>{{ $photo->year }}</td>
+                    <td>{{ $photo->photo_year }}</td>
                 </tr>
             @endif
 

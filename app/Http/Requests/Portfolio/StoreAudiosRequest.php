@@ -74,7 +74,7 @@ class StoreAudiosRequest extends StoreAppBaseRequest
             'podcast'           => ['integer', 'between:0,1'],
             'source_recording'  => ['integer', 'between:0,1'],
             'date'              => ['date', 'nullable'],
-            'year'              => ['integer', 'between:1980,' . date("Y"), 'nullable'],
+            'audio_year'        => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'company'           => ['string', 'max:255', 'nullable'],
             'credit'            => ['nullable'],
             'show'              => ['string', 'max:255', 'nullable'],

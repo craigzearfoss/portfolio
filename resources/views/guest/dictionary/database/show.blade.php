@@ -1,4 +1,7 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $database = $database ?? null;
+
     $title    = 'Dictionary: ' . $database->name;
     $subtitle = $title;
 

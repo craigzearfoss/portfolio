@@ -61,8 +61,8 @@
                         <th>company</th>
                         <th>phone</th>
                         <th>email</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -78,8 +78,8 @@
                         <th>company</th>
                         <th>phone</th>
                         <th>email</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -114,10 +114,10 @@
                         <td data-field="email" style="white-space: nowrap;">
                             {!! $contact->email !!}
                         </td>
-                        <td data-field="is_public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $contact->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $contact->is_disabled ])
                         </td>
                         <td class="is-1">

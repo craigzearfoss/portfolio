@@ -97,10 +97,10 @@
                                 {{ $music->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $music->name !!}{!! !empty($music->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="artist">
+                        <td data-field="artist" style="white-space: nowrap;">
                             {!! $music->artist !!}
                         </td>
                         <td data-field="music_year" class="hide-at-900">

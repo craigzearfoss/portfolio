@@ -91,11 +91,11 @@ class Communication extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        //'application_id|asc'          => 'application id',
+        'application_id|asc'          => 'application',
         'company_name|asc'            => 'company',
         'application_apply_date|desc' => 'date applied',
+        'application_close_date|desc' => 'date closed',
         'application_post_date|desc'  => 'date posted',
-        'communication_type_id|asc'   => 'type',
         'created_at|desc'             => 'datetime created',
         'updated_at|desc'             => 'datetime updated',
         'communication_datetime|desc' => 'datetime',
@@ -112,6 +112,7 @@ class Communication extends Model
         'sequence|asc'                => 'sequence',
         'subject|asc'                 => 'subject',
         'to|asc'                      => 'to',
+        'communication_type_id|asc'   => 'type',
     ];
 
     /**
@@ -119,8 +120,8 @@ class Communication extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'application_id', 'body', 'communication_datetime', 'is_disabled', 'from', 'is_public', 'role', 'to', ],
-        'guest' => [ 'application_id', 'body', 'communication_datetime', 'from', 'role', 'to', ]
+        'admin' => [ 'application_id', 'communication_datetime', 'from', 'subject', 'to', 'communication_type_id', ],
+        'guest' => [ 'application_id', 'communication_datetime', 'from', 'subject', 'to', 'communication_type_id', ],
     ];
 
     /**

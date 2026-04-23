@@ -67,7 +67,7 @@
                             @include('admin.components.column-heading', [ 'name' => 'artist', 'class' => $className ])
                         </th>
                         <th>
-                            @include('admin.components.column-heading', [ 'name' => 'art_year', 'class' => $className ])
+                            @include('admin.components.column-heading', [ 'name' => 'year', 'class' => $className ])
                         </th>
                         <th class="has-text-centered">
                             @include('admin.components.column-heading', [ 'name' => 'public', 'class' => $className ])
@@ -106,7 +106,7 @@
                                 {{ $art->owner->username }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $art->name !!}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="artist">

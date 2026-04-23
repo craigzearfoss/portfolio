@@ -1,5 +1,7 @@
 @php
+    use App\Models\Career\Application;
     use App\Models\Career\Note;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\Note';
     $admin       = $admin ?? null;
@@ -61,10 +63,9 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        @if(!empty($application))
-                            <th>application</th>
-                        @endif
+                        <th>application</th>
                         <th>subject</th>
+                        <th>body</th>
                         <th>created at</th>
                         <th>actions</th>
                     </tr>
@@ -77,10 +78,9 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        @if(!empty($application))
-                            <th>application</th>
-                        @endif
+                        <th>application</th>
                         <th>subject</th>
+                        <th>body</th>
                         <th>created at</th>
                         <th>actions</th>
                     </tr>
@@ -97,18 +97,25 @@
                                 {{ $note->owner->username ?? '' }}
                             </td>
                         @endif
-                        @if(!empty($application))
-                            <td data-field="application_id">
+                        <td data-field="application_id" style="white-space: nowrap;">
+                            @if(!empty($application))
                                 @include('admin.components.link', [
                                     'name' => $note->application->name ,
                                     'href' => route('admin.career.application.show',
-                                                    \App\Models\Career\Application::find($note->application->id)
+                                                    Application::find($note->application->id)
                                               )
                                 ])
-                            </td>
-                        @endif
+                            @endif
+                        </td>
                         <td data-field="subject" style="white-space: nowrap;">
                             {!! $note->subject !!}
+                        </td>
+                        <td data-field="body">
+                            @if(strlen($note->subject) > 200)
+                                {!! substr($note->subject, 0, 200) !!}...
+                            @else
+                                {!! $note->subject !!}
+                            @endif
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">
                             {{ shortDateTime($note->created_at) }}
@@ -170,7 +177,7 @@
 
                     <tr>
                         @php
-                            $colspan = $isRootAdmin ? '4' : '3';
+                            $colspan = $isRootAdmin ? '6' : '5';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">No notes found.</td>

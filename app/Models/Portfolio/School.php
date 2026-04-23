@@ -115,8 +115,8 @@ class School extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'name', 'state', ],
-        'guest' => [ 'name', 'state' ],
+        'admin' => [ 'name', 'state_name', ],
+        'guest' => [ 'name', 'state_name' ],
     ];
 
     /**
@@ -169,7 +169,7 @@ class School extends Model
 
         // join to states table
         $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id')
-            ->addSelect(DB::Raw('states.code as state_id'))
+            ->addSelect(DB::Raw('states.code as state_code'))
             ->addSelect(DB::Raw('states.name as state_name'));
 
         // add additional filters

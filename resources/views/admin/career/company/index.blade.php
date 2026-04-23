@@ -89,10 +89,10 @@
                                 {{ $company->owner->username }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $company->name !!}
                         </td>
-                        <td data-field="industry.name">
+                        <td data-field="industry.name" style="white-space: nowrap;">
                             {!! $company->industry->name ?? '' !!}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">

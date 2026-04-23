@@ -98,7 +98,7 @@
                                 {{ $certificate->owner->username }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $certificate->name !!}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="academy.name">

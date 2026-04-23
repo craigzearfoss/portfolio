@@ -60,7 +60,7 @@
                         <th>name</th>
                         <th>category</th>
                         <th>level (out of 10)</th>
-                        <th>years</th>
+                        <th class="has-text-centered">years</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -77,7 +77,7 @@
                         <th>name</th>
                         <th>category</th>
                         <th>level (out of 10)</th>
-                        <th>years</th>
+                        <th class="has-text-centered">years</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -96,10 +96,9 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}
-                            {!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="dictionary_category_id">
+                        <td data-field="dictionary_category_id" style="white-space: nowrap;">
                              @if(!empty($skill->category->name))
                                  {!! $skill->category->name !!}
                              @endif

@@ -92,10 +92,10 @@
                                 {{ $link->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('admin.components.link', [
                                 'name'   => $link->url,
                                 'href'   => $link->url,

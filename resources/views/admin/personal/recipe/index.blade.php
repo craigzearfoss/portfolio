@@ -95,7 +95,7 @@
                                 {{ $recipe->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $recipe->name !!}{!! !empty($recipe->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="types">
@@ -104,7 +104,7 @@
                         <td data-field="meals">
                             {!! implode(', ', $recipe->meals()) !!}
                         </td>
-                        <td data-field="author" class="hide-at-750">
+                        <td data-field="author" class="hide-at-750" style="white-space: nowrap;">
                             {{ $recipe->author }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

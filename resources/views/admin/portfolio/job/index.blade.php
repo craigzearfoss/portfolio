@@ -98,7 +98,7 @@
                                 {{ $job->owner->username }}
                             </td>
                         @endif
-                        <td data-field="company">
+                        <td data-field="company" style="white-space: nowrap;">
                             {!! $job->company !!}{!! !empty($job->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="logo_small">
@@ -111,11 +111,11 @@
                         <td data-field="role">
                             {!! $job->role !!}
                         </td>
-                        <td data-field="start_date" class="has-text-right" style="white-space: nowrap;">
-                            {{ !empty($job->start_date) ? Carbon::parse($job->start_date)->format("M j, Y") : '' }}
+                        <td data-field="start_date" class="has-text-centered" style="white-space: nowrap;">
+                            {{ !empty($job->start_date) ? Carbon::parse($job->start_date)->format("M Y") : '' }}
                         </td>
-                        <td data-field="end_date" class="has-text-right" style="white-space: nowrap;">
-                            {{ !empty($job->end_date) ? Carbon::parse($job->end_date)->format("M j, Y") : '' }}
+                        <td data-field="end_date" class="has-text-centered" style="white-space: nowrap;">
+                            {{ !empty($job->end_date) ? Carbon::parse($job->end_date)->format("M Y") : '' }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $job->is_public ])

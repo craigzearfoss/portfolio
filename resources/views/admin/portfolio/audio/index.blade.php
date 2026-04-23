@@ -59,7 +59,7 @@
                         @endif
                         <th>name</th>
                         <th>type</th>
-                        <th>year(</th>
+                        <th>year</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -93,7 +93,7 @@
                                 {{ $audio->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $audio->name !!}{!! !empty($audio->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="clip|podcast">

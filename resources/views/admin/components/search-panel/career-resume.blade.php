@@ -8,7 +8,9 @@
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $is_public       = $is_public ?? request()->query('is_public');
     $name            = $name ?? request()->query('name');
+    $primary         = $primary ?? request()->query('primary');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Resume::SEARCH_ORDER_BY[0], Resume::SEARCH_ORDER_BY[1] ]);
@@ -21,7 +23,7 @@
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-controls" style="width: 25rem;">
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
@@ -66,13 +68,20 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.primary')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'primary',
+                            'value'    => 1,
+                            'checked'  => $primary,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.public')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'is_public',
+                            'label'    => 'public',
+                            'value'    => 1,
+                            'checked'  => $is_public,
+                            'nohidden' => true,
+                        ])
 
                     </div>
 

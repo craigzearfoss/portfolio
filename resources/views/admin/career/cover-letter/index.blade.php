@@ -55,7 +55,7 @@
                         <th>role</th>
                         <th style="white-space: nowrap;">apply date</th>
                         <th class="has-text-centered">active</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -71,7 +71,7 @@
                         <th>role</th>
                         <th style="white-space: nowrap;">apply date</th>
                         <th class="has-text-centered">active</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -99,7 +99,7 @@
                         <td data-field="application.active" data-field="" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $coverLetter->application->active ?? 0 ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $coverLetter->is_disabled ])
                         </td>
                         <td class="is-1">

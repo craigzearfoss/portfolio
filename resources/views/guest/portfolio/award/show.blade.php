@@ -1,5 +1,10 @@
 @php
-    $title    = $pageTitle ?? filteredPageTitle('Award: ' . $award->name . (!empty($award->year) ? ' - ' . $award->year : ''), $owner->name);
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $award            = $award ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
+    $title    = $pageTitle ?? filteredPageTitle('Award: ' . $award->name . (!empty($award->award_year) ? ' - ' . $award->award_year : ''), $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -59,10 +64,10 @@
                 </tr>
             @endif
 
-            @if(!empty($award->year))
+            @if(!empty($award->award_year))
                 <tr>
                     <th>year:</th>
-                    <td>{{ $award->year }}</td>
+                    <td>{{ $award->award_year }}</td>
                 </tr>
             @endif
 

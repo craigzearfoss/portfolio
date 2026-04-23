@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('awards', $owner->name);
     $subtitle = $title;
 
@@ -88,7 +92,7 @@
                             {!! $award->nominated_work !!}
                         </td>
                         <td class="has-text-centered">
-                            {!! $award->year !!}
+                            {!! $award->award_year !!}
                         </td>
                         <td class="hide-at-1300">
                             {!! $award->organization !!}

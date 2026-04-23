@@ -94,10 +94,10 @@
                                 {{ $project->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $project->name !!}{!! !empty($project->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="language">
+                        <td data-field="language" style="white-space: nowrap;">
                             {!! !empty($project->language)
                                 ? $project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : '')
                                 : ''
@@ -106,7 +106,7 @@
                         <td data-field="project_year">
                             {!! $project->project_year !!}
                         </td>
-                        <td data-field="repository_url">
+                        <td data-field="repository_url" style="white-space: nowrap;">
                             @if(!empty($project->repository_url))
                                 @include('admin.components.link', [
                                     'name'   => $project->repository_name ?? '',
@@ -141,10 +141,10 @@
                                     ])
                                 @endif
 
-                                @if (!empty($project->link))
+                                @if (!empty($project->repository_url))
                                     @include('admin.components.link-icon', [
-                                        'title'  => !empty($project->link_name) ? $project->link_name : 'link',
-                                        'href'   => $project->link,
+                                        'title'  => !empty($project->repository_url) ? $project->repository_url : 'link',
+                                        'href'   => $project->repository_url,
                                         'icon'   => 'fa-external-link',
                                         'target' => '_blank'
                                     ])

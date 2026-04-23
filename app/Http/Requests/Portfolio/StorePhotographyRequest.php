@@ -55,7 +55,7 @@ class StorePhotographyRequest extends StoreAppBaseRequest
             ],
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
-            'year'         => ['integer', 'between:1900,' . date("Y"), 'nullable'],
+            'photo_year'   => ['integer', 'between:1900,' . date("Y"), 'nullable'],
             'credit'       => ['string', 'max:255', 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],

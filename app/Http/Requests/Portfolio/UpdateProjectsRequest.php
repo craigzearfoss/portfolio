@@ -70,7 +70,7 @@ class UpdateProjectsRequest extends UpdateAppBaseRequest
             ],
             'featured'         => ['integer', 'between:0,1'],
             'summary'          => ['string', 'max:500', 'nullable'],
-            'year'             => ['integer', 'between:1980,' . date("Y"), 'nullable'],
+            'project_year'     => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'language'         => ['string', 'max:50', 'nullable'],
             'language_version' => ['string', 'max:20', 'nullable'],
             'repository_url'   => ['string', 'max:255', 'nullable'],

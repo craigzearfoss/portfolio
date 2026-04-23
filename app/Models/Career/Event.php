@@ -89,16 +89,17 @@ class Event extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        //'application_id|asc'         => 'application id',
+        'application_id|asc'          => 'application',
         'attendees|asc'               => 'attendees',
         'company_name|asc'            => 'company',
         'application_apply_date|desc' => 'date applied',
+        'application_close_date|desc' => 'date closed',
         'application_post_date|desc'  => 'date posted',
+        'event_datetime|desc'         => 'datetime',
         'created_at|desc'             => 'datetime created',
         'updated_at|desc'             => 'datetime updated',
         'is_demo|desc'                => 'demo',
         'is_disabled|desc'            => 'disabled',
-        'event_datetime|desc'         => 'event datetime',
         'id|asc'                      => 'id',
         'location|asc'                => 'location',
         'name|asc'                    => 'name',
@@ -116,7 +117,7 @@ class Event extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'application_id', 'attendees', 'event_datetime', 'is_disabled', 'location', 'name', 'is_public', ],
+        'admin' => [ 'application_id', 'attendees', 'event_datetime', 'location', 'name', ],
         'guest' => [ 'application_id', 'attendees', 'event_datetime', 'location', 'name', ]
     ];
 

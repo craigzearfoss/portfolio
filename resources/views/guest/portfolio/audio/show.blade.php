@@ -1,4 +1,9 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $audio            = $audio ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('Audio: ' . $audio->name, $owner->name);
     $subtitle = $title;
 
@@ -118,10 +123,10 @@
                 </tr>
             @endif
 
-            @if(!empty($audio->year))
+            @if(!empty($audio->audio_year))
                 <tr>
                     <th>year:</th>
-                    <td>{{ $audio->year }}</td>
+                    <td>{{ $audio->audio_year }}</td>
                 </tr>
             @endif
 

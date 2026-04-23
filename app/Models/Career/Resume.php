@@ -127,7 +127,7 @@ class Resume extends Model
         'is_public|desc'     => 'public',
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
-        'sequence|asc'     => 'sequence',
+        'sequence|asc'       => 'sequence',
     ];
 
     /**
@@ -135,8 +135,8 @@ class Resume extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'publication', 'publisher', 'title', 'is_public', 'year', ],
-        'guest' => [ 'publication', 'publisher', 'title', 'year', ],
+        'admin' => [ /*'is_disabled',*/ 'resume_date', 'name', 'is_public', ],
+        'guest' => [ 'resume_date', 'name', 'is_public', ],
     ];
 
     /**
@@ -323,9 +323,6 @@ class Resume extends Model
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
-
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'career_db');
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

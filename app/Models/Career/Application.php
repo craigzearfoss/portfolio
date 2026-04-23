@@ -125,7 +125,7 @@ class Application extends Model
     /**
      * This is the default sort order for searches.
      */
-    const array SEARCH_ORDER_BY = [ 'post_date', 'desc' ];
+    const array SEARCH_ORDER_BY = [ 'apply_date', 'desc' ];
 
     /**
      * These are the options in the sort select list on the search panel.
@@ -163,10 +163,10 @@ class Application extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'active', 'city', 'company_name', 'wage_rate', 'date_applied', 'is_disabled', 'job_location_type',
+        'admin' => [ 'active', 'city', 'company_name', 'wage_rate', 'apply_date', 'is_disabled', 'job_location_type',
             'rating', 'role', 'state_name', 'is_public', 'job_employment_type' ],
-        'guest' => [ 'active', 'company_name', 'wage_rate', 'date_applied', 'job_location_type', 'rating', 'role',
-            'state_name', 'job_employment_type', 'year', ],
+        'guest' => [ 'active', 'company_name', 'wage_rate', 'apply_date', 'job_location_type', 'rating', 'role',
+            'state_name', 'job_employment_type', ],
     ];
 
     /**

@@ -1,5 +1,4 @@
 @php
-
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className        = 'App\Models\Portfolio\Art';
     $owner            = $owner ?? null;
@@ -93,7 +92,7 @@
                             {!! $art->artist !!}
                         </td>
                         <td class="has-text-centered hide-at-480">
-                            {!! $art->year !!}
+                            {!! $art->art_year !!}
                         </td>
                     </tr>
 

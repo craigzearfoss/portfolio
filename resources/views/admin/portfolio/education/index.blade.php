@@ -64,7 +64,6 @@
                         <th>school</th>
                         <th class="has-text-centered">enrolled</th>
                         <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">grad.<br>month</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>
@@ -83,7 +82,6 @@
                         <th>school</th>
                         <th class="has-text-centered">enrolled</th>
                         <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">grad.<br>month</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>
@@ -103,7 +101,7 @@
                         <td data-field="degreeType.name">
                             {!! $education->degreeType->name ?? '' !!}
                         </td>
-                        <td data-field="major">
+                        <td data-field="major" style="white-space: nowrap;">
                             {!! $education->major !!}{!! !empty($education->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="minor">
@@ -114,9 +112,6 @@
                         </td>
                         <td data-field="enrollment_date" class="has-text-centered">
                             {{ !empty($education->enrollment_date) ? Carbon::parse($education->enrollment_date)->format("M y") : '' }}
-                        </td>
-                        <td data-field="graduated" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $education->graduated ])
                         </td>
                         <td data-field="graduation_date" class="has-text-centered">
                             {{ !empty($education->graduation_date) ? Carbon::parse($education->graduation_date)->format("M y") : '' }}
@@ -181,7 +176,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">No education found.</td>
+                        <td colspan="{{ $isRootAdmin ? '9' : '8' }}">No education found.</td>
                     </tr>
 
                 @endforelse

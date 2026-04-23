@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('videos', $owner->name);
     $subtitle = $title;
 
@@ -74,7 +78,7 @@
                             ])
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-480">
-                            {!! $video->year !!}
+                            {!! $video->video_year !!}
                         </td>
                         <td data-field="show" class="hide-at-600">
                             {!! $video->show !!}

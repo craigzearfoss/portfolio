@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $user             = $user ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ??  !empty($user->name) ? $user->name : $user->username;
     $subtitle = $title;
 

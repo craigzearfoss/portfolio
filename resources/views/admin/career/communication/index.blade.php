@@ -67,6 +67,8 @@
                         @endif
                         <th>type</th>
                         <th>subject</th>
+                        <th>to</th>
+                        <th>from</th>
                         <th>datetime</th>
                         <th>actions</th>
                     </tr>
@@ -84,6 +86,8 @@
                         @endif
                         <th>type</th>
                         <th>subject</th>
+                        <th>to</th>
+                        <th>from</th>
                         <th>datetime</th>
                         <th>actions</th>
                     </tr>
@@ -101,7 +105,7 @@
                             </td>
                         @endif
                         @if(empty($application))
-                            <td data-field="application_id">
+                            <td data-field="application_id" style="white-space: nowrap;">
                                 @include('admin.components.link', [
                                     'name' => $communication->application->name ?? '',
                                     'href' => route('admin.career.application.show',
@@ -115,6 +119,12 @@
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
                             {!! $communication->subject !!}
+                        </td>
+                        <td data-field="to">
+                            {!! $communication->to !!}
+                        </td>
+                        <td data-field="from">
+                            {!! $communication->from !!}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
                             {{ shortDateTime($communication->communication_datetime) }}

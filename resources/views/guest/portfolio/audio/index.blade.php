@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('audio', $owner->name);
     $subtitle = $title;
 
@@ -80,7 +84,7 @@
                             {!! implode(', ', $types) !!}
                         </td>
                         <td data-field="year" class="hide-at-480">
-                            {!! $audio->year !!}
+                            {!! $audio->audio_year !!}
                         </td>
                     </tr>
 

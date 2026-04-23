@@ -63,7 +63,7 @@ class UpdateArtRequest extends UpdateAppBaseRequest
             ],
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
-            'year'         => ['integer', 'between:-2000,'.date("Y"), 'nullable'],
+            'art_year'     => ['integer', 'between:-2000,'.date("Y"), 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],

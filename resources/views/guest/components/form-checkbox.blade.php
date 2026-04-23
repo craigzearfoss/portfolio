@@ -1,7 +1,7 @@
 @php
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
 @endphp
-<div class="field">
+<div class="field mb-0">
     <div class="control">
         <label class="label" for="{{ $id }}">
             @if(empty($nohidden))

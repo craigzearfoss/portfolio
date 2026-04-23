@@ -91,7 +91,7 @@ class JobCoworker extends Model
         'owner_name', 'owner_username', 'owner_email',
         'role',
         'company_name',
-        'coworker_title'
+        'coworker_title',
     ];
 
     /**
@@ -119,6 +119,7 @@ class JobCoworker extends Model
         'is_disabled|desc'   => 'disabled',
         'featured|desc'      => 'featured',
         'id|asc'             => 'id',
+        'level_id|asc'       => 'level',
         'name|asc'           => 'name',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
@@ -134,8 +135,8 @@ class JobCoworker extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'company_name', 'is_disabled', 'level', 'name', 'is_public', ],
-        'guest' => [ 'company_name', 'level', 'name', ],
+        'admin' => [ 'company_name', 'is_disabled', 'level_id', 'name', 'is_public', ],
+        'guest' => [ 'company_name', 'level_id', 'name', ],
     ];
 
     /**
@@ -243,6 +244,8 @@ class JobCoworker extends Model
         $query->join( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id')
             ->addSelect(DB::Raw('jobs.company as company_name'))
             ->addSelect(DB::Raw('jobs.role as role'));
+
+        // join to
 
         // add additional filters
         $query = $this->appendPhoneFilters($query, $filters);

@@ -51,8 +51,8 @@
                         <th>name</th>
                         <th class="has-text-centered">primary</th>
                         <th>coverage area</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -64,8 +64,8 @@
                         <th>name</th>
                         <th class="has-text-centered">primary</th>
                         <th>coverage area</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -76,7 +76,7 @@
                 @forelse ($jobBoards as $jobBoard)
 
                     <tr data-id="{{ $jobBoard->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $jobBoard->name !!}
                         </td>
                         <td data-field="primary" class="has-text-centered">
@@ -85,10 +85,10 @@
                         <td data-field="international|national|regional|local" style="white-space: nowrap;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
                         </td>
-                        <td data-field="is_public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->is_disabled ])
                         </td>
                         <td class="is-1">

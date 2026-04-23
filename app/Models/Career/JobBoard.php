@@ -138,8 +138,7 @@ class JobBoard extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
                 } else {

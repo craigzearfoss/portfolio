@@ -57,7 +57,7 @@ class StoreAwardsRequest extends StoreAppBaseRequest
             ],
             'featured'       => ['integer', 'between:0,1'],
             'summary'        => ['string', 'max:500', 'nullable'],
-            'year'           => ['integer', 'between:1900,'.date("Y"), 'nullable'],
+            'award_year'     => ['integer', 'between:1900,'.date("Y"), 'nullable'],
             'received'       => ['date', 'nullable'],
             'organization'   => ['string', 'max:255', 'nullable'],
             'notes'          => ['nullable'],

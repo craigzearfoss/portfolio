@@ -121,7 +121,7 @@ class Music extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'catalog number', 'is_disabled', 'label', 'name', 'is_public', 'music_year', ],
+        'admin' => [ 'artist', 'catalog_number', 'is_disabled', 'label', 'name', 'is_public', 'music_year', ],
         'guest' => [ 'artist', 'catalog_number','label', 'name', 'music_year', ],
     ];
 

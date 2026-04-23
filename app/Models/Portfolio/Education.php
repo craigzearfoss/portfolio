@@ -115,8 +115,8 @@ class Education extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'degree', 'enrollment_date', 'expiration', 'graduated', 'graduation_date', 'major', 'minor', 'school_name', ],
-        'guest' => [ 'degree', 'graduation_date', 'major', 'school_name', ],
+        'admin' => [ 'degree_type_name', 'enrollment_date', 'expiration', 'graduated', 'graduation_date', 'major', 'minor', 'school_name', ],
+        'guest' => [ 'degree_type_name', 'graduation_date', 'major', 'school_name', ],
     ];
 
     /**

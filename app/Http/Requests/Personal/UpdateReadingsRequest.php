@@ -63,7 +63,6 @@ class UpdateReadingsRequest extends UpdateAppBaseRequest
             ],
             'featured'         => ['integer', 'between:0,1'],
             'summary'          => ['string', 'max:500', 'nullable'],
-            'year'             => ['integer', 'between:-3000,' . date("Y"), 'nullable'],
             'publication_year' => ['integer', 'between:-3000,' . date("Y"), 'nullable'],
             'fiction'          => ['integer', 'between:0,1'],
             'nonfiction'       => ['integer', 'between:0,1'],

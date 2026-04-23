@@ -63,9 +63,9 @@ class StoreResumesRequest extends StoreAppBaseRequest
                         ->where('resume_date', $this['resume_date']);
                 })
             ],
-            'date'  => ['date', 'nullable'],
+            'date'         => ['date', 'nullable'],
             'primary'      => ['integer', 'between:0,1'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'resume_date'  => ['integer', 'between:0,3000', 'nullable'],
             'doc_filepath' => ['string', 'max:500', 'nullable'],
             'pdf_filepath' => ['string', 'max:500', 'nullable'],
             'content'      => ['nullable'],

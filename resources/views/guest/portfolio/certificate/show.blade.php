@@ -1,4 +1,9 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $certificate      = $certificate ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('Certificate: ' . $certificate->name, $owner->name);
     $subtitle = $title;
 
@@ -52,10 +57,10 @@
                 </tr>
             @endif
 
-            @if(!empty($certificate->year))
+            @if(!empty($certificate->certificate_year))
                 <tr>
                     <th>year:</th>
-                    <td>{{ $certificate->year }}</td>
+                    <td>{{ $certificate->certificate_year }}</td>
                 </tr>
             @endif
 

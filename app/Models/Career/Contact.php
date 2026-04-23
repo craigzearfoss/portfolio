@@ -124,6 +124,7 @@ class Contact extends Model
      */
     const array SORT_OPTIONS = [
         //'application_id|asc' => 'application id',
+        'company_name|asc'   => 'company',
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
@@ -148,8 +149,8 @@ class Contact extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'is_disabled', 'email', 'industry_name', 'name', 'is_public', 'state_id', ],
-        'guest' => [ 'city', 'email', 'industry_name', 'name', 'state_id', ],
+        'admin' => [ 'city', 'company_name', 'email', 'name', 'state_id', ],
+        'guest' => [ 'city', 'company_name', 'email', 'name', 'state_id', ],
     ];
 
     /**

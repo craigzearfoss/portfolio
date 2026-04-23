@@ -92,7 +92,7 @@
                                 {{ $jobTask->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="job.company">
+                        <td data-field="job.company" style="white-space: nowrap;">
                             @if($jobTask->job)
                                 {!! $jobTask->job->company ?? '' !!}{!! !empty($jobTask->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                             @endif

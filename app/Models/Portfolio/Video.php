@@ -126,7 +126,7 @@ class Video extends Model
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
         'show|asc'           => 'show',
-        'video_year|asc'           => 'year',
+        'video_year|asc'     => 'year',
     ];
 
     /**

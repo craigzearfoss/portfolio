@@ -50,7 +50,7 @@ class ResumeService {
         $this->awards = new Award()->where('owner_id', '=', $this->admin['id'])
             ->where('is_public', '=', 1)
             ->where('is_disabled', '=', 0)
-            ->orderBy('year')
+            ->orderBy('award_year')
             ->get();
 
         $this->certificates = new Certificate()->where('owner_id', '=', $this->admin['id'])

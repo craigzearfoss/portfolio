@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('projects', $owner->name);
     $subtitle = $title;
 
@@ -80,7 +84,7 @@
                             !!}
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-600">
-                            {!! $project->year !!}
+                            {!! $project->project_year !!}
                         </td>
                         <td data-field="year" class="hide-at-1024">
                             @if(!empty($project->repository_url))

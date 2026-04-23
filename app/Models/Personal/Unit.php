@@ -78,8 +78,8 @@ class Unit extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'publication', 'publisher', 'title', 'is_public', 'year', ],
-        'guest' => [ 'publication', 'publisher', 'title', 'year', ],
+        'admin' => [ 'abbreviation', 'name', 'sequence', ],
+        'guest' => [ 'abbreviation', 'name', 'sequence', ],
     ];
 
     /**

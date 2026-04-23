@@ -132,7 +132,16 @@ class Reference extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'state_name|asc'     => 'state',
+        'state_id|asc'       => 'state',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'city', /*'company_name',*/ 'email', 'name', 'phone', 'state_id', ],
+        'guest' => [ 'city', /*'company_name',*/ 'email', 'name', 'phone', 'state_id', ],
     ];
 
     /**
@@ -227,9 +236,6 @@ class Reference extends Model
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
-
-        // join to owner
-        $query = $this->addJoinToAdminTable($query, 'career_db');
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

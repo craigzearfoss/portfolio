@@ -90,6 +90,7 @@ class Reading extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
+        'audio|desc'           => 'audio',
         'author|asc'           => 'author',
         'created_at|desc'      => 'datetime created',
         'updated_at|desc'      => 'datetime updated',
@@ -100,12 +101,14 @@ class Reading extends Model
         'owner_id|asc'         => 'owner id',
         'owner_name|asc'       => 'owner name',
         'owner_username|asc'   => 'owner username',
+        'paper|desc'           => 'paper',
         'is_public|desc'       => 'public',
         'is_readonly|desc'     => 'read-only',
         'is_root|desc'         => 'root',
         'sequence|asc'         => 'sequence',
         'title|asc'            => 'title',
-        'publication_year|asc' => 'year',
+        'wishlist|desc'        => 'wishlist',
+        'publication_year|asc' => 'year published',
     ];
 
     /**
@@ -113,8 +116,8 @@ class Reading extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'author', 'is_disabled', 'published', 'title', 'is_public', 'year', ],
-        'guest' => [ 'author', 'published', 'title', 'year', ],
+        'admin' => [ 'author', 'is_disabled', 'published', 'title', 'is_public', 'publication_year', ],
+        'guest' => [ 'author', 'published', 'title', 'publication_year', ],
     ];
 
     /**

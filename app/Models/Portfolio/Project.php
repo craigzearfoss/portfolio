@@ -114,8 +114,8 @@ class Project extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'language', 'name', 'is_public', 'repository', 'project_year', ],
-        'guest' => [ 'language', 'name', 'repository', 'project_year', ],
+        'admin' => [ 'is_disabled', 'language', 'name', 'is_public', 'repository_url', 'project_year', ],
+        'guest' => [ 'language', 'name', 'repository_url', 'project_year', ],
     ];
 
     /**

@@ -108,63 +108,43 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            <div class="container control" style="width: 8rem;">
-                                @include('user.components.form-checkbox', [
-                                    'name'     => 'fiction',
-                                    'value'    => 1,
-                                    'checked'  => $fiction,
-                                    'nohidden' => true,
-                                ])
-                            </div>
-                        </div>
+                        @include('user.components.form-checkbox', [
+                            'name'     => 'fiction',
+                            'value'    => 1,
+                            'checked'  => $fiction,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            <div class="container control" style="width: 8rem;">
-                                @include('user.components.form-checkbox', [
-                                    'name'     => 'nonfiction',
-                                    'value'    => 1,
-                                    'checked'  => $nonfiction,
-                                    'nohidden' => true,
-                                ])
-                            </div>
-                        </div>
+                        @include('user.components.form-checkbox', [
+                            'name'     => 'nonfiction',
+                            'value'    => 1,
+                            'checked'  => $nonfiction,
+                            'nohidden' => true,
+                        ])
 
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            <div class="container control" style="width: 8rem;">
-                                @include('user.components.form-checkbox', [
-                                    'name'     => 'paper',
-                                    'value'    => 1,
-                                    'checked'  => $paper,
-                                    'nohidden' => true,
-                                ])
-                            </div>
-                        </div>
+                        @include('user.components.form-checkbox', [
+                            'name'     => 'paper',
+                            'value'    => 1,
+                            'checked'  => $paper,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            <div class="container control" style="width: 8rem;">
-                                @include('user.components.form-checkbox', [
-                                    'name'     => 'audio',
-                                    'value'    => 1,
-                                    'checked'  => $audio,
-                                    'nohidden' => true,
-                                ])
-                            </div>
-                        </div>
+                        @include('user.components.form-checkbox', [
+                            'name'     => 'audio',
+                            'value'    => 1,
+                            'checked'  => $audio,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            <div class="container control" style="width: 8rem;">
-                                @include('user.components.form-checkbox', [
-                                    'name'     => 'wishlist',
-                                    'value'    => 1,
-                                    'checked'  => $wishlist,
-                                    'nohidden' => true,
-                                ])
-                            </div>
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'wishlist',
+                            'value'    => 1,
+                            'checked'  => $wishlist,
+                            'nohidden' => true,
+                        ])
 
                     </div>
 

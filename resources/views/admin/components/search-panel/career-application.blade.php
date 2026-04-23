@@ -14,17 +14,22 @@
     $owner_id        = $owner->id ?? null;
     $applied_from    = $applied_from ?? request()->query('applied_from');
     $applied_to      = $applied_to ?? request()->query('applied_to');
+    $benefits        = $benefits ?? request()->query('benefits');
     $city            = $city ?? request()->query('city');
     $closed_from     = $closed_from ?? request()->query('closed_from');
     $closed_to       = $closed_to ?? request()->query('closed_to');
     $company_name    = $company_name ?? request()->query('company_name');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $health          = $health ?? request()->query('health');
     $posted_from     = $posted_from ?? request()->query('posted_from');
     $posted_to       = $posted_to ?? request()->query('posted_to');
+    $relocation      = $relocation ?? request()->query('relocation');
     $resume_name     = $resume_name ?? request()->query('resume_name');
     $role            = $role ?? request()->query('role');
     $wage_rate       = $wage_rate ?? request()->query('wage_rate');
+    $vacation        = $vacation ?? request()->query('vacation');
+    $w2              = $w2 ?? request()->query('w2');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Application::SEARCH_ORDER_BY[0], Application::SEARCH_ORDER_BY[1] ]);
@@ -152,25 +157,40 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-application-w2')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'w2',
+                            'value'    => 1,
+                            'checked'  => $w2,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-application-relocation')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'relocation',
+                            'value'    => 1,
+                            'checked'  => $relocation,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-application-benefits')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'benefits',
+                            'value'    => 1,
+                            'checked'  => $benefits,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-application-vacation')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'vacation',
+                            'value'    => 1,
+                            'checked'  => $vacation,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-application-health')
-                        </div>
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'health',
+                            'value'    => 1,
+                            'checked'  => $health,
+                            'nohidden' => true,
+                        ])
 
                     </div>
                     <div class="floating-div">

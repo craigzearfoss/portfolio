@@ -71,7 +71,7 @@
                         <th class="has-text-centered">date</th>
                         <th class="has-text-centered">primary</th>
                         <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -87,7 +87,7 @@
                         <th class="has-text-centered">date</th>
                         <th class="has-text-centered">primary</th>
                         <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -115,7 +115,7 @@
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resume->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $resume->is_disabled ])
                         </td>
                         <td class="is-1">

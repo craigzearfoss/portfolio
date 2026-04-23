@@ -58,13 +58,12 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            @include('user.components.search-panel.controls.primary')
-                        </div>
-
-                        <div class="search-form-control">
-                            @include('user.components.search-panel.controls.public')
-                        </div>
+                        @include('user.components.form-checkbox', [
+                            'name'     => 'primary',
+                            'value'    => 1,
+                            'checked'  => $primary,
+                            'nohidden' => true,
+                        ])
 
                     </div>
 

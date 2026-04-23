@@ -63,7 +63,7 @@ class StoreCoursesRequest extends StoreAppBaseRequest
             ],
             'featured'        => ['integer', 'between:0,1'],
             'summary'         => ['string', 'max:500', 'nullable'],
-            'year'            => ['integer', 'between:1980,' . date("Y"), 'nullable'],
+            'course_year'     => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'completed'       => ['integer', 'between:0,1'],
             'completion_date' => ['date', 'nullable'],
             'duration_hours'  => ['numeric', 'nullable'],

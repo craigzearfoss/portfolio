@@ -131,12 +131,12 @@ class StoreAppBaseRequest extends FormRequest
     {
         $baseName = match ($this->props['name']) {
             'art', 'music' => $this['name'] . (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
-            'award' => (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name']
+            'award' => (!empty($this['award_year']) ? $this['award_year'] . ' ': '') . $this['name']
                 . (!empty($this['category']) ? ' for ' . $this['category'] : ''),
             'job' => $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
             'publication' => $this['title'],
             'reading' => $this['title'] . (!empty($this['author']) ? ' by ' . $this['author'] : ''),
-            'resume' => !empty($this['date']) ? $this['date'] . '-' . $this['name'] : $this['name'],
+            'resume' => !empty($this['resume_date']) ? $this['resume_date'] . '-' . $this['name'] : $this['name'],
             'skill' =>  $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
             default => (isset($this['name']) && !empty($this['name'])) ? $this['name'] : 'no-name',
         };

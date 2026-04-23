@@ -141,25 +141,40 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application-w2')
-                        </div>
+                        @include('guest.components.form-checkbox', [
+                            'name'     => 'w2',
+                            'value'    => 1,
+                            'checked'  => $w2,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application-relocation')
-                        </div>
+                        @include('guest.components.form-checkbox', [
+                            'name'     => 'relocation',
+                            'value'    => 1,
+                            'checked'  => $relocation,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application-benefits')
-                        </div>
+                        @include('guest.components.form-checkbox', [
+                            'name'     => 'benefits',
+                            'value'    => 1,
+                            'checked'  => $benefits,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application-vacation')
-                        </div>
+                        @include('guest.components.form-checkbox', [
+                            'name'     => 'vacation',
+                            'value'    => 1,
+                            'checked'  => $vacation,
+                            'nohidden' => true,
+                        ])
 
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application-health')
-                        </div>
+                        @include('guest.components.form-checkbox', [
+                            'name'     => 'health',
+                            'value'    => 1,
+                            'checked'  => $health,
+                            'nohidden' => true,
+                        ])
 
                     </div>
                     <div class="floating-div">

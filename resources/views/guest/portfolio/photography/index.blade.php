@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title   = $pageTitle ?? filteredPageTitle('photography', $owner->name);
     $subtitle = $title;
 
@@ -75,7 +79,7 @@
                             {!! $photo->credit !!}
                         </td>
                         <td class="has-text-centered hide-at-750">
-                            {!! $photo->year !!}
+                            {!! $photo->photo_year !!}
                         </td>
                     </tr>
 

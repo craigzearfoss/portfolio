@@ -121,8 +121,8 @@ class Skill extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'category', 'is_disabled', 'level', 'name', 'is_public', 'years', ],
-        'guest' => [ 'category', 'level', 'name', 'years', ],
+        'admin' => [ 'dictionary_category_name', 'is_disabled', 'level', 'name', 'is_public', 'years', ],
+        'guest' => [ 'dictionary_category_name', 'level', 'name', 'years', ],
     ];
 
     const array TYPE = [

@@ -123,7 +123,16 @@ class Recruiter extends Model
         'is_readonly|desc'   => 'read-only',
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
-        'state_name|asc'     => 'state',
+        'state_id|asc'     => 'state',
+    ];
+
+    /**
+     * The sort fields that are displayed for different environments.
+     * For root admins in the admin area they see all possible sort field.s
+     */
+    const array SORT_FIELDS = [
+        'admin' => [ 'city', 'name', 'state_id', ],
+        'guest' => [ 'city', 'name', 'state_id',  ],
     ];
 
     /**
@@ -163,8 +172,7 @@ class Recruiter extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
                 } else {

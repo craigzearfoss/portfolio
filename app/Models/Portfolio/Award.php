@@ -113,8 +113,8 @@ class Award extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'award_year', ],
-        'guest' => [ 'artist', 'name', 'award_year' ],
+        'admin' => [ 'category', 'is_disabled', 'name', 'organization', 'is_public', 'award_year', ],
+        'guest' => [ 'category', 'name', 'organization', 'award_year' ],
     ];
 
     /**

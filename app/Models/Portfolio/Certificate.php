@@ -102,6 +102,7 @@ class Certificate extends Model
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
         'name|asc'             => 'name',
+        'organization|asc'     => 'organization',
         'owner_id|asc'         => 'owner id',
         'owner_name|asc'       => 'owner name',
         'owner_username|asc'   => 'owner username',

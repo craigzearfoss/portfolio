@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('music', $owner->name);
     $subtitle = $title;
 
@@ -79,7 +83,7 @@
                             {!! $music->artist !!}
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-600">
-                            {!! $music->year !!}
+                            {!! $music->music_year !!}
                         </td>
                         <td data-field="label" class="hide-at-750">
                             {!! $music->label !!}

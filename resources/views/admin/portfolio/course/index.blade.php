@@ -100,7 +100,7 @@
                                 {{ $course->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $course->name !!}{!! !empty($course->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="academy_id">
@@ -114,7 +114,7 @@
                         <td data-field="instructor">
                             {{ $course->instructor }}
                         </td>
-                        <td data-field="completion_date">
+                        <td data-field="completion_date" class="has-text-centered">
                             {{ shortDate($course->completion_date) }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

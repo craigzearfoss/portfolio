@@ -95,7 +95,7 @@
                                 {{ $award->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $award->name !!}{!! !empty($award->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                             <td data-field="category">

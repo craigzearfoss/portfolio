@@ -95,13 +95,13 @@
                                 {{ $jobCoworker->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $jobCoworker->name !!}{!! !empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="level">
                             {!! $jobCoworker->level !!}
                         </td>
-                        <td data-field="job.company">
+                        <td data-field="job.company" style="white-space: nowrap;">
                             @if($jobCoworker->job)
                                 {!! $jobCoworker->job->company ?? '' !!}
                             @endif

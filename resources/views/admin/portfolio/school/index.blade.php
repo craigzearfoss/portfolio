@@ -48,7 +48,7 @@
                     <thead>
                     <tr>
                         <th>name</th>
-                        <th>logo</th>
+                        <th style="display: none;">logo</th>
                         <th>state</th>
                         <th>actions</th>
                     </tr>
@@ -59,7 +59,7 @@
                     <tfoot>
                     <tr>
                         <th>name</th>
-                        <th>logo</th>
+                        <th style="display: none;">logo</th>
                         <th>state</th>
                         <th>actions</th>
                     </tr>
@@ -71,18 +71,18 @@
                 @forelse ($schools as $school)
 
                     <tr data-id="{{ $school->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $school->name !!}
                         </td>
-                        <td data-field="logo_small">
+                        <td data-field="logo_small" style="display: none;">
                             @include('admin.components.image', [
                                 'src'   => $school->logo_small,
                                 'alt'   => $school->name,
                                 'width' => '48px',
                             ])
                         </td>
-                        <td data-field="state">
-                            {!! $school->state['name'] ?? '' !!}
+                        <td data-field="state" style="white-space: nowrap;">
+                            {{ $school->state_name }}
                         </td>
                         <td class="is-1">
 

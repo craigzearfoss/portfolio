@@ -95,16 +95,16 @@
                                 {{ $video->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $video->name !!}{!! !empty($video->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="video_year">
+                        <td data-field="video_year" style="white-space: nowrap;">
                             {!! $video->video_year !!}
                         </td>
-                        <td data-field="show">
+                        <td data-field="show" style="white-space: nowrap;">
                             {!! $video->show !!}
                         </td>
-                        <td data-field="company">
+                        <td data-field="company" style="white-space: nowrap;">
                             {!! $video->company !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

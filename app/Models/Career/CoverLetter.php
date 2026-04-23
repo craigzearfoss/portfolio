@@ -95,9 +95,11 @@ class CoverLetter extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        //'application_id|asc'          => 'application id',
+        'application_active|desc'     => 'active',
+        'application_id|asc'          => 'application',
         'company_name|asc'            => 'company',
         'application_apply_date|desc' => 'date applied',
+        'application_close_date|desc' => 'date closed',
         'application_post_date|desc'  => 'date posted',
         'created_at|desc'             => 'datetime created',
         'updated_at|desc'             => 'datetime updated',
@@ -120,8 +122,8 @@ class CoverLetter extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'active', 'application_id', 'company_name', 'date_applied', 'is_disabled', 'is_public', 'role' ],
-        'guest' => [ 'active', 'application_id', 'company_name', 'date_applied', 'role' ]
+        'admin' => [ 'application_active', 'application_id', 'application_apply_date', 'company_name', 'date_applied', 'application_role' ],
+        'guest' => [ 'application_active', 'application_id', 'application_apply_date', 'company_name', 'date_applied', 'application_role' ]
     ];
 
     /**

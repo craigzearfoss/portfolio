@@ -61,8 +61,9 @@
                         <th>relation</th>
                         <th>phone</th>
                         <th>email</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>location</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -78,8 +79,9 @@
                         <th>relation</th>
                         <th>phone</th>
                         <th>email</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>location</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -98,19 +100,27 @@
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $reference->name !!}
                         </td>
-                        <td data-field="relation">
+                        <td data-field="relation" style="white-space: nowrap;">
                             {!! $reference->relation !!}
                         </td>
-                        <td data-field="name" style="white-space: nowrap;">
+                        <td data-field="phone" style="white-space: nowrap;">
                             {!! $reference->phone !!}
                         </td>
-                        <td data-field="name" style="white-space: nowrap;">
+                        <td data-field="email" style="white-space: nowrap;">
                             {!! $reference->email !!}
                         </td>
-                        <td data-field="is_public" class="has-text-centered">
+                        <td data-field="location" style="white-space: nowrap;">
+                            {!!
+                                formatLocation([
+                                    'city'    => $reference->city,
+                                    'state'   => $reference->state->code ?? '',
+                                ])
+                            !!}
+                        </td>
+                        <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $reference->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $reference->is_disabled ])
                         </td>
                         <td class="is-1">
@@ -170,7 +180,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No references found..</td>
+                        <td colspan="{{ $isRootAdmin ? '9' : '8' }}">No references found..</td>
                     </tr>
 
                 @endforelse

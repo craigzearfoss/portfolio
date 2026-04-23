@@ -87,12 +87,13 @@ class Note extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        //'application_id|asc'          => 'application id',
+        'application_id|asc'          => 'application',
+        'body|as       c'             => 'body',
         'company_name|asc'            => 'company',
+        'created_at|desc'             => 'created at',
         'application_apply_date|desc' => 'date applied',
+        'application_close_date|desc' => 'date closed',
         'application_post_date|desc'  => 'date posted',
-        'created_at|desc'             => 'datetime created',
-        'updated_at|desc'             => 'datetime updated',
         'is_demo|desc'                => 'demo',
         'is_disabled|desc'            => 'disabled',
         'id|asc'                      => 'id',
@@ -104,6 +105,7 @@ class Note extends Model
         'is_root|desc'                => 'root',
         'sequence|asc'                => 'sequence',
         'subject|asc'                 => 'subject',
+        'updated_at|desc'             => 'updated at',
     ];
 
     /**
@@ -111,8 +113,8 @@ class Note extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'application_id', 'body', 'created_at', 'is_disabled', 'is_public', 'subject', ],
-        'guest' => [ 'application_id', 'body', 'created_at', 'from', 'subject', ]
+        'admin' => [ 'application_id', 'body', 'created_at', 'subject', ],
+        'guest' => [ 'application_id', 'body', 'created_at', 'subject', ]
     ];
 
     /**

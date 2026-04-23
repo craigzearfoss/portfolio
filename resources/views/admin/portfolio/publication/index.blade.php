@@ -95,13 +95,13 @@
                                 {{ $publication->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="title">
+                        <td data-field="title" style="white-space: nowrap;">
                             {!! $publication->title !!}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="publication_name">
+                        <td data-field="publication_name" style="white-space: nowrap;">
                             {!! $publication->publication_name !!}
                         </td>
-                        <td data-field="publisher">
+                        <td data-field="publisher" style="white-space: nowrap;">
                             {!! $publication->publisher !!}
                         </td>
                         <td data-field="publication_year" class="has-text-centered">

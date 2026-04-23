@@ -1,4 +1,9 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $reading          = $reading ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title = $pageTitle ?? filteredPageTitle('Reading: ' .  $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''), $owner->name);
     $subtitle = $title;
 

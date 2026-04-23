@@ -63,7 +63,7 @@ class StoreMusicRequest extends StoreAppBaseRequest
             'track'          => ['integer', 'between:0,1'],
             'label'          => ['string', 'max:255', 'nullable'],
             'catalog_number' => ['string', 'max:50', 'nullable'],
-            'year'           => ['integer', 'between:1900,' . $maxYear, 'nullable'],
+            'music_year'     => ['integer', 'between:1900,' . $maxYear, 'nullable'],
             'release_date'   => ['date', 'nullable'],
             'embed'          => ['nullable'],
             'audio_url'      => ['string', 'max:500', 'nullable'],

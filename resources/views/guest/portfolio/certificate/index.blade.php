@@ -1,4 +1,8 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $title    = $pageTitle ?? filteredPageTitle('certificates', $owner->name);
     $subtitle = $title;
 
@@ -92,7 +96,7 @@
                             {!! $certificate->organization !!}
                         </td>
                         <td class="has-text-centered hide-at-600">
-                            {!! $certificate->year !!}
+                            {!! $certificate->certificate_year !!}
                         </td>
                         <td class="has-text-centered hide-at-1200">
                             {!! shortDate($certificate->received) !!}

@@ -1,4 +1,7 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $operatingSystem = $operatingSystem ?? null;
+
     $title    = 'Dictionary: ' . $operatingSystem->name;
     $subtitle = $title;
 

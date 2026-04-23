@@ -235,10 +235,10 @@
                                 {{ $application->owner->username }}
                             </td>
                         @endif
-                        <td data-field="name" style="display: none;">
+                        <td data-field="name" style="white-space: nowrap; display: none;">
                             {!! $application->name !!}
                         </td>
-                        <td data-field="company.name">
+                        <td data-field="company.name" style="white-space: nowrap;">
                             @if(!empty($application->company))
                                 @include('admin.components.link', [
                                     'name' => $application->company->name ?? '',
@@ -248,7 +248,7 @@
                                 ])
                             @endif
                         </td>
-                        <td data-field="role">
+                        <td data-field="role" style="white-space: nowrap;">
                             {{ $application->role }}
                         </td>
                         <td data-field="active" class="has-text-centered hide-at-1400">
@@ -264,7 +264,7 @@
                         <td data-field="apply_date" style="white-space: nowrap;">
                             {!! !empty($application->apply_date) ? date('M j, Y', strtotime($application->apply_date)) : '' !!}
                         </td>
-                        <td data-field="compensation" class="hide-at-1024">
+                        <td data-field="compensation" class="hide-at-1024" style="white-space: nowrap;">
                             {!!
                                 formatCompensation([
                                     'min'   => $application->compensation_min,

@@ -68,8 +68,9 @@
                         <th>name</th>
                         <th class="has-text-centered">datetime</th>
                         <th>location</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>attendees</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -85,8 +86,9 @@
                         <th>name</th>
                         <th class="has-text-centered">datetime</th>
                         <th>location</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>attendees</th>
+                        <th class="has-text-centered" style="display: none;">public</th>
+                        <th class="has-text-centered" style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -102,7 +104,7 @@
                                 {{ $event->owner->username }}
                             </td>
                         @endif
-                        <td data-field="application_id">
+                        <td data-field="application_id" style="white-space: nowrap;">
                             @include('admin.components.link', [
                                 'name' => $event->application->name ?? '',
                                 'href' => route('admin.career.application.show',
@@ -125,10 +127,13 @@
                         <td data-field="location" style="white-space: nowrap;">
                             {!! $event->location !!}
                         </td>
-                        <td data-field="is_public" class="has-text-centered">
+                        <td data-field="attendees" style="white-space: nowrap;">
+                            {!! $event->attendees !!}
+                        </td>
+                        <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $event->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $event->is_disabled ])
                         </td>
                         <td class="is-1">
@@ -187,7 +192,7 @@
 
                     <tr>
                         @php
-                            $colspan = $isRootAdmin ? '8' : '7';
+                            $colspan = $isRootAdmin ? '9' : '8';
                         @endphp
                         <td colspan="{{ $colspan }}">No events found.</td>
                     </tr>

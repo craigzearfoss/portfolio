@@ -1,4 +1,7 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $framework = $framework ?? null;
+
     $title   = 'Dictionary: ' . $framework->name;
     $subtitle = $title;
 
