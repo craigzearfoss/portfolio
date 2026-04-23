@@ -124,8 +124,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
-                'name'    => 'event_date',
-                'value'   => old('event_date') ?? '',
+                'name'    => 'event_datetime',
+                'label'   => 'event datetime',
+                'value'   => old('event_datetime') ?? '',
                 'message' => $message ?? '',
                 'style'   => 'width: 15rem;',
             ])

@@ -115,7 +115,7 @@
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $event->name !!}
                         </td>
-                        <td data-field="event_date" class="has-text-centered" style="white-space: nowrap;">
+                        <td data-field="event_datetime" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDateTime($event->event_datetime) }}
                         </td>
                         <td data-field="event_time" class="has-text-centered" style="white-space: nowrap;">

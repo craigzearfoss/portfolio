@@ -20,7 +20,7 @@
                 {!! $event->name !!}
             </td>
             <td class="has-text-centered">
-                {{ shortDate($event->event_date) }}
+                {{ shortDate($event->event_datetime) }}
             </td>
             <td class="has-text-centered">
                 {{ !empty($event->event_time)

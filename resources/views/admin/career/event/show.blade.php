@@ -81,7 +81,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'date',
-            'value' => longDate($event->event_date)
+            'value' => longDate($event->event_datetime)
         ])
 
         @include('admin.components.show-row', [
