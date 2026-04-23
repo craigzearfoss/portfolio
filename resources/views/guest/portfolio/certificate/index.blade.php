@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-certificate', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -74,14 +74,14 @@
                 @forelse ($certificates as $certificate)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $certificate->name,
                                 'href'  => route('guest.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
                                 'class' => $certificate->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @if(!empty($certificate->academy->link))
                                 {{ $certificate->academy->name }}
                             @else
@@ -92,7 +92,7 @@
                                 ])
                             @endif
                         </td>
-                        <td class="hide-at-900">
+                        <td class="hide-at-900" style="white-space: nowrap;">
                             {!! $certificate->organization !!}
                         </td>
                         <td class="has-text-centered hide-at-600">

@@ -218,7 +218,7 @@ class Recipe extends Model
             })
             ->when(!empty($filters['meal']), function ($query) use ($filters) {
                 if (in_array($filters['meal'], ['breakfast', 'dinner', 'lunch', 'snack'])) {
-                    $query->where($filters[$this->table . '.meal'], '=', true);
+                    $query->where($this->table . '.' . $filters['meal'], '=', true);
                 } else {
                     throw new Exception('Invalid recipe meal "' . $filters['meal'] . '" specified.'
                         . ' Valid relations are "breakfast", "dinner", "lunch", and "snack".');

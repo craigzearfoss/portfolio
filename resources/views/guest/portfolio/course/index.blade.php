@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-course', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -70,14 +70,14 @@
                 @forelse ($courses as $course)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $course->name,
                                 'href'  => route('guest.portfolio.course.show', [$owner, $course->slug]),
                                 'class' => $course->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @if(!empty($course->academy->link))
                                 {!! $course->academy->name !!}
                             @else
@@ -88,10 +88,10 @@
                                 ])
                             @endif
                         </td>
-                        <td class="hide-at-480">
+                        <td class="hide-at-480" style="white-space: nowrap;">
                             {!! $course->instructor !!}
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             {!! longDate($course->completion_date) !!}
                         </td>
                     </tr>

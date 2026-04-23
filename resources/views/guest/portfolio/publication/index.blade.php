@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-publication', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -70,17 +70,17 @@
                 @forelse ($publications as $publication)
 
                     <tr data-id="{{ $publication->id }}">
-                        <td data-field="title">
+                        <td data-field="title" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $publication->title,
                                 'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
                                 'class' => $publication->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="publication_name" class="hide-at-480">
+                        <td data-field="publication_name" class="hide-at-480" style="white-space: nowrap;">
                             {!! $publication->publication_name !!}
                         </td>
-                        <td data-field="publisher" class="hide-at-1200">
+                        <td data-field="publisher" class="hide-at-1200" style="white-space: nowrap;">
                             {!! $publication->publisher !!}
                         </td>
                         <td data-field="publication_year" class="has-text-centered hide-at-750">
@@ -100,9 +100,9 @@
 
             </table>
 
-                @if($pagination_bottom)
-                    {!! $publications->links('vendor.pagination.bulma') !!}
-                @endif
+            @if($pagination_bottom)
+                {!! $publications->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
 

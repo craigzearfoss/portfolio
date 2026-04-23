@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-project', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container" style="max-width: 60rem !important;">
 
         <div class="show-container card floating-div">
 
@@ -70,14 +70,14 @@
                 @forelse ($projects as $project)
 
                     <tr data-id="{{ $project->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $project->name,
                                 'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
                                 'class' => $project->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="language" class="has-text-centered">
+                        <td data-field="language" class="has-text-centered" style="white-space: nowrap;">
                             {!! !empty($project->language)
                                 ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                                 : ''
@@ -86,7 +86,7 @@
                         <td data-field="year" class="has-text-centered hide-at-600">
                             {!! $project->project_year !!}
                         </td>
-                        <td data-field="year" class="hide-at-1024">
+                        <td data-field="year" class="hide-at-1024" style="white-space: nowrap;">
                             @if(!empty($project->repository_url))
                                 @include('guest.components.link', [
                                     'name'   => $project->repository_name,

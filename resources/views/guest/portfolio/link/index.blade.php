@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-link', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -66,14 +66,14 @@
                 @forelse ($links as $link)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $link->name,
                                 'href'  => route('guest.portfolio.link.show', [$owner, $link->slug]),
                                 'class' => $link->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'   => $link->url,
                                 'href'   => $link->url,

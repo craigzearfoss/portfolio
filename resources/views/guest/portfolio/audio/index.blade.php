@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-audio', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -68,14 +68,14 @@
                 @forelse ($audios as $audio)
 
                     <tr data-id="{{ $audio->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $audio->name,
                                 'href'  => route('guest.portfolio.audio.show', [$owner, $audio->slug]),
                                 'class' => $audio->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="clip|podcast" class="hide-at-600">
+                        <td data-field="clip|podcast" class="hide-at-600" style="white-space: nowrap;">
                             @php
                                 $types = [];
                                 if ($audio->podcast) $types[] = 'podcast';

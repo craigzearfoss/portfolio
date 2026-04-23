@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-photography', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 50em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -68,14 +68,14 @@
                 @forelse ($photos as $photo)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $photo->name,
                                 'href'  => route('guest.portfolio.photography.show', [$owner, $photo->slug]),
                                 'class' => $photo->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td class="hide-at-480">
+                        <td class="hide-at-480" style="white-space: nowrap;">
                             {!! $photo->credit !!}
                         </td>
                         <td class="has-text-centered hide-at-750">
@@ -86,7 +86,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="2">No photos found.</td>
+                        <td colspan="3">No photos found.</td>
                     </tr>
 
                 @endforelse

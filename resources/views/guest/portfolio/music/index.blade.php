@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-music', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -72,23 +72,23 @@
                 @forelse ($musics as $music)
 
                     <tr data-id="{{ $music->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $music->name,
                                 'href'  => route('guest.portfolio.music.show', [$owner, $music->slug]),
                                 'class' => $music->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="artist">
+                        <td data-field="artist" style="white-space: nowrap;">
                             {!! $music->artist !!}
                         </td>
-                        <td data-field="year" class="has-text-centered hide-at-600">
+                        <td data-field="year" class="has-text-centered hide-at-600" style="white-space: nowrap;">
                             {!! $music->music_year !!}
                         </td>
-                        <td data-field="label" class="hide-at-750">
+                        <td data-field="label" class="hide-at-750" style="white-space: nowrap;">
                             {!! $music->label !!}
                         </td>
-                        <td data-field="catalog_number" class="hide-at-900">
+                        <td data-field="catalog_number" class="hide-at-900" style="white-space: nowrap;">
                             {!! $music->catalog_number !!}
                         </td>
                     </tr>

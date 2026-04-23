@@ -34,7 +34,7 @@
 
     @include('guest.components.search-panel.portfolio-art', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -81,14 +81,14 @@
                 @forelse ($arts as $art)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $art->name,
                                 'href'  => route('guest.portfolio.art.show', [$owner, $art->slug]),
                                 'class' => $art->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             {!! $art->artist !!}
                         </td>
                         <td class="has-text-centered hide-at-480">

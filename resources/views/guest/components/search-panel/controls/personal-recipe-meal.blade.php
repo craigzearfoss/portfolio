@@ -6,7 +6,7 @@
     $meals = [ '' => '' ];
 
     foreach (Recipe::MEALS as $key=>$value) {
-        $meals[$key] = $value;
+        $meals[$value] = $value;
     }
 @endphp
 <div class="control" style="max-width: 28rem;">

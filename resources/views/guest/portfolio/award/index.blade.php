@@ -33,7 +33,7 @@
 
     @include('guest.components.search-panel.portfolio-award', [ 'owner_id' => $owner->id ?? null ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -72,14 +72,14 @@
                 @forelse ($awards as $award)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $award->name,
                                 'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
                                 'class' => $award->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @if(!empty($award->category))
                                 @include('guest.components.link', [
                                     'name'  => $award->category,
@@ -88,13 +88,13 @@
                                 ])
                             @endif
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             {!! $award->nominated_work !!}
                         </td>
                         <td class="has-text-centered">
                             {!! $award->award_year !!}
                         </td>
-                        <td class="hide-at-1300">
+                        <td class="hide-at-1300" style="white-space: nowrap;">
                             {!! $award->organization !!}
                         </td>
                     </tr>

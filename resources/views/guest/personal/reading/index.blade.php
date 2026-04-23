@@ -78,24 +78,24 @@
                 @forelse ($readings as $reading)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $reading->title,
                                 'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
                                 'class' => $reading->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             {{ $reading->author }}
                         </td>
-                        <td data-field="fiction|nonfiction" class="hide-at-600">
+                        <td data-field="fiction|nonfiction" class="hide-at-600" style="white-space: nowrap;">
                             {{
                                 (!empty($reading->fiction) && !empty($reading->nonfiction))
                                     ? 'fiction/nonfiction'
                                     : (!empty($reading->fiction) ? 'fiction' : (!empty($reading->nonfiction) ? 'nonfiction' : ''))
                             }}
                         </td>
-                        <td data-field="publication_year" class="has-text-centered hide-at-600">
+                        <td data-field="publication_year" class="has-text-centered hide-at-600" style="white-space: nowrap;">
                             @if($reading->publication_year < 0)
                                 {{ abs($reading->publication_year) }} BCE
                             @else

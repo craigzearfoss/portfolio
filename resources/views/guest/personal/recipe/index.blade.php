@@ -33,7 +33,7 @@
         @endif
     @endif
 
-    <div class="floating-div-container" style="max-width: 70em !important;">
+    <div class="floating-div-container">
 
         <div class="show-container card floating-div">
 
@@ -70,20 +70,20 @@
                 @forelse ($recipes as $recipe)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => $recipe->name,
                                 'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
                                 'class' => $recipe->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="types">
+                        <td data-field="types" style="white-space: nowrap;">
                             {{ implode(', ', $recipe->types()) }}
                         </td>
-                        <td data-field="meals" class="hide-at-600">
+                        <td data-field="meals" class="hide-at-600" style="white-space: nowrap;">
                             {{ implode(', ', $recipe->meals()) }}
                         </td>
-                        <td data-field="author" class="hide-at-750">
+                        <td data-field="author" class="hide-at-750" style="white-space: nowrap;">
                             {{ $recipe->author }}
                         </td>
                     </tr>

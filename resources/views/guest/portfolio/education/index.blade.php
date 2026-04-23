@@ -66,7 +66,7 @@
                 @forelse ($educations as $education)
 
                     <tr>
-                        <td data-field="major">
+                        <td data-field="major" style="white-space: nowrap;">
                             @if($education->featured)
                                 <strong>
                                     {{ $education->major }}
@@ -81,13 +81,13 @@
                                 @endif
                             @endif
                         </td>
-                        <td data-field="degreeType.name">
+                        <td data-field="degreeType.name" style="white-space: nowrap;">
                             {{ $education->degreeType->name }}
                         </td>
-                        <td data-field="school.name">
+                        <td data-field="school.name" style="white-space: nowrap;">
                             {!! $education->school->name ?? '' !!}
                         </td>
-                        <td data-field="graduation_date" class="has-text-centered hide-at-480">
+                        <td data-field="graduation_date" class="has-text-centered hide-at-480" style="white-space: nowrap;">
                             @if(!empty($education->graduation_date))
                                 {{ Carbon::parse($education->graduation_date)->format("F y") }}
                             @endif
