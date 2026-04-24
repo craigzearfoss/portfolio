@@ -66,8 +66,12 @@ class SkillController extends BaseAdminController
 
         $skill = Skill::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.skill.show', $skill)
-            ->with('success', $skill['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $skill['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.skill.show', $skill)
+                ->with('success', $skill['name'] . ' successfully added.');
+        }
     }
 
     /**

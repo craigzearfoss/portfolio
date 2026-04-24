@@ -25,4 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (tabElement) {
         tabElement.click();
     }
+
+    // delete header message button
+    const headerMessageDeleteBtn= document.querySelector("div.message-header button.delete");
+    headerMessageDeleteBtn.addEventListener('click', () => {
+        console.log('The element was clicked!');
+        document.getElementById('header-message-div').remove();
+    });
 });

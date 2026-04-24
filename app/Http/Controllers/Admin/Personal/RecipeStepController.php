@@ -69,8 +69,12 @@ class RecipeStepController extends BaseAdminController
 
         $recipeStep = RecipeStep::query()->create($request->validated());
 
-        return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
-            ->with('success', 'Recipe step successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Recipe step successfully added.');
+        } else {
+            return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
+                ->with('success', 'Recipe step successfully added.');
+        }
     }
 
     /**

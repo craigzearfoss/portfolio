@@ -69,15 +69,19 @@ class UserController extends BaseAdminController
         $request->validate($request->rules());
 
         $user = new User();
-        $user['username'] = $request->username;
-        $user['email']    = $request->email;
-        $user['password'] = Hash::make($request->password);
-        $user['disabled'] = $request->disabled;
+        $user['username'] = $request['username'];
+        $user['email']    = $request['email'];
+        $user['password'] = Hash::make($request['password']);
+        $user['disabled'] = $request['disabled'];
 
         $user->save();
 
-        return redirect()->route('admin.system.user.show', $user)
-            ->with('success', 'User ' . $user['username'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $user['username'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.system.user.show', $user)
+                ->with('success', 'User ' . $user['username'] . ' successfully added.');
+        }
     }
 
     /**

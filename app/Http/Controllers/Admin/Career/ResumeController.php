@@ -94,7 +94,9 @@ class ResumeController extends BaseAdminController
 
         Application::query()->update(['resume_id' => $resume->id]);
 
-        if (!empty($application)) {
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $resume->name . ' resume successfully added.');
+        } elseif (!empty($application)) {
             return redirect()->to(route('admin.career.application.show', $application))
                 ->with('success', $resume->name . ' resume successfully added.');
         } else {

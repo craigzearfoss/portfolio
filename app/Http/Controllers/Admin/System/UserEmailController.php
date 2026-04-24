@@ -66,8 +66,12 @@ class UserEmailController extends BaseAdminController
 
         $userEmail = UserEmail::query()->create($request->validated());
 
-        return redirect()->route('admin.system.user-email.show', $userEmail)
-            ->with('success', $userEmail['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $userEmail['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.system.user-email.show', $userEmail)
+                ->with('success', $userEmail['name'] . ' successfully added.');
+        }
     }
 
     /**

@@ -63,8 +63,12 @@ class MessageController extends BaseAdminController
 
         $message = Message::query()->create($request->validated());
 
-        return redirect()->route('admin.system.message.show', $message)
-            ->with('success', 'Message successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $message['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.system.message.show', $message)
+                ->with('success', 'Message successfully added.');
+        }
     }
 
     /**

@@ -66,8 +66,12 @@ class CategoryController extends BaseAdminController
 
         $category = Category::query()->create($request->validated());
 
-        return redirect()->route('admin.dictionary.category.show', $category)
-            ->with('success', $category['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $category['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.dictionary.category.show', $category)
+                ->with('success', $category['name'] . ' successfully added.');
+        }
     }
 
     /**

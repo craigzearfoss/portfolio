@@ -66,8 +66,12 @@ class ProjectController extends BaseAdminController
 
         $project = Project::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', $project)
-            ->with('success', $project->name . ' project successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $project['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.project.show', $project)
+                ->with('success', $project->name . ' project successfully added.');
+        }
     }
 
     /**

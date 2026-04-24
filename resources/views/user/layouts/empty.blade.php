@@ -6,9 +6,12 @@
     $navSelectList = $navSelectList ?? null;
     $prev          = $prev ?? null;
     $next          = $next ?? null;
+    $errorMessages = $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving. ' . implode(' ', $errors->all())]
+        : [];
     $errorMessages = $errorMessages = [];
-    $success       = $success ?? null;
-    $error         = $error ?? null;
+    $success       = $success ?? session('success') ?? null;
+    $error         = $error ?? session('error') ?? null;
     $menuService   = $menuService ?? null;
     $admin         = $admin ?? null;
     $user          = $user ?? null;

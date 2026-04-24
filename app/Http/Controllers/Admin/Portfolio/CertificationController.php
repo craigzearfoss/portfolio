@@ -65,8 +65,12 @@ class CertificationController extends BaseAdminController
 
         $certification = Certification::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.certification.show', $certification)
-            ->with('success', $certification['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $certification['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.certification.show', $certification)
+                ->with('success', $certification['name'] . ' successfully added.');
+        }
     }
 
     /**

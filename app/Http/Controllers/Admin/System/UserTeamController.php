@@ -64,8 +64,12 @@ class UserTeamController extends BaseAdminController
     {
         $userTeam = UserTeam::query()->create($request->validated());
 
-        return redirect()->route('user.system.user-team.show', $userTeam)
-            ->with('success', $userTeam['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $userTeam['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('user.system.user-team.show', $userTeam)
+                ->with('success', $userTeam['name'] . ' successfully added.');
+        }
     }
 
     /**

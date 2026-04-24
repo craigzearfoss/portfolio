@@ -93,8 +93,12 @@ class ContactController extends BaseAdminController
             }
         }
 
-        return redirect()->route('admin.career.contact.show', $contact)
-            ->with('success', $contact->name . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $contact['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.career.contact.show', $contact)
+                ->with('success', $contact->name . ' successfully added.');
+        }
     }
 
     /**

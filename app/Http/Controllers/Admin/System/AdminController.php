@@ -77,15 +77,19 @@ class AdminController extends BaseAdminController
         $request->validate($request->rules());
 
         $admin = new Admin();
-        $admin['username'] = $request->username;
-        $admin['email']    = $request->email;
-        $admin['password'] = Hash::make($request->password);
-        $admin['disabled'] = $request->disabled;
+        $admin['username'] = $request['username'];
+        $admin['email']    = $request['email'];
+        $admin['password'] = Hash::make($request['password']);
+        $admin['disabled'] = $request['disabled'];
 
         $admin->save();
 
-        return redirect()->route('admin.system.admin.show', $admin)
-            ->with('success', 'Admin ' . $admin['username'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $admin['username'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.system.admin.show', $admin)
+                ->with('success', 'Admin ' . $admin['username'] . ' successfully added.');
+        }
     }
 
     /**

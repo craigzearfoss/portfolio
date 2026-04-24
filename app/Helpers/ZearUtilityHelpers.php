@@ -8,13 +8,13 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Illuminate\View\View;
 use PhpOffice\PhpWord\IOFactory;
 
 if (! function_exists('getEnvType')) {

@@ -62,8 +62,12 @@ class UnitController extends BaseAdminController
 
         $unit = Unit::query()->create($request->validated());
 
-        return redirect()->route('admin.personal.unit.show', $unit['id'])
-            ->with('success', $unit['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $unit['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.personal.unit.show', $unit['id'])
+                ->with('success', $unit['name'] . ' successfully added.');
+        }
     }
 
     /**

@@ -64,8 +64,12 @@ class AcademyController extends BaseAdminController
 
         $academy = Academy::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.academy.show', $academy)
-            ->with('success', $academy['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $academy['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.academy.show', $academy)
+                ->with('success', $academy['name'] . ' successfully added.');
+        }
     }
 
     /**

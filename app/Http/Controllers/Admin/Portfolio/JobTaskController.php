@@ -72,8 +72,12 @@ class JobTaskController extends BaseAdminController
 
         $jobTask = JobTask::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.job-task.show', $jobTask)
-            ->with('success', 'Job task successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Job task successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.job-task.show', $jobTask)
+                ->with('success', 'Job task successfully added.');
+        }
     }
 
     /**

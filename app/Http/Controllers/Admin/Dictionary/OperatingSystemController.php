@@ -66,8 +66,12 @@ class OperatingSystemController extends BaseAdminController
 
         $operatingSystem = OperatingSystem::query()->create($request->validated());
 
-        return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
-            ->with('success', $operatingSystem['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $operatingSystem['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
+                ->with('success', $operatingSystem['name'] . ' successfully added.');
+        }
     }
 
     /**

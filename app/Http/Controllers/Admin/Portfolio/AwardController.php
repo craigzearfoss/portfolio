@@ -67,8 +67,12 @@ class AwardController extends BaseAdminController
 
         $award = Award::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.award.show', $award)
-            ->with('success', $award['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $award['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.award.show', $award)
+                ->with('success', $award['name'] . ' successfully added.');
+        }
     }
 
     /**
@@ -117,8 +121,12 @@ class AwardController extends BaseAdminController
 
         updateGate($award, $this->admin);
 
-        return redirect()->route('admin.portfolio.award.show', $award)
-            ->with('success', $award['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $award['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.award.show', $award)
+                ->with('success', $award['name'] . ' successfully updated.');
+        }
     }
 
     /**

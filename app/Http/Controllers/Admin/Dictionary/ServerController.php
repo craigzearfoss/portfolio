@@ -66,8 +66,12 @@ class ServerController extends BaseAdminController
 
         $server = Server::query()->create($request->validated());
 
-        return redirect()->route('admin.dictionary.server.show', $server)
-            ->with('success', $server['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $server['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.dictionary.server.show', $server)
+                ->with('success', $server['name'] . ' successfully added.');
+        }
     }
 
     /**

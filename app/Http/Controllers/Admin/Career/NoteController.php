@@ -84,10 +84,11 @@ class NoteController extends BaseAdminController
 
         $note = Note::query()->create($request->validated());
 
-        if (!empty($application)) {
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Note successfully added.');
+        } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', 'Note successfully added.');
-
         } else {
             return redirect()->route('admin.career.note.show', $note)
                 ->with('success', 'Note successfully added.');

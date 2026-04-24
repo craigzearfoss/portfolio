@@ -79,6 +79,8 @@ class CompanyController extends BaseAdminController
                 'admin.career.application.create',
                 array_merge(['company_id' => $company->id], $urlParams)
             )->with('success', $message);
+        } elseif ($referer = $request->get('referer')) {
+                return redirect($referer)->with('success', $message);
         } else {
             return redirect()->route('admin.career.company.show', $company)->with('success', $message);
         }

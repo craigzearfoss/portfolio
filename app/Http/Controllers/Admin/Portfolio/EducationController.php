@@ -67,8 +67,12 @@ class EducationController extends BaseAdminController
 
         $education = Education::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.education.show', $education)
-            ->with('success', $education['name'] . ' education successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $education['name'] . ' education successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.education.show', $education)
+                ->with('success', $education['name'] . ' education successfully added.');
+        }
     }
 
     /**

@@ -64,8 +64,12 @@ class AdminTeamController extends BaseAdminController
 
         $adminTeam = AdminTeam::query()->create($request->validated());
 
-        return redirect()->route('admin.system.admin-team.show', $adminTeam)
-            ->with('success', $adminTeam['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $adminTeam['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.system.admin-team.show', $adminTeam)
+                ->with('success', $adminTeam['name'] . ' successfully added.');
+        }
     }
 
     /**

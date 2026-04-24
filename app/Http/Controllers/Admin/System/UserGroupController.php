@@ -64,8 +64,12 @@ class UserGroupController extends BaseAdminController
     {
         $userGroup = UserGroup::query()->create($request->validated());
 
-        return redirect()->route('admin.system.user-group.show', $userGroup)
-            ->with('success', $userGroup['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $userGroup['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.system.user-group.show', $userGroup)
+                ->with('success', $userGroup['name'] . ' successfully added.');
+        }
     }
 
     /**

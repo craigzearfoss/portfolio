@@ -65,8 +65,12 @@ class JobSearchLogController extends BaseAdminController
 
         $logEntry = JobSearchLog::query()->create($request->validated());
 
-        return redirect()->route('admin.career.job-search-log.show', $logEntry)
-            ->with('success', 'Log entry successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Log entry successfully added.');
+        } else {
+            return redirect()->route('admin.career.job-search-log.show', $logEntry)
+                ->with('success', 'Log entry successfully added.');
+        }
     }
 
     /**

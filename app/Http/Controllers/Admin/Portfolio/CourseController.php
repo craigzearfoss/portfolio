@@ -66,8 +66,12 @@ class CourseController extends BaseAdminController
 
         $course = Course::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.course.show', $course)
-            ->with('success', $course['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $course['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.course.show', $course)
+                ->with('success', $course['name'] . ' successfully added.');
+        }
     }
 
     /**

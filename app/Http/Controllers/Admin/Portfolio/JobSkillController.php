@@ -72,8 +72,12 @@ class JobSkillController extends BaseAdminController
 
         $jobSkill = JobSkill::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
-            ->with('success', $jobSkill['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $jobSkill['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
+                ->with('success', $jobSkill['name'] . ' successfully added.');
+        }
     }
 
     /**

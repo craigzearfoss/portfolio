@@ -66,8 +66,12 @@ class UserPhoneController extends BaseAdminController
 
         $userPhone = UserPhone::query()->create($request->validated());
 
-        return redirect()->route('user.system.user-phone.show', $userPhone)
-            ->with('success', $userPhone['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $userPhone['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('user.system.user-phone.show', $userPhone)
+                ->with('success', $userPhone['name'] . ' successfully added.');
+        }
     }
 
     /**

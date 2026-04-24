@@ -65,8 +65,12 @@ class JobBoardController extends BaseAdminController
 
         $jobBoard = JobBoard::query()->create($request->validated());
 
-        return redirect()->route('admin.career.job-board.show', $jobBoard)
-            ->with('success', $jobBoard['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $jobBoard['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.career.job-board.show', $jobBoard)
+                ->with('success', $jobBoard['name'] . ' successfully added.');
+        }
     }
 
     /**

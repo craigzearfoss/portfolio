@@ -66,8 +66,12 @@ class DatabaseController extends BaseAdminController
 
         $database = Database::query()->create($request->validated());
 
-        return redirect()->route('admin.dictionary.database.show', $database)
-            ->with('success', $database['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $database['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.dictionary.database.show', $database)
+                ->with('success', $database['name'] . ' successfully added.');
+        }
     }
 
     /**

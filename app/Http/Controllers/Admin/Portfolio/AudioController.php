@@ -66,8 +66,12 @@ class AudioController extends BaseAdminController
 
         $audio = Audio::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.audio.show', $audio)
-            ->with('success', $audio['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $audio['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.audio.show', $audio)
+                ->with('success', $audio['name'] . ' successfully added.');
+        }
     }
 
     /**

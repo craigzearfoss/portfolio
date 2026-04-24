@@ -66,8 +66,12 @@ class PhotographyController extends BaseAdminController
 
         $photo = Photography::query()->create($request->validated());
 
-        return redirect()->route('admin.portfolio.photography.show', $photo)
-            ->with('success', $photo['name'] . ' successfully added.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $photo['name'] . ' successfully added.');
+        } else {
+            return redirect()->route('admin.portfolio.photography.show', $photo)
+                ->with('success', $photo['name'] . ' successfully added.');
+        }
     }
 
     /**
