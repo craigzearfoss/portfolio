@@ -1,4 +1,6 @@
 @php
+    $errors = $errors ?? false;
+
     $title         = $title ?? '';
     $subtitle      = $subtitle ?? false;
     $breadcrumbs   = $breadcrumbs ?? [];
@@ -6,7 +8,7 @@
     $navSelectList = $navSelectList ?? null;
     $prev          = $prev ?? null;
     $next          = $next ?? null;
-    $errorMessages = $errors->any()
+    $errorMessages = $errors->any() ?? false
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving. ' . implode(' ', $errors->all())]
         : [];
     $errorMessages = $errorMessages = [];
