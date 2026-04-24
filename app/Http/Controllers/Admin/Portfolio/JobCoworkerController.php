@@ -130,8 +130,12 @@ class JobCoworkerController extends BaseAdminController
 
         updateGate($jobCoworker, $this->admin);
 
-        return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
-            ->with('success', $jobCoworker['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $jobCoworker['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
+                ->with('success', $jobCoworker['name'] . ' successfully updated.');
+        }
     }
 
     /**

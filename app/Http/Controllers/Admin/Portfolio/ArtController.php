@@ -121,8 +121,12 @@ class ArtController extends BaseAdminController
 
         updateGate($art, $this->admin);
 
-        return redirect()->route('admin.portfolio.art.show', $art)
-            ->with('success', $art['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $art['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.art.show', $art)
+                ->with('success', $art['name'] . ' successfully updated.');
+        }
     }
 
     /**

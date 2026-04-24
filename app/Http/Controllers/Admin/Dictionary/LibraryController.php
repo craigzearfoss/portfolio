@@ -124,8 +124,12 @@ class LibraryController extends BaseAdminController
 
         $library->update($request->validated());
 
-        return redirect()->route('admin.dictionary.library.index', $library)
-            ->with('success', $library['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $library['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.dictionary.library.index', $library)
+                ->with('success', $library['name'] . ' successfully updated.');
+        }
     }
 
     /**

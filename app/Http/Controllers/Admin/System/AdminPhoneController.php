@@ -118,8 +118,12 @@ class AdminPhoneController extends BaseAdminController
 
         updateGate($adminPhone, $this->admin);
 
-        return redirect()->route('admin.system.admin-phone.show', $adminPhone)
-            ->with('success', $adminPhone['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $adminPhone['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.admin-phone.show', $adminPhone)
+                ->with('success', $adminPhone['name'] . ' successfully updated.');
+        }
     }
 
     /**

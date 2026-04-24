@@ -121,8 +121,12 @@ class MusicController extends BaseAdminController
 
         updateGate($music, $this->admin);
 
-        return redirect()->route('admin.portfolio.music.show', $music)
-            ->with('success', $music['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $music['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.music.show', $music)
+                ->with('success', $music['name'] . ' successfully updated.');
+        }
     }
 
     /**

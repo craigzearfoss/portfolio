@@ -120,8 +120,12 @@ class UserPhoneController extends BaseAdminController
 
         updateGate($userPhone, $this->user);
 
-        return redirect()->route('user.system.user-phone.show', $userPhone)
-            ->with('success', $userPhone['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $userPhone['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('user.system.user-phone.show', $userPhone)
+                ->with('success', $userPhone['name'] . ' successfully updated.');
+        }
     }
 
     /**

@@ -120,8 +120,12 @@ class SchoolController extends BaseAdminController
 
         updateGate($school, $this->admin);
 
-        return redirect()->route('admin.portfolio.school.show', $school)
-            ->with('success', $school['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $school['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.school.show', $school)
+                ->with('success', $school['name'] . ' successfully updated.');
+        }
     }
 
     /**

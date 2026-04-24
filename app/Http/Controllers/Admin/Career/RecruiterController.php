@@ -119,8 +119,12 @@ class RecruiterController extends BaseAdminController
 
         updateGate($recruiter, $this->admin);
 
-        return redirect()->route('admin.career.recruiter.show', $recruiter)
-            ->with('success', $recruiter['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $recruiter['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.career.recruiter.show', $recruiter)
+                ->with('success', $recruiter['name'] . ' successfully updated.');
+        }
     }
 
     /**

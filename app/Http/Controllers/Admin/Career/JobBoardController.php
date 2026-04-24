@@ -119,8 +119,12 @@ class JobBoardController extends BaseAdminController
 
         updateGate($jobBoard, $this->admin);
 
-        return redirect()->route('admin.career.job-board.show', $jobBoard)
-            ->with('success', $jobBoard['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $jobBoard['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.career.job-board.show', $jobBoard)
+                ->with('success', $jobBoard['name'] . ' successfully updated.');
+        }
     }
 
     /**

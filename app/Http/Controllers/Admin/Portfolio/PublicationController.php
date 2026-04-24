@@ -120,8 +120,12 @@ class PublicationController extends BaseAdminController
 
         updateGate($publication, $this->admin);
 
-        return redirect()->route('admin.portfolio.publication.show', $publication)
-            ->with('success', $publication['title'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $publication['title'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.publication.show', $publication)
+                ->with('success', $publication['title'] . ' successfully updated.');
+        }
     }
 
     /**

@@ -169,7 +169,9 @@ class ResumeController extends BaseAdminController
 
         updateGate($resume, $this->admin);
 
-        if (!empty($application)) {
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $resume['name'] . ' resume successfully updated.');
+        } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', $resume->name . ' resume successfully updated.');
         } else {

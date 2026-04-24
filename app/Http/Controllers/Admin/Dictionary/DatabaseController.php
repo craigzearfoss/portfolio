@@ -124,8 +124,12 @@ class DatabaseController extends BaseAdminController
 
         $database->update($request->validated());
 
-        return redirect()->route('admin.dictionary.database.show', $database)
-            ->with('success', $database['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $database['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.dictionary.database.show', $database)
+                ->with('success', $database['name'] . ' successfully updated.');
+        }
     }
 
     /**

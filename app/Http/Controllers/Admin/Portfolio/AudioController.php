@@ -120,8 +120,12 @@ class AudioController extends BaseAdminController
 
         updateGate($audio, $this->admin);
 
-        return redirect()->route('admin.portfolio.audio.show', $audio)
-            ->with('success', $audio['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $audio['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.audio.show', $audio)
+                ->with('success', $audio['name'] . ' successfully updated.');
+        }
     }
 
     /**

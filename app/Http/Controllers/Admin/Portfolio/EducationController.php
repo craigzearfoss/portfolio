@@ -122,8 +122,12 @@ class EducationController extends BaseAdminController
 
         updateGate($education, $this->admin);
 
-        return redirect()->route('admin.portfolio.education.show', $education)
-            ->with('success', $education->name . ' education successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $education['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.education.show', $education)
+                ->with('success', $education['name'] . ' education successfully updated.');
+        }
     }
 
     /**
@@ -139,6 +143,6 @@ class EducationController extends BaseAdminController
         $education->delete();
 
         return redirect(referer('admin.portfolio.education.index'))
-            ->with('success', $education->name . ' education deleted successfully.');
+            ->with('success', $education['name'] . ' education deleted successfully.');
     }
 }

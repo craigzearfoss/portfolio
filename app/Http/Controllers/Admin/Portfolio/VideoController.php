@@ -120,8 +120,12 @@ class VideoController extends BaseAdminController
 
         updateGate($video, $this->admin);
 
-        return redirect()->route('admin.portfolio.video.show', $video)
-            ->with('success', $video->name . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $video['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.video.show', $video)
+                ->with('success', $video->name . ' successfully updated.');
+        }
     }
 
     /**

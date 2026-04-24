@@ -177,8 +177,12 @@ class ApplicationController extends BaseAdminController
 
         updateGate($application, $this->admin);
 
-        return redirect()->route('admin.career.application.show', $application)
-            ->with('success', 'Application successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Application successfully updated.');
+        } else {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Application successfully updated.');
+        }
     }
 
     /**

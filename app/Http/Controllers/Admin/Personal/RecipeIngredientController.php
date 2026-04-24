@@ -123,8 +123,12 @@ class RecipeIngredientController extends BaseAdminController
 
         updateGate($recipeIngredient, $this->admin);
 
-        return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
-            ->with('success', 'Recipe ingredient successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Recipe ingredient successfully updated.');
+        } else {
+            return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
+                ->with('success', 'Recipe ingredient successfully updated.');
+        }
     }
 
     /**

@@ -120,8 +120,12 @@ class ReadingController extends BaseAdminController
 
         updateGate($reading, $this->admin);
 
-        return redirect()->route('admin.personal.reading.show', $reading)
-            ->with('success', $reading['title'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $reading['title'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.personal.reading.show', $reading)
+                ->with('success', $reading['title'] . ' successfully updated.');
+        }
     }
 
     /**

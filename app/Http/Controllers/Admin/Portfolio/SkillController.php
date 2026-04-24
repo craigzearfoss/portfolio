@@ -120,8 +120,12 @@ class SkillController extends BaseAdminController
 
         updateGate($skill, $this->admin);
 
-        return redirect()->route('admin.portfolio.skill.show', $skill)
-            ->with('success', $skill['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $skill['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.skill.show', $skill)
+                ->with('success', $skill['name'] . ' successfully updated.');
+        }
     }
 
     /**

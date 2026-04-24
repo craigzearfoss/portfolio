@@ -120,8 +120,12 @@ class PhotographyController extends BaseAdminController
 
         $photography->update($request->validated());
 
-        return redirect()->route('admin.portfolio.photography.show', $photo)
-            ->with('success', $photo['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $photo['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.photography.show', $photo)
+                ->with('success', $photo['name'] . ' successfully updated.');
+        }
     }
 
     /**

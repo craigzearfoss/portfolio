@@ -184,8 +184,12 @@ class AdminController extends BaseAdminController
                 ->queueOwnerId(EnvTypes::ADMIN);
         }
 
-        return redirect()->route('admin.system.admin.show', $admin)
-            ->with('success', $admin['username'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $admin['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.admin.show', $admin)
+                ->with('success', $admin['username'] . ' successfully updated.');
+        }
     }
 
     /**

@@ -120,8 +120,12 @@ class UserEmailController extends BaseAdminController
 
         updateGate($userEmail, $this->user);
 
-        return redirect()->route('admin.system.user-email.show', $userEmail)
-            ->with('success', $userEmail['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $userEmail['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.user-email.show', $userEmail)
+                ->with('success', $userEmail['name'] . ' successfully updated.');
+        }
     }
 
     /**

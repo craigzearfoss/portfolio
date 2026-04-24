@@ -126,8 +126,12 @@ class JobSkillController extends BaseAdminController
 
         updateGate($jobSkill, $this->admin);
 
-        return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
-            ->with('success', $jobSkill['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $jobSkill['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
+                ->with('success', $jobSkill['name'] . ' successfully updated.');
+        }
     }
 
     /**

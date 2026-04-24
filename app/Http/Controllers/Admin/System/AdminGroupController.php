@@ -118,8 +118,12 @@ class AdminGroupController extends BaseAdminController
 
         updateGate($adminGroup, $this->admin);
 
-        return redirect()->route('admin.system.admin-group.show', $adminGroup)
-            ->with('success', $adminGroup['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $adminGroup['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.admin-group.show', $adminGroup)
+                ->with('success', $adminGroup['name'] . ' successfully updated.');
+        }
     }
 
     /**

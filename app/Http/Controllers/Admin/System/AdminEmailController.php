@@ -118,8 +118,12 @@ class AdminEmailController extends BaseAdminController
 
         updateGate($adminEmail, $this->admin);
 
-        return redirect()->route('admin.system.admin-email.show', $adminEmail)
-            ->with('success', $adminEmail['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $adminEmail['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.admin-email.show', $adminEmail)
+                ->with('success', $adminEmail['name'] . ' successfully updated.');
+        }
     }
 
     /**

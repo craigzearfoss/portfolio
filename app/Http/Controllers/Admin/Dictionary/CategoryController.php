@@ -124,8 +124,12 @@ class CategoryController extends BaseAdminController
 
         $category->update($request->validated());
 
-        return redirect()->route('admin.dictionary.category.show', $category)
-            ->with('success', $category['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $category['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.dictionary.category.show', $category)
+                ->with('success', $category['name'] . ' successfully updated.');
+        }
     }
 
     /**

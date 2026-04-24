@@ -108,8 +108,12 @@ class AdminDatabaseController extends BaseAdminController
         $adminDatabase->update($request->validated());
         updateGate($adminDatabase, $this->admin);
 
-        return redirect()->route('admin.system.admin-database.show', $adminDatabase)
-            ->with('success', $adminDatabase['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $adminDatabase['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.admin-database.show', $adminDatabase)
+                ->with('success', $adminDatabase['name'] . ' successfully updated.');
+        }
     }
 
     /**

@@ -120,8 +120,12 @@ class RecipeController extends BaseAdminController
 
         updateGate($recipe, $this->admin);
 
-        return redirect()->route('admin.personal.recipe.show', $recipe)
-            ->with('success', $recipe['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $recipe['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.personal.recipe.show', $recipe)
+                ->with('success', $recipe['name'] . ' successfully updated.');
+        }
     }
 
     /**

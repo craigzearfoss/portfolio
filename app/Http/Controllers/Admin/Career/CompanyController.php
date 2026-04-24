@@ -132,8 +132,12 @@ class CompanyController extends BaseAdminController
 
         updateGate($company, $this->admin);
 
-        return redirect()->route('admin.career.company.show', $company)
-            ->with('success', $company->name . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $company['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.career.company.show', $company)
+                ->with('success', $company->name . ' successfully updated.');
+        }
     }
 
     /**

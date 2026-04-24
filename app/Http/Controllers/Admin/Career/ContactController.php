@@ -147,8 +147,12 @@ class ContactController extends BaseAdminController
 
         updateGate($contact, $this->admin);
 
-        return redirect()->route('admin.career.application.show', $contact)
-            ->with('success', $contact->name . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $contact['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.career.application.show', $contact)
+                ->with('success', $contact->name . ' successfully updated.');
+        }
     }
 
     /**

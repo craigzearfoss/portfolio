@@ -120,8 +120,12 @@ class ReferenceController extends BaseAdminController
 
         updateGate($reference, $this->admin);
 
-        return redirect()->route('admin.career.reference.show', $reference)
-            ->with('success', $reference['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $reference['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.career.reference.show', $reference)
+                ->with('success', $reference['name'] . ' successfully updated.');
+        }
     }
 
     /**

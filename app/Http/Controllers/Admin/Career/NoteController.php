@@ -150,7 +150,9 @@ class NoteController extends BaseAdminController
 
         updateGate($note, $this->admin);
 
-        if (!empty($application)) {
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Note successfully updated.');
+        } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', 'Note successfully updated.');
         } else {

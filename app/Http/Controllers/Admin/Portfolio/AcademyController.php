@@ -118,8 +118,12 @@ class AcademyController extends BaseAdminController
 
         updateGate($academy, $this->admin);
 
-        return redirect()->route('admin.portfolio.academy.show', $academy)
-            ->with('success', $academy['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $academy['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.academy.show', $academy)
+                ->with('success', $academy['name'] . ' successfully updated.');
+        }
     }
 
     /**

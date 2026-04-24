@@ -118,8 +118,12 @@ class AdminTeamController extends BaseAdminController
 
         updateGate($adminTeam, $this->admin);
 
-        return redirect()->route('admin.system.admin-team.show', $adminTeam)
-            ->with('success', $adminTeam['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $adminTeam['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.admin-team.show', $adminTeam)
+                ->with('success', $adminTeam['name'] . ' successfully updated.');
+        }
     }
 
     /**

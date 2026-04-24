@@ -120,8 +120,12 @@ class LinkController extends BaseAdminController
 
         updateGate($link, $this->admin);
 
-        return redirect()->route('admin.portfolio.link.show', $link)
-            ->with('success', $link->name . ' link successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $link['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.link.show', $link)
+                ->with('success', $link->name . ' link successfully updated.');
+        }
     }
 
     /**

@@ -121,8 +121,12 @@ class CertificateController extends BaseAdminController
 
         updateGate($certificate, $this->admin);
 
-        return redirect()->route('admin.portfolio.certificate.show', $certificate)
-            ->with('success', $certificate['name'] . ' certificate successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $certificate['name'] . ' certificate successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.certificate.show', $certificate)
+                ->with('success', $certificate['name'] . ' certificate successfully updated.');
+        }
     }
 
     /**

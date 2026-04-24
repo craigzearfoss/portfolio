@@ -124,8 +124,12 @@ class LanguageController extends BaseAdminController
 
         $language->update($request->validated());
 
-        return redirect()->route('admin.dictionary.language.show', $language)
-            ->with('success', $language['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $language['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.dictionary.language.show', $language)
+                ->with('success', $language['name'] . ' successfully updated.');
+        }
     }
 
     /**

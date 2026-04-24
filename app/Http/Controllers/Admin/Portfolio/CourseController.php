@@ -120,8 +120,12 @@ class CourseController extends BaseAdminController
 
         updateGate($course, $this->admin);
 
-        return redirect()->route('admin.portfolio.course.show', $course)
-            ->with('success', $course['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $course['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.course.show', $course)
+                ->with('success', $course['name'] . ' successfully updated.');
+        }
     }
 
     /**

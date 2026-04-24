@@ -121,8 +121,12 @@ class CoverLetterController extends BaseAdminController
 
         updateGate($coverLetter, $this->admin);
 
-        return redirect()->route('admin.career.cover-letter.show', $coverLetter)
-            ->with('success', 'Cover letter successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', 'Cover Lettter successfully updated.');
+        } else {
+            return redirect()->route('admin.career.cover-letter.show', $coverLetter)
+                ->with('success', 'Cover letter successfully updated.');
+        }
     }
 
     /**

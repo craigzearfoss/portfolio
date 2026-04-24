@@ -117,8 +117,12 @@ class IndustryController extends BaseAdminController
 
         updateGate($industry, $this->admin);
 
-        return redirect()->route('admin.career.industry.show', $industry)
-            ->with('success', $industry['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $industry['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.career.industry.show', $industry)
+                ->with('success', $industry['name'] . ' successfully updated.');
+        }
     }
 
     /**

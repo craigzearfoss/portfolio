@@ -130,8 +130,12 @@ class UserController extends BaseAdminController
     {
         $user->update($request->validated());
 
-        return redirect()->route('admin.system.user.show', $user)
-            ->with('success', $user['username'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $user['username'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.system.user.show', $user)
+                ->with('success', $user['username'] . ' successfully updated.');
+        }
     }
 
     /**

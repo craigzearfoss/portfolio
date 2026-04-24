@@ -120,8 +120,12 @@ class JobController extends BaseAdminController
 
         updateGate($job, $this->admin);
 
-        return redirect()->route('admin.portfolio.job.show', $job)
-            ->with('success', $job['company'] . ' job successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $job['company'] . ' job successfully updated.');
+        } else {
+            return redirect()->route('admin.portfolio.job.show', $job)
+                ->with('success', $job['company'] . ' job successfully updated.');
+        }
     }
 
     /**

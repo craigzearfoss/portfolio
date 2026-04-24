@@ -116,8 +116,12 @@ class UnitController extends BaseAdminController
 
         updateGate($unit, $this->admin);
 
-        return redirect()->route('admin.personal.unit.show', $unit)
-            ->with('success', $unit['name'] . ' successfully updated.');
+        if ($referer = $request->get('referer')) {
+            return redirect($referer)->with('success', $unit['name'] . ' successfully updated.');
+        } else {
+            return redirect()->route('admin.personal.unit.show', $unit)
+                ->with('success', $unit['name'] . ' successfully updated.');
+        }
     }
 
     /**
