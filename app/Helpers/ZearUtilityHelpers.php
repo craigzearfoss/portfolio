@@ -355,44 +355,40 @@ if (! function_exists('canUpdate')) {
         if ($envType != EnvTypes::ADMIN) {
             return false;
         }
-
+//dd($resourceObject, $admin);
         // determine the authorization
         if (empty($admin)) {
             $retValue = false;
-        } elseif (boolval($admin['is_root'] ?? 0)) {
+        } elseif ($admin['is_root']) {
             // root admins can update anything
             // @TODO: should we add some limitations
             $retValue = true;
         } elseif ($resourceObject->is_root) {
             // non-root admins cannot update root resources
             $retValue = false;
-        } elseif (!$resourceObject->has_owner) {
-            // only admins can update ownerless resources
-            $retValue = false;
-        } elseif ($resourceObject->owner_id !== $admin['id']) {
+        } elseif ($admin['is_demo'] && !config('app.demo_admin_can_edit')) {
+            // editing is not enabled for demo admins
             $retValue = false;
         } else {
 
-            // check the admin's permission for this resource type in the environment
-            if (AdminResource::query()->where('class', '=', get_class($resourceObject))
+            if ($adminResource = AdminResource::query()->where('class', '=', get_class($resourceObject))
                 ->where('owner_id', '=', $admin['id'])
                 ->where($envType->value, '=', true)->first()
             ) {
-                $retValue = true;
+                if (!$adminResource->has_owner) {
+                    // non-root admins cannot update resource types that do not have owners
+                    $retValue = false;
+                } elseif ($resourceObject->owner_id == $admin['id']) {
+                    $retValue = true;
+                } else {
+                    $retValue = false;
+                }
             } else {
                 $retValue = false;
             }
         }
 
-        // return the authorization
-        if (!$retValue) {
-            return false;
-        } else {
-            // before returning true make sure it's not for a demo user with editing disabled
-            return $admin['is_demo']
-                ? config('app.demo_admin_can_edit')
-                : true;
-        }
+        return $retValue;
     }
 }
 

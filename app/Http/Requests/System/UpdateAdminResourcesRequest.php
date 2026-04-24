@@ -91,6 +91,7 @@ class UpdateAdminResourcesRequest extends UpdateAppBaseRequest
             'title'             => ['filled', 'string', 'max:50'],
             'plural'            => ['filled', 'string', 'max:50'],
             'has_owner'         => ['integer', 'between:0,1'],
+            'has_user'          => ['integer', 'between:0,1'],
             'guest'             => ['integer', 'between:0,1'],
             'user'              => ['integer', 'between:0,1'],
             'admin'             => ['integer', 'between:0,1'],

@@ -76,6 +76,7 @@ class Resource extends Model
         'database_title'          => 'title',
         'database_plural'         => 'plural',
         'database_has_owner'      => 'has_owner',
+        'database_has_user'       => 'has_user',
         'database_guest'          => 'guest',
         'database_user'           => 'user',
         'database_admin'          => 'admin',
@@ -118,6 +119,7 @@ class Resource extends Model
         'title',
         'plural',
         'has_owner',
+        'has_user',
         'guest',
         'user',
         'admin',
@@ -144,8 +146,8 @@ class Resource extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'database_id', 'name', 'table_name', 'class', 'title',
-        'plural', 'has_owner', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'plural', 'has_owner', 'has_user', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
