@@ -7,7 +7,7 @@
     $prev          = $prev ?? null;
     $next          = $next ?? null;
     $errorMessages = $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving. ' . implode(' ', $errors->all())]
         : [];
     //$errorMessages = $errorMessages = [];
     $success       = $success ?? null;
@@ -81,7 +81,7 @@
                 'error'         => $error,
             ])
 
-            <div class="container">
+            <div class="container m-0">
                 @yield('content')
             </div>
 

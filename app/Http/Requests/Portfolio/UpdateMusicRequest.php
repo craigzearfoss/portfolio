@@ -3,15 +3,10 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Http\Requests\UpdateAppBaseRequest;
-use App\Models\Portfolio\Music;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -48,7 +43,10 @@ class UpdateMusicRequest extends UpdateAppBaseRequest
             'owner_id'       => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'name'           => ['filled', 'string', 'max:255', 'unique:portfolio_db.music,name,'.$this['music']['id']],
             'artist'         => ['string', 'max:255', 'nullable'],

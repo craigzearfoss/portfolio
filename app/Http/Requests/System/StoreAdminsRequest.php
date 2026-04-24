@@ -4,12 +4,9 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Http\Middleware\Admin;
-use App\Models\System\Owner;
 use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -143,7 +140,7 @@ class StoreAdminsRequest extends StoreAppBaseRequest
             'sequence'         => ['integer', 'min:0', 'nullable'],
         ];
 
-        if (Auth::guard('admin')->user()->root) {
+        if ($this->isRootAdmin) {
             // Only root admins can set the value for the root field. This defaults to 0.
             $ruleArray = array_merge(
                 $ruleArray,

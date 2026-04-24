@@ -3,13 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
-use App\Models\Career\Event;
-use App\Models\Career\Recruiter;
-use App\Models\System\Admin;
-use App\Models\System\Owner;
-use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 

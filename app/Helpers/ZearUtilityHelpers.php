@@ -8,9 +8,13 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
 use PhpOffice\PhpWord\IOFactory;
 
 if (! function_exists('getEnvType')) {
@@ -142,7 +146,7 @@ if (! function_exists('loggedInUserId')) {
     {
         try {
             if (Auth::guard('user')->check()) {
-                return Auth::guard('user')->user()->id;
+                return Auth::guard('user')->user()['id'];
             } else {
                 return null;
             }
@@ -194,7 +198,7 @@ if (! function_exists('loggedInAdminId')) {
     {
         try {
             if (Auth::guard('admin')->check()) {
-                return Auth::guard('admin')->user()->id;
+                return Auth::guard('admin')->user()['id'];
             } else {
                 return null;
             }
@@ -229,7 +233,7 @@ if (! function_exists('isRootAdmin')) {
     function isRootAdmin(): bool
     {
         try {
-            return Auth::guard('admin')->check() && Auth::guard('admin')->user()->is_root;
+            return Auth::guard('admin')->check() && Auth::guard('admin')->user()['is_root'];
         } catch (Throwable $th) {
             return false;
         }

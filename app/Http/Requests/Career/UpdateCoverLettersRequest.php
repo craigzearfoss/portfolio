@@ -4,14 +4,9 @@ namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\CoverLetter;
-use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -43,11 +38,17 @@ class UpdateCoverLettersRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
+            /*
+            // you CANNOT change the owner for a cover letter
             'owner_id'          => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
+            */
             /*
             // you CANNOT change the application for a cover letter
             'application_id'    => [

@@ -209,8 +209,26 @@ return new class extends Migration
                 'zip'           => null,
                 'country_id'    => 237,
             ],
-
-
+            [
+                'id'            => 8,
+                'name'          => 'Crossing Hurdles',
+                'slug'          => 'crossing-hurdles',
+                'postings_url'  => 'https://www.linkedin.com/company/crossinghurdles/jobs/',
+                'local'         => 0,
+                'regional'      => 0,
+                'national'      => 1,
+                'international' => 0,
+                'link'          => 'https://www.linkedin.com/company/crossinghurdles/',
+                'link_name'     => null,
+                'phone'         => '',
+                'email'         => '',
+                'street'        => null,
+                'street2'       => null,
+                'city'          => null,
+                'state_id'      => null,
+                'zip'           => null,
+                'country_id'    => 237,
+            ],
             /*
             [
                 'id'           => 8,

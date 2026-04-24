@@ -46,7 +46,10 @@ class UpdateAdminsRequest extends UpdateAppBaseRequest
         $ruleArray = [
             'owner_id'         => [
                 'integer',
-                'exists:system_db.admins,id',
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                ))),
                 'nullable',
             ],
             'admin_team_id'    => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
@@ -121,12 +124,12 @@ class UpdateAdminsRequest extends UpdateAppBaseRequest
             'sequence'         => ['integer', 'min:0', 'nullable'],
         ];
 
-        if (Auth::guard('admin')->user()->root) {
+        if ($this->isRootAdmin) {
             // Only root admins can change the root value.
             $ruleArray = array_merge($ruleArray, [ 'root' => ['integer', 'between:0,1'] ]);
         }
 
-        if (Auth::guard('admin')->user()->root && ($this['admin']['id'] !== Auth::guard('admin')->user()->id)) {
+        if ($this->isRootAdmin && ($this['admin']['id'] !== $this->loggedInAdmin['id'])) {
             // Only root admins can disable other admins, but not themselves.
             $ruleArray = array_merge($ruleArray, [ 'is_disabled' => ['integer', 'between:0,1'] ]);
         }

@@ -4,11 +4,8 @@ namespace App\Http\Requests\Career;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -39,7 +36,14 @@ class StoreJobSearchLogsRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'         => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'         => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'message'          => ['required', 'string', 'max:500'],
             'time_logged'      => ['required', 'date_format:Y-m-d H:i:s'],
             'application_id'   => ['integer', 'exists:career_db.applications,id', 'nullable'],

@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
-use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
@@ -39,6 +38,13 @@ class StoreAppBaseRequest extends FormRequest
     protected Admin|null|Owner $loggedInAdmin = null;
 
     /**
+     * Does the currently logged-in admin have root privileges?
+     *
+     * @var bool
+     */
+    protected bool $isRootAdmin = false;
+
+    /**
      * The currently logged-in user.
      *
      * @var User|null
@@ -70,6 +76,9 @@ class StoreAppBaseRequest extends FormRequest
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
 
+        // is this a root admin?
+        $this->isRootAdmin = !empty($this->loggedInAdmin) && !empty($this->loggedInAdmin->is_root);
+
         // get the admin id of the owner of the resource (this will be null if there is no owner)
         if ($this->props['has_owner']) {
             if (!$this->ownerId = $this['owner_id'] ?? null) {
@@ -88,8 +97,9 @@ class StoreAppBaseRequest extends FormRequest
         if (!canCreate($this->props['class'], $this->loggedInAdmin)) {
             throw ValidationException::withMessages([
                 'GLOBAL' => App::environment('production')
-                    ? 'Unauthorized to create ' . $this->props['label'] . '.'
-                    : 'Unauthorized to create ' . $this->props['label'] . ' for admin ' . $this->loggedInAdmin['id'] . '.'
+                    ? 'Unauthorized to create ' . $this->props['label'] . ' in ' . get_class($this) . '.'
+                    : 'Unauthorized to create ' . $this->props['label'] . ' for admin ' . $this->loggedInAdmin['id']
+                        . ' in ' . get_class($this) . '.'
             ]);
         }
 
@@ -118,7 +128,8 @@ class StoreAppBaseRequest extends FormRequest
         return [
             'owner_id.required' => 'Please select an owner for the ' . $this->props['name'] . '.',
             'owner_id.exists'   => 'The specified owner does not exist.',
-            'owner_id.in'       => 'Unauthorized to create ' . $this[$this->props['name']] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            'owner_id.in'       => 'Unauthorized to create ' . $this->props['name'] . ' for admin '
+                . $this->loggedInAdmin['id'] . ' in ' . get_class($this) . '.',
         ];
     }
 

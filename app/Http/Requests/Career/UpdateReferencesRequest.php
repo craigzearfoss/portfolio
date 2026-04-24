@@ -4,16 +4,11 @@ namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Career\Company;
-use App\Models\Career\Reference;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -48,7 +43,11 @@ class UpdateReferencesRequest extends UpdateAppBaseRequest
             'owner_id'        => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
+
             ],
             'name'            => [
                 'filled',

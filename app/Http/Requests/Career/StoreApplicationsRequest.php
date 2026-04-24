@@ -5,13 +5,9 @@ namespace App\Http\Requests\Career;
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\CompensationUnit;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -43,7 +39,14 @@ class StoreApplicationsRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'               => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'company_id'             => ['required', 'integer', 'exists:career_db.companies,id'],
             'role'                   => ['required', 'string', 'max:255'],
             'job_board_id'           => ['integer', 'exists:career_db.job_boards,id', 'nullable'],

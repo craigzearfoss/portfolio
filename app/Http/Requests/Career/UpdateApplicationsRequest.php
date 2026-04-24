@@ -3,16 +3,11 @@
 namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
-use App\Models\Career\Application;
 use App\Models\Career\CompensationUnit;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -48,12 +43,10 @@ class UpdateApplicationsRequest extends UpdateAppBaseRequest
                 'filled',
                 'integer',
                 'exists:system_db.admins,id',
-                Rule::in(
-                    $this->loggedInAdmin['is_root']
-                        ? true
-                        : new Application()->where('owner_id', 5)
-                        ->get()->pluck('id')->toArray()
-                )
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'company_id'             => ['filled', 'integer', 'exists:career_db.companies,id'],
             'role'                   => ['filled', 'string', 'max:255'],

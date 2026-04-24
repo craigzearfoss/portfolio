@@ -3,7 +3,7 @@
     $admin         = $admin ?? null;
     $owner         = $owner ?? null;
     $isRootAdmin   = $isRootAdmin ?? false;
-    $industry      = $indutry ?? null;
+    $industry      = $industry ?? null;
 
     $title    = $pageTitle ?? 'Edit Industry: ' . $industry->name ;
     $subtitle = $title;

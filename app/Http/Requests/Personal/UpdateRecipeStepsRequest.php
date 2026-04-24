@@ -4,15 +4,10 @@ namespace App\Http\Requests\Personal;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Personal\Recipe;
-use App\Models\Personal\RecipeStep;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -47,7 +42,10 @@ class UpdateRecipeStepsRequest extends UpdateAppBaseRequest
             'owner_id'    => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'recipe_id'   => [
                 'filled',

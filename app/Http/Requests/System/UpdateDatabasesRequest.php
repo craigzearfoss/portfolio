@@ -4,15 +4,9 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\Database;
-use App\Models\System\Owner;
-use Dflydev\DotAccessData\Data;
-use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -50,7 +44,10 @@ class UpdateDatabasesRequest extends UpdateAppBaseRequest
             'owner_id'       => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'name'           => ['filled', 'string', 'max:50', 'unique:system_db.databases,name,' . $database['id']],
             'database'       => ['filled', 'string', 'max:50', 'unique:system_db.databases,database,' . $database['id']],

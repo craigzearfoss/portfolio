@@ -5,13 +5,9 @@ namespace App\Http\Requests\Portfolio;
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Portfolio\Music;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -45,7 +41,14 @@ class StoreMusicRequest extends StoreAppBaseRequest
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'       => ['required','integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'name'           => ['required', 'string', 'max:255', 'unique:' . Music::class],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [

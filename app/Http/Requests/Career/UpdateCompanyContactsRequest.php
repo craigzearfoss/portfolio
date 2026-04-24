@@ -3,11 +3,8 @@
 namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
-use App\Models\Career\CompanyContact;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 /**
@@ -40,7 +37,14 @@ class UpdateCompanyContactsRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'   => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'   => [
+                'filled',
+                'integer',
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
+            ],
             'company_id' => [
                 'filled',
                 'integer',

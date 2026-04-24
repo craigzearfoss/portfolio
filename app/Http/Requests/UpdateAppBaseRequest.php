@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
-use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
@@ -37,6 +36,13 @@ class UpdateAppBaseRequest extends FormRequest
      * @var Admin|Owner|null
      */
     protected Admin|null|Owner $loggedInAdmin = null;
+
+    /**
+     * Does the currently logged-in admin have root privileges?
+     *
+     * @var bool
+     */
+    protected bool $isRootAdmin = false;
 
     /**
      * The currently logged-in user.
@@ -76,6 +82,9 @@ class UpdateAppBaseRequest extends FormRequest
         // get the currently logged-in admin and user
         $this->loggedInAdmin = loggedInAdmin();
         $this->loggedInUser  = loggedInUser();
+
+        // is this a root admin?
+        $this->isRootAdmin = !empty($this->loggedInAdmin) && !empty($this->loggedInAdmin->is_root);
 
         // get the admin id of the owner of the resource (this will be null if there is no owner)
         if ($this->props['has_owner']) {
@@ -128,7 +137,8 @@ class UpdateAppBaseRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the ' . $this->props['name'] . '.',
             'owner_id.exists' => 'The specified owner does not exist.',
-            'owner_id.in'     => 'Unauthorized to create ' . $this[$this->props['name']] . ' for admin ' . $this->loggedInAdmin['id'] . '.',
+            'owner_id.in'     => 'Unauthorized to create ' . $this->props['name'] . ' for admin ' .
+                $this->loggedInAdmin['id'] . ' in ' . get_class($this) .'.',
         ];
     }
 

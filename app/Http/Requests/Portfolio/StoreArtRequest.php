@@ -4,12 +4,9 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -41,7 +38,14 @@ class StoreArtRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'name'         => ['required', 'string', 'max:255'],
             'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => [

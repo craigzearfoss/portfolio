@@ -4,14 +4,9 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
-use App\Models\System\ResourceSetting;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -43,7 +38,14 @@ class StoreResourceSettingsRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'        => [
+                'filled',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'resource_id'     => ['filled', 'integer', 'exists:system_db.resources,id'],
             'name'            => [
                 'required',

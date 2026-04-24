@@ -5,11 +5,8 @@ namespace App\Http\Requests\System;
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
 use App\Models\System\Database;
-use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -40,7 +37,13 @@ class StoreDatabasesRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'name'           => ['required', 'string', 'max:50', 'unique:' . Database::class],
             'database'       => ['required', 'string', 'max:50', 'unique:' . Database::class],
             'tag'            => ['required', 'string', 'max:50', 'unique:' . Database::class],

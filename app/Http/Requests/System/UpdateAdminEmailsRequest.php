@@ -4,14 +4,9 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\AdminEmail;
-use App\Models\System\Owner;
-use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -45,7 +40,10 @@ class UpdateAdminEmailsRequest extends UpdateAppBaseRequest
             'owner_id'     => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'email'        => ['filled', 'string', 'lowercase', 'email', 'max:255'],
             'label'        => ['string', 'max:100', 'nullable'],

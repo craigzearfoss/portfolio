@@ -4,11 +4,8 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -39,7 +36,14 @@ class StoreMessagesRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'     => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'from_admin'   => ['integer', 'between:0,1'],
             'name'         => ['required', 'max:255'],
             'email'        => ['required', 'email:rfc,dns', 'max:255'],

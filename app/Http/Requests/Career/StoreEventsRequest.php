@@ -5,15 +5,9 @@ namespace App\Http\Requests\Career;
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\Application;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
-use DateMalformedStringException;
-use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -45,7 +39,14 @@ class StoreEventsRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'       => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'application_id' => [
                 'required',
                 'integer',

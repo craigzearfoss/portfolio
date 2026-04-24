@@ -58,7 +58,7 @@
         @include('admin.components.show-row-link', [
             'name'   => 'postings url',
             'label'  => $recruiter->postings_url,
-            'href'   => $recruiter->postings_url),
+            'href'   => $recruiter->postings_url,
             'target' => '_blank'
         ])
 

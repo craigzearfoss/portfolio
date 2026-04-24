@@ -58,7 +58,7 @@ class ApplicationController extends BaseAdminController
      * @return View
      */
     public function create(Request $request): View
-    {
+    {die('d');
         createGate(Application::class, $this->admin);
 
         $errorMessages = [];
@@ -103,7 +103,7 @@ class ApplicationController extends BaseAdminController
      * @return RedirectResponse
      */
     public function store(StoreApplicationsRequest $request): RedirectResponse
-    {
+    {die('stire');
         createGate(Application::class, $this->admin);
 
         $application = Application::query()->create($request->validated());

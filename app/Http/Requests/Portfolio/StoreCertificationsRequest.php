@@ -4,12 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Portfolio\Certification;
-use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
-use Illuminate\Validation\ValidationException;
 
 /**
  *

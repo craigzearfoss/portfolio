@@ -4,9 +4,7 @@ namespace App\Http\Requests\Career;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 /**
@@ -39,7 +37,14 @@ class StoreCompanyContactsRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'   => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'   => [
+                'required',
+                'integer',
+                Rule::in($this->isRootAdmin
+                    ? new Admin()->all()->pluck('id')->toArray()
+                    : [ $this->ownerId ]
+                )
+            ],
             'company_id' => [
                 'required',
                 'integer',

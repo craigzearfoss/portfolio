@@ -4,16 +4,11 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\Portfolio\DegreeType;
-use App\Models\Portfolio\Education;
 use App\Models\Portfolio\School;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -49,7 +44,10 @@ class UpdateEducationsRequest extends UpdateAppBaseRequest
             'owner_id'           => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'degree_type_id'     => ['filled', 'integer', 'exists:portfolio_db.degree_types,id'],
             'major'              => ['string', 'max:255'],

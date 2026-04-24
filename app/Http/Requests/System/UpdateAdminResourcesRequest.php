@@ -4,14 +4,9 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use App\Models\System\Admin;
-use App\Models\System\AdminResource;
-use App\Models\System\Owner;
 use App\Models\System\Resource;
 use Exception;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -46,7 +41,10 @@ class UpdateAdminResourcesRequest extends UpdateAppBaseRequest
             'admin_id'          => [
                 'filled',
                 'integer',
-                'exists:system_db.admins,id'
+                Rule::in(array_unique(array_merge(
+                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    [ $this->ownerId ]
+                )))
             ],
             'resource_id'       => [
                 'filled',

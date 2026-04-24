@@ -2,7 +2,12 @@
 
 namespace App\Models\Career;
 
+use App\Models\System\Admin;
+use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -78,6 +83,36 @@ class Industry extends Model
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param string|null $sort
+     * @param Admin|Owner|null $owner
+     * @param User|null $user
+     * @return Builder
+     * @throws Exception
+     */
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
+    {
+        $filters = $this->removeEmptyFilters($filters);
+
+        $query = new self()->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
+                $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            });
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

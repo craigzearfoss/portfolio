@@ -46,6 +46,7 @@ return new class extends Migration
             [ 'id' => 19, 'name' => 'Transportation & Logistics',         'slug' => 'transportation-and-logistics',         'abbreviation' => 'TRAN' ],
             [ 'id' => 20, 'name' => 'Utilities',                          'slug' => 'utilities',                            'abbreviation' => 'UT'   ],
             [ 'id' => 21, 'name' => 'Wholesale & Distribution',           'slug' => 'wholesale-and-distribution',           'abbreviation' => 'WD'   ],
+            [ 'id' => 22, 'name' => 'Human Resources',                    'slug' => 'human-resources',                      'abbreviation' => 'HR'   ],
         ];
 
         new Industry()->insert($data);
