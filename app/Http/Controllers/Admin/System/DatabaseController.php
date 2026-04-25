@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\DatabasesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreDatabasesRequest;
 use App\Http\Requests\System\UpdateDatabasesRequest;
@@ -9,6 +10,8 @@ use App\Models\System\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -135,5 +138,17 @@ class DatabaseController extends BaseAdminController
     public function destroy(Database $database): RedirectResponse
     {
         abort(403, 'Databases cannot be deleted.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'databases_' . date("Y-m-d-His") . '.xlsx'
+            : 'databases.xlsx';
+
+        return Excel::download(new DatabasesExport(), $filename);
     }
 }

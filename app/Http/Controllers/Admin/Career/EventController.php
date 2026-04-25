@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\EventsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreEventsRequest;
 use App\Http\Requests\Career\UpdateEventsRequest;
@@ -11,6 +12,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -174,5 +177,17 @@ class EventController extends BaseAdminController
 
         return redirect(referer('admin.career.event.index'))
             ->with('success', 'Event deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'events_' . date("Y-m-d-His") . '.xlsx'
+            : 'events.xlsx';
+
+        return Excel::download(new EventsExport(), $filename);
     }
 }

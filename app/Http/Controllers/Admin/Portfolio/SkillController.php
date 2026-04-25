@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\SkillsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateSkillsRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +145,17 @@ class SkillController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'skills_' . date("Y-m-d-His") . '.xlsx'
+            : 'skills.xlsx';
+
+        return Excel::download(new SkillsExport(), $filename);
     }
 }

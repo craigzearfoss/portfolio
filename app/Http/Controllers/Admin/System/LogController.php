@@ -9,4 +9,5 @@ use App\Http\Controllers\Admin\BaseAdminController;
  */
 class LogController extends BaseAdminController
 {
+    //
 }

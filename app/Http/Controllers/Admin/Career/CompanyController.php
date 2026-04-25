@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\CompaniesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
 use App\Http\Requests\Career\StoreCompaniesRequest;
@@ -12,6 +13,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -222,5 +225,17 @@ class CompanyController extends BaseAdminController
 
         return redirect(referer('admin.career.company.index'))
             ->with('success', $contact->name . ' deleted successfully removed from ' . $company->name . '.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'companies_' . date("Y-m-d-His") . '.xlsx'
+            : 'companies.xlsx';
+
+        return Excel::download(new CompaniesExport(), $filename);
     }
 }

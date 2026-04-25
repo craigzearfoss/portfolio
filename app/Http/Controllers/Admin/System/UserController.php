@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\UsersExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUsersRequest;
 use App\Http\Requests\System\UpdateUsersRequest;
@@ -10,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -152,5 +155,17 @@ class UserController extends BaseAdminController
 
         return redirect(referer('admin.system.user.index'))
             ->with('success', $user['username'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'users_' . date("Y-m-d-His") . '.xlsx'
+            : 'users.xlsx';
+
+        return Excel::download(new UsersExport(), $filename);
     }
 }

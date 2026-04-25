@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\AdminPhonesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminPhonesRequest;
 use App\Http\Requests\System\UpdateAdminPhonesRequest;
@@ -9,6 +10,8 @@ use App\Models\System\AdminPhone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -140,5 +143,17 @@ class AdminPhoneController extends BaseAdminController
 
         return redirect(referer('admin.system.admin-phone.index'))
             ->with('success', $adminPhone['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'admin_phones_' . date("Y-m-d-His") . '.xlsx'
+            : 'admin_phones.xlsx';
+
+        return Excel::download(new AdminPhonesExport(), $filename);
     }
 }

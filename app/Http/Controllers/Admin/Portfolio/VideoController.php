@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\VideosExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreVideosRequest;
 use App\Http\Requests\Portfolio\UpdateVideosRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +145,17 @@ class VideoController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.video.index'))
             ->with('success', $video->name . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'videos_' . date("Y-m-d-His") . '.xlsx'
+            : 'videos.xlsx';
+
+        return Excel::download(new VideosExport(), $filename);
     }
 }

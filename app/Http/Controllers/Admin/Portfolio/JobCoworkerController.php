@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\JobCoworkersExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobCoworkersRequest;
 use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
@@ -11,6 +12,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -152,5 +155,17 @@ class JobCoworkerController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'job_coworkers_' . date("Y-m-d-His") . '.xlsx'
+            : 'job_coworkers.xlsx';
+
+        return Excel::download(new JobCoworkersExport(), $filename);
     }
 }

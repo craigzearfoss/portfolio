@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\CertificatesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCertificatesRequest;
 use App\Http\Requests\Portfolio\UpdateCertificatesRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -143,5 +146,17 @@ class CertificateController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.certificate.index'))
             ->with('success', $certificate['name'] . ' certificate deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'certificates_' . date("Y-m-d-His") . '.xlsx'
+            : 'certificates.xlsx';
+
+        return Excel::download(new CertificatesExport(), $filename);
     }
 }

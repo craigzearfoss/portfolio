@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\MessagesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreMessagesRequest;
 use App\Http\Requests\System\UpdateMessagesRequest;
@@ -9,6 +10,8 @@ use App\Models\System\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -139,5 +142,17 @@ class MessageController extends BaseAdminController
 
         return redirect(referer('admin.system.message.index'))
             ->with('success', $message['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'messages_' . date("Y-m-d-His") . '.xlsx'
+            : 'messages.xlsx';
+
+        return Excel::download(new MessagesExport(), $filename);
     }
 }

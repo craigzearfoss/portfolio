@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\ApplicationsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -273,5 +276,17 @@ class ApplicationController extends BaseAdminController
 
         return redirect()->route('admin.career.application.show', $application)
             ->with('success', 'Resume has been attached to the application.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'applications_' . date("Y-m-d-His") . '.xlsx'
+            : 'applications.xlsx';
+
+        return Excel::download(new ApplicationsExport(), $filename);
     }
 }

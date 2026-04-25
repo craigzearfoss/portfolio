@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\PublicationsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePublicationsRequest;
 use App\Http\Requests\Portfolio\UpdatePublicationsRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +145,17 @@ class PublicationController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.publication.index'))
             ->with('success', $publication['title'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'publications_' . date("Y-m-d-His") . '.xlsx'
+            : 'publications.xlsx';
+
+        return Excel::download(new PublicationsExport(), $filename);
     }
 }

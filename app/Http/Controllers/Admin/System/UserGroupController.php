@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\UserGroupsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserGroupsRequest;
 use App\Http\Requests\System\UpdateUserGroupsRequest;
@@ -9,6 +10,8 @@ use App\Models\System\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -138,5 +141,17 @@ class UserGroupController extends BaseAdminController
 
         return redirect(referer('admin.system.user-group.index'))
             ->with('success', $userGroup['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'user_groups_' . date("Y-m-d-His") . '.xlsx'
+            : 'user_groups.xlsx';
+
+        return Excel::download(new UserGroupsExport(), $filename);
     }
 }

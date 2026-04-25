@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTea
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
 use App\Http\Controllers\Admin\System\LogController as AdminSystemLogController;
-use App\Http\Controllers\Admin\System\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\System\MessageController as AdminSystemMessageController;
 use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceController;
 use App\Http\Controllers\Admin\System\SessionController as AdminSystemSessionController;
 use App\Http\Controllers\Admin\System\SettingController as AdminSystemSettingController;
@@ -114,6 +114,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('profile/update/{admin}', [AdminProfileController::class, 'update'])->name('profile.update');
 
         Route::name('system.')->group(function () {
+
+            // Excel export routes
+            Route::get('admin/export', [AdminSystemAdminController::class, 'export'])->name('admin.export');
+            Route::get('admin-email/export', [AdminSystemAdminEmailController::class, 'export'])->name('admin_email.export');
+            Route::get('admin-group/export', [AdminSystemAdminGroupController::class, 'export'])->name('admin_group.export');
+            Route::get('admin-phone/export', [AdminSystemAdminPhoneController::class, 'export'])->name('admin_phone.export');
+            Route::get('admin-team/export', [AdminSystemAdminTeamController::class, 'export'])->name('admin_team.export');
+            Route::get('database/export', [AdminSystemDatabaseController::class, 'export'])->name('database.export');
+            Route::get('admin-database/export', [AdminSystemAdminDatabaseController::class, 'export'])->name('admin_database.export');
+            Route::get('log/export', [AdminSystemLogController::class, 'export'])->name('log.export');
+            Route::get('message/export', [AdminSystemMessageController::class, 'export'])->name('message.export');
+            Route::get('resource/export', [AdminSystemResourceController::class, 'export'])->name('resource.export');
+            Route::get('admin-resource/export', [AdminSystemAdminResourceController::class, 'export'])->name('admin-resource.export');
+            Route::get('session/export', [AdminSystemSessionController::class, 'export'])->name('session.export');
+            Route::get('setting/export', [AdminSystemSettingController::class, 'export'])->name('setting.export');
+            Route::get('user/export', [AdminSystemUserController::class, 'export'])->name('user.export');
+            Route::get('user-email/export', [AdminSystemUserEmailController::class, 'export'])->name('user_email.export');
+            Route::get('user-group/export', [AdminSystemUserGroupController::class, 'export'])->name('user_group.export');
+            Route::get('user-phone/export', [AdminSystemUserPhoneController::class, 'export'])->name('user_phone.export');
+            Route::get('user-team/export', [AdminSystemUserTeamController::class, 'export'])->name('user_team.export');
+
             //Route::resource('admin', AdminSystemAdminController::class);
             Route::get('admin', [AdminSystemAdminController::class, 'index'])->name('admin.index');
             Route::get('admin/create', [AdminSystemAdminController::class, 'create'])->name('admin.create');
@@ -132,7 +153,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('database', AdminSystemDatabaseController::class);
             Route::resource('admin-database', AdminSystemAdminDatabaseController::class)->parameter('admin-database', 'admin_database');
             Route::resource('log', AdminSystemLogController::class);
-            Route::resource('message', AdminMessageController::class);
+            Route::resource('message', AdminSystemMessageController::class);
             Route::resource('resource', AdminSystemResourceController::class);
             Route::resource('admin-resource', AdminSystemAdminResourceController::class)->parameter('admin-resource', 'admin_resource');
             Route::resource('session', AdminSystemSessionController::class);

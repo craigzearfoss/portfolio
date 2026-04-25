@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\AdminTeamsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminTeamsRequest;
 use App\Http\Requests\System\UpdateAdminTeamsRequest;
@@ -9,6 +10,8 @@ use App\Models\System\AdminTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -140,5 +143,17 @@ class AdminTeamController extends BaseAdminController
 
         return redirect(referer('admin.system.admin-team.index'))
             ->with('success', $adminTeam['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'admin_teams_' . date("Y-m-d-His") . '.xlsx'
+            : 'admin_teams.xlsx';
+
+        return Excel::download(new AdminTeamsExport(), $filename);
     }
 }

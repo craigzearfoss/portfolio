@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\ContactsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
 use App\Http\Requests\Career\StoreContactsRequest;
@@ -14,6 +15,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -237,5 +240,17 @@ class ContactController extends BaseAdminController
 
         return redirect(referer('admin.career.contact.index'))
             ->with('success', $company->name . ' deleted successfully removed from ' . $contact->name . '.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'contacts_' . date("Y-m-d-His") . '.xlsx'
+            : 'contacts.xlsx';
+
+        return Excel::download(new ContactsExport(), $filename);
     }
 }

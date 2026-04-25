@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Exports\Personal\IngredientsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreIngredientsRequest;
 use App\Http\Requests\Personal\UpdateIngredientsRequest;
@@ -9,6 +10,8 @@ use App\Models\Personal\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -140,5 +143,17 @@ class IngredientController extends BaseAdminController
 
         return redirect(referer('admin.personal.ingredient.index'))
             ->with('success', $ingredient['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'ingredients_' . date("Y-m-d-His") . '.xlsx'
+            : 'ingredients.xlsx';
+
+        return Excel::download(new IngredientsExport(), $filename);
     }
 }

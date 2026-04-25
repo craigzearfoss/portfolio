@@ -26,6 +26,21 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('job-board', AdminCareerJobBoardController::class)->parameter('job-board', 'job_board');
     Route::resource('recruiter', AdminCareerRecruiterController::class);
 
+    // Excel export routes
+    Route::get('application/export', [AdminCareerApplicationController::class, 'export'])->name('application.export');
+    Route::get('communication/export', [AdminCareerCommunicationController::class, 'export'])->name('communication.export');
+    Route::get('company/export', [AdminCareerCompanyController::class, 'export'])->name('company.export');
+    Route::get('contact/export', [AdminCareerContactController::class, 'export'])->name('contact.export');
+    Route::get('cover-letter/export', [AdminCareerCoverLetterController::class, 'export'])->name('cover_letter.export');
+    Route::get('event/export', [AdminCareerEventController::class, 'export'])->name('event.export');
+    Route::get('industry/export', [AdminCareerIndustryController::class, 'export'])->name('industry.export');
+    Route::get('job-board/export', [AdminCareerJobBoardController::class, 'export'])->name('job_board.export');
+    Route::get('job-search-log/export', [AdminCareerJobSearchLogController::class, 'export'])->name('job_search_log.export');
+    Route::get('note/export', [AdminCareerNoteController::class, 'export'])->name('note.export');
+    Route::get('recruiter/export', [AdminCareerRecruiterController::class, 'export'])->name('recruiter.export');
+    Route::get('reference/export', [AdminCareerReferenceController::class, 'export'])->name('reference.export');
+    Route::get('resume/export', [AdminCareerResumeController::class, 'export'])->name('resume.export');
+
     Route::resource('application', AdminCareerApplicationController::class);
     Route::resource('application/{application}/skill', AdminCareerApplicationSkillController::class);
     Route::get('application/{application}/resume/attach', [AdminCareerApplicationController::class, 'attachResume'])->name('application.resume.attach');

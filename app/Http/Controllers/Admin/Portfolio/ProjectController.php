@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\ProjectsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreProjectsRequest;
 use App\Http\Requests\Portfolio\UpdateProjectsRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +145,17 @@ class ProjectController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.project.index'))
             ->with('success', $project->name . ' project deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'projects_' . date("Y-m-d-His") . '.xlsx'
+            : 'projects.xlsx';
+
+        return Excel::download(new ProjectsExport(), $filename);
     }
 }

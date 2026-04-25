@@ -219,7 +219,7 @@
                             <div class="card admin-preview no-flex">
                                 <div class="admin-preview-text no-flex">
                                     <p class="mb-0">
-                                        This page consists a list of all you job applications. It contains an
+                                        This page consists of a list of all you job applications. It contains an
                                         advanced search panel so you can finely tune your searches to quickly find
                                         what you're looking for.
                                     </p>

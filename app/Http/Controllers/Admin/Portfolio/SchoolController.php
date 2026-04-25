@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\SchoolsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSchoolsRequest;
 use App\Http\Requests\Portfolio\UpdateSchoolsRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +145,17 @@ class SchoolController extends BaseAdminController
 
         return redirect(str_replace(config('app.url'), '', 'admin.portfolio.school.index'))
             ->with('success', $school['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'schools_' . date("Y-m-d-His") . '.xlsx'
+            : 'schools.xlsx';
+
+        return Excel::download(new SchoolsExport(), $filename);
     }
 }

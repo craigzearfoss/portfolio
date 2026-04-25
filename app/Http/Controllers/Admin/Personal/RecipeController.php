@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Exports\Career\IndustriesExport;
+use App\Exports\Personal\RecipesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipesRequest;
 use App\Http\Requests\Personal\UpdateRecipesRequest;
@@ -10,6 +12,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +146,17 @@ class RecipeController extends BaseAdminController
 
         return redirect(referer('admin.personal.recipe.index'))
             ->with('success', $recipe['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'recipes_' . date("Y-m-d-His") . '.xlsx'
+            : 'recipes.xlsx';
+
+        return Excel::download(new IndustriesExport(), $filename);
     }
 }

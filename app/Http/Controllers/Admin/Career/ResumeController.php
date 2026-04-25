@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\ResumesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreResumesRequest;
 use App\Http\Requests\Career\UpdateResumesRequest;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -209,5 +212,17 @@ class ResumeController extends BaseAdminController
             : Admin::query()->find($adminId);
 
         return new ResumeService($owner, 'default')->view();
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'resumes_' . date("Y-m-d-His") . '.xlsx'
+            : 'resumes.xlsx';
+
+        return Excel::download(new ResumesExport(), $filename);
     }
 }

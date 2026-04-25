@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\AcademiesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAcademiesRequest;
 use App\Http\Requests\Portfolio\UpdateAcademiesRequest;
@@ -9,6 +10,8 @@ use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -20,6 +23,7 @@ class AcademyController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Exception
      */
     public function index(Request $request): View
     {
@@ -140,5 +144,17 @@ class AcademyController extends BaseAdminController
 
         return redirect(route('admin.portfolio.academy.index'))
             ->with('success', $academy['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'academies_' . date("Y-m-d-His") . '.xlsx'
+            : 'academies.xlsx';
+
+        return Excel::download(new AcademiesExport(), $filename);
     }
 }

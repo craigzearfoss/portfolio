@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\JobBoardsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreJobBoardsRequest;
 use App\Http\Requests\Career\UpdateJobBoardsRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -141,5 +144,17 @@ class JobBoardController extends BaseAdminController
 
         return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'job_boards_' . date("Y-m-d-His") . '.xlsx'
+            : 'job_boards.xlsx';
+
+        return Excel::download(new JobBoardsExport(), $filename);
     }
 }

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\SessionsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\System\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -37,5 +40,17 @@ class SessionController extends BaseAdminController
 
         return view('admin.system.session.index', compact('sessions', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'sessions_' . date("Y-m-d-His") . '.xlsx'
+            : 'sessions.xlsx';
+
+        return Excel::download(new SessionsExport(), $filename);
     }
 }

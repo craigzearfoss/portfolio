@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\JobSearchLogsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreJobSearchLogsRequest;
 use App\Models\Career\JobSearchLog;
@@ -9,6 +10,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -107,5 +110,17 @@ class JobSearchLogController extends BaseAdminController
 
         return redirect(referer('admin.job-search-log.job-search-log.index'))
             ->with('success', 'Log entry deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'job_search_log_' . date("Y-m-d-His") . '.xlsx'
+            : 'job_search_log.xlsx';
+
+        return Excel::download(new JobSearchLogsExport(), $filename);
     }
 }

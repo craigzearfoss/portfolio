@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\CommunicationsExport;
+use App\Exports\Career\CompaniesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;
@@ -11,6 +13,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -177,5 +181,17 @@ class CommunicationController extends BaseAdminController
 
         return redirect(referer('admin.career.communication.index'))
             ->with('success', 'Communication deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'communications_' . date("Y-m-d-His") . '.xlsx'
+            : 'communications.xlsx';
+
+        return Excel::download(new CommunicationsExport(), $filename);
     }
 }

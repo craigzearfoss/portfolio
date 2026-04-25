@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\AdminEmailsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminEmailsRequest;
 use App\Http\Requests\System\UpdateAdminEmailsRequest;
@@ -9,6 +10,8 @@ use App\Models\System\AdminEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -140,5 +143,17 @@ class AdminEmailController extends BaseAdminController
 
         return redirect(referer('admin.system.admin-email.index'))
             ->with('success', $adminEmail['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'admin_emails_' . date("Y-m-d-His") . '.xlsx'
+            : 'admin_emails.xlsx';
+
+        return Excel::download(new AdminEmailsExport(), $filename);
     }
 }

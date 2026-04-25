@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\ResourcesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
@@ -10,6 +11,8 @@ use App\Models\System\Resource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -132,5 +135,17 @@ class ResourceController extends BaseAdminController
     public function destroy(Resource $resource): RedirectResponse
     {
         abort(403, 'Resources cannot be deleted.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'resources_' . date("Y-m-d-His") . '.xlsx'
+            : 'resources.xlsx';
+
+        return Excel::download(new ResourcesExport(), $filename);
     }
 }

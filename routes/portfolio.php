@@ -46,6 +46,28 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
 
     Route::get('image-upload/{resourceName}/{imageName}', [AdminPortfolioIndexController::class, 'upload'])->name('image.upload');
 
+    // Excel export routes
+    Route::get('academy/export', [AdminPortfolioAcademyController::class, 'export'])->name('academy.export');
+    Route::get('art/export', [AdminPortfolioArtController::class, 'export'])->name('art.export');
+    Route::get('audio/export', [AdminPortfolioAudioController::class, 'export'])->name('audio.export');
+    Route::get('award/export', [AdminPortfolioAwardController::class, 'export'])->name('award.export');
+    Route::get('certificate/export', [AdminPortfolioCertificateController::class, 'export'])->name('certificate.export');
+    Route::get('certification/export', [AdminPortfolioCertificationController::class, 'export'])->name('certification.export');
+    Route::get('course/export', [AdminPortfolioCourseController::class, 'export'])->name('course.export');
+    Route::get('education/export', [AdminPortfolioEducationController::class, 'export'])->name('education.export');
+    Route::get('job/export', [AdminPortfolioJobController::class, 'export'])->name('job.export');
+    Route::get('job-coworker/export', [AdminPortfolioJobCoworkerController::class, 'export'])->name('job-coworker.export');
+    Route::get('job-skill/export', [AdminPortfolioJobSkillController::class, 'export'])->name('job-skill.export');
+    Route::get('job-task/export', [AdminPortfolioJobTaskController::class, 'export'])->name('job-task.export');
+    Route::get('link/export', [AdminPortfolioLinkController::class, 'export'])->name('link.export');
+    Route::get('music/export', [AdminPortfolioMusicController::class, 'export'])->name('music.export');
+    Route::get('photography/export', [AdminPortfolioPhotographyController::class, 'export'])->name('photography.export');
+    Route::get('project/export', [AdminPortfolioProjectController::class, 'export'])->name('project.export');
+    Route::get('publication/export', [AdminPortfolioPublicationController::class, 'export'])->name('publication.export');
+    Route::get('school/export', [AdminPortfolioSchoolController::class, 'export'])->name('school.export');
+    Route::get('skill/export', [AdminPortfolioSkillController::class, 'export'])->name('skill.export');
+    Route::get('video/export', [AdminPortfolioVideoController::class, 'export'])->name('video.export');
+
     Route::resource('academy', AdminPortfolioAcademyController::class);
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('school', AdminPortfolioSchoolController::class);

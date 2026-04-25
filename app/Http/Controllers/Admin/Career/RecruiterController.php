@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\RecruitersExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreRecruitersRequest;
 use App\Http\Requests\Career\UpdateRecruitersRequest;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -141,5 +144,17 @@ class RecruiterController extends BaseAdminController
 
         return redirect(referer('admin.career.recruiter.index'))
             ->with('success', $recruiter['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'recruiters_' . date("Y-m-d-His") . '.xlsx'
+            : 'recruiters.xlsx';
+
+        return Excel::download(new RecruitersExport(), $filename);
     }
 }

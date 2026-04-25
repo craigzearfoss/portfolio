@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Exports\Portfolio\JobTasksExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobTasksRequest;
 use App\Http\Requests\Portfolio\UpdateJobTasksRequest;
@@ -11,6 +12,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -148,5 +151,17 @@ class JobTaskController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.job-task.index'))
             ->with('success', 'Job task deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'job_tasks_' . date("Y-m-d-His") . '.xlsx'
+            : 'job_tasks.xlsx';
+
+        return Excel::download(new JobTasksExport(), $filename);
     }
 }

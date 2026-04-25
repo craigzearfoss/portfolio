@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Exports\System\UserPhonesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserPhonesRequest;
 use App\Http\Requests\System\UpdateUserPhonesRequest;
@@ -9,6 +10,8 @@ use App\Models\System\UserPhone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -142,5 +145,17 @@ class UserPhoneController extends BaseAdminController
 
         return redirect(referer('user.system.user-phone.index'))
             ->with('success', $userPhone['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'user_phones_' . date("Y-m-d-His") . '.xlsx'
+            : 'user_phones.xlsx';
+
+        return Excel::download(new UserPhonesExport(), $filename);
     }
 }

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Exports\Career\IndustriesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreIndustriesRequest;
 use App\Http\Requests\Career\UpdateIndustriesRequest;
 use App\Models\Career\Industry;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -20,6 +24,7 @@ class IndustryController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -139,5 +144,17 @@ class IndustryController extends BaseAdminController
 
         return redirect(referer('admin.career.industry.index'))
             ->with('success', $industry['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        $filename = request()->has('timestamp')
+            ? 'industries_' . date("Y-m-d-His") . '.xlsx'
+            : 'industries.xlsx';
+
+        return Excel::download(new IndustriesExport(), $filename);
     }
 }
