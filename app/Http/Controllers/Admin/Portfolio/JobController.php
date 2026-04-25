@@ -69,7 +69,7 @@ class JobController extends BaseAdminController
 
         $job = Job::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $job['company'] . ' job successfully added.');
         } else {
             return redirect()->route('admin.portfolio.job.show', $job)
@@ -123,7 +123,7 @@ class JobController extends BaseAdminController
 
         updateGate($job, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $job['company'] . ' job successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.job.show', $job)

@@ -67,7 +67,7 @@ class AdminTeamController extends BaseAdminController
 
         $adminTeam = AdminTeam::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminTeam['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.admin-team.show', $adminTeam)
@@ -121,7 +121,7 @@ class AdminTeamController extends BaseAdminController
 
         updateGate($adminTeam, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminTeam['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.admin-team.show', $adminTeam)

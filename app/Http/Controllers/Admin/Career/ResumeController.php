@@ -97,7 +97,7 @@ class ResumeController extends BaseAdminController
 
         Application::query()->update(['resume_id' => $resume->id]);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $resume->name . ' resume successfully added.');
         } elseif (!empty($application)) {
             return redirect()->to(route('admin.career.application.show', $application))
@@ -172,7 +172,7 @@ class ResumeController extends BaseAdminController
 
         updateGate($resume, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $resume['name'] . ' resume successfully updated.');
         } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

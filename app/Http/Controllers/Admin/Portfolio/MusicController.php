@@ -70,7 +70,7 @@ class MusicController extends BaseAdminController
 
         $music = Music::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $music['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.music.show', $music)
@@ -124,7 +124,7 @@ class MusicController extends BaseAdminController
 
         updateGate($music, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $music['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.music.show', $music)

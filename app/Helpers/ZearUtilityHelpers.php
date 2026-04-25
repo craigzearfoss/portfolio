@@ -260,7 +260,7 @@ if (! function_exists('canCreate')) {
         // determine the authorization
         if (empty($admin)) {
             $retValue = false;
-        } elseif (boolval($admin['is_root'] ?? 0)) {
+        } elseif ($admin['is_root'] ?? 0) {
             // root admins can create anything
             // @TODO: should we add some limitations
             $retValue = true;
@@ -301,7 +301,7 @@ if (! function_exists('canRead')) {
      */
     function canRead($resourceObjectOrClass, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        if (boolval($admin['is_root'] ?? 0)) {
+        if ($admin['is_root'] ?? 0) {
             $retValue = true;
         } else {
 
@@ -411,7 +411,7 @@ if (! function_exists('canDelete')) {
         // determine the authorization
         if (empty($admin)) {
             $retValue = false;
-        } elseif (boolval($admin['is_root'] ?? 0)) {
+        } elseif ($admin['is_root'] ?? 0) {
             // root admins can delete anything
             // @TODO: should we add some limitations
             $retValue = true;
@@ -1247,7 +1247,7 @@ if (! function_exists('calculateWageRate')) {
                 default:
                     $wageRate = $wage;
                     break;
-            };
+            }
         }
 
         return $wageRate;

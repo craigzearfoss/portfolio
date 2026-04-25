@@ -69,7 +69,7 @@ class RecipeIngredientController extends BaseAdminController
 
         $recipeIngredient = RecipeIngredient::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Recipe ingredient successfully added.');
         } else {
             return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
@@ -123,7 +123,7 @@ class RecipeIngredientController extends BaseAdminController
 
         updateGate($recipeIngredient, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Recipe ingredient successfully updated.');
         } else {
             return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)

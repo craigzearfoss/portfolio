@@ -57,7 +57,7 @@ class JobSkillController extends BaseAdminController
     {
         createGate(JobSkill::class, $this->admin);
 
-        $jobId = $request->get('job_id');
+        $jobId = $request->input('job_id');
         $job = !empty($jobId) ? Job::query()->find($jobId) : null;
 
         return view('admin.portfolio.job-skill.create', compact('job'));
@@ -75,7 +75,7 @@ class JobSkillController extends BaseAdminController
 
         $jobSkill = JobSkill::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $jobSkill['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
@@ -129,7 +129,7 @@ class JobSkillController extends BaseAdminController
 
         updateGate($jobSkill, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $jobSkill['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)

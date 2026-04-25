@@ -141,7 +141,7 @@ trait AddressableTrait
     }
 
     /**
-     * Returns the geocode array for the the current record or the address that is passed as a parameter.
+     * Returns the geocode array for the current record or the address that is passed as a parameter.
      *
      * @param null|string $address
      * @return array|null

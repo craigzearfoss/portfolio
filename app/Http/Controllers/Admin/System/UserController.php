@@ -79,7 +79,7 @@ class UserController extends BaseAdminController
 
         $user->save();
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $user['username'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.user.show', $user)
@@ -133,7 +133,7 @@ class UserController extends BaseAdminController
     {
         $user->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $user['username'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.user.show', $user)

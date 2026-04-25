@@ -67,7 +67,7 @@ class AdminPhoneController extends BaseAdminController
 
         $adminPhone = AdminPhone::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminPhone['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.admin-phone.show', $adminPhone)
@@ -121,7 +121,7 @@ class AdminPhoneController extends BaseAdminController
 
         updateGate($adminPhone, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminPhone['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.admin-phone.show', $adminPhone)

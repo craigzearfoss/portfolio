@@ -87,7 +87,7 @@ class AdminController extends BaseAdminController
 
         $admin->save();
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $admin['username'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.admin.show', $admin)
@@ -187,7 +187,7 @@ class AdminController extends BaseAdminController
                 ->queueOwnerId(EnvTypes::ADMIN);
         }
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $admin['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.admin.show', $admin)

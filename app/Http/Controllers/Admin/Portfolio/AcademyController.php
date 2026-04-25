@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAcademiesRequest;
 use App\Http\Requests\Portfolio\UpdateAcademiesRequest;
 use App\Models\Portfolio\Academy;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,7 +24,7 @@ class AcademyController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -68,7 +69,7 @@ class AcademyController extends BaseAdminController
 
         $academy = Academy::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $academy['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.academy.show', $academy)
@@ -122,7 +123,7 @@ class AcademyController extends BaseAdminController
 
         updateGate($academy, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $academy['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.academy.show', $academy)

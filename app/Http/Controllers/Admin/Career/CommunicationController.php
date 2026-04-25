@@ -154,7 +154,7 @@ class CommunicationController extends BaseAdminController
 
         updateGate($communication, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Communication successfully updated.');
         } elseif ($referer = $request->query('referer')) {
             return redirect($referer)->with('success', 'Communication successfully updated.');

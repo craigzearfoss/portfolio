@@ -69,7 +69,7 @@ class ReadingController extends BaseAdminController
 
         $reading = Reading::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $reading['title'] . ' successfully added.');
         } else {
             return redirect()->route('admin.personal.reading.show', $reading)
@@ -123,7 +123,7 @@ class ReadingController extends BaseAdminController
 
         updateGate($reading, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $reading['title'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.personal.reading.show', $reading)

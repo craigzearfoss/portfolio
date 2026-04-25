@@ -69,7 +69,7 @@ class PublicationController extends BaseAdminController
 
         $publication = Publication::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $publication['title'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.publication.show', $publication)
@@ -123,7 +123,7 @@ class PublicationController extends BaseAdminController
 
         updateGate($publication, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $publication['title'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.publication.show', $publication)

@@ -35,7 +35,7 @@ class MusicController extends BaseGuestController
 
         $pageTitle = ($this->owner->name  ?? '') . ' Music';
 
-        return view(themedTemplate('guest.portfolio.music.index', 'pageTitle'), compact('musics'))
+        return view(themedTemplate('guest.portfolio.music.index'), compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

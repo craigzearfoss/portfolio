@@ -66,7 +66,7 @@ class ServerController extends BaseAdminController
 
         $server = Server::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $server['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.dictionary.server.show', $server)
@@ -124,7 +124,7 @@ class ServerController extends BaseAdminController
 
         $server->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $server['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.dictionary.server.show', $server)

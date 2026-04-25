@@ -152,7 +152,7 @@ class EventController extends BaseAdminController
 
         updateGate($event, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Event successfully updated.');
         } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

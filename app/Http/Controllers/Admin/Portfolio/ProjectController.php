@@ -69,7 +69,7 @@ class ProjectController extends BaseAdminController
 
         $project = Project::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $project['name'] . ' project successfully added.');
         } else {
             return redirect()->route('admin.portfolio.project.show', $project)
@@ -123,7 +123,7 @@ class ProjectController extends BaseAdminController
 
         updateGate($project, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $project['name'] . ' project successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.project.show', $project)

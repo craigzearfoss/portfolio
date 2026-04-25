@@ -67,7 +67,7 @@ class AdminEmailController extends BaseAdminController
 
         $adminEmail = AdminEmail::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminEmail['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.admin-email.show', $adminEmail)
@@ -121,7 +121,7 @@ class AdminEmailController extends BaseAdminController
 
         updateGate($adminEmail, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminEmail['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.admin-email.show', $adminEmail)

@@ -69,7 +69,7 @@ class VideoController extends BaseAdminController
 
         $video = Video::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $video['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.video.show', $video)
@@ -123,7 +123,7 @@ class VideoController extends BaseAdminController
 
         updateGate($video, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $video['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.video.show', $video)

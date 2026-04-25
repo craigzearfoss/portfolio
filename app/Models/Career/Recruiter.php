@@ -220,9 +220,7 @@ class Recruiter extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

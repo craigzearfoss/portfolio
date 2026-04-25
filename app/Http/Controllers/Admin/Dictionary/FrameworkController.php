@@ -66,7 +66,7 @@ class FrameworkController extends BaseAdminController
 
         $framework = Framework::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $framework['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.dictionary.framework.show', $framework)
@@ -124,7 +124,7 @@ class FrameworkController extends BaseAdminController
 
         $framework->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $framework['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.dictionary.framework.show', $framework)

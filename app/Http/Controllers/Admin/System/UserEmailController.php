@@ -69,7 +69,7 @@ class UserEmailController extends BaseAdminController
 
         $userEmail = UserEmail::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userEmail['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.user-email.show', $userEmail)
@@ -123,7 +123,7 @@ class UserEmailController extends BaseAdminController
 
         updateGate($userEmail, $this->user);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userEmail['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.user-email.show', $userEmail)

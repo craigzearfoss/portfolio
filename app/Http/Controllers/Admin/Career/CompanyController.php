@@ -82,7 +82,7 @@ class CompanyController extends BaseAdminController
                 'admin.career.application.create',
                 array_merge(['company_id' => $company->id], $urlParams)
             )->with('success', $message);
-        } elseif ($referer = $request->get('referer')) {
+        } elseif ($referer = $request->input('referer')) {
                 return redirect($referer)->with('success', $message);
         } else {
             return redirect()->route('admin.career.company.show', $company)->with('success', $message);
@@ -135,7 +135,7 @@ class CompanyController extends BaseAdminController
 
         updateGate($company, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $company['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.career.company.show', $company)

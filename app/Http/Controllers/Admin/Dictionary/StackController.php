@@ -66,7 +66,7 @@ class StackController extends BaseAdminController
 
         $stack = Stack::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $stack['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.dictionary.stack.show', $stack)
@@ -124,7 +124,7 @@ class StackController extends BaseAdminController
 
         $stack->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $stack['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.dictionary.stack.show', $stack)

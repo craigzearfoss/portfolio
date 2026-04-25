@@ -494,9 +494,7 @@ class Application extends Model
         ]);
 
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-
-        return $query;
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

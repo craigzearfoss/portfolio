@@ -69,7 +69,7 @@ class RecipeStepController extends BaseAdminController
 
         $recipeStep = RecipeStep::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Recipe step successfully added.');
         } else {
             return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
@@ -122,7 +122,7 @@ class RecipeStepController extends BaseAdminController
 
         updateGate($recipeStep, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Recipe step successfully updated.');
         } else {
             return redirect()->route('admin.personal.recipe-step.show', $recipeStep)

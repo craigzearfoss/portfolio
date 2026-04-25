@@ -68,7 +68,7 @@ class JobBoardController extends BaseAdminController
 
         $jobBoard = JobBoard::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $jobBoard['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.career.job-board.show', $jobBoard)
@@ -122,7 +122,7 @@ class JobBoardController extends BaseAdminController
 
         updateGate($jobBoard, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $jobBoard['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.career.job-board.show', $jobBoard)

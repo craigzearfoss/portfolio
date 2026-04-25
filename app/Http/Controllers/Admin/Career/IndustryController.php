@@ -68,7 +68,7 @@ class IndustryController extends BaseAdminController
 
         $industry = Industry::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $industry['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.career.industry.show', $industry)
@@ -122,7 +122,7 @@ class IndustryController extends BaseAdminController
 
         updateGate($industry, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $industry['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.career.industry.show', $industry)

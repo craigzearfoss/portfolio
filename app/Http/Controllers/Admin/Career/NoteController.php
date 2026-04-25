@@ -87,7 +87,7 @@ class NoteController extends BaseAdminController
 
         $note = Note::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Note successfully added.');
         } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
@@ -153,7 +153,7 @@ class NoteController extends BaseAdminController
 
         updateGate($note, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Note successfully updated.');
         } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

@@ -69,7 +69,7 @@ class LinkController extends BaseAdminController
 
         $link = Link::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $link['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.link.show', $link)
@@ -123,7 +123,7 @@ class LinkController extends BaseAdminController
 
         updateGate($link, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $link['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.link.show', $link)

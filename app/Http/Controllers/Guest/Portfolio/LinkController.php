@@ -35,7 +35,7 @@ class LinkController extends BaseGuestController
 
         $pageTitle = ($this->owner->name  ?? '') . ' Links';
 
-        return view(themedTemplate('guest.portfolio.link.index', 'pageTitle'), compact('links'))
+        return view(themedTemplate('guest.portfolio.link.index'), compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

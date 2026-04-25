@@ -118,7 +118,7 @@ class ResourceController extends BaseAdminController
 
         $resource->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $resource['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.resource.show', $resource)

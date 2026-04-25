@@ -66,7 +66,7 @@ class OperatingSystemController extends BaseAdminController
 
         $operatingSystem = OperatingSystem::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $operatingSystem['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
@@ -125,7 +125,7 @@ class OperatingSystemController extends BaseAdminController
 
         $operatingSystem->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $operatingSystem['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)

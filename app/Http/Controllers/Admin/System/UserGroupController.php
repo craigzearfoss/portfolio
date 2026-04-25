@@ -67,7 +67,7 @@ class UserGroupController extends BaseAdminController
     {
         $userGroup = UserGroup::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userGroup['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.user-group.show', $userGroup)
@@ -119,7 +119,7 @@ class UserGroupController extends BaseAdminController
     {
         $userGroup->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userGroup['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.user-group.show', $userGroup)

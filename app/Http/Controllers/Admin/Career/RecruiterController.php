@@ -68,7 +68,7 @@ class RecruiterController extends BaseAdminController
 
         $recruiter = Recruiter::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $recruiter['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.career.recruiter.show', $recruiter)
@@ -122,7 +122,7 @@ class RecruiterController extends BaseAdminController
 
         updateGate($recruiter, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $recruiter['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.career.recruiter.show', $recruiter)

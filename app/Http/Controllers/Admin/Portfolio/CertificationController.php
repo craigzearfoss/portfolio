@@ -69,7 +69,7 @@ class CertificationController extends BaseAdminController
 
         $certification = Certification::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $certification['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.certification.show', $certification)
@@ -123,7 +123,7 @@ class CertificationController extends BaseAdminController
 
         updateGate($certification, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $certification['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.certification.show', $certification)

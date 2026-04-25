@@ -66,7 +66,7 @@ class LibraryController extends BaseAdminController
 
         $library = Library::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $library['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.dictionary.library.show', $library)
@@ -124,7 +124,7 @@ class LibraryController extends BaseAdminController
 
         $library->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $library['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.dictionary.library.index', $library)

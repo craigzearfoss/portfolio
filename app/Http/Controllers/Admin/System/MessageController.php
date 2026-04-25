@@ -66,7 +66,7 @@ class MessageController extends BaseAdminController
 
         $message = Message::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $message['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.message.show', $message)
@@ -120,7 +120,7 @@ class MessageController extends BaseAdminController
 
         updateGate($message, $this->user);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $message['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.message.show', $message)

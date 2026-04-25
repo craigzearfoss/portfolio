@@ -69,7 +69,7 @@ class CourseController extends BaseAdminController
 
         $course = Course::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $course['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.course.show', $course)
@@ -123,7 +123,7 @@ class CourseController extends BaseAdminController
 
         updateGate($course, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $course['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.course.show', $course)

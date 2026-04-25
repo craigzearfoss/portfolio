@@ -69,7 +69,7 @@ class UserPhoneController extends BaseAdminController
 
         $userPhone = UserPhone::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userPhone['name'] . ' successfully added.');
         } else {
             return redirect()->route('user.system.user-phone.show', $userPhone)
@@ -123,7 +123,7 @@ class UserPhoneController extends BaseAdminController
 
         updateGate($userPhone, $this->user);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userPhone['name'] . ' successfully updated.');
         } else {
             return redirect()->route('user.system.user-phone.show', $userPhone)

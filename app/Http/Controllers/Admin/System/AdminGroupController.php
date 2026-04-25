@@ -67,7 +67,7 @@ class AdminGroupController extends BaseAdminController
 
         $adminGroup = AdminGroup::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminGroup['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.admin-group.show', $adminGroup)
@@ -121,7 +121,7 @@ class AdminGroupController extends BaseAdminController
 
         updateGate($adminGroup, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $adminGroup['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.system.admin-group.show', $adminGroup)

@@ -69,7 +69,7 @@ class PhotographyController extends BaseAdminController
 
         $photo = Photography::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $photo['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.photography.show', $photo)
@@ -123,7 +123,7 @@ class PhotographyController extends BaseAdminController
 
         $photography->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $photo['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.photography.show', $photo)

@@ -74,7 +74,7 @@ class ContactController extends BaseAdminController
         $contact = null;
         $error = null;
 
-        if ($companyId = $request->get('company_id')) {
+        if ($companyId = $request->input('company_id')) {
             if (!Company::query()->find($companyId)) {
                 $error = 'Company ' . $companyId . ' not found';
             }
@@ -96,7 +96,7 @@ class ContactController extends BaseAdminController
             }
         }
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $contact['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.career.contact.show', $contact)
@@ -150,7 +150,7 @@ class ContactController extends BaseAdminController
 
         updateGate($contact, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $contact['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.career.application.show', $contact)

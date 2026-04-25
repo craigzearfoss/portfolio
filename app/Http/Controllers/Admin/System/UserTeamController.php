@@ -67,7 +67,7 @@ class UserTeamController extends BaseAdminController
     {
         $userTeam = UserTeam::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userTeam['name'] . ' successfully added.');
         } else {
             return redirect()->route('user.system.user-team.show', $userTeam)
@@ -119,7 +119,7 @@ class UserTeamController extends BaseAdminController
     {
         $userTeam->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $userTeam['name'] . ' successfully updated.');
         } else {
             return redirect()->route('user.system.user-team.show', $userTeam)

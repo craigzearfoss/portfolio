@@ -1512,7 +1512,7 @@ EOD,
     }
 
     /**
-     * NOTE: If changes are made to contacts the the insertCareerCompanyContacts()
+     * NOTE: If changes are made to contacts the insertCareerCompanyContacts()
      * function must be updated to reflect these changes.
      *
      * @return void

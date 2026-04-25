@@ -70,7 +70,7 @@ class ArtController extends BaseAdminController
 
         $art = Art::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $art['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.art.show', $art)
@@ -124,7 +124,7 @@ class ArtController extends BaseAdminController
 
         updateGate($art, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $art['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.art.show', $art)

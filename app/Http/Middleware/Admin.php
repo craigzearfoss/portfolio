@@ -27,7 +27,7 @@ class Admin
         if (empty($admin->is_root)) {
 
             $method = $request->method();
-            $owner_id = $request->get('owner_id');
+            $owner_id = $request->input('owner_id');
 /*
 // @TODO: is ths still needed?
 

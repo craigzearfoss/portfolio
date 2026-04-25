@@ -69,7 +69,7 @@ class ReferenceController extends BaseAdminController
 
         $reference = Reference::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $reference['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.career.reference.show', $reference)
@@ -123,7 +123,7 @@ class ReferenceController extends BaseAdminController
 
         updateGate($reference, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $reference['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.career.reference.show', $reference)

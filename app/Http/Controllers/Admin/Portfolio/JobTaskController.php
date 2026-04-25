@@ -57,7 +57,7 @@ class JobTaskController extends BaseAdminController
     {
         createGate(JobTask::class, $this->admin);
 
-        $jobId = $request->get('job_id');
+        $jobId = $request->input('job_id');
         $job = !empty($jobId) ? Job::query()->find($jobId) : null;
 
         return view('admin.portfolio.job-task.create', compact('job'));
@@ -75,7 +75,7 @@ class JobTaskController extends BaseAdminController
 
         $jobTask = JobTask::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Job task successfully added.');
         } else {
             return redirect()->route('admin.portfolio.job-task.show', $jobTask)
@@ -129,7 +129,7 @@ class JobTaskController extends BaseAdminController
 
         updateGate($jobTask, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Job task successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.job-task.show', $jobTask)

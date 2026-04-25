@@ -70,7 +70,7 @@ class EducationController extends BaseAdminController
 
         $education = Education::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $education['name'] . ' education successfully added.');
         } else {
             return redirect()->route('admin.portfolio.education.show', $education)
@@ -125,7 +125,7 @@ class EducationController extends BaseAdminController
 
         updateGate($education, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $education['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.education.show', $education)

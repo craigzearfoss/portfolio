@@ -66,7 +66,7 @@ class CategoryController extends BaseAdminController
 
         $category = Category::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $category['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.dictionary.category.show', $category)
@@ -124,7 +124,7 @@ class CategoryController extends BaseAdminController
 
         $category->update($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $category['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.dictionary.category.show', $category)

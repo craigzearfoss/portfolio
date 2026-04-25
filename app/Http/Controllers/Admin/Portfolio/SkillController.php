@@ -69,7 +69,7 @@ class SkillController extends BaseAdminController
 
         $skill = Skill::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $skill['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.portfolio.skill.show', $skill)
@@ -123,7 +123,7 @@ class SkillController extends BaseAdminController
 
         updateGate($skill, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $skill['name'] . ' successfully updated.');
         } else {
             return redirect()->route('admin.portfolio.skill.show', $skill)

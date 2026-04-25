@@ -121,7 +121,7 @@ class ApplicationController extends BaseAdminController
 
         CoverLetter::query()->insert($coverLetterData);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Application successfully added.');
         } else {
             return redirect()->route('admin.career.application.show', $application)
@@ -180,7 +180,7 @@ class ApplicationController extends BaseAdminController
 
         updateGate($application, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Application successfully updated.');
         } else {
             return redirect()->route('admin.career.application.show', $application)

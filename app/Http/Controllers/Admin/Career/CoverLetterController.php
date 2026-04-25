@@ -69,7 +69,7 @@ class CoverLetterController extends BaseAdminController
 
         $coverLetter = CoverLetter::query()->create($request->validated());
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Cover Letter successfully added.');
         } else {
             return redirect()->route('admin.career.cover-letter.show', $coverLetter)
@@ -124,7 +124,7 @@ class CoverLetterController extends BaseAdminController
 
         updateGate($coverLetter, $this->admin);
 
-        if ($referer = $request->get('referer')) {
+        if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Cover Lettter successfully updated.');
         } else {
             return redirect()->route('admin.career.cover-letter.show', $coverLetter)
