@@ -13,11 +13,16 @@ return new class extends Migration
     protected string $database_tag = 'dictionary_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'categories';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('categories', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('full_name')->unique('full_name_unique');
             $table->string('name', 100)->unique('name_unique');
@@ -55,7 +60,7 @@ return new class extends Migration
 
                 $table->foreignId('dictionary_category_id')
                     ->nullable()
-                    ->constrained($dictionaryDbName . '.categories', 'id')
+                    ->constrained($dictionaryDbName . '.' . $this->table_name, 'id')
                     ->onDelete('cascade');
             });
         }
@@ -105,7 +110,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('categories')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -119,6 +124,6 @@ return new class extends Migration
             $table->dropForeign('tags_dictionary_category_id_foreign'); // Drops the foreign key constraint
         });
 
-        Schema::connection($this->database_tag)->dropIfExists('categories');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'portfolio_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'certification_types';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('certification_types', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique('name_unique');
         });
@@ -35,7 +40,7 @@ return new class extends Migration
             [ 'id' => 11, 'name' => 'Supply Chain'           ],
         ];
 
-        DB::connection($this->database_tag)->table('certification_types')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -43,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('certification_types');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

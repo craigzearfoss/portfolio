@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'login_attempts_user';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('login_attempts_user', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('username', 200)->nullable();
@@ -34,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('login_attempts_user');
+        Schema::dropIfExists($this->table_name);
     }
 };

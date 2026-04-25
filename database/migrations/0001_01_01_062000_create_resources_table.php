@@ -14,6 +14,11 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'resources';
+
+    /**
      * The id of the admin who owns the system resources.
      * The admin must have root permissions.
      *
@@ -27,11 +32,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('resources', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('resources', 'id')
+                ->constrained($this->table_name, 'id')
                 ->onDelete('cascade');
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
@@ -500,6 +505,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('resources');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

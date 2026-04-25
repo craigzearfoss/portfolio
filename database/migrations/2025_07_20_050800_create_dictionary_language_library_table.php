@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'dictionary_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'language_library';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('language_library', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('language_id')
                 ->nullable()
@@ -27,7 +32,7 @@ return new class extends Migration
                 ->constrained('libraries', 'id')
                 ->onDelete('cascade');
 
-            $table->unique(['language_id', 'library_id'], 'language_library_unique');
+            $table->unique(['language_id', 'library_id'], $this->table_name . '_unique');
         });
     }
 
@@ -36,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('language_library');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

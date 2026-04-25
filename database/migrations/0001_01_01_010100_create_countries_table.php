@@ -12,6 +12,11 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'countries';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
@@ -21,7 +26,7 @@ return new class extends Migration
                 . ' or system_db_DATABASE not defined in .env file.');
         }
 
-        Schema::connection($this->database_tag)->create('countries', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique('name_unique');
             $table->string('m49', 3)->unique('m49_unique');
@@ -279,7 +284,7 @@ return new class extends Migration
             [ 'id' => 248, 'name' => 'Zimbabwe',                           'm49' => '716', 'iso_alpha3' => 'ZWE' ],
         ];
 
-        DB::connection($this->database_tag)->table('countries')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -287,6 +292,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('countries');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

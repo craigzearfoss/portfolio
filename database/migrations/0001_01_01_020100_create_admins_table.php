@@ -15,6 +15,11 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'admins';
+
+    /**
      * @var string root admin username
      */
     protected string $rootUsername = 'root';
@@ -121,7 +126,7 @@ return new class extends Migration
 
         text('Hit Enter to continue or Ctrl-C to cancel');
 
-        Schema::connection($this->database_tag)->create('admins', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('owner_id')->nullable();
             $table->string('username', 200)->unique('username_unique');
@@ -266,7 +271,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('admins')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -274,6 +279,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('admins');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

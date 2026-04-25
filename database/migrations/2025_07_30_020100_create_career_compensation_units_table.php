@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'career_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'compensation_units';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('compensation_units', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique('name_unique');
             $table->string('abbreviation', 20)->unique('abbreviation_unique');
@@ -55,7 +60,7 @@ return new class extends Migration
             ],
         ];
 
-        DB::connection($this->database_tag)->table('compensation_units')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -63,6 +68,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('compensation_units');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

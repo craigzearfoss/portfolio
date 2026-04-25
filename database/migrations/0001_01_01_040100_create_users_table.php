@@ -13,6 +13,11 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'users';
+
+    /**
      * @var string sample user username
      */
     protected string $sampleUsername = 'sample';
@@ -80,7 +85,7 @@ return new class extends Migration
 
         text('Hit Enter to continue or Ctrl-C to cancel');
 
-        Schema::connection($this->database_tag)->create('users', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('username', 200)->unique();
@@ -210,7 +215,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('users')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -218,7 +223,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('users');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
         Schema::connection($this->database_tag)->dropIfExists('password_reset_tokens');
         Schema::connection($this->database_tag)->dropIfExists('sessions');
     }

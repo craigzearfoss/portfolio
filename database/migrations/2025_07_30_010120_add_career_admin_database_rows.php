@@ -13,6 +13,11 @@ return new class extends Migration
     protected string $database_tag = 'career_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'admin_databases';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
@@ -55,7 +60,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            DB::connection('system_db')->table('admin_databases')->insert($data);
+            DB::connection($this->database_tag)->table($this->table_name)->insert($data);
         }
     }
 

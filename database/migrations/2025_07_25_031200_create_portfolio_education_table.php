@@ -12,6 +12,11 @@ return new class extends Migration
     protected string $database_tag = 'portfolio_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'education';
+
+    /**
      * The id of the admin who owns the portfolio publication resource.
      *
      * @var int
@@ -23,7 +28,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('education', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
 
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
@@ -100,7 +105,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Education::insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
         */
     }
 
@@ -109,6 +114,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('education');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

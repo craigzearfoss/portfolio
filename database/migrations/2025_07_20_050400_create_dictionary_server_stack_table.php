@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'dictionary_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'server_stack';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('server_stack', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('server_id')
                 ->nullable()
@@ -27,14 +32,14 @@ return new class extends Migration
                 ->constrained('stacks', 'id')
                 ->onDelete('cascade');
 
-            $table->unique(['server_id', 'stack_id'], 'server_stack_unique');
+            $table->unique(['server_id', 'stack_id'], $this->table_name . '_unique');
         });
 
         $data = [
             ['server_id' => 1, 'stack_id' => 8],
         ];
 
-        DB::connection($this->database_tag)->table('server_stack')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -42,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('server_stack');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

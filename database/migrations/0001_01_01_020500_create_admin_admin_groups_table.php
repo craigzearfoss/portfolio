@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'admin_admin_group';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('admin_admin_group', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('admin_id')
                 ->constrained('admins', 'id')
@@ -39,7 +44,7 @@ return new class extends Migration
             ],
         ];
 
-        DB::connection($this->database_tag)->table('admin_admin_group')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -47,6 +52,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('admin_admin_group');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

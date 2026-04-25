@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'career_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'companies';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('companies', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
 
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
@@ -97,7 +102,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Company::insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
         */
     }
 
@@ -106,6 +111,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('companies');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

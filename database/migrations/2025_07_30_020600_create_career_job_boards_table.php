@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'career_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'job_boards';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('job_boards', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique('name_unique');
             $table->string('slug', 100)->unique('slug_unique');
@@ -79,7 +84,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('job_boards')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -87,6 +92,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('job_boards');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

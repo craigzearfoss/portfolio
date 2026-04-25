@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'personal_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'ingredients';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('ingredients', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('full_name')->unique();
             $table->string('name', 100)->unique('name_unique');
@@ -147,7 +152,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 101, 'full_name' => 'breadcrumbs',                         'name' => 'breadcrumbs',                      'slug' => 'breadcrumbs'],
@@ -258,7 +263,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 201, 'full_name' => 'corn starch',                         'name' => 'corn starch',                      'slug' => 'corn-starch'],
@@ -369,7 +374,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 301, 'full_name' => 'ham',                                 'name' => 'ham',                              'slug' => 'ham'],
@@ -480,7 +485,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 401, 'full_name' => 'oil (peanut)',                        'name' => 'peanut oil',                       'slug' => 'peanut-oil'],
@@ -591,7 +596,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 501, 'full_name' => 'pepperoni',                           'name' => 'pepperoni',                        'slug' => 'pepperoni'],
@@ -702,7 +707,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 601, 'full_name' => 'sugar (brown)',                       'name' => 'brown sugar',                      'slug' => 'brown-sugar'],
@@ -813,7 +818,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         $data = [
             ['id'=> 701, 'full_name' => 'durian fruit',                        'name' => 'durian fruit',                     'slug' => 'durian-fruit'],
@@ -869,7 +874,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('ingredients')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -877,6 +882,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('ingredients');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

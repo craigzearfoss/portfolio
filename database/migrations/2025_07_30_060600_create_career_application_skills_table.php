@@ -6,14 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * @var string
+     */
     protected string $database_tag = 'career_db';
+
+    /**
+     * @var string
+     */
+    protected string $table_name = 'application_skills';
 
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('application_skills', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
 
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
             $dictionaryDbName = Schema::connection('dictionary_db')->getCurrentSchemaName();
@@ -56,6 +64,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('application_skills');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

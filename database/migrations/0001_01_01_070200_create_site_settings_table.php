@@ -12,6 +12,11 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'site_settings';
+
+    /**
      * The id of the admin who owns the system resources.
      * The admin must have root permissions.
      *
@@ -24,7 +29,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('site_settings', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique('name_unique');
             $table->foreignId('setting_type_id')
@@ -53,6 +58,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('site_settings');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

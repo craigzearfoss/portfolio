@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'portfolio_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'art';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('art', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
 
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
@@ -79,7 +84,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Art::insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
         */
     }
 
@@ -88,6 +93,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('art');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

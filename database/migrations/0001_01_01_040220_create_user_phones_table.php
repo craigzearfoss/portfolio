@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'user_phones';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('user_phones', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->constrained('users', 'id')
@@ -44,7 +49,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            DB::connection($this->database_tag)->table('user_phones')->insert($data);
+            DB::connection($this->database_tag)->table($this->table_name)->insert($data);
         }
     }
 
@@ -53,6 +58,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('user_phones');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

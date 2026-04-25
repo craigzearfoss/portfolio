@@ -13,11 +13,16 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'admin_teams';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('admin_teams', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
@@ -75,13 +80,13 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DB::connection($this->database_tag)->table('admin_teams')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         // add admin_team_id column to the system.admins table
         Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {
             $table->foreignId('admin_team_id')
                 ->nullable()
-                ->constrained('admin_teams', 'id')
+                ->constrained($this->table_name, 'id')
                 ->onDelete('cascade');
         });
 
@@ -102,6 +107,6 @@ return new class extends Migration
             $table->dropForeign(['admin_team_id']); // Drops the foreign key constraint
         });
 
-        Schema::connection($this->database_tag)->dropIfExists('admin_teams');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

@@ -12,6 +12,11 @@ return new class extends Migration
     protected string $database_tag = 'system_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'databases';
+
+    /**
      * The id of the admin who owns the system database.
      * The admin must have root permissions.
      *
@@ -24,7 +29,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('databases', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
@@ -89,7 +94,7 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        DB::connection($this->database_tag)->table('databases')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
 
         // set the owner_id values in the admins table
         DB::update(
@@ -107,6 +112,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('databases');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

@@ -12,11 +12,16 @@ return new class extends Migration
     protected string $database_tag = 'dictionary_db';
 
     /**
+     * @var string
+     */
+    protected string $table_name = 'framework_language';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('framework_language', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->foreignId('framework_id')
                 ->nullable()
@@ -27,7 +32,7 @@ return new class extends Migration
                 ->constrained('languages', 'id')
                 ->onDelete('cascade');
 
-            $table->unique(['framework_id', 'language_id'], 'framework_language_unique');
+            $table->unique(['framework_id', 'language_id'], $this->table_name . '_unique');
         });
 
         $data = [
@@ -93,7 +98,7 @@ return new class extends Migration
             [ 'framework_id' => 54, 'language_id' => 46 ],
         ];
 
-        DB::connection($this->database_tag)->table('framework_language')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
@@ -101,6 +106,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('framework_language');
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };
