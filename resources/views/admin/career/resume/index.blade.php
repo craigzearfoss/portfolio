@@ -51,7 +51,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.career.resume.export', request()->except([ 'page' ])),
+                'filename' => 'resumes_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $resumes->links('vendor.pagination.bulma') !!}

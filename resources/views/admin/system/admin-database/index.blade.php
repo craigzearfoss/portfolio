@@ -34,7 +34,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.system.admi-database.export', request()->except([ 'page' ])),
+                'filename' => 'admin_databases_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $adminDatabases->links('vendor.pagination.bulma') !!}

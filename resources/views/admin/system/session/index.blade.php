@@ -30,7 +30,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.system.session.export', request()->except([ 'page' ])),
+                'filename' => 'sessions_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             <p class="admin-table-caption"></p>
 

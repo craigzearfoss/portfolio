@@ -42,7 +42,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.portfolio.certificate.export', request()->except([ 'page' ])),
+                'filename' => 'certificates_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $certificates->links('vendor.pagination.bulma') !!}

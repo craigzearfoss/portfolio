@@ -46,7 +46,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.personal.recipe-step.export', request()->except([ 'page' ])),
+                'filename' => 'recipe_steps_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}

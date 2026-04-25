@@ -25,8 +25,12 @@
         ? ''
         : (!str_contains($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
 
+    $target = $target ?? null;
+
     // get onclick method
     $onclick = $onclick ?? null;
+
+    $attributes = $attributes ?? [];
 @endphp
 <a @if($id)
        id="{{ $id }}"
@@ -43,11 +47,18 @@
    @if(!empty($dataTarget))
        data-target="{{ $dataTarget }}"
    @endif
-   @if(!empty($target ?? ''))
+   @if(!empty($target))
        target="{!! $target !!}"
     @endif
     @if($onclick)
         onclick="{!! $onclick !!}"
+    @endif
+    @if(!empty($attributes))
+        @php
+            foreach ($attributes as $key=>$value) {
+                echo $key . '="' . $value  . '"';
+            }
+        @endphp
     @endif
 >
     {!! $icon !!}

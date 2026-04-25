@@ -45,7 +45,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.system.user-group.export', request()->except([ 'page' ])),
+                'filename' => 'user_groups_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $userGroups->links('vendor.pagination.bulma') !!}

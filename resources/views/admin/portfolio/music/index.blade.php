@@ -41,7 +41,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.portfolio.music.export', request()->except([ 'page' ])),
+                'filename' => 'musics_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $musics->links('vendor.pagination.bulma') !!}

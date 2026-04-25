@@ -28,8 +28,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // delete header message button
     const headerMessageDeleteBtn= document.querySelector("div.message-header button.delete");
-    headerMessageDeleteBtn.addEventListener('click', () => {
-        console.log('The element was clicked!');
-        document.getElementById('header-message-div').remove();
+    if (headerMessageDeleteBtn) {
+        headerMessageDeleteBtn.addEventListener('click', () => {
+            document.getElementById('header-message-div').remove();
+        });
+    }
+
+    const exportToExcelBtns= document.querySelectorAll(".export-to-excel-btn");
+    exportToExcelBtns.forEach((elem) => {
+        elem.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // get the export url
+            let exportUrl = elem.getAttribute('data-href');
+            if (!exportUrl) {
+                exportUrl = elem.getAttribute('href');
+            }
+            if (!exportUrl) {
+                window.location.href + '/export';
+            }
+
+            // get the filename
+            let filename = elem.getAttribute('data-filename');
+            if (!filename) {
+                filename = 'file.xlsx';
+            }
+
+            const link = document.createElement('a');
+            link.href = exportUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
     });
 });

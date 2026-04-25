@@ -93,7 +93,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.system.log.export', request()->except([ 'page' ])),
+                'filename' => 'logs_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $loginAttempts->links('vendor.pagination.bulma') !!}

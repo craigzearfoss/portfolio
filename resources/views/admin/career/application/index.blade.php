@@ -45,7 +45,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.career.application.export', request()->except([ 'page' ])),
+                'filename' => 'applications_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $applications->links('vendor.pagination.bulma') !!}

@@ -33,7 +33,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.career.industry.export', request()->except([ 'page' ])),
+                'filename' => 'industries_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $industries->links('vendor.pagination.bulma') !!}

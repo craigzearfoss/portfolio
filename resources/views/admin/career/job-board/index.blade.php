@@ -35,7 +35,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.career.job-board.export', request()->except([ 'page' ])),
+                'filename' => 'job_boards_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $jobBoards->links('vendor.pagination.bulma') !!}

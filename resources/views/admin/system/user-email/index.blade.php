@@ -40,7 +40,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.system.user-email.export', request()->except([ 'page' ])),
+                'filename' => 'user_emails_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $userEmails->links('vendor.pagination.bulma') !!}

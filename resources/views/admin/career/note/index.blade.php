@@ -47,7 +47,10 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            @include('admin.components.export-buttons-container', [
+                'href'     => route('admin.career.note.export', request()->except([ 'page' ])),
+                'filename' => 'notes_' . date("Y-m-d-His") . '.xlsx',
+            ])
 
             @if($pagination_top)
                 {!! $notes->links('vendor.pagination.bulma') !!}
