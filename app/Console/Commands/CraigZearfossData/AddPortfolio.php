@@ -28,6 +28,7 @@ use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\text;
 
 /**
@@ -267,7 +268,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('art')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'art', [ 'is_public' => !empty($data) ]);
     }
@@ -306,7 +309,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('audios')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'audios', [ 'is_public' => !empty($data) ]);
     }
@@ -339,7 +344,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('awards')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'awards', [ 'is_public' => !empty($data) ]);
     }
@@ -370,7 +377,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('certificates')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'is_public' => !empty($data) ]);
     }
@@ -1540,7 +1549,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('courses')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'courses', [ 'is_public' => !empty($data) ]);
     }
@@ -1603,7 +1614,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('education')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'education', [ 'is_public' => !empty($data) ]);
     }
@@ -1797,7 +1810,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            $jobModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('jobs')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'is_public' => !empty($data) ]);
     }
@@ -1838,7 +1853,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('job_coworkers')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'is_public' => !empty($data) ]);
     }
@@ -1913,7 +1930,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('job_skills')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'is_public' => !empty($data) ]);
     }
@@ -1941,7 +1960,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('job_tasks')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'is_public' => !empty($data) ]);
     }
@@ -1961,7 +1982,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('links')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'links', [ 'is_public' => !empty($data) ]);
     }
@@ -1995,9 +2018,11 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Photography()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            //$this->insertSystemAdminResource($this->adminId, 'audio');
+            DB::connection(self::DB_TAG)->table('photography')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo))
+            );
         }
+        $this->insertSystemAdminResource($this->adminId, 'photography', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -2811,7 +2836,9 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            $musicModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('music')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'music', [ 'is_public' => !empty($data) ]);
     }
@@ -2937,7 +2964,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('projects')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'projects', [ 'is_public' => !empty($data) ]);
     }
@@ -2987,7 +3016,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('publications')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'publications', [ 'is_public' => !empty($data) ]);
     }
@@ -3042,7 +3073,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('skills')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'skills', [ 'is_public' => !empty($data) ]);
     }
@@ -3759,7 +3792,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('videos')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'videos', [ 'is_public' => !empty($data) ]);
     }
@@ -3879,7 +3914,7 @@ EOD,
 
                 $data[] = $dataRow;
 
-                new AdminResource()->insert($data);
+                DB::connection('system_db')->table('admin_resources')->insert($data);
             }
         }
     }

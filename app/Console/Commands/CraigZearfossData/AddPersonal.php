@@ -15,6 +15,7 @@ use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\text;
 
 /**
@@ -530,7 +531,9 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('readings')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'readings', [ 'is_public' => !empty($data) ]);
     }
@@ -578,7 +581,9 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            $recipeModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('recipes')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'recipes', [ 'is_public' => !empty($data) ]);
     }
@@ -652,7 +657,9 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('recipe_ingredients')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients', [ 'is_public' => !empty($data) ]);
     }
@@ -694,7 +701,9 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('recipe_steps')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'recipe_steps', [ 'is_public' => !empty($data) ]);
     }
@@ -814,7 +823,7 @@ class AddPersonal extends Command
 
                 $data[] = $dataRow;
 
-                new AdminResource()->insert($data);
+                DB::connection('system_db')->table('admin_resources')->insert($data);
             }
         }
     }
@@ -873,7 +882,7 @@ class AddPersonal extends Command
 
             $data[] = $dataRow;
 
-            new AdminResource()->insert($data);
+            DB::connection('system_db')->table('admin_resources')->insert($data);
         }
     }
 

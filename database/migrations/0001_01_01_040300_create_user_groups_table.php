@@ -14,7 +14,7 @@ return new class extends Migration
     /**
      * @var string
      */
-    protected string $table_name = 'user_user_groups';
+    protected string $table_name = 'user_groups';
 
     /**
      * Run the migrations.

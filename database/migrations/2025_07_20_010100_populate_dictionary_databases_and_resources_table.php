@@ -278,7 +278,7 @@ return new class extends Migration
             }
 
             for ($i=0; $i<count($data); $i++) {
-                DB::connection($this->database_tag)->table('resources')->insert($data[$i]);
+                DB::connection('system_db')->table('resources')->insert($data[$i]);
             }
         }
     }

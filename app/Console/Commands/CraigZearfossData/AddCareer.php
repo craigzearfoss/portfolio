@@ -23,6 +23,7 @@ use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\text;
 
 /**
@@ -1272,7 +1273,9 @@ EOD,
             );
 
             $dataArray = [$dataArray];
-            $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('applications')->insert(
+                $this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'applications', [ 'is_public' => false ]);
 
@@ -1310,7 +1313,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('application_skills')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'application_skills', [ 'is_public' => false ]);
     }
@@ -1462,7 +1467,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('companies')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'companies', [ 'is_public' => false ]);
     }
@@ -1498,7 +1505,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new CompanyContact()->insert($this->additionalColumns($data));
+            DB::connection(self::DB_TAG)->table('company_contact')->insert(
+                $this->additionalColumns($data)
+            );
         }
     }
 
@@ -1558,7 +1567,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('contacts')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'contacts', [ 'is_public' => false ]);
     }
@@ -1584,7 +1595,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('communications')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'communications', [ 'is_public' => false ]);
     }
@@ -1867,7 +1880,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('cover_letters')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'cover_letters', [ 'is_public' => false ]);
     }
@@ -1894,7 +1909,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('events')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'events', [ 'is_public' => false ]);
     }
@@ -1922,7 +1939,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('notes')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'notes', [ 'is_public' => false ]);
     }
@@ -1980,7 +1999,9 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('references')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'references', [ 'is_public' => false ]);
     }
@@ -2031,7 +2052,9 @@ EOD,
         $resumeModel = new Resume();
 
         if (!empty($data)) {
-            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            DB::connection(self::DB_TAG)->table('resumes')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
         }
         $this->insertSystemAdminResource($this->adminId, 'resumes', [ 'is_public' => false ]);
 
@@ -2157,7 +2180,7 @@ EOD,
 
                 $data[] = $dataRow;
 
-                new AdminResource()->insert($data);
+                DB::connection('system_db')->table('admin_resources')->insert($data);
             }
         }
     }
@@ -2216,7 +2239,7 @@ EOD,
 
             $data[] = $dataRow;
 
-            new AdminResource()->insert($data);
+            DB::connection('system_db')->table('admin_resources')->insert($data);
         }
     }
 
