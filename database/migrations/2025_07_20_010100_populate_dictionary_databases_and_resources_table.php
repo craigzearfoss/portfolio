@@ -72,7 +72,7 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        $databaseModel->insert($data);
+        DB::connection('system_db')->table('databases')->insert($data);
 
         if (!$database = $databaseModel->where('database', '=', $dbName)->first()) {
 
@@ -278,7 +278,7 @@ return new class extends Migration
             }
 
             for ($i=0; $i<count($data); $i++) {
-                new Resource()->insert($data[$i]);
+                DB::connection($this->database_tag)->table('resources')->insert($data[$i]);
             }
         }
     }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Career\JobLocationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -41,7 +40,7 @@ return new class extends Migration
             ],
         ];
 
-        new JobLocationType()->insert($data);
+        DB::connection($this->database_tag)->table('job_location_types')->insert($data);
     }
 
     /**

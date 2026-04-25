@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Personal\Unit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -49,7 +48,7 @@ return new class extends Migration
             [ 'id' => 16, 'name' => 'litre',          'abbreviation' => 'L',       'system' => 'metric',   'sequence' => 15  ],
         ];
 
-        new Unit()->insert($data);
+        DB::connection($this->database_tag)->table('units')->insert($data);
     }
 
     /**

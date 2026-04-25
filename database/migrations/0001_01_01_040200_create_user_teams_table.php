@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\System\User;
-use App\Models\System\UserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -76,7 +75,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        new UserTeam()->insert($data);
+        DB::connection($this->database_tag)->table('user_teams')->insert($data);
 
         // add user_team_id column to the system.users table
         Schema::connection($this->database_tag)->table('users', function (Blueprint $table) {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\AdminAdminGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -40,7 +39,7 @@ return new class extends Migration
             ],
         ];
 
-        new AdminAdminGroup()->insert($data);
+        DB::connection($this->database_tag)->table('admin_admin_group')->insert($data);
     }
 
     /**

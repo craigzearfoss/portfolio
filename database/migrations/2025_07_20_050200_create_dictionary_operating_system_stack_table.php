@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Dictionary\OperatingSystemStack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -40,7 +39,7 @@ return new class extends Migration
             ['operating_system_id' => 13, 'stack_id' => 8],
         ];
 
-        new OperatingSystemStack()->insert($data);
+        DB::connection($this->database_tag)->table('operating_system_stack')->insert($data);
     }
 
     /**

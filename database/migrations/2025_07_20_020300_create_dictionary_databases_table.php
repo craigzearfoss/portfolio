@@ -91,7 +91,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        new Database()->insert($data);
+        DB::connection($this->database_tag)->table('databases')->insert($data);
     }
 
     /**

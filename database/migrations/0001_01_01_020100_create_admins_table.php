@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\Admin;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -267,7 +266,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        new Admin()->insert($data);
+        DB::connection($this->database_tag)->table('admins')->insert($data);
     }
 
     /**

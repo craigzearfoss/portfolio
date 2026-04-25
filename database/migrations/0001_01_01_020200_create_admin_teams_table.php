@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\System\Admin;
-use App\Models\System\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -76,7 +75,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        new AdminTeam()->insert($data);
+        DB::connection($this->database_tag)->table('admin_teams')->insert($data);
 
         // add admin_team_id column to the system.admins table
         Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Portfolio\Certification;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -150,7 +149,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        new Certification()->insert($data);
+        DB::connection($this->database_tag)->table('certifications')->insert($data);
     }
 
     /**

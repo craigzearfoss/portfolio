@@ -55,7 +55,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            new AdminDatabase()->insert($data);
+            DB::connection('system_db')->table('admin_databases')->insert($data);
         }
     }
 

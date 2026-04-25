@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Dictionary\LanguageStack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -37,7 +36,7 @@ return new class extends Migration
             ['language_id' => 78, 'stack_id' => 8],
         ];
 
-        new LanguageStack()->insert($data);
+        DB::connection($this->database_tag)->table('language_stack')->insert($data);
     }
 
     /**

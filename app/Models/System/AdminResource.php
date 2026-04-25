@@ -483,7 +483,6 @@ class AdminResource extends Model
         foreach (self::DATABASE_PROPERTIES as $field => $name) {
             $selectColumns[] =  DB::raw("admin_databases.$name AS '$field'");
         }
-        $selectColumns[] = 'admin_resources.*';
 
         $adminResource = new self()->join('admin_databases', 'admin_databases.id', '=', 'admin_resources.admin_database_id')
             ->where('admin_databases.owner_id', '=', $owner->id)

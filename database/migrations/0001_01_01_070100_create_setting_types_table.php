@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\SettingType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -39,7 +38,7 @@ return new class extends Migration
             [ 'id' => 5, 'name' => 'string' ],
         ];
 
-        new SettingType()->insert($data);
+        DB::connection($this->database_tag)->table('setting_types')->insert($data);
     }
 
     /**

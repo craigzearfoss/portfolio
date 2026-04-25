@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Career\Industry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -49,7 +48,7 @@ return new class extends Migration
             [ 'id' => 22, 'name' => 'Human Resources',                    'slug' => 'human-resources',                      'abbreviation' => 'HR'   ],
         ];
 
-        new Industry()->insert($data);
+        DB::connection($this->database_tag)->table('industries')->insert($data);
     }
 
     /**

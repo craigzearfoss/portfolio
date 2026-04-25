@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Dictionary\ServerStack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -35,7 +34,7 @@ return new class extends Migration
             ['server_id' => 1, 'stack_id' => 8],
         ];
 
-        new ServerStack()->insert($data);
+        DB::connection($this->database_tag)->table('server_stack')->insert($data);
     }
 
     /**

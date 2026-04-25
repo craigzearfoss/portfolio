@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Portfolio\DegreeType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -32,7 +31,7 @@ return new class extends Migration
             [ 'id' => 7, 'name' => 'Doctorate / PhD'   ],
         ];
 
-        new DegreeType()->insert($data);
+        DB::connection($this->database_tag)->table('degree_types')->insert($data);
     }
 
     /**

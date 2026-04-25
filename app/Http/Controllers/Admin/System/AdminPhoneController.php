@@ -71,7 +71,7 @@ class AdminPhoneController extends BaseAdminController
             return redirect($referer)->with('success', $adminPhone['name'] . ' successfully added.');
         } else {
             return redirect()->route('admin.system.admin-phone.show', $adminPhone)
-                ->with('success', $adminPhone->name . ' successfully added.');
+                ->with('success', $adminPhone['name'] . ' successfully added.');
         }
     }
 

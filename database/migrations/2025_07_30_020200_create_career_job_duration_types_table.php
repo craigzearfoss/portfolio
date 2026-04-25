@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Career\JobDurationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -41,7 +40,7 @@ return new class extends Migration
             ],
         ];
 
-        new JobDurationType()->insert($data);
+        DB::connection($this->database_tag)->table('job_duration_types')->insert($data);
     }
 
     /**

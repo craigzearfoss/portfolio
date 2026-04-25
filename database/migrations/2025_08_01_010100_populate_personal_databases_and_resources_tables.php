@@ -75,7 +75,7 @@ return new class extends Migration
 
         $databaseModel = new Database();
 
-        $databaseModel->insert($data);
+        DB::connection('system_db')->table('databases')->insert($data);
 
         if (!$database = $databaseModel->where('database', '=', $dbName)->first()) {
 
@@ -253,7 +253,7 @@ return new class extends Migration
             }
 
             for ($i=0; $i<count($data); $i++) {
-                $resourceModel->insert($data[$i]);
+                DB::connection('system_db')->table('resources')->insert($data[$i]);
             }
         }
     }

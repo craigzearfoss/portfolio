@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Dictionary\Framework;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -113,7 +112,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        new Framework()->insert($data);
+        DB::connection($this->database_tag)->table('frameworks')->insert($data);
     }
 
     /**

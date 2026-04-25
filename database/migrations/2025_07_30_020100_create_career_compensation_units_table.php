@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Career\CompensationUnit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -56,7 +55,7 @@ return new class extends Migration
             ],
         ];
 
-        new CompensationUnit()->insert($data);
+        DB::connection($this->database_tag)->table('compensation_units')->insert($data);
     }
 
     /**

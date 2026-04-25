@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\Country;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -280,7 +279,7 @@ return new class extends Migration
             [ 'id' => 248, 'name' => 'Zimbabwe',                           'm49' => '716', 'iso_alpha3' => 'ZWE' ],
         ];
 
-        new Country()->insert($data);
+        DB::connection($this->database_tag)->table('countries')->insert($data);
     }
 
     /**

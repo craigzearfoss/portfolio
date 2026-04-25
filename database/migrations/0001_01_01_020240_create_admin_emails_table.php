@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\AdminEmail;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -45,7 +44,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            new AdminEmail()->insert($data);
+            DB::connection($this->database_tag)->table('admin_emails')->insert($data);
         }
     }
 

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\UserUserGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -40,7 +39,7 @@ return new class extends Migration
             ],
         ];
 
-        new UserUserGroup()->insert($data);
+        DB::connection($this->database_tag)->table('user_user_group')->insert($data);
     }
 
     /**

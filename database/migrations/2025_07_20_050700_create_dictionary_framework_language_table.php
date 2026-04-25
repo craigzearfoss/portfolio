@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Dictionary\FrameworkLanguage;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -94,7 +93,7 @@ return new class extends Migration
             [ 'framework_id' => 54, 'language_id' => 46 ],
         ];
 
-        new FrameworkLanguage()->insert($data);
+        DB::connection($this->database_tag)->table('framework_language')->insert($data);
     }
 
     /**

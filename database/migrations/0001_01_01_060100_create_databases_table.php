@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\System\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -90,7 +89,7 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        new Database()->insert($data);
+        DB::connection($this->database_tag)->table('databases')->insert($data);
 
         // set the owner_id values in the admins table
         DB::update(
