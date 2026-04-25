@@ -49,7 +49,7 @@ return new class extends Migration
             ],
         ];
 
-        SiteSetting::insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
         */
     }
 

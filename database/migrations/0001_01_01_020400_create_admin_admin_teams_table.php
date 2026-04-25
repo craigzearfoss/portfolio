@@ -49,7 +49,7 @@ return new class extends Migration
             ],
         ];
 
-        DB::connection($this->database_tag)->table('admin_teams')->insert($data);
+        DB::connection($this->database_tag)->table($this->table_name)->insert($data);
     }
 
     /**
