@@ -43,10 +43,14 @@ class SessionController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Session::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'sessions_' . date("Y-m-d-His") . '.xlsx'
             : 'sessions.xlsx';

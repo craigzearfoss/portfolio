@@ -148,10 +148,14 @@ class ReferenceController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Reference::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'references_' . date("Y-m-d-His") . '.xlsx'
             : 'references.xlsx';

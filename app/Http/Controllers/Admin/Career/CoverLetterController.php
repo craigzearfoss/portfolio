@@ -149,10 +149,14 @@ class CoverLetterController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(CoverLetter::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'cover_letters_' . date("Y-m-d-His") . '.xlsx'
             : 'cover_letters.xlsx';

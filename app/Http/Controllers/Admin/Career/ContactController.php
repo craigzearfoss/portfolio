@@ -10,7 +10,6 @@ use App\Http\Requests\Career\UpdateContactsRequest;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
-use App\Models\Career\Resume;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -243,10 +242,14 @@ class ContactController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Contact::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'contacts_' . date("Y-m-d-His") . '.xlsx'
             : 'contacts.xlsx';

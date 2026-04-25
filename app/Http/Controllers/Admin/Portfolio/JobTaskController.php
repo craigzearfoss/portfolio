@@ -154,10 +154,14 @@ class JobTaskController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(JobTask::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'job_tasks_' . date("Y-m-d-His") . '.xlsx'
             : 'job_tasks.xlsx';

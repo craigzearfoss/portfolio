@@ -13,6 +13,12 @@ class UserGroupsExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return UserGroup::all();
+        $query = new UserGroup()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', UserGroup::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

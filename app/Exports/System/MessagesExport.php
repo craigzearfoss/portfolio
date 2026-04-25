@@ -13,6 +13,12 @@ class MessagesExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return Message::all();
+        $query = new Message()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Message::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

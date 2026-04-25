@@ -148,10 +148,14 @@ class PublicationController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Publication::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'publications_' . date("Y-m-d-His") . '.xlsx'
             : 'publications.xlsx';

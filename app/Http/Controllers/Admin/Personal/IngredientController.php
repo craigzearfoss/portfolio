@@ -146,10 +146,14 @@ class IngredientController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Ingredient::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'ingredients_' . date("Y-m-d-His") . '.xlsx'
             : 'ingredients.xlsx';

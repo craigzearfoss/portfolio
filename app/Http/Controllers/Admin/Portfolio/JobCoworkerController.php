@@ -158,10 +158,14 @@ class JobCoworkerController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(JobCoworker::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'job_coworkers_' . date("Y-m-d-His") . '.xlsx'
             : 'job_coworkers.xlsx';

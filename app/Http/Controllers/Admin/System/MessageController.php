@@ -145,10 +145,14 @@ class MessageController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Message::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'messages_' . date("Y-m-d-His") . '.xlsx'
             : 'messages.xlsx';

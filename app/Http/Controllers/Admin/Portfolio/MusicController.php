@@ -149,10 +149,14 @@ class MusicController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Music::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'musics_' . date("Y-m-d-His") . '.xlsx'
             : 'musics.xlsx';

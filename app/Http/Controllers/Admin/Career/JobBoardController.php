@@ -147,10 +147,14 @@ class JobBoardController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(JobBoard::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'job_boards_' . date("Y-m-d-His") . '.xlsx'
             : 'job_boards.xlsx';

@@ -113,10 +113,14 @@ class JobSearchLogController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(JobSearchLog::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'job_search_log_' . date("Y-m-d-His") . '.xlsx'
             : 'job_search_log.xlsx';

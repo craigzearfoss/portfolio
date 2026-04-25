@@ -148,13 +148,17 @@ class PhotographyController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Photography::class, $this->admin);
+
         $filename = request()->has('timestamp')
-            ? 'photographies_' . date("Y-m-d-His") . '.xlsx'
-            : 'photographies.xlsx';
+            ? 'photography_' . date("Y-m-d-His") . '.xlsx'
+            : 'photography.xlsx';
 
         return Excel::download(new PhotographiesExport(), $filename);
     }

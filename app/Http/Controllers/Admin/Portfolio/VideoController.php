@@ -148,10 +148,14 @@ class VideoController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Video::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'videos_' . date("Y-m-d-His") . '.xlsx'
             : 'videos.xlsx';

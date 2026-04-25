@@ -13,6 +13,12 @@ class SiteSettingsExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return SiteSetting::all();
+        $query = new SiteSetting()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', SiteSetting::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

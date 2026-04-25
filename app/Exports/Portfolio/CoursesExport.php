@@ -3,16 +3,24 @@
 namespace App\Exports\Portfolio;
 
 use App\Models\Portfolio\Course;
+use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class CoursesExport implements FromCollection
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
-        return Course::all();
+        $query = new Course()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Course::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

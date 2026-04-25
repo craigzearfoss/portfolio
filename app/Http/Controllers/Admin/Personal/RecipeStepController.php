@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Exports\Personal\RecipeStepsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeStepsRequest;
 use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
@@ -11,6 +12,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -144,5 +147,21 @@ class RecipeStepController extends BaseAdminController
 
         return redirect(referer('admin.personal.recipe-step.index'))
             ->with('success', 'Recipe step deleted successfully.');
+    }
+
+    /**
+     * Export Microsoft Excel file.
+     *
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        readGate(RecipeStep::class, $this->admin);
+
+        $filename = request()->has('timestamp')
+            ? 'recipe_steps_' . date("Y-m-d-His") . '.xlsx'
+            : 'recipe_steps.xlsx';
+
+        return Excel::download(new RecipeStepsExport(), $filename);
     }
 }

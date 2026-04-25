@@ -13,6 +13,12 @@ class LoginAttemptsUserExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return LoginAttemptsUser::all();
+        $query = new LoginAttemptsUser()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', LoginAttemptsUser::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

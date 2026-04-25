@@ -148,10 +148,14 @@ class CertificationController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Certification::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'certifications_' . date("Y-m-d-His") . '.xlsx'
             : 'certifications.xlsx';

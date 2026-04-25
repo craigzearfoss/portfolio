@@ -149,10 +149,14 @@ class ArtController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Art::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'arts_' . date("Y-m-d-His") . '.xlsx'
             : 'arts.xlsx';

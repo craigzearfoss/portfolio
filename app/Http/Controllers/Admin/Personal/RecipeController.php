@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
-use App\Exports\Career\IndustriesExport;
 use App\Exports\Personal\RecipesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipesRequest;
@@ -149,14 +148,18 @@ class RecipeController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Recipe::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'recipes_' . date("Y-m-d-His") . '.xlsx'
             : 'recipes.xlsx';
 
-        return Excel::download(new IndustriesExport(), $filename);
+        return Excel::download(new RecipesExport(), $filename);
     }
 }

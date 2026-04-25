@@ -148,10 +148,14 @@ class LinkController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Link::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'links_' . date("Y-m-d-His") . '.xlsx'
             : 'links.xlsx';

@@ -13,7 +13,6 @@ use App\Models\Career\Resume;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -279,10 +278,14 @@ class ApplicationController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Application::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'applications_' . date("Y-m-d-His") . '.xlsx'
             : 'applications.xlsx';

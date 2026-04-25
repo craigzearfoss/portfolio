@@ -3,16 +3,24 @@
 namespace App\Exports\Portfolio;
 
 use App\Models\Portfolio\Project;
+use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ProjectsExport implements FromCollection
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
-        return Project::all();
+        $query = new Project()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Project::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

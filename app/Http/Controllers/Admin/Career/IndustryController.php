@@ -147,10 +147,14 @@ class IndustryController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Industry::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'industries_' . date("Y-m-d-His") . '.xlsx'
             : 'industries.xlsx';

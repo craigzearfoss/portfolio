@@ -148,10 +148,14 @@ class ProjectController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Project::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'projects_' . date("Y-m-d-His") . '.xlsx'
             : 'projects.xlsx';

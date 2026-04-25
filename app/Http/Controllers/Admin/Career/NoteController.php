@@ -12,7 +12,6 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Mockery\Matcher\Not;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -181,10 +180,14 @@ class NoteController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Note::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'notes_' . date("Y-m-d-His") . '.xlsx'
             : 'notes.xlsx';

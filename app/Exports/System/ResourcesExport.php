@@ -13,6 +13,12 @@ class ResourcesExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return Resource::all();
+        $query = new Resource()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Resource::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

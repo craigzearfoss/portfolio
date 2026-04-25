@@ -144,10 +144,14 @@ class UserTeamController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(UserTeam::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'user_teams_' . date("Y-m-d-His") . '.xlsx'
             : 'user_teams.xlsx';

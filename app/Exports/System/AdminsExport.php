@@ -13,6 +13,12 @@ class AdminsExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return Admin::all();
+        $query = new Admin()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Admin::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

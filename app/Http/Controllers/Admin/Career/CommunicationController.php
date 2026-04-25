@@ -184,10 +184,14 @@ class CommunicationController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Communication::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'communications_' . date("Y-m-d-His") . '.xlsx'
             : 'communications.xlsx';

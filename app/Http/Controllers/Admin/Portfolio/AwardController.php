@@ -149,10 +149,14 @@ class AwardController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Award::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'awards_' . date("Y-m-d-His") . '.xlsx'
             : 'awards.xlsx';

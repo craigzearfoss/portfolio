@@ -3,16 +3,24 @@
 namespace App\Exports\Portfolio;
 
 use App\Models\Portfolio\Art;
+use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ArtsExport implements FromCollection
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
-        return Art::all();
+        $query = new Art()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Art::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

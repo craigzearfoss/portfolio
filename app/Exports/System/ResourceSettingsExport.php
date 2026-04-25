@@ -13,6 +13,12 @@ class ResourceSettingsExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return ResourceSetting::all();
+        $query = new ResourceSetting()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', ResourceSetting::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

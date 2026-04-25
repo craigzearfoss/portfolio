@@ -3,16 +3,24 @@
 namespace App\Exports\Portfolio;
 
 use App\Models\Portfolio\Academy;
+use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class AcademiesExport implements FromCollection
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
-        return Academy::all();
+        $query = new Academy()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Academy::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

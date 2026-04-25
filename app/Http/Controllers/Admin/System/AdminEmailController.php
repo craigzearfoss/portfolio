@@ -146,10 +146,14 @@ class AdminEmailController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(AdminEmail::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'admin_emails_' . date("Y-m-d-His") . '.xlsx'
             : 'admin_emails.xlsx';

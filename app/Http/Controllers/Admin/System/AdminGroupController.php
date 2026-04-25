@@ -146,10 +146,14 @@ class AdminGroupController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(AdminGroup::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'admin_groups_' . date("Y-m-d-His") . '.xlsx'
             : 'admin_groups.xlsx';

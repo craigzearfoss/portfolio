@@ -13,6 +13,12 @@ class DatabasesExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return Database::all();
+        $query = new Database()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Database::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }

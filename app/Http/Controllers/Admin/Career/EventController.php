@@ -180,10 +180,14 @@ class EventController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Event::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'events_' . date("Y-m-d-His") . '.xlsx'
             : 'events.xlsx';

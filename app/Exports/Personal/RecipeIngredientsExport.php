@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Exports\Career;
+namespace App\Exports\Personal;
 
-use App\Models\Career\Communication;
+use App\Models\Personal\RecipeIngredient;
 use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class CommunicationsExport implements FromCollection
+class RecipeIngredientsExport implements FromCollection
 {
     /**
      * @return Collection
@@ -15,9 +15,9 @@ class CommunicationsExport implements FromCollection
      */
     public function collection(): Collection
     {
-        $query = new Communication()->searchQuery(
+        $query = new RecipeIngredient()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Communication::SEARCH_ORDER_BY),
+            request()->input('sort') ?? implode('|', RecipeIngredient::SEARCH_ORDER_BY),
             config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
         );
 

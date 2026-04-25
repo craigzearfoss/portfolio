@@ -262,10 +262,14 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Export Microsoft Excel file.
+     *
      * @return BinaryFileResponse
      */
     public function export(): BinaryFileResponse
     {
+        readGate(Admin::class, $this->admin);
+
         $filename = request()->has('timestamp')
             ? 'admins_' . date("Y-m-d-His") . '.xlsx'
             : 'admins.xlsx';

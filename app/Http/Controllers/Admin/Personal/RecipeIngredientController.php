@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Exports\Personal\RecipeIngredientsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeIngredientsRequest;
 use App\Http\Requests\Personal\UpdateRecipeIngredientsRequest;
@@ -11,6 +12,8 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  *
@@ -145,5 +148,21 @@ class RecipeIngredientController extends BaseAdminController
 
         return redirect(referer('admin.personal.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient deleted successfully.');
+    }
+
+    /**
+     * Export Microsoft Excel file.
+     *
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        readGate(RecipeIngredient::class, $this->admin);
+
+        $filename = request()->has('timestamp')
+            ? 'recipe_ingredients_' . date("Y-m-d-His") . '.xlsx'
+            : 'recipe_ingredients.xlsx';
+
+        return Excel::download(new RecipeIngredientsExport(), $filename);
     }
 }

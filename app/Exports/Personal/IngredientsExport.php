@@ -13,6 +13,12 @@ class IngredientsExport implements FromCollection
     */
     public function collection(): Collection
     {
-        return Ingredient::all();
+        $query = new Ingredient()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Ingredient::SEARCH_ORDER_BY),
+            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+        );
+
+        return $query->get();
     }
 }
