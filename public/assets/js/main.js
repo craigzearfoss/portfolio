@@ -15,7 +15,7 @@ function toggleHamburgerMenu() {
 document.addEventListener("DOMContentLoaded", () => {
 
     if (document.getElementById("performSearch")) {
-        document.getElementById("performSearch").addEventListener("click", function (event) {
+        document.getElementById("performSearch").addEventListener("click", function () {
             document.getElementById("searchForm").submit();
         });
     }
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 exportUrl = elem.getAttribute('href');
             }
             if (!exportUrl) {
-                window.location.href + '/export';
+                window.location.href + '/export?timestamp';
             }
 
             // get the filename
