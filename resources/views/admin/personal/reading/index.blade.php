@@ -145,7 +145,7 @@
                                 @if(canRead($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.personal.reading.show', [$owner, $reading->id]),
+                                        'href'  => route('admin.personal.reading.show', $reading),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -153,7 +153,7 @@
                                 @if(canUpdate($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.personal.reading.edit', [$owner, $reading->id]),
+                                        'href'  => route('admin.personal.reading.edit', $reading),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
@@ -175,8 +175,7 @@
 
                                 @if(canDelete($reading, $admin))
                                     <form class="delete-resource"
-                                          action="{!! route('admin.personal.reading.destroy', $reading) !!}"
-                                          method="POST">
+                                          action="{!! route('admin.personal.reading.destroy', $reading) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
