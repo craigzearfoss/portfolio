@@ -30,7 +30,8 @@ class OperatingSystemController extends BaseAdminController
 
         $operatingSystems = new OperatingSystem()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', OperatingSystem::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', OperatingSystem::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

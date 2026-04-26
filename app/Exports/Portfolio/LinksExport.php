@@ -18,7 +18,7 @@ class LinksExport implements FromCollection
         $query = new Link()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Link::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

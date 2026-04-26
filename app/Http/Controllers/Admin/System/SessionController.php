@@ -32,7 +32,7 @@ class SessionController extends BaseAdminController
 
         $sessions = new Session()->searchQuery(
             $request->all(),
-            request()->input('sort') ?? implode('|', Session::SEARCH_ORDER_BY),
+            request()->input('sort') ?? implode('|', Session::SEARCH_ORDER_BY)
         )
             ->paginate($perPage)->appends(request()->except('page'));
 

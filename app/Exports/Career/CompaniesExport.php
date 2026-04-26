@@ -20,7 +20,7 @@ class CompaniesExport implements FromCollection, WithHeadings
         $query = new Company()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Company::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('companies.id as id'),
             DB::raw('admins.username as owner_username'),

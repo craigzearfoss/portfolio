@@ -35,7 +35,7 @@ class ArtController extends BaseAdminController
         $arts = new Art()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Art::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

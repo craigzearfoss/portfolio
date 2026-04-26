@@ -37,7 +37,7 @@ class CompanyController extends BaseAdminController
         $companies = new Company()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Company::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

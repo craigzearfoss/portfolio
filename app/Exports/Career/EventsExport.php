@@ -20,7 +20,7 @@ class EventsExport implements FromCollection, WithHeadings
         $query = new Event()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Event::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('events.id as id'),
             DB::raw('admins.username as owner_username'),

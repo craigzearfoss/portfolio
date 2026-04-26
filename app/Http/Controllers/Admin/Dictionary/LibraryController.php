@@ -30,7 +30,8 @@ class LibraryController extends BaseAdminController
 
         $libraries = new Library()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Library::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Library::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

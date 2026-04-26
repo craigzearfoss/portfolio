@@ -18,7 +18,7 @@ class CertificationsExport implements FromCollection
         $query = new Certification()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Certification::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

@@ -36,11 +36,13 @@ class RecipeIngredientController extends BaseAdminController
         $recipeIngredients = new RecipeIngredient()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', RecipeIngredient::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $recipe = $request->recipe_id ? Recipe::query()->findOrFail($request->recipe_id) : null;
+        $recipe = $request->input('recipe_id')
+            ? Recipe::query()->findOrFail($request->input('recipe_id'))
+            : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Recipe Ingredients';
 

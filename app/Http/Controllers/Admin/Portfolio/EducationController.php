@@ -35,7 +35,7 @@ class EducationController extends BaseAdminController
         $educations = new Education()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Education::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->orderBy('enrollment_date', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));

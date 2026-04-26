@@ -33,7 +33,7 @@ class AdminResourceController extends BaseAdminController
         $adminResources = new AdminResource()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', AdminResource::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

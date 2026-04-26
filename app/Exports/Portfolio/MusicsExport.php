@@ -18,7 +18,7 @@ class MusicsExport implements FromCollection
         $query = new Music()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Music::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

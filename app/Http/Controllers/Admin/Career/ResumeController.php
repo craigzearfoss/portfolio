@@ -40,11 +40,14 @@ class ResumeController extends BaseAdminController
         $query = new Resume()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Resume::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->orderBy('name');
 
-        if ($application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null) {
+        if ($application = $request->input('application_id')
+            ? Application::query()->findOrFail($request->input('application_id'))
+            : null
+        ) {
             $query->leftJoin(config('app.career_db').'.applications', 'applications.resume_id', '=', 'resumes.id')
                 ->where('applications.id', '=', $application->id);
         }

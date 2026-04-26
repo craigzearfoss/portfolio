@@ -33,7 +33,7 @@ class AdminEmailController extends BaseAdminController
         $adminEmails = new AdminEmail()->searchQuery(
             $request->all(),
             request()->input('sort') ?? implode('|', AdminEmail::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

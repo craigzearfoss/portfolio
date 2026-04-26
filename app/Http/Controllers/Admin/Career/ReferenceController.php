@@ -35,7 +35,7 @@ class ReferenceController extends BaseAdminController
         $references = new Reference()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Reference::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

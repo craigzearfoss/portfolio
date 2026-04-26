@@ -16,7 +16,7 @@ class SessionsExport implements FromCollection
         $query = new Session()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Session::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

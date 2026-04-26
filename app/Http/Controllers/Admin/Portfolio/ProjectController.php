@@ -35,7 +35,7 @@ class ProjectController extends BaseAdminController
         $projects = new Project()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Project::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

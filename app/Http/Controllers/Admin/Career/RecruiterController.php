@@ -34,7 +34,8 @@ class RecruiterController extends BaseAdminController
 
         $recruiters = new Recruiter()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Recruiter::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Recruiter::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

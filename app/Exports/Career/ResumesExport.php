@@ -19,7 +19,7 @@ class ResumesExport implements FromCollection, WithHeadings
         $query = new Resume()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Resume::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

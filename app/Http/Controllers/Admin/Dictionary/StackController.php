@@ -30,7 +30,8 @@ class StackController extends BaseAdminController
 
         $stacks = new Stack()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Stack::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Stack::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

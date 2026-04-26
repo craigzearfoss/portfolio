@@ -16,7 +16,7 @@ class AdminEmailsExport implements FromCollection
         $query = new AdminEmail()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', AdminEmail::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

@@ -20,7 +20,7 @@ class NotesExport implements FromCollection, WithHeadings
         $query = new Note()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Note::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('notes.id as id'),
             DB::raw('admins.username as owner_username'),

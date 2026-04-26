@@ -35,7 +35,7 @@ class LinkController extends BaseAdminController
         $links = new Link()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Link::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

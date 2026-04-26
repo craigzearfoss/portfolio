@@ -35,7 +35,7 @@ class UserTeamController extends BaseAdminController
         // note that any user can see all user teams
         $userTeams = new UserTeam()->searchQuery(
             $request->all(),
-            request()->input('sort') ?? implode('|', UserTeam::SEARCH_ORDER_BY),
+            request()->input('sort') ?? implode('|', UserTeam::SEARCH_ORDER_BY)
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

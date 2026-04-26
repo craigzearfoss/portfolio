@@ -37,7 +37,7 @@ class JobTaskController extends BaseAdminController
         $jobTasks = new JobTask()->searchQuery(
             request()->except('id', 'page', 'sort'),
             request()->input('sort') ?? implode('|', JobTask::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

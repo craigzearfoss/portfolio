@@ -20,7 +20,7 @@ class IndustriesExport implements FromCollection, WithHeadings
         $query = new Industry()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Industry::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('industries.id as id'),
             DB::raw('industries.name as name'),

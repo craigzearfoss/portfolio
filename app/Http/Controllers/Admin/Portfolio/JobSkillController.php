@@ -37,7 +37,7 @@ class JobSkillController extends BaseAdminController
         $jobSkills = new JobSkill()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', JobSkill::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

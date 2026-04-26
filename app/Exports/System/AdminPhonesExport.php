@@ -16,7 +16,7 @@ class AdminPhonesExport implements FromCollection
         $query = new AdminPhone()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', AdminPhone::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

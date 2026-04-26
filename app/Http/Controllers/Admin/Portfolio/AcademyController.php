@@ -34,7 +34,8 @@ class AcademyController extends BaseAdminController
 
         $academies = new Academy()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Academy::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Academy::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->where('name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));

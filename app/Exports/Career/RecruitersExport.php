@@ -20,7 +20,7 @@ class RecruitersExport implements FromCollection, WithHeadings
         $query = new Recruiter()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Recruiter::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('recruiters.id as id'),
             DB::raw('recruiters.name as name'),

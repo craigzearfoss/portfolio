@@ -33,6 +33,7 @@ class MessageController extends BaseAdminController
         $messages = new Message()->searchQuery(
             $request->all(),
             request()->input('sort') ?? implode('|', Message::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

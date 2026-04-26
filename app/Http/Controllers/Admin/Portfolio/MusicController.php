@@ -35,7 +35,7 @@ class MusicController extends BaseAdminController
         $musics = new Music()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Music::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->orderBy('artist')
         ->paginate($perPage)->appends(request()->except('page'));

@@ -30,7 +30,8 @@ class DatabaseController extends BaseAdminController
 
         $databases = new Database()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Database::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Database::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

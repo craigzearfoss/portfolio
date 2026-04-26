@@ -20,7 +20,7 @@ class ContactsExport implements FromCollection, WithHeadings
         $query = new Contact()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Contact::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('contacts.id as id'),
             DB::raw('admins.username as owner_username'),

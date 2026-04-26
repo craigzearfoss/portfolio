@@ -16,7 +16,7 @@ class UserGroupsExport implements FromCollection
         $query = new UserGroup()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', UserGroup::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

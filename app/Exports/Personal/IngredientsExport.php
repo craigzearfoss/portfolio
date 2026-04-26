@@ -18,7 +18,7 @@ class IngredientsExport implements FromCollection, WithHeadings
         $query = new Ingredient()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Ingredient::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('ingredients.id as id'),
             DB::raw('ingredients.full_name as full_name'),

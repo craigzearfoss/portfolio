@@ -16,7 +16,7 @@ class AdminDatabasesExport implements FromCollection
         $query = new AdminDatabase()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', AdminDatabase::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

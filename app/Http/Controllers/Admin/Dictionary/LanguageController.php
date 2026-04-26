@@ -30,7 +30,8 @@ class LanguageController extends BaseAdminController
 
         $languages = new Language()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Language::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Language::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

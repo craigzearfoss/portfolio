@@ -16,7 +16,7 @@ class LoginAttemptsAdminExport implements FromCollection
         $query = new LoginAttemptsAdmin()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', LoginAttemptsAdmin::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         );
 
         return $query->get();

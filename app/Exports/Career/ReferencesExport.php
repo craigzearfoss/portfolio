@@ -20,7 +20,7 @@ class ReferencesExport implements FromCollection, WithHeadings
         $query = new Reference()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Reference::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('references.id as id'),
             DB::raw('admins.username as owner_username'),

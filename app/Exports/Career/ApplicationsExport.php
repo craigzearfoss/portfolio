@@ -20,7 +20,7 @@ class ApplicationsExport implements FromCollection, WithHeadings
         $query = new Application()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Application::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('applications.id as id'),
             DB::raw('admins.username as owner_username'),

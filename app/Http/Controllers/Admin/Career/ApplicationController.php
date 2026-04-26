@@ -39,13 +39,15 @@ class ApplicationController extends BaseAdminController
         $applications = new Application()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Application::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->orderBy('post_date', 'desc')
         ->orderBy('created_at', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $resume = $request->resume_id ? Resume::query()->findOrFail($request->resume_id) : null;
+        $resume = $request->input('resume_id')
+            ? Resume::query()->findOrFail($request->input('resume_id'))
+            : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Applications';
 

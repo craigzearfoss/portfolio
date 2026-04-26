@@ -32,7 +32,8 @@ class IngredientController extends BaseAdminController
 
         $ingredients = new Ingredient()->searchQuery(
             request()->except('id', 'sort'),
-            request()->input('sort') ?? implode('|', Ingredient::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Ingredient::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->where('name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));

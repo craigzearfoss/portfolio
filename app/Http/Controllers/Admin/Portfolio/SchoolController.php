@@ -35,6 +35,7 @@ class SchoolController extends BaseAdminController
         $schools = new School()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', School::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->where('schools.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));

@@ -20,7 +20,7 @@ class ReadingsExport implements FromCollection, WithHeadings
         $query = new Reading()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Reading::SEARCH_ORDER_BY),
-            config('app.single_admin_mode') || isRootAdmin() ? loggedInAdmin() : null
+            !isRootAdmin() ? loggedInAdmin() : null
         )->select([
             DB::raw('readings.id as id'),
             DB::raw('admins.username as owner_username'),

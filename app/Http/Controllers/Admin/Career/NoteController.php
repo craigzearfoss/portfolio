@@ -36,11 +36,13 @@ class NoteController extends BaseAdminController
         $notes = new Note()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Note::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null;
+        $application = $request->input('application_id')
+            ? Application::query()->findOrFail($request->input('application_id'))
+            : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Notes';
 

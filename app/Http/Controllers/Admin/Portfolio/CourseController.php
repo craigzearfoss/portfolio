@@ -35,7 +35,7 @@ class CourseController extends BaseAdminController
         $courses = new Course()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Course::SEARCH_ORDER_BY),
-            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+            !$this->isRootAdmin ? $this->admin : null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

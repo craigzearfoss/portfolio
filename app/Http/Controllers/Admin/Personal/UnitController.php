@@ -30,6 +30,7 @@ class UnitController extends BaseAdminController
         $units = new Unit()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Unit::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
         )->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Units';
