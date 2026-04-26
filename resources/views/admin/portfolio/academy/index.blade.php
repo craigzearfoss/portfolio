@@ -110,16 +110,14 @@
                                     ])
                                 @else
                                     @include('admin.components.link-icon', [
-                                        'title' => 'link',
+                                        'title'    => 'link',
                                         'icon'     => 'fa-external-link',
                                         'disabled' => true
                                     ])
                                 @endif
 
                                 @if(canDelete($academy, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.portfolio.academy.destroy', $academy) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.portfolio.academy.destroy', $academy) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

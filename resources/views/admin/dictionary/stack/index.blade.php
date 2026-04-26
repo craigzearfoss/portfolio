@@ -137,9 +137,7 @@
                                 @endif
 
                                 @if(canDelete($stack, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.dictionary.stack.destroy', $stack) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.dictionary.stack.destroy', $stack) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

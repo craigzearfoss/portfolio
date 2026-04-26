@@ -42,7 +42,7 @@
             ])
 
             @if($pagination_top)
-                {!! $messages->links('vendor.pagination.bulma') !!}
+                {!! $allMessages->links('vendor.pagination.bulma') !!}
             @endif
 
             <p class="admin-table-caption"></p>
@@ -77,50 +77,48 @@
 
                 <tbody>
 
-                @forelse ($messages as $message)
+                @forelse ($allMessages as $thisMessage)
 
-                    <tr data-id="{{ $message->id }}">
+                    <tr data-id="{{ $thisMessage->id }}">
                         <td class="has-text-centered" data-field="from_admin">
-                            @include('admin.components.checkmark', [ 'checked' => $message->from_admin ])
+                            @include('admin.components.checkmark', [ 'checked' => $thisMessage->from_admin ])
                         </td>
                         <td data-field="name">
-                            {!! $message->name !!}
+                            {!! $thisMessage->name !!}
                         </td>
                         <td data-field="email">
-                            {!! $message->email !!}
+                            {!! $thisMessage->email !!}
                         </td>
                         <td data-field="subject">
-                            {!! $message->subject !!}
+                            {!! $thisMessage->subject !!}
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">
-                            {{ shortDateTime($message->created_at) }}
+                            {{ shortDateTime($thisMessage->created_at) }}
                         </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">
 
-                                @if(canRead($message, $admin))
+                                @if(canRead($thisMessage, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.message.show', $message),
+                                        'href'  => route('admin.system.message.show', $thisMessage),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
 
                                 <?php /*
                                 // you can't delete messages
-                                @if(canUpdate($message, $admin))
+                                @if(canUpdate($thisMessage, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.message.edit', $message),
+                                        'href'  => route('admin.system.message.edit', $thisMessage),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
 
-                                @if(canDelete($message, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.system.message.destroy', $message) !!}"
-                                          method="POST">
+                                @if(canDelete($thisMessage, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.system.message.destroy', $thisMessage) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
@@ -150,7 +148,7 @@
             </table>
 
             @if($pagination_bottom)
-                {!! $messages->links('vendor.pagination.bulma') !!}
+                {!! $allMessages->links('vendor.pagination.bulma') !!}
             @endif
 
         </div>

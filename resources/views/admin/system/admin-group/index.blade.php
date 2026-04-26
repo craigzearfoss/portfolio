@@ -148,9 +148,7 @@
                                 @endif
 
                                 @if(canDelete($adminGroup, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.system.admin-group.destroy', $adminGroup) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.system.admin-group.destroy', $adminGroup) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

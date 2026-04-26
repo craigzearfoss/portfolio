@@ -157,8 +157,7 @@
                                 @endif
 
                                 @if(canDelete($music, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.portfolio.music.destroy', $music) !!}" method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.portfolio.music.destroy', $music) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

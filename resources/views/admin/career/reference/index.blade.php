@@ -162,9 +162,7 @@
                                 @endif
 
                                 @if(canDelete($reference, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.career.reference.destroy', $reference) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

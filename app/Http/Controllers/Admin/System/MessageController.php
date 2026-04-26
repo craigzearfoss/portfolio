@@ -30,7 +30,7 @@ class MessageController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $messages = new Message()->searchQuery(
+        $allMessages = new Message()->searchQuery(
             $request->all(),
             request()->input('sort') ?? implode('|', Message::SEARCH_ORDER_BY),
             !$this->isRootAdmin ? $this->admin : null
@@ -39,7 +39,7 @@ class MessageController extends BaseAdminController
 
         $pageTitle = 'Messages';
 
-        return view('admin.system.message.index', compact('messages', 'pageTitle'))
+        return view('admin.system.message.index', compact('allMessages', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

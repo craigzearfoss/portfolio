@@ -130,9 +130,7 @@
                                 @endif
 
                                 @if(canDelete($certification, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.portfolio.certification.destroy', $certification) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.portfolio.certification.destroy', $certification) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

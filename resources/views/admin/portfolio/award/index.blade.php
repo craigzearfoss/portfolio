@@ -152,8 +152,7 @@
                                 @endif
 
                                 @if(canDelete($award, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.portfolio.award.destroy', $award) !!}" method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.portfolio.award.destroy', $award) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

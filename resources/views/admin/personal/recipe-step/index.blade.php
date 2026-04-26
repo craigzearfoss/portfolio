@@ -138,9 +138,7 @@
                                 @endif
 
                                 @if(canDelete($recipeStep, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

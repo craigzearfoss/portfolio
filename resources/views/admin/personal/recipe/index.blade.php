@@ -123,7 +123,7 @@
                                 @if(canRead($recipe, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.personal.recipe.show', [$owner, $recipe]),
+                                        'href'  => route('admin.personal.recipe.show', $recipe),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -131,7 +131,7 @@
                                 @if(canUpdate($recipe, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.personal.recipe.edit', [$owner, $recipe]),
+                                        'href'  => route('admin.personal.recipe.edit', $recipe),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
@@ -152,9 +152,7 @@
                                 @endif
 
                                 @if(canDelete($recipe, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.personal.recipe.destroy', $recipe) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.personal.recipe.destroy', $recipe) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

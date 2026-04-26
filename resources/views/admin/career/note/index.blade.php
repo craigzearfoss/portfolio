@@ -159,8 +159,7 @@
                                 @endif
 
                                 @if(canDelete($note, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.career.note.destroy', $note) !!}" method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.career.note.destroy', $note) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

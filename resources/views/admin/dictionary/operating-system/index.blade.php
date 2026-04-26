@@ -136,9 +136,7 @@
                                 @endif
 
                                 @if(canDelete($operatingSystem, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

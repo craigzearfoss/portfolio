@@ -141,9 +141,7 @@
                                 @endif
 
                                 @if(canDelete($coverLetter, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}"
-                                          method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

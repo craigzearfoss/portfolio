@@ -157,8 +157,7 @@
                                 @endif
 
                                 @if(canDelete($resume, $admin))
-                                    <form class="delete-resource"
-                                          action="{!! route('admin.career.resume.destroy', $resume) !!}" method="POST">
+                                    <form class="delete-resource" action="{!! route('admin.career.resume.destroy', $resume) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
