@@ -236,12 +236,20 @@ class Contact extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
 
-        // join to companies table
+        // add joins
         $query->join( dbName('career_db') . '.company_contact', 'company_contact.contact_id', '=', $this->table . '.id')
             ->join( dbName('career_db') . '.companies', 'companies.id', '=', 'company_contact.company_id')
-            ->addSelect(
+            ->join(dbName('system_db') . '.states', 'states.id', '=', 'contacts.state_id')
+            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'contacts.country_id');
+
+        $query->addSelect(
                 DB::raw(dbName($this->connection) . '.companies.id AS company_id'),
-                DB::raw(dbName($this->connection) . '.companies.name AS company_name')
+                DB::raw(dbName($this->connection) . '.companies.name AS company_name'),
+                DB::raw('states.name as state_name'),
+                DB::raw('states.code as state_code'),
+                DB::raw('countries.name as country_name'),
+                DB::raw('countries.m49 as country_m49'),
+                DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
             );
 
         // add order by clause

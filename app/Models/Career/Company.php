@@ -192,7 +192,10 @@ class Company extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
-        $query->join( dbName('career_db') . '.industries', 'industries.id', '=', $this->table . '.industry_id');
+        // add joins
+        $query->join( dbName('career_db') . '.industries', 'industries.id', '=', $this->table . '.industry_id')
+            ->join(dbName('system_db') . '.states', 'states.id', '=', 'companies.state_id')
+            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'companies.country_id');
 
         // add additional filters
         $query = $this->appendAddressFilters($query, $filters);
@@ -202,7 +205,14 @@ class Company extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add extra selects
-        $query ->addSelect(DB::raw('industries.name as industry_name'));
+        $query ->addSelect(
+            DB::raw('industries.name as industry_name'),
+            DB::raw('states.name as state_name'),
+            DB::raw('states.code as state_code'),
+            DB::raw('countries.name as country_name'),
+            DB::raw('countries.m49 as country_m49'),
+            DB::raw('countries.iso_alpha3 as iso_alpha3'),
+        );
 
         // add order by clause
         return $this->addOrderBy($query, $sort);

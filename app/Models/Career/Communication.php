@@ -168,7 +168,8 @@ class Communication extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->newQuery()
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -241,9 +242,11 @@ class Communication extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
+        // add  joins
         $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->join('communication_types', 'communication_types.id', '=', 'communication_type_id');
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('applications.apply_date as application_apply_date'),
@@ -251,6 +254,7 @@ class Communication extends Model
             DB::raw('applications.role as application_role'),
             DB::raw('applications.company_id as company_id'),
             DB::raw('companies.name as company_name'),
+            DB::raw('communication_types.name as communication_type'),
             DB::raw('admins.name AS `owner_name`'),
             DB::raw('admins.username AS `owner_username`'),
             DB::raw('admins.email AS `owner_email`'),

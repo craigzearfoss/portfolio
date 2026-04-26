@@ -104,7 +104,8 @@ class Industry extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
+        $query = new self()->newQuery()
+            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {

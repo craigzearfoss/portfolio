@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -229,6 +230,18 @@ class Reference extends Model
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
+
+        // add joins
+        $query->join(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
+            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'references.country_id');
+
+        $query->addSelect(
+            DB::raw('states.name as state_name'),
+            DB::raw('states.code as state_code'),
+            DB::raw('countries.name as country_name'),
+            DB::raw('countries.m49 as country_m49'),
+            DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
+        );
 
         // add additional filters
         $query = $this->appendAddressFilters($query, $filters);

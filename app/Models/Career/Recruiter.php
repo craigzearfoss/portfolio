@@ -172,7 +172,8 @@ class Recruiter extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
+        $query = new self()->newQuery()
+            ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
                 } else {
@@ -205,12 +206,17 @@ class Recruiter extends Model
                 $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             });
 
-        $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id');
+        // add joins
+        $query->join(dbName('system_db') . '.states', 'states.id', '=', 'recruiters.state_id')
+            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'recruiters.country_id');
 
         $query->select([
             DB::raw('recruiters.*'),
-            DB::raw('states.code AS `state_code`'),
-            DB::raw('states.name AS `state_name`')
+            DB::raw('states.name as state_name'),
+            DB::raw('states.code as state_code'),
+            DB::raw('countries.name as country_name'),
+            DB::raw('countries.m49 as country_m49'),
+            DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
         ] );
 
         // add additional filters

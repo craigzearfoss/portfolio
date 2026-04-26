@@ -338,7 +338,8 @@ class Application extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->newQuery()
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
@@ -481,9 +482,16 @@ class Application extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add joins
-        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
-        $query->join('companies', 'companies.id', '=', 'applications.company_id');
-        $query->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id');
+        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id')
+            ->join('companies', 'companies.id', '=', 'applications.company_id')
+            ->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id')
+            ->join('job_boards', 'job_boards.id', '=', 'applications.job_board_id')
+            ->join('job_duration_types', 'job_duration_types.id', '=', 'applications.job_duration_type_id')
+            ->join('job_location_types', 'job_location_types.id', '=', 'applications.job_location_type_id')
+            ->join('job_employment_types', 'job_employment_types.id', '=', 'applications.job_employment_type_id')
+            ->join(dbName('system_db') . '.states', 'states.id', '=', 'applications.state_id')
+            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'applications.country_id');
+
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('admins.name AS `owner_name`'),
@@ -491,6 +499,15 @@ class Application extends Model
             DB::raw('admins.email AS `owner_email`'),
             DB::raw('companies.name as company_name'),
             DB::raw('resumes.name as resume_name'),
+            DB::raw('job_boards.name as job_board'),
+            DB::raw('job_duration_types.name as duration_type'),
+            DB::raw('job_location_types.name as location_type'),
+            DB::raw('job_employment_types.name as duration_type'),
+            DB::raw('states.name as state'),
+            DB::raw('states.code as state_code'),
+            DB::raw('countries.name as country'),
+            DB::raw('countries.m49 as country_m49'),
+            DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
         ]);
 
         // add order by clause

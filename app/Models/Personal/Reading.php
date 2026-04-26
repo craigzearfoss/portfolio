@@ -164,9 +164,8 @@ class Reading extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->select(
-                DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
-            )->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->newQuery()
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
@@ -204,6 +203,21 @@ class Reading extends Model
             ->when(!empty($filters['wishlist']), function ($query) use ($filters) {
                 $query->where($this->table . '.wishlist', '=', true);
             });
+
+        // add joins
+        $query->join( dbName('system_db') . '.admins',
+            dbName('system_db') . '.admins.id',
+            '=',
+            dbName($this->connection) . '.' . $this->table . '.owner_id'
+        );
+
+        $query->select(
+            DB::raw(dbName($this->connection) . '.' . $this->table . '.*'),
+            //DB::Raw('admins.name as owner_id'),
+            DB::Raw('admins.name as owner_name'),
+            DB::Raw('admins.username as owner_username'),
+            DB::Raw('admins.email as owner_email'),
+        );
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);

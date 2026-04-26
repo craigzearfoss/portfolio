@@ -17,8 +17,11 @@ Route::prefix('admin/personal')->middleware('admin')->name('admin.personal.')->g
     Route::get('/', [AdminPersonalIndexController::class, 'index'])->name('index');
 
     // Excel export routes
+    Route::get('ingredient/export', [AdminPersonalIngredientController::class, 'export'])->name('ingredient.export');
     Route::get('reading/export', [AdminPersonalReadingController::class, 'export'])->name('reading.export');
     Route::get('recipe/export', [AdminPersonalRecipeController::class, 'export'])->name('recipe.export');
+    Route::get('recipe-ingredient/export', [AdminPersonalRecipeIngredientController::class, 'export'])->name('recipe-ingredient.export');
+    Route::get('recipe-step/export', [AdminPersonalRecipeStepController::class, 'export'])->name('recipe-step.export');
 
     Route::resource('ingredient', AdminPersonalIngredientController::class);
     Route::resource('unit', AdminPersonalUnitController::class);

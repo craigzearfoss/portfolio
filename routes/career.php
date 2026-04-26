@@ -34,8 +34,8 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::get('cover-letter/export', [AdminCareerCoverLetterController::class, 'export'])->name('cover_letter.export');
     Route::get('event/export', [AdminCareerEventController::class, 'export'])->name('event.export');
     Route::get('industry/export', [AdminCareerIndustryController::class, 'export'])->name('industry.export');
-    Route::get('job-board/export', [AdminCareerJobBoardController::class, 'export'])->name('job_board.export');
-    Route::get('job-search-log/export', [AdminCareerJobSearchLogController::class, 'export'])->name('job_search_log.export');
+    Route::get('job-board/export', [AdminCareerJobBoardController::class, 'export'])->name('job-board.export');
+    Route::get('job-search-log/export', [AdminCareerJobSearchLogController::class, 'export'])->name('job-search-log.export');
     Route::get('note/export', [AdminCareerNoteController::class, 'export'])->name('note.export');
     Route::get('recruiter/export', [AdminCareerRecruiterController::class, 'export'])->name('recruiter.export');
     Route::get('reference/export', [AdminCareerReferenceController::class, 'export'])->name('reference.export');
