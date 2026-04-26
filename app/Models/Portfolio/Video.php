@@ -175,7 +175,7 @@ class Video extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['clip']), function ($query) use ($filters) {
                 $query->where($this->table . '.clip', '=', boolval($filters['clip']));
             })

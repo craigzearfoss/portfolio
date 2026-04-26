@@ -266,11 +266,13 @@ trait SearchableModelTrait
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
-     * @param Owner|Admin|null $owner
+     * @param Owner|Admin|bool|null $owner
      * @return mixed
      */
-    public function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): mixed
+    public function getSearchQuery(array $filters = [], Owner|Admin|bool|null $owner = null): mixed
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
                 unset($filters['owner_id']);
@@ -279,26 +281,30 @@ trait SearchableModelTrait
         }
 
         // get resource table and join to admins table
-        $query = new self()
-            ->join( dbName('system_db') . '.admins',
+        $query = new self()->newQuery()
+            ->select([
+                DB::Raw('`' . $this->table . '`.*'),
+            ]);
+
+        if ($owner !== false) {
+
+            $query->join( dbName('system_db') . '.admins',
                 dbName('system_db') . '.admins.id',
                 '=',
                 dbName($this->connection) . '.' . $this->table . '.owner_id'
             )
-            ->select([
-                DB::Raw('`' . $this->table . '`.*'),
+            ->addSelect([
                 //DB::Raw('admins.name as owner_id'),
                 DB::Raw('admins.name as owner_name'),
                 DB::Raw('admins.username as owner_username'),
                 DB::Raw('admins.email as owner_email'),
             ]);
 
+        }
+
         // add filters
         return $query->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
-            })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));

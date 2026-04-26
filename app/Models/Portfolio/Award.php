@@ -154,7 +154,7 @@ class Award extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['category']), function ($query) use ($filters) {
                 $query->where($this->table . '.category', 'like', '%' . $filters['category'] . '%');
             })
@@ -167,14 +167,17 @@ class Award extends Model
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })
-            ->when(!empty($filters['organization']), function ($query) use ($filters) {
-                $query->where($this->table . '.organization', 'like', '%' . $filters['organization'] . '%');
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['nominated_work']), function ($query) use ($filters) {
                 $query->where($this->table . '.nominated_work', 'like', '%' . $filters['nominated_work'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['organization']), function ($query) use ($filters) {
+                $query->where($this->table . '.organization', 'like', '%' . $filters['organization'] . '%');
             })
             ->when(!empty($filters['received']), function ($query) use ($filters) {
                 $query->where($this->table . '.received', '=', intval($filters['received']));

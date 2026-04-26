@@ -116,9 +116,10 @@ class Academy extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->select(
-            DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
-        );
+        $query = $this->getSearchQuery($filters, false)
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            });
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);

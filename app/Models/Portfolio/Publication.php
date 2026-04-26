@@ -181,7 +181,7 @@ class Publication extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['article']), function ($query) use ($filters) {
                 $query->where($this->table . '.article', '=', true);
             })
@@ -270,6 +270,9 @@ class Publication extends Model
             })
             ->when(!empty($filters['textbook']), function ($query) use ($filters) {
                 $query->where($this->table . '.textbook', '=', true);
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             })
             ->when(!empty($filters['search_title']), function ($query) use ($filters) {
                 $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');

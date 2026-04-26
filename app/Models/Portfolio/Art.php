@@ -181,6 +181,9 @@ class Art extends Model
             ->when(!empty($filters['link_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })

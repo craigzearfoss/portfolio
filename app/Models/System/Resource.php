@@ -214,10 +214,7 @@ class Resource extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['class']), function ($query) use ($filters) {
                 $query->where($this->table . '.class', 'like', '%' . $filters['class'] . '%');
             })
@@ -238,6 +235,9 @@ class Resource extends Model
             })
             ->when(!empty($filters['menu_level']), function ($query) use ($filters) {
                 $query->where($this->table . '.menu_level', '=', intval($filters['menu_level']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.parent_id', '=', intval($filters['parent_id']));

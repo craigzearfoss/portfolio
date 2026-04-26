@@ -172,7 +172,7 @@ class Recruiter extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->newQuery()
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);

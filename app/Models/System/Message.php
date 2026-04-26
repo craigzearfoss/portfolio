@@ -114,16 +114,7 @@ class Message extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['body']), function ($query) use ($filters) {
                 $query->where($this->table . '.body', 'like', '%' . $filters['body'] . '%');
             })

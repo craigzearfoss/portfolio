@@ -162,7 +162,7 @@ class Course extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['academy_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.academy_id', '=', intval($filters['academy_id']));
             })
@@ -174,6 +174,9 @@ class Course extends Model
             })
             ->when(!empty($filters['completion_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.completion_date', '=', $filters['completion_date']);
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');

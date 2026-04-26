@@ -208,7 +208,7 @@ class Contact extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
                 $query->where($this->table . '.birthday', '=', $filters['birthday']);
             })
@@ -217,6 +217,9 @@ class Contact extends Model
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

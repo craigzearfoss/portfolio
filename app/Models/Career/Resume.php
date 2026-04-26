@@ -285,7 +285,7 @@ class Resume extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['content']), function ($query) use ($filters) {
                 $query->where($this->table . '.content', 'like', '%' . $filters['content'] . '%');
             })
@@ -300,6 +300,9 @@ class Resume extends Model
             })
             ->when(!empty($filters['file_type']), function ($query) use ($filters) {
                 $query->where($this->table . '.file_type', '=', $filters['file_type']);
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

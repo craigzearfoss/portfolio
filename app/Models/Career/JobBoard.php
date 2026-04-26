@@ -138,12 +138,12 @@ class JobBoard extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->newQuery()
+        $query = $this->getSearchQuery($filters)
             ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
                 } else {
-                    throw new Exception('Invalid audio_type "' . $filters['audio_type'] . '" specified.'
+                    throw new Exception('Invalid coverage_area "' . $filters['coverage_area'] . '" specified.'
                         . ' Valid coverage areas are "' . implode('", "', self::COVERAGE_AREAS) . '".');
                 }
             })

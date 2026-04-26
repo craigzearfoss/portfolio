@@ -125,10 +125,11 @@ class UserTeam extends Model
             if (array_key_exists('user_id', $filters)) {
                 unset($filters['user_id']);
             }
-            $filters['user_id'] = $user->id;
+            $filters['user_id'] = $user['id'];
         }
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->newQuery()
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {

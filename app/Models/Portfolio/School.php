@@ -146,9 +146,8 @@ class School extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->select(
-                DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
-            )->when(!empty($filters['name']), function ($query) use ($filters) {
+        $query = $this->getSearchQuery($filters, false)
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
@@ -162,6 +161,9 @@ class School extends Model
             })
             ->when(!empty($filters['founded']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '=', intval(['founded']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

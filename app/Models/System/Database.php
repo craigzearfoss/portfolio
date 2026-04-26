@@ -133,7 +133,7 @@ class Database extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['database']), function ($query) use ($filters) {
                 $query->where($this->table . '.database', 'like', '%' . $filters['database'] . '%');
             })
@@ -151,6 +151,9 @@ class Database extends Model
             })
             ->when(isset($filters['menu_level']), function ($query) use ($filters) {
                 $query->where($this->table . '.menu_level', '=', intval($filters['menu_level']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['plural']), function ($query) use ($filters) {
                 $query->where($this->table . '.plural', 'like', '%' . $filters['plural'] . '%');

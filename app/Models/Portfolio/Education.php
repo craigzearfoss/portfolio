@@ -156,7 +156,7 @@ class Education extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })

@@ -331,19 +331,7 @@ class Application extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->newQuery()
-            ->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['active']), function ($query) use ($filters) {
                 $query->where($this->table . '.active', '=', true);
             })
@@ -482,15 +470,15 @@ class Application extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add joins
-        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id')
-            ->join('companies', 'companies.id', '=', 'applications.company_id')
+        $query->leftJoin( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id')
+            ->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
             ->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id')
-            ->join('job_boards', 'job_boards.id', '=', 'applications.job_board_id')
-            ->join('job_duration_types', 'job_duration_types.id', '=', 'applications.job_duration_type_id')
-            ->join('job_location_types', 'job_location_types.id', '=', 'applications.job_location_type_id')
-            ->join('job_employment_types', 'job_employment_types.id', '=', 'applications.job_employment_type_id')
-            ->join(dbName('system_db') . '.states', 'states.id', '=', 'applications.state_id')
-            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'applications.country_id');
+            ->leftJoin('job_boards', 'job_boards.id', '=', 'applications.job_board_id')
+            ->leftJoin('job_duration_types', 'job_duration_types.id', '=', 'applications.job_duration_type_id')
+            ->leftJoin('job_location_types', 'job_location_types.id', '=', 'applications.job_location_type_id')
+            ->leftJoin('job_employment_types', 'job_employment_types.id', '=', 'applications.job_employment_type_id')
+            ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'applications.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'applications.country_id');
 
         $query->select([
             DB::raw($this->table . '.*'),

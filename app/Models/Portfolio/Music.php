@@ -162,7 +162,7 @@ class Music extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['artist']), function ($query) use ($filters) {
                 $query->where($this->table . '.artist', 'like', '%' . $filters['artist'] . '%');
             })
@@ -186,6 +186,9 @@ class Music extends Model
             })
             ->when(!empty($filters['search_label']), function ($query) use ($filters) {
                 $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

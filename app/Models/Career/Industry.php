@@ -102,9 +102,9 @@ class Industry extends Model
         Admin|Owner|null $owner = null,
         User|null $user = null): Builder
     {
-        $filters = $this->removeEmptyFilters($filters);
+        $filters = $this->removeEmptyFilters($filters, false);
 
-        $query = new self()->newQuery()
+        $query = $this->getSearchQuery($filters)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
             })

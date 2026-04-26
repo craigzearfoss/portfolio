@@ -182,7 +182,7 @@ class Reference extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
                 $query->where($this->table . '.birthday', '=', $filters['birthday']);
             })
@@ -203,6 +203,9 @@ class Reference extends Model
             })
             ->when(!empty($filters['friend']), function ($query) use ($filters) {
                 $query->where($this->table . '.friend', '=', true);
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

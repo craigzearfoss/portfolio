@@ -155,7 +155,7 @@ class Project extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
@@ -170,6 +170,9 @@ class Project extends Model
             })
             ->when(!empty($filters['language_version']), function ($query) use ($filters) {
                 $query->where($this->table . '.language_version', 'like', '%' . $filters['language_version'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

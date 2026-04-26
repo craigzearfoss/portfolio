@@ -124,16 +124,7 @@ class UserGroup extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($user)) {
-            if (array_key_exists('user_id', $filters)) {
-                unset($filters['user_id']);
-            }
-            $filters['user_id'] = $user->id;
-        }
-
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where($this->table . '.abbreviation', '=', $filters['abbreviation']);
             })

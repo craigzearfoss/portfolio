@@ -153,7 +153,7 @@ class ApplicationSkill extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
             })
@@ -174,6 +174,9 @@ class ApplicationSkill extends Model
             })
             ->when(!empty($filters['level']), function ($query) use ($filters) {
                 $query->where($this->table . '.level', '=', intval($filters['level']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

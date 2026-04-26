@@ -124,9 +124,7 @@ class Certification extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->select(
-            DB::raw(dbName($this->connection) . '.' . $this->table . '.*')
-        );
+        $query = $this->getSearchQuery($filters, false);
 
         $query = $this->appendStandardFilters($query, $filters)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
@@ -140,6 +138,9 @@ class Certification extends Model
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

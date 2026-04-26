@@ -160,12 +160,15 @@ class Certificate extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['academy_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.academy_id', '=', intval($filters['academy_id']));
             })
             ->when(!empty($filters['academy_name']), function ($query) use ($filters) {
                 $query->where('academies.name', 'like', '%' . $filters['academy_name'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['certificate_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.certificate_url', '=', $filters['certificate_url']);

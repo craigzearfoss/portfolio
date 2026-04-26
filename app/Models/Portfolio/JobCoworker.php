@@ -208,7 +208,7 @@ class JobCoworker extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['company']), function ($query) use ($filters) {
                 $query->where('jobs.company', 'like', '%' . $filters['company'] . '%');
             })
@@ -226,6 +226,9 @@ class JobCoworker extends Model
             })
             ->when(!empty($filters['level_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.level_id', '=', intval($filters['level_id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

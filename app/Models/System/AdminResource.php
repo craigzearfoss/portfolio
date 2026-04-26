@@ -218,7 +218,7 @@ class AdminResource extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['admin_database_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.admin_database_id', '=', intval($filters['admin_database_id']));
             })

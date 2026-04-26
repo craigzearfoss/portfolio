@@ -114,7 +114,8 @@ class Ingredient extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = $this->getSearchQuery($filters, false)
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {

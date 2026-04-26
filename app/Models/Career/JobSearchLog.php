@@ -116,19 +116,7 @@ class JobSearchLog extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->newQuery()
-            ->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
             })

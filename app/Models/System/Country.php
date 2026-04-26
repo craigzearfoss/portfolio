@@ -101,9 +101,7 @@ class Country extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })
+        return $this->getSearchQuery($filters, false)
             ->when(!empty($filters['iso_alpha3']), function ($query) use ($filters) {
                 $query->where($this->table . '.iso_alpha3', '=', $filters['iso_alpha3']);
             })

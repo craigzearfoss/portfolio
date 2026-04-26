@@ -179,7 +179,7 @@ class Audio extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['audio_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.audio_date', '=', $filters['audio_date']);
             })
@@ -217,6 +217,9 @@ class Audio extends Model
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where($this->table . '.location', 'like', '%' . $filters['location'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

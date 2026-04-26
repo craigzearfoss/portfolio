@@ -112,14 +112,7 @@ class Tag extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['admin_id']);
-            }
-            $filters['admin_id'] = $owner->id;
-        }
-
-        return new self()->getSearchQuery($filters, $owner)
+        return $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['dictionary_category_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.dictionary_category_id', '=', intval($filters['dictionary_category_id']));
             })
@@ -131,6 +124,9 @@ class Tag extends Model
             })
             ->when(!empty($filters['model_item_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.model_item_id', '=', intval($filters['model_item_id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.resource_id', '=', intval($filters['resource_id']));

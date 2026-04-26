@@ -214,9 +214,7 @@ class Owner extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['admin_team_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.admin_team_id', '=', intval($filters['admin_team_id']));
             })

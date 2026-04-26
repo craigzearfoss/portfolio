@@ -97,14 +97,7 @@ class SiteSetting extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['admin_id']);
-            }
-            $filters['admin_id'] = $owner->id;
-        }
-
-        return new self()->getSearchQuery($filters, $owner)
+        return $this->getSearchQuery($filters, false)
             ->when(!empty($filters['setting_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.setting_type_id', '=', intval($filters['setting_type_id']));
             })
@@ -121,7 +114,7 @@ class SiteSetting extends Model
      */
     public static function getSetting(string $name):mixed
     {
-        if (!$setting = new ResourceSetting()->where('name', '=', $name)->first()) {
+        if (!$setting = new ResourceSetting()->newQuery()->where('name', '=', $name)->first()) {
 
             $value = null;
 

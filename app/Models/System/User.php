@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -191,9 +192,7 @@ class User extends Authenticatable
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where($this->table . '.id', '=', intval($filters['id']));
-            })
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['bio']), function ($query) use ($filters) {
                 $query->where($this->table . '.bio', 'like', '%' . $filters['bio'] . '%');
             })

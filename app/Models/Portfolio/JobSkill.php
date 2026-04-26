@@ -156,14 +156,7 @@ class JobSkill extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
@@ -190,6 +183,9 @@ class JobSkill extends Model
             })
             ->when(!empty($filters['job_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.job_id', '=', intval($filters['job_id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
