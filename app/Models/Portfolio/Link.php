@@ -158,6 +158,9 @@ class Link extends Model
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })

@@ -195,13 +195,6 @@ class Reading extends Model
                 $query->where($this->table . '.wishlist', '=', true);
             });
 
-        // add joins
-        $query->join( dbName('system_db') . '.admins',
-            dbName('system_db') . '.admins.id',
-            '=',
-            dbName($this->connection) . '.' . $this->table . '.owner_id'
-        );
-
         $query->select(
             DB::raw(dbName($this->connection) . '.' . $this->table . '.*'),
             //DB::Raw('admins.name as owner_id'),
