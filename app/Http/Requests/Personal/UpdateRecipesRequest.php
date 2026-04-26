@@ -62,7 +62,7 @@ class UpdateRecipesRequest extends UpdateAppBaseRequest
                 'max:255',
                 Rule::unique('personal_db.recipes', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->ownerId)
-                        ->where('name', $this['slug'])
+                        ->where('slug', $this['slug'])
                         ->whereNot('id', $this['recipe']['id']);
                 })
             ],
@@ -70,8 +70,8 @@ class UpdateRecipesRequest extends UpdateAppBaseRequest
             'summary'      => ['string', 'max:500', 'nullable'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],
-            'prep_time'    => ['integer', 'min:0'],
-            'total_time'   => ['integer', 'min:0'],
+            'prep_time'    => ['integer', 'min:0', 'nullable'],
+            'total_time'   => ['integer', 'min:0', 'nullable'],
             'main'         => ['integer', 'between:0,1'],
             'side'         => ['integer', 'between:0,1'],
             'dessert'      => ['integer', 'between:0,1'],

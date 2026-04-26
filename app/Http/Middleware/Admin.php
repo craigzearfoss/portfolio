@@ -17,7 +17,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = loggedInAdmin();
 
         if (!$admin && !in_array(Route::currentRouteName(), ['admin.login', 'admin.login-submit'])) {
             return redirect()->route('admin.login');

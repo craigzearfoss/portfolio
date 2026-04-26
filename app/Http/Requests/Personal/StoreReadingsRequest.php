@@ -47,7 +47,15 @@ class StoreReadingsRequest extends StoreAppBaseRequest
                     : [ $this->ownerId ]
                 )
             ],
-            'title'            => ['required', 'string', 'max:255', 'unique:' . Reading::class],
+            'title'         => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('personal_db.readings', 'title')->where(function ($query) {
+                    return $query->where('owner_id', $this->ownerId)
+                        ->where('title', $this['title']);
+                })
+            ],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
                 'required',
@@ -65,7 +73,7 @@ class StoreReadingsRequest extends StoreAppBaseRequest
             'nonfiction'       => ['integer', 'between:0,1'],
             'paper'            => ['integer', 'between:0,1'],
             'audio'            => ['integer', 'between:0,1'],
-            'wishlist'         => ['wishlist', 'between:0,1'],
+            'wishlist'         => ['integer', 'between:0,1'],
             'notes'            => ['nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],

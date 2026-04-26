@@ -46,7 +46,7 @@ class UpdateReadingsRequest extends UpdateAppBaseRequest
                     [ $this->ownerId ]
                 )))
             ],
-            'title'            => ['filled', 'string', 'max:255', 'unique:personal_db.readings,name,' . $this['reading']['id']],
+            'title'            => ['filled', 'string', 'max:255', 'unique:personal_db.readings,title,' . $this['reading']['id']],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
                 'filled',
@@ -54,7 +54,7 @@ class UpdateReadingsRequest extends UpdateAppBaseRequest
                 'max:255',
                 Rule::unique('personal_db.readings', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->ownerId)
-                        ->where('name', $this['slug'])
+                        ->where('slug', $this['slug'])
                         ->whereNot('id', $this['reading']['id']);
                 })
             ],
@@ -65,7 +65,7 @@ class UpdateReadingsRequest extends UpdateAppBaseRequest
             'nonfiction'       => ['integer', 'between:0,1'],
             'paper'            => ['integer', 'between:0,1'],
             'audio'            => ['integer', 'between:0,1'],
-            'wishlist'         => ['wishlist', 'between:0,1'],
+            'wishlist'         => ['integer', 'between:0,1'],
             'notes'            => ['nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
