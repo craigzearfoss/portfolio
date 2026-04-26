@@ -3,7 +3,7 @@
     $filename = $filename ?? 'file.xlsx';
 
     // add timestamp url parameter
-    if (!empty($href) && ($timestamp ?? true) && !str_contains($href, '?')) {
+    if (!empty($href) && ($timestamp ?? true)) {
         if (!str_contains($href, '?')) {
             $href = $href . '?timestamp';
         } else {
