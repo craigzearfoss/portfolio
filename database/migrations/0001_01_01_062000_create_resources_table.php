@@ -400,7 +400,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'admin-database',
                     'table_name'      => 'admin_databases',
-                    'class'           => 'App\Models\System\AdminDatabases',
+                    'class'           => 'App\Models\System\AdminDatabase',
                     'title'           => 'Admin Database',
                     'plural'          => 'Admin Databases',
                     'has_owner'       => true,

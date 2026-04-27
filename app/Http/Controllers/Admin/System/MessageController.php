@@ -50,7 +50,7 @@ class MessageController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(Message::class, $this->user);
+        createGate(Message::class, $this->admin);
 
         return view('admin.system.message.create');
     }
@@ -63,7 +63,7 @@ class MessageController extends BaseAdminController
      */
     public function store(StoreMessagesRequest $request): RedirectResponse
     {
-        createGate(Message::class, $this->user);
+        createGate(Message::class, $this->admin);
 
         $message = Message::query()->create($request->validated());
 
@@ -83,7 +83,7 @@ class MessageController extends BaseAdminController
      */
     public function show(Message $message): View
     {
-        readGate($message, $this->user);
+        readGate($message, $this->admin);
 
         list($prev, $next) = $message->prevAndNextPages(
             $message['id'],
@@ -103,7 +103,7 @@ class MessageController extends BaseAdminController
      */
     public function edit(Message $message): View
     {
-        updateGate($message, $this->user);
+        updateGate($message, $this->admin);
 
         return view('admin.system.message.edit', compact('message'));
     }
@@ -119,7 +119,7 @@ class MessageController extends BaseAdminController
     {
         $message->update($request->validated());
 
-        updateGate($message, $this->user);
+        updateGate($message, $this->admin);
 
         if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $message['name'] . ' successfully updated.');
@@ -137,7 +137,7 @@ class MessageController extends BaseAdminController
      */
     public function destroy(Message $message): RedirectResponse
     {
-        deleteGate($message, $this->user);
+        deleteGate($message, $this->admin);
 
         $message->delete();
 

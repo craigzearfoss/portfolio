@@ -302,7 +302,9 @@ if (! function_exists('canRead')) {
     function canRead($resourceObjectOrClass, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
         if ($admin['is_root'] ?? 0) {
+
             $retValue = true;
+
         } else {
 
             if (is_string($resourceObjectOrClass)) {
@@ -310,19 +312,28 @@ if (! function_exists('canRead')) {
                 $resourceClass = $resourceObjectOrClass;
                 $resourceObject = null;
 
-                $resource = Resource::query()->where('class', '=', $resourceClass)
-                    ->where($envType->value, '=', true)
-                    ->first();
+                try {
+                    $resource = AdminResource::query()->where('class', '=', $resourceClass)
+                        ->where('owner_id', '=', $admin['id'])
+                        ->where($envType->value, '=', true)
+                        ->first();
+                } catch (Throwable $th) {
+                    $retValue = false;
+                }
 
             } else {
 
                 $resourceClass = get_class($resourceObjectOrClass);
                 $resourceObject = $resourceObjectOrClass;
 
-                $resource = AdminResource::query()->where('class', '=', $resourceClass)
-                    ->where('owner_id', '=', $admin['id'])
-                    ->where($envType->value, '=', true)
-                    ->first();
+                try {
+                    $resource = AdminResource::query()->where('class', '=', $resourceClass)
+                        ->where('owner_id', '=', $admin['id'])
+                        ->where($envType->value, '=', true)
+                        ->first();
+                } catch (Throwable $th) {
+                    $retValue = false;
+                }
             }
 
             if (empty($resource)) {

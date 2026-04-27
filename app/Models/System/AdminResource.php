@@ -150,13 +150,13 @@ class AdminResource extends Model
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'resource_id', 'database_id', 'admin_database_id',
         'name', 'table_name', 'class', 'title', 'plural', 'has_owner', 'has_user', 'guest', 'user', 'admin', 'menu',
         'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'sequence', 'created_at', 'updated_at'
+        'sequence', 'created_at', 'updated_at', 'owner_username'
     ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'owner_username', 'asc' ];
 
     /**
      * These are the options in the sort select list on the search panel.
@@ -188,7 +188,7 @@ class AdminResource extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'is_public', 'sequence', 'table', 'title', 'user', ],
+        'admin' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'owner_username', 'is_public', 'sequence', 'table', 'title', 'user', ],
         'guest' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'guest', 'icon', 'menu', 'menu_level', 'name', 'sequence', 'table', 'title', 'user', ],
     ];
 
