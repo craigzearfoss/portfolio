@@ -288,7 +288,7 @@ trait SearchableModelTrait
 
         if ($owner !== false) {
 
-            $query->join( dbName('system_db') . '.admins',
+            $query->leftJoin( dbName('system_db') . '.admins',
                 dbName('system_db') . '.admins.id',
                 '=',
                 dbName($this->connection) . '.' . $this->table . '.owner_id'
@@ -630,11 +630,7 @@ trait SearchableModelTrait
         } else {
             $sortOptions = self::SORT_OPTIONS;
         }
-/*
-        $sortOptions = array_map(function ($value) {
-            return $value;
-        }, self::SORT_OPTIONS['all']);   // need to do by environment
-*/
+
         if (
             !empty($currentSort)
             && !array_key_exists(explode('|', $currentSort)[0] . '|asc', $sortOptions)

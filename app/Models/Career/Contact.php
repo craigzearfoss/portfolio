@@ -102,7 +102,7 @@ class Contact extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email'
+        'owner_name', 'owner_username', 'owner_email', 'company_name'
     ];
 
     /**
@@ -191,7 +191,6 @@ class Contact extends Model
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
-     * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
      * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
@@ -211,6 +210,12 @@ class Contact extends Model
         $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
                 $query->where($this->table . '.birthday', '=', $filters['birthday']);
+            })
+            ->when(!empty($filters['company_id']), function ($query) use ($filters) {
+                $query->where('companies.id', 'like', '%' . intval($filters['company_id']));
+            })
+            ->when(!empty($filters['company_name']), function ($query) use ($filters) {
+                $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
@@ -240,10 +245,10 @@ class Contact extends Model
 
 
         // add joins
-        $query->join( dbName('career_db') . '.company_contact', 'company_contact.contact_id', '=', $this->table . '.id')
-            ->join( dbName('career_db') . '.companies', 'companies.id', '=', 'company_contact.company_id')
-            ->join(dbName('system_db') . '.states', 'states.id', '=', 'contacts.state_id')
-            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'contacts.country_id');
+        $query->leftJoin( dbName('career_db') . '.company_contact', 'company_contact.contact_id', '=', $this->table . '.id')
+            ->leftJoin( dbName('career_db') . '.companies', 'companies.id', '=', 'company_contact.company_id')
+            ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'contacts.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'contacts.country_id');
 
         $query->addSelect(
                 DB::raw(dbName($this->connection) . '.companies.id AS company_id'),

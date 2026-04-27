@@ -99,6 +99,7 @@ class ResourceSetting extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -122,7 +123,10 @@ class ResourceSetting extends Model
                 $query->where($this->table . '.value', 'like', '%' . $filters['value'] . '%');
             });
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

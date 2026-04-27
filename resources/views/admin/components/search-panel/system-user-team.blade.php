@@ -5,9 +5,11 @@
 
     // get variables
     $action          = $action ?? url()->current();
-    $user_id         = $user_id ?? $user->id ?? null;
+    $user_id         = $user_id ?? $user->id ?? request()->query('user_id');
+    $abbreviation    = $abbreviation ?? request()->query('abbreviation');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ UserTeam::SEARCH_ORDER_BY[0], UserTeam::SEARCH_ORDER_BY[1] ]);
@@ -45,15 +47,38 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="control" style="max-width: 30rem;">
                             @include('admin.components.form-select', [
                                 'name'  => 'user_id',
-                                'label' => 'user',
+                                'label' => 'owning user',
                                 'value' => $user_id,
                                 'list'  => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                                 'style' => 'min-width: 10rem;'
                             ])
                         </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'abbreviation',
+                                'value'   => $abbreviation,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
                     </div>
 
                     @if($isRootAdmin)

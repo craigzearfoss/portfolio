@@ -11,6 +11,8 @@
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $email           = $email ?? request()->query('email');
+    $search_label    = $search_label ?? request()->query('search_label');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminEmail::SEARCH_ORDER_BY[0], AdminEmail::SEARCH_ORDER_BY[1] ]);
@@ -44,11 +46,34 @@
                     ])
 
                 </div>
-
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'email',
+                                'value'   => $email,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'search_label',
+                                'label'   => 'label',
+                                'value'   => $search_label,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
                     </div>
 
                     @if($isRootAdmin)

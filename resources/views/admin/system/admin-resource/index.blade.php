@@ -54,7 +54,9 @@
                             <th>owner</th>
                         @endif
                         <th>database</th>
-                        <th>resource</th>
+                        <th>name</th>
+                        <th>table</th>
+                        <th>title</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -64,12 +66,16 @@
                         <th class="has-text-centered">menu<br>level</th>
                         <th class="has-text-centered">public</th>
                         @if($isRootAdmin)
-                            <th class="has-text-centered">readonly</th>
+                            <th class="has-text-centered">read-only</th>
+                        @endif
+                        @if($isRootAdmin)
+                            <th class="has-text-centered">root</th>
                         @endif
                         <th class="has-text-centered">disabled</th>
                         @if($isRootAdmin)
                             <th class="has-text-centered">demo</th>
                         @endif
+                        <th class="has-text-centered">sequence</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -82,7 +88,9 @@
                             <th>owner</th>
                         @endif
                         <th>database</th>
-                        <th>resource</th>
+                        <th>name</th>
+                        <th>table</th>
+                        <th>title</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -92,12 +100,16 @@
                         <th class="has-text-centered">menu<br>level</th>
                         <th class="has-text-centered">public</th>
                         @if($isRootAdmin)
-                            <th class="has-text-centered">readonly</th>
+                            <th class="has-text-centered">read-only</th>
+                        @endif
+                        @if($isRootAdmin)
+                            <th class="has-text-centered">root</th>
                         @endif
                         <th class="has-text-centered">disabled</th>
                         @if($isRootAdmin)
                             <th class="has-text-centered">demo</th>
                         @endif
+                        <th class="has-text-centered">sequence</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -120,11 +132,17 @@
                                 @endif
                             </td>
                         @endif
-                        <td data-field="database.name">
+                        <td data-field="database.name" style="white-space: nowrap;">
                             {!! $adminResource->database->name ?? '' !!}
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $adminResource->name !!}
+                        </td>
+                        <td data-field="table" style="white-space: nowrap;">
+                            {!! $adminResource->table_name !!}
+                        </td>
+                        <td data-field="title" style="white-space: nowrap;">
+                            {!! $adminResource->title !!}
                         </td>
                         <td data-field="icon" class="has-text-centered">
                             @if (!empty($adminResource->icon))
@@ -160,6 +178,11 @@
                                 @include('admin.components.checkmark', [ 'checked' => $adminResource->is_readonly ])
                             </td>
                         @endif
+                        @if($isRootAdmin)
+                            <td data-field="is_root" class="has-text-centered">
+                                @include('admin.components.checkmark', [ 'checked' => $adminResource->is_root ])
+                            </td>
+                        @endif
                         <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminResource->is_disabled ])
                         </td>
@@ -168,6 +191,9 @@
                                 @include('admin.components.checkmark', [ 'checked' => $adminResource->is_demo ])
                             </td>
                         @endif
+                        <td data-field="sequence" class="has-text-centered">
+                            {{ $adminResource->sequence }}
+                        </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">
@@ -197,9 +223,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '15' : '12' }}">No admin resources found.</td>
+                            <td colspan="19">No admin resources found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '15' : '12' }}">No resources found.</td>
+                            <td colspan="15">No resources found.</td>
                         @endif
                     </tr>
 

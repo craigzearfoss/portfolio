@@ -70,7 +70,7 @@ class AdminDatabase extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'database_id', 'name', 'database', 'tag', 'title', 'plural',
         'has_owner', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
     ];
 
     /**
@@ -130,6 +130,7 @@ class AdminDatabase extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -176,8 +177,10 @@ class AdminDatabase extends Model
 
         $query = $this->appendEnvironmentFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

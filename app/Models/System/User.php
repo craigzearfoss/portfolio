@@ -183,6 +183,7 @@ class User extends Authenticatable
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -247,8 +248,10 @@ class User extends Authenticatable
 
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

@@ -6,7 +6,9 @@
 
     // get variables
     $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $owner_id        = !empty($admin) && empty($admin->is_root)
+        ? $admin->id
+        : request()->query('owner_id');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $database_id     = $database_id ?? request()->query('database_id');
@@ -83,8 +85,8 @@
                                     'name'     => 'name',
                                     'label'    => 'name',
                                     'value'    => $name,
-                                    'list'     => new Resource()->listOptions(
-                                                      [ 'owner_id' => $owner_id ],
+                                    'list'     => new AdminResource()->listOptions(
+                                                      !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],
                                                       'name',
                                                       'name',
                                                       true,

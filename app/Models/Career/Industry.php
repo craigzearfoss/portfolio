@@ -104,7 +104,7 @@ class Industry extends Model
     {
         $filters = $this->removeEmptyFilters($filters, false);
 
-        $query = $this->getSearchQuery($filters)
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
             })

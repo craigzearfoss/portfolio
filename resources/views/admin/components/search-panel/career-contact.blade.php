@@ -7,6 +7,7 @@
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $city            = $city ?? request()->query('city');
+    $company_name    = $company_name ?? request()->query('company_name');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $email           = $email ?? request()->query('email');
@@ -73,6 +74,18 @@
                             @include('admin.components.search-panel.controls.career-company')
                         </div>
                         */ ?>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'company_name',
+                                'label'   => 'company',
+                                'value'   => $company_name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
 
                     </div>
                     <div class="floating-div">

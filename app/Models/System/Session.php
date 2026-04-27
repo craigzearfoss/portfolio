@@ -79,6 +79,7 @@ class Session extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -88,7 +89,7 @@ class Session extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return $this->getSearchQuery($filters, false)
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['admin_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.admin_id', '=', intval($filters['admin_id']));
             })
@@ -98,5 +99,8 @@ class Session extends Model
             ->when(!empty($filters['user_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.user_id', '=', intval($filters['user_id']));
             });
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 }

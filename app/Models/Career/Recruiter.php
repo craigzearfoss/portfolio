@@ -207,8 +207,8 @@ class Recruiter extends Model
             });
 
         // add joins
-        $query->join(dbName('system_db') . '.states', 'states.id', '=', 'recruiters.state_id')
-            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'recruiters.country_id');
+        $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'recruiters.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'recruiters.country_id');
 
         $query->select([
             DB::raw('recruiters.*'),

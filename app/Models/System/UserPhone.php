@@ -100,6 +100,7 @@ class UserPhone extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -113,8 +114,8 @@ class UserPhone extends Model
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
+            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
@@ -127,12 +128,14 @@ class UserPhone extends Model
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**
-     * Get the system user (owner) of the user email.
+     * Get the system owning user of the user phone.
      *
      * @return BelongsTo
      */

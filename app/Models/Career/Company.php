@@ -161,7 +161,6 @@ class Company extends Model
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
-     * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
      * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
@@ -196,9 +195,9 @@ class Company extends Model
             });
 
         // add joins
-        $query->join( dbName('career_db') . '.industries', 'industries.id', '=', $this->table . '.industry_id')
-            ->join(dbName('system_db') . '.states', 'states.id', '=', 'companies.state_id')
-            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'companies.country_id');
+        $query->leftJoin( dbName('career_db') . '.industries', 'industries.id', '=', $this->table . '.industry_id')
+            ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'companies.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'companies.country_id');
 
         // add additional filters
         $query = $this->appendAddressFilters($query, $filters);

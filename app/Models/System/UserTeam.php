@@ -112,6 +112,7 @@ class UserTeam extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -146,8 +147,10 @@ class UserTeam extends Model
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**
@@ -172,7 +175,7 @@ class UserTeam extends Model
     }
 
     /**
-     * Get the system user (owner) of the user team.
+     * Get the system owning user of the user team.
      *
      * @return BelongsTo
      */

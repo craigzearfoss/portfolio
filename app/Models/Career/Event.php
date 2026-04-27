@@ -226,8 +226,9 @@ class Event extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
-        $query->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->leftJoin('applications', 'applications.id', '=', $this->table . '.application_id')
+            ->join('companies', 'companies.id', '=', 'applications.company_id');
+
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('applications.apply_date as application_apply_date'),

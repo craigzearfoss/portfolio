@@ -92,6 +92,7 @@ class Country extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -101,7 +102,7 @@ class Country extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return $this->getSearchQuery($filters, false)
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['iso_alpha3']), function ($query) use ($filters) {
                 $query->where($this->table . '.iso_alpha3', '=', $filters['iso_alpha3']);
             })
@@ -111,6 +112,9 @@ class Country extends Model
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

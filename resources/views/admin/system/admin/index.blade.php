@@ -43,7 +43,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.system-owner')
+    @include('admin.components.search-panel.system-admin')
 
     <div class="floating-div-container">
 
@@ -101,7 +101,7 @@
                 @forelse ($allAdmins as $thisAdmin)
 
                     <tr data-id="{{ $thisAdmin->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $thisAdmin->name !!}
                         </td>
                         <td data-field="username" style="white-space: nowrap;">
@@ -110,8 +110,8 @@
                         <td data-field="label" style="white-space: nowrap;">
                             {!! $thisAdmin->label !!}
                         </td>
-                        <td data-field="admin_team_id">
-                            @if(!empty($admin->team_id))
+                        <td data-field="admin_team_id" style="white-space: nowrap;">
+                            @if(!empty($admin->admin_team_id))
                                 @include('admin.components.link', [
                                     'name' => $thisAdmin->team->name ?? '',
                                     'href' => route('admin.system.admin-team.show',

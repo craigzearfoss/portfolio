@@ -33,9 +33,9 @@ class ResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $resources = new AdminResource()->searchQuery(
+        $resources = new Resource()->searchQuery(
             $request->all(),
-            request()->input('sort') ?? implode('|', AdminResource::SEARCH_ORDER_BY)
+            request()->input('sort') ?? implode('|', Resource::SEARCH_ORDER_BY)
         )
         ->paginate($perPage)->appends(request()->except('page'));
 

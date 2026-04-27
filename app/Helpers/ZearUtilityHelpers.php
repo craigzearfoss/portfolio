@@ -472,20 +472,28 @@ if (! function_exists('createGate')) {
 
 if (! function_exists('readGate')) {
     /**
-     * @param $resourceObject
+     * @param $resourceObjectOrClass
      * @param Admin|null $admin
      * @return void
      */
-    function readGate($resourceObject, Admin|null $admin = null): void
+    function readGate($resourceObjectOrClass, Admin|null $admin = null): void
     {
-        if (!canRead($resourceObject, $admin)) {
+        if (!canRead($resourceObjectOrClass, $admin)) {
 
             if (App::environment('production')) {
                 $message = 'Read not authorized.';
             } else {
-                $class = get_class($resourceObject);
-                $resourceTypeName = strtolower(substr($class, strrpos("\\$class", '\\')));
-                $message = 'Read not authorized on ' . $resourceTypeName . ' ' . $resourceObject->id;
+
+                $resourceClass = is_string($resourceObjectOrClass)
+                    ? $resourceObjectOrClass
+                    : get_class($resourceObjectOrClass);
+
+                $resourceTypeName = substr($resourceClass, strrpos("\\$resourceClass", '\\'));
+
+                $message = is_string($resourceObjectOrClass)
+                    ? 'Read not authorized on ' . $resourceTypeName
+                    : 'Read not authorized on ' . $resourceTypeName . ' ' . $resourceObjectOrClass->id;
+
                 $message .= !empty($admin)
                     ? ' by admin ' . $admin['id'] . '.'
                     : '';

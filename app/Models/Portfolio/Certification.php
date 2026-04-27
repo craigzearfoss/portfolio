@@ -124,9 +124,7 @@ class Certification extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = $this->getSearchQuery($filters, false);
-
-        $query = $this->appendStandardFilters($query, $filters)
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
             })
@@ -152,6 +150,9 @@ class Certification extends Model
         // join to certification_types table
         $query->join( dbName('portfolio_db') . '.certification_types', 'certification_types.id', '=', $this->table . '.certification_type_id')
             ->addSelect(DB::Raw('certification_types.name as type_name'));
+
+        // add additional filters
+        $query = $this->appendStandardFilters($query, $filters);
 
         // select columns
         $query->select(

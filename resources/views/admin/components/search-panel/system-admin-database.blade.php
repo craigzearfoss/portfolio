@@ -8,9 +8,15 @@
 
     // get variables
     $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $owner_id        = !empty($admin) && empty($admin->is_root)
+        ? $admin->id
+        : request()->query('owner_id');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $database        = $database ?? request()->query('database');
+    $name            = $name ?? request()->query('name');
+    $tag             = $tag ?? request()->query('tag');
+    $search_title    = $search_title ?? request()->query('search_title');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminDatabase::SEARCH_ORDER_BY[0], AdminDatabase::SEARCH_ORDER_BY[1] ]);
@@ -48,7 +54,58 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 10rem;',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'database',
+                                'value'   => $database,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 10rem;',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'tag',
+                                'value'   => $tag,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 10rem;',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'search_title',
+                                'label'   => 'title',
+                                'value'   => $search_title,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 10rem;',
+                            ])
+                        </div>
+
                     </div>
 
                     @if($isRootAdmin)

@@ -57,7 +57,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
-                            <th>user</th>
+                            <th>owning user</th>
                         @endif
                         <th>email</th>
                         <th>label</th>
@@ -71,7 +71,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
-                            <th>user</th>
+                            <th>owning user</th>
                         @endif
                         <th>email</th>
                         <th>label</th>
@@ -87,15 +87,8 @@
 
                     <tr data-id="{{ $userEmail->id }}">
                         @if($isRootAdmin)
-                            <td data-field="user.username" style="white-space: nowrap;">
-                                @if(!empty($userEmail->user))
-                                    @include('admin.components.link', [
-                                        'name' => $userEmail->user->username,
-                                        'href' => route('admin.system.user.show', $userEmail->user)
-                                    ])
-                                @else
-                                    ?
-                                @endif
+                            <td data-field="owner.username" style="white-space: nowrap;">
+                                {{ $userEmail->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="email">

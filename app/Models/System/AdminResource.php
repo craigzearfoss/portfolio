@@ -150,7 +150,7 @@ class AdminResource extends Model
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'resource_id', 'database_id', 'admin_database_id',
         'name', 'table_name', 'class', 'title', 'plural', 'has_owner', 'has_user', 'guest', 'user', 'admin', 'menu',
         'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'created_at', 'updated_at'
+        'sequence', 'created_at', 'updated_at'
     ];
 
     /**
@@ -209,6 +209,7 @@ class AdminResource extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -259,10 +260,36 @@ class AdminResource extends Model
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
+        // add joins
+        $query->leftJoin( dbName('system_db') . '.admin_databases', 'admin_databases.id', '=', $this->table . '.admin_database_id');
+
+        $query->addSelect(
+            DB::Raw('admin_databases.name as database_name'),
+            DB::Raw('admin_databases.tag as database_tag'),
+            DB::Raw('admin_databases.title as database_title'),
+            DB::Raw('admin_databases.plural as database_plural'),
+            DB::Raw('admin_databases.has_owner as database_has_owner'),
+            DB::Raw('admin_databases.has_user as database_has_user'),
+            DB::Raw('admin_databases.guest as database_guest'),
+            DB::Raw('admin_databases.user as database_user'),
+            DB::Raw('admin_databases.admin as database_admin'),
+            DB::Raw('admin_databases.menu as database_menu'),
+            DB::Raw('admin_databases.menu_collapsed as database_menu_collapsed'),
+            DB::Raw('admin_databases.icon as database_icon'),
+            DB::Raw('admin_databases.is_public as database_is_public'),
+            DB::Raw('admin_databases.is_readonly as database_is_readonly'),
+            DB::Raw('admin_databases.is_root as database_is_root'),
+            DB::Raw('admin_databases.is_disabled as database_is_disabled'),
+            DB::Raw('admin_databases.is_demo as database_is_demo'),
+            DB::Raw('admin_databases.sequence as database_sequence'),
+        );
+
         $query = $this->appendEnvironmentFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**
@@ -388,7 +415,7 @@ class AdminResource extends Model
                 }
             }
         }
-//$query->ddRawSql();
+
         // add "route", "active", "owner", and "database" fields to all the resources
         $adminResources = $query->get();
 

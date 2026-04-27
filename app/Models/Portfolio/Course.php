@@ -210,8 +210,9 @@ class Course extends Model
             });
 
         // join to academies table
-        $query->join( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id')
-            ->addSelect(DB::Raw('academies.name as academy_name'));
+        $query->leftJoin( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id');
+
+        $query->addSelect(DB::Raw('academies.name as academy_name'));
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);

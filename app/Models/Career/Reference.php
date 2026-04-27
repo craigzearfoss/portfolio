@@ -235,8 +235,8 @@ class Reference extends Model
             });
 
         // add joins
-        $query->join(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
-            ->join(dbName('system_db') . '.countries', 'countries.id', '=', 'references.country_id');
+        $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'references.country_id');
 
         $query->addSelect(
             DB::raw('states.name as state_name'),

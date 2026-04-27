@@ -52,6 +52,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
                             ])
                         </div>
                         <div class="search-form-control">
@@ -59,6 +60,7 @@
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
                             ])
                         </div>
                     </div>
@@ -69,6 +71,7 @@
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
                             ])
                         </div>
                         <div class="search-form-control">
@@ -76,6 +79,7 @@
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
                             ])
                         </div>
                     </div>

@@ -314,7 +314,6 @@ class Application extends Model
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
-     * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
      * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
@@ -470,8 +469,7 @@ class Application extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add joins
-        $query->leftJoin( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id')
-            ->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
+        $query->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
             ->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id')
             ->leftJoin('job_boards', 'job_boards.id', '=', 'applications.job_board_id')
             ->leftJoin('job_duration_types', 'job_duration_types.id', '=', 'applications.job_duration_type_id')

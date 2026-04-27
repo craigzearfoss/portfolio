@@ -230,10 +230,10 @@ class Communication extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add  joins
-        $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
-        $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
-        $query->join('companies', 'companies.id', '=', 'applications.company_id');
-        $query->join('communication_types', 'communication_types.id', '=', 'communication_type_id');
+        $query->leftJoin('applications', 'applications.id', '=', $this->table . '.application_id')
+            ->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
+            ->leftJoin('communication_types', 'communication_types.id', '=', 'communication_type_id');
+
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('applications.apply_date as application_apply_date'),

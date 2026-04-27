@@ -100,6 +100,7 @@ class AdminEmail extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -116,16 +117,18 @@ class AdminEmail extends Model
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
             })
-            ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
+            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

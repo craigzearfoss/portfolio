@@ -117,12 +117,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             // Excel export routes
             Route::get('admin/export', [AdminSystemAdminController::class, 'export'])->name('admin.export');
-            Route::get('admin-email/export', [AdminSystemAdminEmailController::class, 'export'])->name('admin_email.export');
-            Route::get('admin-group/export', [AdminSystemAdminGroupController::class, 'export'])->name('admin_group.export');
-            Route::get('admin-phone/export', [AdminSystemAdminPhoneController::class, 'export'])->name('admin_phone.export');
-            Route::get('admin-team/export', [AdminSystemAdminTeamController::class, 'export'])->name('admin_team.export');
+            Route::get('admin-email/export', [AdminSystemAdminEmailController::class, 'export'])->name('admin-email.export');
+            Route::get('admin-group/export', [AdminSystemAdminGroupController::class, 'export'])->name('admin-group.export');
+            Route::get('admin-phone/export', [AdminSystemAdminPhoneController::class, 'export'])->name('admin-phone.export');
+            Route::get('admin-team/export', [AdminSystemAdminTeamController::class, 'export'])->name('admin-team.export');
             Route::get('database/export', [AdminSystemDatabaseController::class, 'export'])->name('database.export');
-            Route::get('admin-database/export', [AdminSystemAdminDatabaseController::class, 'export'])->name('admin_database.export');
+            Route::get('admin-database/export', [AdminSystemAdminDatabaseController::class, 'export'])->name('admin-database.export');
             Route::get('log/export', [AdminSystemLogController::class, 'export'])->name('log.export');
             Route::get('message/export', [AdminSystemMessageController::class, 'export'])->name('message.export');
             Route::get('resource/export', [AdminSystemResourceController::class, 'export'])->name('resource.export');
@@ -130,10 +130,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('session/export', [AdminSystemSessionController::class, 'export'])->name('session.export');
             Route::get('setting/export', [AdminSystemSettingController::class, 'export'])->name('setting.export');
             Route::get('user/export', [AdminSystemUserController::class, 'export'])->name('user.export');
-            Route::get('user-email/export', [AdminSystemUserEmailController::class, 'export'])->name('user_email.export');
-            Route::get('user-group/export', [AdminSystemUserGroupController::class, 'export'])->name('user_group.export');
-            Route::get('user-phone/export', [AdminSystemUserPhoneController::class, 'export'])->name('user_phone.export');
-            Route::get('user-team/export', [AdminSystemUserTeamController::class, 'export'])->name('user_team.export');
+            Route::get('user-email/export', [AdminSystemUserEmailController::class, 'export'])->name('user-email.export');
+            Route::get('user-group/export', [AdminSystemUserGroupController::class, 'export'])->name('user-group.export');
+            Route::get('user-phone/export', [AdminSystemUserPhoneController::class, 'export'])->name('user-phone.export');
+            Route::get('user-team/export', [AdminSystemUserTeamController::class, 'export'])->name('user-team.export');
 
             //Route::resource('admin', AdminSystemAdminController::class);
             Route::get('admin', [AdminSystemAdminController::class, 'index'])->name('admin.index');

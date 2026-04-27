@@ -173,8 +173,9 @@ class RecipeIngredient extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to recipes table
-        $query->join( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id')
-            ->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
+        $query->leftJoin( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id');
+
+        $query->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
 
         // join to ingredients table
         $query->join( dbName('personal_db') . '.ingredients', 'ingredients.id', '=', $this->table . '.ingredient_id')

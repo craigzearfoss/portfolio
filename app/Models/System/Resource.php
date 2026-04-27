@@ -147,7 +147,7 @@ class Resource extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'database_id', 'name', 'table_name', 'class', 'title',
         'plural', 'has_owner', 'has_user', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
     ];
 
     /**
@@ -205,6 +205,7 @@ class Resource extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -248,14 +249,41 @@ class Resource extends Model
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.table_name', 'like', '%' . $filters['table_name'] . '%');
             })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
+            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
             });
 
+        // add joins
+        $query->leftJoin( dbName('system_db') . '.databases', 'databases.id', '=', $this->table . '.database_id');
+
+        $query->addSelect(
+            DB::Raw('databases.name as database_name'),
+            DB::Raw('databases.tag as database_tag'),
+            DB::Raw('databases.title as database_title'),
+            DB::Raw('databases.plural as database_plural'),
+            DB::Raw('databases.has_owner as database_has_owner'),
+            DB::Raw('databases.has_user as database_has_user'),
+            DB::Raw('databases.guest as database_guest'),
+            DB::Raw('databases.user as database_user'),
+            DB::Raw('databases.admin as database_admin'),
+            DB::Raw('databases.menu as database_menu'),
+            DB::Raw('databases.menu_collapsed as database_menu_collapsed'),
+            DB::Raw('databases.icon as database_icon'),
+            DB::Raw('databases.is_public as database_is_public'),
+            DB::Raw('databases.is_readonly as database_is_readonly'),
+            DB::Raw('databases.is_root as database_is_root'),
+            DB::Raw('databases.is_disabled as database_is_disabled'),
+            DB::Raw('databases.is_demo as database_is_demo'),
+            DB::Raw('databases.sequence as database_sequence'),
+        );
+//$query->ddRawSql();
+//dd($query, $sort);
         $query = $this->appendEnvironmentFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

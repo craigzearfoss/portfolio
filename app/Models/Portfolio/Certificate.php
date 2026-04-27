@@ -202,7 +202,7 @@ class Certificate extends Model
             });
 
         // join to academies table
-        $query->join( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id')
+        $query->leftJoin( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id')
             ->addSelect(DB::Raw('academies.name as academy_name'));
 
         // add additional filters

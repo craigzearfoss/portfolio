@@ -171,6 +171,9 @@ div.field.is-horizontal div.field-label label.label {
     line-height: 1.2em;
 }
 
+.search-container {
+    min-width: 30rem;
+}
 .search-container .control {
     display: inline-block;
     padding: 0.2em 0.3em;
@@ -178,6 +181,9 @@ div.field.is-horizontal div.field-label label.label {
 .search-container .control label,
 .search-container .control .field {
     margin-bottom: 0.1em;
+}
+.search-container .control .field .input {
+    margin-bottom: 0 !important;
 }
 .search-container .control .field .select .form-select {
     padding: 0.1em !important;

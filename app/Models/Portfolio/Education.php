@@ -207,7 +207,7 @@ class Education extends Model
             });
 
         // join to schools table
-        $query->join( dbName('portfolio_db') . '.schools', 'schools.id', '=', $this->table . '.school_id')
+        $query->leftJoin( dbName('portfolio_db') . '.schools', 'schools.id', '=', $this->table . '.school_id')
             ->addSelect(DB::Raw('schools.name as school_name'));
 
         // join to degree types

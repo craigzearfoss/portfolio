@@ -106,6 +106,7 @@ class Stack extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -115,7 +116,8 @@ class Stack extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = $this->newQuery()
+            ->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['compiled']), function ($query) use ($filters) {
@@ -143,8 +145,10 @@ class Stack extends Model
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

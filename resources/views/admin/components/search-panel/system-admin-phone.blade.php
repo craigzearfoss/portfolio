@@ -11,6 +11,8 @@
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $phone           = $phone ?? request()->query('phone');
+    $search_label    = $search_label ?? request()->query('search_label');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminPhone::SEARCH_ORDER_BY[0], AdminPhone::SEARCH_ORDER_BY[1] ]);
@@ -48,7 +50,31 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'phone',
+                                'value'   => $phone,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'search_label',
+                                'label'   => 'label',
+                                'value'   => $search_label,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
                     </div>
 
                     @if($isRootAdmin)

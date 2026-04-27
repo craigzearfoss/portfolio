@@ -70,7 +70,7 @@ class Database extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'has_owner', 'guest',
         'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
     ];
 
     /**
@@ -124,6 +124,7 @@ class Database extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -161,14 +162,16 @@ class Database extends Model
             ->when(!empty($filters['tag']), function ($query) use ($filters) {
                 $query->where($this->table . '.tag', 'like', '%' . $filters['tag'] . '%');
             })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
+            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

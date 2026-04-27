@@ -5,7 +5,6 @@
 
     // get variables
     $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $database_id     = $database_id ?? request()->query('database_id');
@@ -46,15 +45,8 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-                            <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('admin.components.form-select', [
@@ -69,7 +61,7 @@
                                                       false,
                                                       [ 'tag', 'asc' ]
                                                   ),
-                                    'style'    => 'width: 8rem;'
+                                    'style'    => 'width: 10rem;'
                                 ])
                             </div>
                         </div>
@@ -83,7 +75,7 @@
                                     'label'    => 'name',
                                     'value'    => $name,
                                     'list'     => new Resource()->listOptions(
-                                                      [ 'owner_id' => $owner_id ],
+                                                      [],
                                                       'name',
                                                       'name',
                                                       true,

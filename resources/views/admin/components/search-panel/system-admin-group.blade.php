@@ -9,8 +9,11 @@
     // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $abbreviation    = $abbreviation ?? request()->query('abbreviation');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $admin_team_id   = $admin_team_id ?? request()->query('admin_team_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminGroup::SEARCH_ORDER_BY[0], AdminGroup::SEARCH_ORDER_BY[1] ]);
@@ -48,7 +51,37 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('admin.components.form-input-with-icon', [
+                                'name'    => 'abbreviation',
+                                'value'   => $abbreviation,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.search-panel.controls.system-admin-team', [ 'owner_id' => $owner_id ])
+                        </div>
+
                     </div>
 
                     @if($isRootAdmin)

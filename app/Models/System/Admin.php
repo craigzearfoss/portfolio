@@ -207,6 +207,7 @@ class Admin extends Authenticatable
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -241,8 +242,8 @@ class Admin extends Authenticatable
             ->when(!empty($filters['employment_status_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.employment_status_id', '=', intval($filters['employment_status_id']));
             })
-            ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
+            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
@@ -274,8 +275,10 @@ class Admin extends Authenticatable
 
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

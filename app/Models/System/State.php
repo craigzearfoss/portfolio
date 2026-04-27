@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -94,6 +95,7 @@ class State extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -103,7 +105,7 @@ class State extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return $this->getSearchQuery($filters, false)
+        $query = $this->getSearchQuery($filters, false)
             ->when(!empty($filters['code']), function ($query) use ($filters) {
                 $query->where($this->table . '.code', '=', $filters['code']);
             })
@@ -113,6 +115,19 @@ class State extends Model
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
+
+
+        // add joins
+        $query->leftJoin( dbName('system_db') . '.countries', 'countries.id', '=', $this->table . '.country_id');
+
+        $query->addSelect(
+            DB::Raw('countries.name as country_name'),
+            DB::Raw('countries.tag as country_m49'),
+            DB::Raw('countries.tag as country_iso_alpha3'),
+        );
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

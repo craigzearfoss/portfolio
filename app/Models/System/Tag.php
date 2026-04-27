@@ -103,6 +103,7 @@ class Tag extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
+     * @throws \Exception
      */
     public function searchQuery(
         array $filters = [],
@@ -112,7 +113,7 @@ class Tag extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return $this->getSearchQuery($filters, $owner)
+        $query = $this->getSearchQuery($filters, $owner)
             ->when(!empty($filters['dictionary_category_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.dictionary_category_id', '=', intval($filters['dictionary_category_id']));
             })
@@ -131,6 +132,9 @@ class Tag extends Model
             ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.resource_id', '=', intval($filters['resource_id']));
             });
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 }
 

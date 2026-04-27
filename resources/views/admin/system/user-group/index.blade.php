@@ -16,7 +16,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'user Groups' ],
+        [ 'name' => 'User Groups' ],
     ];
 
     // set navigation buttons
@@ -62,7 +62,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
-                            <th>owner</th>
+                            <th>owning user</th>
                         @endif
                         <th>name</th>
                         <th>team</th>
@@ -77,7 +77,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
-                            <th>owner</th>
+                            <th>owning user</th>
                         @endif
                         <th>name</th>
                         <th>team</th>

@@ -208,9 +208,8 @@ class Note extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // add joins
-        $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id')
-            ->join('applications', 'applications.id', '=', $this->table . '.application_id')
-            ->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->leftJoin('applications', 'applications.id', '=', $this->table . '.application_id')
+            ->leftJoin('companies', 'companies.id', '=', 'applications.company_id');
 
         $query->select([
             DB::raw($this->table . '.*'),

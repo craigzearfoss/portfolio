@@ -63,7 +63,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
-                            <th>owner</th>
+                            <th>owning user</th>
                         @endif
                         <th>name</th>
                         <th>abbreviation</th>
@@ -77,7 +77,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
-                            <th>owner</th>
+                            <th>owning user</th>
                         @endif
                         <th>name</th>
                         <th>abbreviation</th>
