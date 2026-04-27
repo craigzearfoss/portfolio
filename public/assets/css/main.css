@@ -33,6 +33,18 @@ div.field.is-horizontal div.field-label label.label {
     margin-left: 0.5em;
 }
 
+.password-container {
+    position: relative;
+    width: fit-content;
+}
+#togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 /* edit container */
 .edit-container .input,
 .edit-container span.file-cta,
