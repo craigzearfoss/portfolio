@@ -215,11 +215,15 @@ class ApplicationController extends BaseAdminController
     {
         updateGate($application, $this->admin);
 
+        $name = CoverLetter::getName($application->id);
+        $slug = uniqueSlug($name, 'career_db.cover_letters', $application->id);
+
         if (empty($application->coverLetter)) {
             CoverLetter::query()->insert([
                 'owner_id'       => $application['owner_id'],
                 'application_id' => $application->id,
-                'name'           => CoverLetter::getName($application->id),
+                'name'           => $name,
+                'slug'           => $slug,
             ]);
             $application = Application::query()->find($application->id);
         }
