@@ -1,6 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
     use App\Models\Portfolio\Certificate;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Certificate';
@@ -47,7 +48,9 @@
                 'filename' => 'certificates_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($certificates->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -191,7 +194,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif
 

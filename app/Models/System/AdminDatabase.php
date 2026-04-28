@@ -160,7 +160,7 @@ class AdminDatabase extends Model
                 $query->where($this->table . '.menu_collapsed', '=', true);
             })
             ->when(isset($filters['menu_level']), function ($query) use ($filters) {
-                $query->where($this->table . '.menu_level', '=', intval(['menu_level']));
+                $query->where($this->table . '.menu_level', '=', intval($filters['menu_level']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

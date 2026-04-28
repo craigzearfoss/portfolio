@@ -157,16 +157,19 @@ class School extends Model
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['enrollment']), function ($query) use ($filters) {
-                $query->where($this->table . '.enrollment', '=', intval(['enrollment']));
+                $query->where($this->table . '.enrollment', '=', intval($filters['enrollment']));
             })
             ->when(!empty($filters['founded']), function ($query) use ($filters) {
-                $query->where($this->table . '.founded', '=', intval(['founded']));
+                $query->where($this->table . '.founded', '=', intval($filters['founded']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             });
 
         // join to states table

@@ -1,5 +1,6 @@
 @php
     use App\Models\Portfolio\Certification;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Certification';
@@ -40,8 +41,10 @@
                 'filename' => 'certifications_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
-                {!! $certifications->links('vendor.pagination.bulma') !!}
+            <p><i>{{ Number::format($certifications->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
+                {!! $certifictaions->links('vendor.pagination.bulma') !!}
             @endif
 
             <p class="admin-table-caption"></p>
@@ -158,7 +161,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $certifications->links('vendor.pagination.bulma') !!}
             @endif
 

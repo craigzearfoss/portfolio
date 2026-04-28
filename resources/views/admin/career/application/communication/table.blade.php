@@ -15,16 +15,16 @@
     @foreach($communications as $communication)
 
         <tr data-id="{{ $communication->id }}">
-            <td>
+            <td style="white-space: nowrap;">
                 {!! $communication->communicationType->name ?? '' !!}
             </td>
-            <td>
+            <td style="white-space: nowrap;">
                 {!! $communication->subject !!}
             </td>
-            <td>
+            <td style="white-space: nowrap;">
                 {!! $communication->to !!}
             </td>
-            <td>
+            <td style="white-space: nowrap;">
                 {!! $communication->from !!}
             </td>
             <td class="has-text-centered">

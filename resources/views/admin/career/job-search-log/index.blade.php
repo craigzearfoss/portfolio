@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\JobSearchLog;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\JobSearchLog';
@@ -48,11 +49,13 @@
                 'filename' => 'job_search_log_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($jobSearchLogs->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $jobSearchLogs->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -141,7 +144,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $jobSearchLogs->links('vendor.pagination.bulma') !!}
             @endif
 

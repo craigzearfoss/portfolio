@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Number;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
@@ -35,7 +37,13 @@
                 'filename' => 'sessions_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p class="admin-table-caption"></p>
+            <p><i>{{ Number::format($sessions->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
+                {!! $sessions->links('vendor.pagination.bulma') !!}
+            @endif
+
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 

@@ -262,7 +262,7 @@ class Owner extends Model
                 $query->where($this->table . '.salutation', 'like', '%' . $filters['salutation'] . '%');
             })
             ->when(!empty($filters['status']), function ($query) use ($filters) {
-                $query->where($this->table . '.status', '=', intval(['status']));
+                $query->where($this->table . '.status', '=', intval($filters['status']));
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');

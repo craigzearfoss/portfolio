@@ -33,7 +33,7 @@
 
         <div class="show-container card floating-div">
 
-            @if($pagination_top)
+            @if(!empty($pagination_top))
                 {!! $servers->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -164,7 +164,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $servers->links('vendor.pagination.bulma') !!}
             @endif
 

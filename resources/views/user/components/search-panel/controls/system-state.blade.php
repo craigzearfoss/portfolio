@@ -1,7 +1,7 @@
 @php
     use App\Models\System\State;
 
-    $state_id = $state_id ?? request()->query('state_id');
+    $state_id = $state_id ?? request()->query('state_id');dd($state_id);
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('user.components.form-select', [

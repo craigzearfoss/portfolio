@@ -183,7 +183,7 @@ class Photography extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['photo_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.photo_year', '=', intval(['photo_year']));
+                $query->where($this->table . '.photo_year', '=', intval($filters['photo_year']));
             });
 
         // add additional filters

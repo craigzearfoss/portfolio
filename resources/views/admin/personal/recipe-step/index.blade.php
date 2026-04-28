@@ -1,5 +1,6 @@
 @php
     use App\Models\Personal\RecipeStep;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Personal\RecipeStep';
@@ -51,7 +52,9 @@
                 'filename' => 'recipe_steps_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($recipeSteps->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -170,7 +173,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}
             @endif
 

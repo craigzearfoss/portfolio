@@ -242,7 +242,7 @@ class AdminResource extends Model
                 $query->where($this->table . '.menu_collapsed', '=', true);
             })
             ->when(!empty($filters['menu_level']), function ($query) use ($filters) {
-                $query->where($this->table . '.menu_level', '=', intval(['menu_level']));
+                $query->where($this->table . '.menu_level', '=', intval($filters['menu_level']));
             })
             ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.parent_id', '=', intval($filters['parent_id']));

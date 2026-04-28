@@ -98,7 +98,7 @@
                 'filename' => 'logs_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            @if(!empty($pagination_top))
                 {!! $loginAttempts->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -176,7 +176,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $loginAttempts->links('vendor.pagination.bulma') !!}
             @endif
 

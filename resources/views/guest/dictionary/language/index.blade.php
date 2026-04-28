@@ -14,7 +14,7 @@
     // set navigation buttons
     $navButtons = [];
 
-    $navSelectList = View::make('guest.components.form-select', [
+    $navSelectList = view('guest.components.form-select', [
         'name'     => '',
         'label'    => '',
         'value'    => route('guest.dictionary.language.index'),
@@ -37,7 +37,7 @@
 
         <div class="show-container card floating-div">
 
-            @if($pagination_top)
+            @if(!empty($pagination_top))
                 {!! $languages->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -62,7 +62,7 @@
 
             </ul>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $languages->links('vendor.pagination.bulma') !!}
             @endif
 

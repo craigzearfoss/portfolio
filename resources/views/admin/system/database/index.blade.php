@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Number;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\Database';
     $admin       = $admin ?? null;
@@ -34,7 +36,9 @@
                 'filename' => 'databases_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($databases->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -188,7 +192,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 

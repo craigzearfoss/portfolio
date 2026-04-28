@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\CoverLetter;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\CoverLetter';
@@ -40,9 +41,13 @@
                 'filename' => 'cover_letters_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($coverLetters->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $coverLetters->links('vendor.pagination.bulma') !!}
             @endif
+
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <p class="admin-table-caption"></p>
 
@@ -169,7 +174,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $coverLetters->links('vendor.pagination.bulma') !!}
             @endif
 

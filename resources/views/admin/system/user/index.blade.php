@@ -2,6 +2,7 @@
     use App\Models\System\User;
     use App\Models\System\UserGroup;
     use App\Models\System\UserTeam;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\User';
@@ -54,11 +55,13 @@
                 'filename' => 'users_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($allUsers->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $allUsers->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -194,7 +197,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $allUsers->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -1,6 +1,7 @@
 @php
     use App\Models\System\AdminGroup;
     use App\Models\System\AdminTeam;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\AdminGroup';
@@ -52,11 +53,13 @@
                 'filename' => 'admin_groups_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($adminGroups->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $adminGroups->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -180,7 +183,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $adminGroups->links('vendor.pagination.bulma') !!}
             @endif
 

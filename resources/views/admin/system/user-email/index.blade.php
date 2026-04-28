@@ -1,5 +1,6 @@
 @php
     use App\Models\System\UserEmail;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\UserEmail';
@@ -45,11 +46,13 @@
                 'filename' => 'user_emails_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($userEmails->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -153,7 +156,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 

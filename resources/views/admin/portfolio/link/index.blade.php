@@ -1,5 +1,6 @@
 @php
     use App\Models\Portfolio\Link;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Link';
@@ -47,7 +48,9 @@
                 'filename' => 'links_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($links->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $links->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -190,7 +193,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $links->links('vendor.pagination.bulma') !!}
             @endif
 

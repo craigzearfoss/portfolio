@@ -1,5 +1,6 @@
 @php
     use App\Models\Portfolio\JobTask;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\JobTask';
@@ -43,11 +44,13 @@
         <div class="show-container card floating-div">
 
             @include('admin.components.export-buttons-container', [
-                'href'     => route('admin.portfolio.job_task.export', request()->except([ 'page' ])),
+                'href'     => route('admin.portfolio.job-task.export', request()->except([ 'page' ])),
                 'filename' => 'job_tasks_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($jobTasks->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $jobTasks->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -173,7 +176,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $jobTasks->links('vendor.pagination.bulma') !!}
             @endif
 

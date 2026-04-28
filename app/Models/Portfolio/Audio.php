@@ -225,7 +225,7 @@ class Audio extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.parent_id', '=', intval(['parent_id']));
+                $query->where($this->table . '.parent_id', '=', intval($filters['parent_id']));
             })
             ->when(!empty($filters['podcast']), function ($query) use ($filters) {
                 $query->where($this->table . '.podcast', '=', true);

@@ -1,6 +1,7 @@
 @php
     use App\Models\Career\Application;
     use App\Models\Career\Note;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\Note';
@@ -52,11 +53,13 @@
                 'filename' => 'notes_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($notes->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $notes->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -191,7 +194,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $notes->links('vendor.pagination.bulma') !!}
             @endif
 

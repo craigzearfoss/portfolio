@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Number;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\Resource';
     $admin       = $admin ?? null;
@@ -35,11 +37,13 @@
                 'filename' => 'resources_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($resources->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $resources->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -231,7 +235,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $resources->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -9,6 +9,7 @@
     $city            = $city ?? request()->query('city');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $state_id        = $state_id ?? request()->query('state_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ School::SEARCH_ORDER_BY[0], School::SEARCH_ORDER_BY[1] ]);
@@ -70,7 +71,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.system-state')
+                            @include('admin.components.search-panel.controls.system-state')
                         </div>
 
                     </div>

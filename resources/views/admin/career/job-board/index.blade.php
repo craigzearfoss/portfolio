@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\JobBoard;
+    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\JobBoard';
@@ -40,11 +41,13 @@
                 'filename' => 'job_boards_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if($pagination_top)
+            <p><i>{{ Number::format($jobBoards->total()) }} records found.</i></p>
+
+            @if(!empty($pagination_top))
                 {!! $jobBoards->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <?php /* <p class="admin-table-caption"></p> */ ?>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -158,7 +161,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $jobBoards->links('vendor.pagination.bulma') !!}
             @endif
 

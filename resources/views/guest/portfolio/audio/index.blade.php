@@ -37,7 +37,7 @@
 
         <div class="show-container card floating-div">
 
-            @if($pagination_top)
+            @if(!empty($pagination_top))
                 {!! $audios->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -100,7 +100,7 @@
 
             </table>
 
-            @if($pagination_bottom)
+            @if(!empty($pagination_bottom))
                 {!! $audios->links('vendor.pagination.bulma') !!}
             @endif
 
