@@ -52,11 +52,14 @@
                     <!-- tabbed content -->
                     <div class="tabs is-boxed mb-2">
                         <ul>
-                            <li id="initial-selected-tab" class="is-active" data-target="resume">
-                                <a>Resume</a>
-                            </li>
-                            <li data-target="details">
+                            <li id="initial-selected-tab" class="is-active" data-target="details">
                                 <a>Details</a>
+                            </li>
+                            <li data-target="word-file">
+                                <a>Word file {!! empty($resume->doc_filepath) ? ' <i>(none)</i>' : '' !!}</a>
+                            </li>
+                            <li data-target="pdf-file">
+                                <a>PDF file {!! empty($resume->pdf_filepath) ? ' <i>(none)</i>' : '' !!}</a>
                             </li>
                             <li data-target="applications">
                                 <a>Applications</a>
@@ -67,38 +70,6 @@
                     </div>
 
                     <div class="px-2" id="tab-content">
-
-                        <div id="resume">
-
-                            <div class="show-container card p-4">
-
-                                @include('admin.components.show-row', [
-                                    'name'  => 'name',
-                                    'value' => $resume->name
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'  => 'date',
-                                    'value' => longDate($resume->date)
-                                ])
-
-                                @if(!empty($resume->pdf_filepath))
-
-                                    <iframe src="{{ str_replace('\\', '/', $resume->pdf_filepath) }}"
-                                            style="width:100%; min-height:800px; border: 1px solid #ccc;">
-                                    </iframe>
-
-                                @elseif(!empty($resume->doc_filepath))
-
-                                    <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
-                                            style="width:100%; min-height:800px; border: 1px solid #ccc;">
-                                    </iframe>
-
-                                @endif
-
-                            </div>
-
-                        </div>
 
                         <div id="details">
 
@@ -140,24 +111,6 @@
                                     'resource' => $resume,
                                     'download' => !empty($resume->doc_filepath) && !Str::startsWith($resume->doc_filepath, 'http'),
                                     'external' => true,
-                                ])
-
-                                @include('admin.components.show-row-link', [
-                                    'name'   => 'Word doc',
-                                    'label'  => !empty($resume->doc_filepath) ? '<i class="fa-solid fa-download"></i>download' : '',
-                                    'href'   => !empty($resume->doc_filepath) ?
-                                        route('download-from-public', [
-                                            'file' => $resume->doc_filepath,
-                                            'name' => $resume->slug ])
-                                        : null,
-                                    'target' => '_blank'
-                                ])
-
-                                @include('admin.components.show-row-link', [
-                                    'name'   => 'PDF doc',
-                                    'label'  => !empty($resume->pdf_filepath) ? '<i class="fa-solid fa-download"></i>download' : '',
-                                    'href'   => !empty($resume->pdf_filepath) ? route('download-from-public', [ 'file' => $resume->pdf_filepath, 'name' => $resume->slug ]) : null,
-                                    'target' => '_blank'
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -213,6 +166,93 @@
                                     'name'  => 'updated at',
                                     'value' => longDateTime($resume->updated_at)
                                 ])
+
+                            </div>
+
+                        </div>
+
+                        <div id="word-file">
+
+                            <div class="show-container card p-4">
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'name',
+                                    'value' => $resume->name
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'date',
+                                    'value' => longDate($resume->resume_date)
+                                ])
+
+
+                                @if(empty($resume->doc_filepath)) {
+
+                                    @include('admin.components.show-row', [
+                                        'name'   => 'Word file',
+                                        'value' => '<i>(none)</i>'
+                                    ])
+
+                                @else
+
+                                    @include('admin.components.show-row-link', [
+                                        'name'   => 'Word file',
+                                        'label'  => '<i class="fa-solid fa-download"></i>download',
+                                        'href'   => route('download-from-public', [
+                                                        'file' => $resume->doc_filepath,
+                                                        'name' => $resume->slug ]
+                                                    ),
+                                        'target' => '_blank'
+                                    ])
+
+                                    <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
+                                            style="width:100%; min-height:800px; border: 1px solid #ccc;">
+                                    </iframe>
+
+                                @endif
+
+                            </div>
+
+                        </div>
+
+                        <div id="pdf-file">
+
+                            <div class="show-container card p-4">
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'name',
+                                    'value' => $resume->name
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'date',
+                                    'value' => longDate($resume->resume_date)
+                                ])
+
+                                @if(empty($resume->pdf_filepath))
+
+                                    @include('admin.components.show-row', [
+                                        'name'   => 'PDF file',
+                                        'value' => '<i>(none)</i>'
+                                    ])
+
+                                @else
+
+                                    @include('admin.components.show-row-link', [
+                                        'name'   => 'PDF file',
+                                        'label'  => '<i class="fa-solid fa-download"></i>download',
+                                        'href'   => route('download-from-public', [
+                                                        'file' => $resume->pdf_filepath,
+                                                        'name' => $resume->slug ]
+                                                    ),
+                                        'target' => '_blank'
+                                    ])
+
+                                    <iframe src="{{ str_replace('\\', '/', $resume->pdf_filepath) }}"
+                                            style="width:100%; min-height:800px; border: 1px solid #ccc;">
+                                    </iframe>
+
+                                @endif
 
                             </div>
 

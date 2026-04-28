@@ -68,7 +68,7 @@
 
         <div style="height: 12px; margin: 0; padding: 0;"></div>
 
-        <div style="display: flex; align-items: flex-start; column-gap: 20px; max-width: 30rem;">
+        <div style="display: flex; align-items: flex-start; column-gap: 20px; width: 100%; max-width: 1300rem;">
 
             <div style="flex: 1; padding: 5px;">
 
@@ -79,23 +79,7 @@
 
                 @include('admin.components.show-row', [
                     'name'  => 'date',
-                    'value' => longDate($resume->date),
-                ])
-
-                @include('admin.components.show-row-link', [
-                    'name'   => 'Word doc',
-                    'label'  => !empty($resume->doc_url) ? '<i class="fa-solid fa-download"></i>download' : '',
-                    'href'   => !empty($resume->doc_url) ? route('download-from-public', [ 'file' => $resume->doc_url, 'name' => $resume->slug ]) : null,
-                    'target' => '_blank',
-                    'style'  => 'white-space: nowrap'
-                ])
-
-                @include('admin.components.show-row-link', [
-                    'name'   => 'PDF doc',
-                    'label'  => !empty($resume->pdf_url) ? '<i class="fa-solid fa-download"></i>download' : '',
-                    'href'   => !empty($resume->pdf_url) ? route('download-from-public', [ 'file' => $resume->pdf_url, 'name' => $resume->slug ]) : null,
-                    'target' => '_blank',
-                    'style'  => 'white-space: nowrap'
+                    'value' => longDate($resume->resume_date),
                 ])
 
                 @if (!empty($resume->description))
@@ -105,32 +89,19 @@
                     ])
                 @endif
 
-                @if (!empty($resume->content))
-                    @include('admin.components.show-row', [
-                        'name'  => 'content',
-                        'value' => $resume->content
-                    ])
-                @endif
+                @include('admin.components.show-row-resume', [
+                    'filetype'  => 'doc',
+                    'filepath'  => $resume->doc_filepath,
+                    'slug'      => $resume->slug,
+                ])
+
+                @include('admin.components.show-row-resume', [
+                    'filetype'  => 'pdf',
+                    'filepath'  => $resume->pdf_filepath,
+                    'slug'      => $resume->slug,
+                ])
 
             </div>
-
-            @if(!empty($resume->pdf_url))
-
-                <div style="flex: 1; padding: 5px;">
-                    <iframe src="{{ str_replace('\\', '/', $resume->pdf_url) }}"
-                            style="width:100%; min-height:300px; border: 1px solid #ccc;">
-                    </iframe>
-                </div>
-
-            @elseif(!empty($resume->doc_url))
-
-                <div style="flex: 1; padding: 5px;">
-                    <iframe src="{{ route('view-document', ['file' => $resume->pdf_url]) }}"
-                            style="width:100%; min-height:300px; border: 1px solid #ccc;">
-                    </iframe>
-                </div>
-
-            @endif
 
         </div>
 
