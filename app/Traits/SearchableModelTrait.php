@@ -305,7 +305,7 @@ trait SearchableModelTrait
         // add filters
         return $query->when(!empty($filters['id']), function ($query) use ($filters) {
                 if (is_array($filters['id'])) {
-                    $query->whereIn($this->table . '.id', array_map(function($val) { return intval($val); }, $filters['id']));
+                    $query->whereIn($this->table . '.id', array_map('intval', $filters['id']));
                 } else {
                     $query->where($this->table . '.id', '=', intval($filters['id']));
                 }

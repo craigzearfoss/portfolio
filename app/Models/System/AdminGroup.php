@@ -129,7 +129,7 @@ class AdminGroup extends Model
             })
             ->when(!empty($filters['admin_team_id']), function ($query) use ($filters) {
                 if (is_array($filters['admin_team_id'])) {
-                    $query->whereIn($this->table . '.admin_team_id',  array_map(function($val) { return intval($val); }, $filters['admin_team_id']));
+                    $query->whereIn($this->table . '.admin_team_id',  array_map('intval', $filters['admin_team_id']));
                 } else {
                     $query->where($this->table . '.admin_team_id', '=', intval($filters['admin_team_id']));
                 }
