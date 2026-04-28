@@ -101,7 +101,7 @@
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
-                            @if(!empty($application))
+                            @if(!empty($note->application))
                                 @include('admin.components.link', [
                                     'name' => $note->application->name ,
                                     'href' => route('admin.career.application.show',
@@ -113,11 +113,11 @@
                         <td data-field="subject" style="white-space: nowrap;">
                             {!! $note->subject !!}
                         </td>
-                        <td data-field="body">
-                            @if(strlen($note->subject) > 200)
-                                {!! substr($note->subject, 0, 200) !!}...
+                        <td data-field="body" style="min-width: 30rem;">
+                            @if(strlen($note->body) > 200)
+                                {!! substr($note->body, 0, 200) !!}...
                             @else
-                                {!! $note->subject !!}
+                                {!! $note->body !!}
                             @endif
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">

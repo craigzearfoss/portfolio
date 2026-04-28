@@ -108,12 +108,14 @@
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
-                            @include('admin.components.link', [
-                                'name' => $event->application->name ?? '',
-                                'href' => route('admin.career.application.show',
-                                              Application::find($event->application->id)
-                                          )
-                            ])
+                            @if(!empty($event->application))
+                                @include('admin.components.link', [
+                                    'name' => $event->application->name ,
+                                    'href' => route('admin.career.application.show',
+                                                    Application::find($event->application->id)
+                                              )
+                                ])
+                            @endif
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $event->name !!}

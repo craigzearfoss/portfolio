@@ -107,16 +107,16 @@
                                 {{ $communication->owner->username }}
                             </td>
                         @endif
-                        @if(empty($application))
-                            <td data-field="application_id" style="white-space: nowrap;">
+                        <td data-field="application_id" style="white-space: nowrap;">
+                            @if(!empty($communication->application))
                                 @include('admin.components.link', [
-                                    'name' => $communication->application->name ?? '',
+                                    'name' => $communication->application->name ,
                                     'href' => route('admin.career.application.show',
                                                     Application::find($communication->application->id)
                                               )
                                 ])
-                            </td>
-                        @endif
+                            @endif
+                        </td>
                         <td data-field="communication_type_id" style="white-space: nowrap;">
                             {!! $communication->communicationType->name ?? '' !!}
                         </td>
