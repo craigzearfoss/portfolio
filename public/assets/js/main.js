@@ -66,12 +66,62 @@ document.addEventListener("DOMContentLoaded", () => {
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#inputPassword');
 
-    togglePassword.addEventListener('click', function () {
-        // Toggle the type attribute
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
+    if (togglePassword) {
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
 
-        // Toggle the eye / eye-slash icon
-        this.classList.toggle('fa-eye-slash');
+            // Toggle the eye / eye-slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+
+    const downloadResumeLinks= document.querySelectorAll(".resume-download");
+    downloadResumeLinks.forEach((elem) => {
+        elem.addEventListener('click', function() {
+
+            // get the current download url and prompt the user for the name for the downloaded file
+            let url = new URL(elem.getAttribute('href'));
+
+            const params = {};
+            url.searchParams.forEach((value, key) => {
+                params[key] = value;
+            });
+
+            // prompt the user for the filename
+            params.name = prompt("Please enter te name for the exported file:", elem.getAttribute('data-filename'));
+
+            // generate the new url
+            let newUrl =url.origin + url.pathname + "?";
+
+            let i = 0;
+            Object.keys(params).forEach(key => {
+                if (i > 0) newUrl += '&';
+                newUrl += key + '=' + encodeURIComponent(params[key]);
+                i++;
+            })
+
+            elem.setAttribute("href", newUrl)
+        })
     });
+
+    const resumeTabs= document.querySelectorAll(".resume-tabs a");
+    resumeTabs.forEach((elem) => {
+        elem.addEventListener('click', function() {
+            const dataTarget = elem.parentElement.getAttribute("data-target");
+
+            document.querySelectorAll(".resume-tabs ul li").forEach((elem) => {
+                elem.classList.remove('is-active');
+            });
+            elem.parentElement.classList.add("is-active");
+
+            document.querySelectorAll("#resume-tab-content div .property-list").forEach((elem) => {
+                elem.style.display = "none";
+            });
+
+            document.querySelector(`#resume-tab-content > #${dataTarget} .property-list`).style.display = "flex";
+        });
+    });
+
 });

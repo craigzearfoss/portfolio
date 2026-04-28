@@ -343,6 +343,48 @@ table tbody tr td p {
     margin-bottom: 0 !important;
 }
 
+.resume-tabs {
+    display: block;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+.resume-tabs ul {
+    align-items: center;
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    justify-content: flex-start;
+    list-style: none;
+}
+.resume-tabs a {
+    align-items: center;
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    color: #4a4a4a;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -1px;
+    padding: .5em 1em;
+    vertical-align: top;
+}
+.resume-tabs.is-boxed li.is-active a {
+    background-color: #fff;
+    border-color: #dbdbdb;
+    border-bottom-color: rgba(0, 0, 0, 0) !important;
+}
+.resume-tabs li.is-active a {
+    border-bottom-color: #485fc7;
+    color: #485fc7;
+}
+.resume-tabs.is-boxed a {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px 4px 0 0;
+}
+
 div.action-button-panel {
     white-space: nowrap;
 }

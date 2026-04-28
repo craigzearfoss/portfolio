@@ -196,14 +196,15 @@
                                 @else
 
                                     @include('admin.components.show-row-link', [
-                                        'name'   => 'Word file',
-                                        'label'  => '<i class="fa-solid fa-download"></i>download',
-                                        'href'   => route('download-from-public', [
-                                                        'file' => $resume->doc_filepath,
-                                                        'name' => $resume->slug ]
-                                                    ),
-                                        'target' => '_blank',
-                                        'class'  => 'download-resume',
+                                        'name'       => 'Word file',
+                                        'label'      => '<i class="fa-solid fa-download"></i>download',
+                                        'href'       => route('download-from-public', [
+                                                            'file' => $resume->doc_filepath,
+                                                            'name' => $resume->slug ]
+                                                        ),
+                                        'target'     => '_blank',
+                                        'class'      => 'resume-download',
+                                        'attributes' => [ 'data-filename' => $resume->slug ],
                                     ])
 
                                     <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
@@ -240,14 +241,15 @@
                                 @else
 
                                     @include('admin.components.show-row-link', [
-                                        'name'   => 'PDF file',
-                                        'label'  => '<i class="fa-solid fa-download"></i>download',
-                                        'href'   => route('download-from-public', [
-                                                        'file' => $resume->pdf_filepath,
-                                                        'name' => $resume->slug ]
-                                                    ),
-                                        'target' => '_blank',
-                                        'class'  => 'download-resume',
+                                        'name'       => 'PDF file',
+                                        'label'      => '<i class="fa-solid fa-download"></i>download',
+                                        'href'       => route('download-from-public', [
+                                                            'file' => $resume->pdf_filepath,
+                                                            'name' => $resume->slug ]
+                                                        ),
+                                        'target'     => '_blank',
+                                        'class'      => 'resume-download',
+                                        'attributes' => [ 'data-filename' => $resume->slug ],
                                     ])
 
                                     <iframe src="{{ str_replace('\\', '/', $resume->pdf_filepath) }}"

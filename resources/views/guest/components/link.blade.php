@@ -1,28 +1,34 @@
 @php
-    $class    = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
-    $style    = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
-    $icon     = $icon ?? null;
-    $href     = $href ?? null;
-    $target   = $target ?? null;
-    $download = isset($download) && boolval($download);
+    $class      = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    $style      = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $icon       = $icon ?? null;
+    $href       = $href ?? null;
+    $target     = $target ?? null;
+    $download   = isset($download) && boolval($download);
+    $attributes = $attributes ?? []
 @endphp
 @if (!empty($href) || !empty($name))
 
-    <a @if (!empty($href))
+    <a @if(!empty($href))
            href="{!! $href !!}"
        @endif
-       @if (!empty($target))
+       @if(!empty($target))
            target="{!! $target !!}"
        @endif
-       @if (!empty($class))
+       @if(!empty($class))
            class="{{ implode(' ' , $class) }}"
        @endif
-       @if (!empty($style))
+       @if(!empty($style))
            style="{!! implode('; ', $style) !!}"
        @endif
-       @if (!empty($onclick))
+       @if(!empty($onclick))
             onclick="{!! $onclick !!}"
-        @endif
+       @endif
+       @if(!empty($attributes))
+           @foreach($attributes as $key=>$value)
+               {{ $key }}="{!! $value !!}"
+           @endforeach
+       @endif
     >
         @if (!empty($icon))
             <i class="fa {{ $icon }}"></i>

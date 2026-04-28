@@ -19,15 +19,16 @@
     // get download link
     if (!empty($filepath)) {
         $downloadLink = view('user.components.link', [
-            'name'   => '<i class="fa-solid fa-download"></i>',
-            'src'    => route('download-from-public',
-                            [
-                                'file' => $filepath,
-                                'name' => $slug
-                            ]
-                        ),
-            'target' => '_blank',
-            'class'  => 'resume-download',
+            'name'       => '<i class="fa-solid fa-download"></i>',
+            'href'       => route('download-from-public',
+                                [
+                                    'file' => $filepath,
+                                    'name' => $slug
+                                ]
+                            ),
+            'target'     => '_blank',
+            'class'      => 'resume-download',
+            'attributes' => [ 'data-filename' => $slug ]
         ]);
 
         $label = $label . ' ' . $downloadLink;
