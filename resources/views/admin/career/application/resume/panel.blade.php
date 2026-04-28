@@ -91,13 +91,23 @@
                 <!-- tabbed content -->
                 <div class="resume-tabs is-boxed mb-0">
                     <ul style="border-bottom-width: 0 !important;">
-                        <li id="initial-selected-tab"  class="is-active" data-target="word-file">
-                            <a>Word file {!! empty($resume->doc_filepath) ? ' <i>(none)</i>' : '' !!}</a>
-                        </li>
                         <li data-target="pdf-file">
                             <a>PDF file {!! empty($resume->pdf_filepath) ? ' <i>(none)</i>' : '' !!}</a>
                         </li>
+                        <li id="initial-selected-tab"  class="is-active" data-target="word-file">
+                            <a>Word file {!! empty($resume->doc_filepath) ? ' <i>(none)</i>' : '' !!}</a>
+                        </li>
                     </ul>
+
+                </div>
+
+                <div id="pdf-file">
+
+                    @include('admin.components.show-row-resume', [
+                        'filetype'  => 'pdf',
+                        'filepath'  => $resume->pdf_filepath,
+                        'slug'      => $resume->slug,
+                    ])
 
                 </div>
 
@@ -108,16 +118,6 @@
                         @include('admin.components.show-row-resume', [
                             'filetype'  => 'doc',
                             'filepath'  => $resume->doc_filepath,
-                            'slug'      => $resume->slug,
-                        ])
-
-                    </div>
-
-                    <div id="pdf-file">
-
-                        @include('admin.components.show-row-resume', [
-                            'filetype'  => 'pdf',
-                            'filepath'  => $resume->pdf_filepath,
                             'slug'      => $resume->slug,
                         ])
 
