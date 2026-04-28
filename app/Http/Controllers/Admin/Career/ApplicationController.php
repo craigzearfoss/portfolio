@@ -219,6 +219,7 @@ class ApplicationController extends BaseAdminController
             CoverLetter::query()->insert([
                 'owner_id'       => $application['owner_id'],
                 'application_id' => $application->id,
+                'name'           => CoverLetter::getName($application->id),
             ]);
             $application = Application::query()->find($application->id);
         }
