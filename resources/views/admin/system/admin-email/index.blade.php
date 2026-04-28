@@ -104,10 +104,10 @@
                                 @endif
                             </td>
                         @endif
-                        <td data-field="email">
+                        <td data-field="email" style="white-space: nowrap;">
                             {!! $adminEmail->email !!}
                         </td>
-                        <td data-field="label">
+                        <td data-field="label" style="white-space: nowrap;">
                             {!! $adminEmail->label !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

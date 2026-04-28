@@ -6,6 +6,7 @@ use App\Exports\System\AdminGroupsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminGroupsRequest;
 use App\Http\Requests\System\UpdateAdminGroupsRequest;
+use App\Models\System\AdminAdminTeam;
 use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,9 +31,18 @@ class AdminGroupController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        // non-root admins can only view teams that they belong to
+        $filters = $request->all();
+        if (!$this->isRootAdmin) {
+            $adminTeamIds = new AdminAdminTeam()->newQuery()
+                ->where('admin_id', '=', $this->admin['id'])
+                ->get()->pluck('admin_team_id')->toArray();
+            $filters['admin_team_id'] = $adminTeamIds;
+        }
+
         // note that any admin can see all admin groups
         $adminGroups = new AdminGroup()->searchQuery(
-            $request->all(),
+            $filters,
             request()->input('sort') ?? implode('|', AdminGroup::SEARCH_ORDER_BY),
             !$this->isRootAdmin ? $this->admin : null
         )

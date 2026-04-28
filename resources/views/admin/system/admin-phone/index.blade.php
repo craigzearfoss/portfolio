@@ -104,10 +104,10 @@
                                 @endif
                             </td>
                         @endif
-                        <td data-field="phone">
+                        <td data-field="phone" style="white-space: nowrap;">
                             {!! $adminPhone->phone !!}
                         </td>
-                        <td data-field="label">
+                        <td data-field="label" style="white-space: nowrap;">
                             {!! $adminPhone->label !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

@@ -109,10 +109,10 @@
                                 @endif
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $adminTeam->name !!}
                         </td>
-                        <td data-field="abbreviation">
+                        <td data-field="abbreviation" style="white-space: nowrap;">
                             {!! $adminTeam->abbreviation !!}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered">

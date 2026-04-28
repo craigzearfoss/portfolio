@@ -94,10 +94,10 @@
                                 {{ $userPhone->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="phone">
+                        <td data-field="phone" style="white-space: nowrap;">
                             {!! $userPhone->phone !!}
                         </td>
-                        <td data-field="label">
+                        <td data-field="label" style="white-space: nowrap;">
                             {!! $userPhone->label !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

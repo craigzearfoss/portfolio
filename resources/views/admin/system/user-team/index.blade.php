@@ -100,10 +100,10 @@
                                 {{ $userTeam->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $userTeam->name !!}
                         </td>
-                        <td data-field="abbreviation">
+                        <td data-field="abbreviation" style="white-space: nowrap;">
                             {!! $userTeam->abbreviation ?? '' !!}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered">

@@ -111,10 +111,10 @@
                                 @endif
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $adminGroup->name !!}
                         </td>
-                        <td data-field="team.name">
+                        <td data-field="team.name" style="white-space: nowrap;">
                             @if(!empty($adminGroup->team))
                                 @include('admin.components.link', [
                                     'name' => $adminGroup->team->name,

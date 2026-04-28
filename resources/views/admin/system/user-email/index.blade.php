@@ -94,10 +94,10 @@
                                 {{ $userEmail->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="email">
+                        <td data-field="email" style="white-space: nowrap;">
                             {!! $userEmail->email !!}
                         </td>
-                        <td data-field="label">
+                        <td data-field="label" style="white-space: nowrap;">
                             {!! $userEmail->label !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

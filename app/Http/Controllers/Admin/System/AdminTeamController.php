@@ -6,6 +6,7 @@ use App\Exports\System\AdminTeamsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminTeamsRequest;
 use App\Http\Requests\System\UpdateAdminTeamsRequest;
+use App\Models\System\AdminAdminTeam;
 use App\Models\System\AdminTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class AdminTeamController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Exception
      */
     public function index(Request $request): View
     {
@@ -30,11 +32,20 @@ class AdminTeamController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        // non-root admins can only view teams that they belong to
+        $filters = $request->all();
+        if (!$this->isRootAdmin) {
+            $adminTeamIds = new AdminAdminTeam()->newQuery()
+                ->where('admin_id', '=', $this->admin['id'])
+                ->get()->pluck('admin_team_id')->toArray();
+            $filters['id'] = $adminTeamIds;
+        }
+
         // note that any admin can see all admin teams
         $adminTeams = new AdminTeam()->searchQuery(
-            $request->all(),
+            $filters,
             request()->input('sort') ?? implode('|', AdminTeam::SEARCH_ORDER_BY),
-            !$this->isRootAdmin ? $this->admin : null
+            null
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
