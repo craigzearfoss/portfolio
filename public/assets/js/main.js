@@ -108,6 +108,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resumeTabs= document.querySelectorAll(".resume-tabs a");
     resumeTabs.forEach((elem) => {
+
+        // hide inactive resume tabs
+        document.querySelectorAll("#resume-tab-content .property-list").forEach((elem) => {
+            console.log(elem);
+            elem.style.display = "none";
+        });
+        document.querySelector("#resume-tab-content :first-child .property-list").style.display = "flex";
+
+        // add listeners to display is-active tabs
         elem.addEventListener('click', function() {
             const dataTarget = elem.parentElement.getAttribute("data-target");
 
@@ -116,7 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             elem.parentElement.classList.add("is-active");
 
-            document.querySelectorAll("#resume-tab-content div .property-list").forEach((elem) => {
+            document.querySelectorAll("#resume-tab-content .property-list").forEach((elem) => {
+                console.log(elem);
                 elem.style.display = "none";
             });
 
