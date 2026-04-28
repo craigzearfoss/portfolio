@@ -202,7 +202,8 @@
                                                         'file' => $resume->doc_filepath,
                                                         'name' => $resume->slug ]
                                                     ),
-                                        'target' => '_blank'
+                                        'target' => '_blank',
+                                        'class'  => 'download-resume',
                                     ])
 
                                     <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
@@ -245,7 +246,8 @@
                                                         'file' => $resume->pdf_filepath,
                                                         'name' => $resume->slug ]
                                                     ),
-                                        'target' => '_blank'
+                                        'target' => '_blank',
+                                        'class'  => 'download-resume',
                                     ])
 
                                     <iframe src="{{ str_replace('\\', '/', $resume->pdf_filepath) }}"
