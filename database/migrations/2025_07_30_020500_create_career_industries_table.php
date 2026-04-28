@@ -51,6 +51,8 @@ return new class extends Migration
             [ 'id' => 20, 'name' => 'Utilities',                          'slug' => 'utilities',                            'abbreviation' => 'UT'   ],
             [ 'id' => 21, 'name' => 'Wholesale & Distribution',           'slug' => 'wholesale-and-distribution',           'abbreviation' => 'WD'   ],
             [ 'id' => 22, 'name' => 'Human Resources',                    'slug' => 'human-resources',                      'abbreviation' => 'HR'   ],
+            [ 'id' => 23, 'name' => 'Business Consulting',                'slug' => 'business-consulting',                  'abbreviation' => 'BUS'  ],
+            [ 'id' => 24, 'name' => 'Non Profit',                         'slug' => 'non-profit',                           'abbreviation' => 'NP'   ],
         ];
 
         DB::connection($this->database_tag)->table($this->table_name)->insert($data);

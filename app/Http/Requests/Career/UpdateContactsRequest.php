@@ -21,7 +21,7 @@ class UpdateContactsRequest extends UpdateAppBaseRequest
      */
     protected array $props = [
         'database_tag' => 'career_db',
-        'table'        => 'contact',
+        'table'        => 'contacts',
         'key'          => 'contact',
         'name'         => 'contact',
         'label'        => 'contact',
