@@ -1,5 +1,13 @@
 @php
+    // get error messages
     $errors = $errors ?? false;
+    $errorMessages = [];
+    if (empty(!$errors)) {
+        $errorMessages = $errors->get('GLOBAL');
+        if (empty($errorMessages) && ($errors->any() ?? false)) {
+            $errorMessages[] = 'Fix the indicated errors before saving.';
+        }
+    }
 
     $title         = $title ?? '';
     $subtitle      = $subtitle ?? false;
@@ -8,10 +16,6 @@
     $navSelectList = $navSelectList ?? null;
     $prev          = $prev ?? null;
     $next          = $next ?? null;
-    $errorMessages = $errors->any() ?? false
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [];
-    $errorMessages = $errorMessages = [];
     $success       = $success ?? session('success') ?? null;
     $error         = $error ?? session('error') ?? null;
     $menuService   = $menuService ?? null;
