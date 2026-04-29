@@ -3,12 +3,12 @@
 namespace App\Traits;
 
 use App\Enums\EnvTypes;
+use App\Enums\WhereClauseTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
 use Exception;
-use http\Env;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -644,5 +644,50 @@ trait SearchableModelTrait
         }
 
         return $sortOptions;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $column
+     * @param mixed $value
+     * @param WhereClauseTypes $type
+     * @return void
+     */
+    public function addWhereClause(
+        Builder &$query,
+        string $column,
+        mixed $value,
+        WhereClauseTypes $type = WhereClauseTypes::DEFAULT
+    ): void
+    {
+        switch ($type) {
+            case WhereClauseTypes::BOOL:
+                $query->where($column, '=', true);
+                break;
+            case WhereClauseTypes::INT:
+                if (is_array($value)) {
+                    $query->whereIn($column,  array_map('intval', $value));
+                } else {
+                    $query->where($column, '=', intval($value));
+                }
+                break;
+            case WhereClauseTypes::MAX:
+                $query->where($column, '<=', $value);
+                break;
+            case WhereClauseTypes::MIN:
+                $query->where($column, '>=', $value);
+                break;
+            case WhereClauseTypes::WILDCARD:
+                $query->where($column, 'like', '%' . $value . '%');
+                break;
+            case WhereClauseTypes::DEFAULT:
+            default:
+                if (is_array($value)) {
+                    $query->whereIn($column,  $value);
+                } else {
+                    $query->where($column, '=', $value);
+                }
+                break;
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models\Portfolio;
 
+use App\Enums\WhereClauseTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
