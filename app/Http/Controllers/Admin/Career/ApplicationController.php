@@ -122,12 +122,8 @@ class ApplicationController extends BaseAdminController
 
         CoverLetter::query()->insert($coverLetterData);
 
-        if ($referer = $request->input('referer')) {
-            return redirect($referer)->with('success', 'Application successfully added.');
-        } else {
-            return redirect()->route('admin.career.application.show', $application)
-                ->with('success', 'Application successfully added.');
-        }
+        return redirect()->route('admin.career.application.show', $application)
+            ->with('success', 'Application successfully added.');
     }
 
     /**
