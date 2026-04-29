@@ -292,6 +292,21 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
     margin-top: 1px;
 }
 
+.min-max-search-controls {
+    padding: 2px 8px 8px 8px;
+}
+.min-max-search-controls label {
+    font-weight: 700;
+    padding-left: 40px;
+}
+.min-max-search-controls div div {
+    display: inline-flex;
+}
+.min-max-search-controls span.min-label, .min-max-search-controls span.max-label {
+    font-weight: 700;
+    width: 35px;
+}
+
 .top-pinned-message {
     position: fixed;
     top: 0;

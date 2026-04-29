@@ -459,23 +459,23 @@ trait SearchableModelTrait
      */
     public function appendTimestampFilters(Builder $query, array $filters = []): Builder
     {
-        $query->when(!empty($filters['created_at_from']), function ($query) use ($filters) {
-            $query->where($this->table . '.created_at', '>=', $filters['created_at_from']);
+        $query->when(!empty($filters['created_at-min']), function ($query) use ($filters) {
+            $query->where($this->table . '.created_at', '>=', $filters['created_at-min']);
         })
-        ->when(!empty($filters['created_at_to']), function ($query) use ($filters) {
-            $query->where($this->table . '.created_at', '<=', $filters['created_at_to']);
+        ->when(!empty($filters['created_at-max']), function ($query) use ($filters) {
+            $query->where($this->table . '.created_at', '<=', $filters['created_at-max']);
         })
-        ->when(!empty($filters['deleted_at_from']), function ($query) use ($filters) {
-            $query->where($this->table . '.deleted_at', '>=', $filters['deleted_at_from']);
+        ->when(!empty($filters['deleted_at-min']), function ($query) use ($filters) {
+            $query->where($this->table . '.deleted_at', '>=', $filters['deleted_at-min']);
         })
-        ->when(!empty($filters['deleted_at_to']), function ($query) use ($filters) {
-            $query->where($this->table . '.deleted_at', '<=', $filters['deleted_at_to']);
+        ->when(!empty($filters['deleted_at-max']), function ($query) use ($filters) {
+            $query->where($this->table . '.deleted_at', '<=', $filters['deleted_at-max']);
         })
-        ->when(!empty($filters['updated_at_from']), function ($query) use ($filters) {
-            $query->where($this->table . '.updated_at', '>=', $filters['updated_at_from']);
+        ->when(!empty($filters['updated_at-min']), function ($query) use ($filters) {
+            $query->where($this->table . '.updated_at', '>=', $filters['updated_at-min']);
         })
-        ->when(!empty($filters['updated_at_to']), function ($query) use ($filters) {
-            $query->where($this->table . '.updated_at', '<=', $filters['updated_at_to']);
+        ->when(!empty($filters['updated_at-max']), function ($query) use ($filters) {
+            $query->where($this->table . '.updated_at', '<=', $filters['updated_at-max']);
         });
 
         return $query;

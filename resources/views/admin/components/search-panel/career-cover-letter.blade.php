@@ -18,8 +18,8 @@
     $company_id       = $company_id ?? request()->query('company_id');
     $company_name     = $company_name ?? request()->query('company_name');
     $content          = $content ?? request()->query('content');
-    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min  = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max    = $created_at_max ?? request()->query('created_at-max');
     $name             = $name ?? request()->query('name');
     $description      = $description ?? request()->query('description');
     $notes            = $notes ?? request()->query('notes');
@@ -167,8 +167,8 @@
                     @if($isRootAdmin)
                         <div class="floating-div">
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at_from' => $created_at_from,
-                                'created_at_to'   => $created_at_to,
+                                'created_at-min' => $created_at_min,
+                                'created_at-max'   => $created_at_max,
                             ])
                         </div>
                     @endif

@@ -7,8 +7,8 @@
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $company_name    = $company_name ?? request()->query('company_name');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $job_id          = $job_id ?? request()->query('job_id');
     $name            = $name ?? request()->query('name');
     $role            = $role ?? request()->query('role');
@@ -96,8 +96,8 @@
                     @if($isRootAdmin)
                         <div class="floating-div">
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at_from' => $created_at_from,
-                                'created_at_to'   => $created_at_to,
+                                'created_at-min' => $created_at_min,
+                                'created_at-max'   => $created_at_max,
                             ])
                         </div>
                     @endif

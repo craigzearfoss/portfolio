@@ -7,8 +7,8 @@
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
     $company         = $company ?? request()->query('company');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $name            = $name ?? request()->query('name');
     $show            = $show ?? request()->query('show');
 

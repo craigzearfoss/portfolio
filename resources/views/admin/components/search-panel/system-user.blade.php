@@ -5,8 +5,8 @@
     // get variables
     $action          = $action ?? url()->current();
     $user_id         = $user_id ?? $user->id ?? null;
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ User::SEARCH_ORDER_BY[0], User::SEARCH_ORDER_BY[1] ]);
@@ -58,8 +58,8 @@
                     @if($isRootAdmin)
                         <div class="floating-div">
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at_from' => $created_at_from,
-                                'created_at_to'   => $created_at_to,
+                                'created_at-min' => $created_at_min,
+                                'created_at-max'   => $created_at_max,
                             ])
                         </div>
                     @endif

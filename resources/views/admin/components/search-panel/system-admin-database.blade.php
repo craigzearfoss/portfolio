@@ -11,8 +11,8 @@
     $owner_id        = !empty($admin) && empty($admin->is_root)
         ? $admin->id
         : request()->query('owner_id');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $database        = $database ?? request()->query('database');
     $name            = $name ?? request()->query('name');
     $tag             = $tag ?? request()->query('tag');
@@ -111,8 +111,8 @@
                     @if($isRootAdmin)
                         <div class="floating-div">
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at_from' => $created_at_from,
-                                'created_at_to'   => $created_at_to,
+                                'created_at-min' => $created_at_min,
+                                'created_at-max'   => $created_at_max,
                             ])
                         </div>
                     @endif

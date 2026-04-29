@@ -8,8 +8,8 @@
     $owner_id        = $owner->id ?? -1;
     $artist          = $artist ?? request()->query('artist');
     $catalog_number  = $catalog_number ?? request()->query('catalog_number');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $name            = $name ?? request()->query('name');
     $search_label    = $search_label ?? request()->query('search_label');
 

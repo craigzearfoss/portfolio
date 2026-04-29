@@ -8,8 +8,8 @@
     $owner_id        = $owner->id ?? -1;
     $city            = $city ?? request()->query('city');
     $company_name    = $company_name ?? request()->query('company_name');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $email           = $email ?? request()->query('email');
     $name            = $name ?? request()->query('name');
     $phone           = $phone ?? request()->query('phone');

@@ -8,8 +8,8 @@
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $audio           = boolval($audio ?? request()->query('audio'));
     $author          = $author ?? request()->query('author');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $fiction         = boolval($fiction ?? request()->query('fiction'));
     $nonfiction      = boolval($nonfiction ?? request()->query('nonfiction'));
     $paper           = boolval($paper ?? request()->query('paper'));
@@ -159,8 +159,8 @@
                     @if($isRootAdmin)
                         <div class="floating-div">
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at_from' => $created_at_from,
-                                'created_at_to'   => $created_at_to,
+                                'created_at-min' => $created_at_min,
+                                'created_at-max'   => $created_at_max,
                             ])
                         </div>
                     @endif

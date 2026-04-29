@@ -9,8 +9,8 @@
     // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Session::SEARCH_ORDER_BY[0], Session::SEARCH_ORDER_BY[1] ]);
