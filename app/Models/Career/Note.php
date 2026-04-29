@@ -193,12 +193,6 @@ class Note extends Model
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
             })
-            ->when(!empty($filters['created_at_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.date', '>=', $filters['created_at_from']);
-            })
-            ->when(!empty($filters['created_at_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.created_at', '<=', $filters['created_at_to']);
-            })
             ->when(!empty($filters['subject']), function ($query) use ($filters) {
                 $query->where($this->table . '.subject', 'like', '%' . $filters['subject'] . '%');
             });
