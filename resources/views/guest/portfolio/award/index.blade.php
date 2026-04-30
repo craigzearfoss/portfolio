@@ -1,5 +1,6 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className        = 'App\Models\Portfolio\Award';
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
@@ -43,29 +44,53 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>category</th>
-                        <th>nominated work</th>
-                        <th class="has-text-centered">year</th>
-                        <th class="hide-at-1300">organization</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>category</th>
-                        <th>nominated work</th>
-                        <th class="has-text-centered">year</th>
-                        <th class="hide-at-1300">organization</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'category',
+                                'sort'  => 'category|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'nominated work',
+                                'sort'  => 'nominated_work|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'award_year|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-1300">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'organization',
+                                'sort'  => 'organization|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

@@ -1,6 +1,9 @@
 @php
     use App\Models\Dictionary\DictionarySection;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className = 'App\Models\Dictionary\Library';
+
     $title    = 'Dictionary';
     $subtitle = $title;
 
@@ -54,9 +57,7 @@
 
                 @empty
 
-                    <tr>
-                        <li>There are no libraries in the dictionary.</li>
-                    </tr>
+                    <li>There are no libraries in the dictionary.</li>
 
                 @endforelse
 

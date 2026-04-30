@@ -1,5 +1,6 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className        = 'App\Models\Portfolio\Audio';
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
@@ -43,25 +44,36 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th class="hide-at-600">type</th>
-                        <th class="hide-at-480">year</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th class="hide-at-600">type</th>
-                        <th class="hide-at-480">year</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-600">
+                            type
+                        </th>
+                        <th class="has-text-centered hide-at-480">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'audio_year|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -83,7 +95,7 @@
                             @endphp
                             {!! implode(', ', $types) !!}
                         </td>
-                        <td data-field="year" class="hide-at-480">
+                        <td data-field="year" class="has-text-centered hide-at-480">
                             {!! $audio->audio_year !!}
                         </td>
                     </tr>

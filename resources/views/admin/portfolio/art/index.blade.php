@@ -115,7 +115,7 @@
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $art->name !!}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="artist">
+                        <td data-field="artist" style="white-space: nowrap;">
                             {!! $art->artist !!}
                         </td>
                         <td data-field="art_year">

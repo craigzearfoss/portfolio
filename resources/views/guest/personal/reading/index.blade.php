@@ -2,6 +2,7 @@
     use App\Models\Personal\Reading;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className        = 'App\Models\Personal\Reading';
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 

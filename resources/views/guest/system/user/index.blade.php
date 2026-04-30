@@ -1,5 +1,6 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className        = 'App\Models\System\User';
     $publicAdminCount = $publicAdminCount ?? 0;
 
     $title    = $pageTitle ?? 'Users';

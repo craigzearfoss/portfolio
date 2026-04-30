@@ -1,5 +1,6 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className        = 'App\Models\Portfolio\Link';
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 

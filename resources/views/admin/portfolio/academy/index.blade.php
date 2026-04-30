@@ -3,6 +3,7 @@
     use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Portfolio\Academy';
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;

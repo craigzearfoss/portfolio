@@ -48,32 +48,35 @@
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
                     if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
                 @endphp
+
                 @foreach($labelElems as $labelElem)
+
                     <{{ $labelElem }}>
                     <tr>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'name',
-                                'sort' => 'name|asc',
+                                'sort'  => 'name|asc',
                             ])
                         </th>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'artist',
-                                'sort' => 'artist|asc',
+                                'sort'  => 'artist|asc',
                             ])
                         </th>
                         <th class="has-text-centered hide-at-480">
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'year',
-                                'sort' => 'year|asc',
+                                'sort'  => 'art_year|asc',
                             ])
                         </th>
                     </tr>
                     </{{ $labelElem }}>
+
                 @endforeach
 
                 <tbody>
