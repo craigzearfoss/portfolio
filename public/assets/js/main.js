@@ -3,22 +3,22 @@ function loadSelectedAdmin(adminId, currentUrl) {
 }
 
 function toggleHamburgerMenu() {
-    let x = document.getElementById("hamburger-menu-container");
-    if (x.style.display === "block") {
-        x.style.display = "none";
+    let x = document.getElementById('hamburger-menu-container');
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
     } else {
-        x.style.display = "block";
+        x.style.display = 'block';
     }
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-    if (document.getElementById("performSearch") && document.getElementById("searchForm")) {
-        document.getElementById("performSearch").addEventListener("click", function (event) {
+    if (document.getElementById('performSearch') && document.getElementById('searchForm')) {
+        document.getElementById('performSearch').addEventListener('click', function (event) {
             event.preventDefault()
 
-            const formElement = document.getElementById("searchForm");
+            const formElement = document.getElementById('searchForm');
             let searchUrl = formElement.getAttribute('action') + '?';
 
             // we only want fields that have a value
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let ctr = 0;
             formData.forEach((value, key) => {
-                if (value && value.toString().trim() !== "") {
+                if (value && value.toString().trim() !== '') {
                     if (ctr > 0) searchUrl += '&';
                     searchUrl += key + '=' + encodeURIComponent(value.toString());
                     ctr++;
@@ -44,14 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // delete header message button
-    const headerMessageDeleteBtn= document.querySelector("div.message-header button.delete");
+    const headerMessageDeleteBtn= document.querySelector('div.message-header button.delete');
     if (headerMessageDeleteBtn) {
         headerMessageDeleteBtn.addEventListener('click', () => {
             document.getElementById('header-message-div').remove();
         });
     }
 
-    const exportToExcelBtns= document.querySelectorAll(".export-to-excel-btn");
+    const exportToExcelBtns= document.querySelectorAll('.export-to-excel-btn');
     exportToExcelBtns.forEach((elem) => {
         elem.addEventListener('click', function(event) {
             event.preventDefault();
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const downloadResumeLinks= document.querySelectorAll(".resume-download");
+    const downloadResumeLinks= document.querySelectorAll('.resume-download');
     downloadResumeLinks.forEach((elem) => {
         elem.addEventListener('click', function() {
 
@@ -107,10 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // prompt the user for the filename
-            params.name = prompt("Please enter te name for the exported file:", elem.getAttribute('data-filename'));
+            params.name = prompt('Please enter te name for the exported file:', elem.getAttribute('data-filename'));
 
             // generate the new url
-            let newUrl =url.origin + url.pathname + "?";
+            let newUrl =url.origin + url.pathname + '?';
 
             let i = 0;
             Object.keys(params).forEach(key => {
@@ -119,35 +119,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 i++;
             })
 
-            elem.setAttribute("href", newUrl)
+            elem.setAttribute('href', newUrl)
         })
     });
 
-    const resumeTabs= document.querySelectorAll(".resume-tabs a");
+    const resumeTabs= document.querySelectorAll('.resume-tabs a');
     resumeTabs.forEach((elem) => {
 
         // hide inactive resume tabs
-        document.querySelectorAll("#resume-tab-content .property-list").forEach((elem) => {
+        document.querySelectorAll('#resume-tab-content .property-list').forEach((elem) => {
             console.log(elem);
-            elem.style.display = "none";
+            elem.style.display = 'none';
         });
-        document.querySelector("#resume-tab-content :first-child .property-list").style.display = "flex";
+        document.querySelector('#resume-tab-content :first-child .property-list').style.display = 'flex';
 
         // add listeners to display is-active tabs
         elem.addEventListener('click', function() {
-            const dataTarget = elem.parentElement.getAttribute("data-target");
+            const dataTarget = elem.parentElement.getAttribute('data-target');
 
-            document.querySelectorAll(".resume-tabs ul li").forEach((elem) => {
+            document.querySelectorAll('.resume-tabs ul li').forEach((elem) => {
                 elem.classList.remove('is-active');
             });
-            elem.parentElement.classList.add("is-active");
+            elem.parentElement.classList.add('is-active');
 
-            document.querySelectorAll("#resume-tab-content .property-list").forEach((elem) => {
+            document.querySelectorAll('#resume-tab-content .property-list').forEach((elem) => {
                 console.log(elem);
-                elem.style.display = "none";
+                elem.style.display = 'none';
             });
 
-            document.querySelector(`#resume-tab-content > #${dataTarget} .property-list`).style.display = "flex";
+            document.querySelector(`#resume-tab-content > #${dataTarget} .property-list`).style.display = 'flex';
         });
     });
 
