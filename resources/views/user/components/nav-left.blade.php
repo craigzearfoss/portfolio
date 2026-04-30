@@ -13,7 +13,7 @@
         <div class="aside-tools">
             <div class="aside-tools-label has-text-left has-text-centered" style="width: 100%;">
 
-                @include('guest.components.button-home', [
+                @include('user.components.button-home', [
                     'name'     => 'Home',
                     'href'     => route('guest.index'),
                     'selected' => true,
@@ -55,7 +55,7 @@
                 <ul class="menu is-menu-main" style="font-size: 1rem;">
 
                     <p class="menu-label menu-label-left">
-                        @include('guest.components.nav-link-left', [
+                        @include('user.components.nav-link-left', [
                             'level'  => 1,
                             'name'   => $menuItems[$i]->title,
                             'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,

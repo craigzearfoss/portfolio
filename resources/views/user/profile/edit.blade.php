@@ -120,7 +120,7 @@
                                                 ])
 
                                                 <?php /*
-                                                @include('admin.components.form-select-horizontal', [
+                                                @include('user.components.form-select-horizontal', [
                                                     'name'    => 'status',
                                                     'value'   => old('status') ?? $user->status,
                                                     'list'    => $userModel->statusListOptions(),

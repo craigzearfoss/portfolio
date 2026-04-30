@@ -34,7 +34,7 @@
 
             <div class="show-container floating-div">
 
-                @include('guest.components.image', [
+                @include('user.components.image', [
                     'name'     => 'image',
                     'src'      => $featuredAdmin->image,
                     'alt'      => $featuredAdmin->name,
@@ -46,7 +46,7 @@
 
                     <div class="columns">
                         <span class="column is-12 has-text-right">
-                            @include('guest.components.link', [
+                            @include('user.components.link', [
                                 'name'   => 'Resume',
                                 'href'   => route('guest.resume', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',

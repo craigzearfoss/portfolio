@@ -48,7 +48,7 @@
 
     <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
 
-        @include('guest.components.input', [
+        @include('user.components.input', [
             'type'         => $type,
             'id'           => $id,
             'name'         => $name,

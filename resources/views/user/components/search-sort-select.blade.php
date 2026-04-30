@@ -15,7 +15,7 @@
                  style="{{ implode('; ', $style) }}"
              @endif
         >
-            @include('admin.components.select-list', [
+            @include('user.components.select-list', [
                 'name'                 => 'sort',
                 'label'                => null,
                 'value'                => $sort ?? '',

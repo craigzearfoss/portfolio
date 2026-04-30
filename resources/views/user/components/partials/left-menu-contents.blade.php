@@ -12,7 +12,7 @@
 
             <div class="has-text-light">candidates</div>
 
-            @include('guest.components.select-list', [
+            @include('user.components.select-list', [
                 'value'    => !empty($owner->label) ? $owner->label : '',
                 'list'     => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
                 'style'    => 'font-size: 1.1rem; font-weight: 700',
@@ -28,7 +28,7 @@
         <ul class="menu is-menu-main" style="font-size: 1rem;">
 
             <p class="menu-label menu-label-left">
-                @include('guest.components.nav-link-left', [
+                @include('user.components.nav-link-left', [
                     'level'  => 1,
                     'name'   => $menuItems[$i]->title,
                     'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
@@ -43,7 +43,7 @@
 
                     @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
                         <li>
-                            @include('guest.components.nav-link-left', [
+                            @include('user.components.nav-link-left', [
                                 'level'  => 2,
                                 'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                                 'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
@@ -57,7 +57,7 @@
 
                                     @foreach ($menu2Item->children as $menu3Item)
                                         <li>
-                                            @include('guest.components.nav-link-left', [
+                                            @include('user.components.nav-link-left', [
                                                 'level'  => 3,
                                                 'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                                 'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,

@@ -43,7 +43,7 @@
 
     <div class="select">
 
-        @include('admin.components.select-list', [
+        @include('user.components.select-list', [
             'id'                   => $id,
             'name'                 => $name,
             'value'                => $value,
