@@ -14,9 +14,26 @@ function toggleHamburgerMenu() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    if (document.getElementById("performSearch")) {
-        document.getElementById("performSearch").addEventListener("click", function () {
-            document.getElementById("searchForm").submit();
+    if (document.getElementById("performSearch") && document.getElementById("searchForm")) {
+        document.getElementById("performSearch").addEventListener("click", function (event) {
+            event.preventDefault()
+
+            const formElement = document.getElementById("searchForm");
+            let searchUrl = formElement.getAttribute('action') + '?';
+
+            // we only want fields that have a value
+            const formData = new FormData(formElement);
+
+            let ctr = 0;
+            formData.forEach((value, key) => {
+                if (value && value.toString().trim() !== "") {
+                    if (ctr > 0) searchUrl += '&';
+                    searchUrl += key + '=' + encodeURIComponent(value.toString());
+                    ctr++;
+                }
+            });
+
+            window.location.href = searchUrl;
         });
     }
 
