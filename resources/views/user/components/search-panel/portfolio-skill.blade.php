@@ -9,10 +9,10 @@
     $name           = $name ?? request()->query('name');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $min_years      = $min_years ?? request()->query('min_years');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
+    $years_min      = $years_min ?? request()->query('years-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Skill::SEARCH_ORDER_BY[0], Skill::SEARCH_ORDER_BY[1] ]);
@@ -88,9 +88,9 @@
                         <div class="search-form-control">
                             @include('user.components.form-input-with-icon', [
                                 'type'    => 'number',
-                                'name'    => 'min_years',
+                                'name'    => 'years-min',
                                 'label'   => 'min years',
-                                'value'   => $min_years,
+                                'value'   => $years_min,
                                 'min'     => 1,
                                 'max'     => 30,
                                 'message' => $message ?? '',

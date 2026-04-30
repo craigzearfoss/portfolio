@@ -249,8 +249,8 @@ class Skill extends Model
             ->when(!empty($filters['years']), function ($query) use ($filters) {
                 $query->where($this->table . '.years', '=', intval($filters['years']));
             })
-            ->when(!empty($filters['min_years']), function ($query) use ($filters) {
-                $query->where($this->table . '.years', '>=', intval($filters['min_years']));
+            ->when(!empty($filters['years-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.years', '>=', intval($filters['years-min']));
             });
 
         // join to dictionary.categories table
