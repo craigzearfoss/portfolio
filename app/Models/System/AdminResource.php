@@ -268,8 +268,8 @@ class AdminResource extends Model
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.table_name', 'like', '%' . $filters['table_name'] . '%');
             })
-            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
-                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
         // add joins

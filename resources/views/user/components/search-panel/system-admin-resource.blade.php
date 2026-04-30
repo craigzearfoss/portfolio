@@ -14,7 +14,7 @@
         ? $admin->id
         : request()->query('owner_id');
     $table_name     = $table_name ?? request()->query('table_name');
-    $search_title   = $search_title ?? request()->query('search_title');
+    $search_title   = $search_title ?? request()->query('title');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
@@ -146,8 +146,7 @@
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('user.components.form-select', [
-                                    'name'  => 'search_title',
-                                    'label' => 'title',
+                                    'name'  => 'title',
                                     'value' => $search_title,
                                     'list'  => new AdminResource()->listOptions(
                                                    !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],

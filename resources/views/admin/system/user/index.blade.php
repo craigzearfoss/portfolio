@@ -102,7 +102,7 @@
                 @forelse ($allUsers as $thisUser)
 
                     <tr data-id="{{ $thisUser->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $thisUser->name !!}
                         </td>
                         <td data-field="username" style="white-space: nowrap;">
@@ -111,8 +111,8 @@
                         <td data-field="label" style="white-space: nowrap;">
                             {!! $thisUser->label !!}
                         </td>
-                        <td data-field="user_team_id">
-                            @if(!empty($thisUser->team_id))
+                        <td data-field="user_team_id" style="white-space: nowrap;">
+                            @if(!empty($thisUser->user_team_id))
                                 @include('admin.components.link', [
                                     'name' => $thisUser->team->name ?? '',
                                     'href' => route('admin.system.user-team.show',

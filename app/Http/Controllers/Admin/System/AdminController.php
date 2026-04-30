@@ -40,7 +40,7 @@ class AdminController extends BaseAdminController
 
          $allAdmins = new Admin()->searchQuery(
              $request->all(),
-             request()->input('sort') ?? implode('|', AdminResource::SEARCH_ORDER_BY),
+             request()->input('sort') ?? implode('|', Admin::SEARCH_ORDER_BY),
              !$this->isRootAdmin ? $this->admin : null
          )
          ->paginate($perPage)->appends(request()->except('page'));

@@ -117,8 +117,8 @@ class UserEmail extends Model
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
             })
-            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

@@ -2,13 +2,23 @@
     use App\Enums\EnvTypes;
     use App\Models\System\User;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $user        = $user ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     // get variables
     $action         = $action ?? url()->current();
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $email          = $email ?? request()->query('email');
+    $name           = $name ?? request()->query('name');
+    $search_label   = $search_label ?? request()->query('label');
+    $team_id        = $team_id ?? request()->query('team_id');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
-    $user_id        = $user_id ?? $user->id ?? null;
+    $user_id        = $isRootAdmin
+        ? $user_id ?? request()->query('id')
+        : $user->id;
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ User::SEARCH_ORDER_BY[0], User::SEARCH_ORDER_BY[1] ]);
@@ -46,15 +56,56 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="control" style="max-width: 30rem;">
-                            @include('user.components.form-select', [
-                                'name'  => 'user_id',
-                                'label' => 'user',
-                                'value' => $user_id,
-                                'list'  => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                                'style' => 'min-width: 10rem;'
+
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('user.components.form-select', [
+                                    'name'  => 'id',
+                                    'label' => 'username',
+                                    'value' => $user_id,
+                                    'list'  => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                                    'style' => 'min-width: 10rem;'
+                                ])
+                            </div>
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('user.components.form-input-with-icon', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
                             ])
                         </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('user.components.form-input-with-icon', [
+                                'name'    => 'label',
+                                'value'   => $search_label,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('user.components.form-input-with-icon', [
+                                'name'    => 'email',
+                                'value'   => $email,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('user.components.search-panel.controls.system-user-team')
+                        </div>
+
                     </div>
 
                     @if($isRootAdmin)

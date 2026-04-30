@@ -185,8 +185,8 @@ class Reading extends Model
             ->when(!empty($filters['paper']), function ($query) use ($filters) {
                 $query->where($this->table . '.paper', '=', true);
             })
-            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
-                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');

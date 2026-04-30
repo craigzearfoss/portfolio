@@ -9,12 +9,14 @@
 
     // get variables
     $action         = $action ?? url()->current();
+    $this_admin_id  = $isRootAdmin
+        ? $this_admin_id ?? request()->query('id')
+        : $admin->id;
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
-    $id             = $id ?? request()->query('id');
     $name           = $name ?? request()->query('name');
-    $search_label   = $search_label ?? request()->query('search_label');
+    $search_label   = $search_label ?? request()->query('label');
     $team_id        = $team_id ?? request()->query('team_id');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
@@ -61,7 +63,7 @@
                                 @include('user.components.form-select', [
                                     'name'  => 'id',
                                     'label' => 'username',
-                                    'value' => $id,
+                                    'value' => $this_admin_id,
                                     'list'  => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                                     'style' => 'min-width: 10rem;'
                                 ])
@@ -82,8 +84,7 @@
 
                         <div class="search-form-control">
                             @include('user.components.form-input-with-icon', [
-                                'name'    => 'search_label',
-                                'label'   => 'label',
+                                'name'    => 'label',
                                 'value'   => $search_label,
                                 'message' => $message ?? '',
                                 'style'   => 'width: 15rem;',

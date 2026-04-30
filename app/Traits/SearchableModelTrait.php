@@ -303,22 +303,27 @@ trait SearchableModelTrait
         }
 
         // add filters
-        return $query->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query->when(!empty($filters['id']), function ($query) use ($filters) {
                 if (is_array($filters['id'])) {
                     $query->whereIn($this->table . '.id', array_map('intval', $filters['id']));
                 } else {
                     $query->where($this->table . '.id', '=', intval($filters['id']));
                 }
-            })
-            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
+            });
+
+        if ($owner !== false) {
+            $query->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(!empty($filters['owner_name']), function ($query) use ($filters) {
-                $query->where(dbName('system_db')  . '.admins.name', 'like', '%' . $filters['owner_name'] . '%');
-            })
-            ->when(!empty($filters['owner_username']), function ($query) use ($filters) {
-                $query->where(dbName('system_db')  . '.admins.username', 'like', '%' . $filters['owner_username'] . '%');
-            });
+                ->when(!empty($filters['owner_name']), function ($query) use ($filters) {
+                    $query->where(dbName('system_db') . '.admins.name', 'like', '%' . $filters['owner_name'] . '%');
+                })
+                ->when(!empty($filters['owner_username']), function ($query) use ($filters) {
+                    $query->where(dbName('system_db') . '.admins.username', 'like', '%' . $filters['owner_username'] . '%');
+                });
+        }
+
+        return $query;
     }
 
     /**

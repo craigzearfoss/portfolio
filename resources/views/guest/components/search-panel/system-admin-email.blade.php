@@ -12,7 +12,7 @@
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $search_label   = $search_label ?? request()->query('search_label');
+    $search_label   = $search_label ?? request()->query('label');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
@@ -74,8 +74,7 @@
 
                         <div class="search-form-control">
                             @include('guest.components.form-input-with-icon', [
-                                'name'    => 'search_label',
-                                'label'   => 'label',
+                                'name'    => 'label',
                                 'value'   => $search_label,
                                 'message' => $message ?? '',
                                 'style'   => 'width: 12rem;',

@@ -10,7 +10,7 @@
     $publication_name = $publication_name ?? request()->query('publication_name');
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $publisher        = $publisher ?? request()->query('publisher');
-    $search_title     = $search_title ?? request()->query('search_title');
+    $search_title     = $search_title ?? request()->query('title');
     $updated_at_max   = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min   = $updated_at_min ?? request()->query('updated_at-min');
 
@@ -49,21 +49,22 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-
-                        @if($isRootAdmin)
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
+                        </div>
+                    @endif
+
+                    <div class="floating-div">
 
                         <?php /*
                         // there are too many publications for a select list
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('admin.components.form-select', [
-                                    'name'  => 'search_title',
-                                    'label' => 'title',
+                                    'name'  => 'title',
                                     'value' => $search_title,
                                     'list'  => new Publication()->listOptions(
                                         !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
@@ -81,7 +82,7 @@
 
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
-                                'name'    => 'search_title',
+                                'name'    => 'title',
                                 'label'   => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',

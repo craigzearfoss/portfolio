@@ -13,7 +13,7 @@
     $database       = $database ?? request()->query('database');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $search_title   = $search_title ?? request()->query('search_title');
+    $search_title   = $search_title ?? request()->query('title');
     $tag            = $tag ?? request()->query('tag');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
@@ -95,8 +95,7 @@
 
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
-                                'name'    => 'search_title',
-                                'label'   => 'title',
+                                'name'    => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',
                                 'style'   => 'width: 12rem;',

@@ -146,8 +146,7 @@
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('user.components.form-select', [
-                                    'name'  => 'search_title',
-                                    'label' => 'title',
+                                    'name'  => 'title',
                                     'value' => $search_title,
                                     'list'  => new Resource()->listOptions(
                                                    [ 'owner_id' => 1 ],

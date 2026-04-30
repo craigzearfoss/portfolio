@@ -151,7 +151,7 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'admin_team_id', 'username', 'name', 'label', 'salutation',
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'username', 'admin_team_id', 'username', 'name', 'label', 'salutation',
         'title', 'role', 'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin',
         'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
@@ -242,8 +242,8 @@ class Admin extends Authenticatable
             ->when(!empty($filters['employment_status_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.employment_status_id', '=', intval($filters['employment_status_id']));
             })
-            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

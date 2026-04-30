@@ -49,21 +49,22 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-
-                        @if($isRootAdmin)
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
+                        </div>
+                    @endif
+
+                    <div class="floating-div">
 
                         <?php /*
                         // there are too many publications for a select list
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('guest.components.form-select', [
-                                    'name'  => 'search_title',
-                                    'label' => 'title',
+                                    'name'  => 'title',
                                     'value' => $search_title,
                                     'list'  => new Publication()->listOptions(
                                         !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
@@ -81,7 +82,7 @@
 
                         <div class="search-form-control">
                             @include('guest.components.form-input-with-icon', [
-                                'name'    => 'search_title',
+                                'name'    => 'title',
                                 'label'   => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',

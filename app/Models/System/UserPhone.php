@@ -114,8 +114,8 @@ class UserPhone extends Model
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
