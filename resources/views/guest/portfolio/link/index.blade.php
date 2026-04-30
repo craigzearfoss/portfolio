@@ -44,23 +44,33 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>url</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>url</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'url',
+                                'sort'  => 'url|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

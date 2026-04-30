@@ -44,25 +44,40 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th class="hide-at-480">credit</th>
-                        <th class="has-text-centered hide-at-750">year</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th class="hide-at-480">credit</th>
-                        <th class="has-text-centered hide-at-750">year</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-480">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'credit',
+                                'sort'  => 'credit|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-750">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'photo_year|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

@@ -50,6 +50,7 @@
                 @endphp
 
                 @foreach($labelElems as $labelElem)
+
                     <{{ $labelElem }}>
                     <tr>
                         <th>

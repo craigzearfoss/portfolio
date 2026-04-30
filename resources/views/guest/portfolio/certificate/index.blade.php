@@ -44,31 +44,61 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>academy</th>
-                        <th class="hide-at-900">organization</th>
-                        <th class="has-text-centered hide-at-600">year</th>
-                        <th class="has-text-centered hide-at-1200">received</th>
-                        <th class="has-text-centered hide-at-750">expiration</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>academy</th>
-                        <th class="hide-at-900">organization</th>
-                        <th class="has-text-centered hide-at-600">year</th>
-                        <th class="has-text-centered hide-at-1200">received</th>
-                        <th class="has-text-centered hide-at-750">expiration</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'academy',
+                                'sort'  => 'academy_name|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-900">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'organization',
+                                'sort'  => 'organization|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-600">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'certificate_year|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-750">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'received',
+                                'sort'  => 'received|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-1200">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'expiration',
+                                'sort'  => 'expiration|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

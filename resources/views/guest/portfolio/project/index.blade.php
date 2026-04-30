@@ -44,27 +44,47 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th class="has-text-centered">language</th>
-                        <th class="has-text-centered hide-at-600">year</th>
-                        <th class="hide-at-1024">repository</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th class="has-text-centered">language</th>
-                        <th class="has-text-centered hide-at-600">year</th>
-                        <th class="hide-at-1024">repository</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'language',
+                                'sort'  => 'language|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-600">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'project_year|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-1024">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'repository',
+                                'sort'  => 'repository_url|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -78,7 +98,7 @@
                                 'class' => $project->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="language" class="has-text-centered" style="white-space: nowrap;">
+                        <td data-field="language" style="white-space: nowrap;">
                             {!! !empty($project->language)
                                 ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                                 : ''

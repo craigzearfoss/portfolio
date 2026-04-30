@@ -44,27 +44,47 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>academy</th>
-                        <th class="hide-at-480">instructor</th>
-                        <th style="white-space: nowrap;">completion date</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>academy</th>
-                        <th class="hide-at-480">instructor</th>
-                        <th style="white-space: nowrap;">completion date</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'academy',
+                                'sort'  => 'academy_name|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-480">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'instructor',
+                                'sort'  => 'instructor|asc',
+                            ])
+                        </th>
+                        <th style="white-space: nowrap;">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'completion date',
+                                'sort'  => 'completion_date|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

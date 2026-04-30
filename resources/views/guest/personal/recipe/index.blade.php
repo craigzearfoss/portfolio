@@ -38,33 +38,41 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
-                {!! $recipes->links('vendor.pagination.bulma') !!}
-            @endif
-
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>type</th>
-                        <th class="hide-at-600">meal</th>
-                        <th class="hide-at-750">author</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>type</th>
-                        <th class="hide-at-600">meal</th>
-                        <th class="hide-at-750">author</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            type
+                        </th>
+                        <th class="hide-at-600">
+                            meal
+                        </th>
+                        <th class="hide-at-750">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'author',
+                                'sort'  => 'author|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

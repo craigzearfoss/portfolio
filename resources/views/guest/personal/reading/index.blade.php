@@ -46,33 +46,52 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>author</th>
-                        <th class="hide-at-600">type</th>
-                        <th class="has-text-centered hide-at-600">published</th>
-                        <th class="has-text-centered hide-at-900">paper</th>
-                        <th class="has-text-centered hide-at-900">audio</th>
-                        <th class="has-text-centered hide-at-900">wish list</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>title</th>
-                        <th>author</th>
-                        <th class="hide-at-600">type</th>
-                        <th class="has-text-centered hide-at-600">published</th>
-                        <th class="has-text-centered hide-at-900">paper</th>
-                        <th class="has-text-centered hide-at-900">audio</th>
-                        <th class="has-text-centered hide-at-900">wish list</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'title',
+                                'sort'  => 'title|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'author',
+                                'sort'  => 'author|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-600">
+                            type
+                        </th>
+                        <th class="has-text-centered hide-at-600">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'published',
+                                'sort'  => 'publication_year|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-900">
+                            paper
+                        </th>
+                        <th class="has-text-centered hide-at-900">
+                            audio
+                        </th>
+                        <th class="has-text-centered hide-at-900" style="white-space: nowrap;">
+                            wish list
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

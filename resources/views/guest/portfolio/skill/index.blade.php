@@ -39,25 +39,49 @@
         <div class="show-container card floating-div">
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th class="hide-at-600">category</th>
-                    <th>level (out of 10)</th>
-                    <th class="has-text-centered hide-at-480">years</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th class="hide-at-600">category</th>
-                    <th>level (out of 10)</th>
-                    <th class="has-text-centered hide-at-480">years</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
+
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
+                    <tr>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-600">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'category',
+                                'sort'  => 'category|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'level',
+                                'sort'  => 'level|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-480">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'years',
+                                'sort'  => 'years|asc',
+                            ])
+                        </th>
+                    </tr>
+                    </{{ $labelElem }}>
+
+                @endforeach
+
                 <tbody>
 
                 @forelse ($skills as $skill)

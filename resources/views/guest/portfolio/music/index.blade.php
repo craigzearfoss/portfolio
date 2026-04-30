@@ -44,29 +44,54 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>artist</th>
-                        <th class="has-text-centered hide-at-600">year</th>
-                        <th class="hide-at-750">label</th>
-                        <th class="hide-at-900">cat#</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if($bottom_column_headings)
-                    <tfoot>
+                @foreach($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>name</th>
-                        <th>artist</th>
-                        <th class="has-text-centered hide-at-600">year</th>
-                        <th class="hide-at-750">label</th>
-                        <th class="hide-at-900">cat#</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'artist',
+                                'sort'  => 'artist|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-600">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'music_year|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-750">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'label',
+                                'sort'  => 'label|asc',
+                            ])
+                        </th>
+                        <th class="hide-at-900">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'cat#',
+                                'sort'  => 'catalog_number|asc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
