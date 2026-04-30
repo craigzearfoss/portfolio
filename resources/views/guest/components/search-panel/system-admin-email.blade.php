@@ -7,10 +7,14 @@
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action         = $action ?? url()->current();
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $email          = $email ?? request()->query('email');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $search_label   = $search_label ?? request()->query('search_label');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminEmail::SEARCH_ORDER_BY[0], AdminEmail::SEARCH_ORDER_BY[1] ]);
@@ -44,12 +48,57 @@
                     ])
 
                 </div>
-
                 <div class="floating-div-container">
 
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="floating-div">
-                        @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+
+                        <div class="search-form-control">
+                            @include('guest.components.form-input-with-icon', [
+                                'name'    => 'email',
+                                'value'   => $email,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 12rem;',
+                            ])
+                        </div>
+
                     </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('guest.components.form-input-with-icon', [
+                                'name'    => 'search_label',
+                                'label'   => 'label',
+                                'value'   => $search_label,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 12rem;',
+                            ])
+                        </div>
+
+                    </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('guest.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

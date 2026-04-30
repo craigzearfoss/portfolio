@@ -1,22 +1,37 @@
 @php
-    $applied_from = $applied_from ?? request()->query('applied_from');
-    $applied_to   = $applied_to ?? request()->query('applied_to');
+    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
+    $apply_date_max = $apply_date_max ?? request()->query('apply_date-max');
 @endphp
-<div class="search-form-control">
-    @include('guest.components.form-input', [
-        'type'     => 'date',
-        'name'     => 'applied_from',
-        'label'    => 'applied from',
-        'value'    => $applied_from,
-        'nohidden' => true,
-    ])
-</div>
-<div class="search-form-control">
-    @include('guest.components.form-input', [
-        'type'     => 'date',
-        'name'     => 'applied_to',
-        'label'    => 'applied to',
-        'value'    => $applied_to,
-        'nohidden' => true,
-    ])
+<div class="card min-max-search-controls">
+    <label>applied</label>
+    <div>
+        <div>
+            <span class="min-label">from</span>
+        </div>
+        <div class="search-form-control">
+            @include('guest.components.form-input-with-icon', [
+                'type'    => 'date',
+                'name'    => 'apply_date-min',
+                'label'   => '',
+                'value'   => $apply_date_min,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ],
+            ])
+        </div>
+    </div>
+    <div>
+        <div>
+            <span class="max-label">to</span>
+        </div>
+        <div class="search-form-control">
+            @include('guest.components.form-input', [
+                'type'    => 'date',
+                'name'    => 'apply_date-max',
+                'label'   => '',
+                'value'   => $apply_date_max,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ],
+            ])
+        </div>
+    </div>
 </div>

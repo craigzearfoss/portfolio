@@ -4,15 +4,18 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner->id ?? -1;
-    $city            = $city ?? request()->query('city');
+    $action         = $action ?? url()->current();
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $city           = $city ?? request()->query('city');
+    $company_name   = $company_name ?? request()->query('company_name');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $email           = $email ?? request()->query('email');
-    $name            = $name ?? request()->query('name');
-    $phone           = $phone ?? request()->query('phone');
-    $state_id        = $state_id ?? request()->query('state_id');
+    $email          = $email ?? request()->query('email');
+    $name           = $name ?? request()->query('name');
+    $phone          = $phone ?? request()->query('phone');
+    $state_id       = $state_id ?? request()->query('state_id');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Contact::SEARCH_ORDER_BY[0], Contact::SEARCH_ORDER_BY[1] ]);
@@ -29,7 +32,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Contact()->getSortOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Contact()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -51,11 +54,18 @@
 
                     <div class="floating-div">
 
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
+
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
 
@@ -70,18 +80,33 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input-with-icon', [
+                                'name'    => 'company_name',
+                                'label'   => 'company',
+                                'value'   => $company_name,
+                                'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem' ],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'phone',
                                 'value'   => $phone,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
 
@@ -91,7 +116,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
@@ -105,6 +130,21 @@
                     </div>
                     */ ?>
 
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

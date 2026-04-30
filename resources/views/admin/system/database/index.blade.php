@@ -49,13 +49,12 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
-                            <th>owner</th>
-                        @endif
+                        <th>owner</th>
                         <th>name</th>
-                        <th>database</th>
                         <th>tag</th>
+                        <th>database</th>
                         <th>title</th>
+                        <th>plural</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -73,13 +72,12 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
-                            <th>owner</th>
-                        @endif
+                        <th>owner</th>
                         <th>name</th>
-                        <th>database</th>
                         <th>tag</th>
+                        <th>database</th>
                         <th>title</th>
+                        <th>plural</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -99,34 +97,35 @@
                 @forelse ($databases as $database)
 
                     <tr data-id="{{ $database->id }}">
-                        @if($isRootAdmin)
-                            <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($database->owner))
-                                    @include('admin.components.link', [
-                                        'name' => $database->owner->username,
-                                        'href' => route('admin.system.admin.show', $database->owner)
-                                    ])
-                                @else
-                                    ?
-                                @endif
-                            </td>
-                        @endif
-                        <td data-field="name">
-                            {!! $database->name !!}
+                        <td data-field="owner.username" style="white-space: nowrap;">
+                            @if(!empty($database->owner))
+                                @include('admin.components.link', [
+                                    'name' => $database->owner->username,
+                                    'href' => route('admin.system.admin.show', $database->owner)
+                                ])
+                            @else
+                                ?
+                            @endif
                         </td>
-                        <td data-field="database">
-                            {!! $database->database !!}
+                        <td data-field="name">
+                            {{ $database->name }}
                         </td>
                         <td data-field="tag">
-                            {!! $database->tag !!}
+                            {{ $database->tag }}
+                        </td>
+                        <td data-field="database">
+                            {{ $database->database }}
                         </td>
                         <td data-field="title">
-                            {!! $database->title !!}
+                            {{ $database->title }}
+                        </td>
+                        <td data-field="plural">
+                            {{ $database->plural }}
                         </td>
                         <td data-field="icon" class="has-text-centered">
                             @if (!empty($database->icon))
                                 <span class="text-xl">
-                                    <i class="fa-solid {!! $database->icon !!}"></i>
+                                    <i class="fa-solid {{ $database->icon }}"></i>
                                 </span>
                             @else
                             @endif
@@ -183,7 +182,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '16' : '15' }}">No databases found.</td>
+                        <td colspan="16">No databases found.</td>
                     </tr>
 
                 @endforelse

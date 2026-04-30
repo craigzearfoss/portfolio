@@ -222,6 +222,18 @@ class Resource extends Model
             ->when(!empty($filters['database_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.database_id', '=', intval($filters['database_id']));
             })
+            ->when(!empty($filters['database_name']), function ($query) use ($filters) {
+                $query->where('databases.name', '=', $filters['database_name']);
+            })
+            ->when(!empty($filters['database_plural']), function ($query) use ($filters) {
+                $query->where('databases.plural', '=', $filters['database_plural']);
+            })
+            ->when(!empty($filters['database_tag']), function ($query) use ($filters) {
+                $query->where('databases.tag', '=', $filters['database_tag']);
+            })
+            ->when(!empty($filters['database_title']), function ($query) use ($filters) {
+                $query->where('databases.title', '=', $filters['database_title']);
+            })
             ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
                 $query->where($this->table . '.has_owner', '=', true);
             })

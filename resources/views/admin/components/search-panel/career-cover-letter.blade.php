@@ -11,18 +11,20 @@
 
     // get variables
     $action           = $action ?? url()->current();
-    $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_id ?? request()->query('application_id');
     $application_role = $application_role ?? request()->query('application_role');
     $company_id       = $company_id ?? request()->query('company_id');
     $company_name     = $company_name ?? request()->query('company_name');
     $content          = $content ?? request()->query('content');
-    $created_at_min  = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max    = $created_at_max ?? request()->query('created_at-max');
-    $name             = $name ?? request()->query('name');
+    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $created_at_min   = $created_at_min ?? request()->query('created_at-min');
     $description      = $description ?? request()->query('description');
+    $name             = $name ?? request()->query('name');
+    $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $notes            = $notes ?? request()->query('notes');
+    $updated_at_max   = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min   = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ CoverLetter::SEARCH_ORDER_BY[0], CoverLetter::SEARCH_ORDER_BY[1] ]);
@@ -82,6 +84,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -95,7 +98,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
-                                    'style'   => 'width: 16rem;'
+                                    'style'   => [ 'width: 12rem' ],
                                 ])
                             </div>
                         @else
@@ -113,6 +116,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
+                                        'style'   => [ 'width: 12rem'],
                                     ])
                                 </div>
                             @else
@@ -166,10 +170,17 @@
 
                     @if($isRootAdmin)
                         <div class="floating-div">
+
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
                                 'created_at-min' => $created_at_min,
-                                'created_at-max'   => $created_at_max,
+                                'created_at-max' => $created_at_max,
                             ])
+
+                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
                         </div>
                     @endif
 

@@ -4,14 +4,16 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $company_name    = $company_name ?? request()->query('company_name');
+    $action         = $action ?? url()->current();
+    $company_name   = $company_name ?? request()->query('company_name');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $job_id          = $job_id ?? request()->query('job_id');
-    $name            = $name ?? request()->query('name');
-    $summary         = $summary ?? request()->query('summary');
+    $job_id         = $job_id ?? request()->query('job_id');
+    $name           = $name ?? request()->query('name');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $summary        = $summary ?? request()->query('summary');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ JobTask::SEARCH_ORDER_BY[0], JobTask::SEARCH_ORDER_BY[1] ]);
@@ -48,15 +50,13 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
+                    <div class="floating-div">
+
+                        @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        </div>
-                    @endif
-
-                    <div class="floating-div">
+                        @endif
 
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-job', [ 'owner_id' => $owner_id ])
@@ -68,6 +68,7 @@
                                 'label'   => 'company',
                                 'value'   => $company_name,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -79,6 +80,7 @@
                                 'name'    => 'summary',
                                 'value'   => $summary,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -86,10 +88,17 @@
 
                     @if($isRootAdmin)
                         <div class="floating-div">
+
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
                                 'created_at-min' => $created_at_min,
-                                'created_at-max'   => $created_at_max,
+                                'created_at-max' => $created_at_max,
                             ])
+
+                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
                         </div>
                     @endif
 

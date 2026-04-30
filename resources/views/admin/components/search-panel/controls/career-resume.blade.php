@@ -6,7 +6,7 @@
     $company_id = $company_id ?? request()->query('company_id');
     $resume_id  = $resume_id ?? request()->query('resume_id');
 @endphp
-<div class="control" style="max-width: 28rem;">
+<div class="control">
     @include('admin.components.form-select', [
         'name'     => 'resume_id',
         'label'    => 'resume',
@@ -19,6 +19,5 @@
                           false,
                           [ 'name', 'desc' ]
                       ),
-        'style'    => 'min-width: 15rem;'
     ])
 </div>

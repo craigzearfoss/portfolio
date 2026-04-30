@@ -4,11 +4,14 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $name            = $name ?? request()->query('name');
-    $city            = $city ?? request()->query('city');
+    $action         = $action ?? url()->current();
+    $city           = $city ?? request()->query('city');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $name           = $name ?? request()->query('name');
+    $state_id       = $state_id ?? request()->query('state_id');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ School::SEARCH_ORDER_BY[0], School::SEARCH_ORDER_BY[1] ]);
@@ -25,7 +28,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new School()->getSortOptions($sort, EnvTypes::GUEST),
+                        'list'  => new School()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
@@ -48,10 +51,11 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -74,6 +78,22 @@
                         </div>
 
                     </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

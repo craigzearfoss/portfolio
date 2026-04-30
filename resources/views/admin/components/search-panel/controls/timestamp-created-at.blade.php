@@ -3,7 +3,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at_max');
 @endphp
 <div class="card min-max-search-controls">
-    <label>created</label>
+    <label>created at</label>
     <div>
         <div>
             <span class="min-label">from</span>

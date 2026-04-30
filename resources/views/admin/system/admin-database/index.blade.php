@@ -58,9 +58,12 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        <th>database</th>
-                        <th>tag</th>
+                        @if($isRootAdmin)
+                            <th>tag</th>
+                            <th>database</th>
+                        @endif
                         <th>title</th>
+                        <th>plural</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -82,9 +85,12 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        <th>database</th>
-                        <th>tag</th>
+                        @if($isRootAdmin)
+                            <th>tag</th>
+                            <th>database</th>
+                        @endif
                         <th>title</th>
+                        <th>plural</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -117,21 +123,26 @@
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $adminDatabase->name !!}
+                            {{ $adminDatabase->name }}
                         </td>
-                        <td data-field="database">
-                            {!! $adminDatabase->database !!}
-                        </td>
-                        <td data-field="tag">
-                            {!! $adminDatabase->tag !!}
-                        </td>
+                        @if($isRootAdmin)
+                            <td data-field="tag">
+                                {{ $adminDatabase->tag }}
+                            </td>
+                            <td data-field="database">
+                            {{ $adminDatabase->database }}
+                            </td>
+                        @endif
                         <td data-field="title">
-                            {!! $adminDatabase->title !!}
+                            {{ $adminDatabase->title }}
+                        </td>
+                        <td data-field="plural">
+                            {{ $adminDatabase->plural }}
                         </td>
                         <td data-field="icon" class="has-text-centered">
                             @if (!empty($adminDatabase->icon))
                                 <span class="text-xl">
-                                    <i class="fa-solid {!! $adminDatabase->icon !!}"></i>
+                                    <i class="fa-solid {{ $adminDatabase->icon }}"></i>
                                 </span>
                             @else
                             @endif
@@ -189,9 +200,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '16' : '15' }}">No admin databases found.</td>
+                            <td colspan="16">No admin databases found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '16' : '15' }}">No databases found.</td>
+                            <td colspan="13">No databases found.</td>
                         @endif
                     </tr>
 

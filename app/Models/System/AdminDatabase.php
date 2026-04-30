@@ -171,8 +171,8 @@ class AdminDatabase extends Model
             ->when(!empty($filters['tag']), function ($query) use ($filters) {
                 $query->where($this->table . '.tag', 'like', '%' . $filters['tag'] . '%');
             })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
+            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);

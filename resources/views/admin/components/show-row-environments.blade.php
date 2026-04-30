@@ -49,7 +49,7 @@
 
                         <div class="show-container card floating-div">
                             <span>
-                                @include('user.components.checkbox', [ 'checked' => !empty($resource->{$envType}) ])
+                                @include('admin.components.checkbox', [ 'checked' => !empty($resource->{$envType}) ])
                             </span>
                             <span><strong>{{ $envType == 'readonly' ? 'read-only' : $envType }}</strong></span>
                         </div>

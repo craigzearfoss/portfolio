@@ -1,22 +1,37 @@
 @php
-    $updated_at_from = $updated_at_from ?? request()->query('updated_at_from');
-    $updated_at_to   = $updated_at_to ?? request()->query('updated_at_to');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at_min');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at_max');
 @endphp
-<div class="search-form-control">
-    @include('user.components.input', [
-        'type'    => 'datetime-local',
-        'name'    => 'updated_at_from',
-        'label'   => 'updated from',
-        'value'   => $updated_at_from,
-        'message' => $message ?? '',
-    ])
-</div>
-<div class="search-form-control">
-    @include('user.components.input', [
-        'type'    => 'datetime-local',
-        'name'    => 'updated_at_to',
-        'label'   => 'updated to',
-        'value'   => $updated_at_to,
-        'message' => $message ?? '',
-    ])
+<div class="card min-max-search-controls">
+    <label>updated at</label>
+    <div>
+        <div>
+            <span class="min-label">from</span>
+        </div>
+        <div class="search-form-control">
+            @include('user.components.form-input-with-icon', [
+                'type'    => 'datetime-local',
+                'name'    => 'updated_at-min',
+                'label'   => '',
+                'value'   => $updated_at_min,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 10rem' ],
+            ])
+        </div>
+    </div>
+    <div>
+        <div>
+            <span class="max-label">to</span>
+        </div>
+        <div class="search-form-control">
+            @include('user.components.form-input', [
+                'type'    => 'datetime-local',
+                'name'    => 'updated_at-max',
+                'label'   => '',
+                'value'   => $updated_at_max,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 10rem' ],
+            ])
+        </div>
+    </div>
 </div>

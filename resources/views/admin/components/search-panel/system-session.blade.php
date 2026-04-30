@@ -7,10 +7,8 @@
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $admin_id = $admin_id ?? request()->query('admin_id');
+    $user_id  = $user_id ?? request()->query('user_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Session::SEARCH_ORDER_BY[0], Session::SEARCH_ORDER_BY[1] ]);
@@ -48,17 +46,12 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                        @include('admin.components.search-panel.controls.system-admin', [ 'admin_id' => $admin_id ])
                     </div>
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-                            @include('admin.components.search-panel.controls.timestamp-created-at', [
-                                'created_at-min' => $created_at_min,
-                                'created_at-max'   => $created_at_max,
-                            ])
-                        </div>
-                    @endif
+                    <div class="floating-div">
+                        @include('admin.components.search-panel.controls.system-user', [ 'user_id' => $user_id ])
+                    </div>
 
                 </div>
 

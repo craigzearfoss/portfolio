@@ -1,22 +1,37 @@
 @php
-    $posted_from = $posted_from ?? request()->query('posted_from');
-    $posted_to   = $posted_to ?? request()->query('posted_to');
+    $post_date_min = $post_date_min ?? request()->query('post_date-min');
+    $post_date_max = $post_date_max ?? request()->query('post_date-max');
 @endphp
-<div class="search-form-control">
-    @include('user.components.input', [
-        'type'     => 'date',
-        'name'     => 'posted_from',
-        'label'    => 'posted from',
-        'value'    => $posted_from,
-        'nohidden' => true,
-    ])
-</div>
-<div class="search-form-control">
-    @include('user.components.input', [
-        'type'     => 'date',
-        'name'     => 'posted_to',
-        'label'    => 'posted to',
-        'value'    => $posted_to,
-        'nohidden' => true,
-    ])
+<div class="card min-max-search-controls">
+    <label>posted</label>
+    <div>
+        <div>
+            <span class="min-label">from</span>
+        </div>
+        <div class="search-form-control">
+            @include('user.components.form-input-with-icon', [
+                'type'    => 'date',
+                'name'    => 'post_date-min',
+                'label'   => '',
+                'value'   => $post_date_min,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ],
+            ])
+        </div>
+    </div>
+    <div>
+        <div>
+            <span class="max-label">to</span>
+        </div>
+        <div class="search-form-control">
+            @include('user.components.form-input', [
+                'type'    => 'date',
+                'name'    => 'post_date-max',
+                'label'   => '',
+                'value'   => $post_date_max,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ],
+            ])
+        </div>
+    </div>
 </div>

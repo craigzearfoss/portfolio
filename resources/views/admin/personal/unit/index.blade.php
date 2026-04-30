@@ -69,13 +69,13 @@
 
                     <tr data-id="{{ $unit->id }}">
                         <td data-field="name">
-                            {!! $unit->name !!}
+                            {{ $unit->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $unit->abbreviation !!}
+                            {{ $unit->abbreviation }}
                         </td>
-                        <td data-field="system" class="has-text-centered">
-                            {!! $unit->system !!}
+                        <td data-field="system">
+                            {{ $unit->system }}
                         </td>
                         <td class="is-1">
 

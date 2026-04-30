@@ -1,22 +1,37 @@
 @php
-    $closed_from = $closed_from ?? request()->query('closed_from');
-    $closed_to   = $closed_to ?? request()->query('closed_to');
+    $close_date_min = $close_date_min ?? request()->query('close_date-min');
+    $close_date_max = $close_date_max ?? request()->query('close_date-max');
 @endphp
-<div class="search-form-control">
-    @include('user.components.input', [
-        'type'     => 'date',
-        'name'     => 'closed_from',
-        'label'    => 'closed from',
-        'value'    => $closed_from,
-        'nohidden' => true,
-    ])
-</div>
-<div class="search-form-control">
-    @include('user.components.input', [
-        'type'     => 'date',
-        'name'     => 'closed_to',
-        'label'    => 'closed to',
-        'value'    => $closed_to,
-        'nohidden' => true,
-    ])
+<div class="card min-max-search-controls">
+    <label>closed</label>
+    <div>
+        <div>
+            <span class="min-label">from</span>
+        </div>
+        <div class="search-form-control">
+            @include('user.components.form-input-with-icon', [
+                'type'    => 'date',
+                'name'    => 'close_date-min',
+                'label'   => '',
+                'value'   => $close_date_min,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ],
+            ])
+        </div>
+    </div>
+    <div>
+        <div>
+            <span class="max-label">to</span>
+        </div>
+        <div class="search-form-control">
+            @include('user.components.form-input', [
+                'type'    => 'date',
+                'name'    => 'close_date-max',
+                'label'   => '',
+                'value'   => $close_date_max,
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ],
+            ])
+        </div>
+    </div>
 </div>

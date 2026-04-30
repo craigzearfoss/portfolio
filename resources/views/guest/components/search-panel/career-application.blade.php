@@ -10,29 +10,42 @@
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner->id ?? -1;
-    $applied_from    = $applied_from ?? request()->query('applied_from');
-    $applied_to      = $applied_to ?? request()->query('applied_to');
-    $city            = $city ?? request()->query('city');
-    $closed_from     = $closed_from ?? request()->query('closed_from');
-    $closed_to       = $closed_to ?? request()->query('closed_to');
-    $company_name    = $company_name ?? request()->query('company_name');
+    $action         = $action ?? url()->current();
+    $owner_id       = $owner->id ?? null;
+    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
+    $apply_date_max = $apply_date_max ?? request()->query('apply_date-max');
+    $benefits       = $benefits ?? request()->query('benefits');
+    $city           = $city ?? request()->query('city');
+    $close_date_min = $close_date_min ?? request()->query('close_date-min');
+    $close_date_max = $close_date_max ?? request()->query('close_date-max');
+    $company_name   = $company_name ?? request()->query('company_name');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $posted_from     = $posted_from ?? request()->query('posted_from');
-    $posted_to       = $posted_to ?? request()->query('posted_to');
-    $resume_name     = $resume_name ?? request()->query('resume_name');
-    $role            = $role ?? request()->query('role');
-    $wage_rate       = $wage_rate ?? request()->query('wage_rate');
+    $health         = $health ?? request()->query('health');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $post_date_min  = $post_date_min ?? request()->query('post_date-min');
+    $post_date_max  = $post_date_max ?? request()->query('post_date-max');
+    $relocation     = $relocation ?? request()->query('relocation');
+    $resume_name    = $resume_name ?? request()->query('resume_name');
+    $role           = $role ?? request()->query('role');
+    $wage_rate      = $wage_rate ?? request()->query('wage_rate');
+    $vacation       = $vacation ?? request()->query('vacation');
+    $updated_at_max = $created_at_max ?? request()->query('created_at-max');
+    $updated_at_min = $created_at_min ?? request()->query('created_at-min');
+    $w2             = $w2 ?? request()->query('w2');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Application::SEARCH_ORDER_BY[0], Application::SEARCH_ORDER_BY[1] ]);
 
     // get counts of companies and resumes
     // if there are more than 20 resumes then we display an input text box instead of a select list
-    $companyCount = new Company()->query()->where('owner_id', $admin->id)->count();
-    $resumeCount = new Resume()->query()->where('owner_id', $admin->id)->count();
+    $companyCount = $isRootAdmin
+        ? new Company()->query()->count()
+        : new Company()->query()->where('owner_id', $admin->id)->count();
+
+    $resumeCount = $isRootAdmin
+        ? new Resume()->query()->count()
+        : new Resume()->query()->where('owner_id', $admin->id)->count();
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -46,7 +59,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Application()->getSortOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Application()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 
@@ -68,6 +81,12 @@
 
                     <div class="floating-div">
 
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.system-owner')
+                            </div>
+                        @endif
+
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-application-status')
                         </div>
@@ -79,14 +98,14 @@
                     </div>
                     <div class="floating-div">
 
-                        @if($companyCount > 20)
+                        @if($isRootAdmin || $companyCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.form-input', [
+                                @include('guest.components.form-input-with-icon', [
                                     'name'    => 'company_name',
                                     'label'   => 'company',
                                     'value'   => $company_name,
                                     'message' => $message ?? '',
-                                    'style'   => 'width: 16rem;'
+                                    'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
                         @else
@@ -96,10 +115,11 @@
                         @endif
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input', [
+                            @include('guest.components.form-input-with-icon', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -107,14 +127,14 @@
                             @include('guest.components.search-panel.controls.career-job-board')
                         </div>
 
-                        @if($resumeCount > 20)
+                        @if($isRootAdmin || $resumeCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.form-input', [
+                                @include('guest.components.form-input-with-icon', [
                                     'name'    => 'resume_name',
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
                                     'message' => $message ?? '',
-                                    'style'   => 'width: 16rem;'
+                                    'style'   => [ 'width: 12rem' ],
                                 ])
                             </div>
                         @else
@@ -180,10 +200,11 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input', [
+                            @include('guest.components.form-input-with-icon', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -192,27 +213,40 @@
                         </div>
 
                     </div>
-
                     <div class="floating-div">
 
-                        @include('guest.components.search-panel.controls.career-application-apply-date', [
-                            'applied_from' => $applied_from,
-                            'applied_to'   => $applied_to,
-                        ])
-
                         @include('guest.components.search-panel.controls.career-application-post-date', [
-                            'posted_from' => $posted_from,
-                            'posted_to'   => $posted_to,
+                            'post_date-min' => $post_date_min,
+                            'post_date-max' => $post_date_max,
                         ])
 
-                        <div style="display: none;">
-                            @include('guest.components.search-panel.controls.career-application-close-date', [
-                                'closed_from' => $closed_from,
-                                'closed_to'   => $closed_to,
-                             ])
-                        </div>
+                        @include('guest.components.search-panel.controls.career-application-apply-date', [
+                            'apply_date-min' => $apply_date_min,
+                            'apply_date-max' => $apply_date_max,
+                        ])
+
+                        @include('guest.components.search-panel.controls.career-application-close-date', [
+                            'close_date-min' => $close_date_min,
+                            'close_date-max' => $close_date_max,
+                        ])
 
                     </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('guest.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

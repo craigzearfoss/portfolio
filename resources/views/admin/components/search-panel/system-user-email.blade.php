@@ -4,12 +4,14 @@
     use App\Models\System\UserEmail;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $user_id         = $user_id ?? $user->id ?? request()->query('user_id');
+    $action         = $action ?? url()->current();
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $email           = $email ?? request()->query('email');
-    $search_label    = $search_label ?? request()->query('search_label');
+    $email          = $email ?? request()->query('email');
+    $search_label   = $search_label ?? request()->query('search_label');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
+    $user_id        = $user_id ?? $user->id ?? request()->query('user_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ UserEmail::SEARCH_ORDER_BY[0], UserEmail::SEARCH_ORDER_BY[1] ]);
@@ -84,10 +86,17 @@
 
                     @if($isRootAdmin)
                         <div class="floating-div">
+
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
                                 'created_at-min' => $created_at_min,
-                                'created_at-max'   => $created_at_max,
+                                'created_at-max' => $created_at_max,
                             ])
+
+                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
                         </div>
                     @endif
 

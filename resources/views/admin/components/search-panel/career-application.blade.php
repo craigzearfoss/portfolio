@@ -10,26 +10,29 @@
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner->id ?? null;
-    $applied_from    = $applied_from ?? request()->query('applied_from');
-    $applied_to      = $applied_to ?? request()->query('applied_to');
-    $benefits        = $benefits ?? request()->query('benefits');
-    $city            = $city ?? request()->query('city');
-    $closed_from     = $closed_from ?? request()->query('closed_from');
-    $closed_to       = $closed_to ?? request()->query('closed_to');
-    $company_name    = $company_name ?? request()->query('company_name');
+    $action         = $action ?? url()->current();
+    $owner_id       = $owner->id ?? null;
+    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
+    $apply_date_max = $apply_date_max ?? request()->query('apply_date-max');
+    $benefits       = $benefits ?? request()->query('benefits');
+    $city           = $city ?? request()->query('city');
+    $close_date_min = $close_date_min ?? request()->query('close_date-min');
+    $close_date_max = $close_date_max ?? request()->query('close_date-max');
+    $company_name   = $company_name ?? request()->query('company_name');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $health          = $health ?? request()->query('health');
-    $posted_from     = $posted_from ?? request()->query('posted_from');
-    $posted_to       = $posted_to ?? request()->query('posted_to');
-    $relocation      = $relocation ?? request()->query('relocation');
-    $resume_name     = $resume_name ?? request()->query('resume_name');
-    $role            = $role ?? request()->query('role');
-    $wage_rate       = $wage_rate ?? request()->query('wage_rate');
-    $vacation        = $vacation ?? request()->query('vacation');
-    $w2              = $w2 ?? request()->query('w2');
+    $health         = $health ?? request()->query('health');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $post_date_min  = $post_date_min ?? request()->query('post_date-min');
+    $post_date_max  = $post_date_max ?? request()->query('post_date-max');
+    $relocation     = $relocation ?? request()->query('relocation');
+    $resume_name    = $resume_name ?? request()->query('resume_name');
+    $role           = $role ?? request()->query('role');
+    $wage_rate      = $wage_rate ?? request()->query('wage_rate');
+    $vacation       = $vacation ?? request()->query('vacation');
+    $updated_at_max = $created_at_max ?? request()->query('created_at-max');
+    $updated_at_min = $created_at_min ?? request()->query('created_at-min');
+    $w2             = $w2 ?? request()->query('w2');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Application::SEARCH_ORDER_BY[0], Application::SEARCH_ORDER_BY[1] ]);
@@ -102,7 +105,7 @@
                                     'label'   => 'company',
                                     'value'   => $company_name,
                                     'message' => $message ?? '',
-                                    'style'   => 'width: 16rem;'
+                                    'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
                         @else
@@ -116,6 +119,7 @@
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -130,7 +134,7 @@
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
                                     'message' => $message ?? '',
-                                    'style'   => 'width: 16rem;'
+                                    'style'   => [ 'width: 12rem' ],
                                 ])
                             </div>
                         @else
@@ -200,6 +204,7 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -208,34 +213,38 @@
                         </div>
 
                     </div>
-
                     <div class="floating-div">
 
-                        @include('admin.components.search-panel.controls.career-application-apply-date', [
-                            'applied_from' => $applied_from,
-                            'applied_to'   => $applied_to,
-                        ])
-
                         @include('admin.components.search-panel.controls.career-application-post-date', [
-                            'posted_from' => $posted_from,
-                            'posted_to'   => $posted_to,
+                            'post_date-min' => $post_date_min,
+                            'post_date-max' => $post_date_max,
                         ])
 
-                        <div style="display: none;">
-                            @include('admin.components.search-panel.controls.career-application-close-date', [
-                                'closed_from' => $closed_from,
-                                'closed_to'   => $closed_to,
-                             ])
-                        </div>
+                        @include('admin.components.search-panel.controls.career-application-apply-date', [
+                            'apply_date-min' => $apply_date_min,
+                            'apply_date-max' => $apply_date_max,
+                        ])
+
+                        @include('admin.components.search-panel.controls.career-application-close-date', [
+                            'close_date-min' => $close_date_min,
+                            'close_date-max' => $close_date_max,
+                        ])
 
                     </div>
 
                     @if($isRootAdmin)
                         <div class="floating-div">
+
                             @include('admin.components.search-panel.controls.timestamp-created-at', [
                                 'created_at-min' => $created_at_min,
-                                'created_at-max'   => $created_at_max,
+                                'created_at-max' => $created_at_max,
                             ])
+
+                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
                         </div>
                     @endif
 

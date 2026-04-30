@@ -54,9 +54,13 @@
                             <th>owner</th>
                         @endif
                         <th>database</th>
+                        @if($isRootAdmin)
+                            <th>db tag</th>
+                            <th>table</th>
+                        @endif
                         <th>name</th>
-                        <th>table</th>
                         <th>title</th>
+                        <th>plural</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -84,13 +88,17 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>database</th>
+                        @if($isRootAdmin)
+                            <th>db tag</th>
+                            <th>table</th>
+                        @endif
                         <th>name</th>
-                        <th>table</th>
                         <th>title</th>
+                        <th>plural</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -133,21 +141,29 @@
                             </td>
                         @endif
                         <td data-field="database.name" style="white-space: nowrap;">
-                            {!! $resource->database->name ?? '' !!}
+                            {{ $resource->database->name ?? '' }}
                         </td>
+                        @if($isRootAdmin)
+                            <td data-field="database.tag" style="white-space: nowrap;">
+                                {{ $resource->database->tag ?? '' }}
+                            </td>
+                            <td data-field="table_name" style="white-space: nowrap;">
+                                {{ $resource->table_name }}
+                            </td>
+                        @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $resource->name !!}
-                        </td>
-                        <td data-field="table" style="white-space: nowrap;">
-                            {!! $resource->table_name !!}
+                            {{ $resource->name }}
                         </td>
                         <td data-field="title" style="white-space: nowrap;">
-                            {!! $resource->title !!}
+                            {{ $resource->title }}
+                        </td>
+                        <td data-field="name" style="white-space: nowrap;">
+                            {{ $resource->plural }}
                         </td>
                         <td data-field="icon" class="has-text-centered">
                             @if (!empty($resource->icon))
                                 <span class="text-xl">
-                                    <i class="fa-solid {!! $resource->icon !!}"></i>
+                                    <i class="fa-solid {{ $resource->icon }}"></i>
                                 </span>
                             @else
                             @endif

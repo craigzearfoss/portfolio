@@ -78,7 +78,7 @@
                 @forelse ($ingredients as $ingredient)
 
                     <tr data-id="{{ $ingredient->id }}">
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap">
                             {!! $ingredient->name !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

@@ -197,14 +197,14 @@ class Event extends Model
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
             })
-            ->when(!empty($filters['date_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.date', '>=', $filters['date_from']);
-            })
-            ->when(!empty($filters['date_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.date', '<=', $filters['date_to']);
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['event_datetime-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.event_datetime', '>=', $filters['event_datetime-max']);
+            })
+            ->when(!empty($filters['event_datetime-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.event_datetime', '<=', $filters['event_datetime-min']);
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where($this->table . '.location', 'like', '%' . $filters['location'] . '%');
@@ -214,12 +214,6 @@ class Event extends Model
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
-            })
-            ->when(!empty($filters['time_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.time', '>=', $filters['time_from']);
-            })
-            ->when(!empty($filters['time_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.time', '<=', $filters['time_to']);
             });
 
         // add additional filters

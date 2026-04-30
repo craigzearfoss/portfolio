@@ -50,11 +50,11 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        <th>id</th>
-                        <th>user_id</th>
-                        <th>admin_id</th>
-                        <th>ip_address</th>
-                        <th>last_activity</th>
+                        <th style="display: none;">id</th>
+                        <th>user</th>
+                        <th>admin</th>
+                        <th>ip address</th>
+                        <th>last activity</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -63,11 +63,11 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        <th>id</th>
-                        <th>user_id</th>
-                        <th>admin_id</th>
-                        <th>ip_address</th>
-                        <th>last_activity</th>
+                        <th style="display: none;">id</th>
+                        <th>user id</th>
+                        <th>admin id</th>
+                        <th>ip address</th>
+                        <th>last activity</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -78,8 +78,8 @@
                 @forelse ($sessions as $session)
 
                     <tr data-id="{{ $session->id }}">
-                        <td data-field="id">
-                            {{ $session['id'] }}
+                        <td data-field="id" style="display: none;">
+                            {{ $session->id }}
                         </td>
                         <td data-field="user_id">
                             {{ $session->user_id }}
@@ -88,7 +88,7 @@
                             {{ $session->admin_id }}
                         </td>
                         <td data-field="ip_address">
-                            {!! $session->ip_address !!}
+                            {{ $session->ip_address }}
                         </td>
                         <td data-field="last_activity">
                             {!! $session->last_activity !!}

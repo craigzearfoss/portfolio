@@ -3,11 +3,13 @@
     use App\Models\Career\Recruiter;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $name            = $name ?? request()->query('name');
-    $city            = $city ?? request()->query('city');
+    $action         = $action ?? url()->current();
+    $city           = $city ?? request()->query('city');
+    $name           = $name ?? request()->query('name');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recruiter::SEARCH_ORDER_BY[0], Recruiter::SEARCH_ORDER_BY[1] ]);
@@ -24,7 +26,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Recruiter()->getSortOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Recruiter()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
@@ -47,10 +49,11 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
 
@@ -65,10 +68,11 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
 
@@ -77,6 +81,22 @@
                         </div>
 
                     </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

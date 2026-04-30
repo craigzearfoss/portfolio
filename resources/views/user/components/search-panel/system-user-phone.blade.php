@@ -4,10 +4,14 @@
     use App\Models\System\UserPhone;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $user_id         = $user_id ?? $user->id ?? null;
+    $action         = $action ?? url()->current();
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $phone          = $phone ?? request()->query('phone');
+    $search_label   = $search_label ?? request()->query('search_label');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
+    $user_id        = $user_id ?? $user->id ?? request()->query('user_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ UserPhone::SEARCH_ORDER_BY[0], UserPhone::SEARCH_ORDER_BY[1] ]);
@@ -45,16 +49,56 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="control" style="max-width: 30rem;">
                             @include('user.components.form-select', [
                                 'name'  => 'user_id',
-                                'label' => 'user',
+                                'label' => 'owning user',
                                 'value' => $user_id,
                                 'list'  => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                                 'style' => 'min-width: 10rem;'
                             ])
                         </div>
+
                     </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('user.components.form-input-with-icon', [
+                                'name'    => 'phone',
+                                'value'   => $phone,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('user.components.form-input-with-icon', [
+                                'name'    => 'search_label',
+                                'label'   => 'label',
+                                'value'   => $search_label,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 15rem;',
+                            ])
+                        </div>
+
+                    </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

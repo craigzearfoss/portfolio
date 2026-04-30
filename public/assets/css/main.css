@@ -294,6 +294,7 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
 
 .min-max-search-controls {
     padding: 2px 8px 8px 8px;
+    margin-bottom: 0.5rem !important;
 }
 .min-max-search-controls label {
     font-weight: 700;

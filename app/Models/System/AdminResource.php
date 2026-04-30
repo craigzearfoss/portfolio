@@ -141,7 +141,7 @@ class AdminResource extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email'
+        'owner_name', 'owner_username', 'owner_email', 'database_name', 'database_tag', 'database_title',
     ];
 
     /**
@@ -229,6 +229,18 @@ class AdminResource extends Model
             ->when(!empty($filters['database_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.database_id', '=', intval($filters['database_id']));
             })
+            ->when(!empty($filters['database_name']), function ($query) use ($filters) {
+                $query->where('admin_databases.name', '=', $filters['database_name']);
+            })
+            ->when(!empty($filters['database_plural']), function ($query) use ($filters) {
+                $query->where('admin_databases.plural', '=', $filters['database_plural']);
+            })
+            ->when(!empty($filters['database_tag']), function ($query) use ($filters) {
+                $query->where('admin_databases.tag', '=', $filters['database_tag']);
+            })
+            ->when(!empty($filters['database_title']), function ($query) use ($filters) {
+                $query->where('admin_databases.title', '=', $filters['database_title']);
+            })
             ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
                 $query->where($this->table . '.has_owner', '=', true);
             })
@@ -256,8 +268,8 @@ class AdminResource extends Model
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.table_name', 'like', '%' . $filters['table_name'] . '%');
             })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
+            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
             });
 
         // add joins

@@ -4,14 +4,16 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner->id ?? -1;
-    $company         = $company ?? request()->query('company');
+    $action         = $action ?? url()->current();
+    $company        = $company ?? request()->query('company');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $end_date        = $end_date ?? request()->query('end_date');
-    $role            = $role ?? request()->query('role');
-    $start_date      = $start_date ?? request()->query('start_date');
+    $end_date       = $end_date ?? request()->query('end_date');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $role           = $role ?? request()->query('role');
+    $start_date     = $start_date ?? request()->query('start_date');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Job::SEARCH_ORDER_BY[0], Job::SEARCH_ORDER_BY[1] ]);
@@ -28,7 +30,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Job()->getSortOptions($sort, EnvTypes::GUEST),
+                        'list'  => new Job()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
                         'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 
@@ -50,11 +52,18 @@
 
                     <div class="floating-div">
 
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
+
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
@@ -62,14 +71,31 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.input', [
+                            @include('user.components.form-input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
+                                'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
                     </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
 
                 </div>
 

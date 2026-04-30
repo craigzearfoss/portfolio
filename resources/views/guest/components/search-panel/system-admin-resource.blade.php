@@ -1,16 +1,22 @@
 @php
-    use App\Models\System\Admin;
+    use App\Enums\EnvTypes;
+    use App\Models\System\AdminDatabase;
     use App\Models\System\AdminResource;
-    use App\Models\System\Database;
-    use App\Models\System\Resource;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id    = $owner->id ?? -1;
+    $action         = $action ?? url()->current();
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $database_id     = $database_id ?? request()->query('database_id');
-    $name            = $name ?? request()->query('name');
+    $database_id    = $database_id ?? request()->query('database_id');
+    $database_tag   = $database_tag ?? request()->query('database_tag');
+    $name           = $name ?? request()->query('name');
+    $owner_id       = !empty($admin) && empty($admin->is_root)
+        ? $admin->id
+        : request()->query('owner_id');
+    $table_name     = $table_name ?? request()->query('table_name');
+    $search_title   = $search_title ?? request()->query('search_title');
+    $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
+    $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ AdminResource::SEARCH_ORDER_BY[0], AdminResource::SEARCH_ORDER_BY[1] ]);
@@ -23,59 +29,14 @@
 
             <div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-controls">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                        </div>
-                    </div>
+                    @include('guest.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => new AdminResource()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
+                    ])
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            <div class="control" style="max-width: 28rem;">
-                                @include('guest.components.form-select', [
-                                    'name'     => 'database_id',
-                                    'label'    => 'database',
-                                    'value'    => $database_id,
-                                    'list'     => new Database()->listOptions(
-                                                      [ 'owner_id' => 1 ],
-                                                      'id',
-                                                      'tag',
-                                                      true,
-                                                      false,
-                                                      [ 'tag', 'asc' ]
-                                                  ),
-                                    'style'    => 'width: 8rem;'
-                                ])
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            <div class="control" style="max-width: 28rem;">
-                                @include('guest.components.form-select', [
-                                    'name'     => 'name',
-                                    'label'    => 'name',
-                                    'value'    => $name,
-                                    'list'     => new Resource()->listOptions(
-                                                      [ 'owner_id' => $owner_id ],
-                                                      'name',
-                                                      'name',
-                                                      true,
-                                                      false,
-                                                      [ 'name', 'asc' ]
-                                                  ),
-                                    'style'    => 'width: 8rem;'
-                                ])
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="has-text-right pr-2">
                     <?php /*
                     // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
@@ -83,9 +44,142 @@
                         'name' => 'Clear',
                     ])
                     */ ?>
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
+                </div>
+
+                <div class="floating-div-container">
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'     => 'database_id',
+                                    'label'    => 'database',
+                                    'value'    => $database_id,
+                                    'list'     => new AdminDatabase()->listOptions(
+                                                      !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],
+                                                      'id',
+                                                      'name',
+                                                      true,
+                                                      false,
+                                                      [ 'name', 'asc' ]
+                                                  ),
+                                    'style'    => 'width: 12rem;'
+                                ])
+                            </div>
+                        </div>
+
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'     => 'database_tag',
+                                    'label'    => 'db tag',
+                                    'value'    => $database_tag,
+                                    'list'     => new AdminDatabase()->listOptions(
+                                                      !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],
+                                                      'tag',
+                                                      'tag',
+                                                      true,
+                                                      false,
+                                                      [ 'tag', 'asc' ]
+                                                  ),
+                                    'style'    => 'width: 12rem;'
+                                ])
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                <div class="control" style="max-width: 28rem;">
+                                    @include('guest.components.form-select', [
+                                        'name'  => 'table_name',
+                                        'label' => 'table',
+                                        'value' => $table_name,
+                                        'list'  => new AdminResource()->listOptions(
+                                                       !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],
+                                                       'table_name',
+                                                       'table_name',
+                                                       true,
+                                                       false,
+                                                       [ 'table_name', 'asc' ]
+                                                   ),
+                                        'style' => 'width: 12rem;'
+                                    ])
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'  => 'name',
+                                    'value' => $name,
+                                    'list'  => new AdminResource()->listOptions(
+                                                   !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],
+                                                   'name',
+                                                   'name',
+                                                   true,
+                                                   false,
+                                                   [ 'name', 'asc' ]
+                                               ),
+                                    'style' => 'width: 12rem;'
+                                ])
+                            </div>
+                        </div>
+
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'  => 'search_title',
+                                    'label' => 'title',
+                                    'value' => $search_title,
+                                    'list'  => new AdminResource()->listOptions(
+                                                   !empty($owner_id) ? [ 'owner_id' => $owner_id ] : [],
+                                                   'title',
+                                                   'title',
+                                                   true,
+                                                   false,
+                                                   [ 'title', 'asc' ]
+                                               ),
+                                    'style' => 'width: 12rem;'
+                                ])
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('guest.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+
                 </div>
 
             </div>
