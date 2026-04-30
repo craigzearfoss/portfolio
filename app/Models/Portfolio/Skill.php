@@ -223,13 +223,13 @@ class Skill extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['level']), function ($query) use ($filters) {
-                $query->where($this->table . '.level)', '=', intval($filters['level']));
+                $query->where($this->table . '.level', '=', intval($filters['level']));
             })
-            ->when(!empty($filters['max_level']), function ($query) use ($filters) {
-                $query->where($this->table . '.level', '<=', intval($filters['max_level']));
+            ->when(!empty($filters['level-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.level', '<=', intval($filters['level-max']));
             })
-            ->when(!empty($filters['min_level']), function ($query) use ($filters) {
-                $query->where($this->table . '.level', '>=', intval($filters['min_level']));
+            ->when(!empty($filters['level-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.level', '>=', intval($filters['level-min']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

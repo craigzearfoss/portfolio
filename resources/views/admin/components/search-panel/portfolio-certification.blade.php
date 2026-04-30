@@ -1,7 +1,10 @@
 @php
     use App\Enums\EnvTypes;
     use App\Models\Portfolio\Certification;
-    use App\Models\Career\JobBoard;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $abbreviation   = $abbreviation ?? request()->query('abbreviation');

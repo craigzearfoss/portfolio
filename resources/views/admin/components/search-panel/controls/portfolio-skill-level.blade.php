@@ -1,7 +1,7 @@
 @php
     use App\Models\Portfolio\Skill;
 
-    $min_level = $min_level ?? request()->query('min_level');
+    $level_min = $level_min ?? request()->query('level-min');
 
     $levels = [ '' => '' ];
 
@@ -11,9 +11,9 @@
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('admin.components.form-select', [
-        'name'  => 'min_level',
+        'name'  => 'level-min',
         'label' => 'min level',
-        'value' => $min_level,
+        'value' => $level_min,
         'list'  => $levels,
         'style' => 'width: 8rem;'
     ])

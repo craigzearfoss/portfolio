@@ -1,17 +1,20 @@
 @php
     use App\Enums\EnvTypes;
     use App\Models\Personal\Recipe;
-    use App\Models\System\Admin;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $author          = $author ?? request()->query('author');
+    $action         = $action ?? url()->current();
+    $author         = $author ?? request()->query('author');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
-    $name            = $name ?? request()->query('name');
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $prep_time       = $prep_time ?? request()->query('prep_time');
-    $total_time      = $total_time ?? request()->query('total_time');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
+    $name           = $name ?? request()->query('name');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $prep_time_max  = $prep_time_max ?? request()->query('prep_time-max');
+    $total_time_max = $total_time_max ?? request()->query('total_time-max');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
@@ -95,23 +98,25 @@
 
                         <div class="search-form-control">
                             @include('admin.components.form-input', [
-                                'name'    => 'prep_time',
-                                'label'   => 'prep time',
-                                'value'   => $prep_time,
-                                'message' => $message ?? '',
-                                'style'   => 'width: 5rem;',
-                                'title'   => 'Minimum prep time in minutes.',
+                                'name'        => 'prep_time-max',
+                                'label'       => 'max prep time',
+                                'value'       => $prep_time_max,
+                                'placeholder' => '(minutes)',
+                                'message'     => $message ?? '',
+                                'style'       => 'width: 5rem;',
+                                'title'       => 'Maximum prep time in minutes.',
                             ])
                         </div>
 
                         <div class="search-form-control">
                             @include('admin.components.form-input', [
-                                'name'    => 'total_time',
-                                'label'   => 'total time',
-                                'value'   => $total_time,
-                                'message' => $message ?? '',
-                                'style'   => 'width: 5rem;',
-                                'title'   => 'Minimum total time in minutes.',
+                                'name'        => 'total_time_max',
+                                'label'       => 'max total time',
+                                'value'       => $total_time_max,
+                                'placeholder' => '(minutes)',
+                                'message'     => $message ?? '',
+                                'style'       => 'width: 5rem;',
+                                'title'       => 'Maximum total time in minutes.',
                             ])
                         </div>
 

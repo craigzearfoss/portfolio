@@ -3,6 +3,9 @@
     use App\Models\System\User;
     use App\Models\System\UserEmail;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $user = $user ?? null;
+
     // get variables
     $action         = $action ?? url()->current();
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
@@ -28,7 +31,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new UserEmail()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new UserEmail()->getSortOptions($sort, EnvTypes::ADMIN),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
@@ -82,22 +85,6 @@
                         </div>
 
                     </div>
-
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-
-                            @include('guest.components.search-panel.controls.timestamp-created-at', [
-                                'created_at-min' => $created_at_min,
-                                'created_at-max' => $created_at_max,
-                            ])
-
-                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
-                                'updated_at-min' => $updated_at_min,
-                                'updated_at-max' => $updated_at_max,
-                            ])
-
-                        </div>
-                    @endif
 
                 </div>
 

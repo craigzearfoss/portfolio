@@ -3,7 +3,6 @@
     use App\Models\Career\Application;
     use App\Models\Career\Communication;
     use App\Models\Career\Company;
-    use App\Models\System\Admin;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;

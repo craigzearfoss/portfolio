@@ -4,14 +4,11 @@
     use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin       = $admin ?? null;
-    $isRootAdmin = $isRootAdmin ?? false;
+    $admin = $admin ?? null;
 
     // get variables
     $action         = $action ?? url()->current();
-    $this_admin_id  = $isRootAdmin
-        ? $this_admin_id ?? request()->query('id')
-        : $admin->id;
+    $this_admin_id  = $admin->id;
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
@@ -36,7 +33,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Admin()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Admin()->getSortOptions($sort, EnvTypes::ADMIN),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
@@ -108,22 +105,6 @@
                         </div>
 
                     </div>
-
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-
-                            @include('guest.components.search-panel.controls.timestamp-created-at', [
-                                'created_at-min' => $created_at_min,
-                                'created_at-max' => $created_at_max,
-                            ])
-
-                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
-                                'updated_at-min' => $updated_at_min,
-                                'updated_at-max' => $updated_at_max,
-                            ])
-
-                        </div>
-                    @endif
 
                 </div>
 

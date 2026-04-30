@@ -1,6 +1,9 @@
 @php
     use App\Models\Personal\Recipe;
-    use App\Models\System\Admin;
+
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();

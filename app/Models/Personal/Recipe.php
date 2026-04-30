@@ -231,9 +231,20 @@ class Recipe extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['prep_time']), function ($query) use ($filters) {
-                $prep_time = $filters['prep_time'];
-                $query->where(function ($query) use ($prep_time) {
-                    $query->where($this->table . '.prep_time', '<=', intval($prep_time))
+                $query->where($this->table . '.prep_time', '=', intval($filters['prep_time']));
+            })
+            ->when(!empty($filters['prep_time-max']), function ($query) use ($filters) {
+                $maxPrepTime = $filters['prep_time-max'];
+                $query->where(function ($query) use ($maxPrepTime) {
+                    $query->where($this->table . '.prep_time', '<=', intval($maxPrepTime))
+                        ->where($this->table . '.prep_time', '>', 0)
+                        ->whereNotNull($this->table . '.prep_time');
+                });
+            })
+            ->when(!empty($filters['prep_time-min']), function ($query) use ($filters) {
+                $minPrepTime = $filters['prep_time-min'];
+                $query->where(function ($query) use ($minPrepTime) {
+                    $query->where($this->table . '.prep_time', '>=', intval($minPrepTime))
                         ->where($this->table . '.prep_time', '>', 0)
                         ->whereNotNull($this->table . '.prep_time');
                 });
@@ -251,9 +262,20 @@ class Recipe extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['total_time']), function ($query) use ($filters) {
-                $total_time = $filters['total_time'];
-                $query->where(function ($query) use ($total_time) {
-                    $query->where($this->table . '.total_time', '<=', intval($total_time))
+                $query->where($this->table . '.total_time', '=', intval($filters['total_time']));
+            })
+            ->when(!empty($filters['total_time-max']), function ($query) use ($filters) {
+                $maxTotalTime = $filters['total_time-max'];
+                $query->where(function ($query) use ($maxTotalTime) {
+                    $query->where($this->table . '.total_time', '<=', intval($maxTotalTime))
+                        ->where($this->table . '.total_time', '>', 0)
+                        ->whereNotNull($this->table . '.total_time');
+                });
+            })
+            ->when(!empty($filters['total_time-min']), function ($query) use ($filters) {
+                $minTotalTime = $filters['total_time-min'];
+                $query->where(function ($query) use ($minTotalTime) {
+                    $query->where($this->table . '.total_time', '>=', intval($minTotalTime))
                         ->where($this->table . '.total_time', '>', 0)
                         ->whereNotNull($this->table . '.total_time');
                 });

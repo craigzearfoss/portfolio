@@ -3,6 +3,10 @@
     use App\Models\System\User;
     use App\Models\System\UserTeam;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     // get variables
     $abbreviation   = $abbreviation ?? request()->query('abbreviation');
     $action         = $action ?? url()->current();

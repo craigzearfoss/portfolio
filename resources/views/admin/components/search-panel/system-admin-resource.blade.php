@@ -3,6 +3,10 @@
     use App\Models\System\AdminDatabase;
     use App\Models\System\AdminResource;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     // get variables
     $action         = $action ?? url()->current();
     $created_at_max = $created_at_max ?? request()->query('created_at-max');

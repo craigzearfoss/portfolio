@@ -3,8 +3,7 @@
     use App\Models\System\Session;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin       = $admin ?? null;
-    $isRootAdmin = $isRootAdmin ?? false;
+    $admin = $admin ?? null;
 
     // get variables
     $admin_id = $admin_id ?? request()->query('admin_id');
@@ -25,7 +24,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Session()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Session()->getSortOptions($sort, EnvTypes::ADMIN),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

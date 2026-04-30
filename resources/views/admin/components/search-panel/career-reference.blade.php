@@ -2,6 +2,10 @@
     use App\Enums\EnvTypes;
     use App\Models\Career\Reference;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     // get variables
     $action         = $action ?? url()->current();
     $city           = $city ?? request()->query('city');

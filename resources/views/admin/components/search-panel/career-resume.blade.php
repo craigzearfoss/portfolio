@@ -2,6 +2,10 @@
     use App\Enums\EnvTypes;
     use App\Models\Career\Resume;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     // get variables
     $action         = $action ?? url()->current();
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
