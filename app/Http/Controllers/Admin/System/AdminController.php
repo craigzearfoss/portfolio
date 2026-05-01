@@ -141,6 +141,11 @@ class AdminController extends BaseAdminController
                 EnvTypes::ADMIN,
                 'personal_db'
             ),
+            'Career' => new AdminResource()->ownerResources(
+                $this->owner ?? null,
+                EnvTypes::ADMIN,
+                'career_db'
+            ),
         ];
 
         list($prev, $next) = $admin->prevAndNextPages(

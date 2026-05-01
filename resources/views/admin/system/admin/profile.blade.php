@@ -142,6 +142,10 @@
 
         </div>
 
+    </div>
+
+    <div class="floating-div-container">
+
         @foreach($dbColumns as $title=>$resources)
 
             <div class="card floating-div m-2 p-4">
