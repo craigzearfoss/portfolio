@@ -52,7 +52,7 @@
                 'filename' => 'user_teams_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($userTeams->total()) }} records found.</i></p>
+            <p><i>{{ number_format($userTeams->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $userTeams->links('vendor.pagination.bulma') !!}

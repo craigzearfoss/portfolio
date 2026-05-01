@@ -52,7 +52,7 @@
                 'filename' => 'recipe_steps_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($recipeSteps->total()) }} records found.</i></p>
+            <p><i>{{ number_format($recipeSteps->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}

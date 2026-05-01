@@ -44,7 +44,7 @@
                 'filename' => 'recipe_ingredients_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($recipeIngredients->total()) }} records found.</i></p>
+            <p><i>{{ number_format($recipeIngredients->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $recipeIngredients->links('vendor.pagination.bulma') !!}

@@ -47,7 +47,7 @@
                 'filename' => 'awards_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($awards->total()) }} records found.</i></p>
+            <p><i>{{ number_format($awards->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $awards->links('vendor.pagination.bulma') !!}

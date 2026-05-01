@@ -53,7 +53,7 @@
                 'filename' => 'admin_groups_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($adminGroups->total()) }} records found.</i></p>
+            <p><i>{{ number_format($adminGroups->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $adminGroups->links('vendor.pagination.bulma') !!}

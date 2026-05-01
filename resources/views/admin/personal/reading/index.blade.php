@@ -47,7 +47,7 @@
                 'filename' => 'readings_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($readings->total()) }} records found.</i></p>
+            <p><i>{{ number_format($readings->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $readings->links('vendor.pagination.bulma') !!}

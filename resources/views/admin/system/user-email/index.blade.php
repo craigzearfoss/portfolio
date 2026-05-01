@@ -46,7 +46,7 @@
                 'filename' => 'user_emails_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($userEmails->total()) }} records found.</i></p>
+            <p><i>{{ number_format($userEmails->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}

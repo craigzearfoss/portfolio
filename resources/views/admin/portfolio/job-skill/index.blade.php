@@ -48,7 +48,7 @@
                 'filename' => 'job_skills_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($jobSkills->total()) }} records found.</i></p>
+            <p><i>{{ number_format($jobSkills->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $jobSkills->links('vendor.pagination.bulma') !!}

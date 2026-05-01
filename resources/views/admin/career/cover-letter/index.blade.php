@@ -41,7 +41,7 @@
                 'filename' => 'cover_letters_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($coverLetters->total()) }} records found.</i></p>
+            <p><i>{{ number_format($coverLetters->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $coverLetters->links('vendor.pagination.bulma') !!}

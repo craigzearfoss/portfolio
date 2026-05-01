@@ -49,7 +49,7 @@
                 'filename' => 'admin_phones_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($adminPhones->total()) }} records found.</i></p>
+            <p><i>{{ number_format($adminPhones->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $adminPhones->links('vendor.pagination.bulma') !!}

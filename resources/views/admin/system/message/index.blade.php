@@ -43,7 +43,7 @@
                 'filename' => 'messages_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($allMessages->total()) }} records found.</i></p>
+            <p><i>{{ number_format($allMessages->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $allMessages->links('vendor.pagination.bulma') !!}

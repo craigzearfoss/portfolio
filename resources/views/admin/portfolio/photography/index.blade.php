@@ -53,7 +53,7 @@
                 'filename' => 'photography_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($photos->total()) }} records found.</i></p>
+            <p><i>{{ number_format($photos->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $photos->links('vendor.pagination.bulma') !!}

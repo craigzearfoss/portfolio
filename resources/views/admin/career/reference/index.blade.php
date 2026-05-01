@@ -47,7 +47,7 @@
                 'filename' => 'references_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($references->total()) }} records found.</i></p>
+            <p><i>{{ number_format($references->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $references->links('vendor.pagination.bulma') !!}

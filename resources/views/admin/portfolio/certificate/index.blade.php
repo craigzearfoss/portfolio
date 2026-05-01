@@ -48,7 +48,7 @@
                 'filename' => 'certificates_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ Number::format($certificates->total()) }} records found.</i></p>
+            <p><i>{{ number_format($certificates->total()) }} records found.</i></p>
 
             @if(!empty($pagination_top))
                 {!! $certificates->links('vendor.pagination.bulma') !!}
