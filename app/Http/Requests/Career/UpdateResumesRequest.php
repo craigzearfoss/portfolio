@@ -68,9 +68,8 @@ class UpdateResumesRequest extends UpdateAppBaseRequest
                         ->whereNot('id', $this['resume']['id']);
                 })
             ],
-            'date'         => ['date', 'nullable'],
             'primary'      => ['integer', 'between:0,1'],
-            'resume_date'  => ['integer', 'between:0,3000', 'nullable'],
+            'resume_date'  => ['date', 'between:0,3000', 'nullable'],
             'doc_filepath' => ['string', 'max:500', 'nullable'],
             'pdf_filepath' => ['string', 'max:500', 'nullable'],
             'content'      => ['nullable'],
