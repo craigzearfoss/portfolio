@@ -12,7 +12,7 @@
     </thead>
     <tbody>
 
-    @foreach($contacts as $contact)
+    @foreach ($contacts as $contact)
 
         <tr data-id="{{ $contact->id }}">
             <td>

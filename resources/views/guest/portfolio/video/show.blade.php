@@ -73,7 +73,7 @@
                     <th>children:</th>
                     <td>
                         <ol>
-                            @foreach($video->children as $child)
+                            @foreach ($video->children as $child)
                                 <li>
                                     @include('guest.components.link', [
                                         'name' => $child->name,

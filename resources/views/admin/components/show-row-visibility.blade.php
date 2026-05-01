@@ -48,7 +48,7 @@
 
             <div class="floating-div-container settings">
 
-                @foreach($columns as $column=>$label)
+                @foreach ($columns as $column=>$label)
 
                     @if ($resource->hasAttribute($column))
 

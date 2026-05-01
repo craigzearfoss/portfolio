@@ -74,7 +74,7 @@
                 <div class="column is-10 pl-0">
                     @if (!empty($resource->children))
                         <ol>
-                            @foreach($resource->children as $child)
+                            @foreach ($resource->children as $child)
                                 <li>
                                     @include('admin.components.link', [
                                         'name' => $child->name,

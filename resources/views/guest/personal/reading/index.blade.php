@@ -51,7 +51,7 @@
                     if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
                 @endphp
 
-                @foreach($labelElems as $labelElem)
+                @foreach ($labelElems as $labelElem)
 
                     <{{ $labelElem }}>
                     <tr>

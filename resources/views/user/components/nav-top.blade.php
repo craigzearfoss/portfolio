@@ -32,7 +32,7 @@
                     <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
                         Demo Mode
                     </span>
-                @elseif(config('app.readonly'))
+                @elseif (config('app.readonly'))
                     <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
                         Site is Read-only
                     </span>
@@ -57,7 +57,7 @@
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">
 
-                    @foreach($menuItems as $menuItem)
+                    @foreach ($menuItems as $menuItem)
 
                         <?php /* user dropdown menu at the top right */ ?>
                         @if ($menuItem->name == 'user-dropdown')
@@ -85,7 +85,7 @@
                                 @if (!empty($menuItem->children))
                                     <div class="navbar-dropdown user-dropdown">
 
-                                        @foreach($menuItem->children as $menuSubItem)
+                                        @foreach ($menuItem->children as $menuSubItem)
                                             @include('user.components.nav-link-top', [
                                                 'name'   => (!empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title),
                                                 'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
@@ -123,7 +123,7 @@
 
                                     <div class="navbar-dropdown">
 
-                                        @foreach($menuItem->children as $menuSubItem)
+                                        @foreach ($menuItem->children as $menuSubItem)
                                             @include('user.components.nav-link-top', [
                                                 'name'   => !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title,
                                                 'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,

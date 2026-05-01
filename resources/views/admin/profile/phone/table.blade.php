@@ -13,7 +13,7 @@
     </thead>
     <tbody>
 
-    @foreach($phones as $phone)
+    @foreach ($phones as $phone)
 
         <tr data-id="{{ $phone->id }}">
             <td>

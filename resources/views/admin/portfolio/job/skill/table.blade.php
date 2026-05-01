@@ -11,7 +11,7 @@
     </thead>
     <tbody>
 
-    @foreach($skills as $skill)
+    @foreach ($skills as $skill)
 
         <tr>
             <td data-field="name">

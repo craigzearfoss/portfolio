@@ -43,7 +43,7 @@
 
             <div class="floating-div-container settings">
 
-                @foreach(array_column(EnvTypes::cases(), 'value') as $envType)
+                @foreach (array_column(EnvTypes::cases(), 'value') as $envType)
 
                     @if ($resource->hasAttribute($envType))
 

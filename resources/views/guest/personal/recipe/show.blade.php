@@ -152,7 +152,7 @@
             <hr class="ml-0 mr-0 mt-1 mb-1">
             <ul>
 
-                @foreach($recipe->ingredients as $ingredient)
+                @foreach ($recipe->ingredients as $ingredient)
 
                     <li class="ml-4">
                         {!! $ingredient->amount !!}
@@ -178,7 +178,7 @@
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
                 <tbody>
 
-                @foreach($recipe->steps as $step)
+                @foreach ($recipe->steps as $step)
 
                     <tr>
                         <td style="width: 6px;">

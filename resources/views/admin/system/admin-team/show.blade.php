@@ -109,7 +109,7 @@
 
                     @if (!empty($adminTeam->members))
 
-                        @foreach($adminTeam->members as $member)
+                        @foreach ($adminTeam->members as $member)
 
                             <tr>
                                 <td>

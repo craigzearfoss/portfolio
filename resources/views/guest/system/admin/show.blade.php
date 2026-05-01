@@ -77,7 +77,7 @@
                             @endif
                         </strong>
                     </p>
-                @elseif($owner->employment_status_id == 7)
+                @elseif ($owner->employment_status_id == 7)
                     <p class="has-text-centered mb-0">
                         <strong>self-employed</strong>
                     </p>
@@ -95,7 +95,7 @@
 
         </div>
 
-        @foreach($dbColumns as $title=>$resources)
+        @foreach ($dbColumns as $title=>$resources)
 
             <div class="card floating-div m-2 p-4">
 

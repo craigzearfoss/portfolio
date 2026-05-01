@@ -67,7 +67,7 @@
                     <th>children:</th>
                     <td>
                         <ol>
-                            @foreach($publication->children as $child)
+                            @foreach ($publication->children as $child)
                                 <li>
                                     @include('guest.components.link', [
                                         'name' => $child->name,

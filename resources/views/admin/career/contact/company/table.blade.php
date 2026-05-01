@@ -3,16 +3,18 @@ $companies = $companies ?? [];
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>name</th>
-    <th>active</th>
-    <th>industry</th>
-    <th>location</th>
-    <th>phone</th>
-    <th>email</th>
+    <tr>
+        <th>name</th>
+        <th>active</th>
+        <th>industry</th>
+        <th>location</th>
+        <th>phone</th>
+        <th>email</th>
+    </tr>
     </thead>
     <tbody>
 
-    @foreach($companies as $company)
+    @foreach ($companies as $company)
 
         <tr data-id="{{ $company->id }}">
             <td>

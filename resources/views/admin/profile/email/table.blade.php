@@ -13,7 +13,7 @@
     </thead>
     <tbody>
 
-    @foreach($emails as $email)
+    @foreach ($emails as $email)
 
         <tr data-id="{{ $email->id }}">
             <td>

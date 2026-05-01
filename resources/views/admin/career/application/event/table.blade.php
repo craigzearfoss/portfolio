@@ -15,7 +15,7 @@
     </thead>
     <tbody>
 
-    @foreach($events as $event)
+    @foreach ($events as $event)
 
         <tr data-id="{{ $event->id }}">
             <td>

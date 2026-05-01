@@ -10,7 +10,7 @@
     </thead>
     <tbody>
 
-    @foreach($tasks as $task)
+    @foreach ($tasks as $task)
 
         <tr>
             <td data-field="summary">

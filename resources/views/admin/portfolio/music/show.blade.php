@@ -94,7 +94,7 @@
                 <div class="column is-10 pl-0">
                     @if (!empty($music->children))
                         <ol>
-                            @foreach($music->children as $child)
+                            @foreach ($music->children as $child)
                                 <li>
                                     @include('admin.components.link', [
                                         'name' => $child->name,

@@ -12,7 +12,7 @@
     </thead>
     <tbody>
 
-    @foreach($groups as $group)
+    @foreach ($groups as $group)
 
         <tr data-id="{{ $group->id }}">
             <td>

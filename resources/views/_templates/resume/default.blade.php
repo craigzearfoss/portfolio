@@ -52,7 +52,7 @@
 
     <div class="resume-container card p-4">
 
-        @foreach($resumeService->jobs as $i=>$job)
+        @foreach ($resumeService->jobs as $i=>$job)
 
             <div class="list-item-content mb-3 border-bottom is-flex"
                  @if ($i > 0)
@@ -108,7 +108,7 @@
                     <div class="list-item-description pt-1">
                         @if (!empty($job->tasks))
                             <ul>
-                                @foreach($job->tasks as $task)
+                                @foreach ($job->tasks as $task)
                                     <li>• {!! $task->summary !!}</li>
                                 @endforeach
                             </ul>
@@ -135,7 +135,7 @@
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Education</h2>
 
-            @foreach($resumeService->educations as $i=>$education)
+            @foreach ($resumeService->educations as $i=>$education)
 
                 <div class="list-item-content mb-3 border-bottom is-flex pl-4"
                      @if ($i > 0)
@@ -169,7 +169,7 @@
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Certifications</h2>
 
-            @foreach($resumeService->certificates as $i=>$certificate)
+            @foreach ($resumeService->certificates as $i=>$certificate)
 
                 <div class="list-item-content mb-3 border-bottom is-flex pl-4"
                      @if ($i > 0)
@@ -197,7 +197,7 @@
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Awards</h2>
 
-            @foreach($resumeService->awards as $i=>$award)
+            @foreach ($resumeService->awards as $i=>$award)
 
                 <div class="list-item-content border-bottom is-flex pl-4">
                     <div style="display: inline-block;">

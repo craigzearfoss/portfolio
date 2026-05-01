@@ -91,7 +91,7 @@
                     <div class="column is-2"><strong>children</strong>:</div>
                     <div class="column is-10 pl-0">
                         <ol>
-                            @foreach($adminResource->children() as $child)
+                            @foreach ($adminResource->children() as $child)
                                 <li>
                                     @include('admin.components.link', [
                                         'name' => $child->name,

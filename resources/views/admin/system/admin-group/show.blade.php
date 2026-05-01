@@ -114,7 +114,7 @@
 
                     @if (!empty($adminGroup->members))
 
-                        @foreach($adminGroup->members as $member)
+                        @foreach ($adminGroup->members as $member)
 
                             <tr>
                                 <td>

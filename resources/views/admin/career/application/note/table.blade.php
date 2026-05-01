@@ -12,7 +12,7 @@
     </thead>
     <tbody>
 
-    @foreach($notes as $note)
+    @foreach ($notes as $note)
 
         <tr data-id="{{ $note->id }}">
             <td>

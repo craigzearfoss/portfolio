@@ -75,7 +75,7 @@
                                 @endif
                             </strong>
                         </p>
-                    @elseif($featuredAdmin->employment_status_id == 7)
+                    @elseif ($featuredAdmin->employment_status_id == 7)
                         <p class="has-text-centered mb-0">
                             <strong>self-employed</strong>
                         </p>
@@ -99,7 +99,7 @@
 
             </div>
 
-            @foreach($resourcesByDatabase as $database)
+            @foreach ($resourcesByDatabase as $database)
 
                 @if (!empty($database['resources']))
 

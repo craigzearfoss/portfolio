@@ -14,7 +14,7 @@
     </thead>
     <tbody>
 
-    @foreach($communications as $communication)
+    @foreach ($communications as $communication)
 
         <tr data-id="{{ $communication->id }}">
             <td style="white-space: nowrap;">

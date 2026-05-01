@@ -25,7 +25,7 @@
             onclick="{!! $onclick !!}"
        @endif
        @if (!empty($attributes))
-           @foreach($attributes as $key=>$value)
+           @foreach ($attributes as $key=>$value)
                {{ $key }}="{!! $value !!}"
            @endforeach
        @endif

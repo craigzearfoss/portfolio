@@ -11,7 +11,7 @@
         @if ($resource->menu_level > $currentMenuLevel)
             <li class="list-item">
                 <ul class="menu-list m-0 ml-2" data-menu-level="{{ $currentMenuLevel }}" style="max-width: 20em; border-left: 0;">
-        @elseif($resource->menu_level < $currentMenuLevel)
+        @elseif ($resource->menu_level < $currentMenuLevel)
             </ul>
         @endif
 

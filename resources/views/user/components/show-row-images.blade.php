@@ -46,7 +46,7 @@
 
             @if (!empty($resource))
 
-                @foreach([
+                @foreach ([
                     'certificate_url',
                     'image',
                     'thumbnail',

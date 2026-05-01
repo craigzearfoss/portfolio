@@ -29,7 +29,7 @@
                             <div class="select">
 
                                 <select id="inputMenu_level" name="menu_level" required>
-                                    @for($i=0; $i<=5; $i++)
+                                    @for ($i=0; $i<=5; $i++)
                                         <option value="{{ $i }}"
                                             {{ ($i == (old('menu_level') ?? $menu_level)) ? 'selected' : '' }}
                                         >

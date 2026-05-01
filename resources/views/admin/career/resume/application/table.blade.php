@@ -3,16 +3,18 @@ $notes = $notes ?? [];
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>company</th>
-    <th>role</th>
-    <th>active</th>
-    <th>post date</th>
-    <th>apply data</th>
-    <th>close date</th>
+    <tr>
+        <th>company</th>
+        <th>role</th>
+        <th>active</th>
+        <th>post date</th>
+        <th>apply data</th>
+        <th>close date</th>
+    </tr>
     </thead>
     <tbody>
 
-    @foreach($applications as $application)
+    @foreach ($applications as $application)
 
         <tr data-id="{{ $application->id }}">
             <td>

@@ -280,7 +280,7 @@
                 </h2>
                 <ul>
 
-                    @foreach($recipe->ingredients as $ingredient)
+                    @foreach ($recipe->ingredients as $ingredient)
 
                         <li>
                             {{ $ingredient['amount'] }}
@@ -312,7 +312,7 @@
                 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                     <tbody>
 
-                    @foreach($recipe->steps as $step)
+                    @foreach ($recipe->steps as $step)
 
                         <tr>
                             <td>

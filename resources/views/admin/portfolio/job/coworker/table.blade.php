@@ -14,7 +14,7 @@
     </thead>
     <tbody>
 
-    @foreach($coworkers as $coworker)
+    @foreach ($coworkers as $coworker)
 
         <tr>
             <td>

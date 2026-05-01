@@ -112,7 +112,7 @@
 
                     @if (!empty($userGroup->members))
 
-                        @foreach($userGroup->members as $member)
+                        @foreach ($userGroup->members as $member)
 
                             <tr>
                                 <td>

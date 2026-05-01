@@ -80,7 +80,7 @@
                     <th>children:</th>
                     <td>
                         <ol>
-                            @foreach($music->children as $child)
+                            @foreach ($music->children as $child)
                                 <li>
                                     @include('guest.components.link', [
                                         'name' => $child->name,
