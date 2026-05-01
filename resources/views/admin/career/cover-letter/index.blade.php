@@ -57,6 +57,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>company</th>
@@ -73,6 +74,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>company</th>
@@ -91,6 +93,9 @@
 
                     <tr data-id="{{ $coverLetter->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $coverLetter->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $coverLetter->owner->username }}
                             </td>
@@ -165,7 +170,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No cover letters found.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '6' }}">No cover letters found.</td>
                     </tr>
 
                 @endforelse

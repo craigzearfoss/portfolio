@@ -52,6 +52,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbreviation</th>
                         <th>actions</th>
@@ -62,6 +65,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbreviation</th>
                         <th>actions</th>
@@ -74,6 +80,11 @@
                 @forelse ($industries as $industry)
 
                     <tr data-id="{{ $industry->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $industry->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $industry->name !!}
                         </td>
@@ -135,7 +146,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3">No industries found.</td>
+                        <td colspan="{{ $isRootAdmin ? '4' : '3' }}">No industries found.</td>
                     </tr>
 
                 @endforelse

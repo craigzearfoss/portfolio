@@ -62,6 +62,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -80,6 +81,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -100,6 +102,9 @@
 
                     <tr data-id="{{ $certificate->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $certificate->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $certificate->owner->username }}
                             </td>
@@ -185,7 +190,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '9' : '8' }}">No certificates found.</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '8' }}">No certificates found.</td>
                     </tr>
 
                 @endforelse

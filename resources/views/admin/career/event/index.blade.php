@@ -68,6 +68,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>application</th>
@@ -86,6 +87,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>application</th>
@@ -106,6 +108,9 @@
 
                     <tr data-id="{{ $event->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $event->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $event->owner->username }}
                             </td>
@@ -199,10 +204,7 @@
                 @empty
 
                     <tr>
-                        @php
-                            $colspan = $isRootAdmin ? '9' : '8';
-                        @endphp
-                        <td colspan="{{ $colspan }}">No events found.</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '8' }}">No events found.</td>
                     </tr>
 
                 @endforelse

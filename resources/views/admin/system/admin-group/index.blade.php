@@ -67,6 +67,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -82,6 +83,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -99,6 +101,9 @@
 
                     <tr data-id="{{ $adminGroup->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $adminGroup->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminGroup->owner))
                                     @include('admin.components.link', [
@@ -171,9 +176,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No admin groups found.</td>
+                            <td colspan="7">No admin groups found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No groups found.</td>
+                            <td colspan="5">No groups found.</td>
                         @endif
                     </tr>
 

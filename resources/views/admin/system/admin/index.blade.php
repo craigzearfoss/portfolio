@@ -68,6 +68,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        <th>id</th>
                         <th>name</th>
                         <th style="white-space: nowrap;">user name</th>
                         <th>label</th>
@@ -85,6 +86,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        <th>id</th>
                         <th>name</th>
                         <th style="white-space: nowrap;">user name</th>
                         <th>label</th>
@@ -104,6 +106,9 @@
                 @forelse ($allAdmins as $thisAdmin)
 
                     <tr data-id="{{ $thisAdmin->id }}">
+                        <td data-field="id">
+                            {{ $thisAdmin->id ?? '' }}
+                        </td>
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $thisAdmin->name !!}
                         </td>
@@ -203,7 +208,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="10">No admins found.</td>
+                        <td colspan="11">No admins found.</td>
                     </tr>
 
                 @endforelse

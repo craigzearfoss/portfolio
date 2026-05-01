@@ -65,6 +65,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owning user</th>
                         @endif
                         <th>name</th>
@@ -80,6 +81,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owning user</th>
                         @endif
                         <th>name</th>
@@ -97,6 +99,9 @@
 
                     <tr data-id="{{ $userGroup->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $userGroup->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $userGroup->owner->username ?? '' }}
                             </td>
@@ -169,9 +174,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No user groups found.</td>
+                            <td colspan="7">No user groups found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No groups found.</td>
+                            <td colspan="5">No groups found.</td>
                         @endif
                     </tr>
 

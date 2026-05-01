@@ -53,6 +53,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th style="display: none;">logo</th>
                         <th>state</th>
@@ -64,6 +67,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th style="display: none;">logo</th>
                         <th>state</th>
@@ -77,6 +83,9 @@
                 @forelse ($schools as $school)
 
                     <tr data-id="{{ $school->id }}">
+                        <td data-field="id">
+                            {{ $school->id ?? '' }}
+                        </td>
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $school->name !!}
                         </td>
@@ -145,7 +154,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">No schools found.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No schools found.</td>
                     </tr>
 
                 @endforelse

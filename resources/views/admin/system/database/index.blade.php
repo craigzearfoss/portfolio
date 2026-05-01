@@ -49,6 +49,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        <th>id</th>
                         <th>owner</th>
                         <th>name</th>
                         <th>tag</th>
@@ -72,6 +73,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        <th>id</th>
                         <th>owner</th>
                         <th>name</th>
                         <th>tag</th>
@@ -97,6 +99,9 @@
                 @forelse ($databases as $database)
 
                     <tr data-id="{{ $database->id }}">
+                        <td data-field="id">
+                            {{ $database->id ?? '' }}
+                        </td>
                         <td data-field="owner.username" style="white-space: nowrap;">
                             @if(!empty($database->owner))
                                 @include('admin.components.link', [
@@ -182,7 +187,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="16">No databases found.</td>
+                        <td colspan="17">No databases found.</td>
                     </tr>
 
                 @endforelse

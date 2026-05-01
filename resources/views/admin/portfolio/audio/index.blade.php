@@ -61,6 +61,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -77,6 +78,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -95,6 +97,9 @@
 
                     <tr data-id="{{ $audio->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $audio->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $audio->owner->username ?? '' }}
                             </td>
@@ -174,7 +179,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No audio found.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '6' }}">No audio found.</td>
                     </tr>
 
                 @endforelse

@@ -61,6 +61,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -79,6 +80,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -99,6 +101,9 @@
 
                     <tr data-id="{{ $reference->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $reference->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $reference->owner->username ?? '' }}
                             </td>
@@ -184,7 +189,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '9' : '8' }}">No references found..</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '8' }}">No references found.</td>
                     </tr>
 
                 @endforelse

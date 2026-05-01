@@ -62,6 +62,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,6 +79,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -97,6 +99,9 @@
 
                     <tr data-id="{{ $jobCoworker->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $jobCoworker->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $jobCoworker->owner->username ?? '' }}
                             </td>
@@ -173,7 +178,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No job coworkers found.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '6' }}">No job coworkers found.</td>
                     </tr>
 
                 @endforelse

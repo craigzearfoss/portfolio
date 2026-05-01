@@ -55,6 +55,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>database</th>
@@ -93,6 +94,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>database</th>
@@ -133,6 +135,9 @@
 
                     <tr data-id="{{ $adminResource->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $adminResource->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminResource->owner))
                                     @include('admin.components.link', [
@@ -243,7 +248,7 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="21">No admin resources found.</td>
+                            <td colspan="22">No admin resources found.</td>
                         @else
                             <td colspan="15">No admin resources found.</td>
                         @endif

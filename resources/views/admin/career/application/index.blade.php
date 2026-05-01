@@ -65,6 +65,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th style="display: none;">
@@ -205,6 +206,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin))
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th style="display: none;">name</th>
@@ -237,6 +239,9 @@
 
                     <tr data-id="{{ $application->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $application->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $application->owner->username }}
                             </td>
@@ -373,7 +378,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">No applications found.</td>
+                        <td colspan="{{ $isRootAdmin ? '22' : '20' }}">No applications found.</td>
                     </tr>
 
                 @endforelse

@@ -63,6 +63,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>email</th>
@@ -77,6 +78,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>email</th>
@@ -93,6 +95,9 @@
 
                     <tr data-id="{{ $adminEmail->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $adminEmail->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminEmail->owner))
                                     @include('admin.components.link', [
@@ -154,9 +159,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No admin email addresses found.</td>
+                            <td colspan="6">No admin email addresses found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No email addresses found.</td>
+                            <td colspan="4">No email addresses found.</td>
                         @endif
                     </tr>
 

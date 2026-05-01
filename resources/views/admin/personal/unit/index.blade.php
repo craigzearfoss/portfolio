@@ -44,6 +44,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbreviation</th>
                         <th>system</th>
@@ -55,6 +58,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbreviation</th>
                         <th>system</th>
@@ -68,6 +74,11 @@
                 @forelse ($units as $unit)
 
                     <tr data-id="{{ $unit->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $unit->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name">
                             {{ $unit->name }}
                         </td>
@@ -132,7 +143,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">No units found.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No units found.</td>
                     </tr>
 
                 @endforelse

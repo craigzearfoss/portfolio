@@ -54,6 +54,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th class="has-text-centered">primary</th>
                         <th>coverage area</th>
@@ -67,6 +70,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th class="has-text-centered">primary</th>
                         <th>coverage area</th>
@@ -82,6 +88,11 @@
                 @forelse ($jobBoards as $jobBoard)
 
                     <tr data-id="{{ $jobBoard->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $jobBoard->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $jobBoard->name !!}
                         </td>
@@ -152,7 +163,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">No job boards found.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No job boards found.</td>
                     </tr>
 
                 @endforelse

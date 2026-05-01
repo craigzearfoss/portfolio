@@ -54,6 +54,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>coverage area</th>
                         <th>location</th>
@@ -67,6 +70,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>coverage area</th>
                         <th>location</th>
@@ -82,6 +88,11 @@
                 @forelse ($recruiters as $recruiter)
 
                     <tr data-id="{{ $recruiter->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $recruiter->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $recruiter->name !!}
                         </td>
@@ -157,7 +168,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">No recruiters found.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No recruiters found.</td>
                     </tr>
 
                 @endforelse

@@ -67,6 +67,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>application</th>
@@ -82,6 +83,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>application</th>
@@ -99,6 +101,9 @@
 
                     <tr data-id="{{ $note->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $note->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $note->owner->username ?? '' }}
                             </td>
@@ -181,11 +186,7 @@
                 @empty
 
                     <tr>
-                        @php
-                            $colspan = $isRootAdmin ? '6' : '5';
-                            if (!empty($application)) $colspan = $colspan++;
-                        @endphp
-                        <td colspan="{{ $colspan }}">No notes found.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '5' }}">No notes found.</td>
                     </tr>
 
                 @endforelse

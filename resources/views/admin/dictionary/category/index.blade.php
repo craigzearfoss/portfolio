@@ -42,6 +42,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbrev</th>
                         <th class="has-text-centered">public</th>
@@ -54,6 +57,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbrev</th>
                         <th class="has-text-centered">public</th>
@@ -73,6 +79,11 @@
                     @endphp
 
                     <tr data-id="{{ $category->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $category->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name">
                             {!! $category->name !!}
                         </td>
@@ -155,7 +166,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">No categories found.</td>
+                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No categories found.</td>
                     </tr>
 
                 @endforelse

@@ -66,11 +66,10 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
-                        @if(empty($application))
-                            <th>application</th>
-                        @endif
+                        <th>application</th>
                         <th>type</th>
                         <th>subject</th>
                         <th>to</th>
@@ -85,11 +84,10 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
-                        @if(empty($application))
-                            <th>application</th>
-                        @endif
+                        <th>application</th>
                         <th>type</th>
                         <th>subject</th>
                         <th>to</th>
@@ -106,6 +104,9 @@
 
                     <tr data-id="{{ $communication->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $communication->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $communication->owner->username }}
                             </td>
@@ -204,11 +205,7 @@
                 @empty
 
                     <tr>
-                        @php
-                            $colspan = $isRootAdmin ? '5' : '4';
-                            if (!empty($application)) $colspan = $colspan++;
-                        @endphp
-                        <td colspan="{{ $colspan }}">No communications found.</td>
+                        <td colspan="{{ $isRootAdmin ? '9' : '7' }}">No communications found.</td>
                     </tr>
 
                 @endforelse

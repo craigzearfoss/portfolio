@@ -61,6 +61,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,6 +79,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -97,6 +99,9 @@
 
                     <tr data-id="{{ $recipe->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $recipe->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $recipe->owner->username ?? '' }}
                             </td>
@@ -174,7 +179,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No recipes found.</td>
+                        <td colspan="{{ $isRootAdmin ? '9' : '7' }}">No recipes found.</td>
                     </tr>
 
                 @endforelse

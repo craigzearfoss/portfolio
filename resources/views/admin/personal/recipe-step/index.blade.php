@@ -66,6 +66,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         @if(empty($recipeId))
@@ -82,6 +83,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         @if(empty($recipeId))
@@ -100,6 +102,9 @@
 
                     <tr data-id="{{ $recipeStep->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $recipeStep->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $recipeStep->owner->username ?? '' }}
                             </td>
@@ -161,7 +166,7 @@
 
                     <tr>
                         @php
-                            $cols = $isRootAdmin ? '4' : '3';
+                            $cols = $isRootAdmin ? '5' : '3';
                             if (!empty($recipeId)) $cols++;
                         @endphp
                         <td colspan="{{ $cols }}">No recipe steps found.</td>

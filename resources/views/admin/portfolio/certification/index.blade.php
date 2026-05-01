@@ -54,6 +54,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbreviation</th>
                         <th>type</th>
@@ -67,6 +70,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbreviation</th>
                         <th>type</th>
@@ -82,6 +88,11 @@
                 @forelse ($certifications as $certification)
 
                     <tr data-id="{{ $certification->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $certification->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name">
                             {!! $certification->name !!}
                         </td>
@@ -152,7 +163,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">No certifications found.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No certifications found.</td>
                     </tr>
 
                 @endforelse

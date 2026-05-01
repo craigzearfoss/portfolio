@@ -68,6 +68,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -82,6 +83,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -98,6 +100,9 @@
 
                     <tr data-id="{{ $adminTeam->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $adminTeam->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminTeam->owner))
                                     @include('admin.components.link', [
@@ -159,9 +164,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No admin teams found.</td>
+                            <td colspan="6">No admin teams found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No teams found.</td>
+                            <td colspan="4">No teams found.</td>
                         @endif
                     </tr>
 

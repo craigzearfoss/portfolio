@@ -51,7 +51,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
-                        <th style="display: none;">id</th>
+                        <th>id</th>
                         <th>user</th>
                         <th>admin</th>
                         <th>ip address</th>
@@ -64,7 +64,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        <th style="display: none;">id</th>
+                        <th>id</th>
                         <th>user id</th>
                         <th>admin id</th>
                         <th>ip address</th>
@@ -79,7 +79,7 @@
                 @forelse ($sessions as $session)
 
                     <tr data-id="{{ $session->id }}">
-                        <td data-field="id" style="display: none;">
+                        <td data-field="id">
                             {{ $session->id }}
                         </td>
                         <td data-field="user_id">

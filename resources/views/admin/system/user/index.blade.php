@@ -68,6 +68,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th style="white-space: nowrap;">user name</th>
                         <th>label</th>
@@ -84,6 +87,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th style="white-space: nowrap;">user name</th>
                         <th>label</th>
@@ -102,6 +108,11 @@
                 @forelse ($allUsers as $thisUser)
 
                     <tr data-id="{{ $thisUser->id }}">
+                        @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $thisUser->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $thisUser->name !!}
                         </td>
@@ -188,7 +199,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="9">No users found.</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">No users found.</td>
                     </tr>
 
                 @endforelse

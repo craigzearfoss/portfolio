@@ -60,6 +60,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owning user</th>
                         @endif
                         <th>email</th>
@@ -74,6 +75,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owning user</th>
                         @endif
                         <th>email</th>
@@ -90,6 +92,9 @@
 
                     <tr data-id="{{ $userEmail->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $userEmail->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $userEmail->owner->username ?? '' }}
                             </td>
@@ -144,9 +149,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No user email addresses found.</td>
+                            <td colspan="6">No user email addresses found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No email addresses found.</td>
+                            <td colspan="4">No email addresses found.</td>
                         @endif
                     </tr>
 

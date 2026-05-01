@@ -43,6 +43,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbrev</th>
                         <th class="has-text-centered">public</th>
@@ -55,6 +58,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th>abbrev</th>
                         <th class="has-text-centered">public</th>
@@ -74,6 +80,11 @@
                     @endphp
 
                     <tr data-id="{{ $stack->id }}">
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $stack->id ?? '' }}
+                            </td>
+                        @endif
                         <td data-field="name">
                             {!! $stack->name !!}
                         </td>
@@ -156,7 +167,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">No stacks found.</td>
+                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No stacks found.</td>
                     </tr>
 
                 @endforelse

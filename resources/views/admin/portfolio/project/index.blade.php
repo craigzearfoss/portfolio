@@ -61,6 +61,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,6 +79,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -96,6 +98,9 @@
                 @forelse ($projects as $project)
                     <tr data-id="{{ $project->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $project->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $project->owner->username ?? '' }}
                             </td>
@@ -182,7 +187,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No projects found.</td>
+                        <td colspan="{{ $isRootAdmin ? '9' : '7' }}">No projects found.</td>
                     </tr>
 
                 @endforelse

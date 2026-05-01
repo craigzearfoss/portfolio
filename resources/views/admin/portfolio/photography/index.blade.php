@@ -65,6 +65,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -81,6 +82,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -99,6 +101,9 @@
 
                     <tr data-id="{{ $photo->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $photo->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {!! $photo->owner->username !!}
                             </td>
@@ -173,7 +178,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">There is are no photos.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '6' }}">There is are no photos.</td>
                     </tr>
 
                 @endforelse

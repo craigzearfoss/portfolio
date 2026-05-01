@@ -61,6 +61,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>title</th>
@@ -80,6 +81,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -101,6 +103,9 @@
 
                     <tr data-id="{{ $reading->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $reading->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $reading->owner->username ?? '' }}
                             </td>
@@ -196,7 +201,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">No readings found.</td>
+                        <td colspan="{{ $isRootAdmin ? '11' : '9' }}">No readings found.</td>
                     </tr>
 
                 @endforelse

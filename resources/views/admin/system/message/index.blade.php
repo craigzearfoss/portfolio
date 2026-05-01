@@ -56,6 +56,8 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        <th>id</th>
+                        <th>owner</th>
                         <th class="has-text-centered"><span title="Was the message sent from the admin area?">admin</span></th>
                         <th>name</th>
                         <th>email</th>
@@ -69,6 +71,8 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        <th>id</th>
+                        <th>owner</th>
                         <th class="has-text-centered"><span title="Was the message sent from the admin area?">admin</span></th>
                         <th>name</th>
                         <th>email</th>
@@ -84,17 +88,26 @@
                 @forelse ($allMessages as $thisMessage)
 
                     <tr data-id="{{ $thisMessage->id }}">
+                        <td data-field="id">
+                            {{ $thisMessage->id ?? '' }}
+                        </td>
+                        <td data-field="name">
+                            {{ $thisMessage->id }}
+                        </td>
+                        <td data-field="name">
+                            {{ $thisMessage->owner->username }}
+                        </td>
                         <td class="has-text-centered" data-field="from_admin">
                             @include('admin.components.checkmark', [ 'checked' => $thisMessage->from_admin ])
                         </td>
                         <td data-field="name">
-                            {!! $thisMessage->name !!}
+                            {{ $thisMessage->name }}
                         </td>
                         <td data-field="email">
-                            {!! $thisMessage->email !!}
+                            {{ $thisMessage->email }}
                         </td>
                         <td data-field="subject">
-                            {!! $thisMessage->subject !!}
+                            {{ $thisMessage->subject }}
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">
                             {{ shortDateTime($thisMessage->created_at) }}
@@ -142,7 +155,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">No messages found.</td>
+                        <td colspan="8">No messages found.</td>
                     </tr>
 
                 @endforelse

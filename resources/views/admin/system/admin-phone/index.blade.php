@@ -63,6 +63,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>phone</th>
@@ -77,6 +78,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>phone</th>
@@ -93,6 +95,9 @@
 
                     <tr data-id="{{ $adminPhone->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $adminPhone->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminPhone->owner))
                                     @include('admin.components.link', [
@@ -154,9 +159,9 @@
 
                     <tr>
                         @if($isRootAdmin)
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No admin phone numbers found.</td>
+                            <td colspan="6">No admin phone numbers found.</td>
                         @else
-                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No phone numbers found.</td>
+                            <td colspan="4">No phone numbers found.</td>
                         @endif
                     </tr>
 

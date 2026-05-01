@@ -54,6 +54,9 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -65,6 +68,9 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        @if($isRootAdmin)
+                            <th>id</th>
+                        @endif
                         <th>name</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -78,6 +84,9 @@
                 @forelse ($ingredients as $ingredient)
 
                     <tr data-id="{{ $ingredient->id }}">
+                        <td data-field="id">
+                            {{ $ingredient->id ?? '' }}
+                        </td>
                         <td data-field="name" style="white-space: nowrap">
                             {!! $ingredient->name !!}
                         </td>
@@ -142,7 +151,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">No ingredients found.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No ingredients found.</td>
                     </tr>
 
                 @endforelse

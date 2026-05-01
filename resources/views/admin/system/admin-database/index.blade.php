@@ -55,6 +55,7 @@
                     <thead>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -82,6 +83,7 @@
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)
+                            <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -111,6 +113,9 @@
 
                     <tr data-id="{{ $adminDatabase->id }}">
                         @if($isRootAdmin)
+                            <td data-field="id">
+                                {{ $adminDatabase->id ?? '' }}
+                            </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminDatabase->owner))
                                     @include('admin.components.link', [
@@ -202,7 +207,7 @@
                         @if($isRootAdmin)
                             <td colspan="16">No admin databases found.</td>
                         @else
-                            <td colspan="13">No databases found.</td>
+                            <td colspan="12">No databases found.</td>
                         @endif
                     </tr>
 
