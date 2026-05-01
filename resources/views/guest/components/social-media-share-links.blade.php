@@ -1,5 +1,4 @@
 @php
-    use Jorenvh\Share\Share;$page = $page ?? null;
     $title = $title ?? config('app.name');
 
     $shareLinks = '';
