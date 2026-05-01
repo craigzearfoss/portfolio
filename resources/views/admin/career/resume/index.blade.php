@@ -78,7 +78,7 @@
                         <th class="has-text-centered">active</th>
                         <th class="has-text-centered">primary</th>
                         <th class="has-text-centered">public</th>
-                        <th class="has-text-centered" style="display: none;">disabled</th>
+                        <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -95,7 +95,7 @@
                             <th class="has-text-centered">active</th>
                         <th class="has-text-centered">primary</th>
                         <th class="has-text-centered">public</th>
-                        <th class="has-text-centered" style="display: none;">disabled</th>
+                        <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -118,7 +118,7 @@
                             {{ shortDate($resume->resume_date) }}
                         </td>
                         <td data-field="primary" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $resume->ac ])
+                            @include('admin.components.checkmark', [ 'checked' => $resume->active ])
                         </td>
                         <td data-field="primary" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resume->primary ])
@@ -126,7 +126,7 @@
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resume->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resume->is_disabled ])
                         </td>
                         <td class="is-1">
@@ -184,7 +184,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No resumes found.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No resumes found.</td>
                     </tr>
 
                 @endforelse
