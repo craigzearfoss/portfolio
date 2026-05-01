@@ -69,6 +69,7 @@ class UpdateResumesRequest extends UpdateAppBaseRequest
                 })
             ],
             'primary'      => ['integer', 'between:0,1'],
+            'active'       => ['integer', 'between:0,1'],
             'resume_date'  => ['date', 'between:0,3000', 'nullable'],
             'doc_filepath' => ['string', 'max:500', 'nullable'],
             'pdf_filepath' => ['string', 'max:500', 'nullable'],
