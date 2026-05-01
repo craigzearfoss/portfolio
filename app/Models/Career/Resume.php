@@ -46,6 +46,7 @@ class Resume extends Model
         'slug',
         'resume_date',
         'primary',
+        'active',
         'doc_filepath',
         'pdf_filepath',
         'content',
@@ -98,9 +99,9 @@ class Resume extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'resume_date', 'primary', 'doc_filepath',
-        'pdf_filepath', 'content', 'file_type', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'resume_date', 'primary', 'active',
+        'doc_filepath', 'pdf_filepath', 'content', 'file_type', 'notes', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -112,6 +113,7 @@ class Resume extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
+        'active|desc'        => 'active',
         //'application_id|asc' => 'application id',
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
@@ -187,6 +189,7 @@ class Resume extends Model
             $this->table . '.id',
             'CONCAT(resume_date, " - ", ' . $this->table . '.name) AS name',
             $this->table . '.primary',
+            $this->table . '.active',
             $this->table . '.is_disabled',
         ];
 
@@ -286,6 +289,9 @@ class Resume extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = $this->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['active']), function ($query) use ($filters) {
+                $query->where($this->table . '.active', '=', true);
+            })
             ->when(!empty($filters['content']), function ($query) use ($filters) {
                 $query->where($this->table . '.content', 'like', '%' . $filters['content'] . '%');
             })

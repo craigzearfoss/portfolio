@@ -75,6 +75,7 @@
                         @endif
                         <th>name</th>
                         <th class="has-text-centered">date</th>
+                        <th class="has-text-centered">active</th>
                         <th class="has-text-centered">primary</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered" style="display: none;">disabled</th>
@@ -91,6 +92,7 @@
                         @endif
                         <th>name</th>
                         <th class="has-text-centered">date</th>
+                            <th class="has-text-centered">active</th>
                         <th class="has-text-centered">primary</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered" style="display: none;">disabled</th>
@@ -114,6 +116,9 @@
                         </td>
                         <td data-field="resume_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDate($resume->resume_date) }}
+                        </td>
+                        <td data-field="primary" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $resume->ac ])
                         </td>
                         <td data-field="primary" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resume->primary ])

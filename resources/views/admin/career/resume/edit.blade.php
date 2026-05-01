@@ -75,6 +75,14 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'active',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('active') ?? $resume->active,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'primary',
                 'value'           => 1,
                 'unchecked_value' => 0,

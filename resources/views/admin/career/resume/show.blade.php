@@ -93,6 +93,11 @@
                                 ])
 
                                 @include('admin.components.show-row-checkmark', [
+                                    'name'    => 'active',
+                                    'checked' => $resume->active
+                                ])
+
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'primary',
                                     'checked' => $resume->primary
                                 ])

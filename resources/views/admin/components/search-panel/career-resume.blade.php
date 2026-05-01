@@ -7,6 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
+    $active         = $active ?? request()->query('active');
     $action         = $action ?? url()->current();
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
@@ -71,6 +72,13 @@
 
                     </div>
                     <div class="floating-div">
+
+                        @include('admin.components.form-checkbox', [
+                            'name'     => 'active',
+                            'value'    => 1,
+                            'checked'  => $active,
+                            'nohidden' => true,
+                        ])
 
                         @include('admin.components.form-checkbox', [
                             'name'     => 'primary',
