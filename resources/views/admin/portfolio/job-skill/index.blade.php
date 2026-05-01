@@ -50,7 +50,7 @@
 
             <p><i>{{ number_format($jobSkills->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $jobSkills->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -58,10 +58,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -75,10 +75,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -97,7 +97,7 @@
                 @forelse ($jobSkills as $jobSkill)
 
                     <tr data-id="{{ $jobSkill->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $jobSkill->id ?? '' }}
                             </td>
@@ -106,17 +106,17 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            @if($jobSkill->job)
+                            @if ($jobSkill->job)
                                 {!! $jobSkill->name ?? '' !!}{!! !empty($jobSkill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                             @endif
                         </td>
                         <td data-field="job.company" style="white-space: nowrap;">
-                            @if($jobSkill->job)
+                            @if ($jobSkill->job)
                                 {!! $jobSkill->job->company ?? '' !!}
                             @endif
                         </td>
                         <td data-field="jo.role">
-                            @if($jobSkill->job)
+                            @if ($jobSkill->job)
                                 {!! $jobSkill->job->role ?? '' !!}
                             @endif
                         </td>
@@ -130,7 +130,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($jobSkill, $admin))
+                                @if (canRead($jobSkill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.job-skill.show', $jobSkill),
@@ -138,7 +138,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($jobSkill, $admin))
+                                @if (canUpdate($jobSkill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.job-skill.edit', $jobSkill),
@@ -161,7 +161,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($jobSkill, $admin))
+                                @if (canDelete($jobSkill, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.job-skill.destroy', $jobSkill) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -190,7 +190,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $jobSkills->links('vendor.pagination.bulma') !!}
             @endif
 

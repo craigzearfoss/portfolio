@@ -46,7 +46,7 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $userGroup->owner->username
@@ -101,14 +101,16 @@
 
                 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                     <thead>
-                    <th>username</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th></th>
+                    <tr>
+                        <th>username</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
 
-                    @if(!empty($userGroup->members))
+                    @if (!empty($userGroup->members))
 
                         @foreach($userGroup->members as $member)
 

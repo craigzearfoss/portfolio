@@ -32,7 +32,7 @@
 
     $attributes = $attributes ?? [];
 @endphp
-<a @if($id)
+<a @if ($id)
        id="{{ $id }}"
    @endif
    @if(isset($href) && ($href !== false))

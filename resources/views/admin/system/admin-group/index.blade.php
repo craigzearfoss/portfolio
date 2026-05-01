@@ -55,7 +55,7 @@
 
             <p><i>{{ number_format($adminGroups->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $adminGroups->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -63,10 +63,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -79,10 +79,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -100,12 +100,12 @@
                 @forelse ($adminGroups as $adminGroup)
 
                     <tr data-id="{{ $adminGroup->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminGroup->id ?? '' }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($adminGroup->owner))
+                                @if (!empty($adminGroup->owner))
                                     @include('admin.components.link', [
                                         'name' => 'owner',
                                         'label' => $adminGroup->owner->username,
@@ -120,7 +120,7 @@
                             {!! $adminGroup->name !!}
                         </td>
                         <td data-field="team.name" style="white-space: nowrap;">
-                            @if(!empty($adminGroup->team))
+                            @if (!empty($adminGroup->team))
                                 @include('admin.components.link', [
                                     'name' => $adminGroup->team->name,
                                     'href' => route('admin.system.admin-team.show', $adminGroup->owner)
@@ -139,7 +139,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($adminGroup, $admin))
+                                @if (canRead($adminGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-group.show', $adminGroup),
@@ -147,7 +147,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($adminGroup, $admin))
+                                @if (canUpdate($adminGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.admin-group.edit', $adminGroup),
@@ -155,7 +155,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($adminGroup, $admin))
+                                @if (canDelete($adminGroup, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.admin-group.destroy', $adminGroup) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -175,7 +175,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td colspan="7">No admin groups found.</td>
                         @else
                             <td colspan="5">No groups found.</td>
@@ -188,7 +188,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $adminGroups->links('vendor.pagination.bulma') !!}
             @endif
 

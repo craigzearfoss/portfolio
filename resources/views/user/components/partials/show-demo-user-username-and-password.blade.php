@@ -1,6 +1,6 @@
 <div class="p-2 has-text-centered">
 
-    @if(true === $retVal = validateDemoUserCredentials())
+    @if (true === $retVal = validateDemoUserCredentials())
 
         <p class="mb-1">
             To log in as the <strong>demo</strong> user use the credentials below.

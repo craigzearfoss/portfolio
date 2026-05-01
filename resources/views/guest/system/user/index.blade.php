@@ -22,8 +22,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -61,7 +61,7 @@
 
                     <tr data-id="{{ $user->id }}">
                         <td data-field="thumbnail" style="width: 32px;">
-                            @if(!empty($user->thumbnail))
+                            @if (!empty($user->thumbnail))
                                 @include('guest.components.link', [
                                     'name' => view('guest.components.image', [
                                                     'src'      => $user->thumbnail,

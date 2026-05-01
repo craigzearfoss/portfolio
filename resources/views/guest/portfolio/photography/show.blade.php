@@ -36,21 +36,21 @@
         <table>
             <tbody>
 
-            @if(!empty($photo->name))
+            @if (!empty($photo->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $photo->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->summary))
+            @if (!empty($photo->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $photo->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->image))
+            @if (!empty($photo->image))
                 <tr>
                     <th>image:</th>
                     <td>
@@ -69,42 +69,42 @@
                 </tr>
             @endif
 
-            @if(!empty($photo->photo_year))
+            @if (!empty($photo->photo_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $photo->photo_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->credit))
+            @if (!empty($photo->credit))
                 <tr>
                     <th>credit:</th>
                     <td>{{ $photo->credit }}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->model))
+            @if (!empty($photo->model))
                 <tr>
                     <th>model:</th>
                     <td>{{ $photo->model }}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->location))
+            @if (!empty($photo->location))
                 <tr>
                     <th>location:</th>
                     <td>{{ $photo->location }}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->copyright))
+            @if (!empty($photo->copyright))
                 <tr>
                     <th>copyright:</th>
                     <td>{{ $photo->copyright }}</td>
                 </tr>
             @endif
 
-            @if(!empty($photo->link))
+            @if (!empty($photo->link))
                 <tr>
                     <th>{{ !empty($photo->link_name) ? $photo->link_name : 'link' }}:</th>
                     <td>
@@ -116,7 +116,7 @@
                 </tr>
             @endif
 
-            @if(!empty($photo->description))
+            @if (!empty($photo->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $photo->description !!}</td>

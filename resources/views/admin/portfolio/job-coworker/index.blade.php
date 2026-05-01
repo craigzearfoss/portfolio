@@ -50,7 +50,7 @@
 
             <p><i>{{ number_format($jobCoworkers->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $jobCoworkers->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -58,10 +58,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -75,10 +75,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -98,7 +98,7 @@
                 @forelse ($jobCoworkers as $jobCoworker)
 
                     <tr data-id="{{ $jobCoworker->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $jobCoworker->id ?? '' }}
                             </td>
@@ -113,7 +113,7 @@
                             {!! $jobCoworker->level !!}
                         </td>
                         <td data-field="job.company" style="white-space: nowrap;">
-                            @if($jobCoworker->job)
+                            @if ($jobCoworker->job)
                                 {!! $jobCoworker->job->company ?? '' !!}
                             @endif
                         </td>
@@ -127,7 +127,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($jobCoworker, $admin))
+                                @if (canRead($jobCoworker, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.job-coworker.show', $jobCoworker),
@@ -135,7 +135,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($jobCoworker, $admin))
+                                @if (canUpdate($jobCoworker, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.job-coworker.edit', $jobCoworker),
@@ -158,7 +158,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($jobCoworker, $admin))
+                                @if (canDelete($jobCoworker, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.job-coworker.destroy', $jobCoworker) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -187,7 +187,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $jobCoworkers->links('vendor.pagination.bulma') !!}
             @endif
 

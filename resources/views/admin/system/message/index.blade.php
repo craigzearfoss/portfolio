@@ -45,7 +45,7 @@
 
             <p><i>{{ number_format($allMessages->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $allMessages->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -53,7 +53,7 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
                         <th>id</th>
@@ -68,7 +68,7 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>id</th>
@@ -116,7 +116,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($thisMessage, $admin))
+                                @if (canRead($thisMessage, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.message.show', $thisMessage),
@@ -126,7 +126,7 @@
 
                                 <?php /*
                                 // you can't delete messages
-                                @if(canUpdate($thisMessage, $admin))
+                                @if (canUpdate($thisMessage, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.message.edit', $thisMessage),
@@ -134,7 +134,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($thisMessage, $admin))
+                                @if (canDelete($thisMessage, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.message.destroy', $thisMessage) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -164,7 +164,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $allMessages->links('vendor.pagination.bulma') !!}
             @endif
 

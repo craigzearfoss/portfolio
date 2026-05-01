@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($skills->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $skills->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -75,10 +75,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -98,7 +98,7 @@
                 @forelse ($skills as $skill)
 
                     <tr data-id="{{ $skill->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $skill->id ?? '' }}
                             </td>
@@ -110,7 +110,7 @@
                             {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">
-                             @if(!empty($skill->category->name))
+                             @if (!empty($skill->category->name))
                                  {!! $skill->category->name !!}
                              @endif
                         </td>
@@ -134,7 +134,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($skill, $admin))
+                                @if (canRead($skill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.skill.show', $skill),
@@ -142,7 +142,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($skill, $admin))
+                                @if (canUpdate($skill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.skill.edit', $skill),
@@ -165,7 +165,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($skill, $admin))
+                                @if (canDelete($skill, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.skill.destroy', $skill) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -194,7 +194,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $skills->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -17,7 +17,7 @@
 
 @section('content')
 
-    @if(!$success = session('success'))
+    @if (!$success = session('success'))
 
         @include('partials.contact-content', [
             'envType'       => EnvTypes::GUEST,

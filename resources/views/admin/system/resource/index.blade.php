@@ -39,7 +39,7 @@
 
             <p><i>{{ number_format($resources->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $resources->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -47,15 +47,15 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>database</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>db tag</th>
                             <th>table</th>
                         @endif
@@ -70,14 +70,14 @@
                         <th class="has-text-centered">menu</th>
                         <th class="has-text-centered">menu<br>level</th>
                         <th class="has-text-centered">public</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th class="has-text-centered">read-only</th>
                         @endif
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th class="has-text-centered">root</th>
                         @endif
                         <th class="has-text-centered">disabled</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th class="has-text-centered">demo</th>
                         @endif
                         <th class="has-text-centered">sequence</th>
@@ -86,15 +86,15 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>database</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>db tag</th>
                             <th>table</th>
                         @endif
@@ -109,14 +109,14 @@
                         <th class="has-text-centered">menu</th>
                         <th class="has-text-centered">menu<br>level</th>
                         <th class="has-text-centered">public</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th class="has-text-centered">read-only</th>
                         @endif
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th class="has-text-centered">root</th>
                         @endif
                         <th class="has-text-centered">disabled</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th class="has-text-centered">demo</th>
                         @endif
                         <th class="has-text-centered">sequence</th>
@@ -130,12 +130,12 @@
                 @forelse ($resources as $resource)
 
                     <tr data-id="{{ $resource->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $resource->id ?? '' }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($resource->owner))
+                                @if (!empty($resource->owner))
                                     @include('admin.components.link', [
                                         'name' => $resource->owner->username,
                                         'href' => route('admin.system.admin.show', $resource->owner)
@@ -148,7 +148,7 @@
                         <td data-field="database.name" style="white-space: nowrap;">
                             {{ $resource->database->name ?? '' }}
                         </td>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="database.tag" style="white-space: nowrap;">
                                 {{ $resource->database->tag ?? '' }}
                             </td>
@@ -194,12 +194,12 @@
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resource->is_public ])
                         </td>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="is_readonly" class="has-text-centered">
                                 @include('admin.components.checkmark', [ 'checked' => $resource->is_readonly ])
                             </td>
                         @endif
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="is_root" class="has-text-centered">
                                 @include('admin.components.checkmark', [ 'checked' => $resource->is_root ])
                             </td>
@@ -207,7 +207,7 @@
                         <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $resource->is_disabled ])
                         </td>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="is_demo" class="has-text-centered">
                                 @include('admin.components.checkmark', [ 'checked' => $resource->is_demo ])
                             </td>
@@ -219,7 +219,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($resource, $admin))
+                                @if (canRead($resource, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.resource.show', $resource),
@@ -227,7 +227,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($resource, $admin))
+                                @if (canUpdate($resource, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.resource.edit', $resource),
@@ -256,7 +256,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $resources->links('vendor.pagination.bulma') !!}
             @endif
 

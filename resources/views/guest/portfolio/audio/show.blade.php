@@ -36,14 +36,14 @@
         <table>
             <tbody>
 
-            @if(!empty($audio->name))
+            @if (!empty($audio->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $audio->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->parent))
+            @if (!empty($audio->parent))
                 <tr>
                     <th>parent:</th>
                     <td>
@@ -55,14 +55,14 @@
                 </tr>
             @endif
 
-            @if(!empty($audio->summary))
+            @if (!empty($audio->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $audio->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->children) && (count($audio->children) > 0))
+            @if (!empty($audio->children) && (count($audio->children) > 0))
                 <tr>
                     <th>children:</th>
                     <td>
@@ -80,7 +80,7 @@
                 </tr>
             @endif
 
-            @if(!empty($audio->full_episode))
+            @if (!empty($audio->full_episode))
                 <th>clip:</th>
                 <td>
                     @include('guest.components.checkmark', [
@@ -89,7 +89,7 @@
                 </td>
             @endif
 
-            @if(!empty($audio->clip))
+            @if (!empty($audio->clip))
                 <th>clip:</th>
                 <td>
                     @include('guest.components.checkmark', [
@@ -98,7 +98,7 @@
                 </td>
             @endif
 
-            @if(!empty($audio->podcast))
+            @if (!empty($audio->podcast))
                 <th>podcast:</th>
                 <td>
                     @include('guest.components.checkmark', [
@@ -107,7 +107,7 @@
                 </td>
             @endif
 
-            @if(!empty($audio->source_recording))
+            @if (!empty($audio->source_recording))
                 <th>source recording:</th>
                 <td>
                     @include('guest.components.checkmark', [
@@ -116,63 +116,63 @@
                 </td>
             @endif
 
-            @if(!empty($audio->date))
+            @if (!empty($audio->date))
                 <tr>
                     <th>date:</th>
                     <td>{{ longDate($audio->date) }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->audio_year))
+            @if (!empty($audio->audio_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $audio->audio_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->company))
+            @if (!empty($audio->company))
                 <tr>
                     <th>company:</th>
                     <td>{{ $audio->company }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->credit))
+            @if (!empty($audio->credit))
                 <tr>
                     <th>credit:</th>
                     <td>{{ $audio->credit }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->show))
+            @if (!empty($audio->show))
                 <tr>
                     <th>show:</th>
                     <td>{{ $audio->show }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->location))
+            @if (!empty($audio->location))
                 <tr>
                     <th>location:</th>
                     <td>{{ $audio->location }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->embed))
+            @if (!empty($audio->embed))
                 <tr>
                     <th>embed:</th>
                     <td>{{ $audio->embed }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->audio_url))
+            @if (!empty($audio->audio_url))
                 <tr>
                     <th>audio url:</th>
                     <td>{{ $audio->audio_url }}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->link))
+            @if (!empty($audio->link))
                 <tr>
                     <th>{{ !empty($audio->link_name) ? $audio->link_name : 'link' }}:</th>
                     <td>
@@ -185,14 +185,14 @@
                 </tr>
             @endif
 
-            @if(!empty($audio->description))
+            @if (!empty($audio->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $audio->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($audio->image))
+            @if (!empty($audio->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

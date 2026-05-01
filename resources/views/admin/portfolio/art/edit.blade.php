@@ -36,7 +36,7 @@
 @section('content')
 
     <?php /* @TODO: need to implement file uploads  */ ?>
-    @if(config('app.upload_enabled'))
+    @if (config('app.upload_enabled'))
         @include('admin.components.overlay-image-upload', [
             'name'        => 'frmImageUpload',
             'action'      => route('admin.portfolio.image.upload', ['art', 'image']),

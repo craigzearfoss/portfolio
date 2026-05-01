@@ -73,7 +73,7 @@
                 'value' => $adminResource->name
             ])
 
-            @if(!empty($adminResource->parent))
+            @if (!empty($adminResource->parent))
                 @include('admin.components.show-row-link', [
                     'name'   => 'parent',
                     'label'  => $adminResource->parent->name,
@@ -86,7 +86,7 @@
                 ])
             @endif
 
-            @if(!empty($adminResource->children()))
+            @if (!empty($adminResource->children()))
                 <div class="columns">
                     <div class="column is-2"><strong>children</strong>:</div>
                     <div class="column is-10 pl-0">
@@ -109,7 +109,7 @@
                 ])
             @endif
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
 
                 @include('admin.components.show-row', [
                     'name'  => 'table',

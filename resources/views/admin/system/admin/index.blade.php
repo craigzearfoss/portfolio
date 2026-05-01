@@ -57,7 +57,7 @@
 
             <p><i>{{ number_format($allAdmins->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $allAdmins->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -65,7 +65,7 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
                         <th>id</th>
@@ -83,7 +83,7 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>id</th>
@@ -119,7 +119,7 @@
                             {!! $thisAdmin->label !!}
                         </td>
                         <td data-field="admin_team_id" style="white-space: nowrap;">
-                            @if(!empty($admin->admin_team_id))
+                            @if (!empty($admin->admin_team_id))
                                 @include('admin.components.link', [
                                     'name' => $thisAdmin->team->name ?? '',
                                     'href' => route('admin.system.admin-team.show',
@@ -147,7 +147,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($thisAdmin, $admin))
+                                @if (canRead($thisAdmin, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => $isRootAdmin
@@ -157,7 +157,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($thisAdmin, $admin))
+                                @if (canUpdate($thisAdmin, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.admin.edit', $thisAdmin),
@@ -180,7 +180,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($thisAdmin, $admin))
+                                @if (canUpdate($thisAdmin, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'change password',
                                         'href'  => route('admin.system.admin.change-password', $thisAdmin),
@@ -188,7 +188,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($thisAdmin, $admin))
+                                @if (canDelete($thisAdmin, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -217,7 +217,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $allAdmins->links('vendor.pagination.bulma') !!}
             @endif
 

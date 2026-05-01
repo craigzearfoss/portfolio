@@ -43,7 +43,7 @@
 
             <p><i>{{ number_format($adminDatabases->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $adminDatabases->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -51,15 +51,15 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>tag</th>
                             <th>database</th>
                         @endif
@@ -79,15 +79,15 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>tag</th>
                             <th>database</th>
                         @endif
@@ -112,12 +112,12 @@
                 @forelse ($adminDatabases as $adminDatabase)
 
                     <tr data-id="{{ $adminDatabase->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminDatabase->id ?? '' }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($adminDatabase->owner))
+                                @if (!empty($adminDatabase->owner))
                                     @include('admin.components.link', [
                                         'name' => $adminDatabase->owner->username,
                                         'href' => route('admin.system.admin-database.show', $adminDatabase->owner)
@@ -130,7 +130,7 @@
                         <td data-field="name">
                             {{ $adminDatabase->name }}
                         </td>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="tag">
                                 {{ $adminDatabase->tag }}
                             </td>
@@ -180,7 +180,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($adminDatabase, $admin))
+                                @if (canRead($adminDatabase, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-database.show', $adminDatabase),
@@ -188,7 +188,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($adminDatabase, $admin))
+                                @if (canUpdate($adminDatabase, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.admin-database.edit', $adminDatabase),
@@ -204,7 +204,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td colspan="16">No admin databases found.</td>
                         @else
                             <td colspan="12">No databases found.</td>
@@ -217,7 +217,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $adminDatabases->links('vendor.pagination.bulma') !!}
             @endif
 

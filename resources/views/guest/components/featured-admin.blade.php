@@ -5,7 +5,7 @@
     use App\Models\System\Database;
 @endphp
 
-@if($featuredAdmin)
+@if ($featuredAdmin)
 
     @php
         $title = $title ?? 'Featured Candidate';
@@ -28,7 +28,7 @@
 
         <div class="show-container card p-2 pl-4 pr-4 mb-2" style="width: auto;">
 
-            @if(!$singleAdminMode)
+            @if (!$singleAdminMode)
                 <h2 class="title is-size-5 p-2 mb-0">{{ $title }}</h2>
             @endif
 
@@ -61,16 +61,16 @@
                         <strong>{!! $featuredAdmin->name !!}</strong>
                     </p>
 
-                    @if(!empty($featuredAdmin->role))
+                    @if (!empty($featuredAdmin->role))
                         <p class="has-text-centered has-text-weight-semibold mb-0">
                             <strong>{!! $featuredAdmin->role !!}</strong>
                         </p>
                     @endif
 
-                    @if(!empty($featuredAdmin->employer))
+                    @if (!empty($featuredAdmin->employer))
                         <p class="has-text-centered has-text-weight-medium mb-0">
                             <strong>{!! $featuredAdmin->employer !!}
-                                @if($featuredAdmin->employment_status_id == 6)
+                                @if ($featuredAdmin->employment_status_id == 6)
                                     (contracting)
                                 @endif
                             </strong>
@@ -81,7 +81,7 @@
                         </p>
                     @endif
 
-                    @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
+                    @if (in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
                         <p class="has-text-centered m-1">
                             <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
                                 <strong>Open to Work</strong>
@@ -89,7 +89,7 @@
                         </p>
                     @endif
 
-                    @if(!empty($featuredAdmin->bio))
+                    @if (!empty($featuredAdmin->bio))
                         <p>
                             {!! $featuredAdmin->bio !!}
                         </p>

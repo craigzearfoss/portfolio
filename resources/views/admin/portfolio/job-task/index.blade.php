@@ -50,7 +50,7 @@
 
             <p><i>{{ number_format($jobTasks->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $jobTasks->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -58,10 +58,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -74,10 +74,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -95,7 +95,7 @@
                 @forelse ($jobTasks as $jobTask)
 
                     <tr data-id="{{ $jobTask->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $jobTask->id ?? '' }}
                             </td>
@@ -104,7 +104,7 @@
                             </td>
                         @endif
                         <td data-field="job.company" style="white-space: nowrap;">
-                            @if($jobTask->job)
+                            @if ($jobTask->job)
                                 {!! $jobTask->job->company ?? '' !!}{!! !empty($jobTask->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                             @endif
                         </td>
@@ -121,7 +121,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($jobTask, $admin))
+                                @if (canRead($jobTask, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.job-task.show', $jobTask),
@@ -129,7 +129,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($jobTask, $admin))
+                                @if (canUpdate($jobTask, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.job-task.edit', $jobTask),
@@ -152,7 +152,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($jobTask, $admin))
+                                @if (canDelete($jobTask, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.job-task.destroy', $jobTask) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -181,7 +181,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $jobTasks->links('vendor.pagination.bulma') !!}
             @endif
 

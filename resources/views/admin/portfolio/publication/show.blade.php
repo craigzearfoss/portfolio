@@ -59,7 +59,7 @@
                 'value' => $publication->title
             ])
 
-            @if(!empty($publication->parent))
+            @if (!empty($publication->parent))
                 @include('admin.components.show-row', [
                     'name'  => 'parent',
                     'value' => view('admin.components.link', [

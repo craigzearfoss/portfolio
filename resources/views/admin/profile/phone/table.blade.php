@@ -3,11 +3,13 @@
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>phone</th>
-    <th>label</th>
-    <th>description</th>
-    <th>active</th>
-    <th>actions</th>
+    <tr>
+        <th>phone</th>
+        <th>label</th>
+        <th>description</th>
+        <th>active</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -30,7 +32,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($phone, $admin))
+                    @if (canRead($phone, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.system.admin-phone.show', [
@@ -41,7 +43,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($phone, $admin))
+                    @if (canUpdate($phone, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.system.admin-phone.edit', [
@@ -52,7 +54,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($phone, $admin))
+                    @if (canDelete($phone, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.system.admin-phone.destroy', $phone) !!}"
                               method="POST">

@@ -3,10 +3,12 @@
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>name</th>
-    <th>team</th>
-    <th>owner</th>
-    <th>actions</th>
+    <tr>
+        <th>name</th>
+        <th>team</th>
+        <th>owner</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -38,7 +40,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($group, $admin))
+                    @if (canRead($group, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.system.admin-group.show', [
@@ -49,7 +51,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($group, $admin))
+                    @if (canUpdate($group, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.system.admin-group.edit', [
@@ -60,7 +62,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($group, $admin))
+                    @if (canDelete($group, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.system.admin-group.destroy', $group) !!}"
                               method="POST">

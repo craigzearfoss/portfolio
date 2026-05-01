@@ -50,7 +50,7 @@
 
             <p><i>{{ number_format($certificates->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -58,10 +58,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -77,10 +77,10 @@
                     </thead>
                 @endif
 
-                @if(!empty($bottom_column_headings))
+                @if (!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -101,7 +101,7 @@
                 @forelse ($certificates as $certificate)
 
                     <tr data-id="{{ $certificate->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $certificate->id ?? '' }}
                             </td>
@@ -139,7 +139,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($certificate, $admin))
+                                @if (canRead($certificate, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.certificate.show', $certificate),
@@ -147,7 +147,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($certificate, $admin))
+                                @if (canUpdate($certificate, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.certificate.edit', $certificate),
@@ -170,7 +170,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($certificate, $admin))
+                                @if (canDelete($certificate, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.certificate.destroy', $certificate) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -199,7 +199,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif
 

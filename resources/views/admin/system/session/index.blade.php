@@ -40,7 +40,7 @@
 
             <p><i>{{ number_format($sessions->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $sessions->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -48,7 +48,7 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
                         <th>id</th>
@@ -61,7 +61,7 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>id</th>

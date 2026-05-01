@@ -2,13 +2,13 @@
     $numCandidates = 8;
 @endphp
 
-@if(!empty($candidates) && $pagination_top)
+@if (!empty($candidates) && $pagination_top)
     {!! $candidates->links('vendor.pagination.bulma') !!}
 @endif
 
 <table class="table user-table is-size-6 {{ $userTableClasses ?? '' }}">
 
-    @if($top_column_headings)
+    @if ($top_column_headings)
         <thead>
         <tr>
             <th></th>
@@ -18,7 +18,7 @@
         </thead>
     @endif
 
-    @if($bottom_column_headings)
+    @if ($bottom_column_headings)
         <tfoot>
         <tr>
             <th></th>
@@ -30,11 +30,11 @@
 
     <tbody>
 
-    @forelse ($candidates as $candidate)
+    @forelse ($candidates as $i=>$candidate)
 
         <tr data-id="{{ $candidate->id }}">
             <td data-field="thumbnail" style="width: 6rem;">
-                @if(!empty($candidate->thumbnail))
+                @if (!empty($candidate->thumbnail))
                     @include('user.components.link', [
                         'name' => view('user.components.image', [
                                         'src'      => $candidate->thumbnail,
@@ -70,6 +70,6 @@
     </tbody>
 </table>
 
-@if(!empty($candidates) && $pagination_bottom)
+@if (!empty($candidates) && $pagination_bottom)
     {!! $candidates->links('vendor.pagination.bulma') !!}
 @endif

@@ -4,7 +4,7 @@
 <div class="field mb-0">
     <div class="control">
         <label class="label" for="{{ $id }}">
-            @if(empty($nohidden))
+            @if (empty($nohidden))
                 <input type="hidden" name="{!! $name ?? 'name' !!}" value="{!! $unchecked_value ?? '0' !!}">
             @endif
             <input

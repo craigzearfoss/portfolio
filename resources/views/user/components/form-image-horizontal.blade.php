@@ -49,7 +49,7 @@
                 >
 
                 <?php /* @TODO: need to implement file uploads  */ ?>
-                @if(config('app.upload_enabled'))
+                @if (config('app.upload_enabled'))
 
                     @include('user.components.form-button-upload', [
                         'name' => !empty($src) ? 'Replace' : 'Upload'

@@ -34,7 +34,7 @@
 
         <?php /* For social media share links (@TODO: is this really needed?) */?>
         <?php /*
-        @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
+        @if ((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
             @include('user.components.share-links', [ 'preview_image' => 'default.png' ])
         @endif
         */ ?>

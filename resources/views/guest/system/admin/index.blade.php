@@ -22,7 +22,7 @@
 
 @section('content')
 
-    @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($disclaimerMessage = config('app.demo_disclaimer'))
         @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
     @endif
 

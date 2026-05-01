@@ -92,7 +92,7 @@
             <div class="columns">
                 <div class="column is-2"><strong>children</strong>:</div>
                 <div class="column is-10 pl-0">
-                    @if(!empty($music->children))
+                    @if (!empty($music->children))
                         <ol>
                             @foreach($music->children as $child)
                                 <li>

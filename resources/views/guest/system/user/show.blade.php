@@ -53,21 +53,21 @@
                         </span>
                     </div>
 
-                    @if(!empty($user->role))
+                    @if (!empty($user->role))
                         @include('guest.components.show-row', [
                             'name'  => 'role',
                             'value' => $user->role
                         ])
                     @endif
 
-                    @if(!empty($user->employer))
+                    @if (!empty($user->employer))
                         @include('guest.components.show-row', [
                             'name'  => 'employer',
                             'value' => '<br>' . $user->employer
                         ])
                     @endif
 
-                    @if(!empty($user->bio))
+                    @if (!empty($user->bio))
                         @include('guest.components.show-row', [
                             'name'  => 'bio',
                             'value' => $user->bio

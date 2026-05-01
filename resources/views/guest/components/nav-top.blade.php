@@ -5,7 +5,7 @@
     $user  = $user ?? null;
     $owner = $owner ?? null;
 @endphp
-@if($menuItems = $menuService->topMenu())
+@if ($menuItems = $menuService->topMenu())
 
     <nav id="navbar-main" class="navbar guest is-fixed-top">
         <div class="navbar-brand">

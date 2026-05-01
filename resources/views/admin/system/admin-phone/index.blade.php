@@ -51,7 +51,7 @@
 
             <p><i>{{ number_format($adminPhones->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $adminPhones->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -59,10 +59,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -74,10 +74,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -94,12 +94,12 @@
                 @forelse ($adminPhones as $adminPhone)
 
                     <tr data-id="{{ $adminPhone->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminPhone->id ?? '' }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($adminPhone->owner))
+                                @if (!empty($adminPhone->owner))
                                     @include('admin.components.link', [
                                         'name' => $adminPhone->owner->username,
                                         'href' => route('admin.system.admin.show', $adminPhone->owner)
@@ -122,7 +122,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($adminPhone, $admin))
+                                @if (canRead($adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-phone.show', $adminPhone),
@@ -130,7 +130,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($adminPhone, $admin))
+                                @if (canUpdate($adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.admin-phone.edit', $adminPhone),
@@ -138,7 +138,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($adminPhone, $admin))
+                                @if (canDelete($adminPhone, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.admin-phone.destroy', $adminPhone) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -158,7 +158,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td colspan="6">No admin phone numbers found.</td>
                         @else
                             <td colspan="4">No phone numbers found.</td>
@@ -171,7 +171,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $adminPhones->links('vendor.pagination.bulma') !!}
             @endif
 

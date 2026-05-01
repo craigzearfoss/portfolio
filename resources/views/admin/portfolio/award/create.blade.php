@@ -46,7 +46,7 @@
                 'value' => referer('admin.portfolio.award.index')
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -58,7 +58,7 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => Auth::guard('admin')->user()->id
+                    'value' => $admin->id ?? null,
                 ])
             @endif
 

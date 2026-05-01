@@ -6,7 +6,7 @@
 
         <h2 class="title has-text-centered">Contact Us</h2>
 
-        @if(!config('app.contactable'))
+        @if (!config('app.contactable'))
 
             <h3 class="subtitle p-4">Sorry, but we are not currently accepting messages.</h3>
 

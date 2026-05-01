@@ -58,7 +58,7 @@
 
                     </div>
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('user.components.search-panel.controls.timestamp-created-at', [

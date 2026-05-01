@@ -82,7 +82,7 @@
     </div>
 
     <div class="footer">
-        @if(config('app.copyright') && config('app.owner'))
+        @if (config('app.copyright') && config('app.owner'))
             <span>© {{ config('app.copyright') }} {{ config('app.owner') }}. All rights reserved.</span>
         @endif
     </div>

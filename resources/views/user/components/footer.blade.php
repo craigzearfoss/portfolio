@@ -3,10 +3,10 @@
         <div class="level">
             <div class="level-left">
                 <div class="level-item">
-                    @if(!empty('app.name'))
+                    @if (!empty('app.name'))
                         <span class="mr-2">{{ config('app.name') }}, <i>{{ config('app.version') }}, </i></span>
                     @endif
-                    @if(config('app.copyright') && config('app.owner'))
+                    @if (config('app.copyright') && config('app.owner'))
                         @include('user.components.copyright')
                     @endif
                 </div>

@@ -30,15 +30,15 @@
 <div class="control" style="max-width: 30rem;">
     <div class="field">
 
-        @if(isset($label) && ($label === '') )
+        @if (isset($label) && ($label === '') )
         @else
 
             <label
-                @if($id)
+                @if ($id)
                     for="{{ $id }}"
                 @endif
                 class="{{ implode(' ', $labelClass) }}"
-                @if($title)
+                @if ($title)
                     title="{{ $title }}"
                 @endif
             >

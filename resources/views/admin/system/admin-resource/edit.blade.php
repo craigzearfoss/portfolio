@@ -65,7 +65,7 @@
                 'value'     => $adminResource->name,
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
 
                 @include('admin.components.form-text-horizontal', [
                     'name'      => 'database',

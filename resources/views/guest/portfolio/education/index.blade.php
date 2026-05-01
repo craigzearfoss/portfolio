@@ -28,8 +28,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -40,7 +40,7 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
                         <th>major</th>
@@ -51,7 +51,7 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>major</th>
@@ -68,16 +68,16 @@
 
                     <tr>
                         <td data-field="major" style="white-space: nowrap;">
-                            @if($education->featured)
+                            @if ($education->featured)
                                 <strong>
                                     {{ $education->major }}
-                                    @if(!empty($education->minor)) {
+                                    @if (!empty($education->minor)) {
                                         ({{ $education->minor }} minor)
                                     @endif
                                 </strong>
                             @else
                                 {{ $education->major }}
-                                @if(!empty($education->minor)) {
+                                @if (!empty($education->minor)) {
                                     ({{ $education->minor }} minor)
                                 @endif
                             @endif
@@ -89,10 +89,10 @@
                             {!! $education->school->name ?? '' !!}
                         </td>
                         <td data-field="graduation_date" class="has-text-centered hide-at-480" style="white-space: nowrap;">
-                            @if(!empty($education->graduation_date))
+                            @if (!empty($education->graduation_date))
                                 {{ Carbon::parse($education->graduation_date)->format("F y") }}
                             @endif
-                            @if(!empty($education->currently_enrolled))
+                            @if (!empty($education->currently_enrolled))
                                 (currently enrolled)
                             @endif
                         </td>

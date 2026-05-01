@@ -55,16 +55,16 @@
 
             <p><i>{{ number_format($photos->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $photos->links('vendor.pagination.bulma') !!}
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -78,10 +78,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -100,7 +100,7 @@
                 @forelse ($photos as $photo)
 
                     <tr data-id="{{ $photo->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $photo->id ?? '' }}
                             </td>
@@ -127,7 +127,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($photo, $admin))
+                                @if (canRead($photo, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.photography.show', $photo),
@@ -135,7 +135,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($photo, $admin))
+                                @if (canUpdate($photo, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.photography.edit', $photo),
@@ -158,7 +158,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($photo, $admin))
+                                @if (canDelete($photo, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.photography.destroy', $photo) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -187,7 +187,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $photos->links('vendor.pagination.bulma') !!}
             @endif
 

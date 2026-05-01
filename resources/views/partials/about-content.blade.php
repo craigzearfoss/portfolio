@@ -70,12 +70,12 @@
                                 $demoUrl       = config('app.demo_site_url');
                                 $demoSingleUrl = config('app.demo_single_site_url');
                             @endphp
-                            @if($demoUrl || $demoSingleUrl)
+                            @if ($demoUrl || $demoSingleUrl)
                                 <p>
-                                    @if($demoUrl)
+                                    @if ($demoUrl)
                                         A demonstration of this website is at <a href="{{ $demoUrl }}" target="_blank"><strong>{{ $demoUrl }}</strong></a>.
                                     @endif
-                                        @if($demoSingleUrl)
+                                        @if ($demoSingleUrl)
                                             A demonstration of this website is at <a href="{{ $demoSingleUrl }}" target="_blank"><strong>{{ $demoSingleUrl }}</strong></a>.
                                         @endif
                                 </p>

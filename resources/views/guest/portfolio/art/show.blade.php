@@ -29,8 +29,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -40,7 +40,7 @@
         <table>
             <tbody>
 
-            @if(!empty($art->image))
+            @if (!empty($art->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [
@@ -58,35 +58,35 @@
                 </tr>
             @endif
 
-            @if(!empty($art->name))
+            @if (!empty($art->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $art->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($art->artist))
+            @if (!empty($art->artist))
                 <tr>
                     <th>artist:</th>
                     <td>{{ $art->artist }}</td>
                 </tr>
             @endif
 
-            @if(!empty($art->summary))
+            @if (!empty($art->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $art->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($art->art_year))
+            @if (!empty($art->art_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $art->art_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($art->link))
+            @if (!empty($art->link))
                 <tr>
                     <th>{{ !empty($art->link_name) ? $art->link_name : 'link' }}:</th>
                     <td>
@@ -99,7 +99,7 @@
                 </tr>
             @endif
 
-            @if(!empty($art->description))
+            @if (!empty($art->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $art->description !!}</td>

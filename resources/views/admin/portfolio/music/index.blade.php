@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($musics->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $musics->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -76,10 +76,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -100,7 +100,7 @@
                 @forelse ($musics as $music)
 
                     <tr data-id="{{ $music->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $music->id ?? '' }}
                             </td>
@@ -133,7 +133,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($music, $admin))
+                                @if (canRead($music, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.music.show', $music),
@@ -141,7 +141,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($music, $admin))
+                                @if (canUpdate($music, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.music.edit', $music),
@@ -164,7 +164,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($music, $admin))
+                                @if (canDelete($music, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.music.destroy', $music) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -193,7 +193,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $musics->links('vendor.pagination.bulma') !!}
             @endif
 

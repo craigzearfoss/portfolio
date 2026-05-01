@@ -32,23 +32,23 @@
 @endphp
 <button
     type="{{ $type }}"
-    @if($id)
+    @if ($id)
        id="{{ $id }}"
     @endif
-    @if(!empty($class))
+    @if (!empty($class))
         class="{!! $class !!}"
     @endif
-    @if(!empty($style))
+    @if (!empty($style))
         style="{!! $style !!}"
     @endif
-    @if($value)
+    @if ($value)
         value="{!! $value !!}"
     @endif
-    @if($onclick)
+    @if ($onclick)
         onclick="{!! $onclick !!}"
     @endif
 >
-    @if($icon)
+    @if ($icon)
         <i class="fa {{ $icon }}"></i>
     @endif
     {!! $label !!}

@@ -9,7 +9,7 @@
         default => 'guest.index',
     };
 
-    $message = $exception->getMessage();
+    $message = !empty($exception) ? $exception->getMessage() : '';
 @endphp
 @extends($envType->value.'.layouts.empty', [
     'title' => '404 Not Found',
@@ -29,7 +29,7 @@
                     <div class="box has-text-centered">
                         <h1 class="title">404 Not Found</h1>
 
-                        @if(!empty($message))
+                        @if (!empty($message))
 
                             <p>
                                 {{ $message }}

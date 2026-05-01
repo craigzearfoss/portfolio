@@ -30,7 +30,7 @@
 @endphp
 <div class="property-list columns">
     <div class="column is-2 label">
-        @if(!empty($name))
+        @if (!empty($name))
             <strong>{!! $name !!}</strong>:
         @endif
     </div>
@@ -51,12 +51,12 @@
             ])
         </div>
         <div class="has-text-right">
-            @if(!empty($image_credit))
+            @if (!empty($image_credit))
                 <span class="mr-2">
                     <i>credit: {{ $image_credit ?? '' }}</i>
                 </span>
             @endif
-            @if(!empty($image_credit))
+            @if (!empty($image_credit))
                 <span>
                     <i> source: {{ $image_source ?? '' }}</i>
                 </span>

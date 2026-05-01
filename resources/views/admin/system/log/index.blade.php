@@ -98,7 +98,7 @@
                 'filename' => 'logs_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $loginAttempts->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -106,7 +106,7 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
                         <th>type</th>
@@ -120,7 +120,7 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>type</th>
@@ -176,7 +176,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $loginAttempts->links('vendor.pagination.bulma') !!}
             @endif
 

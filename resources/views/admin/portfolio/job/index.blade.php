@@ -50,7 +50,7 @@
 
             <p><i>{{ number_format($jobs->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $jobs->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -58,10 +58,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -77,10 +77,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>s
                             <th>owner</th>
                         @endif
@@ -101,7 +101,7 @@
                 @forelse ($jobs as $job)
 
                     <tr data-id="{{ $job->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $job->id ?? '' }}
                             </td>
@@ -138,7 +138,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($job, $admin))
+                                @if (canRead($job, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.job.show', $job),
@@ -146,7 +146,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($job, $admin))
+                                @if (canUpdate($job, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.job.edit', $job),
@@ -169,7 +169,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($job, $admin))
+                                @if (canDelete($job, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.job.destroy', $job) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -198,7 +198,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $jobs->links('vendor.pagination.bulma') !!}
             @endif
 

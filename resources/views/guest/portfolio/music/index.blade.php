@@ -26,8 +26,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $musics->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -131,7 +131,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $musics->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -39,7 +39,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @if(isRootAdmin())
+                @if (isRootAdmin())
                     @include('guest.components.form-checkbox', [
                         'name'            => 'is_root',
                         'label'           => 'root',

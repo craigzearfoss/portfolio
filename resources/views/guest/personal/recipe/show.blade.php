@@ -38,42 +38,42 @@
             <table>
                 <tbody>
 
-                @if(!empty($recipe->name))
+                @if (!empty($recipe->name))
                     <tr>
                         <th>name:</th>
                         <td>{{ $recipe->name }}</td>
                     </tr>
                 @endif
 
-                @if(!empty($recipe->summary))
+                @if (!empty($recipe->summary))
                     <tr>
                         <th>summary:</th>
                         <td>{!! $recipe->summary !!}</td>
                     </tr>
                @endif
 
-                @if(!empty($recipe->source))
+                @if (!empty($recipe->source))
                     <tr>
                         <th>source:</th>
                         <td>{{ $recipe->source }}</td>
                     </tr>
                @endif
 
-                @if(!empty($recipe->author))
+                @if (!empty($recipe->author))
                     <tr>
                         <th>author:</th>
                         <td>{{ $recipe->author }}</td>
                     </tr>
                @endif
 
-                @if(!empty($recipe->prep_time))
+                @if (!empty($recipe->prep_time))
                     <tr>
                         <th>prep time:</th>
                         <td>{{ $recipe->prep_time }} minutes</td>
                     </tr>
                @endif
 
-                @if(!empty($recipe->total_time))
+                @if (!empty($recipe->total_time))
                     <tr>
                         <th>total time:</th>
                         <td>{{ $recipe->total_time }} minutes</td>
@@ -83,7 +83,7 @@
                 @php
                     $types = $recipe->types();
                 @endphp
-                @if(!empty($types))
+                @if (!empty($types))
 
                 @endif
                 <tr>
@@ -94,14 +94,14 @@
                 @php
                     $meals = $recipe->meals();
                 @endphp
-                @if(!empty($meals))
+                @if (!empty($meals))
                     <tr>
                         <th>meal:</th>
                         <td>{{ implode(', ', $meals) }}</td>
                     </tr>
                 @endif
 
-                @if(!empty($recipe->link))
+                @if (!empty($recipe->link))
                     <tr>
                         <th>{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}:</th>
                         <td>
@@ -114,14 +114,14 @@
                     </tr>
                 @endif
 
-                @if(!empty($recipe->description))
+                @if (!empty($recipe->description))
                     <tr>
                         <th>description:</th>
                         <td>{!! $recipe->description !!}</td>
                     </tr>
                 @endif
 
-                @if(!empty($recipe->image))
+                @if (!empty($recipe->image))
                     <tr>
                         <td colspan="2">
                             @include('guest.components.image-credited', [
@@ -158,7 +158,7 @@
                         {!! $ingredient->amount !!}
                         {!! \App\Models\Personal\Unit::find($ingredient->unit_id)->name !!}
                         {!! \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name !!}
-                        @if(!empty($ingredient->qualifier))
+                        @if (!empty($ingredient->qualifier))
                             - {!! $ingredient->qualifier !!}
                         @endif
                     </li>

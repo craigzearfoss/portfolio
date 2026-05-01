@@ -36,20 +36,20 @@
         <table>
             <tbody>
 
-            @if(!empty($video->embed))
+            @if (!empty($video->embed))
                 <tr>
                     <td colspan="2">{!! $video->embed !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->name))
+            @if (!empty($video->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $video->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->parent))
+            @if (!empty($music->parent))
                 <tr>
                     <th>parent:</th>
                     <td>
@@ -61,14 +61,14 @@
                 </tr>
             @endif
 
-            @if(!empty($video->summary))
+            @if (!empty($video->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $video->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->children) && (count($video->children) > 0))
+            @if (!empty($video->children) && (count($video->children) > 0))
                 <tr>
                     <th>children:</th>
                     <td>
@@ -86,7 +86,7 @@
                 </tr>
             @endif
 
-            @if(!empty($video->full_episode))
+            @if (!empty($video->full_episode))
                 <tr>
                     <th>full episode:</th>
                     <td>
@@ -97,7 +97,7 @@
                 </tr>
             @endif
 
-            @if(!empty($video->clip))
+            @if (!empty($video->clip))
                 <tr>
                     <th>clip:</th>
                     <td>
@@ -108,7 +108,7 @@
                 </tr>
             @endif
 
-            @if(!empty($video->public_access))
+            @if (!empty($video->public_access))
                 <tr>
                     <th>public access:</th>
                     <td>
@@ -119,7 +119,7 @@
                 </tr>
             @endif
 
-            @if(!empty($video->source_recording))
+            @if (!empty($video->source_recording))
                 <tr>
                     <th>source recording:</th>
                     <td>
@@ -130,49 +130,49 @@
                 </tr>
             @endif
 
-            @if(!empty($video->date))
+            @if (!empty($video->date))
                 <tr>
                     <th>date:</th>
                     <td>{{ longDate($video->date) }}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->video_year))
+            @if (!empty($video->video_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $video->video_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->company))
+            @if (!empty($video->company))
                 <tr>
                     <th>company:</th>
                     <td>{{ $video->company }}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->credit))
+            @if (!empty($video->credit))
                 <tr>
                     <th>credit:</th>
                     <td>{{ $video->credit }}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->show))
+            @if (!empty($video->show))
                 <tr>
                     <th>show:</th>
                     <td>{{ $video->show }}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->location))
+            @if (!empty($video->location))
                 <tr>
                     <th>location:</th>
                     <td>{{ $video->location }}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->video_url))
+            @if (!empty($video->video_url))
                 <tr>
                     <th>video url:</th>
                     <td>
@@ -184,7 +184,7 @@
                 </tr>
             @endif
 
-            @if(!empty($video->link))
+            @if (!empty($video->link))
                 <tr>
                     <th>{{ !empty($video->link_name) ? $video->link_name : 'link' }}:</th>
                     <td>
@@ -197,14 +197,14 @@
                 </tr>
             @endif
 
-            @if(!empty($video->description))
+            @if (!empty($video->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $video->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($video->image))
+            @if (!empty($video->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

@@ -36,56 +36,56 @@
         <table>
             <tbody>
 
-            @if(!empty($award->name))
+            @if (!empty($award->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $award->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->category))
+            @if (!empty($award->category))
                 <tr>
                     <th>category:</th>
                     <td>{{ $award->category }}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->nominated_work))
+            @if (!empty($award->nominated_work))
                 <tr>
                     <th>nominated work:</th>
                     <td>{{ $award->nominated_work }}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->summary))
+            @if (!empty($award->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $award->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->award_year))
+            @if (!empty($award->award_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $award->award_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->received))
+            @if (!empty($award->received))
                 <tr>
                     <th>date received:</th>
                     <td>{{ $award->received }}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->organization))
+            @if (!empty($award->organization))
                 <tr>
                     <th>organization:</th>
                     <td>{{ $award->organization }}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->link))
+            @if (!empty($award->link))
                 <tr>
                     <th>{{ !empty($award->link_name) ? $award->link_name : 'link' }}:</th>
                     <td>
@@ -98,14 +98,14 @@
                 </tr>
             @endif
 
-            @if(!empty($award->description))
+            @if (!empty($award->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $award->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($award->image))
+            @if (!empty($award->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

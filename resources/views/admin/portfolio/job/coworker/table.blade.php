@@ -3,12 +3,14 @@
 @endphp
 <table class="table admin-table coworker-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>name</th>
-    <th style="min-width: 6em;">title</th>
-    <th>level</th>
-    <th>phone</th>
-    <th>email</th>
-    <th>actions</th>
+    <tr>
+        <th>name</th>
+        <th style="min-width: 6em;">title</th>
+        <th>level</th>
+        <th>phone</th>
+        <th>email</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -37,7 +39,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($coworker, $admin))
+                    @if (canRead($coworker, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.portfolio.job-coworker.show', [
@@ -48,7 +50,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($coworker, $admin))
+                    @if (canUpdate($coworker, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.portfolio.job-coworker.edit', [
@@ -59,7 +61,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($coworker, $admin))
+                    @if (canDelete($coworker, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.portfolio.job-coworker.destroy', $coworker) !!}"
                               method="POST">

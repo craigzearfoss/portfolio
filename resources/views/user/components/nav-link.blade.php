@@ -2,7 +2,7 @@
     $class = !empty($class) ? (is_array($class) ? implode(' ', $class) : $class) : 'is-small is-dark my-0';
     $style = !empty($style) ? (is_array($style) ? implode('; ', $style) : $style) : '';
 @endphp
-@if(empty($href))
+@if (empty($href))
     <span class="{!! $class !!}"
           @if (!empty($style))
               style="{!! $style !!}"

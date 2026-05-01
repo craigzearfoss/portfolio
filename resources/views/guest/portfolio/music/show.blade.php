@@ -36,27 +36,27 @@
         <table>
             <tbody>
 
-            @if(!empty($music->embed))
+            @if (!empty($music->embed))
                 <tr>
                     <td colspan="2">{!! $music->embed !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->name))
+            @if (!empty($music->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $music->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->artist))
+            @if (!empty($music->artist))
                 <tr>
                     <th>artist:</th>
                     <td>{{ $music->artist }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->parent))
+            @if (!empty($music->parent))
                 <tr>
                     <th>parent:</th>
                     <td>
@@ -68,14 +68,14 @@
                 </tr>
             @endif
 
-            @if(!empty($music->summary))
+            @if (!empty($music->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $music->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->children) && (count($music->children) > 0))
+            @if (!empty($music->children) && (count($music->children) > 0))
                 <tr>
                     <th>children:</th>
                     <td>
@@ -93,7 +93,7 @@
                 </tr>
             @endif
 
-            @if(!empty($music->collection))
+            @if (!empty($music->collection))
                 <tr>
                     <th>collection:</th>
                     <td>
@@ -104,7 +104,7 @@
                 </tr>
             @endif
 
-            @if(!empty($music->track))
+            @if (!empty($music->track))
                 <tr>
                     <th>track:</th>
                     <td>
@@ -115,35 +115,35 @@
                 </tr>
             @endif
 
-            @if(!empty($music->label))
+            @if (!empty($music->label))
                 <tr>
                     <th>label:</th>
                     <td>{{ $music->label }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->catalog_number))
+            @if (!empty($music->catalog_number))
                 <tr>
                     <th>catalog number:</th>
                     <td>{{ $music->catalog_number }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->music_year))
+            @if (!empty($music->music_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $music->music_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->release_date))
+            @if (!empty($music->release_date))
                 <tr>
                     <th>release date:</th>
                     <td>{{ longDate($music->release_date) }}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->audio_url))
+            @if (!empty($music->audio_url))
                 <tr>
                     <th>audio url:</th>
                     <td>
@@ -156,7 +156,7 @@
                 </tr>
             @endif
 
-            @if(!empty($music->link))
+            @if (!empty($music->link))
                 <tr>
                     <th>{{ !empty($music->link_name) ? $music->link_name : 'link' }}:</th>
                     <td>
@@ -168,14 +168,14 @@
                 </tr>
             @endif
 
-            @if(!empty($music->description))
+            @if (!empty($music->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $music->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($music->image))
+            @if (!empty($music->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

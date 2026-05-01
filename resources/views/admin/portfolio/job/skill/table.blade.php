@@ -3,9 +3,11 @@
 @endphp
 <table class="table admin-table skill-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>name</th>
-    <th>category</th>
-    <th>actions</th>
+    <tr>
+        <th>name</th>
+        <th>category</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -16,7 +18,7 @@
                 {!! $skill->name !!}
             </td>
             <td data-field="dictionary_category_id">
-                 @if(!empty($skill->category->name))
+                 @if (!empty($skill->category->name))
                      {!! $skill->category->name !!}
                  @endif
             </td>
@@ -24,7 +26,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($skill, $admin))
+                    @if (canRead($skill, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.portfolio.job-skill.show', [
@@ -35,7 +37,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($skill, $admin))
+                    @if (canUpdate($skill, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.portfolio.job-skill.edit', [
@@ -46,7 +48,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($skill, $admin))
+                    @if (canDelete($skill, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.portfolio.job-skill.destroy', $skill) !!}"
                               method="POST">

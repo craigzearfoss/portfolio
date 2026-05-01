@@ -52,7 +52,7 @@
 
             <p><i>{{ number_format($arts->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $arts->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -60,10 +60,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -87,10 +87,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -109,7 +109,7 @@
                 @forelse ($arts as $art)
 
                     <tr data-id="{{ $art->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $art->id ?? '' }}
                             </td>
@@ -136,7 +136,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($art, $admin))
+                                @if (canRead($art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.art.show', $art),
@@ -144,7 +144,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($art, $admin))
+                                @if (canUpdate($art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.art.edit', $art),
@@ -167,7 +167,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($art, $admin))
+                                @if (canDelete($art, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.art.destroy', $art) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -196,7 +196,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $arts->links('vendor.pagination.bulma') !!}
             @endif
 

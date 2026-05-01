@@ -85,21 +85,21 @@
                 'value' => $skill->category->name
             ])
 
-            @if(!empty($skill->start_year))
+            @if (!empty($skill->start_year))
                 @include('admin.components.show-row', [
                     'name'  => 'start year',
                     'value' => $skill->start_year
                 ])
             @endif
 
-            @if(!empty($skill->end_year))
+            @if (!empty($skill->end_year))
                 @include('admin.components.show-row', [
                     'name'  => 'end year',
                     'value' => $skill->end_year
                 ])
             @endif
 
-            @if(!empty($skill->years))
+            @if (!empty($skill->years))
                 @include('admin.components.show-row', [
                     'name'  => 'years',
                     'value' => $skill->years

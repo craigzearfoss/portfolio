@@ -36,42 +36,42 @@
         <table>
             <tbody>
 
-            @if(!empty($project->name))
+            @if (!empty($project->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $project->name }}</td>
                 </tr>
            @endif
 
-            @if(!empty($project->summary))
+            @if (!empty($project->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $project->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($project->project_year))
+            @if (!empty($project->project_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $project->project_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($project->language))
+            @if (!empty($project->language))
                 <tr>
                     <th>language:</th>
                     <td>{{ $project->language }}</td>
                 </tr>
             @endif
 
-            @if(!empty($project->language_version))
+            @if (!empty($project->language_version))
                 <tr>
                     <th>language version:</th>
                     <td>{{ $project->language_version }}</td>
                 </tr>
             @endif
 
-            @if(!empty($project->repository_url))
+            @if (!empty($project->repository_url))
                 <tr>
                     <th>repository:</th>
                     <td>
@@ -84,7 +84,7 @@
                 </tr>
             @endif
 
-            @if(!empty($project->link))
+            @if (!empty($project->link))
                 <tr>
                     <th>{{ !empty($project->link_name) ? $project->link_name : 'link' }}:</th>
                     <td>
@@ -96,14 +96,14 @@
                 </tr>
             @endif
 
-            @if(!empty($project->description))
+            @if (!empty($project->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $project->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($project->image))
+            @if (!empty($project->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

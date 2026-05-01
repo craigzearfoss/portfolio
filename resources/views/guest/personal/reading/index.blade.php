@@ -28,8 +28,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -40,7 +40,7 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $readings->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -116,7 +116,7 @@
                             }}
                         </td>
                         <td data-field="publication_year" class="has-text-centered hide-at-600" style="white-space: nowrap;">
-                            @if($reading->publication_year < 0)
+                            @if ($reading->publication_year < 0)
                                 {{ abs($reading->publication_year) }} BCE
                             @else
                                 {{ $reading->publication_year }}
@@ -145,7 +145,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $readings->links('vendor.pagination.bulma') !!}
             @endif
 

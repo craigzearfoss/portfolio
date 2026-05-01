@@ -57,7 +57,7 @@
 
             <p><i>{{ number_format($allUsers->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $allUsers->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -65,10 +65,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -84,10 +84,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -108,7 +108,7 @@
                 @forelse ($allUsers as $thisUser)
 
                     <tr data-id="{{ $thisUser->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $thisUser->id ?? '' }}
                             </td>
@@ -123,7 +123,7 @@
                             {!! $thisUser->label !!}
                         </td>
                         <td data-field="user_team_id" style="white-space: nowrap;">
-                            @if(!empty($thisUser->user_team_id))
+                            @if (!empty($thisUser->user_team_id))
                                 @include('admin.components.link', [
                                     'name' => $thisUser->team->name ?? '',
                                     'href' => route('admin.system.user-team.show',
@@ -148,7 +148,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($thisUser, $admin))
+                                @if (canRead($thisUser, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.user.show', $thisUser),
@@ -156,7 +156,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($thisUser, $admin))
+                                @if (canUpdate($thisUser, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.user.edit', $thisUser),
@@ -179,7 +179,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($thisUser, $admin))
+                                @if (canDelete($thisUser, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.user.destroy', $thisUser) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -208,7 +208,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $allUsers->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -50,7 +50,7 @@
 
             <p><i>{{ number_format($educations->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $educations->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -58,10 +58,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -77,10 +77,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -101,7 +101,7 @@
                 @forelse ($educations as $education)
 
                     <tr data-id="{{ $education->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $education->id ?? '' }}
                             </td>
@@ -134,7 +134,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($education, $admin))
+                                @if (canRead($education, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.education.show', $education),
@@ -142,7 +142,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($education, $admin))
+                                @if (canUpdate($education, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.education.edit', $education),
@@ -165,7 +165,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($education, $admin))
+                                @if (canDelete($education, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.education.destroy', $education) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -194,7 +194,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $educations->links('vendor.pagination.bulma') !!}
             @endif
 

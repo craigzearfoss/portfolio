@@ -26,8 +26,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -88,7 +88,7 @@
 
                     <tr>
                         <td>
-                            @if($skill->featured)
+                            @if ($skill->featured)
                                 <strong>{!! $skill->name !!}</strong>
                             @else
                                 {!! $skill->name !!}
@@ -98,7 +98,7 @@
                             {!! $skill->category->name ?? '' !!}
                         </td>
                         <td data-field="level" style="white-space: nowrap;" class="font-size-12px-at-480 font-size-14px-at-600">
-                            @if(!empty($skill->level))
+                            @if (!empty($skill->level))
                                 @include('guest.components.star-ratings', [
                                     'rating' => $skill->level,
                                     'label'  => "({$skill->level})"

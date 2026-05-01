@@ -41,7 +41,7 @@
 
                     @foreach ($envSettings as $i=>$setting)
 
-                        @if($i > 0)<br>@endif
+                        @if ($i > 0)<br>@endif
 
                         {{$setting . PHP_EOL}}
 

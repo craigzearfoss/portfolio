@@ -1,5 +1,5 @@
 @php
-    $message = $exception->getMessage();
+    $message = !empty($exception) ? $exception->getMessage() : '';
 @endphp
 @extends('guest.layouts.blank', [
     'title' => '503 Service Unavailable',
@@ -18,7 +18,7 @@
                 <div class="column is-three-fifths is-offset-one-fifth">
                     <div class="box has-text-centered">
 
-                        @if(!empty($message))
+                        @if (!empty($message))
 
                             <p>
                                 {{ $message }}

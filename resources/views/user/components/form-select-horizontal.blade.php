@@ -37,11 +37,11 @@
     <div class="field-label">
 
         <label
-            @if($id)
+            @if ($id)
                 for="{{ $id }}"
             @endif
             class="{{ implode(' ', $labelClass) }}"
-            @if($title)
+            @if ($title)
                 title="{{ $title }}"
             @endif
         >{!! $label !!}</label>

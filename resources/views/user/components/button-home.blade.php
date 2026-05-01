@@ -11,10 +11,10 @@
     $styles = $styles ?? [];
 @endphp
 <a href="{{ $href ?? route('guest.index') }}"
-   @if(!empty($classes))
+   @if (!empty($classes))
        class="{{ implode(' ', $classes) }}"
    @endif
-   @if(!empty($styles))
+   @if (!empty($styles))
        style="{{ implode('; ', $styles) }};"
    @endif
 >

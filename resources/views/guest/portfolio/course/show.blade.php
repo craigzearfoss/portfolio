@@ -36,28 +36,28 @@
         <table>
             <tbody>
 
-            @if(!empty($course->name))
+            @if (!empty($course->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $course->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->summary))
+            @if (!empty($course->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $course->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->course_year))
+            @if (!empty($course->course_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $course->course_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->completed))
+            @if (!empty($course->completed))
                 <tr>
                     <th>completed:</th>
                     <td>
@@ -68,21 +68,21 @@
                 </tr>
             @endif
 
-            @if(!empty($course->completion_date))
+            @if (!empty($course->completion_date))
                 <tr>
                     <th>completion date:</th>
                     <td>{{ longDate($course->completion_date) }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->duration_hours))
+            @if (!empty($course->duration_hours))
                 <tr>
                     <th>duration:</th>
                     <td>{{ $course->duration_hours }} {{ $course->duration_hour ? 'hour' : 'hours' }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->academy))
+            @if (!empty($course->academy))
                 <tr>
                     <th>academy:</th>
                     <td>
@@ -95,28 +95,28 @@
                 </tr>
             @endif
 
-            @if(!empty($course->school))
+            @if (!empty($course->school))
                 <tr>
                     <th>school:</th>
                     <td>{{ $course->school }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->instructor))
+            @if (!empty($course->instructor))
                 <tr>
                     <th>instructor:</th>
                     <td>{{ $course->instructor }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->sponsor))
+            @if (!empty($course->sponsor))
                 <tr>
                     <th>sponsor:</th>
                     <td>{{ $course->sponsor }}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->certificate_url))
+            @if (!empty($course->certificate_url))
                 <tr>
                     <th>certificate url:</th>
                     <td>
@@ -132,7 +132,7 @@
                 </tr>
             @endif
 
-            @if(!empty($course->link))
+            @if (!empty($course->link))
                 <tr>
                     <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
                     <td>
@@ -145,14 +145,14 @@
                 </tr>
             @endif
 
-            @if(!empty($course->description))
+            @if (!empty($course->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $course->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($course->image))
+            @if (!empty($course->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

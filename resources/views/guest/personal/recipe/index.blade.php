@@ -28,8 +28,8 @@
 
     @include('guest.components.search-panel.personal-recipe', [ 'owner_id' => $owner->id ?? null ])
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -109,7 +109,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $recipes->links('vendor.pagination.bulma') !!}
             @endif
 

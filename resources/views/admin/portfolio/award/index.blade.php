@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($awards->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $awards->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -75,10 +75,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -98,7 +98,7 @@
                 @forelse ($awards as $award)
 
                     <tr data-id="{{ $award->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $award->id ?? '' }}
                             </td>
@@ -128,7 +128,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($award, $admin))
+                                @if (canRead($award, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.award.show', $award),
@@ -136,7 +136,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($award, $admin))
+                                @if (canUpdate($award, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.award.edit', $award),
@@ -159,7 +159,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($award, $admin))
+                                @if (canDelete($award, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.award.destroy', $award) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -188,7 +188,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $awards->links('vendor.pagination.bulma') !!}
             @endif
 

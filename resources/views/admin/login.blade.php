@@ -35,7 +35,7 @@
 
         @else
 
-            @if(config('app.demo_admin_autologin'))
+            @if (config('app.demo_admin_autologin'))
                 @include('admin.components.partials.show-demo-admin-username-and-password')
             @endif
 

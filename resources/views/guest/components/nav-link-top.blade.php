@@ -16,7 +16,7 @@
         $styles[] = 'padding: 0.3rem';
     }
 @endphp
-@if(empty($href))
+@if (empty($href))
     <span
         @if(!empty($classes))
             class="{!! implode(' ', $classes)  !!}"

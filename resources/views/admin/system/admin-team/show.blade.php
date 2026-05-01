@@ -98,14 +98,16 @@
 
                 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                     <thead>
-                    <th>username</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th></th>
+                    <tr>
+                        <th>username</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
 
-                    @if(!empty($adminTeam->members))
+                    @if (!empty($adminTeam->members))
 
                         @foreach($adminTeam->members as $member)
 

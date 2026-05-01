@@ -30,7 +30,7 @@
 @endphp
 <div class="property-list columns">
     <div class="column is-2 label">
-        @if(!empty($name))
+        @if (!empty($name))
             <strong>{!! $name !!}</strong>:
         @endif
     </div>

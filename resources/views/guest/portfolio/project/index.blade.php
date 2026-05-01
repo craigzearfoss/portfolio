@@ -26,8 +26,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $projects->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -108,7 +108,7 @@
                             {!! $project->project_year !!}
                         </td>
                         <td data-field="year" class="hide-at-1024" style="white-space: nowrap;">
-                            @if(!empty($project->repository_url))
+                            @if (!empty($project->repository_url))
                                 @include('guest.components.link', [
                                     'name'   => $project->repository_name,
                                     'href'   => $project->repository_url,
@@ -130,7 +130,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $projects->links('vendor.pagination.bulma') !!}
             @endif
 

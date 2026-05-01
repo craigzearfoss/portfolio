@@ -46,7 +46,7 @@
                 'value' => referer('admin.portfolio.art.index')
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

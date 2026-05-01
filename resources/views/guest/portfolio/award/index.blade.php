@@ -26,8 +26,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $awards->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -106,7 +106,7 @@
                             ])
                         </td>
                         <td style="white-space: nowrap;">
-                            @if(!empty($award->category))
+                            @if (!empty($award->category))
                                 @include('guest.components.link', [
                                     'name'  => $award->category,
                                     'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
@@ -137,7 +137,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $awards->links('vendor.pagination.bulma') !!}
             @endif
 

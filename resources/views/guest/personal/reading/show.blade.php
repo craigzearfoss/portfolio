@@ -36,21 +36,21 @@
         <table>
             <tbody>
 
-            @if(!empty($reading->title))
+            @if (!empty($reading->title))
                 <tr>
                     <th>title:</th>
                     <td>{{ $reading->title }}</td>
                 </tr>
             @endif
 
-            @if(!empty($reading->author))
+            @if (!empty($reading->author))
                 <tr>
                     <th>author:</th>
                     <td>{{ $reading->author }}</td>
                 </tr>
            @endif
 
-            @if(!empty($reading->publication_year))
+            @if (!empty($reading->publication_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $reading->publication_year }}</td>
@@ -62,7 +62,7 @@
                 <td>{{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction': '') }}</td>
             </tr>
 
-            @if(!empty($reading->paper))
+            @if (!empty($reading->paper))
                 <tr>
                     <th>paper:</th>
                     <td>
@@ -74,7 +74,7 @@
                 </tr>
             @endif
 
-            @if(!empty($reading->audio))
+            @if (!empty($reading->audio))
                 <tr>
                     <th>audio:</th>
                     <td>
@@ -86,7 +86,7 @@
                 </tr>
             @endif
 
-            @if(!empty($reading->wishlist))
+            @if (!empty($reading->wishlist))
                 <tr>
                     <th>wishlist:</th>
                     <td>
@@ -98,7 +98,7 @@
                 </tr>
             @endif
 
-            @if(!empty($reading->link))
+            @if (!empty($reading->link))
                 <tr>
                     <th>{{ !empty($reading->link_name) ? $reading->link_name : 'link' }}:</th>
                     <td>
@@ -111,14 +111,14 @@
                 </tr>
             @endif
 
-            @if(!empty($reading->description))
+            @if (!empty($reading->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $reading->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($reading->image))
+            @if (!empty($reading->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

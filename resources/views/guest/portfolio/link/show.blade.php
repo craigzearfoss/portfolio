@@ -36,21 +36,21 @@
         <table>
             <tbody>
 
-            @if(!empty($link->name))
+            @if (!empty($link->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $link->name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($link->summary))
+            @if (!empty($link->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $link->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($link->url))
+            @if (!empty($link->url))
                 <tr>
                     <th>url:</th>
                     <td>
@@ -63,7 +63,7 @@
                 </tr>
             @endif
 
-            @if(!empty($link->link))
+            @if (!empty($link->link))
                 <tr>
                     <th>{{ !empty($link->link_name) ? $link->link_name : 'link' }}:</th>
                     <td>
@@ -76,14 +76,14 @@
                 </tr>
             @endif
 
-            @if(!empty($link->description))
+            @if (!empty($link->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $link->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($link->image))
+            @if (!empty($link->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

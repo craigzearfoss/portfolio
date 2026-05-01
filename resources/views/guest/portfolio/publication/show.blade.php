@@ -36,14 +36,14 @@
         <table>
             <tbody>
 
-            @if(!empty($publication->title))
+            @if (!empty($publication->title))
                 <tr>
                     <th>name:</th>
                     <td>{{ $publication->title }}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->parent))
+            @if (!empty($publication->parent))
                 <tr>
                     <th>parent:</th>
                     <td>
@@ -55,14 +55,14 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->summary))
+            @if (!empty($publication->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $publication->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->children) && (count($publication->children) > 0))
+            @if (!empty($publication->children) && (count($publication->children) > 0))
                 <tr>
                     <th>children:</th>
                     <td>
@@ -80,42 +80,42 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->publication_name))
+            @if (!empty($publication->publication_name))
                 <tr>
                     <th>publication name:</th>
                     <td>{{ $publication->publication_name }}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->publisher))
+            @if (!empty($publication->publisher))
                 <tr>
                     <th>publisher:</th>
                     <td>{{ $publication->publisher }}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->publication_date))
+            @if (!empty($publication->publication_date))
                 <tr>
                     <th>publication date:</th>
                     <td>{{ longDate($publication->publication_date) }}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->publication_year))
+            @if (!empty($publication->publication_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $publication->publication_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->credit))
+            @if (!empty($publication->credit))
                 <tr>
                     <th>credit:</th>
                     <td>{{ $publication->credit }}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->freelance))
+            @if (!empty($publication->freelance))
                 <tr>
                     <th>freelance:</th>
                     <td>
@@ -126,7 +126,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->fiction))
+            @if (!empty($publication->fiction))
                 <tr>
                     <th>fiction:</th>
                     <td>
@@ -137,7 +137,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->nonfiction))
+            @if (!empty($publication->nonfiction))
                 <tr>
                     <th>nonfiction:</th>
                     <td>
@@ -148,7 +148,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->technical))
+            @if (!empty($publication->technical))
                 <tr>
                     <th>technical:</th>
                     <td>
@@ -159,7 +159,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->research))
+            @if (!empty($publication->research))
                 <tr>
                     <th>research:</th>
                     <td>
@@ -170,7 +170,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->poetry))
+            @if (!empty($publication->poetry))
                 <tr>
                     <th>poetry:</th>
                     <td>
@@ -181,7 +181,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->online))
+            @if (!empty($publication->online))
                 <tr>
                     <th>online:</th>
                     <td>
@@ -192,7 +192,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->novel))
+            @if (!empty($publication->novel))
                 <tr>
                     <th>novel:</th>
                     <td>
@@ -203,7 +203,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->book))
+            @if (!empty($publication->book))
                 <tr>
                     <th>book:</th>
                     <td>
@@ -214,7 +214,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->textbook))
+            @if (!empty($publication->textbook))
                 <tr>
                     <th>textbook:</th>
                     <td>
@@ -225,7 +225,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->story))
+            @if (!empty($publication->story))
                 <tr>
                     <th>story:</th>
                     <td>
@@ -236,7 +236,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->article))
+            @if (!empty($publication->article))
                 <tr>
                     <th>article:</th>
                     <td>
@@ -247,7 +247,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->pamphlet))
+            @if (!empty($publication->pamphlet))
                 <tr>
                     <th>pamphlet:</th>
                     <td>
@@ -258,7 +258,7 @@
                 </tr>
             @endif
 
-            @if(!empty($certificate->publication_url))
+            @if (!empty($certificate->publication_url))
                 <tr>
                     <th>publication url:</th>
                     <td>
@@ -271,7 +271,7 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->link))
+            @if (!empty($publication->link))
                 <tr>
                     <th>{{ !empty($publication->link_name) ? $publication->link_name : 'link' }}:</th>
                     <td>
@@ -283,14 +283,14 @@
                 </tr>
             @endif
 
-            @if(!empty($publication->description))
+            @if (!empty($publication->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $publication->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($publication->image))
+            @if (!empty($publication->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

@@ -46,7 +46,7 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if(!empty($userTeam->owner))
+            @if (!empty($userTeam->owner))
                 @include('admin.components.show-row-link', [
                     'name' => 'owner',
                     'label' => $userTeam->owner->username,
@@ -102,14 +102,16 @@
 
                 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                     <thead>
-                    <th>username</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th></th>
+                    <tr>
+                        <th>username</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
 
-                    @if(!empty($userTeam->members))
+                    @if (!empty($userTeam->members))
 
                         @foreach($userTeam->members as $member)
 

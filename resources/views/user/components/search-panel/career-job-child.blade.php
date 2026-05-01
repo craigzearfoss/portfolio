@@ -23,7 +23,7 @@
 
                     <div class="floating-div">
 
-                        @if(!empty($owner))
+                        @if (!empty($owner))
 
                             @php
                                 $jobs = new Job()->listOptions(
@@ -42,7 +42,7 @@
                             @endphp
 
                             <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
-                            @if(count($jobs) > 1)
+                            @if (count($jobs) > 1)
                                 <div class="control">
                                     @include('user.components.form-select', [
                                         'name'     => 'job_id',

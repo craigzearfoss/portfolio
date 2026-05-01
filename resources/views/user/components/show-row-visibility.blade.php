@@ -33,10 +33,10 @@
         'is_demo'     => 'demo',
     ];
 @endphp
-<div @if(!empty($classes))
+<div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
-     @if(!empty($styles))
+     @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
@@ -50,7 +50,7 @@
 
                 @foreach($columns as $column=>$label)
 
-                    @if($resource->hasAttribute($column))
+                    @if ($resource->hasAttribute($column))
 
                         <div class="show-container card floating-div">
                             <span>
@@ -63,7 +63,7 @@
 
                 @endforeach
 
-                @if($resource->hasAttribute('sequence'))
+                @if ($resource->hasAttribute('sequence'))
 
                     <div class="item show-container card floating-div">
                         <span><strong>sequence:</strong></span>

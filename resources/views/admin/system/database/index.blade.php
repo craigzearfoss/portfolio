@@ -38,7 +38,7 @@
 
             <p><i>{{ number_format($databases->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -46,7 +46,7 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
                         <th>id</th>
@@ -70,7 +70,7 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>id</th>
@@ -103,7 +103,7 @@
                             {{ $database->id ?? '' }}
                         </td>
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            @if(!empty($database->owner))
+                            @if (!empty($database->owner))
                                 @include('admin.components.link', [
                                     'name' => $database->owner->username,
                                     'href' => route('admin.system.admin.show', $database->owner)
@@ -163,7 +163,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($database, $admin))
+                                @if (canRead($database, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.database.show', $database),
@@ -171,7 +171,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($database, $admin))
+                                @if (canUpdate($database, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.database.edit', $database),
@@ -196,7 +196,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -44,7 +44,7 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if(!empty($userPhone->user))
+            @if (!empty($userPhone->user))
                 @include('admin.components.show-row-link', [
                     'name' => 'user',
                     'label' => $userPhone->user->username,

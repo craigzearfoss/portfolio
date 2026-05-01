@@ -36,35 +36,35 @@
         <table>
             <tbody>
 
-            @if(!empty($certificate->name))
+            @if (!empty($certificate->name))
                 <tr>
                     <th>name:</th>
                     <td>{{ $certificate->name }}</td>
                 </tr>
            @endif
 
-            @if(!empty($certificate->summary))
+            @if (!empty($certificate->summary))
                 <tr>
                     <th>summary:</th>
                     <td>{!! $certificate->summary !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($certificate->organization))
+            @if (!empty($certificate->organization))
                 <tr>
                     <th>organization:</th>
                     <td>{{ $certificate->organization }}</td>
                 </tr>
             @endif
 
-            @if(!empty($certificate->certificate_year))
+            @if (!empty($certificate->certificate_year))
                 <tr>
                     <th>year:</th>
                     <td>{{ $certificate->certificate_year }}</td>
                 </tr>
             @endif
 
-            @if(!empty($certificate->academy))
+            @if (!empty($certificate->academy))
                 <tr>
                     <th>academy:</th>
                     <td>
@@ -77,7 +77,7 @@
                 </tr>
             @endif
 
-            @if(!empty($certificate->certificate_url))
+            @if (!empty($certificate->certificate_url))
                 <tr>
                     <th>certificate url:</th>
                     <td>
@@ -93,7 +93,7 @@
                 </tr>
             @endif
 
-            @if(!empty($certificate->link))
+            @if (!empty($certificate->link))
                 <tr>
                     <th>{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}:</th>
                     <td>
@@ -106,14 +106,14 @@
                 </tr>
             @endif
 
-            @if(!empty($certificate->description))
+            @if (!empty($certificate->description))
                 <tr>
                     <th>description:</th>
                     <td>{!! $certificate->description !!}</td>
                 </tr>
             @endif
 
-            @if(!empty($certificate->image))
+            @if (!empty($certificate->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

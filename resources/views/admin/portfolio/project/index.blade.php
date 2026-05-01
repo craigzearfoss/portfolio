@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($projects->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $projects->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -75,10 +75,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -97,7 +97,7 @@
 
                 @forelse ($projects as $project)
                     <tr data-id="{{ $project->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $project->id ?? '' }}
                             </td>
@@ -118,7 +118,7 @@
                             {!! $project->project_year !!}
                         </td>
                         <td data-field="repository_url" style="white-space: nowrap;">
-                            @if(!empty($project->repository_url))
+                            @if (!empty($project->repository_url))
                                 @include('admin.components.link', [
                                     'name'   => $project->repository_name ?? '',
                                     'href'   => $project->repository_url,
@@ -136,7 +136,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($project, $admin))
+                                @if (canRead($project, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.project.show', $project),
@@ -144,7 +144,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($project, $admin))
+                                @if (canUpdate($project, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.project.edit', $project),
@@ -167,7 +167,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($project, $admin))
+                                @if (canDelete($project, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.project.destroy', $project) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -196,7 +196,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $projects->links('vendor.pagination.bulma') !!}
             @endif
 

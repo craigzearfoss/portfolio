@@ -39,7 +39,7 @@
                 'value' => referer('admin.system.admin-email.index')
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'user_id',
                     'label'    => 'user',
@@ -51,7 +51,7 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'user_id',
-                    'value' => Auth::guard('user')->user()->id
+                    'value' => $admin->id ?? null,
                 ])
             @endif
 

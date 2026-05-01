@@ -26,8 +26,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -39,7 +39,7 @@
             @forelse ($jobs as $i=>$job)
 
                 <div class="list-item-content mb-3 border-bottom is-flex"
-                     @if($i > 0)
+                     @if ($i > 0)
                          style="border-top:#eee 1px inset; padding-top: 0.4em; max-width: 900px;"
                     @else
                          style="max-width: 900px;"
@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="list-item-description pt-1">
-                            @if(!empty($job->tasks))
+                            @if (!empty($job->tasks))
                                 <ul>
                                     @foreach($job->tasks as $task)
                                         <li>• {!! $task->summary !!}</li>
@@ -109,7 +109,7 @@
                             @endif
                         </div>
 
-                        @if($job->skills->count() > 0)
+                        @if ($job->skills->count() > 0)
 
                             <div class="list-item-description pt-2">
                                 <strong>Skills:</strong>

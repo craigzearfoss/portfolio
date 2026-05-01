@@ -35,7 +35,7 @@
 
         @else
 
-            @if(config('app.demo_user_autologin'))
+            @if (config('app.demo_user_autologin'))
 
                 <div class="p-2 has-text-centered">
                     <p class="mb-1">

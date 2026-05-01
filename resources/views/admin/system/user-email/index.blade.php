@@ -48,7 +48,7 @@
 
             <p><i>{{ number_format($userEmails->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -56,10 +56,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owning user</th>
                         @endif
@@ -71,10 +71,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owning user</th>
                         @endif
@@ -91,7 +91,7 @@
                 @forelse ($userEmails as $userEmail)
 
                     <tr data-id="{{ $userEmail->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $userEmail->id ?? '' }}
                             </td>
@@ -112,7 +112,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($userEmail, $admin))
+                                @if (canRead($userEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.user-email.show', $userEmail),
@@ -120,7 +120,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($userEmail, $admin))
+                                @if (canUpdate($userEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.user-email.edit', $userEmail),
@@ -128,7 +128,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($userEmail, $admin))
+                                @if (canDelete($userEmail, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.user-email.destroy', $userEmail) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td colspan="6">No user email addresses found.</td>
                         @else
                             <td colspan="4">No email addresses found.</td>
@@ -161,7 +161,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 

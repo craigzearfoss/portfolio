@@ -53,7 +53,7 @@
 
             <p><i>{{ number_format($userGroups->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $userGroups->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -61,10 +61,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owning user</th>
                         @endif
@@ -77,10 +77,10 @@
                     </thead>
                 @endif
 
-                    @if($bottom_column_headings)
+                    @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owning user</th>
                         @endif
@@ -98,7 +98,7 @@
                 @forelse ($userGroups as $userGroup)
 
                     <tr data-id="{{ $userGroup->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $userGroup->id ?? '' }}
                             </td>
@@ -122,7 +122,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($userGroup, $admin))
+                                @if (canRead($userGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.user-group.show', $userGroup),
@@ -130,7 +130,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($userGroup, $admin))
+                                @if (canUpdate($userGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.user-group.edit', $userGroup),
@@ -153,7 +153,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($userGroup, $admin))
+                                @if (canDelete($userGroup, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.user-group.destroy', $userGroup) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -173,7 +173,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td colspan="7">No user groups found.</td>
                         @else
                             <td colspan="5">No groups found.</td>
@@ -186,7 +186,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $userGroups->links('vendor.pagination.bulma') !!}
             @endif
 

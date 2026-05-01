@@ -23,8 +23,8 @@
 
 @section('content')
 
-    @if($owner->is_demo)
-        @if($disclaimerMessage = config('app.demo_disclaimer'))
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
@@ -63,16 +63,16 @@
                     <strong>{!! $owner->name !!}</strong>
                 </p>
 
-                @if(!empty($owner->role))
+                @if (!empty($owner->role))
                     <p class="has-text-centered has-text-weight-semibold mb-0">
                         <strong>{!! $owner->role !!}</strong>
                     </p>
                 @endif
 
-                @if(!empty($owner->employer))
+                @if (!empty($owner->employer))
                     <p class="has-text-centered has-text-weight-medium mb-0">
                         <strong>{!! $owner->employer !!}
-                            @if($owner->employment_status_id == 6)
+                            @if ($owner->employment_status_id == 6)
                                 (contracting)
                             @endif
                         </strong>
@@ -83,7 +83,7 @@
                     </p>
                 @endif
 
-                @if(in_array($owner->employment_status_id, [2, 3, 4]))
+                @if (in_array($owner->employment_status_id, [2, 3, 4]))
                     <p class="has-text-centered m-1">
                         <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
                             Open to Work
@@ -108,7 +108,7 @@
 
                             @foreach ($resources as $resource)
 
-                                @if(!empty($resource->url))
+                                @if (!empty($resource->url))
 
                                     <li class="list-item">
                                         @include('guest.components.link', [

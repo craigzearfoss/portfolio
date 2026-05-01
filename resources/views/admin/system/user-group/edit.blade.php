@@ -8,7 +8,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $userGroup   = $userGroup ?? null;
 
-    $title    = 'Edit User Group: ' . $pageTitle ?? $userGroup->name;
+    $title    = 'Edit User Group: ' . ($pageTitle ?? $userGroup->name);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -49,7 +49,7 @@
                 'hide'  => !$isRootAdmin,
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

@@ -9,7 +9,7 @@
         default => 'guest.index',
     };
 
-    $message = $exception->getMessage();
+    $message = !empty($exception) ? $exception->getMessage() : '';
 @endphp
 @extends($envType->value.'.layouts.empty', [
     'title' => '403 Forbidden',
@@ -27,7 +27,7 @@
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
 
-                    @if(!empty($message))
+                    @if (!empty($message))
 
                         <div class="box has-text-centered">
                             <h1 class="title">403 Forbidden</h1>

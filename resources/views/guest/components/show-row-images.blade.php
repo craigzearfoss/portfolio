@@ -28,7 +28,7 @@
         $styles = array_merge($styles, $styleArray);
     }
 @endphp
-<div @if(!empty($classes))
+<div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
      @if(!empty($styles))

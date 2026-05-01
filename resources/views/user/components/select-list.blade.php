@@ -35,13 +35,13 @@
 @enderror
 
 <select
-    @if($id)
+    @if ($id)
         id="{{ $id }}"
     @endif
-    @if($name)
+    @if ($name)
         name="{{ $name }}"
     @endif
-    @if(!empty($class))
+    @if (!empty($class))
         class="{{ implode(' ', $class) }}"
     @endif
     @if (!empty($style))

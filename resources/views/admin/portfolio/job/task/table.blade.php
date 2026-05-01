@@ -3,8 +3,10 @@
 @endphp
 <table class="table admin-table task-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>summary</th>
-    <th>actions</th>
+    <tr>
+        <th>summary</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -18,7 +20,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($task, $admin))
+                    @if (canRead($task, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.portfolio.job-task.show', [
@@ -29,7 +31,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($task, $admin))
+                    @if (canUpdate($task, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.portfolio.job-task.edit', [
@@ -40,7 +42,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($task, $admin))
+                    @if (canDelete($task, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.portfolio.job-task.destroy', $task) !!}"
                               method="POST">

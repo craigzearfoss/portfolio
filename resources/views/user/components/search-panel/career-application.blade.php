@@ -81,7 +81,7 @@
 
                     <div class="floating-div">
 
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <div class="search-form-control">
                                 @include('user.components.search-panel.controls.system-owner')
                             </div>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="floating-div">
 
-                        @if($isRootAdmin || $companyCount > 20)
+                        @if ($isRootAdmin || $companyCount > 20)
                             <div class="search-form-control">
                                 @include('user.components.form-input-with-icon', [
                                     'name'    => 'company_name',
@@ -127,7 +127,7 @@
                             @include('user.components.search-panel.controls.career-job-board')
                         </div>
 
-                        @if($isRootAdmin || $resumeCount > 20)
+                        @if ($isRootAdmin || $resumeCount > 20)
                             <div class="search-form-control">
                                 @include('user.components.form-input-with-icon', [
                                     'name'    => 'resume_name',
@@ -232,7 +232,7 @@
 
                     </div>
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('user.components.search-panel.controls.timestamp-created-at', [

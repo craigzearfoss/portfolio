@@ -56,7 +56,7 @@
 
             <p><i>{{ number_format($adminTeams->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $adminTeams->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -64,10 +64,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -79,10 +79,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -99,12 +99,12 @@
                 @forelse ($adminTeams as $adminTeam)
 
                     <tr data-id="{{ $adminTeam->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminTeam->id ?? '' }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($adminTeam->owner))
+                                @if (!empty($adminTeam->owner))
                                     @include('admin.components.link', [
                                         'name' => $adminTeam->owner->username,
                                         'href' => route('admin.system.admin.show', $adminTeam->owner)
@@ -127,7 +127,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($adminTeam, $admin))
+                                @if (canRead($adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-team.show', $adminTeam),
@@ -135,7 +135,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($adminTeam, $admin))
+                                @if (canUpdate($adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.admin-team.edit', $adminTeam),
@@ -143,7 +143,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($adminTeam, $admin))
+                                @if (canDelete($adminTeam, $admin))
                                     <form class="delete-resource" action="{!! route('admin.system.admin-team.destroy', $adminTeam) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -163,7 +163,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td colspan="6">No admin teams found.</td>
                         @else
                             <td colspan="4">No teams found.</td>
@@ -176,7 +176,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $adminTeams->links('vendor.pagination.bulma') !!}
             @endif
 
