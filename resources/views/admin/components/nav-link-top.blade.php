@@ -16,16 +16,16 @@
         $styles[] = 'padding: 0.3rem';
     }
 @endphp
-@if(empty($href))
+@if (empty($href))
     <span
-        @if(!empty($classes))
+        @if (!empty($classes))
             class="{!! implode(' ', $classes)  !!}"
         @endif
-        @if(!empty($styles))
+        @if (!empty($styles))
             style="{!! implode('; ', $styles) !!}"
         @endif
     >
-        @if(!empty($icon))
+        @if (!empty($icon))
             <span class="icon">
                 {{ '<i class="fa ' . $icon . '"></i>' }}
             </span>

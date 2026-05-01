@@ -32,28 +32,28 @@
 
     $attributes = $attributes ?? [];
 @endphp
-<a @if($id)
+<a @if ($id)
        id="{{ $id }}"
    @endif
-   @if(isset($href) && ($href !== false))
+   @if (isset($href) && ($href !== false))
        href="{!! $href !!}"
    @endif
-   @if(!empty($class))
+   @if (!empty($class))
        class="{!! $class !!}"
    @endif
-   @if(!empty($style))
+   @if (!empty($style))
        style="{!! $style !!}"
    @endif
-   @if(!empty($dataTarget))
+   @if (!empty($dataTarget))
        data-target="{{ $dataTarget }}"
    @endif
-   @if(!empty($target))
+   @if (!empty($target))
        target="{!! $target !!}"
     @endif
-    @if($onclick)
+    @if ($onclick)
         onclick="{!! $onclick !!}"
     @endif
-    @if(!empty($attributes))
+    @if (!empty($attributes))
         @php
             foreach ($attributes as $key=>$value) {
                 echo $key . '="' . $value  . '"';

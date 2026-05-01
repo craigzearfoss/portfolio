@@ -4,7 +4,7 @@
     $hide = $hide ?? false;
 @endphp
 <div class="field is-horizontal"
-     @if($hide)
+     @if ($hide)
          style="display: none;"
      @endif
 >
@@ -15,7 +15,7 @@
         <div class="field">
             <div class="control">
                 <span class="text-field">
-                    @if($raw)
+                    @if ($raw)
                         {!! $value ?? '' !!}
                     @else
                         {{ $value ?? '' }}

@@ -39,7 +39,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @if(isRootAdmin())
+                @if (isRootAdmin())
                     @include('admin.components.form-checkbox', [
                         'name'            => 'is_root',
                         'label'           => 'root',

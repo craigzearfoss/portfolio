@@ -33,16 +33,16 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $operatingSystems->links('vendor.pagination.bulma') !!}
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -54,10 +54,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -100,7 +100,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($operatingSystem, $admin))
+                                @if (canRead($operatingSystem, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.operating-system.show', $operatingSystem),
@@ -108,7 +108,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($operatingSystem, $admin))
+                                @if (canUpdate($operatingSystem, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.dictionary.operating-system.edit', $operatingSystem),
@@ -146,7 +146,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($operatingSystem, $admin))
+                                @if (canDelete($operatingSystem, $admin))
                                     <form class="delete-resource" action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -175,7 +175,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $operatingSystems->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -41,7 +41,7 @@
 
             <p><i>{{ number_format($industries->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $industries->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -49,10 +49,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -62,10 +62,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -95,7 +95,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($industry, $admin))
+                                @if (canRead($industry, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.industry.show', $industry),
@@ -103,7 +103,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($industry, $admin))
+                                @if (canUpdate($industry, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.industry.edit', $industry),
@@ -126,7 +126,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($industry, $admin))
+                                @if (canDelete($industry, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.industry.destroy', $industry) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -155,7 +155,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $industries->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -190,7 +190,7 @@
                                     'value' => longDate($resume->resume_date)
                                 ])
 
-                                @if(empty($resume->pdf_filepath))
+                                @if (empty($resume->pdf_filepath))
 
                                     @include('admin.components.show-row', [
                                         'name'   => 'PDF file',
@@ -236,7 +236,7 @@
                                 ])
 
 
-                                @if(empty($resume->doc_filepath)) {
+                                @if (empty($resume->doc_filepath)) {
 
                                 @include('admin.components.show-row', [
                                     'name'   => 'Word file',

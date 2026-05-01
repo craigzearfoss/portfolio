@@ -39,12 +39,12 @@
         ])
     </div>
     <div class="has-text-right">
-        @if(!empty($image_credit))
+        @if (!empty($image_credit))
             <span class="mr-2">
                 <i>credit: {{ $image_credit ?? '' }}</i>
             </span>
         @endif
-        @if(!empty($image_credit))
+        @if (!empty($image_credit))
             <span>
                 <i> source: {{ $image_source ?? '' }}</i>
             </span>

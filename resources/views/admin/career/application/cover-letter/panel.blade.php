@@ -10,7 +10,7 @@
 
         <span style="display: inline-flex; float: right;">
 
-            @if(empty($coverLetter))
+            @if (empty($coverLetter))
 
                 @include('admin.components.link', [
                     'name'   => 'Attach a Cover Letter',
@@ -33,7 +33,7 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
 
-                @if(!empty($coverLetter->url))
+                @if (!empty($coverLetter->url))
                     @include('admin.components.button-download', [ 'file' => $coverLetter->url,
                                                                    'name' =>$coverLetter->slug . '-cover-letter' ])
                 @endif
@@ -51,7 +51,7 @@
 
     <div style="height: 12px; margin: 0; padding: 0;"></div>
 
-    @if(!empty($coverLetter))
+    @if (!empty($coverLetter))
 
         <div style="display: flex; align-items: flex-start; column-gap: 20px;">
 
@@ -64,7 +64,7 @@
 
                 @if (!empty($coverLetter->url))
 
-                    @if(in_array(Illuminate\Support\Facades\File::extension($coverLetter->fillepath), ['doc', 'docx']))
+                    @if (in_array(Illuminate\Support\Facades\File::extension($coverLetter->fillepath), ['doc', 'docx']))
 
                         @include('admin.components.show-row-link', [
                             'name'   => 'Word doc',

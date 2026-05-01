@@ -45,7 +45,7 @@
                 @if (!empty($onclick))
                     onclick="{!! $onclick !!}"
                 @endif
-                @if(!empty($disabled) || !empty($readonly))
+                @if (!empty($disabled) || !empty($readonly))
                     disabled
                 @endif
                 @if (!empty($propsArray))

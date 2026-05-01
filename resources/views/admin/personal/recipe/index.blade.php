@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($recipes->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $recipes->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -75,10 +75,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -98,7 +98,7 @@
                 @forelse ($recipes as $recipe)
 
                     <tr data-id="{{ $recipe->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $recipe->id ?? '' }}
                             </td>
@@ -128,7 +128,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($recipe, $admin))
+                                @if (canRead($recipe, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.recipe.show', $recipe),
@@ -136,7 +136,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($recipe, $admin))
+                                @if (canUpdate($recipe, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.personal.recipe.edit', $recipe),
@@ -159,7 +159,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($recipe, $admin))
+                                @if (canDelete($recipe, $admin))
                                     <form class="delete-resource" action="{!! route('admin.personal.recipe.destroy', $recipe) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -188,7 +188,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $recipes->links('vendor.pagination.bulma') !!}
             @endif
 

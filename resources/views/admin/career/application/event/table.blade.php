@@ -5,11 +5,13 @@
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>name</th>
-    <th class="has-text-centered">date</th>
-    <th class="has-text-centered">time</th>
-    <th>location</th>
-    <th>actions</th>
+    <tr>
+        <th>name</th>
+        <th class="has-text-centered">date</th>
+        <th class="has-text-centered">time</th>
+        <th>location</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -35,7 +37,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($event, $admin))
+                    @if (canRead($event, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.career.event.show', [
@@ -46,7 +48,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($event, $admin))
+                    @if (canUpdate($event, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.career.event.edit', [
@@ -57,7 +59,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($event, $admin))
+                    @if (canDelete($event, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.career.event.destroy', $event) !!}"
                               method="POST">

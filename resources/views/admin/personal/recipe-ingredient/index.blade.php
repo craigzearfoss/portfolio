@@ -46,7 +46,7 @@
 
             <p><i>{{ number_format($recipeIngredients->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -54,15 +54,15 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        @if(empty($recipe))
+                        @if (empty($recipe))
                             <th>recipe</th>
                         @endif
                         <th class="has-text-centered">amount</th>
@@ -72,15 +72,15 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        @if(empty($recipe))
+                        @if (empty($recipe))
                             <th>recipe</th>
                         @endif
                         <th class="has-text-centered">amount</th>
@@ -95,7 +95,7 @@
                 @forelse ($recipeIngredients as $recipeIngredient)
 
                     <tr data-id="{{ $recipeIngredient->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $recipeIngredient->id ?? '' }}
                             </td>
@@ -106,9 +106,9 @@
                         <td data-field="ingredient.name">
                             {!! $recipeIngredient->ingredient->name ?? '' !!}
                         </td>
-                        @if(empty($recipe))
+                        @if (empty($recipe))
                             <td data-field="recipe.name">
-                                @if(!empty($recipeIngredient->recipe))
+                                @if (!empty($recipeIngredient->recipe))
                                     @include('admin.components.link', [
                                         'name' => $recipeIngredient->recipe->name,
                                         'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
@@ -126,7 +126,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($recipeIngredient, $admin))
+                                @if (canRead($recipeIngredient, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.recipe-ingredient.show', $recipeIngredient),
@@ -134,7 +134,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($recipeIngredient, $admin))
+                                @if (canUpdate($recipeIngredient, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.personal.recipe-ingredient.edit', $recipeIngredient),
@@ -157,7 +157,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($recipeIngredient, $admin))
+                                @if (canDelete($recipeIngredient, $admin))
                                     <form class="delete-resource" action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -190,7 +190,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
             @endif
 

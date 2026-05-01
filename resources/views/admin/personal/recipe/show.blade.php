@@ -251,7 +251,7 @@
                                             {!! $ingredient->amount !!}
                                             {!! \App\Models\Personal\Unit::find($ingredient->unit_id)->name !!}
                                             {!! \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name !!}
-                                            @if(!empty($ingredient->qualifier))
+                                            @if (!empty($ingredient->qualifier))
                                                 - {!! $ingredient->qualifier !!}
                                             @endif
                                         </li>

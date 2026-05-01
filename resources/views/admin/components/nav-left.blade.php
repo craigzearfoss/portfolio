@@ -5,7 +5,7 @@
     $user  = $user ?? null;
     $owner = $owner ?? null;
 @endphp
-@if($menuItems = $menuService->leftMenu())
+@if ($menuItems = $menuService->leftMenu())
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
@@ -17,7 +17,7 @@
                     'selected' => false,
                 ])
 
-                @if(Auth::guard('admin')->check() || !config('app.single_admin_mode'))
+                @if (Auth::guard('admin')->check() || !config('app.single_admin_mode'))
                     <span class="home-admin-button-separator"></span>
                     @include('admin.components.button-home', [
                         'name'     => 'Admin',
@@ -51,7 +51,7 @@
                 <ul class="menu is-menu-main" style="font-size: 1rem;">
 
 
-                    @if((get_class($menuItems[$i0]) === 'stdClass') && $menuItems[$i0]->name === 'Resume')
+                    @if ((get_class($menuItems[$i0]) === 'stdClass') && $menuItems[$i0]->name === 'Resume')
 
                         <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
                             @include('guest.components.nav-link-left', [
@@ -78,7 +78,7 @@
 
                     @endif
 
-                    @if($menu1Items = $menuItems[$i0]->children ?? [])
+                    @if ($menu1Items = $menuItems[$i0]->children ?? [])
 
                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 
@@ -90,11 +90,10 @@
                                         'name'   => !empty($menu1Items[$i1]->plural) ? $menu1Items[$i1]->plural : $menu1Items[$i1]->title,
                                         'href'   => !empty($menu1Items[$i1]->url) ? $menu1Items[$i1]->url: false,
                                         'active' => $menu1Items[$i1]->active,
-                                        'active' => $menu1Items[$i1]->active,
                                         'icon'   => !empty($menu1Items[$i1]->icon) ? $menu1Items[$i1]->icon : 'fa-circle'
                                     ])
 
-                                    @if($menu2Items = $menu1Items[$i1]->children ?? [])
+                                    @if ($menu2Items = $menu1Items[$i1]->children ?? [])
 
                                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 

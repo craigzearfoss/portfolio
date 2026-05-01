@@ -1,4 +1,4 @@
-@if(!empty($value))
+@if (!empty($value))
     <article class="site-disclaimer message is-danger">
         <div class="message-body p-1">
             {!! $value !!}

@@ -43,7 +43,7 @@
 
             <p><i>{{ number_format($recruiters->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $recruiters->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -51,10 +51,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -67,10 +67,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -117,7 +117,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($recruiter, $admin))
+                                @if (canRead($recruiter, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.recruiter.show', $recruiter),
@@ -125,7 +125,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($recruiter, $admin))
+                                @if (canUpdate($recruiter, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.recruiter.edit', $recruiter),
@@ -148,7 +148,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($recruiter, $admin))
+                                @if (canDelete($recruiter, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.recruiter.destroy', $recruiter) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -177,7 +177,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $recruiters->links('vendor.pagination.bulma') !!}
             @endif
 

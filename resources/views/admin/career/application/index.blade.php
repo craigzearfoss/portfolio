@@ -53,7 +53,7 @@
 
             <p><i>{{ number_format($applications->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $applications->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -61,10 +61,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -202,10 +202,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin))
+                        @if ($isRootAdmin))
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -238,7 +238,7 @@
                 @forelse ($applications as $application)
 
                     <tr data-id="{{ $application->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $application->id ?? '' }}
                             </td>
@@ -250,7 +250,7 @@
                             {!! $application->name !!}
                         </td>
                         <td data-field="company.name" style="white-space: nowrap;">
-                            @if(!empty($application->company))
+                            @if (!empty($application->company))
                                 @include('admin.components.link', [
                                     'name' => $application->company->name ?? '',
                                     'href' => route('admin.career.company.show',
@@ -327,7 +327,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($application, $admin))
+                                @if (canRead($application, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.application.show', $application),
@@ -335,7 +335,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($application, $admin))
+                                @if (canUpdate($application, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.application.edit', $application),
@@ -358,7 +358,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($application, $admin))
+                                @if (canDelete($application, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.application.destroy', $application) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -387,7 +387,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $applications->links('vendor.pagination.bulma') !!}
             @endif
 

@@ -55,7 +55,7 @@
 
             <p><i>{{ number_format($notes->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $notes->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -63,10 +63,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -79,10 +79,10 @@
                     </thead>
                 @endif
 
-                @if(!empty($bottom_column_headings))
+                @if (!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -100,7 +100,7 @@
                 @forelse ($notes as $note)
 
                     <tr data-id="{{ $note->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $note->id ?? '' }}
                             </td>
@@ -109,7 +109,7 @@
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
-                            @if(!empty($note->application))
+                            @if (!empty($note->application))
                                 @include('admin.components.link', [
                                     'name' => $note->application->name ,
                                     'href' => route('admin.career.application.show',
@@ -122,7 +122,7 @@
                             {!! $note->subject !!}
                         </td>
                         <td data-field="body" style="min-width: 30rem;">
-                            @if(strlen($note->body) > 200)
+                            @if (strlen($note->body) > 200)
                                 {!! substr($note->body, 0, 200) !!}...
                             @else
                                 {!! $note->body !!}
@@ -135,7 +135,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($note, $admin))
+                                @if (canRead($note, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.note.show', $note),
@@ -143,7 +143,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($note, $admin))
+                                @if (canUpdate($note, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.note.edit', $note),
@@ -166,7 +166,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($note, $admin))
+                                @if (canDelete($note, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.note.destroy', $note) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -195,7 +195,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $notes->links('vendor.pagination.bulma') !!}
             @endif
 

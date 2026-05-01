@@ -73,13 +73,13 @@
 
                     <div class="floating-div">
 
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
 
-                        @if($isRootAdmin || $applicationCount > 20)
+                        @if ($isRootAdmin || $applicationCount > 20)
                             <div class="search-form-control">
                                 @include('admin.components.form-input-with-icon', [
                                     'name'    => 'application_name',
@@ -96,7 +96,7 @@
                         @endif
 
                         <div class="search-form-control">
-                            @if($isRootAdmin || $companyCount > 20)
+                            @if ($isRootAdmin || $companyCount > 20)
                                 <div class="search-form-control">
                                     @include('admin.components.form-input-with-icon', [
                                         'name'    => 'company_name',
@@ -160,7 +160,7 @@
 
                     </div>
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('admin.components.search-panel.controls.timestamp-created-at', [

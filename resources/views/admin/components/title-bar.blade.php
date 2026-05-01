@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        @if(!empty($prev) || !empty($next) || !empty($navButtons))
+        @if (!empty($prev) || !empty($next) || !empty($navButtons))
 
             <div class="level-right" style="display: inline-block;">
 
@@ -31,7 +31,7 @@
 
                 @endif
 
-                @if(!empty($prev) || !empty($next))
+                @if (!empty($prev) || !empty($next))
 
                     <div style="display: inline-block; float: right;">
                         @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])

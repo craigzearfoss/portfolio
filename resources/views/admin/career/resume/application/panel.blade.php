@@ -8,7 +8,7 @@
 
         Applications
 
-        @if(!empty($resume->id))
+        @if (!empty($resume->id))
 
             @include('admin.components.link', [
                 'name'  => 'Edit Applications',

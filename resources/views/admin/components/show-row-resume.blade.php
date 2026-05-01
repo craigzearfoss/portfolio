@@ -60,21 +60,21 @@
         $styles = array_merge($styles, $styleArray);
     }
 @endphp
-<div @if(!empty($classes))
+<div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
-     @if(!empty($styles))
+     @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
     <div class="column is-2 label" style="min-width: 6rem;">
-        @if(!empty($label))
+        @if (!empty($label))
             <strong>{!! $label !!}</strong>
         @endif
     </div>
     <div class="column is-10 value">
 
-        @if(!empty($iframeSrc))
+        @if (!empty($iframeSrc))
 
             <div style="flex: 1; padding: 5px;">
                 <iframe src="{{ $iframeSrc }}"

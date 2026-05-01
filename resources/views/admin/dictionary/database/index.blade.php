@@ -33,16 +33,16 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -54,10 +54,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -100,7 +100,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($database, $admin))
+                                @if (canRead($database, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.database.show', $database),
@@ -108,7 +108,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($database, $admin))
+                                @if (canUpdate($database, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.dictionary.database.edit', $database),
@@ -146,7 +146,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($database, $admin))
+                                @if (canDelete($database, $admin))
                                     <form class="delete-resource" action="{!! route('admin.dictionary.database.destroy', $database) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -175,7 +175,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 

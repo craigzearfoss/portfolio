@@ -1,5 +1,5 @@
 @php
-    $page = $page ?? null;
+    use Jorenvh\Share\Share;$page = $page ?? null;
     $title = $title ?? config('app.name');
 
     $shareLinks = '';
@@ -32,7 +32,7 @@
     }
 @endphp
 <div class="is-flex is-justify-content-flex-end pr-4 mt-2">
-    @if(!empty($shareLinks))
+    @if (!empty($shareLinks))
         {!! $shareLinks !!}
     @endif
 </div>

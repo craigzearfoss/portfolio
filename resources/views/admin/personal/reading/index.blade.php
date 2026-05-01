@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($readings->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $readings->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -77,10 +77,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -102,7 +102,7 @@
                 @forelse ($readings as $reading)
 
                     <tr data-id="{{ $reading->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $reading->id ?? '' }}
                             </td>
@@ -124,7 +124,7 @@
                             }}
                         </td>
                         <td data-field="publication_year" class="has-text-centered">
-                            @if($reading->publication_year < 0)
+                            @if ($reading->publication_year < 0)
                                 {{ abs($reading->publication_year) }} BCE
                             @else
                                 {{ $reading->publication_year }}
@@ -150,7 +150,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($reading, $admin))
+                                @if (canRead($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.reading.show', $reading),
@@ -158,7 +158,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($reading, $admin))
+                                @if (canUpdate($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.personal.reading.edit', $reading),
@@ -181,7 +181,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($reading, $admin))
+                                @if (canDelete($reading, $admin))
                                     <form class="delete-resource" action="{!! route('admin.personal.reading.destroy', $reading) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -210,7 +210,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $readings->links('vendor.pagination.bulma') !!}
             @endif
 

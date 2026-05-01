@@ -54,7 +54,7 @@
 
             <p><i>{{ number_format($recipeSteps->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -62,14 +62,14 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
-                        @if(empty($recipeId))
+                        @if (empty($recipeId))
                             <th>recipe</th>
                         @endif
                         <th class="has-text-centered">step</th>
@@ -79,14 +79,14 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
-                        @if(empty($recipeId))
+                        @if (empty($recipeId))
                             <th>recipe</th>
                         @endif
                         <th class="has-text-centered">step</th>
@@ -101,7 +101,7 @@
                 @forelse ($recipeSteps as $recipeStep)
 
                     <tr data-id="{{ $recipeStep->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $recipeStep->id ?? '' }}
                             </td>
@@ -109,9 +109,9 @@
                                 {{ $recipeStep->owner->username ?? '' }}
                             </td>
                         @endif
-                        @if(empty($recipeId))
+                        @if (empty($recipeId))
                             <td data-field="recipe.name">
-                                @if(!empty($recipeStep->recipe))
+                                @if (!empty($recipeStep->recipe))
                                     @include('admin.components.link', [
                                         'name' => $recipeStep->recipe->name ?? '',
                                         'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
@@ -129,7 +129,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($recipeStep, $admin))
+                                @if (canRead($recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.recipe-step.show', $recipeStep),
@@ -137,7 +137,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($recipeStep, $admin))
+                                @if (canUpdate($recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.personal.recipe-step.edit', $recipeStep),
@@ -145,7 +145,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($recipeStep, $admin))
+                                @if (canDelete($recipeStep, $admin))
                                     <form class="delete-resource" action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -178,7 +178,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}
             @endif
 

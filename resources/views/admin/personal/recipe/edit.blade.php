@@ -286,7 +286,7 @@
                             {{ $ingredient['amount'] }}
                             {{ \App\Models\Personal\Unit::find($ingredient['unit_id'])->abbreviation }}
                             {{ \App\Models\Personal\Ingredient::find($ingredient['ingredient_id'])->name }}
-                            @if(!empty($ingredient['qualifier']))
+                            @if (!empty($ingredient['qualifier']))
                                 - {{ $ingredient['qualifier'] }}
                             @endif
                         </li>

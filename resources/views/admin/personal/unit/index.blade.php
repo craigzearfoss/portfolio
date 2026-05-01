@@ -33,7 +33,7 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $units->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -41,10 +41,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -55,10 +55,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                         @endif
                         <th>name</th>
@@ -92,7 +92,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($unit, $admin))
+                                @if (canRead($unit, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.unit.show', $unit),
@@ -100,7 +100,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($unit, $admin))
+                                @if (canUpdate($unit, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.personal.unit.edit', $unit),
@@ -123,7 +123,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($unit, $admin))
+                                @if (canDelete($unit, $admin))
                                     <form class="delete-resource" action="{!! route('admin.personal.unit.destroy', $unit) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -152,7 +152,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $units->links('vendor.pagination.bulma') !!}
             @endif
 

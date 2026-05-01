@@ -11,7 +11,7 @@
     <div class="field">
         <div class="label">Sort by</div>
         <div class="{{ implode(' ', array_merge([ 'select' ], $class)) }}"
-             @if(!empty($style))
+             @if (!empty($style))
                  style="{{ implode('; ', $style) }}"
              @endif
         >

@@ -82,7 +82,7 @@
                 'value' => referer('admin.career.event.index')
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -94,11 +94,11 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => Auth::guard('admin')->user()->id
+                    'value' => $admin->id ?? null,
                 ])
             @endif
 
-            @if(empty($application->id))
+            @if (empty($application->id))
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'application_id',
                     'label'   => 'application',

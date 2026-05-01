@@ -26,13 +26,13 @@
 
                     <div class="floating-div">
 
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
 
                             @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
                         @endif
 
-                        @if(!empty($owner))
+                        @if (!empty($owner))
 
                             @php
                                 $recipes = new Recipe()->listOptions(
@@ -51,7 +51,7 @@
                             @endphp
 
                             <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
-                            @if(count($recipes) > 1)
+                            @if (count($recipes) > 1)
                                 <div class="control">
                                     @include('admin.components.form-select', [
                                         'name'     => 'recipe_id',

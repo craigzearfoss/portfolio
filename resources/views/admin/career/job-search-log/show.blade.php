@@ -43,14 +43,14 @@
             'hide'  => !$isRootAdmin,
         ])
 
-        @if($isRootAdmin)
+        @if ($isRootAdmin)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $jobSearchLog->owner->username
             ])
         @endif
 
-        @if($isRootAdmin)
+        @if ($isRootAdmin)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $jobSearchLog->owner->username

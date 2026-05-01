@@ -40,7 +40,7 @@
                 'value' => referer('admin.career.cover-letter.index')
             ])
 
-            @if($isRootAdmin)
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -81,7 +81,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'url',
-                'name'      => 'cover letter url',
+                'label'     => 'cover letter url',
                 'value'     => old('url') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',

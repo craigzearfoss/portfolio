@@ -56,7 +56,7 @@
 
             <p><i>{{ number_format($events->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $events->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -64,10 +64,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -83,10 +83,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -107,7 +107,7 @@
                 @forelse ($events as $event)
 
                     <tr data-id="{{ $event->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $event->id ?? '' }}
                             </td>
@@ -116,7 +116,7 @@
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
-                            @if(!empty($event->application))
+                            @if (!empty($event->application))
                                 @include('admin.components.link', [
                                     'name' => $event->application->name ,
                                     'href' => route('admin.career.application.show',
@@ -153,7 +153,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($event, $admin))
+                                @if (canRead($event, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.event.show', $event),
@@ -161,7 +161,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($event, $admin))
+                                @if (canUpdate($event, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.event.edit', $event),
@@ -184,7 +184,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($event, $admin))
+                                @if (canDelete($event, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.event.destroy', $event) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -213,7 +213,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $events->links('vendor.pagination.bulma') !!}
             @endif
 

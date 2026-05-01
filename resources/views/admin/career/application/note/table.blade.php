@@ -3,10 +3,12 @@
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
-    <th>subject</th>
-    <th>body</th>
-    <th>time</th>
-    <th>actions</th>
+    <tr>
+        <th>subject</th>
+        <th>body</th>
+        <th>time</th>
+        <th>actions</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -26,7 +28,7 @@
 
                 <div class="action-button-panel">
 
-                    @if(canRead($note, $admin))
+                    @if (canRead($note, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'show',
                             'href'  => route('admin.career.note.show', [
@@ -37,7 +39,7 @@
                         ])
                     @endif
 
-                    @if(canUpdate($note, $admin))
+                    @if (canUpdate($note, $admin))
                         @include('admin.components.link-icon', [
                             'title' => 'edit',
                             'href'  => route('admin.career.note.edit', [
@@ -48,7 +50,7 @@
                         ])
                     @endif
 
-                    @if(canDelete($note, $admin))
+                    @if (canDelete($note, $admin))
                         <form class="delete-resource"
                               action="{!! route('admin.career.note.destroy', $note) !!}"
                               method="POST">

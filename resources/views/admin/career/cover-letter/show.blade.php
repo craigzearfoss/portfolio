@@ -82,7 +82,7 @@
 
                                 @if (!empty($coverLetter->filepath))
 
-                                    @if(in_array($fileExtension, ['doc', 'docx']))
+                                    @if (in_array($fileExtension, ['doc', 'docx']))
 
                                         @include('admin.components.show-row-link', [
                                             'name'   => $fileExtension . ' file',

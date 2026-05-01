@@ -46,7 +46,7 @@
 
 @section('content')
 
-    @if(empty($companyId))
+    @if (empty($companyId))
 
         <div class="edit-container card form-container p-4" style="max-width: 25rem;">
 
@@ -55,7 +55,7 @@
                 <form id="selectCompanyForm" action="{{ route('admin.career.application.create', request()->all()) }}"
                       method="GET">
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         @include('admin.components.form-select-horizontal', [
                             'name'     => 'owner_id',
                             'label'    => 'owner',
@@ -111,7 +111,7 @@
                     'value' => referer('admin.career.application.index')
                 ])
 
-                @if($isRootAdmin)
+                @if ($isRootAdmin)
                     @include('admin.components.form-select-horizontal', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
@@ -123,7 +123,7 @@
                 @else
                     @include('admin.components.form-hidden', [
                         'name'  => 'owner_id',
-                        'value' => Auth::guard('admin')->user()->id
+                        'value' => $admin->id ?? null,
                     ])
                 @endif
 

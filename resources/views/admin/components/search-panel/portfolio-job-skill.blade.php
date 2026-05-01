@@ -55,7 +55,7 @@
 
                     <div class="floating-div">
 
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
@@ -99,7 +99,7 @@
 
                     </div>
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('admin.components.search-panel.controls.timestamp-created-at', [

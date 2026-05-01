@@ -49,7 +49,7 @@
 
             <p><i>{{ number_format($references->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $references->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -57,10 +57,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -76,10 +76,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -100,7 +100,7 @@
                 @forelse ($references as $reference)
 
                     <tr data-id="{{ $reference->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $reference->id ?? '' }}
                             </td>
@@ -138,7 +138,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($reference, $admin))
+                                @if (canRead($reference, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.reference.show', $reference),
@@ -146,7 +146,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($reference, $admin))
+                                @if (canUpdate($reference, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.reference.edit', $reference),
@@ -169,7 +169,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($reference, $admin))
+                                @if (canDelete($reference, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -198,7 +198,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $references->links('vendor.pagination.bulma') !!}
             @endif
 

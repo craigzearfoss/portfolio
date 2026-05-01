@@ -10,7 +10,7 @@
                 ? $pageTitle
                 : $title ?? ''
         @endphp
-        @if(!empty($pageTitle) && ($pageTitle !== config('app.name')))
+        @if (!empty($pageTitle) && ($pageTitle !== config('app.name')))
             {{$pageTitle}} -
         @endif
         {{ config('app.name') }} admin area
@@ -40,7 +40,7 @@
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}?{{ appTimestamp() }}"></script>
 
-    @if(config('app.recaptcha_enabled'))
+    @if (config('app.recaptcha_enabled'))
         <script src="https://www.google.com/recaptcha/api.js"></script>
         <script>
             function onSubmit(token) {

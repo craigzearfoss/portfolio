@@ -54,7 +54,7 @@
 
             <p><i>{{ number_format($communications->total()) }} records found.</i></p>
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $communications->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -62,10 +62,10 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if($top_column_headings)
+                @if ($top_column_headings)
                     <thead>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -80,10 +80,10 @@
                     </thead>
                 @endif
 
-                @if($bottom_column_headings)
+                @if ($bottom_column_headings)
                     <tfoot>
                     <tr>
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <th>id</th>
                             <th>owner</th>
                         @endif
@@ -103,7 +103,7 @@
                 @forelse ($communications as $communication)
 
                     <tr data-id="{{ $communication->id }}">
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $communication->id ?? '' }}
                             </td>
@@ -112,7 +112,7 @@
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
-                            @if(!empty($communication->application))
+                            @if (!empty($communication->application))
                                 @include('admin.components.link', [
                                     'name' => $communication->application->name ,
                                     'href' => route('admin.career.application.show',
@@ -140,7 +140,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($communication, $admin))
+                                @if (canRead($communication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.communication.show', $communication),
@@ -148,7 +148,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate($communication, $admin))
+                                @if (canUpdate($communication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.communication.edit', $communication),
@@ -171,21 +171,21 @@
                                     ])
                                 @endif
 
-                                @if(canRead($communication, $admin))
+                                @if (canRead($communication, $admin))
                                     <a title="show" class="button is-small px-1 py-0"
                                        href="{!! route('admin.career.communication.show', $communication) !!}">
                                         <i class="fa-solid fa-list"></i>
                                     </a>
                                 @endif
 
-                                @if(canUpdate($communication, $admin))
+                                @if (canUpdate($communication, $admin))
                                     <a title="edit" class="button is-small px-1 py-0"
                                        href="{!! route('admin.career.communication.edit', $communication) !!}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                 @endif
 
-                                @if(canDelete($communication, $admin))
+                                @if (canDelete($communication, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.communication.destroy', $communication) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -214,7 +214,7 @@
 
             </table>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $communications->links('vendor.pagination.bulma') !!}
             @endif
 

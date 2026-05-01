@@ -5,10 +5,10 @@
     $user  = $user ?? null;
     $owner = $owner ?? null;
 @endphp
-@if($menuItems = $menuService->leftMenu())
+@if ($menuItems = $menuService->leftMenu())
     <div class="control ml-2 mt-2">
 
-        @if(!config('app.single_admin_mode'))
+        @if (!config('app.single_admin_mode'))
 
             <div class="has-text-light">candidates</div>
 
@@ -37,7 +37,7 @@
                 ])
             </p>
 
-            @if(!empty($menuItems[$i]->children))
+            @if (!empty($menuItems[$i]->children))
 
                 <ul class="menu-list pl-2" style="margin-left: 1em;">
 
@@ -51,7 +51,7 @@
                                 'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
                             ])
 
-                            @if(!empty($menu2Item->children))
+                            @if (!empty($menu2Item->children))
                                 @php //@TODO: This isn't working @endphp
                                 <ul class="menu-list pl-2" style="margin-left: 1em;">
 

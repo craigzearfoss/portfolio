@@ -21,7 +21,7 @@
 
         <tr data-id="{{ $thisAdmin->id }}">
             <td data-field="thumbnail" style="width: 40px; padding: 1px;">
-                @if(!empty($thisAdmin->thumbnail))
+                @if (!empty($thisAdmin->thumbnail))
                     @include('admin.components.link', [
                         'name' => view('admin.components.image', [
                                         'src'      => $thisAdmin->thumbnail,

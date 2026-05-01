@@ -12,7 +12,7 @@
 
         <span style="display: inline-flex; float: right;">
 
-            @if(!empty($resume))
+            @if (!empty($resume))
 
                 <a title="show" class="button is-small px-1 py-0"
                    href="{!! route('admin.career.resume.show', $resume) !!}">
@@ -24,7 +24,7 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
 
-                @if(!empty($resume->url))
+                @if (!empty($resume->url))
                     @include('admin.components.button-download', [ 'file' => $resume->url,
                                                                    'name' =>$resume->slug . '-resume' ])
                 @endif
@@ -40,7 +40,7 @@
 
     <hr class="navbar-divider">
 
-    @if(empty($resume))
+    @if (empty($resume))
 
         <div class="has-text-centered" style="max-width: 30rem;">
 

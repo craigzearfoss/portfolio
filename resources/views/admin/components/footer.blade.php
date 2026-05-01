@@ -3,7 +3,7 @@
         <div class="level">
             <div class="level-left">
                 <div class="level-item">
-                    @if(config('app.copyright') && config('app.owner'))
+                    @if (config('app.copyright') && config('app.owner'))
                         @include('admin.components.copyright')
                     @endif
                 </div>

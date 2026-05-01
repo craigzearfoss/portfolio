@@ -1,4 +1,4 @@
-@if(!empty($success) || !empty($error) || !empty($errorMessages))
+@if (!empty($success) || !empty($error) || !empty($errorMessages))
 
     <div id="header-message-div">
 

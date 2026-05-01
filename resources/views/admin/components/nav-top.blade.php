@@ -5,7 +5,7 @@
     $user  = $user ?? null;
     $owner = $owner ?? null;
 @endphp
-@if($menuItems = $menuService->topMenu())
+@if ($menuItems = $menuService->topMenu())
 
     <nav id="navbar-main" class="navbar admin is-fixed-top">
         <div class="navbar-brand">
@@ -17,7 +17,7 @@
             <div class="navbar-item has-control">
 
                 <span class="mr-4 has-text-dark">
-                    @if(!empty($envType) && $envType === EnvTypes::ADMIN)
+                    @if (!empty($envType) && $envType === EnvTypes::ADMIN)
                         @include('admin.components.link', [
                             'name'  => config('app.name') . ' Admin Area',
                             'href'  => route('admin.index'),
@@ -28,7 +28,7 @@
                     @endif
                 </span>
 
-                @if(isDemo())
+                @if (isDemo())
                     <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
                         Demo Mode
                     </span>
@@ -60,7 +60,7 @@
                     @foreach($menuItems as $menuItem)
 
                         <?php /* user dropdown menu at the top right */ ?>
-                        @if($menuItem->name == 'user-dropdown')
+                        @if ($menuItem->name == 'user-dropdown')
 
                             <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
 
@@ -119,7 +119,7 @@
                                     'icon'   => false
                                 ])
 
-                                @if(!empty($menuItem->children))
+                                @if (!empty($menuItem->children))
 
                                     <div class="navbar-dropdown">
 
