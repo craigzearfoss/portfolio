@@ -97,7 +97,7 @@ class JobTaskController extends BaseAdminController
             $jobTask['id'],
             'admin.portfolio.job-task.show',
             $this->owner->id ?? null,
-            [ 'name', 'asc' ]
+            [ 'id', 'asc' ]
         );
 
         return view('admin.portfolio.job-task.show', compact('jobTask', 'prev', 'next'));

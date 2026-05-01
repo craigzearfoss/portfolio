@@ -22,23 +22,19 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
     $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.application.index') ])->render(),
     ];
 @endphp
 
@@ -56,14 +52,15 @@
                       method="GET">
 
                     @if ($isRootAdmin)
-                        @include('admin.components.form-select-horizontal', [
+                        @include('admin.components.form-select', [
                             'name'     => 'owner_id',
                             'label'    => 'owner',
-                            'value'    => old('owner_id') ?? '',
+                            'value'    => old('owner_id') ?? request()->input('owner_id'),
                             'required' => true,
                             'list'     => $ownerModel->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                             'message'  => $message ?? '',
                         ])
+                        <hr>
                     @endif
 
                     @include('admin.components.form-select', [

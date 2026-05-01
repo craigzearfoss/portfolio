@@ -21,7 +21,9 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Unit::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Unit', 'href' => route('admin.personal.unit.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Unit',
+                                                                  'href' => route('admin.personal.unit.create')
+                                                                ])->render();
     }
 @endphp
 

@@ -10,27 +10,25 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-        $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index') ];
     $breadcrumbs[] = [ 'name' => $audio->name ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($audio, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.audio.edit', $audio)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.audio.edit', $audio) ])->render();
     }
     if (canCreate($audio, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Audio', 'href' => route('admin.portfolio.audio.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Audio',
+                                                                  'href' => route('admin.portfolio.audio.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.audio.index')])->render();
 @endphp

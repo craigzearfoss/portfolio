@@ -12,29 +12,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Education',        'href' => route('admin.portfolio.education.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-        $breadcrumbs[] = [ 'name' => 'Education',        'href' => route('admin.portfolio.education.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => $education->degreeType->name . ' ' . $education->major ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Education',  'href' => route('admin.portfolio.education.index') ];
+    $breadcrumbs[] = [ 'name' => $education->name ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($education, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.education.edit', $education)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.education.edit', $education) ])->render();
     }
     if (canCreate($education, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Education', 'href' => route('admin.portfolio.education.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Education',
+                                                                  'href' => route('admin.portfolio.education.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.education.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.education.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

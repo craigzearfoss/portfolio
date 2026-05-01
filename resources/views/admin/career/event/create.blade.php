@@ -12,29 +12,21 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',               'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
-            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Events',             'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Add' ]
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-            [ 'name' => 'Events',          'href' => route('admin.career.event.index') ],
-            [ 'name' => 'Add' ]
-        ];
+    $breadcrumbs = [
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
+    ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
+    $breadcrumbs[] = [ 'name' => 'Events',       'href' => route('admin.career.event.index') ];
+    $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.event.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.event.index') ])->render(),
     ];
 
     // get the options for the application select list

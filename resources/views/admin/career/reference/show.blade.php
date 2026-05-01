@@ -10,29 +10,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'References', 'href' => route('admin.career.reference.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'References', 'href' => route('admin.career.reference.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'References', 'href' => route('admin.career.reference.index') ];
     $breadcrumbs[] = [ 'name' => $reference->name ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($reference, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.reference.edit', $reference)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.reference.edit', $reference) ])->render();
     }
     if (canCreate($reference, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Reference',
+                                                                  'href' => route('admin.career.reference.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.reference.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.reference.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

@@ -9,35 +9,28 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ],
-            [ 'name' => $resume->name ]
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index') ],
-            [ 'name' => $resume->name ]
-        ];
+    $breadcrumbs = [
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+    ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Resumes',    'href' => route('admin.career.resume.index') ];
+    $breadcrumbs[] = [ 'name' => $resume->name . ' - ' . shortDate($resume->resume_date) ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($resume, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.resume.edit', $resume)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.resume.edit', $resume) ])->render();
     }
     if (canCreate($resume, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Resume',
+                                                                  'href' => route('admin.career.resume.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.resume.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

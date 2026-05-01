@@ -1,6 +1,5 @@
 @php
     use App\Models\Portfolio\Photography;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Photography';
@@ -13,17 +12,13 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index',
-                                                                    !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
-                                                                   )];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Photography' ];
 
     // set navigation buttons

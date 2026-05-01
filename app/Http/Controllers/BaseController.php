@@ -102,7 +102,7 @@ class BaseController extends Controller
         $this->admin            = loggedInAdmin();
         $this->isRootAdmin      = $this->admin->is_root ?? false;
         $this->user             = loggedInUser();
-        $this->owner            = $this->getOwner($this->admin);
+        $this->owner            = $this->getOwner($this->admin, $envType);
         $this->publicAdminCount = Admin::query()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->count();
@@ -162,36 +162,45 @@ class BaseController extends Controller
      * Get the current owner.
      *
      * @param Admin|Owner|null $currentAdmin
+     * @param EnvTypes $envType
      * @return Admin|Owner|null
      */
-    private function getOwner(Admin|Owner|null $currentAdmin): Admin|Owner|null
+    private function getOwner(Admin|Owner|null $currentAdmin, EnvTypes $envType): Admin|Owner|null
     {
         $owner = null;
-        $envType = !empty($this->envType) ? $this->envType : getEnvType();
         $ownerIdSpecified = false;
 
-        // on the guest home page set the owner to null
-        if (($envType === EnvTypes::GUEST) && (Route::currentRouteName() === 'guest.index')) {
-            if (!config('app.single_admin_mode')) {
-                return null;
-            }
-        }
+        if ($envType === EnvTypes::ADMIN) {
 
-        // for APP_SINGLE_ADMIN_MODE the owner is always the FEATURED_ADMIN as specified in the .env file
-        if (config('app.single_admin_mode')) {
-            if (!$featuredAdminUsername = config('app.featured_admin_username')) {
-                abort(500, 'APP_FEATURED_ADMIN_USERNAME must be specified in .env file when APP_SINGLE_ADMIN_MODE is set.');
+            // for root admins return null unless owner_id is specified as a url parameter
+            if (!empty($currentAdmin) && $currentAdmin['is_root']) {
+
+                if ($owner_id = request()->input('owner_id')) {
+                    return Owner::query()->find($owner_id);
+                } else {
+                    return null;
+                }
             }
-            if (!$featuredAdmin = Admin::query()->firstWhere('username', $featuredAdminUsername)) {
-                abort(500, 'Featured admin ' . $featuredAdminUsername . ' does not exist.');
+
+        } elseif (($envType === EnvTypes::GUEST) || ($envType === EnvTypes::USER)) {
+
+            if (config('app.single_admin_mode')) {
+
+                if (!$featuredAdminUsername = config('app.featured_admin_username')) {
+                    abort(500, 'APP_FEATURED_ADMIN_USERNAME must be specified in .env file when APP_SINGLE_ADMIN_MODE is set.');
+                } elseif (!$featuredAdmin = Admin::query()->firstWhere('username', $featuredAdminUsername)) {
+                    abort(500, 'Featured admin ' . $featuredAdminUsername . ' does not exist.');
+                } else {
+                    return $featuredAdmin;
+                }
+
             } else {
-                return $featuredAdmin;
-            }
-        }
 
-        if (($envType->value == 'admin') && !empty($currentAdmin) && !$currentAdmin['is_root']) {
-            // this is a non-root admin so they can only view their own resources
-            return $currentAdmin;
+                if (Route::currentRouteName() === 'guest.index') {
+                    // if in single admin mode on the guest home page set the owner to null
+                    return null;
+                }
+            }
         }
 
         // get the "owner_id" url parameter, if there is one (only allow this is the admin area)

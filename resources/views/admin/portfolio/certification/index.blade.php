@@ -1,6 +1,5 @@
 @php
     use App\Models\Portfolio\Certification;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Certification';
@@ -15,14 +14,16 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications' ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Certification::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certification', 'href' => route('admin.portfolio.certification.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Certification',
+                                                                  'href' => route('admin.portfolio.certification.create')
+                                                                ])->render();
     }
 @endphp
 

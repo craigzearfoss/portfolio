@@ -19,12 +19,14 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($academy, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.academy.edit', $academy)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.academy.edit', $academy) ])->render();
     }
     if (canCreate($academy, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Academy', 'href' => route('admin.portfolio.academy.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Academy',
+                                                                  'href' => route('admin.portfolio.academy.create')
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.academy.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.academy.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

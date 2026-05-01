@@ -14,25 +14,20 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Contacts',     'href' => route('admin.career.contact.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $contact->name, 'href' => route('admin.career.contact.show', [$contact, 'owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'Contacts',     'href' => route('admin.career.contact.index') ];
-        $breadcrumbs[] = [ 'name' => $contact->name, 'href' => route('admin.career.contact.show', $contact) ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Contacts',     'href' => route('admin.career.contact.index') ];
+    $breadcrumbs[] = [ 'name' => $contact->name, 'href' => route('admin.career.contact.show', $contact) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.contact.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.contact.index') ])->render(),
     ];
 @endphp
 

@@ -1,6 +1,5 @@
 @php
     use App\Models\Portfolio\JobCoworker;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\JobCoworker';
@@ -12,19 +11,19 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    $breadcrumbs    = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs' ,           'href' => route('admin.portfolio.job.index') ],
+    $breadcrumbs = [
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
     ];
-    if (!empty($job)) {
-        $breadcrumbs[] = [ 'name' => $job->name,  'href' => route('admin.portfolio.job.show', $job) ];
-        $breadcrumbs[] = [ 'name' => 'Coworkers', 'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $job->id]) ];
-
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Coworkers', 'href' => route('admin.portfolio.job-coworker.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',    'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Jobs' ,        'href' => route('admin.portfolio.job.index') ];
+    if (!empty($job)) {
+        $breadcrumbs[] = [ 'name' => $job->name, 'href' => route('admin.portfolio.job.show', $job) ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Coworkers' ];
 
     // set navigation buttons
     $navButtons = [];

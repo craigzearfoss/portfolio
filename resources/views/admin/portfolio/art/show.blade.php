@@ -10,29 +10,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Art',        'href' => route('admin.portfolio.art.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-        $breadcrumbs[] = [ 'name' => 'Art',        'href' => route('admin.portfolio.art.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Art',        'href' => route('admin.portfolio.art.index') ];
     $breadcrumbs[] = [ 'name' => $art->name . (!empty($art->artist) ? ' - ' . $art->artist : '') ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($art, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.art.edit', $art)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.art.edit', $art) ])->render();
     }
     if (canCreate($art, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Art', 'href' => route('admin.portfolio.art.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Art',
+                                                                  'href' => route('admin.portfolio.art.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.art.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.art.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

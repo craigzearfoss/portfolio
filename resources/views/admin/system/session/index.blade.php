@@ -1,6 +1,4 @@
 @php
-    use Illuminate\Support\Number;
-
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\Session';
     $admin       = $admin ?? null;

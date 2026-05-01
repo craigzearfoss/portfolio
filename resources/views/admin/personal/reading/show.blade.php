@@ -11,29 +11,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Readings',   'href' => route('admin.personal.reading.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Personal',  'href' => route('admin.personal.index') ];
-        $breadcrumbs[] = [ 'name' => 'Readings',  'href' => route('admin.personal.reading.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => $reading->name ];
+    $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Readings',   'href' => route('admin.personal.reading.index') ];
+    $breadcrumbs[] = [ 'name' => $reading->title ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($reading, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.reading.edit', $reading)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.personal.reading.edit', $reading) ])->render();
     }
     if (canCreate($reading, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Reading',
+                                                                  'href' => route('admin.personal.reading.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.reading.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.personal.reading.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

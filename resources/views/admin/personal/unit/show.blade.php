@@ -13,19 +13,21 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Units',     'href' => route('admin.personal.unit.index') ],
+        [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
         [ 'name' => $unit->name ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($unit, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.unit.edit', $unit)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.personal.unit.edit', $unit) ])->render();
     }
     if (canCreate($unit, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Unit', 'href' => route('admin.personal.unit.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Unit',
+                                                                  'href' => route('admin.personal.unit.create')
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.unit.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.personal.unit.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

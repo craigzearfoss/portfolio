@@ -20,12 +20,14 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($ingredient, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.ingredient.edit', $ingredient)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.personal.ingredient.edit', $ingredient) ])->render();
     }
     if (canCreate($ingredient, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Ingredient',
+                                                                  'href' => route('admin.personal.ingredient.create')
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.ingredient.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.personal.ingredient.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

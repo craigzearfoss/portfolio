@@ -29,7 +29,7 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.audio.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.audio.index') ])->render(),
     ];
 @endphp
 

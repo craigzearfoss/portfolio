@@ -1,6 +1,5 @@
 @php
     use App\Models\Personal\Ingredient;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Personal\Ingredient';
@@ -15,14 +14,16 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients' ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Ingredient::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Ingredient',
+                                                                  'href' => route('admin.personal.ingredient.create')
+                                                                ])->render();
     }
 @endphp
 

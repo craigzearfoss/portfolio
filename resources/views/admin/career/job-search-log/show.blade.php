@@ -12,23 +12,19 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                        'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',             'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',         'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,     'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',         'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Job Search Log', 'href' => route('admin.career.job-search-log.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Career',         'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'Job Search Log', 'href' => route('admin.career.job-search-log.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',         'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Job Search Log', 'href' => route('admin.career.job-search-log.index') ];
     $breadcrumbs[] = [ 'name' => 'Log Entry' ];
 
     // set navigation buttons
     $navButtons = [];
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.job-search-log.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.job-search-log.index' )])->render();
 @endphp
 
 @extends('admin.layouts.default')

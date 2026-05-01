@@ -1,6 +1,5 @@
 @php
     use App\Models\Career\JobBoard;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\JobBoard';
@@ -15,14 +14,16 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Job Boards' ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(JobBoard::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Board', 'href' => route('admin.career.job-board.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Job Board',
+                                                                  'href' => route('admin.career.job-board.create')
+                                                                ])->render();
     }
 @endphp
 

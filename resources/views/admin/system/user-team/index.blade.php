@@ -1,7 +1,6 @@
 @php
     use App\Models\System\UserGroup;
     use App\Models\System\UserTeam;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\UserTeam';
@@ -18,7 +17,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'User Teams' ],
+        [ 'name' => $isRootAdmin ? 'User Teams' : 'Teams' ],
     ];
 
     // set navigation buttons

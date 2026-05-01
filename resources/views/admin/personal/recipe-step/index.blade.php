@@ -1,6 +1,5 @@
 @php
     use App\Models\Personal\RecipeStep;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Personal\RecipeStep';
@@ -12,28 +11,23 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-            [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-            [ 'name' => $recipe->name,     'href' => route('admin.personal.recipe.show', $recipe) ],
-            [ 'name' => 'Steps' ],
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-            [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        ];
+    $breadcrumbs = [
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ]
+    ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',    'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => 'Steps' ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(RecipeStep::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create', $owner)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Recipe Step',
+                                                                  'href' => route('admin.personal.recipe-step.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

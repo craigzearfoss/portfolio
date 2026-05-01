@@ -12,25 +12,16 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Add' ]
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-            [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
-            [ 'name' => 'Add' ]
-        ];
+    $breadcrumbs = [
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+    ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Resumes',    'href' => route('admin.career.resume.index') ];
+    $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
     $navButtons = [];
@@ -62,7 +53,7 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => Auth::guard('admin')->user()->id
+                    'value' => $owner->id ?? null
                 ])
             @endif
 

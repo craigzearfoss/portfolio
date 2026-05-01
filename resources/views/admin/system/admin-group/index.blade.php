@@ -1,7 +1,6 @@
 @php
     use App\Models\System\AdminGroup;
     use App\Models\System\AdminTeam;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\AdminGroup';
@@ -15,13 +14,9 @@
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
-                                                       !empty($owner)
-                                                           ? ['owner_id'=>$owner->id]
-                                                           : []
-                                                      )],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Groups' ],
+        [ 'name' => $isRootAdmin ? 'Admin Groups' : 'Groups' ],
     ];
 
     // set navigation buttons

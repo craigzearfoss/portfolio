@@ -10,29 +10,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Companies',  'href' => route('admin.career.company.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'Companies',  'href' => route('admin.career.company.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Companies',  'href' => route('admin.career.company.index') ];
     $breadcrumbs[] = [ 'name' => $company->name ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($company, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.company.edit', $company)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.company.edit', $company) ])->render();
     }
     if (canCreate($company, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Company',
+                                                                  'href' => route('admin.career.company.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.company.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.company.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

@@ -20,12 +20,14 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($industry, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.industry.edit', $industry)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.industry.edit', $industry) ])->render();
     }
     if (canCreate($industry, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Industry', 'href' => route('admin.career.industry.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Industry',
+                                                                  'href' => route('admin.career.industry.create')
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.industry.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.industry.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

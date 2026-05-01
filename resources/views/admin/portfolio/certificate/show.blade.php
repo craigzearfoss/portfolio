@@ -10,29 +10,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',    'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Certificates', 'href' => route('admin.portfolio.certificate.index', ['owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',    'href' => route('admin.portfolio.index') ];
-        $breadcrumbs[] = [ 'name' => 'Certificates', 'href' => route('admin.portfolio.certificate.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',    'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Certificates', 'href' => route('admin.portfolio.certificate.index') ];
     $breadcrumbs[] = [ 'name' => $certificate->name ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($certificate, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.certificate.edit', $certificate)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.certificate.edit', $certificate) ])->render();
     }
     if (canCreate($certificate, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Certificate',
+                                                                  'href' => route('admin.portfolio.certificate.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certificate.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.certificate.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

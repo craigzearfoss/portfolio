@@ -1,7 +1,6 @@
 @php
     use App\Models\Portfolio\Academy;
     use App\Models\Portfolio\Course;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Course';
@@ -14,25 +13,21 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if ($isRootAdmin && !empty($owner)) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id' => $owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Courses' ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Course::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course',
-                                                                 'href' => route('admin.portfolio.course.create',
-                                                                                 $isRootAdmin && $owner ? ['owner_id' => $owner->id] : []
-                                                                                )
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Course',
+                                                                  'href' => route('admin.portfolio.course.create',
+                                                                                 $isRootAdmin && $owner ? ['owner_id' => $owner->id] : [])
                                                                 ])->render();
     }
 @endphp

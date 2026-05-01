@@ -117,14 +117,14 @@ class MenuService
 
     /**
      * @param EnvTypes|null $envType
-     * @param Admin|null $owner
+     * @param Owner|Admin|null $owner
      * @param Admin|null $admin
      * @param User|null $user
      * @param string|null $currentRouteName
      * @throws Exception
      */
     public function __construct(EnvTypes|null $envType = null,
-                                Admin|null    $owner = null,
+                                Owner|Admin|null    $owner = null,
                                 Admin|null    $admin = null,
                                 User|null     $user = null,
                                 string|null   $currentRouteName = null)

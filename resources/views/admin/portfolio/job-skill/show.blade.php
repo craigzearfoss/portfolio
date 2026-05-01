@@ -11,14 +11,16 @@
 
     // set navigation buttons
     $breadcrumbs = [
-        [ 'name' => 'Home',              'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobSkill->job->name, 'href' => route('admin.portfolio.job.show', $jobSkill->job) ],
-        [ 'name' => 'Skills',            'href' => route('admin.portfolio.job-skill.index', ['job_id' => $jobSkill->job->id]) ],
-        [ 'name' => 'Show' ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Jobs' ,      'href' => route('admin.portfolio.job.index') ];
+    $breadcrumbs[] = [ 'name' => 'Job Skills', 'href' => route('admin.portfolio.job-skill.index') ];
+    $breadcrumbs[] = [ 'name' => $jobSkill->name ];
 
     // set navigation buttons
     $navButtons = [];

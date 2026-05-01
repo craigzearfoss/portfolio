@@ -13,16 +13,20 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Cover Letters',   'href' => route('admin.career.cover-letter.index') ],
-        [ 'name' => 'Attach' ],
+        [ 'name' => 'Home',                       'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',    'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Career',        'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Applications',  'href' => route('admin.career.application.index') ];
+    $breadcrumbs[] = [ 'name' => 'Cover Letters', 'href' => route('admin.career.cover-letter.index') ];
+    $breadcrumbs[] = [ 'name' => 'Attach' ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.cover-letter.index') ])->render(),
     ];
 @endphp
 
@@ -52,7 +56,7 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => Auth::guard('admin')->user()->id
+                    'value' => $owner->id ?? null
                 ])
             @endif
 

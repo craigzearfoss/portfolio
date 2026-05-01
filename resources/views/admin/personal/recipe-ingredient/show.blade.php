@@ -10,23 +10,27 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => 'Ingredients',     'href' => route('admin.personal.recipe-ingredient.index') ],
-        [ 'name' => $recipeIngredient->name ],
+        [ 'name' => 'Home',                                         'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                              'href' => route('admin.dashboard') ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',                      'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Personal',                        'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',                         'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => $recipeIngredient->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe) ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($recipeIngredient, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient) ])->render();
     }
     if (canCreate($recipeIngredient, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Recipe Ingredient',
+                                                                  'href' => route('admin.personal.recipe-ingredient.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-ingredient.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.personal.recipe-ingredient.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

@@ -12,29 +12,21 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',               'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
-            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Notes',              'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Add' ]
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-            [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
-            [ 'name' => 'Add' ]
-        ];
+    $breadcrumbs = [
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
+    ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
+    $breadcrumbs[] = [ 'name' => 'Notes',        'href' => route('admin.career.note.index') ];
+    $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.note.index') ])->render(),
     ];
 
     // get the options for the application select list

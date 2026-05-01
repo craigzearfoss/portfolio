@@ -1,6 +1,5 @@
 @php
     use App\Models\System\AdminEmail;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\System\UserPhone';
@@ -17,7 +16,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => $isRootAdmin ? 'User Phone Numbers' : 'Phone Numbers' ],
+        [ 'name' => $isRootAdmin ? 'User Phones' : 'Phones' ],
     ];
 
     // set navigation buttons

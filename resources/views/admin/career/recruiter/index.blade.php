@@ -1,6 +1,5 @@
 @php
     use App\Models\Career\Recruiter;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\Recruiter';
@@ -15,14 +14,16 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Recruiters' ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Recruiter::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Recruiter',
+                                                                  'href' => route('admin.career.recruiter.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

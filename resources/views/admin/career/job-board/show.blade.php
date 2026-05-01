@@ -20,12 +20,14 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($jobBoard, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.job-board.edit', $jobBoard)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.job-board.edit', $jobBoard) ])->render();
     }
     if (canCreate($jobBoard, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Board', 'href' => route('admin.career.job-board.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Job Board',
+                                                                  'href' => route('admin.career.job-board.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.job-board.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.job-board.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

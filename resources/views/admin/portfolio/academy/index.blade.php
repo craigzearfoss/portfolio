@@ -1,6 +1,5 @@
 @php
     use App\Models\Portfolio\Academy;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Academy';
@@ -22,7 +21,9 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Academy::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Academy', 'href' => route('admin.portfolio.academy.create', $owner ??  $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Academy',
+                                                                  'href' => route('admin.portfolio.academy.create')
+                                                                ])->render();
     }
 @endphp
 

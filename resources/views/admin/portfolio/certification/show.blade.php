@@ -10,22 +10,24 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',               'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',     'href' => route('admin.portfolio.certification.index') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
         [ 'name' => $certification->name ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($certification, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.certification.edit', $certification)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.certification.edit', $certification )])->render();
     }
     if (canCreate($certification, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certification', 'href' => route('admin.portfolio.certification.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Certification',
+                                                                  'href' => route('admin.portfolio.certification.create')
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certification.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.certification.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

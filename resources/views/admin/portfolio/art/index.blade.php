@@ -1,6 +1,5 @@
 @php
     use App\Models\Portfolio\Art;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\Art';
@@ -8,21 +7,17 @@
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
 
-    $title    = $pageTitle ?? 'Art';
+    $title = $pageTitle ?? 'Art';
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index',
-                                                                    !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
-                                                                   )];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Art' ];
 
     // set navigation buttons
@@ -30,8 +25,8 @@
     if (canCreate(Art::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Art',
                                                                   'href' => route('admin.portfolio.art.create',
-                                                                                  !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
-                                                                                 )])->render();
+                                                                                  $isRootAdmin ? [ 'owner_id'=>$owner->id ?? null ] : [])
+                                                                ])->render();
     }
 @endphp
 

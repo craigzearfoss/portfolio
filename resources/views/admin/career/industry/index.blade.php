@@ -1,6 +1,5 @@
 @php
     use App\Models\Career\Industry;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\Industry';
@@ -15,14 +14,16 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Industries' ]
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Industry::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Industry', 'href' => route('admin.career.industry.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Industry',
+                                                                  'href' => route('admin.career.industry.create')
+                                                                ])->render();
     }
 @endphp
 

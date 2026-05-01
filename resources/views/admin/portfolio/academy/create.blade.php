@@ -9,6 +9,7 @@
     $subtitle = $title;
 
     // set breadcrumbs
+
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -19,7 +20,7 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.academy.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.academy.index') ])->render(),
     ]
 @endphp
 

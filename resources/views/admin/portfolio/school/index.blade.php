@@ -1,6 +1,5 @@
 @php
     use App\Models\Portfolio\School;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Portfolio\School';
@@ -15,7 +14,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index', $owner ? ['owner_id' => $owner->id] : []) ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Schools' ]
     ];
 

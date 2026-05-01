@@ -1,6 +1,5 @@
 @php
     use App\Models\Career\CoverLetter;
-    use Illuminate\Support\Number;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $className   = 'App\Models\Career\CoverLetter';
@@ -13,16 +12,22 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Cover Letters' ]
+        [ 'name' => 'Home',                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',   'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
+    $breadcrumbs[] = [ 'name' => 'Cover Letters' ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(CoverLetter::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Cover Letter',
+                                                                  'href' => route('admin.career.cover-letter.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

@@ -23,7 +23,7 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-step.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.personal.recipe-step.index') ])->render(),
     ];
 @endphp
 
