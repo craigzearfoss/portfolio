@@ -26,12 +26,12 @@
     }
     $resource = $resource ?? null;
 @endphp
-@if($resource->hasAttribute('latitude') || $resource->hasAttribute('longitude'))
+@if ($resource->hasAttribute('latitude') || $resource->hasAttribute('longitude'))
 
-    <div @if(!empty($classes))
+    <div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
          @endif
-         @if(!empty($styles))
+         @if (!empty($styles))
              style="{!! implode(' ', $styles) !!}"
          @endif
     >

@@ -28,10 +28,10 @@
     $menu       = $menu ?? 0;
     $menu_level = $menu_level ?? 0;
 @endphp
-<div @if(!empty($classes))
+<div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
-     @if(!empty($styles))
+     @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
      @endif
 >

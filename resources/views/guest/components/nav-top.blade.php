@@ -17,7 +17,7 @@
             <div class="navbar-item has-control">
 
                 <span class="mr-4 has-text-dark">
-                    @if(!empty($envType) && $envType === EnvTypes::GUEST)
+                    @if (!empty($envType) && $envType === EnvTypes::GUEST)
                         @include('guest.components.link', [
                             'name'  => config('app.name'),
                             'href'  => route('guest.index'),
@@ -28,7 +28,7 @@
                     @endif
                 </span>
 
-                @if(isDemo())
+                @if (isDemo())
                     <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
                         Demo Mode
                     </span>
@@ -57,7 +57,7 @@
 
                 @foreach($menuItems as $menuItem)
 
-                    @if((get_class($menuItem) === 'stdClass') && ($menuItem->name === 'Resume'))
+                    @if ((get_class($menuItem) === 'stdClass') && ($menuItem->name === 'Resume'))
 
                         <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable"
                              style="background-color: rgb(0, 158, 134) !important; color: #ffffff;"
@@ -135,7 +135,7 @@
                                 'icon'   => false
                             ])
 
-                            @if(!empty($menuItem->children))
+                            @if (!empty($menuItem->children))
 
                                 <div class="navbar-dropdown">
 

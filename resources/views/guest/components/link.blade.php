@@ -9,22 +9,22 @@
 @endphp
 @if (!empty($href) || !empty($name))
 
-    <a @if(!empty($href))
+    <a @if (!empty($href))
            href="{!! $href !!}"
        @endif
-       @if(!empty($target))
+       @if (!empty($target))
            target="{!! $target !!}"
        @endif
-       @if(!empty($class))
+       @if (!empty($class))
            class="{{ implode(' ' , $class) }}"
        @endif
-       @if(!empty($style))
+       @if (!empty($style))
            style="{!! implode('; ', $style) !!}"
        @endif
-       @if(!empty($onclick))
+       @if (!empty($onclick))
             onclick="{!! $onclick !!}"
        @endif
-       @if(!empty($attributes))
+       @if (!empty($attributes))
            @foreach($attributes as $key=>$value)
                {{ $key }}="{!! $value !!}"
            @endforeach

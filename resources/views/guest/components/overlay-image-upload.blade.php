@@ -3,12 +3,12 @@
     $maxFileSize = !empty($maxFileSize) ? $maxFileSize : config('app.upload_max_file_size')
 @endphp
 
-@if(config('app.upload_enabled'))
+@if (config('app.upload_enabled'))
 
     <form name="{{ $name ?? 'frmImageUpload' }}" action="{!! $action ?? '' !!}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        @if(!empty($maxFileSize))
+        @if (!empty($maxFileSize))
             @include('guest.components.form-hidden', [
                 'type' => 'hidden',
                 'name' => 'MAX_FILE_SIZE',

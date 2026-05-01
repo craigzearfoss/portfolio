@@ -23,7 +23,7 @@
     }
 @endphp
 
-@if(empty($sort))
+@if (empty($sort))
     <span class="col-heading">{{ $name }}</span>
 @else
     @php
@@ -33,7 +33,7 @@
        class="col-heading"
     >
         {{ $name }}
-        @if($sortField == $currentSortField)
+        @if ($sortField == $currentSortField)
             <i class="fa fa-sort-{{ $sortDir }}" aria-hidden="true"></i>
         @endif
     </a>

@@ -8,11 +8,11 @@
     @endphp
     <meta property="og:url"         content="{{ $share_url ?? url()->current() }}" />
     <meta property="og:title"       content="{{ $title ?? config('app.name') }}" />
-    @if(Route::currentRouteName() == 'guest.index')
+    @if (Route::currentRouteName() == 'guest.index')
         <meta property="og:image" content="{{ $shareImage }}?{{ appTimestamp() }}" />
         <meta property="og:description" content="{{ config('app.name') }} is a site to track your job search and manage your career information." />
     @endif
-    @if($fb_app_id = config('app.facebook_app_id'))
+    @if ($fb_app_id = config('app.facebook_app_id'))
         <meta property="fb:app_id" content="{{ $fb_app_id }}" />
     @endif
 
@@ -23,7 +23,7 @@
                 ? $pageTitle
                 : $title ?? ''
         @endphp
-        @if(!empty($pageTitle) && ($pageTitle !== config('app.name')))
+        @if (!empty($pageTitle) && ($pageTitle !== config('app.name')))
             {{$pageTitle}} -
         @endif
         {{ config('app.name') }}
@@ -53,7 +53,7 @@
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}?{{ appTimestamp() }}"></script>
 
-    @if(config('app.recaptcha_enabled'))
+    @if (config('app.recaptcha_enabled'))
         <script src="https://www.google.com/recaptcha/api.js"></script>
         <script>
             function onSubmit(token) {

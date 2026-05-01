@@ -1,6 +1,10 @@
 @php
     use Illuminate\Support\Carbon;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $owner            = $owner ?? null;
+    $publicAdminCount = $publicAdminCount ?? 0;
+
     $envType = getEnvType();
 
     $title    = $pageTitle ?? filteredPageTitle('Resume', $owner->name);
@@ -42,7 +46,7 @@
 
 @section('content')
 
-    @if($envType->value != 'admin')
+    @if ($envType->value != 'admin')
         @include('guest.components.disclaimer', [ 'value' => $resume->disclaimer ?? null ])
     @endif
 
@@ -51,7 +55,7 @@
         @foreach($resumeService->jobs as $i=>$job)
 
             <div class="list-item-content mb-3 border-bottom is-flex"
-                 @if($i > 0)
+                 @if ($i > 0)
                      style="border-top:#eee 1px inset; padding-top: 0.4em"
                 @endif
             >
@@ -102,7 +106,7 @@
                     </div>
 
                     <div class="list-item-description pt-1">
-                        @if(!empty($job->tasks))
+                        @if (!empty($job->tasks))
                             <ul>
                                 @foreach($job->tasks as $task)
                                     <li>• {!! $task->summary !!}</li>
@@ -111,7 +115,7 @@
                         @endif
                     </div>
 
-                    @if($job->skills->count() > 0)
+                    @if ($job->skills->count() > 0)
 
                         <div class="list-item-description pt-2">
                             <strong>Skills:</strong>
@@ -127,14 +131,14 @@
         @endforeach
 
 
-        @if($resumeService->educations->count() > 0)
+        @if ($resumeService->educations->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Education</h2>
 
             @foreach($resumeService->educations as $i=>$education)
 
                 <div class="list-item-content mb-3 border-bottom is-flex pl-4"
-                     @if($i > 0)
+                     @if ($i > 0)
                          style="border-top:#eee 1px inset; padding-top: 0.4em"
                     @endif
                 >
@@ -142,7 +146,7 @@
 
                         <div class="list-item-description pt-1">
                             {{ $education->degreeType->name ?? '' }} in {{ $education->major }}
-                            @if(!empty($education->graduation_date))
+                            @if (!empty($education->graduation_date))
                                 -
                                 {{ Carbon::parse($education->graduation_date)->format("F y") }}
                             @endif
@@ -161,14 +165,14 @@
         @endif
 
 
-        @if($resumeService->certificates->count() > 0)
+        @if ($resumeService->certificates->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Certifications</h2>
 
             @foreach($resumeService->certificates as $i=>$certificate)
 
                 <div class="list-item-content mb-3 border-bottom is-flex pl-4"
-                     @if($i > 0)
+                     @if ($i > 0)
                          style="border-top:#eee 1px inset; padding-top: 0.4em"
                     @endif
                 >
@@ -189,7 +193,7 @@
         @endif
 
 
-        @if($resumeService->awards->count() > 0)
+        @if ($resumeService->awards->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Awards</h2>
 
@@ -214,7 +218,7 @@
         @endif
 
 
-        @if($resumeService->skills->count() > 0)
+        @if ($resumeService->skills->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Skills</h2>
 

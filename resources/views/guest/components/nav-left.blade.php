@@ -5,7 +5,7 @@
     $user  = $user ?? null;
     $owner = $owner ?? null;
 @endphp
-@if($menuItems = $menuService->leftMenu())
+@if ($menuItems = $menuService->leftMenu())
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
@@ -17,7 +17,7 @@
                     'selected' => true,
                 ])
 
-                @if(Auth::guard('admin')->check() || !config('app.single_admin_mode'))
+                @if (Auth::guard('admin')->check() || !config('app.single_admin_mode'))
                     <span class="home-admin-button-separator"></span>
                     @include('guest.components.button-home', [
                         'name'     => 'Admin',
@@ -31,7 +31,7 @@
 
         <div class="control ml-2 mt-2">
 
-            @if(!config('app.single_admin_mode'))
+            @if (!config('app.single_admin_mode'))
 
                 <div class="has-text-light">candidates</div>
 
@@ -50,7 +50,7 @@
 
             <ul class="menu is-menu-main mb-2" style="font-size: 1rem;">
 
-                @if((get_class($menuItems[$i]) === 'stdClass') && $menuItems[$i]->name === 'Resume')
+                @if ((get_class($menuItems[$i]) === 'stdClass') && $menuItems[$i]->name === 'Resume')
 
                     <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
                         @include('guest.components.nav-link-left', [
@@ -77,7 +77,7 @@
 
                 @endif
 
-                @if(!empty($menuItems[$i]->children))
+                @if (!empty($menuItems[$i]->children))
 
                     <ul class="menu-list pl-2" style="margin-left: 1em;">
 
@@ -91,7 +91,7 @@
                                     'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
                                 ])
 
-                                @if(!empty($menu2Item->children))
+                                @if (!empty($menu2Item->children))
                                     @php dd($menu2Item->children) @endphp
                                     @php //@TODO: This isn't working @endphp
                                     <ul class="menu-list pl-2" style="margin-left: 1em;">

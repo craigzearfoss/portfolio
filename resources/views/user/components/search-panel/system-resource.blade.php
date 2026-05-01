@@ -53,7 +53,7 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         <div class="floating-div">
                             <div class="search-form-control">
                                 @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
@@ -104,7 +104,7 @@
                     </div>
                     <div class="floating-div">
 
-                        @if($isRootAdmin)
+                        @if ($isRootAdmin)
                             <div class="search-form-control">
                                 <div class="control" style="max-width: 28rem;">
                                     @include('user.components.form-select', [
@@ -163,7 +163,7 @@
 
                     </div>
 
-                    @if($isRootAdmin)
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('user.components.search-panel.controls.timestamp-created-at', [

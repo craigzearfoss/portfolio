@@ -7,7 +7,7 @@
     @endphp
 
     @for ($cnt=1; $cnt<$max + 1; $cnt++)
-        @if($cnt <= $rating)
+        @if ($cnt <= $rating)
             <i class="fa fa-star"></i>
         @elseif (!empty($rating) && (floor($rating) == $cnt) && ($rating - $cnt)) < 0.75 ))
             <i class="fa fa-star-half"></i>

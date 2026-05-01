@@ -79,7 +79,7 @@
                     </div>
                     <div class="floating-div">
 
-                        @if($applicationCount > 20)
+                        @if ($applicationCount > 20)
                             <div class="search-form-control">
                                 @include('guest.components.form-input-with-icon', [
                                     'name'    => 'application_name',
@@ -97,7 +97,7 @@
 
                         <div class="search-form-control">
 
-                            @if($companyCount > 20)
+                            @if ($companyCount > 20)
                                 <div class="search-form-control">
                                     @include('guest.components.form-input-with-icon', [
                                         'name'    => 'company_name',

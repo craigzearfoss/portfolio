@@ -77,7 +77,7 @@
             'value' => nl2br($category->description)
         ])
 
-        @if(!empty($category->image))
+        @if (!empty($category->image))
 
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',

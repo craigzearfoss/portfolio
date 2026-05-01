@@ -77,7 +77,7 @@
             'value' => nl2br($database->description)
         ])
 
-        @if(!empty($database->image))
+        @if (!empty($database->image))
 
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',

@@ -28,10 +28,10 @@
     }
     $resource = $resource ?? null;
 @endphp
-<div @if(!empty($classes))
+<div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
-     @if(!empty($styles))
+     @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
@@ -45,7 +45,7 @@
 
                 @foreach(array_column(EnvTypes::cases(), 'value') as $envType)
 
-                    @if($resource->hasAttribute($envType))
+                    @if ($resource->hasAttribute($envType))
 
                         <div class="show-container card floating-div">
                             <span>

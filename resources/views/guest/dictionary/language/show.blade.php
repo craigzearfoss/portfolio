@@ -77,7 +77,7 @@
             'value' => nl2br($language->description)
         ])
 
-        @if(!empty($language->image))
+        @if (!empty($language->image))
 
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',

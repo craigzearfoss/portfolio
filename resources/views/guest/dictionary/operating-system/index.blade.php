@@ -40,7 +40,7 @@
 
         <div class="show-container card floating-div">
 
-            @if(!empty($pagination_top))
+            @if (!empty($pagination_top))
                 {!! $operatingSystems->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -63,7 +63,7 @@
 
             </ul>
 
-            @if(!empty($pagination_bottom))
+            @if (!empty($pagination_bottom))
                 {!! $operatingSystems->links('vendor.pagination.bulma') !!}
             @endif
 

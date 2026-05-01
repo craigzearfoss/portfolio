@@ -1,6 +1,6 @@
 <div class="p-2 has-text-centered">
 
-    @if(true === $retVal = validateDemoAdminCredentials())
+    @if (true === $retVal = validateDemoAdminCredentials())
 
         <p class="mb-1">
             To log in as the <strong>demo</strong> admin use the credentials below.

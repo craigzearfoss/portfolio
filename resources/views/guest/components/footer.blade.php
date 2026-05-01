@@ -3,10 +3,10 @@
         <div class="level">
             <div class="level-left">
                 <div class="level-item">
-                    @if(!empty('app.name'))
+                    @if (!empty('app.name'))
                         <span class="mr-2">{{ config('app.name') }}, <i>{{ config('app.version') }}, </i></span>
                     @endif
-                    @if(config('app.copyright') && config('app.owner'))
+                    @if (config('app.copyright') && config('app.owner'))
                         @include('guest.components.copyright')
                     @endif
                 </div>
@@ -22,7 +22,7 @@
                     <a href="{!! route('guest.privacy-policy') !!}">Privacy policy</a>
                     <span class="mx-2"> | </span>
                     <a href="{!! route('guest.contact') !!}">Contact</a>
-                    @if(!isUser())
+                    @if (!isUser())
                         <span class="mx-2"> | </span>
                         <a href="{{ route('user.register') }}">Register</a>
                     @endif

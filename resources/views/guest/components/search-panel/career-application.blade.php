@@ -86,7 +86,7 @@
                     </div>
                     <div class="floating-div">
 
-                        @if($companyCount > 20)
+                        @if ($companyCount > 20)
                             <div class="search-form-control">
                                 @include('guest.components.form-input-with-icon', [
                                     'name'    => 'company_name',
@@ -115,7 +115,7 @@
                             @include('guest.components.search-panel.controls.career-job-board')
                         </div>
 
-                        @if($resumeCount > 20)
+                        @if ($resumeCount > 20)
                             <div class="search-form-control">
                                 @include('guest.components.form-input-with-icon', [
                                     'name'    => 'resume_name',

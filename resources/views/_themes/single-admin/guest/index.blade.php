@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? ($featuredAdmin ? $featuredAdmin->name : config('add.name'));
+    $title    = $pageTitle ?? (!empty($featuredAdmin) ? $featuredAdmin->name : config('add.name'));
     $subtitle = false;
 
     // set breadcrumbs
@@ -27,7 +27,7 @@
 
     </div>
 
-    @if(config('app.include_site_intro'))
+    @if (config('app.include_site_intro'))
         <div class="floating-div-container" style=" max-width: 100% !important;">
             @include('guest.components.partials.site-intro')
         </div>

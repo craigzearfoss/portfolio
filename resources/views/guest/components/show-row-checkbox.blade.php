@@ -28,12 +28,12 @@
 <div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
-     @if(!empty($styles))
+     @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
     <div class="column is-2 label">
-        @if(!empty($name))
+        @if (!empty($name))
             <strong>{!! $name !!}</strong>:
         @endif
     </div>

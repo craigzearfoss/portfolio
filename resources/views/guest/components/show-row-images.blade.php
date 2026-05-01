@@ -31,12 +31,12 @@
 <div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
      @endif
-     @if(!empty($styles))
+     @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
     <div class="column is-2 label">
-        @if(!empty($name))
+        @if (!empty($name))
             <strong>{!! $name !!}</strong>:
         @endif
     </div>
@@ -44,7 +44,7 @@
 
         <div class="floating-div-container">
 
-            @if(!empty($resource))
+            @if (!empty($resource))
 
                 @foreach([
                     'certificate_url',
@@ -54,14 +54,14 @@
                     'logo_small',
                 ] as $imageName)
 
-                    @if($resource->hasAttribute($imageName))
+                    @if ($resource->hasAttribute($imageName))
 
                         <div class="floating-div p-2 mb-2 mr-2" style="border: 1px solid #ccc;">
 
                             <strong>{{ str_replace('_', ' ', $imageName) }}</strong>
                             <br>
 
-                            @if(!empty($resource->{$imageName}))
+                            @if (!empty($resource->{$imageName}))
 
                                 @php
 
@@ -117,7 +117,7 @@
                                     'external' => $external,
                                 ])
 
-                                @if($imageName === 'image')
+                                @if ($imageName === 'image')
                                     <div class=flex">
                                         <strong>image credit:</strong>
                                         <span>{{ $resource->image_credit }}</span>
