@@ -12,20 +12,16 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                                     'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                                          'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                                                   'href' => route('admin.system.index',
-                                                                                                !empty($owner)
-                                                                                                    ? ['owner_id'=>$owner->id]
-                                                                                                    : []
-                                                                                                )],
+        [ 'name' => 'Home',             'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',           'href' => route('admin.system.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) ],
         [ 'name' => $isRootAdmin ? 'Admin Email Addresses' : 'Email Addresses', 'href' => route('admin.system.admin-email.index') ],
         [ 'name' => 'Add' ]
     ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-email.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-email.index') ])->render(),
     ];
 @endphp
 

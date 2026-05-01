@@ -22,17 +22,15 @@
     // set navigation buttons
     $navButtons = [];
     $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'View Profile',
-                                                            'href' => route('admin.system.admin.show', $thisAdmin)
-                                                          ])->render();
+                                                               'href' => route('admin.system.admin.show', $thisAdmin)
+                                                             ])->render();
     if (canUpdate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
     if (canCreate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
-                                                               'href' => route('admin.system.admin.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.admin.create')
+                                                                ])->render();
     }
     if (canUpdate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-change-password', [ 'name' => 'Change Password',

@@ -24,7 +24,9 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Project::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Project',
+                                                                  'href' => route('admin.portfolio.project.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

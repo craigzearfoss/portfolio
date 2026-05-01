@@ -25,7 +25,9 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(Job::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job', 'href' => route('admin.portfolio.job.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Job',
+                                                                  'href' => route('admin.portfolio.job.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

@@ -23,12 +23,14 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($publication, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.publication.edit', $publication)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.publication.edit', $publication) ])->render();
     }
     if (canCreate($publication, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Publication', 'href' => route('admin.portfolio.publication.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Publication',
+                                                                  'href' => route('admin.portfolio.publication.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.publication.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.publication.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

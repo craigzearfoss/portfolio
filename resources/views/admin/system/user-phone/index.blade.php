@@ -23,10 +23,8 @@
     $navButtons = [];
     if (canCreate(AdminEmail::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Phone Number',
-                                                               'href' => route('admin.system.user-phone.create',
-                                                                               $user ? [ 'user_id' => $user->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                   'href' => route('admin.system.user-phone.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

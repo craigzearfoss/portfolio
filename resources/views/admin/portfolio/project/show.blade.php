@@ -23,10 +23,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($project, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.project.edit', $project)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.project.edit', $project) ])->render();
     }
     if (canCreate($project, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Project',
+                                                                  'href' => route('admin.portfolio.project.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.project.index')])->render();
 @endphp

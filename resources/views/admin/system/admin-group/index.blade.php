@@ -23,13 +23,13 @@
     $navButtons = [];
     if (canCreate(AdminGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
-                                                               'href' => route('admin.system.admin-group.create')
-                                                             ])->render();
+                                                                  'href' => route('admin.system.admin-group.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
     if (canRead(AdminTeam::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
-                                                                'href' => route('admin.system.admin-team.index')
-                                                              ])->render();
+                                                                   'href' => route('admin.system.admin-team.index')
+                                                                 ])->render();
     }
 @endphp
 

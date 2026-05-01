@@ -15,18 +15,14 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
-                                                       !empty($owner)
-                                                           ? ['owner_id'=>$owner->id]
-                                                           : []
-                                                      )],
+        [ 'name' => 'System',          'href' => route('admin.system.index', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : []) ],
         [ 'name' => 'Admin Groups',    'href' => route('admin.system.admin-group.index') ],
         [ 'name' => 'Add' ]
     ];
 
     // set navigation buttons
     $navButtons    = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-group.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render(),
     ];
 @endphp
 

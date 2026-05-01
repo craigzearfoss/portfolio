@@ -28,9 +28,7 @@
     }
     if (canCreate($adminEmail, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
-                                                                  'href' => route('admin.system.admin-email.create',
-                                                                                      $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                                 )
+                                                                  'href' => route('admin.system.admin-email.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
                                                                 ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-email.index') ])->render();

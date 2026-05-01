@@ -27,10 +27,8 @@
     }
     if (canCreate($thisUser, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User',
-                                                               'href' => route('admin.system.user.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.user.create')
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user.index') ])->render();
 @endphp

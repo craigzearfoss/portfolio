@@ -25,7 +25,7 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-team.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-team.index' )])->render(),
     ];
 @endphp
 

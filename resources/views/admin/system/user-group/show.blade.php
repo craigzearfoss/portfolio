@@ -20,15 +20,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($userGroup, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup)
-                                                              ])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup) ])->render();
     }
     if (canCreate($userGroup, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
-                                                               'href' => route('admin.system.user-group.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.user-group.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-group.index') ])->render();
 @endphp

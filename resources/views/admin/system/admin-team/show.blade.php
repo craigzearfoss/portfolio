@@ -12,11 +12,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
-                                                        !empty($owner)
-                                                            ? ['owner_id'=>$owner->id]
-                                                            : []
-                                                       )],
+        [ 'name' => 'System',          'href' => route('admin.system.index', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : []) ],
         [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
         [ 'name' => $adminTeam->name ]
     ];
@@ -24,14 +20,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($adminTeam, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-team.edit', $adminTeam)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-team.edit', $adminTeam) ])->render();
     }
     if (canCreate($adminTeam, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
-                                                               'href' => route('admin.system.admin-team.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.admin-team.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-team.index') ])->render();
 @endphp

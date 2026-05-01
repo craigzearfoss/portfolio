@@ -24,14 +24,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($adminPhone, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-phone.edit', $adminPhone)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-phone.edit', $adminPhone) ])->render();
     }
     if (canCreate($adminPhone, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
-                                                               'href' => route('admin.system.admin-phone.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.admin-phone.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-phone.index') ])->render();
 @endphp

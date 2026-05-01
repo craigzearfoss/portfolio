@@ -23,10 +23,8 @@
     $navButtons = [];
     if (canCreate(UserGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
-                                                               'href' => route('admin.system.user-group.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.user-group.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
+                                                                ])->render();
     }
     if (canRead(UserTeam::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'User Teams',

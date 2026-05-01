@@ -24,18 +24,18 @@
     $navButtons = [];
     if (canCreate(Admin::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin',
-                                                               'href' => route('admin.system.admin.create')
-                                                             ])->render();
+                                                                  'href' => route('admin.system.admin.create')
+                                                                ])->render();
     }
     if (canRead(UserTeam::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
-                                                                'href' => route('admin.system.admin-team.index')
-                                                              ])->render();
+                                                                   'href' => route('admin.system.admin-team.index')
+                                                                 ])->render();
     }
     if (canRead(AdminGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Groups',
-                                                                'href' => route('admin.system.admin-group.index')
-                                                              ])->render();
+                                                                   'href' => route('admin.system.admin-group.index')
+                                                                 ])->render();
     }
 @endphp
 

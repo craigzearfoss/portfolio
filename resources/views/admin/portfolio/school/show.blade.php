@@ -20,12 +20,14 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($school, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.school.edit', $school)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.portfolio.school.edit', $school) ])->render();
     }
     if (canCreate($school, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New School', 'href' => route('admin.portfolio.school.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New School',
+                                                                  'href' => route('admin.portfolio.school.create')
+                                                                ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.school.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.school.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

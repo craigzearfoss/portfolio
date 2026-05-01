@@ -21,7 +21,9 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(School::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New School', 'href' => route('admin.portfolio.school.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New School',
+                                                                  'href' => route('admin.portfolio.school.create')
+                                                                ])->render();
     }
 @endphp
 @extends('admin.layouts.default')

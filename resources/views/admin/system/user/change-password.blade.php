@@ -18,8 +18,10 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.user.index')])->render(),
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.show', $user) ],
+        view('admin.components.nav-button-back', [
+            'href' => referer('admin.system.user.index')])->render(),
+            [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.show', $user)
+        ],
     ];
 @endphp
 
@@ -53,7 +55,6 @@
                 ])
 
                 @include('admin.components.form-input-with-icon', [
-                    'label'       => 'confirm password',
                     'type'        => 'password',
                     'name'        => 'confirm_password',
                     'label'       => 'confirm new password',

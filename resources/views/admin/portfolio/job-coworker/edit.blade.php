@@ -13,18 +13,18 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',               'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',               'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobSkill->job->name, 'href' => route('admin.portfolio.job.show', $jobCoworker->job) ],
-        [ 'name' => 'Coworkers',          'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $jobCoworker->job->id]) ],
+        [ 'name' => 'Home',                  'href' => route('admin.index') ],
+        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',             'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs',                  'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => $jobCoworker->job->name, 'href' => route('admin.portfolio.job.show', $jobCoworker->job) ],
+        [ 'name' => 'Coworkers',             'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $jobCoworker->job->id]) ],
         [ 'name' => $jobCoworker->name ],
     ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-coworker.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.job-coworker.index') ])->render(),
     ];
 @endphp
 

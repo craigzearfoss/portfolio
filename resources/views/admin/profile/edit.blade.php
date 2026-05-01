@@ -18,8 +18,11 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button', ['name' => 'Change Password', 'icon'=>'fa-key', 'href' => route('admin.profile.change-password')])->render(),
-        view('admin.components.nav-button-back', ['href' => referer('admin.profile.index')])->render(),
+        view('admin.components.nav-button', [ 'name' => 'Change Password',
+                                              'icon'=>'fa-key',
+                                              'href' => route('admin.profile.change-password')
+                                            ])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.profile.index') ])->render(),
     ]
 @endphp
 

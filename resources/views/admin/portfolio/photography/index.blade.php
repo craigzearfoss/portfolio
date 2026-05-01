@@ -25,9 +25,8 @@
     $navButtons = [];
     if (canCreate(Photography::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Photo',
-                                                               'href' => route('admin.portfolio.photography.create',
-                                                                               !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
-                                                                              )])->render();
+                                                                   'href' => route('admin.portfolio.photography.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

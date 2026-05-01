@@ -24,10 +24,8 @@
     }
     if (canCreate($message, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
-                                                               'href' => route('admin.system.message.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.message.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.message.index') ])->render();
 @endphp

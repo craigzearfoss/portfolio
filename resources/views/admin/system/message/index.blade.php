@@ -21,7 +21,7 @@
     /*
     // messages must be created from the site contact pages
     if (canCreate(Message::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : []) ])->render();
     }
     */
 @endphp

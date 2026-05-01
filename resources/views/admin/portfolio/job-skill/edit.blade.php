@@ -25,7 +25,7 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-skill.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.job-skill.index') ])->render(),
     ];
 @endphp
 

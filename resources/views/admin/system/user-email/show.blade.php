@@ -20,12 +20,11 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($userEmail, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-email.edit', $userEmail)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-email.edit', $userEmail) ])->render();
     }
     if (canCreate($userEmail, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
-                                                                  'href' => route('admin.system.user-email.create',
-                                                                                  [ 'user_id' => $userEmail->user_id ])
+                                                                  'href' => route('admin.system.user-email.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
                                                                 ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-email.index') ])->render();

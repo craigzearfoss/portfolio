@@ -28,7 +28,7 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.photography.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.photography.index') ])->render(),
     ];
 @endphp
 @extends('admin.layouts.default')

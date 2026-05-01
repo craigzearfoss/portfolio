@@ -29,17 +29,15 @@
     }
     if (canCreate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
-                                                               'href' => route('admin.system.admin.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.admin.create')
+                                                                ])->render();
     }
     if (canUpdate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-change-password', [ 'name' => 'Change Password',
                                                                               'href' => route('admin.system.admin.change-password', $thisAdmin)
                                                                             ])->render();
     }
-    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => route('admin.system.admin.profile', $thisAdmin)])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => route('admin.system.admin.profile', $thisAdmin) ])->render();
 @endphp
 
 @extends('admin.layouts.default')

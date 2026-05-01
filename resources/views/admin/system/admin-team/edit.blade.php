@@ -17,14 +17,14 @@
                                                            ? ['owner_id'=>$owner->id]
                                                            : []
                                                       )],
-        [ 'name' => 'Teams',           'href' => route('admin.system.admin-team.index', ['owner_id'=>$owner->id]) ],
-        [ 'name' => $adminTeam->name,  'href' => route('admin.system.admin-team.show', [$adminTeam, 'owner_id'=>$owner->id]) ],
+        [ 'name' => 'Teams',           'href' => route('admin.system.admin-team.index', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : []) ],
+        [ 'name' => $adminTeam->name,  'href' => route('admin.system.admin-team.show', array_merge([$adminTeam], $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])) ],
         [ 'name' => 'Edit' ]
     ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-team.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-team.index') ])->render(),
     ];
 @endphp
 

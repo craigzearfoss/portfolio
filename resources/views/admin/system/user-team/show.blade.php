@@ -20,15 +20,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($userTeam, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-team.edit', $userTeam)
-                                                              ])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-team.edit', $userTeam) ])->render();
     }
     if (canCreate($userTeam, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User Team',
-                                                               'href' => route('admin.system.user-team.create',
-                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.user-team.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-team.index') ])->render();
 @endphp

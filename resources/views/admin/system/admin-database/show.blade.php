@@ -30,7 +30,7 @@
     $navButtons = [];
     if ($isRootAdmin && !empty($owner)) {
         if (canUpdate($adminDatabase, $admin)) {
-            $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', [ $adminDatabase, 'owner_id'=>$owner->id ]) ])->render();
+            $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', array_merge([ $adminDatabase ], $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])) ])->render();
         }
     } else {
         if (canUpdate($adminDatabase, $admin)) {

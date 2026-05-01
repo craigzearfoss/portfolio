@@ -23,10 +23,8 @@
     $navButtons = [];
     if (canCreate(UserEmail::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
-                                                               'href' => route('admin.system.user-email.create',
-                                                                               $user ? [ 'user_id' => $user->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.user-email.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
+                                                                ])->render();
     }
 @endphp
 

@@ -17,8 +17,8 @@
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-change-password', ['name' => 'Change Password'])->render(),
-        view('admin.components.nav-button-edit', ['href' => route('admin.profile.edit')])->render()
+        view('admin.components.nav-button-change-password', [ 'name' => 'Change Password' ])->render(),
+        view('admin.components.nav-button-edit', [ 'href' => route('admin.profile.edit') ])->render()
     ];
 @endphp
 

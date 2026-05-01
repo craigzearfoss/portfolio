@@ -18,7 +18,7 @@
     ];
 
     $navButtons = [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.session.index' )])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.session.index') ])->render(),
     ];
 @endphp
 
