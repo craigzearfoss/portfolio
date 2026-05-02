@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $link        = $link ?? null;
 
-    $title    = $pageTitle ?? 'Edit Link: ' . $link->name;
+    $title    = 'Edit ' . getAdminPageTitle($link);
     $subtitle = $title;
 
     // set breadcrumbs

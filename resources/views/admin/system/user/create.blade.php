@@ -151,20 +151,20 @@
             ])
 
             @include('admin.components.form-location-horizontal', [
-                'street'     => old('street') ?? $owner->street,
-                'street2'    => old('street2') ?? $owner->street2,
-                'city'       => old('city') ?? $owner->city,
-                'state_id'   => old('state_id') ?? $owner->state_id,
+                'street'     => old('street') ?? '',
+                'street2'    => old('street2') ?? '',
+                'city'       => old('city') ?? '',
+                'state_id'   => old('state_id') ?? '',
                 'states'     => new State()->listOptions([], 'id', 'name', true),
-                'zip'        => old('zip') ?? $owner->zip,
-                'country_id' => old('country_id') ?? $owner->country_id,
+                'zip'        => old('zip') ?? '',
+                'country_id' => old('country_id') ?? '',
                 'countries'  => new Country()->listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 
             @include('admin.components.form-coordinates-horizontal', [
-                'latitude'  => old('latitude') ?? $owner->latitude,
-                'longitude' => old('longitude') ?? $owner->longitude,
+                'latitude'  => old('latitude') ?? '',
+                'longitude' => old('longitude') ?? '',
                 'message'   => $message ?? '',
             ])
 

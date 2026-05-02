@@ -160,9 +160,7 @@
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resource->plural,
-                                        'href'  => route('admin.'.$resource->database['name'].'.'.$resource->name.'.index',
-                                                         $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner ] : []
-                                                   ),
+                                        'href'  => route('admin.'.$resource->database['name'].'.'.$resource->name.'.index', [ 'owner_id' => $thisAdmin->id ]),
                                         'class' => 'list-item',
                                         'style' => [
                                             'color: #4a4a4a;',

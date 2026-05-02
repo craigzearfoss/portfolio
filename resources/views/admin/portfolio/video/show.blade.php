@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $video       = $video ?? null;
 
-    $title    = $pageTitle ?? 'Video: ' . $video->name;
+    $title    = getAdminPageTitle($video);
     $subtitle = $title;
 
     // set breadcrumbs

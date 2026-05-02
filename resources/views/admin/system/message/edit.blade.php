@@ -3,18 +3,19 @@
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
-    $message     = $message ?? null;
+    $thisMessage = $thisMessage ?? null;
 
-    $title    = $pageTitle ?? 'Edit Message ' . $message['id'];
+    $title    = $pageTitle ?? 'Edit Message: ' . $thisMessage->subject . ' (from ' . $thisMessage->name . ')' ;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
-        [ 'name' => 'Edit Message ' . $message['id'] ],
+        [ 'name' => 'Home',                                                       'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                            'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                                     'href' => route('admin.system.index') ],
+        [ 'name' => 'Messages',                                                   'href' => route('admin.system.message.index') ],
+        [ 'name' => $thisMessage->subject . ' (from ' . $thisMessage->name . ')', 'href' => route('admin.system.message.show', $thisMessage) ],
+        [ 'name' => 'Edit' ],
     ];
 
     // set navigation buttons
@@ -29,7 +30,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.message.update', array_merge([$message], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.system.message.update', array_merge([$thisMessage], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -40,7 +41,7 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $message['id'],
+                'value' => $thisMessage['id'],
                 'hide'  => !$isRootAdmin,
             ])
 
@@ -48,50 +49,50 @@
                 'name'            => 'from_admin',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('from_admin') ?? $message['from_admin'],
-                'message'         => $message ?? '',
+                'checked'         => old('from_admin') ?? $thisMessage['from_admin'],
+                'message'         => $thisMessage ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $message['name'],
+                'value'     => old('name') ?? $thisMessage['name'],
                 'required'  => true,
                 'maxlength' => 255,
-                'message'   => $message ?? '',
+                'message'   => $thisMessage ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'email',
                 'name'      => 'email',
-                'value'     => old('email') ??  $message['email'],
+                'value'     => old('email') ??  $thisMessage['email'],
                 'required'  => true,
                 'maxlength' => 255,
-                'message'   => $message ?? '',
+                'message'   => $thisMessage ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'subject',
-                'value'     => old('subject') ??  $message['subject'],
+                'value'     => old('subject') ??  $thisMessage['subject'],
                 'required'  => true,
                 'maxlength' => 255,
-                'message'   => $message ?? '',
+                'message'   => $thisMessage ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'body',
-                'value'   => old('body') ??  $message['body'],
-                'message' => $message ?? '',
+                'value'   => old('body') ??  $thisMessage['body'],
+                'message' => $thisMessage ?? '',
             ])
 
             <?php /*
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $message->is_public,
-                'is_readonly' => old('is_readonly') ?? $message->is_readonly,
-                'is_root'     => old('is_root')     ?? $message->root,
-                'is_disabled' => old('is_disabled') ?? $message->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $message->is_demo,
-                'sequence'    => old('sequence')    ?? $message->sequence,
-                'message'     => $message           ?? '',
+                'is_public'   => old('is_public')   ?? $thisMessage->is_public,
+                'is_readonly' => old('is_readonly') ?? $thisMessage->is_readonly,
+                'is_root'     => old('is_root')     ?? $thisMessage->root,
+                'is_disabled' => old('is_disabled') ?? $thisMessage->is_disabled,
+                'is_demo'     => old('is_demo')     ?? $thisMessage->is_demo,
+                'sequence'    => old('sequence')    ?? $thisMessage->sequence,
+                'message'     => $thisMessage           ?? '',
             ])
             */ ?>
 

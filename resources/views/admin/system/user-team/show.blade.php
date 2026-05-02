@@ -5,14 +5,16 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $userTeam    = $userTeam ?? null;
 
-    $title    = $pageTitle ?? 'User Team: ' . $userTeam->name;
+    $title    = !$isRootAdmin
+        ? str_replace('UserTeam', 'Team', getAdminPageTitle($userTeam))
+        : getAdminPageTitle($userTeam);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                       'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                     'href' => route('admin.system.index') ],
+        [ 'name' => 'Home',                                'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                     'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                              'href' => route('admin.system.index') ],
         [ 'name' => $isRootAdmin ? 'User Teams' : 'Teams', 'href' => route('admin.system.user-team.index') ],
         [ 'name' => $userTeam->name ]
     ];
@@ -23,7 +25,7 @@
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-team.edit', $userTeam) ])->render();
     }
     if (canCreate($userTeam, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User Team',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => $isRootAdmin ? 'Add New User Team' : 'Add New Team',
                                                                   'href' => route('admin.system.user-team.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
                                                                 ])->render();
     }

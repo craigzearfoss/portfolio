@@ -7,7 +7,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $certification = $certification ?? null;
 
-    $title    = $pageTitle ?? 'Edit Certification: ' . $certification->name;
+    $title    = 'Edit ' . getAdminPageTitle($certification);
     $subtitle = $title;
 
     // set breadcrumbs

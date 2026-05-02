@@ -5,7 +5,8 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $art         = $art ?? null;
 
-    $title    = $pageTitle ?? 'Edit Art: ' . $art->name;
+    $title    = 'Edit ' . getAdminPageTitle($art);
+    $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [

@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $music       = $music ?? null;
 
-    $title    = $pageTitle ?? 'Edit Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '');
+    $title    = 'Edit ' . getAdminPageTitle($music);
     $subtitle = $title;
 
     // set breadcrumbs

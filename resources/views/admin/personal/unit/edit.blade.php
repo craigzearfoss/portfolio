@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $unit        = $unit ?? null;
 
-    $title    = $pageTitle ?? 'Edit Unit: ' . $unit->name;
+    $title    = 'Edit ' . getAdminPageTitle($unit);
     $subtitle = $title;
 
     // set breadcrumbs

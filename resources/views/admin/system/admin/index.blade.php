@@ -111,7 +111,7 @@
                             {{ $thisAdmin->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            {{}} $thisAdmin->name }}
+                            {{ $thisAdmin->name }}
                         </td>
                         <td data-field="username" style="white-space: nowrap;">
                             {{ $thisAdmin->username }}

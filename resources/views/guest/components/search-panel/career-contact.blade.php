@@ -34,7 +34,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Contact()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Contact()->getSortOptions($sort),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

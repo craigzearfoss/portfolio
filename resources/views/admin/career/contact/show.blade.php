@@ -5,7 +5,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $contact       = $contact ?? null;
 
-    $title    = $pageTitle ?? 'Contact: ' . $contact->name;
+    $title    = getAdminPageTitle($contact);
     $subtitle = $title;
 
     // set breadcrumbs

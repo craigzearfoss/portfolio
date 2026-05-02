@@ -31,7 +31,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new UserEmail()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new UserEmail()->getSortOptions($sort),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

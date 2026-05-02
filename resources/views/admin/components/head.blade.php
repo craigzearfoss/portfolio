@@ -6,9 +6,7 @@
     <link rel="shortcut icon" href="{{ asset('images/site/favicon.ico') }}">
     <title>
         @php
-            $pageTitle = !empty($pageTitle)
-                ? $pageTitle
-                : $title ?? ''
+            $pageTitle = strip_tags(!empty($pageTitle) ? $pageTitle : ($title ?? ''))
         @endphp
         @if (!empty($pageTitle) && ($pageTitle !== config('app.name')))
             {{$pageTitle}} -

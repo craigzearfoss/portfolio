@@ -8,7 +8,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $userGroup   = $userGroup ?? null;
 
-    $title    = $pageTitle ?? 'Add New User Group';
+    $title    = $pageTitle ?? $isRootAdmin ? 'Add New User Group' : 'Add New Group';
 
     // set breadcrumbs
     $breadcrumbs = [
@@ -97,7 +97,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Create Admin Group',
+                'label'      => $isRootAdmin ? 'Create User Group' : 'Create Group',
                 'cancel_url' => referer('admin.system.user-group.index')
             ])
 

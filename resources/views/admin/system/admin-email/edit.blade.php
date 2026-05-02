@@ -5,7 +5,9 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminEmail    = $adminEmail ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Edit Admin Email: ' . $adminEmail->email : 'Edit Email: ' . $adminEmail->email);
+    $title    = !$isRootAdmin
+        ? str_replace('AdminEmail', 'Email', 'Edit ' . getAdminPageTitle($adminEmail))
+        : 'Edit ' . getAdminPageTitle($adminEmail);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,7 +16,7 @@
         [ 'name' => 'Admin Dashboard',                        'href' => route('admin.dashboard') ],
         [ 'name' => 'System',                                 'href' => route('admin.system.index') ],
         [ 'name' => $isRootAdmin ? 'Admin Emails' : 'Emails', 'href' => route('admin.system.admin-email.index') ],
-        [ 'name' => $adminEmail->email,                      'href' => route('admin.system.admin-email.show', $adminEmail) ],
+        [ 'name' => $adminEmail->email,                       'href' => route('admin.system.admin-email.show', $adminEmail) ],
         [ 'name' => 'Edit' ],
     ];
 

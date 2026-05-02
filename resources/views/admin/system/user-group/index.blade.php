@@ -8,7 +8,7 @@
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
 
-    $title    = $pageTitle ?? 'User Groups';
+    $title    = $pageTitle ?? $isRootAdmin ? 'User Groups' : 'Groups';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -22,12 +22,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(UserGroup::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => $isRootAdmin ? 'Create New User Group' : 'Create New Group',
                                                                   'href' => route('admin.system.user-group.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
                                                                 ])->render();
     }
     if (canRead(UserTeam::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'User Teams',
+        $navButtons[] = view('admin.components.nav-button-view', [ 'name' => $isRootAdmin ? 'User Teams' : 'Teams',
                                                                 'href' => route('admin.system.user-team.index')
                                                               ])->render();
     }

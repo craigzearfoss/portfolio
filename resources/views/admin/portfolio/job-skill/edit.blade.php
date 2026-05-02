@@ -9,7 +9,7 @@
     $job         = $job ?? null;
     $jobSkill    = $jobSkill ?? null;
 
-    $title    = $pageTitle ?? 'Job Skill Edit: ' . $jobSkill->name;
+    $title    = 'Edit ' . getAdminPageTitle($jobSkill);
     $subtitle = $title;
 
     // set navigation buttons

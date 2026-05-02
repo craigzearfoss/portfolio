@@ -53,13 +53,15 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-
-                        @if ($isRootAdmin)
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
+                        </div>
+                    @endif
+
+                    <div class="floating-div">
 
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-job', [ 'owner_id' => $owner_id ])

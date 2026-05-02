@@ -8,7 +8,7 @@
     $job         = $job ?? null;
     $jobCoworker = $jobCoworker ?? null;
 
-    $title    = $pageTitle ?? 'Edit JobCoworker: ' . $jobCoworker->name;
+    $title    = 'Edit ' . getAdminPageTitle($job);
     $subtitle = $title;
 
     // set breadcrumbs

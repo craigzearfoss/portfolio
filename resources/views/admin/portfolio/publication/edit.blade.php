@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $publication = $publication ?? null;
 
-    $title    = $pageTitle ?? 'Edit Publication: ' . $publication->title;
+    $title    = 'Edit ' . getAdminPageTitle($publication);
     $subtitle = $title;
 
     // set breadcrumbs

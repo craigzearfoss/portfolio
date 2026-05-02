@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $category    = $category ?? null;
 
-    $title    = 'Dictionary: ' . $category->name . ' (category)';
+    $title    = 'Edit Dictionary: ' . $category->name . ' (category)';
     $subtitle = $title;
 
     // set breadcrumbs

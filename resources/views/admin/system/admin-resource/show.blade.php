@@ -5,7 +5,15 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminResource = $adminResource ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Resource: ' : 'Resource: ') . $adminResource->database->name . '.' . $adminResource->name;
+    $title    = $pageTitle ?? $isRootAdmin
+        ? 'Admin Resource: ' . $adminResource->database['name'] . '.' . $adminResource->name .
+              ' (' .
+              view('admin.components.link', [
+                    'name' => $adminResource->owner['username'],
+                    'href' => route('admin.system.admin.show',  $adminResource->owner['id']),
+              ]) .
+              ')'
+        : 'Resource: ' . $adminResource->database['name'] . '.' . $adminResource->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,8 +22,10 @@
         [ 'name' => 'Admin Dashboard',                              'href' => route('admin.dashboard') ],
         [ 'name' => 'System',                                       'href' => route('admin.system.index') ],
         [ 'name' => $isRootAdmin ? 'Admin Resources' : 'Resources', 'href' => route('admin.system.admin-resource.index') ],
-        [ 'name' => $adminResource->name . ' db' ],
     ];
+    $breadcrumbs[] = $isRootAdmin
+        ? [ 'name' => $adminResource->database['name'] . '.' . $adminResource->name . ' (' . $adminResource->owner['username'] . ')' ]
+        : [ 'name' => $adminResource->database['name'] . '.' . $adminResource->name ];
 
     // set navigation buttons
     $navButtons = [];

@@ -1,12 +1,18 @@
 @php
-    $title    = $pageTitle ?? (($owner->name  ?? '') . ' Personal');
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
+    $title    = $pageTitle ?? ($isRootAdmin && !empty($owner) ? ($owner->name . ' ' ?? '') : '') . 'Personal Resources';
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal' ],
+        [ 'name' => 'Personal',        'href' => route('admin.system.index') ],
+        [ 'name' => 'Personal' . ($isRootAdmin && !empty($owner) ? ' (' . $owner->name . ')' : '') ],
     ];
 
     // set navigation buttons
@@ -24,7 +30,8 @@
 
                 @include('admin.components.resource-list', [
                     'resourceType' => dbName('personal_db'),
-                    'resources'    => $personals
+                    'resources'    => $personals,
+                    'owner_id'     => $isRootAdmin ? request()->input('owner_id') : null,
                 ])
 
             </div>

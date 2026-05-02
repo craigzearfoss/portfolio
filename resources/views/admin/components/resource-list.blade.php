@@ -2,6 +2,7 @@
     $resourceType = $resourceType ?? '';
     $resources = $resources ?? [];
     $currentMenuLevel = 1;
+    $owner_id = $owner_id ?? null;
 @endphp
 
 <ul class="menu-list" data-menu-level="{{ $currentMenuLevel }}" style="max-width: 20em;">
@@ -19,7 +20,7 @@
 
             @include('guest.components.link', [
                 'name'  => $resource->plural,
-                'href'  => $resource->url,
+                'href'  => $resource->url . ($isRootAdmin && !empty($owner_id) ? '?owner_id=' . urlencode($owner_id) : ''),
                 'class' => 'list-item',
                 'style' => 'color: #4a4a4a',
                 'icon'  => $resource->icon

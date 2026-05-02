@@ -9,7 +9,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $userTeam    = $userTeam ?? null;
 
-    $title    = $pageTitle ?? 'User Teams';
+    $title    = $pageTitle ?? $isRootAdmin ? 'User Teams' : 'Teams';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -23,12 +23,12 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(UserTeam::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Team',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => $isRootAdmin ? 'Create New User Team' : 'Create New Team',
                                                                   'href' => route('admin.system.user-team.create', !empty($user) ? [ 'user_id' => $user->id ] : [])
                                                              ])->render();
     }
     if (canRead(UserGroup::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'User Groups',
+        $navButtons[] = view('admin.components.nav-button-view', [ 'name' => $isRootAdmin ? 'User Groups' : 'Groups',
                                                                 'href' => route('admin.system.user-group.index')
                                                               ])->render();
     }
@@ -103,7 +103,7 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{!! $userTeam->name }}
+                            {{ $userTeam->name }}
                         </td>
                         <td data-field="abbreviation" style="white-space: nowrap;">
                             {{ $userTeam->abbreviation }}

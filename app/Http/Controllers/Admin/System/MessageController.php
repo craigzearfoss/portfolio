@@ -87,6 +87,8 @@ class MessageController extends BaseAdminController
     {
         readGate($message, $this->admin);
 
+        $thisMessage = $message;
+
         list($prev, $next) = $message->prevAndNextPages(
             $message['id'],
             'admin.system.message.show',
@@ -94,7 +96,7 @@ class MessageController extends BaseAdminController
             [ 'name', 'asc' ]
         );
 
-        return view('admin.system.message.show', compact('message', 'prev', 'next'));
+        return view('admin.system.message.show', compact('thisMessage', 'prev', 'next'));
     }
 
     /**
@@ -107,7 +109,9 @@ class MessageController extends BaseAdminController
     {
         updateGate($message, $this->admin);
 
-        return view('admin.system.message.edit', compact('message'));
+        $thisMessage = $message;
+
+        return view('admin.system.message.edit', compact('thisMessage'));
     }
 
     /**

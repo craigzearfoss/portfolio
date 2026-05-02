@@ -9,7 +9,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $reference   = $reference ?? null;
 
-    $title    = $pageTitle ?? 'Edit Reference: ' . $reference->name ;
+    $title    = 'Edit ' . getAdminPageTitle($reference);
     $subtitle = $title;
 
     // set breadcrumbs

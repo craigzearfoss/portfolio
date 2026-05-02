@@ -31,7 +31,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new RecipeStep()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new RecipeStep()->getSortOptions($sort),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 

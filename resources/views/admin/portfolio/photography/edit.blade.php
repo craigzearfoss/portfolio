@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $photo = $photo ?? null;
 
-    $title    = $pageTitle ?? 'Edit Photography: ' . $photo->name;
+    $title    = 'Edit ' . getAdminPageTitle($photo);
     $subtitle = $title;
 
     // set breadcrumbs

@@ -7,6 +7,7 @@ use Database\Factories\Career\ApplicationFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -138,5 +139,15 @@ class Message extends Model
 
         // add order by clause
         return $this->addOrderBy($query, $sort);
+    }
+
+    /**
+     * Get the system owner of the email.
+     *
+     * @return BelongsTo
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 }

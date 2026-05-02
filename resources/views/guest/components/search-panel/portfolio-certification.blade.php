@@ -29,7 +29,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Certification()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Certification()->getSortOptions($sort),
                         'style' => [ 'width: 10rem important!', 'min-width: 10rem !important' ]
                     ])
 

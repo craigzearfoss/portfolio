@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $course      = $course ?? null;
 
-    $title    = $pageTitle ?? 'Course: ' . $course->name;
+    $title    = getAdminPageTitle($course);
     $subtitle = $title;
 
     // set breadcrumbs

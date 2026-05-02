@@ -5,7 +5,9 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminTeam     = $adminTeam ?? null;
 
-    $title    = $pageTitle ?? 'Admin Team: ' . $adminTeam->name;
+    $title    = !$isRootAdmin
+        ? str_replace('AdminTeam', 'Team', getAdminPageTitle($adminTeam))
+        : getAdminPageTitle($adminTeam);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -23,7 +25,7 @@
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-team.edit', $adminTeam) ])->render();
     }
     if (canCreate($adminTeam, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => $isRootAdmin ? 'Create New Admin Team' : 'Create New Team',
                                                                   'href' => route('admin.system.admin-team.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
                                                                 ])->render();
     }

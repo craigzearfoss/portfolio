@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $award       = $award ?? null;
 
-    $title    = $pageTitle ?? 'Edit Award: ' . $award->name;
+    $title    = 'Edit ' . getAdminPageTitle($award);
     $subtitle = $title;
 
     // set breadcrumbs

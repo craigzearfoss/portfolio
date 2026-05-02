@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $language    = $language ?? null;
 
-    $title    = 'Dictionary: ' . $language->name . ' (language)';
+    $title    = 'Edit Dictionary: ' . $language->name . ' (language)';
     $subtitle = $title;
 
     // set breadcrumbs

@@ -3,11 +3,9 @@
     use App\Models\Career\Application;
     use App\Models\Career\Company;
     use App\Models\Career\Resume;
-    use App\Models\System\Admin;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin       = $admin ?? null;
-    $isRootAdmin = $isRootAdmin ?? false;
+    $admin = $admin ?? null;
 
     // get variables
     $action         = $action ?? url()->current();
@@ -39,13 +37,9 @@
 
     // get counts of companies and resumes
     // if there are more than 20 resumes then we display an input text box instead of a select list
-    $companyCount = $isRootAdmin
-        ? new Company()->query()->count()
-        : new Company()->query()->where('owner_id', $admin->id)->count();
+    $companyCount = new Company()->query()->where('owner_id', $admin->id)->count();
 
-    $resumeCount = $isRootAdmin
-        ? new Resume()->query()->count()
-        : new Resume()->query()->where('owner_id', $admin->id)->count();
+    $resumeCount = new Resume()->query()->where('owner_id', $admin->id)->count();
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -59,7 +53,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Application()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Application()->getSortOptions($sort, $envTypes::USER),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
                     ])
 
@@ -80,12 +74,6 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-
-                        @if ($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('user.components.search-panel.controls.system-owner')
-                            </div>
-                        @endif
 
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.career-application-status')
@@ -231,22 +219,6 @@
                         ])
 
                     </div>
-
-                    @if ($isRootAdmin)
-                        <div class="floating-div">
-
-                            @include('user.components.search-panel.controls.timestamp-created-at', [
-                                'created_at-min' => $created_at_min,
-                                'created_at-max' => $created_at_max,
-                            ])
-
-                            @include('user.components.search-panel.controls.timestamp-updated-at', [
-                                'updated_at-min' => $updated_at_min,
-                                'updated_at-max' => $updated_at_max,
-                            ])
-
-                        </div>
-                    @endif
 
                 </div>
 

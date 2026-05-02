@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $skill       = $skill ?? null;
 
-    $title    = $pageTitle ?? 'Edit Skill: ' . $skill->name;
+    $title    = 'Edit ' . getAdminPageTitle($skill);
     $subtitle = $title;
 
     // set breadcrumbs

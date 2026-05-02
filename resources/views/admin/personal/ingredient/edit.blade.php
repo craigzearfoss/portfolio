@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $ingredient  = $ingredient ?? null;
 
-    $title    = $pageTitle ?? 'Edit Ingredient: ' . $ingredient->name;
+    $title    = 'Edit ' . getAdminPageTitle($ingredient);
     $subtitle = $title;
 
     // set breadcrumbs

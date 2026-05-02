@@ -7,7 +7,14 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $resource     = $resource ?? null;
 
-    $title    = $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name;
+    $title    = $pageTitle ??
+        'Resource: ' . $resource->database['name'] . '.' . $resource->name .
+            ' (' .
+            view('admin.components.link', [
+            'name' => $resource->owner['username'],
+            'href' => route('admin.system.admin.show',  $resource->owner['id']),
+            ]) .
+            ')';
     $subtitle = $title;
 
     // set breadcrumbs

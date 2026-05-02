@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use PhpOffice\PhpWord\IOFactory;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 if (! function_exists('getEnvType')) {
     /**
@@ -1274,6 +1276,12 @@ if (! function_exists('calculateWageRate')) {
 }
 
 if (! function_exists('ownerParams')) {
+    /**
+     * @param mixed $params
+     * @param int|null $owner_id
+     * @param Admin|Owner|null $admin
+     * @return array|mixed
+     */
     function ownerParams(mixed $params, int|null $owner_id, Admin|Owner|null $admin)
     {
         if (!is_array($params)) {
@@ -1289,5 +1297,74 @@ if (! function_exists('ownerParams')) {
         }
 
         return $params;
+    }
+}
+
+if (! function_exists('getPageTitle')) {
+    /**
+     * @param $resource
+     * @param Owner|Admin|null $owner
+     * @return string
+     */
+    function getAdminPageTitle($resource, Owner|Admin|null $owner = null): string
+    {
+        // get resource category and name
+        if ($class = get_class($resource)) {
+            $className = str_contains($class, '\\')
+                ? explode('\\', $class)[substr_count($class, '\\')]
+                : $class;
+
+            // determine the resource name (or title, or id, etc.)
+            switch ($class) {
+                case 'App\\Models\\System\\AdminEmail':
+                case 'App\\Models\\System\\UserEmail':
+                    $resourceName = $resource->email;
+                    break;
+                case 'App\\Models\\System\\AdminPhone':
+                case 'App\\Models\\System\\UserPhone':
+                    $resourceName = $resource->phone;
+                    break;
+                case 'App\\Models\\Career\\Communication':
+                    $resourceName = $resource->id . ' ' . (!empty($resource->application) ? ' for ' . $resource->application['name'] . ' application' : '');
+                    break;
+                case 'App\\Models\\Personal\\Reading':
+                    $resourceName = $resource->title . (!empty($resource->author) ? ' by ' . $resource->author : '');
+                    break;
+                case 'App\\Models\\Personal\\RecipeIngredient':
+                    $resourceName = $resource->ingredient['name'] . ' from ' . $resource->recipe['name'];
+                    break;
+                case 'App\\Models\\Personal\\RecipeStep':
+                    $resourceName = 'step ' . $resource->step . ' from ' . $resource->recipe['name'];
+                    break;
+                case 'App\\Models\\Portfolio\\Education':
+                    $resourceName = $resource->degreeType->name . ' ' . $resource->major;
+                    break;
+                case 'App\\Models\\Portfolio\\Music':
+                    $resourceName = $resource->name . (!empty($resource->artist) ? ' - ' . $resource->artist : '');
+                    break;
+                default:
+                    $resourceName = $resource->name ?? $resource->title ?? $resource->id;
+                    break;
+            }
+
+            $title = $className . ': ' . $resourceName;
+
+        } else {
+
+            $title = $resource->name ?? $resource->id;
+        }
+
+        // add an owner link (only if this is for a root admin)
+        if ($resource->owner && isRootAdmin()) {
+            $title .=
+                ' (' .
+                view('admin.components.link', [
+                    'name' => $resource->owner['username'],
+                    'href' => route('admin.system.admin.show',  $resource->owner['id']),
+                ]) .
+                ')';
+        }
+
+        return $title;
     }
 }

@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $framework   = $framework ?? null;
 
-    $title    = 'Dictionary: ' . $framework->name . ' (framework)';
+    $title    = 'Edit Dictionary: ' . $framework->name . ' (framework)';
     $subtitle = $title;
 
     // set breadcrumbs

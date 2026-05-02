@@ -2,6 +2,9 @@
     use App\Enums\EnvTypes;
     use App\Models\Career\Resume;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin = $admin ?? null;
+
     // get variables
     $action         = $action ?? url()->current();
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
@@ -28,7 +31,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Resume()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new Resume()->getSortOptions($sort, $envTypes::USER),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -50,12 +53,6 @@
 
                     <div class="floating-div">
 
-                        @if ($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        @endif
-
                         <div class="search-form-control">
                             @include('user.components.form-input-with-icon', [
                                 'name'    => 'name',
@@ -67,6 +64,13 @@
 
                     </div>
                     <div class="floating-div">
+
+                        @include('user.components.form-checkbox', [
+                            'name'     => 'active',
+                            'value'    => 1,
+                            'checked'  => $active,
+                            'nohidden' => true,
+                        ])
 
                         @include('user.components.form-checkbox', [
                             'name'     => 'primary',
@@ -84,22 +88,6 @@
                         ])
 
                     </div>
-
-                    @if ($isRootAdmin)
-                        <div class="floating-div">
-
-                            @include('user.components.search-panel.controls.timestamp-created-at', [
-                                'created_at-min' => $created_at_min,
-                                'created_at-max' => $created_at_max,
-                            ])
-
-                            @include('user.components.search-panel.controls.timestamp-updated-at', [
-                                'updated_at-min' => $updated_at_min,
-                                'updated_at-max' => $updated_at_max,
-                            ])
-
-                        </div>
-                    @endif
 
                 </div>
 

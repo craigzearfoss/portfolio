@@ -5,16 +5,23 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $database    = $database ?? null;
 
-    $title    = $pageTitle ?? 'Edit Database: ' . $database->name;
+    $title    = $pageTitle ??
+        'Database: ' . $database->name .
+            ' (' .
+            view('admin.components.link', [
+                'name' => $database->owner['username'],
+                'href' => route('admin.system.admin.show',  $database->owner['id']),
+            ]) .
+            ')';
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                  'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                'href' => route('admin.system.index') ],
-        [ 'name' => 'Databases',             'href' => route('admin.system.database.index') ],
-        [ 'name' => $database->name . ' db', 'href' => route('admin.system.database.show', $database) ],
+        [ 'name' => 'Home',                                                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                           'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                                    'href' => route('admin.system.index') ],
+        [ 'name' => 'Databases',                                                 'href' => route('admin.system.database.index') ],
+        [ 'name' => $database->name . ' (' . $database->owner['username'] . ')', 'href' => route('admin.system.database.show', $database) ],
         [ 'name' => 'Edit' ],
     ];
 

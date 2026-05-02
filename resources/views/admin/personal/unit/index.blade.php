@@ -14,7 +14,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units' ]
     ];
 

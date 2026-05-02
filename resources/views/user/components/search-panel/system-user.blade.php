@@ -3,8 +3,7 @@
     use App\Models\System\User;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $user        = $user ?? null;
-    $isRootAdmin = $isRootAdmin ?? false;
+    $user = $user ?? null;
 
     // get variables
     $action         = $action ?? url()->current();
@@ -16,9 +15,7 @@
     $team_id        = $team_id ?? request()->query('team_id');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
-    $user_id        = $isRootAdmin
-        ? $user_id ?? request()->query('id')
-        : $user->id;
+    $user_id        = $user->id;
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ User::SEARCH_ORDER_BY[0], User::SEARCH_ORDER_BY[1] ]);
@@ -35,7 +32,7 @@
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new User()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
+                        'list'  => new User()->getSortOptions($sort, $envTypes::USER),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
@@ -107,22 +104,6 @@
                         </div>
 
                     </div>
-
-                    @if ($isRootAdmin)
-                        <div class="floating-div">
-
-                            @include('user.components.search-panel.controls.timestamp-created-at', [
-                                'created_at-min' => $created_at_min,
-                                'created_at-max' => $created_at_max,
-                            ])
-
-                            @include('user.components.search-panel.controls.timestamp-updated-at', [
-                                'updated_at-min' => $updated_at_min,
-                                'updated_at-max' => $updated_at_max,
-                            ])
-
-                        </div>
-                    @endif
 
                 </div>
 

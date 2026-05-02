@@ -528,6 +528,16 @@ class Owner extends Model
     }
 
     /**
+     * Get the system databases for the owner.
+     *
+     * @return HasMany
+     */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'owner_id');
+    }
+
+    /**
      * Get the portfolio music for the owner.
      *
      * @return HasMany

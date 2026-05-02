@@ -8,7 +8,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $education   = $education ?? null;
 
-    $title    = $pageTitle ?? 'Edit Education: ' . $education->degreeType->name . ' ' . $education->major;
+    $title    = 'Edit ' . getAdminPageTitle($education);
     $subtitle = $title;
 
     // set breadcrumbs

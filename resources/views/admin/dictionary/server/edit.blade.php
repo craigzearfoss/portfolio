@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $server      = $server ?? null;
 
-    $title    = 'Dictionary: ' . $server->name . ' (server)';
+    $title    = 'Edit Dictionary: ' . $server->name . ' (server)';
     $subtitle = $title;
 
     // set breadcrumbs

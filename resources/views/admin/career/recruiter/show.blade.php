@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recruiter   = $recruiter ?? null;
 
-    $title    = $pageTitle ?? 'Recruiter: ' . $recruiter->name;
+    $title    = getAdminPageTitle($recruiter);
     $subtitle = $title;
 
     // set breadcrumbs

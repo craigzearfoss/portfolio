@@ -3,9 +3,9 @@
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
-    $message     = $message ?? null;
+    $thisMessage = $thisMessage ?? null;
 
-    $title    = $pageTitle ?? 'Message';
+    $title    = $pageTitle ?? 'Message: ' . $thisMessage->subject . ' (from ' . $thisMessage->name . ')' ;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,15 +14,15 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $thisMessage->subject . ' (from ' . $thisMessage->name . ')' ],
     ];
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate($message, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $message) ])->render();
+    if (canUpdate($thisMessage, $admin)) {
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $thisMessage) ])->render();
     }
-    if (canCreate($message, $admin)) {
+    if (canCreate($thisMessage, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
                                                                   'href' => route('admin.system.message.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
                                                                 ])->render();
@@ -39,75 +39,75 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $message->id,
+                'value' => $thisMessage->id,
                 'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.show-row-checkmark', [
                 'name'    => 'from admin',
-                'checked' => $message->from_admin
+                'checked' => $thisMessage->from_admin
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'name',
-                'value' => $message->name
+                'value' => $thisMessage->name
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'email',
-                'value' => $message->email
+                'value' => $thisMessage->email
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'subject',
-                'value' => $message->subject
+                'value' => $thisMessage->subject
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'body',
-                'value' => $message->body
+                'value' => $thisMessage->body
             ])
 
             <?php /*
             @include('admin.components.show-row', [
                 'name'  => 'sequence',
-                'value' => $message->sequence
+                'value' => $thisMessage->sequence
             ])
 
             @include('admin.components.show-row-checkmark', [
                 'name'    => 'public',
-                'checked' => $message->is_public
+                'checked' => $thisMessage->is_public
             ])
 
             @include('admin.components.show-row-checkmark', [
                 'name'    => 'read-only',
-                'checked' => $message->is_readonly
+                'checked' => $thisMessage->is_readonly
             ])
 
             @include('admin.components.show-row-checkmark', [
                 'name'    => 'root',
-                'checked' => $message->is_root
+                'checked' => $thisMessage->is_root
             ])
 
             @include('admin.components.show-row-checkmark', [
                 'name'    => 'disabled',
-                'checked' => $message->is_disabled
+                'checked' => $thisMessage->is_disabled
             ])
 
             @include('admin.components.show-row-checkmark', [
                 'name'    => 'demo',
-                'checked' => $message->is_demo
+                'checked' => $thisMessage->is_demo
             ])
             */ ?>
 
             @include('admin.components.show-row', [
                 'name'  => 'created at',
-                'value' => longDateTime($message->created_at)
+                'value' => longDateTime($thisMessage->created_at)
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'updated at',
-                'value' => longDateTime($message->updated_at)
+                'value' => longDateTime($thisMessage->updated_at)
             ])
 
         </div>

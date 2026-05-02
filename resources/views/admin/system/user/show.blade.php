@@ -3,9 +3,10 @@
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
+    $user        = $user ?? null;
     $thisUser    = $thisUser ?? null;
 
-    $title    = $pageTitle ?? 'User: ' . $thisUser->username;
+    $title    = getAdminPageTitle($thisUser);
     $subtitle = $title;
 
     // set breadcrumbs

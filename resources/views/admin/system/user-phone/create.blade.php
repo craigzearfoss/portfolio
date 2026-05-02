@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $userPhone   = $userPhone ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Add New User Phone Number' : 'Add New Phone Number');
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Add New User Phone' : 'Add New Phone');
     $subtitle = $title;
 
     // set breadcrumbs
@@ -95,7 +95,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => $isRootAdmin ? 'Add User Phone Number' : ' Add Phone Number',
+                'label'      => $isRootAdmin ? 'Add User Phone' : ' Add Phone',
                 'cancel_url' => referer('admin.system.user-phone.index')
             ])
 

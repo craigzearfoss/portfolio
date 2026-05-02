@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $stack       = $stack ?? null;
 
-    $title    = 'Dictionary: ' . $stack->name . ' (stack)';
+    $title    = 'Edit Dictionary: ' . $stack->name . ' (stack)';
     $subtitle = $title;
 
     // set breadcrumbs

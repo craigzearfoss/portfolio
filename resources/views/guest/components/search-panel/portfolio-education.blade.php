@@ -33,7 +33,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Education()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Education()->getSortOptions($sort),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

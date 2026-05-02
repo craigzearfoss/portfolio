@@ -34,7 +34,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new AdminDatabase()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new AdminDatabase()->getSortOptions($sort),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 

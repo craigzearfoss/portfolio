@@ -5,7 +5,9 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $userPhone   = $userPhone ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'User Phone: ' . $userPhone->phone : 'Phone: ' . $userPhone->phone);
+    $title    = !$isRootAdmin
+        ? str_replace('UserPhone', 'Phone', getAdminPageTitle($userPhone))
+        : getAdminPageTitle($userPhone);
     $subtitle = $title;
 
     // set breadcrumbs

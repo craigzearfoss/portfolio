@@ -56,7 +56,7 @@
                     <tr>
                         <th>id</th>
                         <th>owner</th>
-                        <th class="has-text-centered"><span title="Was the message sent from the admin area?">admin</span></th>
+                        <th><span title="Was the message sent from the admin area?">from<br>admin</span></th>
                         <th>name</th>
                         <th>email</th>
                         <th>subject</th>
@@ -71,7 +71,7 @@
                     <tr>
                         <th>id</th>
                         <th>owner</th>
-                        <th class="has-text-centered"><span title="Was the message sent from the admin area?">admin</span></th>
+                        <th><span title="Was the message sent from the admin area?">from<br>admin</span></th>
                         <th>name</th>
                         <th>email</th>
                         <th>subject</th>
@@ -90,10 +90,7 @@
                             {{ $thisMessage->id }}
                         </td>
                         <td data-field="name">
-                            {{ $thisMessage->id }}
-                        </td>
-                        <td data-field="name">
-                            {{ $thisMessage->owner->username ?? '?' }}
+                            {{ $thisMessage->owner->username ?? '-' }}
                         </td>
                         <td class="has-text-centered" data-field="from_admin">
                             @include('admin.components.checkmark', [ 'checked' => $thisMessage->from_admin ])

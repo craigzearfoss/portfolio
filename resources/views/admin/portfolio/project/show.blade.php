@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $project     = $project ?? null;
 
-    $title    = $pageTitle ?? 'Project: ' . $project->name;
+    $title    = getAdminPageTitle($project);
     $subtitle = $title;
 
     // set breadcrumbs

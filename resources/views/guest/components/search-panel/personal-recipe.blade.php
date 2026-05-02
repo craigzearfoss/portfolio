@@ -12,8 +12,8 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $prep_time_min  = $prep_time_min ?? request()->query('prep_time-min');
-    $total_time     = $total_time ?? request()->query('total_time');
+    $prep_time_max  = $prep_time_max ?? request()->query('prep_time-max');
+    $total_time_max = $total_time_max ?? request()->query('total_time-max');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
@@ -32,7 +32,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Recipe()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Recipe()->getSortOptions($sort),
                         'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
@@ -91,25 +91,25 @@
 
                         <div class="search-form-control">
                             @include('guest.components.form-input', [
-                                'name'        => 'prep_time-min',
-                                'label'       => 'prep time',
-                                'value'       => $prep_time_min,
+                                'name'        => 'prep_time-max',
+                                'label'       => 'max prep time',
+                                'value'       => $prep_time_max,
                                 'placeholder' => '(minutes)',
                                 'message'     => $message ?? '',
                                 'style'       => 'width: 5rem;',
-                                'title'       => 'Minimum prep time in minutes.',
+                                'title'       => 'Maximum prep time in minutes.',
                             ])
                         </div>
 
                         <div class="search-form-control">
                             @include('guest.components.form-input', [
-                                'name'        => 'total_time',
-                                'label'       => 'total time',
-                                'value'       => $total_time,
+                                'name'        => 'total_time_max',
+                                'label'       => 'max total time',
+                                'value'       => $total_time_max,
                                 'placeholder' => '(minutes)',
                                 'message'     => $message ?? '',
                                 'style'       => 'width: 5rem;',
-                                'title'       => 'Minimum total time in minutes.',
+                                'title'       => 'Maximum total time in minutes.',
                             ])
                         </div>
 

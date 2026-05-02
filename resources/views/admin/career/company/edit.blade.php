@@ -9,7 +9,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $company       = $company ?? null;
 
-    $title    = $pageTitle ?? 'Edit Company: ' . $company->name ;
+    $title    = 'Edit ' . getAdminPageTitle($company);
     $subtitle = $title;
 
     // set breadcrumbs

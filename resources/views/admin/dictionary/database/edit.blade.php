@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $database    = $database ?? null;
 
-    $title    = 'Dictionary: ' . $database->name . ' (database)';
+    $title    = 'Edit Dictionary: ' . $database->name . ' (database)';
     $subtitle = $title;
 
     // set breadcrumbs

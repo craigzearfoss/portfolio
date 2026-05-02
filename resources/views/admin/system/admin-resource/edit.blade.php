@@ -5,18 +5,29 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminResource = $adminResource ?? null;
 
-    $title    = $pageTitle ?? 'Edit Admin Resource: ' .  $adminResource->database->name . '.' . $adminResource->name;
+    $title    = $pageTitle ?? $isRootAdmin
+        ? 'Edit Admin Resource: ' . $adminResource->database['name'] . '.' . $adminResource->name .
+              ' (' .
+              view('admin.components.link', [
+                    'name' => $adminResource->owner['username'],
+                    'href' => route('admin.system.admin.show',  $adminResource->owner['id']),
+              ]) .
+              ')'
+        : 'Edit Resource: ' . $adminResource->database['name'] . '.' . $adminResource->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                         'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                              'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                                       'href' => route('admin.system.index') ],
-        [ 'name' => $isRootAdmin ? 'Admin Resources' : 'Resources', 'href' => route('admin.system.admin-resource.index') ],
-        [ 'name' => $adminResource->name . ' db',                   'href' => route('admin.system.resource.show', $adminResource->id) ],
-        [ 'name' => 'Edit' ]
+        [ 'name' => 'Home',                                                        'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                             'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                                      'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'Admin Resources' : 'Resources',                'href' => route('admin.system.admin-resource.index') ],
     ];
+    $resourceNavLabel = $isRootAdmin
+        ? $adminResource->database['name'] . '.' . $adminResource->name . ' (' . $adminResource->owner['username'] . ')'
+        : $adminResource->database['name'] . '.' . $adminResource->name;
+    $breadcrumbs[] = [ 'name' => $resourceNavLabel, 'href' => route('admin.system.admin-resource.show', $adminResource) ];
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [];

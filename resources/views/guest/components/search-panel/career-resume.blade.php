@@ -31,7 +31,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Resume()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Resume()->getSortOptions($sort),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
@@ -64,6 +64,13 @@
 
                     </div>
                     <div class="floating-div">
+
+                        @include('guest.components.form-checkbox', [
+                            'name'     => 'active',
+                            'value'    => 1,
+                            'checked'  => $active,
+                            'nohidden' => true,
+                        ])
 
                         @include('guest.components.form-checkbox', [
                             'name'     => 'primary',

@@ -5,7 +5,15 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminDatabase = $adminDatabase ?? null;
 
-    $title    = $pageTitle ?? $adminDatabase->owner->name . ' Database';
+    $title    = $pageTitle ?? $isRootAdmin
+        ? 'Edit Admin Database: ' . $adminDatabase->name .
+              ' (' .
+              view('admin.components.link', [
+                    'name' => $adminDatabase->owner['username'],
+                    'href' => route('admin.system.admin.show',  $adminDatabase->owner['id']),
+              ]) .
+              ')'
+        : 'Edit Database: ' . $adminDatabase->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -16,10 +24,12 @@
     ];
     if ($isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admin Databases', 'href' => route('admin.system.admin-database.index') ];
+        $resourceNavLabel = $adminDatabase->name . ' (' . $adminDatabase->owner['username'] . ')';
     } else {
-        $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.show', $adminDatabase->id) ];
+        $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.index') ];
+        $resourceNavLabel = $adminDatabase->name;
     }
-    $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' db' ];
+        $breadcrumbs[] = [ 'name' => $resourceNavLabel, 'href' => route('admin.system.admin-database.show', $adminDatabase) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

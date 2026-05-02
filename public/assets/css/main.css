@@ -265,6 +265,8 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
     text-align: right !important;
     padding: .3rem !important;
     margin-bottom: 0.3rem !important;
+    min-width: 40rem;
+    width: 100% !important;
 }
 .search-panel-controls .control.sort-control {
     position: absolute;

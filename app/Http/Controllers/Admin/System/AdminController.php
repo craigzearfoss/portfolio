@@ -133,17 +133,17 @@ class AdminController extends BaseAdminController
 
         $dbColumns = [
             'Portfolio' => new AdminResource()->ownerResources(
-                $this->owner ?? null,
+                $thisAdmin ?? null,
                 EnvTypes::ADMIN,
                 'portfolio_db'
             ),
             'Personal' => new AdminResource()->ownerResources(
-                $this->owner ?? null,
+                $thisAdmin ?? null,
                 EnvTypes::ADMIN,
                 'personal_db'
             ),
             'Career' => new AdminResource()->ownerResources(
-                $this->owner ?? null,
+                $thisAdmin ?? null,
                 EnvTypes::ADMIN,
                 'career_db'
             ),
@@ -171,7 +171,9 @@ class AdminController extends BaseAdminController
     {
         updateGate($admin, $this->admin);
 
-        return view('admin.system.admin.edit', compact('admin'));
+        $thisAdmin = $admin;
+
+        return view('admin.system.admin.edit', compact('thisAdmin'));
     }
 
     /**

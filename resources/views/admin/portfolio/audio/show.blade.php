@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $audio       = $audio ?? null;
 
-    $title    = $pageTitle ?? 'Audio: ' . $audio->name;
+    $title    = getAdminPageTitle($audio);
     $subtitle = $title;
 
     // set breadcrumbs

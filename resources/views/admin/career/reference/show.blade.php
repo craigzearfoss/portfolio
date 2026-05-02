@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $reference   = $reference ?? null;
 
-    $title    = $pageTitle ?? 'Reference: ' . $reference->name;
+    $title    = getAdminPageTitle($reference);
     $subtitle = $title;
 
     // set breadcrumbs

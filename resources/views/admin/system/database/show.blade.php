@@ -7,7 +7,14 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $database    = $database ?? null;
 
-    $title    = $pageTitle ?? 'Database: ' . $database->name;
+    $title    = $pageTitle ??
+        'Admin Database: ' . $database->name .
+            ' (' .
+            view('admin.components.link', [
+                'name' => $database->owner['username'],
+                'href' => route('admin.system.admin.show',  $database->owner['id']),
+            ]) .
+            ')';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -16,7 +23,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
-        [ 'name' => $database->name . ' db'],
+        [ 'name' => $database->name . ' (' . $database->owner['username'] . ')' ],
     ];
 
     // set navigation buttons

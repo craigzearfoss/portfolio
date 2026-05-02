@@ -5,7 +5,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $jobBoard      = $jobBoard ?? null;
 
-    $title    = $pageTitle ?? 'Edit Job Board: ' . $jobBoard->name ;
+    $title    = 'Edit ' . getAdminPageTitle($jobBoard);
     $subtitle = $title;
 
     // set breadcrumbs

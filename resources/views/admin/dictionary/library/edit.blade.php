@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $library     = $library ?? null;
 
-    $title    = 'Dictionary: ' . $library->name . ' (library)';
+    $title    = 'Edit Dictionary: ' . $library->name . ' (library)';
     $subtitle = $title;
 
     // set breadcrumbs

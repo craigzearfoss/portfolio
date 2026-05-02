@@ -6,8 +6,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $reading     = $reading ?? null;
 
-    $title    = $pageTitle ?? 'Edit Reading: ' . $reading->title
-                    . (!empty($reading->author) ? ' by ' . $reading->author : '');
+    $title    = 'Edit ' . getAdminPageTitle($reading);
     $subtitle = $title;
 
     // set breadcrumbs

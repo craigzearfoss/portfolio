@@ -5,7 +5,7 @@
     $isRootAdmin     = $isRootAdmin ?? false;
     $operatingSystem = $operatingSystem ?? null;
 
-    $title    = 'Dictionary: ' . $operatingSystem->name . ' (operating system)';
+    $title    = 'Edit Dictionary: ' . $operatingSystem->name . ' (operating system)';
     $subtitle = $title;
 
     // set breadcrumbs

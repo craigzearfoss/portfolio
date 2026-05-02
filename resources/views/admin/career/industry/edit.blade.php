@@ -5,7 +5,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $industry      = $industry ?? null;
 
-    $title    = $pageTitle ?? 'Edit Industry: ' . $industry->name ;
+    $title    = getAdminPageTitle($industry);
     $subtitle = $title;
 
     // set breadcrumbs

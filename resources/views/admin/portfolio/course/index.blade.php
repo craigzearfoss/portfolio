@@ -19,7 +19,7 @@
     if ($isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', !empty($owner) ? [ 'owner_id' => $owner->id ] : []) ];
     $breadcrumbs[] = [ 'name' => 'Courses' ];
 
     // set navigation buttons

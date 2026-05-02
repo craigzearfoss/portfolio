@@ -5,7 +5,15 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminDatabase = $adminDatabase ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Database: ' : 'Database: ') . $adminDatabase->name . ' db for ' . $adminDatabase->owner->name;
+    $title    = $pageTitle ?? $isRootAdmin
+        ? 'Admin Database: ' . $adminDatabase->name .
+              ' (' .
+              view('admin.components.link', [
+                    'name' => $adminDatabase->owner['username'],
+                    'href' => route('admin.system.admin.show',  $adminDatabase->owner['id']),
+              ]) .
+              ')'
+        : 'Database: ' . $adminDatabase->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -16,10 +24,11 @@
     ];
     if ($isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admin Databases', 'href' => route('admin.system.admin-database.index') ];
+        $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' (' . $adminDatabase->owner['username'] . ')' ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.index') ];
+        $breadcrumbs[] = [ 'name' => $adminDatabase->name ];
     }
-    $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' db' ];
 
     // set navigation buttons
     $navButtons = [];

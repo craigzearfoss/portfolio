@@ -7,7 +7,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $communication = $communication ?? null;
 
-    $title    = $pageTitle ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $title    = getAdminPageTitle($communication);
     $subtitle = $title;
 
     // set breadcrumbs

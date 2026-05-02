@@ -11,7 +11,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $thisAdmin   = $thisAdmin ?? null;
 
-    $title    = $pageTitle ?? 'Edit Admin: ' . $owner->name;
+    $title    = $pageTitle ?? 'Edit Admin: ' . $thisAdmin->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -41,7 +41,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin.update', array_merge([$owner], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.system.admin.update', array_merge([$thisAdmin], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -52,14 +52,14 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $owner->id,
+                'value' => $thisAdmin->id,
                 'hide'  => !$isRootAdmin,
             ])
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
-                'value'   => old('admin_team_id') ?? $owner->team['id'] ?? $owner->team_id,
+                'value'   => old('admin_team_id') ?? $thisAdmin->team['id'] ?? $thisAdmin->team_id,
                 'list'    => new AdminTeam()->listOptions(),
                 'message' => $message ?? '',
             ])
@@ -67,7 +67,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'username',
                 'label'     => 'user name',
-                'value'     => old('username') ?? $owner->username,
+                'value'     => old('username') ?? $thisAdmin->username,
                 'required'  => true,
                 'minlength' => 6,
                 'maxlength' => 200,
@@ -77,7 +77,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $owner->name,
+                'value'     => old('name') ?? $thisAdmin->name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -85,7 +85,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'label',
                 'label'     => 'label (displayed in url)',
-                'value'     => old('label') ??  $owner->label,
+                'value'     => old('label') ??  $thisAdmin->label,
                 'minlength' => 6,
                 'maxlength' => 200,
                 'required'  => true,
@@ -95,28 +95,28 @@
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'salutation',
-                'value'   => old('salutation') ?? $owner->salutation,
+                'value'   => old('salutation') ?? $thisAdmin->salutation,
                 'list'    => new Admin()->salutationListOptions(true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'title',
-                'value'     => old('role') ?? $owner->title,
+                'value'     => old('role') ?? $thisAdmin->title,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'role',
-                'value'     => old('role') ?? $owner->role,
+                'value'     => old('role') ?? $thisAdmin->role,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'employer',
-                'value'     => old('employer') ?? $owner->employer,
+                'value'     => old('employer') ?? $thisAdmin->employer,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
@@ -124,33 +124,33 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'employment_status_id',
                 'label'   => 'employment status',
-                'value'   => old('employment_status_id') ?? $owner->employment_status_id,
+                'value'   => old('employment_status_id') ?? $thisAdmin->employment_status_id,
                 'list'    => new EmploymentStatus()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-location-horizontal', [
-                'street'     => old('street') ?? $owner->street,
-                'street2'    => old('street2') ?? $owner->street2,
-                'city'       => old('city') ?? $owner->city,
-                'state_id'   => old('state_id') ?? $owner->state_id,
+                'street'     => old('street') ?? $thisAdmin->street,
+                'street2'    => old('street2') ?? $thisAdmin->street2,
+                'city'       => old('city') ?? $thisAdmin->city,
+                'state_id'   => old('state_id') ?? $thisAdmin->state_id,
                 'states'     => new State()->listOptions([], 'id', 'name', true),
-                'zip'        => old('zip') ?? $owner->zip,
-                'country_id' => old('country_id') ?? $owner->country_id,
+                'zip'        => old('zip') ?? $thisAdmin->zip,
+                'country_id' => old('country_id') ?? $thisAdmin->country_id,
                 'countries'  => new Country()->listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 
             @include('admin.components.form-coordinates-horizontal', [
-                'latitude'  => old('latitude') ?? $owner->latitude,
-                'longitude' => old('longitude') ?? $owner->longitude,
+                'latitude'  => old('latitude') ?? $thisAdmin->latitude,
+                'longitude' => old('longitude') ?? $thisAdmin->longitude,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'tel',
                 'name'      => 'phone',
-                'value'     => old('phone') ?? $owner->phone,
+                'value'     => old('phone') ?? $thisAdmin->phone,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -158,7 +158,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'email',
                 'name'      => 'email',
-                'value'     => old('email') ?? $owner->email,
+                'value'     => old('email') ?? $thisAdmin->email,
                 'required'  => true,
                 'disabled'  => true,
                 'maxlength' => 255,
@@ -169,40 +169,40 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'birthday',
-                'value'   => old('birthday') ?? $owner->birthday,
+                'value'   => old('birthday') ?? $thisAdmin->birthday,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $owner->link,
-                'name' => old('link_name') ?? $owner->link_name,
+                'link' => old('link') ?? $thisAdmin->link,
+                'name' => old('link_name') ?? $thisAdmin->link_name,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'bio',
                 'id'      => 'inputEditor',
-                'value'   => old('bio') ?? $owner->bio,
+                'value'   => old('bio') ?? $thisAdmin->bio,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $owner->description,
+                'value'   => old('description') ?? $thisAdmin->description,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $owner->image,
-                'credit'  => old('image_credit') ?? $owner->image_credit,
-                'source'  => old('image_source') ?? $owner->image_source,
+                'src'     => old('image') ?? $thisAdmin->image,
+                'credit'  => old('image_credit') ?? $thisAdmin->image_credit,
+                'source'  => old('image_source') ?? $thisAdmin->image_source,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-image-horizontal', [
                 'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $owner->thumbnail,
+                'src'       => old('thumbnail') ?? $thisAdmin->thumbnail,
                 'credit'    => false,
                 'source'    => false,
                 'maxlength' => 500,
@@ -210,12 +210,12 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $owner->is_public,
-                'is_readonly' => old('is_readonly') ?? $owner->is_readonly,
-                'is_root'     => old('is_root')     ?? $owner->is_root,
-                'is_disabled' => old('is_disabled') ?? $owner->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $owner->is_demo,
-                'sequence'    => old('sequence')    ?? $owner->sequence,
+                'is_public'   => old('is_public')   ?? $thisAdmin->is_public,
+                'is_readonly' => old('is_readonly') ?? $thisAdmin->is_readonly,
+                'is_root'     => old('is_root')     ?? $thisAdmin->is_root,
+                'is_disabled' => old('is_disabled') ?? $thisAdmin->is_disabled,
+                'is_demo'     => old('is_demo')     ?? $thisAdmin->is_demo,
+                'sequence'    => old('sequence')    ?? $thisAdmin->sequence,
                 'message'     => $message           ?? '',
             ])
 
@@ -224,7 +224,7 @@
                 'label'           => 'requires re-login',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('requires_relogin') ?? $owner->requires_relogin,
+                'checked'         => old('requires_relogin') ?? $thisAdmin->requires_relogin,
                 'message'         => $message ?? '',
             ])
 

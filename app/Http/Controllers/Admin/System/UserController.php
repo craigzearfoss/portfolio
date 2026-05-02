@@ -121,7 +121,9 @@ class UserController extends BaseAdminController
     {
         updateGate($user, $this->admin);
 
-        return view('admin.system.user.edit', compact('user'));
+        $thisUser = $user;
+
+        return view('admin.system.user.edit', compact('thisUser'));
     }
 
     /**

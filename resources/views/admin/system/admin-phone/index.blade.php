@@ -7,7 +7,7 @@
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers');
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phones' : 'Phones');
     $subtitle = $title;
 
     // set breadcrumbs
@@ -21,7 +21,7 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(AdminPhone::class, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Phone Number',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Phone',
                                                                   'href' => route('admin.system.admin-phone.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
                                                                 ])->render();
     }

@@ -7,7 +7,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminTeam     = $adminTeam ?? null;
 
-    $title    = $pageTitle ?? 'Add New Admin Team';
+    $title    = $pageTitle ?? $isRootAdmin ? 'Add New Admin Team' : 'Add New Team';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -89,7 +89,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Create Admin Team',
+                'label'      => $isRootAdmin ? 'Create Admin Team' : 'Create Team',
                 'cancel_url' => referer('admin.system.admin-team.index')
             ])
 

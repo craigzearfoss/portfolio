@@ -7,7 +7,9 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminGroup    = $adminGroup ?? null;
 
-    $title    = $pageTitle ??'Edit Admin Group: ' . $adminGroup->name;
+    $title    = !$isRootAdmin
+        ? str_replace('AdminGroup', 'Group', 'Edit ' . getAdminPageTitle($adminGroup))
+        : 'Edit ' . getAdminPageTitle($adminGroup);
     $subtitle = $title;
 
     // set breadcrumbs

@@ -9,7 +9,7 @@
     $isRootAdmin      = $isRootAdmin ?? false;
     $recipeIngredient = $recipeIngredient ?? null;
 
-    $title    = $pageTitle ?? 'Edit Recipe Ingredient: ' . $recipeIngredient->ingredient['name'] . ' (' . $recipeIngredient->recipe['name'] . ')';
+    $title    = 'Edit ' . getAdminPageTitle($recipeIngredient);
     $subtitle = $title;
 
     // set breadcrumbs

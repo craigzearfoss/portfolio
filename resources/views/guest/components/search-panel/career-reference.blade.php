@@ -33,7 +33,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Reference()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Reference()->getSortOptions($sort),
                         'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 

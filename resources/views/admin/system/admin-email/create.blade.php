@@ -7,7 +7,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminEmail    = $adminEmail ?? null;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Add New Admin Email Address' : 'Add New Email Address');
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Add New Admin Email' : 'Add New Email');
     $subtitle = $title;
 
     // set breadcrumbs
@@ -95,7 +95,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => $isRootAdmin ? 'Add Admin Email Address' : 'Add Email Address',
+                'label'      => $isRootAdmin ? 'Add Admin Email' : 'Add Email',
                 'cancel_url' => referer('admin.system.admin-email.index')
             ])
 

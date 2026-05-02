@@ -28,7 +28,7 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Ingredient()->getSortOptions($sort, EnvTypes::ADMIN),
+                        'list'  => new Ingredient()->getSortOptions($sort),
                         'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
