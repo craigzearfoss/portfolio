@@ -87,13 +87,13 @@
 
                     <tr data-id="{{ $thisMessage->id }}">
                         <td data-field="id">
-                            {{ $thisMessage->id ?? '' }}
+                            {{ $thisMessage->id }}
                         </td>
                         <td data-field="name">
                             {{ $thisMessage->id }}
                         </td>
                         <td data-field="name">
-                            {{ $thisMessage->owner->username }}
+                            {{ $thisMessage->owner->username ?? '?' }}
                         </td>
                         <td class="has-text-centered" data-field="from_admin">
                             @include('admin.components.checkmark', [ 'checked' => $thisMessage->from_admin ])

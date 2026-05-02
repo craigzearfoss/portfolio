@@ -96,17 +96,17 @@
                     <tr data-id="{{ $userTeam->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $userTeam->id ?? '' }}
+                                {{ $userTeam->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $userTeam->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $userTeam->name !!}
+                            {{!! $userTeam->name }}
                         </td>
                         <td data-field="abbreviation" style="white-space: nowrap;">
-                            {!! $userTeam->abbreviation ?? '' !!}
+                            {{ $userTeam->abbreviation }}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $userTeam->is_disabled ])

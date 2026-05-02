@@ -85,11 +85,11 @@
                     <tr data-id="{{ $academy->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $academy->id ?? '' }}
+                                {{ $academy->id }}
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $academy->name !!}
+                            {{ $academy->name }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $academy->is_public ])

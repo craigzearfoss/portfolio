@@ -98,23 +98,23 @@
                     <tr data-id="{{ $award->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $award->id ?? '' }}
+                                {{ $award->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $award->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $award->name !!}{!! !empty($award->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $award->name }}{!! !empty($award->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                             <td data-field="category">
-                                {!! $award->category !!}
+                                {{ $award->category }}
                             </td>
                         <td data-field="award_year">
-                            {!! $award->award_year !!}
+                            {{ $award->award_year }}
                         </td>
                         <td data-field="organization">
-                            {!! $award->organization !!}
+                            {{ $award->organization }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $award->is_public ])
@@ -129,7 +129,7 @@
                                 @if (canRead($award, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.award.show', $award),
+                                        'href'  => route('admin.portfolio.award.show', ownerParams($award, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -137,7 +137,7 @@
                                 @if (canUpdate($award, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.award.edit', $award),
+                                        'href'  => route('admin.portfolio.award.edit', ownerParams($award, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

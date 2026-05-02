@@ -99,10 +99,10 @@
                     <tr data-id="{{ $communication->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $communication->id ?? '' }}
+                                {{ $communication->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $communication->owner->username }}
+                                {{ $communication->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
@@ -116,16 +116,16 @@
                             @endif
                         </td>
                         <td data-field="communication_type_id" style="white-space: nowrap;">
-                            {!! $communication->communicationType->name ?? '' !!}
+                            {{ $communication->communicationType->name ?? '' }}
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
-                            {!! $communication->subject !!}
+                            {{ $communication->subject }}
                         </td>
                         <td data-field="to">
-                            {!! $communication->to !!}
+                            {{ $communication->to }}
                         </td>
                         <td data-field="from">
-                            {!! $communication->from !!}
+                            {{ $communication->from }}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
                             {{ shortDateTime($communication->communication_datetime) }}
@@ -137,7 +137,7 @@
                                 @if (canRead($communication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.communication.show', $communication),
+                                        'href'  => route('admin.career.communication.show', ownerParams($communication, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -145,7 +145,7 @@
                                 @if (canUpdate($communication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.communication.edit', $communication),
+                                        'href'  => route('admin.career.communication.edit', ownerParams($communication, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
@@ -163,20 +163,6 @@
                                         'icon'     => 'fa-external-link',
                                         'disabled' => true
                                     ])
-                                @endif
-
-                                @if (canRead($communication, $admin))
-                                    <a title="show" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.career.communication.show', $communication) !!}">
-                                        <i class="fa-solid fa-list"></i>
-                                    </a>
-                                @endif
-
-                                @if (canUpdate($communication, $admin))
-                                    <a title="edit" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.career.communication.edit', $communication) !!}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
                                 @endif
 
                                 @if (canDelete($communication, $admin))

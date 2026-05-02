@@ -85,10 +85,10 @@
 
                     <tr data-id="{{ $school->id }}">
                         <td data-field="id">
-                            {{ $school->id ?? '' }}
+                            {{ $school->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $school->name !!}
+                            {{ $school->name }}
                         </td>
                         <td data-field="logo_small" style="display: none;">
                             @include('admin.components.image', [

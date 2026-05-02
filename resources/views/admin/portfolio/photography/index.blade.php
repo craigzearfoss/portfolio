@@ -96,20 +96,20 @@
                     <tr data-id="{{ $photo->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $photo->id ?? '' }}
+                                {{ $photo->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {!! $photo->owner->username !!}
+                                {{ $photo->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;" style="white-space: nowrap;">
-                            {!! $photo->name !!}{!! !empty($photo->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $photo->name }}{!! !empty($photo->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="credit" style="white-space: nowrap;">
-                            {!! $photo->credit !!}
+                            {{ $photo->credit }}
                         </td>
                         <td data-field="photo_year">
-                            {!! $photo->photo_year !!}
+                            {{ $photo->photo_year }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $photo->is_public ])
@@ -124,7 +124,7 @@
                                 @if (canRead($photo, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.photography.show', $photo),
+                                        'href'  => route('admin.portfolio.photography.show', ownerParams($photo, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -132,7 +132,7 @@
                                 @if (canUpdate($photo, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.photography.edit', $photo),
+                                        'href'  => route('admin.portfolio.photography.edit', ownerParams($photo, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

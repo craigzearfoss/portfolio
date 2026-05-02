@@ -99,17 +99,17 @@
                     <tr data-id="{{ $coverLetter->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $coverLetter->id ?? '' }}
+                                {{ $coverLetter->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $coverLetter->owner->username }}
+                                {{ $coverLetter->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="company.name" style="white-space: nowrap;">
-                            {!! $coverLetter->application->company->name ?? '' !!}
+                            {{ $coverLetter->application->company->name ?? '' }}
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
-                            {!! $coverLetter->application->role ?? '' !!}
+                            {{ $coverLetter->application->role ?? '' }}
                         </td>
                         <td data-field="post_date" style="white-space: nowrap;">
                             {{ shortDate($coverLetter->application['apply_date'] ?? null) }}
@@ -127,7 +127,7 @@
                                 @if (canRead($coverLetter, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.cover-letter.show', $coverLetter),
+                                        'href'  => route('admin.career.cover-letter.show', ownerParams($coverLetter, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -135,7 +135,9 @@
                                 @if (canUpdate($coverLetter, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.cover-letter.edit', $coverLetter),
+                                        'href'  => route('admin.career.cover-letter.edit',
+                                                          ownerParams($coverLetter, request()->input('owner_id'), $admin)
+                                                   ),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

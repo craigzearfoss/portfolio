@@ -89,7 +89,7 @@
                     <tr data-id="{{ $adminEmail->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $adminEmail->id ?? '' }}
+                                {{ $adminEmail->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if (!empty($adminEmail->owner))
@@ -103,10 +103,10 @@
                             </td>
                         @endif
                         <td data-field="email" style="white-space: nowrap;">
-                            {!! $adminEmail->email !!}
+                            {{ $adminEmail->email }}
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
-                            {!! $adminEmail->label !!}
+                            {{ $adminEmail->label }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminEmail->is_public ])
@@ -118,7 +118,7 @@
                                 @if (canRead($adminEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-email.show', $adminEmail),
+                                        'href'  => route('admin.system.admin-email.show', ownerParams($adminEmail, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -126,7 +126,7 @@
                                 @if (canUpdate($adminEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-email.edit', $adminEmail),
+                                        'href'  => route('admin.system.admin-email.edit', ownerParams($adminEmail, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

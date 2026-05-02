@@ -103,14 +103,14 @@
                     <tr data-id="{{ $resume->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $resume->id ?? '' }}
+                                {{ $resume->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $resume->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $resume->name !!}
+                            {{ $resume->name }}
                         </td>
                         <td data-field="resume_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDate($resume->resume_date) }}
@@ -134,7 +134,7 @@
                                 @if (canRead($resume, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.resume.show', $resume),
+                                        'href'  => route('admin.career.resume.show', ownerParams($resume, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -142,7 +142,7 @@
                                 @if (canUpdate($resume, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.resume.edit', $resume),
+                                        'href'  => route('admin.career.resume.edit', ownerParams($resume, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

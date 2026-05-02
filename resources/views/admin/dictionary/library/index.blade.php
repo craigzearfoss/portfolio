@@ -81,14 +81,14 @@
                     <tr data-id="{{ $library->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $library->id ?? '' }}
+                                {{ $library->id }}
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $library->name !!}
+                            {{ $library->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $library->abbreviation !!}
+                            {{ $library->abbreviation }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $library->is_public ])

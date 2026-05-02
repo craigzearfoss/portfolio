@@ -12,20 +12,15 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                       'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Personal',     'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Readings',     'href' => route('admin.personal.reading.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $reading->name, 'href' => route('admin.personal.reading.show', [$reading, 'owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Personal',     'href' => route('admin.personal.index') ];
-        $breadcrumbs[] = [ 'name' => 'Readings',     'href' => route('admin.personal.reading.index') ];
-        $breadcrumbs[] = [ 'name' => $reading->name, 'href' => route('admin.personal.reading.show', $reading) ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',    'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Personal',      'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Readings',      'href' => route('admin.personal.reading.index') ];
+    $breadcrumbs[] = [ 'name' => $reading->title, 'href' => route('admin.personal.reading.show', $reading) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

@@ -98,18 +98,18 @@
                     <tr data-id="{{ $skill->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $skill->id ?? '' }}
+                                {{ $skill->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $skill->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' }}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">
                              @if (!empty($skill->category->name))
-                                 {!! $skill->category->name !!}
+                                 {{ $skill->category->name }}
                              @endif
                         </td>
                         <td data-field="level" style="white-space: nowrap;">
@@ -120,7 +120,7 @@
                             ])
                         </td>
                         <td data-field="years" class="has-text-centered">
-                            {!! $skill->years !!}
+                            {{ $skill->years }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $skill->is_public ])
@@ -135,7 +135,7 @@
                                 @if (canRead($skill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.skill.show', $skill),
+                                        'href'  => route('admin.portfolio.skill.show', ownerParams($skill, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -143,7 +143,7 @@
                                 @if (canUpdate($skill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.skill.edit', $skill),
+                                        'href'  => route('admin.portfolio.skill.edit', ownerParams($skill, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

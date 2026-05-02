@@ -90,17 +90,17 @@
                     <tr data-id="{{ $userPhone->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $userPhone->id ?? '' }}
+                                {{ $userPhone->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $userPhone->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="phone" style="white-space: nowrap;">
-                            {!! $userPhone->phone !!}
+                            {{ $userPhone->phone }}
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
-                            {!! $userPhone->label !!}
+                            {{ $userPhone->label }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $userPhone->is_public ])

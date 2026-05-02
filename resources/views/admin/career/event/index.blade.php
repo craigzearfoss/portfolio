@@ -103,10 +103,10 @@
                     <tr data-id="{{ $event->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $event->id ?? '' }}
+                                {{ $event->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $event->owner->username }}
+                                {{ $event->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
@@ -120,7 +120,7 @@
                             @endif
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $event->name !!}
+                            {{ $event->name }}
                         </td>
                         <td data-field="event_datetime" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDateTime($event->event_datetime) }}
@@ -132,10 +132,10 @@
                             }}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
-                            {!! $event->location !!}
+                            {{ $event->location }}
                         </td>
                         <td data-field="attendees" style="white-space: nowrap;">
-                            {!! $event->attendees !!}
+                            {{ $event->attendees }}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $event->is_public ])
@@ -150,7 +150,7 @@
                                 @if (canRead($event, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.event.show', $event),
+                                        'href'  => route('admin.career.event.show', ownerParams($event, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -158,7 +158,9 @@
                                 @if (canUpdate($event, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.event.edit', $event),
+                                        'href'  => route('admin.career.event.edit',
+                                                          ownerParams($event, request()->input('owner_id'), $admin)
+                                                   ),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

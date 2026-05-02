@@ -83,14 +83,14 @@
                     <tr data-id="{{ $industry->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $industry->id ?? '' }}
+                                {{ $industry->id }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $industry->name !!}
+                            {{ $industry->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $industry->abbreviation !!}
+                            {{ $industry->abbreviation }}
                         </td>
                         <td class="is-1">
 

@@ -98,14 +98,14 @@
                     <tr data-id="{{ $contact->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $contact->id ?? '' }}
+                                {{ $contact->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $contact->owner->username }}
+                                {{ $contact->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $contact->name !!}
+                            {{ $contact->name }}
                         </td>
                         <td data-field="contact.company.names" style="white-space: nowrap;">
                             @php
@@ -115,13 +115,13 @@
                                     }
                                 );
                             @endphp
-                            {!! $companyLinks->implode(', ') !!}
+                            {{ $companyLinks->implode(', ') }}
                         </td>
                         <td data-field="phone" style="white-space: nowrap;">
-                            {!! $contact->phone !!}
+                            {{ $contact->phone }}
                         </td>
                         <td data-field="email" style="white-space: nowrap;">
-                            {!! $contact->email !!}
+                            {{ $contact->email }}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $contact->is_public ])
@@ -136,7 +136,7 @@
                                 @if (canRead($contact, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.contact.show', $contact),
+                                        'href'  => route('admin.career.contact.show', ownerParams($contact, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -144,7 +144,9 @@
                                 @if (canUpdate($contact, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.contact.edit', $contact),
+                                        'href'  => route('admin.career.contact.edit',
+                                                          ownerParams($contact, request()->input('owner_id'), $admin)
+                                                   ),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

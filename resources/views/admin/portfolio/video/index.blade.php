@@ -98,23 +98,23 @@
                     <tr data-id="{{ $video->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $video->id ?? '' }}
+                                {{ $video->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $video->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $video->name !!}{!! !empty($video->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $video->name }}{!! !empty($video->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="video_year" style="white-space: nowrap;">
-                            {!! $video->video_year !!}
+                            {{ $video->video_year }}
                         </td>
                         <td data-field="show" style="white-space: nowrap;">
-                            {!! $video->show !!}
+                            {{ $video->show }}
                         </td>
                         <td data-field="company" style="white-space: nowrap;">
-                            {!! $video->company !!}
+                            {{ $video->company }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $video->is_public ])
@@ -129,7 +129,7 @@
                                 @if (canRead($video, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.video.show', $video),
+                                        'href'  => route('admin.portfolio.video.show', ownerParams($video, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -137,7 +137,7 @@
                                 @if (canUpdate($video, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.video.edit', $video),
+                                        'href'  => route('admin.portfolio.video.edit', ownerParams($video, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

@@ -1,6 +1,8 @@
 @php
     use App\Models\System\Admin;
     use App\Models\System\AdminGroup;
+    use App\Models\System\AdminTeam;
+    use App\Models\System\User;
     use App\Models\System\UserTeam;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
@@ -106,35 +108,35 @@
 
                     <tr data-id="{{ $thisAdmin->id }}">
                         <td data-field="id">
-                            {{ $thisAdmin->id ?? '' }}
+                            {{ $thisAdmin->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $thisAdmin->name !!}
+                            {{}} $thisAdmin->name }}
                         </td>
                         <td data-field="username" style="white-space: nowrap;">
                             {{ $thisAdmin->username }}
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
-                            {!! $thisAdmin->label !!}
+                            {{ $thisAdmin->label }}
                         </td>
                         <td data-field="admin_team_id" style="white-space: nowrap;">
                             @if (!empty($admin->admin_team_id))
                                 @include('admin.components.link', [
                                     'name' => $thisAdmin->team->name ?? '',
                                     'href' => route('admin.system.admin-team.show',
-                                                    [ $thisAdmin, \App\Models\System\AdminTeam::where('id', $thisAdmin->team->id)->first() ]
+                                                    [ $thisAdmin, AdminTeam::where('id', $thisAdmin->team->id)->first() ]
                                               )
                                 ])
                             @endif
                         </td>
                         <td data-field="email" style="white-space: nowrap;">
-                            {!! $thisAdmin->email !!}
+                            {{ $thisAdmin->email }}
                         </td>
                         <td data-field="email_verified_at" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $thisAdmin->email_verified_at ])
                         </td>
                         <td data-field="status">
-                            {!! \App\Models\System\User::statusName($thisAdmin->status) ?? '' !!}
+                            {{ User::statusName($thisAdmin->status) ?? '' }}
                         </td>
                         <td data-field="is_root" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $thisAdmin->is_root ])
@@ -188,7 +190,9 @@
                                 @endif
 
                                 @if (canDelete($thisAdmin, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

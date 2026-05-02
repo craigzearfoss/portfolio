@@ -94,17 +94,17 @@
                     <tr data-id="{{ $jobSearchLog->id }}">
                         @if ($isRootAdmin))
                             <td data-field="id">
-                                {{ $jobSearchLog->id ?? '' }}
+                                {{ $jobSearchLog->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $jobSearchLog->owner->username }}
+                                {{ $jobSearchLog->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="time_logged">
-                            {!! $jobSearchLog->time_logged !!}
+                            {{ $jobSearchLog->time_logged }}
                         </td>
                         <td data-field="message">
-                            {!! $jobSearchLog->message !!}
+                            {{ $jobSearchLog->message }}
                         </td>
                         <td class="is-1">
 
@@ -113,7 +113,7 @@
                                 @if (canRead($jobSearchLog, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.job-search-log.show', $jobSearchLog),
+                                        'href'  => route('admin.career.job-search-log.show', ownerParams($jobSearchLog, request()->input('owner_id'), $admin) ),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif

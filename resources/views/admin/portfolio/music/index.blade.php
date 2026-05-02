@@ -100,26 +100,26 @@
                     <tr data-id="{{ $music->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $music->id ?? '' }}
+                                {{ $music->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $music->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $music->name !!}{!! !empty($music->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $music->name }}{!! !empty($music->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">
-                            {!! $music->artist !!}
+                            {{ $music->artist }}
                         </td>
                         <td data-field="music_year" class="hide-at-900">
-                            {!! $music->music_year !!}
+                            {{ $music->music_year }}
                         </td>
                         <td data-field="label" class="hide-at-750">
-                            {!! $music->label !!}
+                            {{ $music->label }}
                         </td>
                         <td data-field="catalog_number" class="hide-at-900">
-                            {!! $music->catalog_number !!}
+                            {{ $music->catalog_number }}
                         </td>
                         <td data-field="is_public" class="has-text-centered hide-at-1024">
                             @include('admin.components.checkmark', [ 'checked' => $music->is_public ])
@@ -134,7 +134,7 @@
                                 @if (canRead($music, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.music.show', $music),
+                                        'href'  => route('admin.portfolio.music.show', ownerParams($music, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -142,7 +142,7 @@
                                 @if (canUpdate($music, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.music.edit', $music),
+                                        'href'  => route('admin.portfolio.music.edit', ownerParams($music, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

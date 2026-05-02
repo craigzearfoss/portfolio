@@ -92,25 +92,25 @@
                     <tr data-id="{{ $company->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $company->id ?? '' }}
+                                {{ $company->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $company->owner->username }}
+                                {{ $company->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $company->name !!}
+                            {{ $company->name }}
                         </td>
                         <td data-field="industry.name" style="white-space: nowrap;">
-                            {!! $company->industry->name ?? '' !!}
+                            {{ $company->industry->name ?? '' }}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
-                            {!!
+                            {{
                                 formatLocation([
                                     'city'    => $company->city,
                                     'state'   => $company->state->code ?? '',
                                 ])
-                            !!}
+                            }}
                         </td>
                         <td class="is-1">
 
@@ -119,7 +119,7 @@
                                 @if (canRead($company, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.company.show', $company),
+                                        'href'  => route('admin.career.company.show', ownerParams($company, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -127,7 +127,9 @@
                                 @if (canUpdate($company, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.company.edit', $company),
+                                        'href'  => route('admin.career.company.edit',
+                                                          ownerParams($company, request()->input('owner_id'), $admin)
+                                                   ),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

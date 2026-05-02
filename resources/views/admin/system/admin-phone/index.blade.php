@@ -89,7 +89,7 @@
                     <tr data-id="{{ $adminPhone->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $adminPhone->id ?? '' }}
+                                {{ $adminPhone->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if (!empty($adminPhone->owner))
@@ -103,10 +103,10 @@
                             </td>
                         @endif
                         <td data-field="phone" style="white-space: nowrap;">
-                            {!! $adminPhone->phone !!}
+                            {{ $adminPhone->phone }}
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
-                            {!! $adminPhone->label !!}
+                            {{ $adminPhone->label }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminPhone->is_public ])
@@ -118,7 +118,7 @@
                                 @if (canRead($adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-phone.show', $adminPhone),
+                                        'href'  => route('admin.system.admin-phone.show', ownerParams($adminPhone, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -126,7 +126,7 @@
                                 @if (canUpdate($adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-phone.edit', $adminPhone),
+                                        'href'  => route('admin.system.admin-phone.edit', ownerParams($adminPhone, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

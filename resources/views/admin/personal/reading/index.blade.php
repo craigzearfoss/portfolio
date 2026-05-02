@@ -102,17 +102,17 @@
                     <tr data-id="{{ $reading->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $reading->id ?? '' }}
+                                {{ $reading->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $reading->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
-                            {!! $reading->title !!}{!! !empty($reading->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $reading->title }}{!! !empty($reading->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="author" style="white-space: nowrap;">
-                            {!! $reading->author !!}
+                            {{ $reading->author }}
                         </td>
                         <td data-field="fiction|nonfiction">
                             {{
@@ -151,7 +151,7 @@
                                 @if (canRead($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.personal.reading.show', $reading),
+                                        'href'  => route('admin.personal.reading.show', ownerParams($reading, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -159,7 +159,7 @@
                                 @if (canUpdate($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.personal.reading.edit', $reading),
+                                        'href'  => route('admin.personal.reading.edit', ownerParams($reading, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

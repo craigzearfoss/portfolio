@@ -81,14 +81,14 @@
                     <tr data-id="{{ $database->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $database->id ?? '' }}
+                                {{ $database->id }}
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $database->name !!}
+                            {{ $database->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $database->abbreviation !!}
+                            {{ $database->abbreviation }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $database->is_public ])

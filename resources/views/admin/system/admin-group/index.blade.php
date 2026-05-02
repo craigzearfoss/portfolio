@@ -97,7 +97,7 @@
                     <tr data-id="{{ $adminGroup->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $adminGroup->id ?? '' }}
+                                {{ $adminGroup->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if (!empty($adminGroup->owner))
@@ -112,7 +112,7 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $adminGroup->name !!}
+                            {{ $adminGroup->name }}
                         </td>
                         <td data-field="team.name" style="white-space: nowrap;">
                             @if (!empty($adminGroup->team))
@@ -125,7 +125,7 @@
                             @endif
                         </td>
                         <td data-field="abbreviation">
-                            {!! $adminGroup->abbreviation !!}
+                            {{ $adminGroup->abbreviation }}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminGroup->is_disabled ])
@@ -137,7 +137,7 @@
                                 @if (canRead($adminGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-group.show', $adminGroup),
+                                        'href'  => route('admin.system.admin-group.show', ownerParams($adminGroup, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -145,7 +145,7 @@
                                 @if (canUpdate($adminGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-group.edit', $adminGroup),
+                                        'href'  => route('admin.system.admin-group.edit', ownerParams($adminGroup, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

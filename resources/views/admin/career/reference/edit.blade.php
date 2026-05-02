@@ -14,20 +14,15 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                        'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',             'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',         'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,     'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Career',         'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'References',     'href' => route('admin.career.reference.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $reference->name, 'href' => route('admin.career.reference.show', [$reference, 'owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Career',         'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'References',     'href' => route('admin.career.reference.index') ];
-        $breadcrumbs[] = [ 'name' => $reference->name, 'href' => route('admin.career.reference.show', $reference) ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',         'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'References',     'href' => route('admin.career.reference.index') ];
+    $breadcrumbs[] = [ 'name' => $reference->name, 'href' => route('admin.career.reference.show', $reference) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

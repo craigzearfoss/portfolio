@@ -86,10 +86,10 @@
 
                     <tr data-id="{{ $ingredient->id }}">
                         <td data-field="id">
-                            {{ $ingredient->id ?? '' }}
+                            {{ $ingredient->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap">
-                            {!! $ingredient->name !!}
+                            {{ $ingredient->name }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $ingredient->is_public ])

@@ -109,17 +109,17 @@
                     <tr data-id="{{ $thisUser->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $thisUser->id ?? '' }}
+                                {{ $thisUser->id }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $thisUser->name !!}
+                            {{ $thisUser->name }}
                         </td>
                         <td data-field="username" style="white-space: nowrap;">
                             {{ $thisUser->username }}
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
-                            {!! $thisUser->label !!}
+                            {{ $thisUser->label }}
                         </td>
                         <td data-field="user_team_id" style="white-space: nowrap;">
                             @if (!empty($thisUser->user_team_id))
@@ -132,13 +132,13 @@
                             @endif
                         </td>
                         <td data-field="email" style="white-space: nowrap;">
-                            {!! $thisUser->email !!}
+                            {{ $thisUser->email }}}
                         </td>
                         <td data-field="email_verified_at" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $thisUser->email_verified_at ])
                         </td>
                         <td data-field="status">
-                            {!! \App\Models\System\User::statusName($thisUser->status) ?? '' !!}
+                            {{ User::statusName($thisUser->status) ?? '' }}
                         </td>
                         <td data-field=disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $thisUser->is_disabled ])

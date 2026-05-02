@@ -91,22 +91,22 @@
                     <tr data-id="{{ $recruiter->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $recruiter->id ?? '' }}
+                                {{ $recruiter->id }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $recruiter->name !!}
+                            {{ $recruiter->name }}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap;">
-                            {!! implode(', ', $recruiter->coverageAreas ?? []) !!}
+                            {{ implode(', ', $recruiter->coverageAreas ?? []) }}
                         </td>
                         <td data-field="location">
-                            {!!
+                            {{
                                 formatLocation([
                                     'city'    => $recruiter->city,
                                     'state'   => $recruiter->state->code ?? '',
                                 ])
-                            !!}
+                            }}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $recruiter->is_public ])

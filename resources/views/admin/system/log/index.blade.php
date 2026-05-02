@@ -140,19 +140,19 @@
 
                     <tr data-id="{{ $loginAttempt->id }}" style="line-height: 1;">
                         <td data-field="type">
-                            {!! $type !!}
+                            {{ $type }}
                         </td>
                         <td data-field="{{ $type == 'admin' ? 'admin_id' : 'user_id' }}" class="pt-0 pb-0 has-text-right">
-                            {!! $type == 'admin' ? $loginAttempt->admin_id : $loginAttempt->user_id !!}
+                            {{ $type == 'admin' ? $loginAttempt->admin_id : $loginAttempt->user_id }}
                         </td>
                         <td data-field="username" class="pt-0 pb-0">
-                            {!! $loginAttempt->username !!}
+                            {{ $loginAttempt->username }}
                         </td>
                         <td data-field="action" class="pt-0 pb-0">
-                            {!! $loginAttempt->action !!}
+                            {{ $loginAttempt->action }}
                         </td>
                         <td data-field="ip_address" class="pt-0 pb-0">
-                            {!! $loginAttempt->ip_address !!}
+                            {{ $loginAttempt->ip_address }}
                         </td>
                         <td data-field="success" class="has-text-centered" class="pt-0 pb-0">
                             {{ !empty($loginAttempts->success) ? 'yes' : 'no '}}

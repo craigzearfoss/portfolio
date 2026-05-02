@@ -96,7 +96,7 @@
                     <tr data-id="{{ $note->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $note->id ?? '' }}
+                                {{ $note->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $note->owner->username ?? '' }}
@@ -113,7 +113,7 @@
                             @endif
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
-                            {!! $note->subject !!}
+                            {{ $note->subject }}
                         </td>
                         <td data-field="body" style="min-width: 30rem;">
                             @if (strlen($note->body) > 200)
@@ -132,7 +132,7 @@
                                 @if (canRead($note, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.note.show', $note),
+                                        'href'  => route('admin.career.note.show', ownerParams($note, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -140,7 +140,7 @@
                                 @if (canUpdate($note, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.note.edit', $note),
+                                        'href'  => route('admin.career.note.edit', ownerParams($note, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

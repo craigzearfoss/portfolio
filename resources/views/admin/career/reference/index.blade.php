@@ -100,31 +100,31 @@
                     <tr data-id="{{ $reference->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $reference->id ?? '' }}
+                                {{ $reference->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $reference->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $reference->name !!}
+                            {{ $reference->name }}
                         </td>
                         <td data-field="relation" style="white-space: nowrap;">
-                            {!! $reference->relation !!}
+                            {{ $reference->relation }}
                         </td>
                         <td data-field="phone" style="white-space: nowrap;">
-                            {!! $reference->phone !!}
+                            {{ $reference->phone }}
                         </td>
                         <td data-field="email" style="white-space: nowrap;">
                             {!! $reference->email !!}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
-                            {!!
+                            {{
                                 formatLocation([
                                     'city'    => $reference->city,
                                     'state'   => $reference->state->code ?? '',
                                 ])
-                            !!}
+                            }}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $reference->is_public ])
@@ -139,7 +139,7 @@
                                 @if (canRead($reference, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.reference.show', $reference),
+                                        'href'  => route('admin.career.reference.show', ownerParams($reference, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -147,7 +147,7 @@
                                 @if (canUpdate($reference, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.reference.edit', $reference),
+                                        'href'  => route('admin.career.reference.edit', ownerParams($reference, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

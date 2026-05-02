@@ -130,7 +130,7 @@
                     <tr data-id="{{ $adminResource->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $adminResource->id ?? '' }}
+                                {{ $adminResource->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if (!empty($adminResource->owner))

@@ -91,17 +91,17 @@
                     <tr data-id="{{ $certification->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $certification->id ?? '' }}
+                                {{ $certification->id }}
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $certification->name !!}
+                            {{ $certification->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $certification->abbreviation !!}
+                            {{ $certification->abbreviation }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $certification->certificationType->name ?? '' !!}
+                            {{ $certification->certificationType->name ?? '' }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $certification->is_public ])

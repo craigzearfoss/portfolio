@@ -98,7 +98,7 @@
 
                     <tr data-id="{{ $database->id }}">
                         <td data-field="id">
-                            {{ $database->id ?? '' }}
+                            {{ $database->id }}
                         </td>
                         <td data-field="owner.username" style="white-space: nowrap;">
                             @if (!empty($database->owner))

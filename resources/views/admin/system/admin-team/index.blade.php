@@ -94,7 +94,7 @@
                     <tr data-id="{{ $adminTeam->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $adminTeam->id ?? '' }}
+                                {{ $adminTeam->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if (!empty($adminTeam->owner))
@@ -108,10 +108,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $adminTeam->name !!}
+                            {{}} $adminTeam->name }}
                         </td>
                         <td data-field="abbreviation" style="white-space: nowrap;">
-                            {!! $adminTeam->abbreviation !!}
+                            {{ $adminTeam->abbreviation }}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminTeam->is_disabled ])
@@ -123,7 +123,7 @@
                                 @if (canRead($adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-team.show', $adminTeam),
+                                        'href'  => route('admin.system.admin-team.show', ownerParams($adminTeam, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -131,7 +131,7 @@
                                 @if (canUpdate($adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-team.edit', $adminTeam),
+                                        'href'  => route('admin.system.admin-team.edit', ownerParams($adminTeam, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

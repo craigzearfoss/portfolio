@@ -97,7 +97,7 @@
                     <tr data-id="{{ $recipeStep->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $recipeStep->id ?? '' }}
+                                {{ $recipeStep->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $recipeStep->owner->username ?? '' }}
@@ -114,7 +114,7 @@
                             </td>
                         @endif
                         <td data-field="step" class="has-text-centered">
-                            {!! $recipeStep->step !!}
+                            {{ $recipeStep->step }}
                         </td>
                         <td data-field="description">
                             {!! $recipeStep->description !!}
@@ -126,7 +126,7 @@
                                 @if (canRead($recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.personal.recipe-step.show', $recipeStep),
+                                        'href'  => route('admin.personal.recipe-step.show', ownerParams($recipeStep, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -134,7 +134,7 @@
                                 @if (canUpdate($recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.personal.recipe-step.edit', $recipeStep),
+                                        'href'  => route('admin.personal.recipe-step.edit', ownerParams($recipeStep, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

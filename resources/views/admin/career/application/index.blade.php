@@ -238,14 +238,14 @@
                     <tr data-id="{{ $application->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $application->id ?? '' }}
+                                {{ $application->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $application->owner->username }}
+                                {{ $application->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; display: none;">
-                            {!! $application->name !!}
+                            {{ $application->name }}
                         </td>
                         <td data-field="company.name" style="white-space: nowrap;">
                             @if (!empty($application->company))
@@ -268,40 +268,40 @@
                             <span class="show-at-1400">{{ $application->rating }}</span>
                         </td>
                         <td data-field="post_date" style="white-space: nowrap; display: none;">
-                            {!! !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' !!}
+                            {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
                         </td>
                         <td data-field="apply_date" style="white-space: nowrap;">
-                            {!! !empty($application->apply_date) ? date('M j, Y', strtotime($application->apply_date)) : '' !!}
+                            {{ !empty($application->apply_date) ? date('M j, Y', strtotime($application->apply_date)) : '' }}
                         </td>
                         <td data-field="compensation" class="hide-at-1024" style="white-space: nowrap;">
-                            {!!
+                            {{
                                 formatCompensation([
                                     'min'   => $application->compensation_min,
                                     'max'   => $application->compensation_max,
                                     'unit'  => $application->compensationUnit->abbreviation ?? '',
                                     'short' => true
                                 ])
-                            !!}
+                            }}
                         </td>
                         <td data-field="wage_rate" class="has-text-centered whitespace-nowrap" style="white-space: nowrap; display: none;">
                             {{ wageRateFormat($application->wage_rate, 0) }}
                         </td>
                         <td data-field="job_duration_id" style="display: none;">
-                            {!! $application->durationType['name'] ?? '' !!}
+                            {{ $application->durationType['name'] ?? '' }}
                         </td>
                         <td data-field="job_employment_type_id" class="has-text-centered hide-at-1300">
-                            {!! $application->employmentType->name ?? '' !!}
+                            {{ $application->employmentType->name ?? '' }}
                         </td>
                         <td data-field="job_location_type_id" class="has-text-centered hide-at-1300">
-                            {!! $application->locationType->name ?? '' !!}
+                            {{ $application->locationType->name ?? '' }}
                         </td>
                         <td data-field="location" class="hide-at-1400">
-                            {!!
+                            {{
                                 formatLocation([
                                     'city'    => $application->city,
                                     'state'   => $application->state->code ?? '',
                                 ])
-                            !!}
+                            }}
                         </td>
                         <td data-field="w2" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
@@ -328,7 +328,7 @@
                                 @if (canRead($application, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.career.application.show', $application),
+                                        'href'  => route('admin.career.application.show', ownerParams($application, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -336,7 +336,7 @@
                                 @if (canUpdate($application, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.career.application.edit', $application),
+                                        'href'  => route('admin.career.application.edit', ownerParams($application, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

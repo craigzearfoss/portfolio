@@ -13,13 +13,16 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => 'Recipe' ],
-        [ 'name' => 'Add Step' ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ]
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',    'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => 'Steps',      'href' => route('admin.personal.recipe-step.index') ];
+    $breadcrumbs[] = [ 'name' => 'Add Step' ];
 
     // set navigation buttons
     $navButtons = [

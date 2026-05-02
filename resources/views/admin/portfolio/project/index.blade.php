@@ -97,23 +97,23 @@
                     <tr data-id="{{ $project->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $project->id ?? '' }}
+                                {{ $project->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $project->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $project->name !!}{!! !empty($project->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $project->name }}{!! !empty($project->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="language" style="white-space: nowrap;">
-                            {!! !empty($project->language)
+                            {{ !empty($project->language)
                                 ? $project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : '')
                                 : ''
-                            !!}
+                            }}
                         </td>
                         <td data-field="project_year">
-                            {!! $project->project_year !!}
+                            {{ $project->project_year }}
                         </td>
                         <td data-field="repository_url" style="white-space: nowrap;">
                             @if (!empty($project->repository_url))
@@ -137,7 +137,7 @@
                                 @if (canRead($project, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.project.show', $project),
+                                        'href'  => route('admin.portfolio.project.show', ownerParams($project, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -145,7 +145,7 @@
                                 @if (canUpdate($project, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.project.edit', $project),
+                                        'href'  => route('admin.portfolio.project.edit', ownerParams($project, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

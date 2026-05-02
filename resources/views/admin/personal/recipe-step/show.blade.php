@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recipeStep  = $recipeStep ?? null;
 
-    $title    = $pageTitle ?? $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step;
+    $title    = $pageTitle ?? 'Recipe Step: ' . $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step;
     $subtitle = $title;
 
     // set breadcrumbs

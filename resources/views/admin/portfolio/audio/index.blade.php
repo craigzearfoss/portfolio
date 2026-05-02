@@ -96,14 +96,14 @@
                     <tr data-id="{{ $audio->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $audio->id ?? '' }}
+                                {{ $audio->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $audio->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $audio->name !!}{!! !empty($audio->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $audio->name }}{!! !empty($audio->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="clip|podcast">
                             @php
@@ -114,7 +114,7 @@
                             {{ implode(', ', $types) }}
                         </td>
                         <td data-field="audio_year">
-                            {!! $audio->audio_year !!}
+                            {{ $audio->audio_year }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $audio->is_public ])
@@ -129,7 +129,7 @@
                                 @if (canRead($audio, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.audio.show', $audio),
+                                        'href'  => route('admin.portfolio.audio.show', ownerParams($audio, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -137,7 +137,7 @@
                                 @if (canUpdate($audio, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.audio.edit', $audio),
+                                        'href'  => route('admin.portfolio.audio.edit', ownerParams($audio, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

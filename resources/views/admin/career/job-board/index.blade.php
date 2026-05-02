@@ -91,11 +91,11 @@
                     <tr data-id="{{ $jobBoard->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $jobBoard->id ?? '' }}
+                                {{ $jobBoard->id }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $jobBoard->name !!}
+                            {{ $jobBoard->name }}
                         </td>
                         <td data-field="primary" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])

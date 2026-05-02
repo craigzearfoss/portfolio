@@ -81,14 +81,14 @@
                     <tr data-id="{{ $operatingSystem->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $operatingSystem->id ?? '' }}
+                                {{ $operatingSystem->id }}
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $operatingSystem->name !!}
+                            {{ $operatingSystem->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $operatingSystem->abbreviation !!}
+                            {{ $operatingSystem->abbreviation }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $operatingSystem->is_public ])

@@ -101,14 +101,14 @@
                     <tr data-id="{{ $recipeIngredient->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $recipeIngredient->id ?? '' }}
+                                {{ $recipeIngredient->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $recipeIngredient->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="ingredient.name">
-                            {!! $recipeIngredient->ingredient->name ?? '' !!}
+                            {{ $recipeIngredient->ingredient->name ?? '' }}
                         </td>
                         @if (empty($recipe))
                             <td data-field="recipe.name">
@@ -121,7 +121,7 @@
                             </td>
                         @endif
                         <td data-field="amount" class="has-text-centered">
-                            {!! $recipeIngredient->amount !!}
+                            {{ $recipeIngredient->amount }}
                         </td>
                         <td data-field="unit.name">
                             {!! $recipeIngredient->unit->name ?? '' !!}
@@ -133,7 +133,7 @@
                                 @if (canRead($recipeIngredient, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.personal.recipe-ingredient.show', $recipeIngredient),
+                                        'href'  => route('admin.personal.recipe-ingredient.show', ownerParams($recipeIngredient, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -141,7 +141,7 @@
                                 @if (canUpdate($recipeIngredient, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.personal.recipe-ingredient.edit', $recipeIngredient),
+                                        'href'  => route('admin.personal.recipe-ingredient.edit', ownerParams($recipeIngredient, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

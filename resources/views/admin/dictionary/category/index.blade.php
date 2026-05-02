@@ -81,14 +81,14 @@
                     <tr data-id="{{ $category->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $category->id ?? '' }}
+                                {{ $category }}
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $category->name !!}
+                            {{ $category->name }}
                         </td>
                         <td data-field="abbreviation">
-                            {!! $category->abbreviation !!}
+                            {{ $category->abbreviation }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $category->is_public ])

@@ -98,23 +98,23 @@
                     <tr data-id="{{ $publication->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $publication->id ?? '' }}
+                                {{ $publication->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $publication->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
-                            {!! $publication->title !!}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $publication->title }}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="publication_name" style="white-space: nowrap;">
-                            {!! $publication->publication_name !!}
+                            {{ $publication->publication_name }}
                         </td>
                         <td data-field="publisher" style="white-space: nowrap;">
-                            {!! $publication->publisher !!}
+                            {{ $publication->publisher }}
                         </td>
                         <td data-field="publication_year" class="has-text-centered">
-                            {!! $publication->publication_year !!}
+                            {{ $publication->publication_year }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $publication->is_public ])
@@ -129,7 +129,7 @@
                                 @if (canRead($publication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.publication.show', $publication),
+                                        'href'  => route('admin.portfolio.publication.show', ownerParams($publication, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -137,7 +137,7 @@
                                 @if (canUpdate($publication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.publication.edit', $publication),
+                                        'href'  => route('admin.portfolio.publication.edit', ownerParams($publication, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

@@ -95,14 +95,14 @@
                     <tr data-id="{{ $link->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $link->id ?? '' }}
+                                {{ $link->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $link->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $link->name }}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td style="white-space: nowrap;">
                             @include('admin.components.link', [
@@ -124,7 +124,7 @@
                                 @if (canRead($link, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.link.show', $link),
+                                        'href'  => route('admin.portfolio.link.show', ownerParams($link, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -132,7 +132,7 @@
                                 @if (canUpdate($link, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.link.edit', $link),
+                                        'href'  => route('admin.portfolio.link.edit', ownerParams($link, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

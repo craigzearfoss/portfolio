@@ -100,7 +100,7 @@
                     <tr data-id="{{ $jobSkill->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $jobSkill->id ?? '' }}
+                                {{ $jobSkill->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $jobSkill->owner->username ?? '' }}
@@ -108,17 +108,17 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @if ($jobSkill->job)
-                                {!! $jobSkill->name ?? '' !!}{!! !empty($jobSkill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                                {{ $jobSkill->name ?? '' }}{!! !empty($jobSkill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                             @endif
                         </td>
                         <td data-field="job.company" style="white-space: nowrap;">
                             @if ($jobSkill->job)
-                                {!! $jobSkill->job->company ?? '' !!}
+                                {{ $jobSkill->job->company ?? '' }}
                             @endif
                         </td>
                         <td data-field="jo.role">
                             @if ($jobSkill->job)
-                                {!! $jobSkill->job->role ?? '' !!}
+                                {{ $jobSkill->job->role ?? '' }}
                             @endif
                         </td>
                         <td data-field="is_public" class="has-text-centered">
@@ -134,7 +134,7 @@
                                 @if (canRead($jobSkill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.job-skill.show', $jobSkill),
+                                        'href'  => route('admin.portfolio.job-skill.show', ownerParams($jobSkill, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -142,7 +142,7 @@
                                 @if (canUpdate($jobSkill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.job-skill.edit', $jobSkill),
+                                        'href'  => route('admin.portfolio.job-skill.edit', ownerParams($jobSkill, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

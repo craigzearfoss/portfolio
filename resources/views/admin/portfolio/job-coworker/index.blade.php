@@ -101,21 +101,21 @@
                     <tr data-id="{{ $jobCoworker->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $jobCoworker->id ?? '' }}
+                                {{ $jobCoworker->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $jobCoworker->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $jobCoworker->name !!}{!! !empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $jobCoworker->name }}{!! !empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="level">
-                            {!! $jobCoworker->level !!}
+                            {{ $jobCoworker->level }}
                         </td>
                         <td data-field="job.company" style="white-space: nowrap;">
                             @if ($jobCoworker->job)
-                                {!! $jobCoworker->job->company ?? '' !!}
+                                {{ $jobCoworker->job->company ?? '' }}
                             @endif
                         </td>
                         <td data-field="is_public" class="has-text-centered">
@@ -131,7 +131,7 @@
                                 @if (canRead($jobCoworker, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.job-coworker.show', $jobCoworker),
+                                        'href'  => route('admin.portfolio.job-coworker.show', ownerParams($jobCoworker, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -139,7 +139,7 @@
                                 @if (canUpdate($jobCoworker, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.job-coworker.edit', $jobCoworker),
+                                        'href'  => route('admin.portfolio.job-coworker.edit', ownerParams($jobCoworker, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

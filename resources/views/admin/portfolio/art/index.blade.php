@@ -106,20 +106,20 @@
                     <tr data-id="{{ $art->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $art->id ?? '' }}
+                                {{ $art->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $art->owner->username }}
+                                {{ $art->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $art->name !!}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $art->name }}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">
-                            {!! $art->artist !!}
+                            {{ $art->artist }}
                         </td>
                         <td data-field="art_year">
-                            {!! $art->art_year !!}
+                            {{ $art->art_year }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $art->is_public ])
@@ -134,7 +134,7 @@
                                 @if (canRead($art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.art.show', $art),
+                                        'href'  => route('admin.portfolio.art.show', ownerParams($art, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -142,7 +142,7 @@
                                 @if (canUpdate($art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.art.edit', $art),
+                                        'href'  => route('admin.portfolio.art.edit', ownerParams($art, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

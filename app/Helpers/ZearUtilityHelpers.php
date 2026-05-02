@@ -1272,3 +1272,22 @@ if (! function_exists('calculateWageRate')) {
         return $wageRate;
     }
 }
+
+if (! function_exists('ownerParams')) {
+    function ownerParams(mixed $params, int|null $owner_id, Admin|Owner|null $admin)
+    {
+        if (!is_array($params)) {
+            $params = [$params];
+        }
+
+        if (empty($admin) || !$admin['is_root']) {
+            return $params;
+        }
+
+        if  (!array_key_exists('owner_id', $params)) {
+            $params['owner_id'] = $owner_id;
+        }
+
+        return $params;
+    }
+}

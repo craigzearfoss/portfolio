@@ -9,19 +9,22 @@
     $isRootAdmin      = $isRootAdmin ?? false;
     $recipeIngredient = $recipeIngredient ?? null;
 
-    $title    = $pageTitle ?? 'Edit Recipe Ingredient: ' . $recipeIngredient->name ;
+    $title    = $pageTitle ?? 'Edit Recipe Ingredient: ' . $recipeIngredient->ingredient['name'] . ' (' . $recipeIngredient->recipe['name'] . ')';
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                  'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',              'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',               'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => 'Ingredients',           'href' => route('admin.personal.recipe-ingredient.index') ],
-        [ 'name' => $recipeIngredient->name, 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient) ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => 'Home',                                             'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                  'href' => route('admin.dashboard') ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',                          'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Personal',                            'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',                             'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => 'Ingredient',                          'href' => route('admin.personal.recipe-ingredient.index') ];
+    $breadcrumbs[] = [ 'name' => $recipeIngredient->ingredient['name'], 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient) ];
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [

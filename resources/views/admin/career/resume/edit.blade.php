@@ -11,27 +11,17 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Resumes',          'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Resume',           'href' => route('admin.career.resume.show', $resume, ['application_id' => $application->id]) ],
-            [ 'name' => 'Edit' ]
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-            [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
-            [ 'name' => 'Resume',          'href' => route('admin.career.resume.show', $resume) ],
-            [ 'name' => 'Edit' ]
-        ];
+    $breadcrumbs = [
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+    ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+    $breadcrumbs[] = [ 'name' => 'Resumes',    'href' => route('admin.career.resume.index') ];
+    $breadcrumbs[] = [ 'name' => $resume->name . ' - ' . shortDate($resume->resume_date), 'href' => route('admin.career.resume.show', $resume) ];
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [

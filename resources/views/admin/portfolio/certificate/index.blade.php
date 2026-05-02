@@ -100,14 +100,14 @@
                     <tr data-id="{{ $certificate->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $certificate->id ?? '' }}
+                                {{ $certificate->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $certificate->owner->username }}
+                                {{ $certificate->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $certificate->name !!}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $certificate->name }}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="academy.name">
                             @if (!empty($certificate->academy))
@@ -118,7 +118,7 @@
                             @endif
                         </td>
                         <td data-field="certificate_year">
-                            {!! $certificate->year !!}
+                            {{ $certificate->year }}
                         </td>
                         <td data-field="received">
                             {{ shortDate($certificate->received) }}
@@ -139,7 +139,7 @@
                                 @if (canRead($certificate, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.certificate.show', $certificate),
+                                        'href'  => route('admin.portfolio.certificate.show', ownerParams($certificate, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -147,7 +147,7 @@
                                 @if (canUpdate($certificate, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.certificate.edit', $certificate),
+                                        'href'  => route('admin.portfolio.certificate.edit', ownerParams($certificate, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

@@ -7,19 +7,21 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recipeStep  = $recipeStep ?? null;
 
-    $title    = $pageTitle ?? $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step;
+    $title    = $pageTitle ?? 'Edit Recipe Step: ' .$recipeStep->recipe['name'] . ' - step ' . $recipeStep->step;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                       'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',                   'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',                    'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipeStep->recipe['name'],  'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
-        [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep) ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => 'Home',                                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                         'href' => route('admin.dashboard') ]
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins',                 'href' => route('admin.system.admin.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Personal',                   'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',                    'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => 'Steps',                      'href' => route('admin.personal.recipe-step.index') ];
+    $breadcrumbs[] = [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep) ];
 
     // set navigation buttons
     $navButtons = [

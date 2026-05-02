@@ -100,14 +100,14 @@
                     <tr data-id="{{ $course->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $course->id ?? '' }}
+                                {{ $course->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $course->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! $course->name !!}{!! !empty($course->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $course->name }}{!! !empty($course->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="academy_id">
                             @if (!empty($course->academy))
@@ -136,7 +136,7 @@
                                 @if (canRead($course, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.course.show', $course),
+                                        'href'  => route('admin.portfolio.course.show', ownerParams($course, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -144,7 +144,7 @@
                                 @if (canUpdate($course, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.course.edit', $course),
+                                        'href'  => route('admin.portfolio.course.edit', ownerParams($course, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

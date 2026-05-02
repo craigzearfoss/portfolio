@@ -101,23 +101,23 @@
                     <tr data-id="{{ $education->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $education->id ?? '' }}
+                                {{ $education->id  }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $education->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="degreeType.name">
-                            {!! $education->degreeType->name ?? '' !!}
+                            {{ $education->degreeType->name ?? '' }}
                         </td>
                         <td data-field="major" style="white-space: nowrap;">
-                            {!! $education->major !!}{!! !empty($education->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {{ $education->major }}{!! !empty($education->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="minor">
-                            {!! $education->minor !!}
+                            {{ $education->minor }}
                         </td>
                         <td data-field="school.name">
-                            {!! $education->school->name ?? '' !!}
+                            {{ $education->school->name ?? '' }}
                         </td>
                         <td data-field="enrollment_date" class="has-text-centered">
                             {{ !empty($education->enrollment_date) ? Carbon::parse($education->enrollment_date)->format("M y") : '' }}
@@ -135,7 +135,7 @@
                                 @if (canRead($education, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.education.show', $education),
+                                        'href'  => route('admin.portfolio.education.show', ownerParams($education, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -143,7 +143,7 @@
                                 @if (canUpdate($education, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.education.edit', $education),
+                                        'href'  => route('admin.portfolio.education.edit', ownerParams($education, request()->input('owner_id'), $admin)),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
