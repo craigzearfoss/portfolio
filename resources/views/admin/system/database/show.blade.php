@@ -16,7 +16,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
-        [ 'name' => $database->name ],
+        [ 'name' => $database->name . ' db'],
     ];
 
     // set navigation buttons

@@ -7,16 +7,16 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $resource     = $resource ?? null;
 
-    $title    = $pageTitle ?? 'Edit Resource: ' .  $resource->database->name . '.' . $resource->namecxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+    $title    = $pageTitle ?? 'Edit Resource: ' .  $resource->database->name . '.' . $resource->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                        'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                             'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                                      'href' => route('admin.system.index') ],
-        [ 'name' => 'Resources',                                   'href' => route('admin.system.resource.index') ],
-        [ 'name' => $resource->database->name.'.'.$resource->name, 'href' => route('admin.system.resource.show', $resource->id) ],
+        [ 'name' => 'Home',                                            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                          'href' => route('admin.system.index') ],
+        [ 'name' => 'Resources',                                       'href' => route('admin.system.resource.index') ],
+        [ 'name' => $resource->database->name . '.' . $resource->name, 'href' => route('admin.system.resource.show', $resource->id) ],
         [ 'name' => 'Edit' ]
     ];
 

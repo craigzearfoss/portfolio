@@ -10,11 +10,11 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                         'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                                  'href' => route('admin.system.index') ],
-        [ 'name' => $isRootAdmin ? 'User Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.user-phone.index') ],
-        [ 'name' => $isRootAdmin ? 'User Phone Number' : 'Phone' ]
+        [ 'name' => 'Home',                                  'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                       'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'User Phones' : 'Phones', 'href' => route('admin.system.user-phone.index') ],
+        [ 'name' => $isRootAdmin ? 'User Phone' : 'Phone' ]
     ];
 
     // set navigation buttons

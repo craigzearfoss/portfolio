@@ -7,7 +7,7 @@
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
 
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Email Addresses' : 'Email Addresses');
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Emails' : 'Emails');
     $subtitle = $title;
 
     // set breadcrumbs

@@ -10,17 +10,17 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',               'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',             'href' => route('admin.system.index',
-                                                          !empty($owner)
-                                                              ? ['owner_id'=>$owner->id]
-                                                              : []
-                                                         )],
-        [ 'name' => 'Databases',          'href' => route('admin.system.admin-database.index') ],
-        [ 'name' => $adminDatabase->name, 'href' => route('admin.system.admin-database.show', $adminDatabase->id) ],
-        [ 'name' => 'Edit' ]
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admin Databases', 'href' => route('admin.system.admin-database.index') ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.show', $adminDatabase->id) ];
+    }
+    $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' db' ];
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [];

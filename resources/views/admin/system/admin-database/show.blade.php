@@ -5,22 +5,17 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminDatabase = $adminDatabase ?? null;
 
-    $title    = $pageTitle ?? 'Database: ' . $adminDatabase->name . ' db for ' . $adminDatabase->owner->name;
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Database: ' : 'Database: ') . $adminDatabase->name . ' db for ' . $adminDatabase->owner->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
-                                                       !empty($owner)
-                                                           ? ['owner_id'=>$owner->id]
-                                                           : []
-                                                      )],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
     ];
-    if ($isRootAdmin && !empty($owner)) {
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner->id ]) ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admin Databases', 'href' => route('admin.system.admin-database.index') ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.index') ];
     }

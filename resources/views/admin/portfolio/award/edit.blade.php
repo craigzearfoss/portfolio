@@ -12,20 +12,15 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && $isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Awards',     'href' => route('admin.portfolio.award.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $award->name, 'href' => route('admin.portfolio.award.show', [$award, 'owner_id'=>$owner->id]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-        $breadcrumbs[] = [ 'name' => 'Awards',     'href' => route('admin.portfolio.award.index') ];
-        $breadcrumbs[] = [ 'name' => $award->name, 'href' => route('admin.portfolio.award.show', $award) ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
     }
+    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Awards',     'href' => route('admin.portfolio.award.index') ];
+    $breadcrumbs[] = [ 'name' => $award->name, 'href' => route('admin.portfolio.award.show', $award) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

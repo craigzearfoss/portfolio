@@ -10,14 +10,10 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
-                                                       !empty($owner)
-                                                           ? ['owner_id'=>$owner->id]
-                                                           : []
-                                                      )],
-        [ 'name' => 'Admin Groups',    'href' => route('admin.system.admin-group.index') ],
+        [ 'name' => 'Home',                                   'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                        'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                 'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'Admin Groups' : 'Groups', 'href' => route('admin.system.admin-group.index') ],
         [ 'name' => $adminGroup->name ]
     ];
 

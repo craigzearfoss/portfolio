@@ -10,15 +10,11 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
-                                                       !empty($owner)
-                                                           ? ['owner_id'=>$owner->id]
-                                                           : []
-                                                      )],
-        [ 'name' => 'Teams',           'href' => route('admin.system.admin-team.index', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : []) ],
-        [ 'name' => $adminTeam->name,  'href' => route('admin.system.admin-team.show', array_merge([$adminTeam], $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])) ],
+        [ 'name' => 'Home',                                 'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                      'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                               'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'Admin Teams' : 'Teams', 'href' => route('admin.system.admin-team.index') ],
+        [ 'name' => $adminTeam->name,                       'href' => route('admin.system.admin-team.show', $adminTeam) ],
         [ 'name' => 'Edit' ]
     ];
 

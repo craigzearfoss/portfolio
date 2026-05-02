@@ -90,7 +90,7 @@ class UserEmailController extends BaseAdminController
             $userEmail['id'],
             'admin.system.user-email.show',
             $this->owner ?? null,
-            [ 'name', 'asc' ]
+            [ 'email', 'asc' ]
         );
 
         return view('admin.system.user-email.show', compact('userEmail', 'prev', 'next'));

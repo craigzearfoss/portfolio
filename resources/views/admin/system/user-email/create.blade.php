@@ -12,10 +12,10 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                                         'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                                                  'href' => route('admin.system.index') ],
-        [ 'name' => $isRootAdmin ? 'User Email Addresses' : 'Email Addresses', 'href' => route('admin.system.user-email.index') ],
+        [ 'name' => 'Home',                                 'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                      'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                               'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'User Emails' : 'Email', 'href' => route('admin.system.user-email.index') ],
         [ 'name' => 'Add' ]
     ];
 

@@ -5,36 +5,23 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $adminResource = $adminResource ?? null;
 
-    $title    = $pageTitle ?? 'Resource: ' . $adminResource->database->name . '.' . $adminResource->name;
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Resource: ' : 'Resource: ') . $adminResource->database->name . '.' . $adminResource->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                          'href' => route('admin.system.index',
-                                                                       !empty($owner)
-                                                                           ? ['owner_id'=>$owner->id]
-                                                                           : []
-                                                                      )],
+        [ 'name' => 'Home',                                         'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                              'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                       'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'Admin Resources' : 'Resources', 'href' => route('admin.system.admin-resource.index') ],
+        [ 'name' => $adminResource->name . ' db' ],
     ];
-
-    if ($isRootAdmin || ($owner->id == $adminResource->owner_id)) {
-        $breadcrumbs[] = [ 'name' => $owner->name,                           'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Databases',                            'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner->id ]) ];
-        $breadcrumbs[] = [ 'name' => $adminResource->database->name . ' db', 'href' => route('admin.system.admin-database.show', [ $adminResource->database, 'owner_id'=>$owner ]) ];
-        $breadcrumbs[] = [ 'name' => 'Resources',                            'href' => route('admin.system.admin-resource.index', [ 'owner_id'=>$owner->id ]) ];
-    } else {
-        $breadcrumbs[] = [ 'name' => 'Databases',  'href' => route('admin.system.admin-database.index') ];
-        $breadcrumbs[] = [ 'name' => 'Resources',  'href' => route('admin.system.admin-resource.index') ];
-    }
-    $breadcrumbs[] = [ 'name' => $adminResource->name . ' db' ];
 
     // set navigation buttons
     $navButtons = [];
     if ($isRootAdmin || ($owner->id == $adminResource->owner_id)) {
         if (canUpdate($adminResource, $admin)) {
-            $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-resource.edit', [ $adminResource, 'owner_id'=>$owner->id ]) ])->render();
+            $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-resource.edit', [ $adminResource ]) ])->render();
         }
     } else {
         if (canUpdate($adminResource, $admin)) {

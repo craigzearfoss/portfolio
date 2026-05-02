@@ -89,7 +89,7 @@ class AdminPhoneController extends BaseAdminController
             $adminPhone['id'],
             'admin.system.admin-phone.show',
             $this->owner ?? null,
-            [ 'name', 'asc' ]
+            [ 'phone', 'asc' ]
         );
 
         return view('admin.system.admin-phone.show', compact('adminPhone', 'prev', 'next'));

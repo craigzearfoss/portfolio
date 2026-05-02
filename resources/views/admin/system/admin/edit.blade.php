@@ -20,8 +20,14 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
-        [ 'name' => $owner->name ]
+        [ 'name' => $thisAdmin->name,  'href' => route('admin.system.admin.profile', $thisAdmin) ],
     ];
+    if ($isRootAdmin) {
+        $breadcrumbs[] = [ 'name' => $thisAdmin->name,  'href' => route('admin.system.admin.profile', $thisAdmin) ];
+        $breadcrumbs[] = [ 'name' => 'Profile' ];
+    }
+    $breadcrumbs[] = [ 'name' => $thisAdmin->name,  'href' => route('admin.system.admin.show', $thisAdmin) ];
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [
