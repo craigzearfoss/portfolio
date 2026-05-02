@@ -44,7 +44,7 @@ class RecipeStepController extends BaseAdminController
             ? Recipe::query()->findOrFail($request->input('recipe_id'))
             : null;
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Recipe Steps';
+        $pageTitle = 'Recipe Steps';
 
         return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

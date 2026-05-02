@@ -39,7 +39,7 @@ class RecipeController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Recipes';
+        $pageTitle = 'Recipes';
 
         return view('admin.personal.recipe.index', compact('recipes', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

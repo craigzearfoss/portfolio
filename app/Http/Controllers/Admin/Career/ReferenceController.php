@@ -39,7 +39,7 @@ class ReferenceController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' References';
+        $pageTitle = 'References';
 
         return view('admin.career.reference.index', compact('references', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

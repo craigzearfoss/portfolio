@@ -39,9 +39,7 @@ class ArtController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && $request->input('owner_id'))
-            ? $this->owner['name'] . 'Art'
-            : 'Art';
+        $pageTitle = 'Art';
 
         return view('admin.portfolio.art.index', compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

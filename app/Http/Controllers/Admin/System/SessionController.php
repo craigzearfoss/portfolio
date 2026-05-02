@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\System;
 use App\Exports\System\SessionsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\System\Session;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,6 +22,7 @@ class SessionController extends BaseAdminController
      *
      * @param Request $request
      * @return View|RedirectResponse
+     * @throws Exception
      */
     public function index(Request $request): View|RedirectResponse
     {

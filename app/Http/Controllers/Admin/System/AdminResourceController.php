@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminResourcesRequest;
 use App\Http\Requests\System\UpdateAdminResourcesRequest;
 use App\Models\System\AdminResource;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class AdminResourceController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -37,7 +39,7 @@ class AdminResourceController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Admin Resources';
+        $pageTitle = $this->isRootAdmin ? 'Admin Resources' : 'Resources';
 
         return view('admin.system.admin-resource.index', compact('adminResources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

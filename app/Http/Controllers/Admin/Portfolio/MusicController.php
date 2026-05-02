@@ -40,7 +40,7 @@ class MusicController extends BaseAdminController
         ->orderBy('artist')
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Music';
+        $pageTitle = 'Music';
 
         return view('admin.portfolio.music.index', compact('musics', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -42,7 +42,7 @@ class JobCoworkerController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';
+        $pageTitle = 'Job Coworkers';
 
         return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

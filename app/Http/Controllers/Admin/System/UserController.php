@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUsersRequest;
 use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +25,7 @@ class UserController extends BaseAdminController
      *
      * @param Request $request
      * @return View|RedirectResponse
+     * @throws Exception
      */
     public function index(Request $request): View|RedirectResponse
     {

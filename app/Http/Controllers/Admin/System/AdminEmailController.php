@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminEmailsRequest;
 use App\Http\Requests\System\UpdateAdminEmailsRequest;
 use App\Models\System\AdminEmail;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class AdminEmailController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -37,7 +39,7 @@ class AdminEmailController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Email Addresses';
+        $pageTitle = $this->isRootAdmin ? 'Admin Emails' : 'Emails';
 
         return view('admin.system.admin-email.index', compact('adminEmails', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

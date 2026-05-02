@@ -27,6 +27,7 @@ class AdminController extends BaseAdminController
      *
      * @param Request $request
      * @return View|RedirectResponse
+     * @throws Exception
      */
     public function index(Request $request): View|RedirectResponse
     {

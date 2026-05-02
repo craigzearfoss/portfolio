@@ -45,7 +45,7 @@ class CommunicationController extends BaseAdminController
             ? Application::query()->findOrFail($request->input('application_id'))
             : null;
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Communications';
+        $pageTitle = 'Application Communications';
 
         return view('admin.career.communication.index', compact('communications', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

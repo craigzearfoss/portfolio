@@ -8,6 +8,7 @@ use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
 use App\Models\System\AdminResource;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,6 +25,7 @@ class ResourceController extends BaseAdminController
      *
      * @param Request $request
      * @return View|RedirectResponse
+     * @throws Exception
      */
     public function index(Request $request): View|RedirectResponse
     {

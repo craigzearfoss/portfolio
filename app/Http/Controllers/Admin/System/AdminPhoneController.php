@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminPhonesRequest;
 use App\Http\Requests\System\UpdateAdminPhonesRequest;
 use App\Models\System\AdminPhone;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class AdminPhoneController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -37,7 +39,7 @@ class AdminPhoneController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Phone Numbers';
+        $pageTitle = $this->isRootAdmin ? 'Admin Phones' : 'Phones';
 
         return view('admin.system.admin-phone.index', compact('adminPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

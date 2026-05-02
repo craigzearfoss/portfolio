@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreDatabasesRequest;
 use App\Http\Requests\System\UpdateDatabasesRequest;
 use App\Models\System\Database;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class DatabaseController extends BaseAdminController
      *
      * @param Request $request
      * @return View|RedirectResponse
+     * @throws Exception
      */
     public function index(Request $request): View|RedirectResponse
     {

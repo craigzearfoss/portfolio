@@ -48,7 +48,7 @@ class AdminGroupController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Groups';
+        $pageTitle = $this->isRootAdmin ? 'Admin Groups' : 'Groups';
 
         return view('admin.system.admin-group.index', compact('adminGroups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

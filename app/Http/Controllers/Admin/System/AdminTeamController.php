@@ -8,6 +8,7 @@ use App\Http\Requests\System\StoreAdminTeamsRequest;
 use App\Http\Requests\System\UpdateAdminTeamsRequest;
 use App\Models\System\AdminAdminTeam;
 use App\Models\System\AdminTeam;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,7 +25,7 @@ class AdminTeamController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -49,7 +50,7 @@ class AdminTeamController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Teams';
+        $pageTitle = $this->isRootAdmin ? 'Teams' : 'Teams';
 
         return view('admin.system.admin-team.index', compact('adminTeams', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
