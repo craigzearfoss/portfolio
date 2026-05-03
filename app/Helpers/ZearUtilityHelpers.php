@@ -1322,8 +1322,8 @@ if (! function_exists('getPageTitle')) {
 
             // determine the resource name (or title, or id, etc.)
             $resourceName = match ($class) {
-                'App\\Models\\Career\\Communication' => $resource->id . ' ' . (!empty($resource->application) ? ' for ' . $resource->application['name'] . ' application' : ''),
-                'App\\Models\\Career\\Note' => 'note ' . $resource->id . ' ' . (!empty($resource->application) ? ' for ' . $resource->application['name'] . ' application' : ''),
+                'App\\Models\\Career\\Communication', 'App\\Models\\Career\\Note' => $resource->id . ' - ' . $resource->subject,
+                'App\\Models\\Career\\Event' => $resource->id . ' - ' . $resource->name,
                 'App\\Models\\Career\\Resume' => $resource->name . ' - ' . shortDate($resource->resume_date),
                 'App\\Models\\Personal\\Reading' => $resource->title . (!empty($resource->author) ? ' by ' . $resource->author : ''),
                 'App\\Models\\Personal\\RecipeIngredient' => $resource->ingredient['name'] . ' for ' . $resource->recipe['name'],
@@ -1332,7 +1332,7 @@ if (! function_exists('getPageTitle')) {
                 'App\\Models\\Portfolio\\Education' => $resource->degreeType->name . ' ' . $resource->major,
                 'App\\Models\\System\\AdminEmail', 'App\\Models\\System\\UserEmail' => $resource->email,
                 'App\\Models\\System\\AdminPhone', 'App\\Models\\System\\UserPhone' => $resource->phone,
-                default => $resource->name ?? $resource->title ?? $resource->id,
+                default => $resource->name ?? $resource->title ?? $resource->subject ?? $resource->id,
             };
 
             $title = $includeOwnerLink
