@@ -5,16 +5,16 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $jobBoard      = $jobBoard ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($jobBoard);
+    $title    = 'Edit ' . getResourcePageTitle($jobBoard);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],
-        [ 'name' => $jobBoard->name,   'href' => route('admin.career.job-board.show', $jobBoard) ],
+        [ 'name' => 'Home',                                'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                      'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                               'href' => route('admin.career.index') ],
+        [ 'name' => 'Job Boards',                           'href' => route('admin.career.job-board.index') ],
+        [ 'name' => getResourcePageTitle($jobBoard, false), 'href' => route('admin.career.job-board.show', $jobBoard) ],
         [ 'name' => 'Edit' ]
     ];
 

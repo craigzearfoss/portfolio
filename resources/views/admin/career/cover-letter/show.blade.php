@@ -6,7 +6,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $coverLetter   = $coverLetter ?? null;
 
-    $title = $pageTitle ?? 'Cover Letter: ' . $coverLetter->name;
+    $title = getResourcePageTitle($coverLetter);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -20,7 +20,7 @@
     $breadcrumbs[] = [ 'name' => 'Career',        'href' => route('admin.career.index') ];
     $breadcrumbs[] = [ 'name' => 'Applications',  'href' => route('admin.career.application.index') ];
     $breadcrumbs[] = [ 'name' => 'Cover Letters', 'href' => route('admin.career.cover-letter.index') ];
-    $breadcrumbs[] = [ 'name' => $coverLetter->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($coverLetter, false) ];
 
     // set navigation buttons
     $navButtons = [];

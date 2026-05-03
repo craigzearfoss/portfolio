@@ -5,16 +5,16 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $ingredient  = $ingredient ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($ingredient);
+    $title    = 'Edit ' . getResourcePageTitle($ingredient);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
-        [ 'name' => $ingredient->name, 'href' => route('admin.personal.ingredient.show', $ingredient) ],
+        [ 'name' => 'Home',                                   'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                        'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',                               'href' => route('admin.personal.index') ],
+        [ 'name' => 'Ingredients',                            'href' => route('admin.personal.ingredient.index') ],
+        [ 'name' => getResourcePageTitle($ingredient, false), 'href' => route('admin.personal.ingredient.show', $ingredient) ],
         [ 'name' => 'Edit' ]
     ];
 

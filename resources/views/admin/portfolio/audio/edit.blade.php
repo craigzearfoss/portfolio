@@ -7,20 +7,20 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $audio       = $audio ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($audio);
+    $title    = 'Edit ' . getResourcePageTitle($audio);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                          'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                               'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                        'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-    $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index') ];
-    $breadcrumbs[] = [ 'name' => $audio->name, 'href' => route('admin.portfolio.audio.show', $audio->id) ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',                         'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Audio',                             'href' => route('admin.portfolio.audio.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($audio, false), 'href' => route('admin.portfolio.audio.show', $audio) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

@@ -7,7 +7,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $education   = $education ?? null;
 
-    $title    = getAdminPageTitle($education);
+    $title    = getResourcePageTitle($education);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -20,7 +20,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Education',  'href' => route('admin.portfolio.education.index') ];
-    $breadcrumbs[] = [ 'name' => $education->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($education, false) ];
 
     // set navigation buttons
     $navButtons = [];

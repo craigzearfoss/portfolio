@@ -7,21 +7,22 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recipeStep  = $recipeStep ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($recipeStep);
+    $title    = 'Edit ' . getResourcePageTitle($recipeStep);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                         'href' => route('admin.dashboard') ]
+        [ 'name' => 'Home',                                                        'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                             'href' => route('admin.dashboard') ]
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',                 'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                                     'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Personal',                   'href' => route('admin.personal.index') ];
-    $breadcrumbs[] = [ 'name' => 'Recipes',                    'href' => route('admin.personal.recipe.index') ];
-    $breadcrumbs[] = [ 'name' => 'Steps',                      'href' => route('admin.personal.recipe-step.index') ];
-    $breadcrumbs[] = [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep) ];
+    $breadcrumbs[] = [ 'name' => 'Personal',                                       'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',                                        'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($recipeStep->recipe, false), 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ];
+    $breadcrumbs[] = [ 'name' => 'Step '. $recipeStep->step,                       'href' => route('admin.personal.recipe-step.show', $recipeStep) ];
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $navButtons = [

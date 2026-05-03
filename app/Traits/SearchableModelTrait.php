@@ -168,6 +168,44 @@ trait SearchableModelTrait
     }
 
     /**
+     * Returns select list options with owner_id filter applied.
+     *
+     * @param Admin|Owner $admin
+     * @param int|null $ownerId
+     * @param string $labelColumn
+     * @return array|string[]
+     * @throws Exception
+     */
+    public function filteredListOptions(
+        Admin|Owner $admin,
+        int|null $ownerId = null,
+        string $labelColumn = 'name'): array
+    {
+        if ($admin['is_root']) {
+            $applicationFilters = !empty($ownerId)
+                ? [ 'owner_id' => $ownerId ]
+                : [];
+        } elseif (!empty($admin['id'])) {
+            if (!empty($ownerId) && ($admin['id'] != $ownerId)) {
+                return [];
+            } else {
+                $applicationFilters = ['owner_id' => $admin['id']];
+            }
+        } else {
+            return [];
+        }
+
+        return $this->listOptions(
+            $applicationFilters,
+            'id',
+            $labelColumn,
+            true,
+            false,
+            [ $labelColumn, 'asc' ]
+        );
+    }
+
+    /**
      * Returns an array with the urls for the previous page and the next page.
      *
      * @param int $id

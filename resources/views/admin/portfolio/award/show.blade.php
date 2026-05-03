@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $award       = $award ?? null;
 
-    $title    = getAdminPageTitle($award);
+    $title    = getResourcePageTitle($award);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Awards',     'href' => route('admin.portfolio.award.index') ];
-    $breadcrumbs[] = [ 'name' => $award->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($award, false) ];
 
     // set navigation buttons
     $navButtons = [];

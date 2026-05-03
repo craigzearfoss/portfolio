@@ -6,7 +6,7 @@
     $job         = $job ?? null;
     $jobCoworker = $jobCoworker ?? null;
 
-    $title    = getAdminPageTitle($jobCoworker);
+    $title    = getResourcePageTitle($jobCoworker);
     $subtitle = $title;
 
     // set breadcrumbs

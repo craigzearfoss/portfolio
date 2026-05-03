@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $art         = $art ?? null;
 
-    $title    = getAdminPageTitle($art);
+    $title    = getResourcePageTitle($art);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Art',        'href' => route('admin.portfolio.art.index') ];
-    $breadcrumbs[] = [ 'name' => $art->name . (!empty($art->artist) ? ' - ' . $art->artist : '') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($art, false) ];
 
     // set navigation buttons
     $navButtons = [];

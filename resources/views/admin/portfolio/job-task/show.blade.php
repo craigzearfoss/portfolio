@@ -6,7 +6,7 @@
     $job         = $job ?? null;
     $jobTask     = $jobTask ?? null;
 
-    $title    = getAdminPageTitle($jobTask);
+    $title    = getResourcePageTitle($jobTask);
     $subtitle = $title;
 
     // set navigation buttons

@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $resume      = $resume ?? null;
 
-    $title    = $pageTitle ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $title    = getResourcePageTitle($resume);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
     $breadcrumbs[] = [ 'name' => 'Resumes',    'href' => route('admin.career.resume.index') ];
-    $breadcrumbs[] = [ 'name' => $resume->name . ' - ' . shortDate($resume->resume_date) ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($resume, false) ];
 
     // set navigation buttons
     $navButtons = [];

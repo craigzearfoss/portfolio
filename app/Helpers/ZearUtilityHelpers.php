@@ -1277,6 +1277,8 @@ if (! function_exists('calculateWageRate')) {
 
 if (! function_exists('ownerParams')) {
     /**
+     * Adds the owner_id parameter to url parameters is it is appropriate.
+     *
      * @param mixed $params
      * @param int|null $owner_id
      * @param Admin|Owner|null $admin
@@ -1285,7 +1287,7 @@ if (! function_exists('ownerParams')) {
     function ownerParams(mixed $params, int|null $owner_id, Admin|Owner|null $admin)
     {
         if (!is_array($params)) {
-            $params = [$params];
+            $params = [ $params ];
         }
 
         if (empty($admin) || !$admin['is_root']) {
@@ -1302,11 +1304,15 @@ if (! function_exists('ownerParams')) {
 
 if (! function_exists('getPageTitle')) {
     /**
+     * Generates the page title for a resource page, that is "show" or "edit" page. Generally it is used in the
+     * admin environment, but it can also be used in the guest and user environments.
+     *
      * @param $resource
-     * @param Owner|Admin|null $owner
+     * @param bool $includeOwnerLink
+     * @param EnvTypes $envType
      * @return string
      */
-    function getAdminPageTitle($resource, Owner|Admin|null $owner = null): string
+    function getResourcePageTitle($resource, bool $includeOwnerLink = true, EnvTypes $envType = EnvTypes::ADMIN): string
     {
         // get resource category and name
         if ($class = get_class($resource)) {
@@ -1315,54 +1321,53 @@ if (! function_exists('getPageTitle')) {
                 : $class;
 
             // determine the resource name (or title, or id, etc.)
-            switch ($class) {
-                case 'App\\Models\\System\\AdminEmail':
-                case 'App\\Models\\System\\UserEmail':
-                    $resourceName = $resource->email;
-                    break;
-                case 'App\\Models\\System\\AdminPhone':
-                case 'App\\Models\\System\\UserPhone':
-                    $resourceName = $resource->phone;
-                    break;
-                case 'App\\Models\\Career\\Communication':
-                    $resourceName = $resource->id . ' ' . (!empty($resource->application) ? ' for ' . $resource->application['name'] . ' application' : '');
-                    break;
-                case 'App\\Models\\Personal\\Reading':
-                    $resourceName = $resource->title . (!empty($resource->author) ? ' by ' . $resource->author : '');
-                    break;
-                case 'App\\Models\\Personal\\RecipeIngredient':
-                    $resourceName = $resource->ingredient['name'] . ' from ' . $resource->recipe['name'];
-                    break;
-                case 'App\\Models\\Personal\\RecipeStep':
-                    $resourceName = 'step ' . $resource->step . ' from ' . $resource->recipe['name'];
-                    break;
-                case 'App\\Models\\Portfolio\\Education':
-                    $resourceName = $resource->degreeType->name . ' ' . $resource->major;
-                    break;
-                case 'App\\Models\\Portfolio\\Music':
-                    $resourceName = $resource->name . (!empty($resource->artist) ? ' - ' . $resource->artist : '');
-                    break;
-                default:
-                    $resourceName = $resource->name ?? $resource->title ?? $resource->id;
-                    break;
-            }
+            $resourceName = match ($class) {
+                'App\\Models\\Career\\Communication' => $resource->id . ' ' . (!empty($resource->application) ? ' for ' . $resource->application['name'] . ' application' : ''),
+                'App\\Models\\Career\\Note' => 'note ' . $resource->id . ' ' . (!empty($resource->application) ? ' for ' . $resource->application['name'] . ' application' : ''),
+                'App\\Models\\Career\\Resume' => $resource->name . ' - ' . shortDate($resource->resume_date),
+                'App\\Models\\Personal\\Reading' => $resource->title . (!empty($resource->author) ? ' by ' . $resource->author : ''),
+                'App\\Models\\Personal\\RecipeIngredient' => $resource->ingredient['name'] . ' for ' . $resource->recipe['name'],
+                'App\\Models\\Personal\\RecipeStep' => 'step ' . $resource->step . ' for ' . $resource->recipe['name'],
+                'App\\Models\\Portfolio\\Art', 'App\\Models\\Portfolio\\Music' => $resource->name . (!empty($resource->artist) ? ' - ' . $resource->artist : ''),
+                'App\\Models\\Portfolio\\Education' => $resource->degreeType->name . ' ' . $resource->major,
+                'App\\Models\\System\\AdminEmail', 'App\\Models\\System\\UserEmail' => $resource->email,
+                'App\\Models\\System\\AdminPhone', 'App\\Models\\System\\UserPhone' => $resource->phone,
+                default => $resource->name ?? $resource->title ?? $resource->id,
+            };
 
-            $title = $className . ': ' . $resourceName;
+            $title = $includeOwnerLink
+                ? $className . ': ' . $resourceName
+                : $resourceName;
 
         } else {
 
-            $title = $resource->name ?? $resource->id;
+            if (!empty($resource->name)) {
+                $title = $resource->name;
+            } elseif (!empty($resource->title)) {
+                $title = $resource->title;
+            } else {
+                if ($class = get_class($resource)) {
+                    $className = str_contains($class, '\\')
+                        ? explode('\\', $class)[substr_count($class, '\\')]
+                        : $class;
+                    $title = $className . ' ' . $resource->id;
+                } else {
+                    $title = $resource->id;
+                }
+            }
+
         }
 
         // add an owner link (only if this is for a root admin)
-        if ($resource->owner && isRootAdmin()) {
-            $title .=
-                ' (' .
-                view('admin.components.link', [
-                    'name' => $resource->owner['username'],
-                    'href' => route('admin.system.admin.show',  $resource->owner['id']),
-                ]) .
-                ')';
+        if (!empty($resource->owner_id) && isRootAdmin()) {
+            $title .= $includeOwnerLink
+                ?  ' (' .
+                   view('admin.components.link', [
+                       'name' => $resource->owner['username'],
+                       'href' => route($envType->value . '.system.admin.show',  $resource->owner['id']),
+                   ]) .
+                   ')'
+                : ' (' . $resource->owner['username'] . ')';
         }
 
         return $title;

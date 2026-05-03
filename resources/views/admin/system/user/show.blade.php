@@ -6,7 +6,7 @@
     $user        = $user ?? null;
     $thisUser    = $thisUser ?? null;
 
-    $title    = getAdminPageTitle($thisUser);
+    $title    = getResourcePageTitle($thisUser);
     $subtitle = $title;
 
     // set breadcrumbs

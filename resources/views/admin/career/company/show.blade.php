@@ -5,7 +5,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $company       = $company ?? null;
 
-    $title    = getAdminPageTitle($company);
+    $title    = getResourcePageTitle($company);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
     $breadcrumbs[] = [ 'name' => 'Companies',  'href' => route('admin.career.company.index') ];
-    $breadcrumbs[] = [ 'name' => $company->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($company, false) ];
 
     // set navigation buttons
     $navButtons = [];

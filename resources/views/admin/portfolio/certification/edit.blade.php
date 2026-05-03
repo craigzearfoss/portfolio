@@ -7,16 +7,16 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $certification = $certification ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($certification);
+    $title    = 'Edit ' . getResourcePageTitle($certification);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',     'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',           'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',      'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => $certification->name, 'href' => route('admin.portfolio.certification.show', $certification) ],
+        [ 'name' => 'Home',                                      'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                           'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',                                 'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Certifications',                            'href' => route('admin.portfolio.certification.index') ],
+        [ 'name' => getResourcePageTitle($certification, false), 'href' => route('admin.portfolio.certification.show', $certification) ],
         [ 'name' => 'Edit' ]
     ];
 

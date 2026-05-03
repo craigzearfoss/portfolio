@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $audio       = $audio ?? null;
 
-    $title    = getAdminPageTitle($audio);
+    $title    = getResourcePageTitle($audio);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index') ];
-    $breadcrumbs[] = [ 'name' => $audio->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($audio, false) ];
 
     // set navigation buttons
     $navButtons = [];

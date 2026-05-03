@@ -7,16 +7,16 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $unit        = $unit ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($unit);
+    $title    = 'Edit ' . getResourcePageTitle($unit);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
-        [ 'name' => $unit->name,       'href' => route('admin.personal.unit.show', $unit) ],
+        [ 'name' => 'Home',                             'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',                         'href' => route('admin.personal.index') ],
+        [ 'name' => 'Units',                            'href' => route('admin.personal.unit.index') ],
+        [ 'name' => getResourcePageTitle($unit, false), 'href' => route('admin.personal.unit.show', $unit) ],
         [ 'name' => 'Edit' ]
     ];
 

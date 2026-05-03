@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recruiter   = $recruiter ?? null;
 
-    $title    = getAdminPageTitle($recruiter);
+    $title    = getResourcePageTitle($recruiter);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,7 +14,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Recruiters',      'href' => route('admin.career.recruiter.index') ],
-        [ 'name' => $recruiter->name ]
+        [ 'name' => getResourcePageTitle($recruiter, false) ]
     ];
 
     // set navigation buttons

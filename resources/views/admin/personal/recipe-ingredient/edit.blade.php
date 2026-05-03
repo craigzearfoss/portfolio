@@ -9,21 +9,21 @@
     $isRootAdmin      = $isRootAdmin ?? false;
     $recipeIngredient = $recipeIngredient ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($recipeIngredient);
+    $title    = 'Edit ' . getResourcePageTitle($recipeIngredient);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                             'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                                  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                                              'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                                   'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',                          'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                                           'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Personal',                            'href' => route('admin.personal.index') ];
-    $breadcrumbs[] = [ 'name' => 'Recipes',                             'href' => route('admin.personal.recipe.index') ];
-    $breadcrumbs[] = [ 'name' => 'Ingredient',                          'href' => route('admin.personal.recipe-ingredient.index') ];
-    $breadcrumbs[] = [ 'name' => $recipeIngredient->ingredient['name'], 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient) ];
+    $breadcrumbs[] = [ 'name' => 'Personal',                                             'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',                                              'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($recipeIngredient->recipe, false), 'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe) ];
+    $breadcrumbs[] = [ 'name' => $recipeIngredient->ingredient['name'],                  'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

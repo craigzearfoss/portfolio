@@ -6,7 +6,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $reading     = $reading ?? null;
 
-    $title    = getAdminPageTitle($reading);
+    $title    = getResourcePageTitle($reading);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -19,7 +19,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
     $breadcrumbs[] = [ 'name' => 'Readings',   'href' => route('admin.personal.reading.index') ];
-    $breadcrumbs[] = [ 'name' => $reading->title ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($reading, false) ];
 
     // set navigation buttons
     $navButtons = [];

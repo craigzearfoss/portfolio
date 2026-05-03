@@ -8,16 +8,16 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $school      = $school ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($school);
+    $title    = 'Edit ' . getResourcePageTitle($school);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
-        [ 'name' => $school->name,     'href' => route('admin.portfolio.school.show', $school) ],
+        [ 'name' => 'Home',                               'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                    'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',                          'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Schools',                            'href' => route('admin.portfolio.school.index') ],
+        [ 'name' => getResourcePageTitle($school, false), 'href' => route('admin.portfolio.school.show', $school) ],
         [ 'name' => 'Edit' ]
     ];
 

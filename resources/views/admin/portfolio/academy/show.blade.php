@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $academy     = $academy ?? null;
 
-    $title    = getAdminPageTitle($academy);
+    $title    = getResourcePageTitle($academy);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,7 +14,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Academies',       'href' => route('admin.portfolio.academy.index') ],
-        [ 'name' => $academy->name ],
+        [ 'name' => getResourcePageTitle($academy, false) ],
     ];
 
     // set navigation buttons

@@ -1,5 +1,6 @@
 @php
     use App\Models\Portfolio\Job;
+    use App\Models\Portfolio\JobCoworker;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
@@ -8,7 +9,7 @@
     $job         = $job ?? null;
     $jobCoworker = $jobCoworker ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($job);
+    $title    = 'Edit ' . getResourcePageTitle($job);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -26,162 +27,176 @@
     $navButtons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.job-coworker.index') ])->render(),
     ];
+
+    // get the options for the job select list
+    $jobListOptions = new Job()->filteredListOptions($admin, $job->owner_id ?? null, 'company');
 @endphp
 
 @extends('admin.layouts.default')
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    @if (empty($jobListOptions))
 
-        <form action="{{ route('admin.portfolio.job-coworker.update', array_merge([$jobCoworker], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        <div class="edit-container form-container p-4">
+            <p>There are no jobs to attach a coworker to.</p>
+        </div>
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.job-coworker.index')
-            ])
+    @else
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $jobCoworker->id,
-                'hide'  => !$isRootAdmin,
-            ])
+        <div class="edit-container card form-container p-4">
 
-            <?php /* note that you CANNOT change the owner of a job coworker */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $jobCoworker->owner_id
-            ])
+            <form
+                action="{{ route('admin.portfolio.job-coworker.update', array_merge([$jobCoworker], request()->all())) }}"
+                method="POST">
+                @csrf
+                @method('PUT')
 
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'job_id',
-                'label'     => 'job',
-                'value'     => old('job_id') ?? $jobCoworker->job_id,
-                'required'  => true,
-                'list'      => new Job()->listOptions([], 'id', 'name', true),
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-hidden', [
+                    'name'  => 'referer',
+                    'value' => referer('admin.portfolio.job-coworker.index')
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $jobCoworker->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $jobCoworker->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'title',
-                'value'     => old('title') ?? $jobCoworker->title,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                    <?php /* note that you CANNOT change the owner of a job coworker */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $jobCoworker->owner_id
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'level',
-                'value'     => old('level') ?? $jobCoworker->level,
-                'required'  => true,
-                'list'      => \App\Models\Portfolio\JobCoworker::levelListOptions([], true),
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'      => 'job_id',
+                    'label'     => 'job',
+                    'value'     => old('job_id') ?? $jobCoworker->job_id,
+                    'required'  => true,
+                    'list'      => $jobListOptions,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'work_phone',
-                'label'     => 'work phone',
-                'value'     => old('work_phone') ?? $jobCoworker->work_phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $jobCoworker->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'personal_phone',
-                'label'     => 'personal phone',
-                'value'     => old('personal_phone') ?? $jobCoworker->personal_phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('title') ?? $jobCoworker->title,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'work_email',
-                'label'      => 'work email',
-                'value'     => old('work_email') ?? $jobCoworker->work_email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'      => 'level',
+                    'value'     => old('level') ?? $jobCoworker->level,
+                    'required'  => true,
+                    'list'      => JobCoworker::levelListOptions([], true),
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'personal_email',
-                'label'     => 'personal email',
-                'value'     => old('personal_email') ?? $jobCoworker->personal_email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'tel',
+                    'name'      => 'work_phone',
+                    'label'     => 'work phone',
+                    'value'     => old('work_phone') ?? $jobCoworker->work_phone,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'id'      => 'notes',
-                'value'   => old('notes') ?? $jobCoworker->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'tel',
+                    'name'      => 'personal_phone',
+                    'label'     => 'personal phone',
+                    'value'     => old('personal_phone') ?? $jobCoworker->personal_phone,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $jobCoworker->link,
-                'name' => old('link_name') ?? $jobCoworker->link_name,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'work_email',
+                    'label'      => 'work email',
+                    'value'     => old('work_email') ?? $jobCoworker->work_email,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $jobCoworker->description,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'personal_email',
+                    'label'     => 'personal email',
+                    'value'     => old('personal_email') ?? $jobCoworker->personal_email,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $jobCoworker->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'id'      => 'notes',
+                    'value'   => old('notes') ?? $jobCoworker->notes,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $jobCoworker->image,
-                'credit'  => old('image_credit') ?? $jobCoworker->image_credit,
-                'source'  => old('image_source') ?? $jobCoworker->image_source,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $jobCoworker->link,
+                    'name' => old('link_name') ?? $jobCoworker->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $jobCoworker->thumbnail,
-                'credit'    => false,
-                'source'    => false,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $jobCoworker->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $jobCoworker->is_public,
-                'is_readonly' => old('is_readonly') ?? $jobCoworker->is_readonly,
-                'is_root'     => old('is_root')     ?? $jobCoworker->root,
-                'is_disabled' => old('is_disabled') ?? $jobCoworker->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $jobCoworker->is_demo,
-                'sequence'    => old('sequence')    ?? $jobCoworker->sequence,
-                'message'     => $message           ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $jobCoworker->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.job-coworker.index')
-            ])
+                @include('admin.components.form-image-horizontal', [
+                    'src'     => old('image') ?? $jobCoworker->image,
+                    'credit'  => old('image_credit') ?? $jobCoworker->image_credit,
+                    'source'  => old('image_source') ?? $jobCoworker->image_source,
+                    'message' => $message ?? '',
+                ])
 
-        </form>
+                @include('admin.components.form-image-horizontal', [
+                    'name'      => 'thumbnail',
+                    'src'       => old('thumbnail') ?? $jobCoworker->thumbnail,
+                    'credit'    => false,
+                    'source'    => false,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
 
-    </div>
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $jobCoworker->is_public,
+                    'is_readonly' => old('is_readonly') ?? $jobCoworker->is_readonly,
+                    'is_root'     => old('is_root')     ?? $jobCoworker->root,
+                    'is_disabled' => old('is_disabled') ?? $jobCoworker->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $jobCoworker->is_demo,
+                    'sequence'    => old('sequence')    ?? $jobCoworker->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+                @include('admin.components.form-button-submit-horizontal', [
+                    'label'      => 'Save',
+                    'cancel_url' => referer('admin.portfolio.job-coworker.index')
+                ])
+
+            </form>
+
+        </div>
+
+    @endif
 
 @endsection

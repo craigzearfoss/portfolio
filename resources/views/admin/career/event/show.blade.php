@@ -8,7 +8,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $event         = $event ?? null;
 
-    $title = $pageTitle ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $title = getResourcePageTitle($event);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -21,8 +21,8 @@
     }
     $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
     $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
-    $breadcrumbs[] = [ 'name' => 'Events',       'href' => route('admin.career.event.index') ];
-    $breadcrumbs[] = [ 'name' => 'Event' ];
+    $breadcrumbs[] = [ 'name' => 'Events', 'href' => route('admin.career.event.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($event, false) ];
 
     // set navigation buttons
     $navButtons = [];

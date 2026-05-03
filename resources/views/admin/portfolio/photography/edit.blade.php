@@ -5,20 +5,20 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $photo = $photo ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($photo);
+    $title    = 'Edit ' . getResourcePageTitle($photo);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                     'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',          'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                           'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',  'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                        'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index') ];
-    $breadcrumbs[] = [ 'name' => 'Photography', 'href' => route('admin.portfolio.photography.index') ];
-    $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', $photo) ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',                         'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Photography',                       'href' => route('admin.portfolio.photography.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($photo, false), 'href' => route('admin.portfolio.photography.show', $photo) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

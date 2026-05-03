@@ -5,7 +5,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $certification = $certification ?? null;
 
-    $title    = getAdminPageTitle($certification);
+    $title    = getResourcePageTitle($certification);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,7 +14,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => $certification->name ]
+        [ 'name' => getResourcePageTitle($certification, false) ]
     ];
 
     // set navigation buttons

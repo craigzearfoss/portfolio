@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $video       = $video ?? null;
 
-    $title    = getAdminPageTitle($video);
+    $title    = getResourcePageTitle($video);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Videos',     'href' => route('admin.portfolio.video.index') ];
-    $breadcrumbs[] = [ 'name' => $video->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($video, false) ];
 
     // set navigation buttons
     $navButtons = [];

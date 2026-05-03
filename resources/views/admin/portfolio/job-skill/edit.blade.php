@@ -9,7 +9,7 @@
     $job         = $job ?? null;
     $jobSkill    = $jobSkill ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($jobSkill);
+    $title    = 'Edit ' . getResourcePageTitle($jobSkill);
     $subtitle = $title;
 
     // set navigation buttons
@@ -27,141 +27,154 @@
     $navButtons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.job-skill.index') ])->render(),
     ];
+
+    // get the options for the job select list
+    $jobListOptions = new Job()->filteredListOptions($admin, $job->owner_id ?? null, 'company');
 @endphp
 
 @extends('admin.layouts.default')
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    @if (empty($jobListOptions))
 
-        <form action="{{ route('admin.portfolio.job-skill.update', array_merge([$jobSkill], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        <div class="edit-container form-container p-4">
+            <p>There are no jobs to attach a skill to.</p>
+        </div>
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.job-skill.index')
-            ])
+    @else
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $jobSkill->id,
-                'hide'  => !$isRootAdmin,
-            ])
+        <div class="edit-container card form-container p-4">
 
-            <?php /* note that you CANNOT change the owner of a job skill */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $jobSkill->owner_id
-            ])
+            <form action="{{ route('admin.portfolio.job-skill.update', array_merge([$jobSkill], request()->all())) }}"
+                  method="POST">
+                @csrf
+                @method('PUT')
 
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'job_id',
-                'label'     => 'job',
-                'value'     => old('job_id') ?? $jobSkill->job_id,
-                'required'  => true,
-                'list'      => new Job()->listOptions([], 'id', 'name', true),
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-hidden', [
+                    'name'  => 'referer',
+                    'value' => referer('admin.portfolio.job-skill.index')
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $jobSkill->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $jobSkill->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'dictionary_category_id',
-                'label'     => 'category',
-                'value'     => old('job_id') ?? $jobSkill->dictionary_category_id,
-                'required'  => true,
-                'list'      => new Category()->listOptions([], 'id', 'name', true),
-                'message'   => $message ?? '',
-            ])
+                <?php /* note that you CANNOT change the owner of a job skill */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $jobSkill->owner_id
+                ])
 
-            @include('admin.components.form-input-with-icon', [
-                'type'      => 'hidden',
-                'name'      => 'dictionary_term_id',
-                'value'     => old('dictionary_term_id') ?? $jobSkill->dictionary_term_id,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'      => 'job_id',
+                    'label'     => 'job',
+                    'value'     => old('job_id') ?? $jobSkill->job_id,
+                    'required'  => true,
+                    'list'      => $jobListOptions,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $jobSkill->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $jobSkill->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $jobSkill->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'      => 'dictionary_category_id',
+                    'label'     => 'category',
+                    'value'     => old('job_id') ?? $jobSkill->dictionary_category_id,
+                    'required'  => true,
+                    'list'      => new Category()->listOptions([], 'id', 'name', true),
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $jobSkill->link,
-                'name' => old('link_name') ?? $jobSkill->link_name,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-with-icon', [
+                    'type'      => 'hidden',
+                    'name'      => 'dictionary_term_id',
+                    'value'     => old('dictionary_term_id') ?? $jobSkill->dictionary_term_id,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $jobSkill->description,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $jobSkill->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $jobSkill->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $jobSkill->notes,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $jobSkill->link,
-                'name' => old('link_name') ?? $jobSkill->link_name,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $jobSkill->link,
+                    'name' => old('link_name') ?? $jobSkill->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $jobSkill->image,
-                'credit'  => old('image_credit') ?? $jobSkill->image_credit,
-                'source'  => old('image_source') ?? $jobSkill->image_source,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $jobSkill->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $jobSkill->thumbnail,
-                'credit'    => false,
-                'source'    => false,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $jobSkill->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $jobSkill->is_public,
-                'is_readonly' => old('is_readonly') ?? $jobSkill->is_readonly,
-                'is_root'     => old('is_root')     ?? $jobSkill->root,
-                'is_disabled' => old('is_disabled') ?? $jobSkill->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $jobSkill->is_demo,
-                'sequence'    => old('sequence')    ?? $jobSkill->sequence,
-                'message'     => $message           ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $jobSkill->link,
+                    'name' => old('link_name') ?? $jobSkill->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.job-skill.index')
-            ])
+                @include('admin.components.form-image-horizontal', [
+                    'src'     => old('image') ?? $jobSkill->image,
+                    'credit'  => old('image_credit') ?? $jobSkill->image_credit,
+                    'source'  => old('image_source') ?? $jobSkill->image_source,
+                    'message' => $message ?? '',
+                ])
 
-        </form>
+                @include('admin.components.form-image-horizontal', [
+                    'name'      => 'thumbnail',
+                    'src'       => old('thumbnail') ?? $jobSkill->thumbnail,
+                    'credit'    => false,
+                    'source'    => false,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
 
-    </div>
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $jobSkill->is_public,
+                    'is_readonly' => old('is_readonly') ?? $jobSkill->is_readonly,
+                    'is_root'     => old('is_root')     ?? $jobSkill->root,
+                    'is_disabled' => old('is_disabled') ?? $jobSkill->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $jobSkill->is_demo,
+                    'sequence'    => old('sequence')    ?? $jobSkill->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+                @include('admin.components.form-button-submit-horizontal', [
+                    'label'      => 'Save',
+                    'cancel_url' => referer('admin.portfolio.job-skill.index')
+                ])
+
+            </form>
+
+        </div>
+
+    @endif
 
 @endsection

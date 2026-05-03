@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recipe      = $recipe ?? null;
 
-    $title    = getAdminPageTitle($recipe);
+    $title    = getResourcePageTitle($recipe);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -18,7 +18,7 @@
     }
     $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
     $breadcrumbs[] = [ 'name' => 'Recipes',    'href' => route('admin.personal.recipe.index') ];
-    $breadcrumbs[] = [ 'name' => $recipe->name ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($recipe, false) ];
 
     // set navigation buttons
     $navButtons = [];

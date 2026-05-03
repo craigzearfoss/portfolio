@@ -8,8 +8,8 @@
     $userEmail   = $userEmail ?? null;
 
     $title    = !$isRootAdmin
-        ? str_replace('UserEmail', 'Email', 'Edit ' . getAdminPageTitle($userEmail))
-        : 'Edit ' . getAdminPageTitle($userEmail);
+        ? str_replace('UserEmail', 'Email', 'Edit ' . getResourcePageTitle($userEmail))
+        : 'Edit ' . getResourcePageTitle($userEmail);
     $subtitle = $title;
 
     // set breadcrumbs

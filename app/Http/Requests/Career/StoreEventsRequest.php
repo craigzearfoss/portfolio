@@ -5,6 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\Application;
 use App\Models\System\Admin;
+use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
@@ -93,8 +94,14 @@ class StoreEventsRequest extends StoreAppBaseRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws \DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
+        // make sure the communication_datetime is formatted correctly
+        if (!empty($this['event_datetime'])) {
+            $event_datetime = new DateTime($this['event_datetime']);
+            $this['event_datetime'] = $event_datetime->format('Y-m-d H:i:s');
+        }
     }
 }

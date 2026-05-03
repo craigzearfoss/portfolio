@@ -6,20 +6,20 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $reading     = $reading ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($reading);
+    $title    = 'Edit ' . getResourcePageTitle($reading);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                       'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                             'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                  'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',    'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                          'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Personal',      'href' => route('admin.personal.index') ];
-    $breadcrumbs[] = [ 'name' => 'Readings',      'href' => route('admin.personal.reading.index') ];
-    $breadcrumbs[] = [ 'name' => $reading->title, 'href' => route('admin.personal.reading.show', $reading) ];
+    $breadcrumbs[] = [ 'name' => 'Personal',                            'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Readings',                            'href' => route('admin.personal.reading.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($reading, false), 'href' => route('admin.personal.reading.show', $reading) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

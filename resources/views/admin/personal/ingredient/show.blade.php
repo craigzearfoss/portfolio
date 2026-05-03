@@ -5,7 +5,7 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $ingredient  = $ingredient ?? null;
 
-    $title    = getAdminPageTitle($ingredient);
+    $title    = getResourcePageTitle($ingredient);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -14,7 +14,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
-        [ 'name' => $ingredient->name ]
+        [ 'name' => getResourcePageTitle($ingredient, false) ]
     ];
 
     // set navigation buttons

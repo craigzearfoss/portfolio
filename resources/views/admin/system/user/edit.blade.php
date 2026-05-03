@@ -13,7 +13,7 @@
 
     $userModel = new User();
 
-    $title    = 'Edit ' . getAdminPageTitle($thisUser);
+    $title    = 'Edit ' . getResourcePageTitle($thisUser);
     $subtitle = $title;
 
     // set breadcrumbs

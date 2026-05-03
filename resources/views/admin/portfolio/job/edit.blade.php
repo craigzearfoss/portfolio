@@ -15,15 +15,15 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                         'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                              'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                      'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-    $breadcrumbs[] = [ 'name' => 'Jobs',       'href' => route('admin.portfolio.job.index') ];
-    $breadcrumbs[] = [ 'name' => $job->name,   'href' => route('admin.portfolio.job.show', $job) ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',                       'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Jobs',                            'href' => route('admin.portfolio.job.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($job, false), 'href' => route('admin.portfolio.job.show', $job) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

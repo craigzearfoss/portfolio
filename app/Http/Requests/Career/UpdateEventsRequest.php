@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
+use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -96,8 +97,14 @@ class UpdateEventsRequest extends UpdateAppBaseRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws \DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
+        // make sure the communication_datetime is formatted correctly
+        if (!empty($this['event_datetime'])) {
+            $event_datetime = new DateTime($this['event_datetime']);
+            $this['event_datetime'] = $event_datetime->format('Y-m-d H:i:s');
+        }
     }
 }

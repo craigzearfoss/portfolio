@@ -5,20 +5,20 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $recipe      = $recipe ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($recipe);
+    $title    = 'Edit ' . getResourcePageTitle($recipe);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                     'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',          'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                 'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',  'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                         'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Personal',    'href' => route('admin.personal.index') ];
-    $breadcrumbs[] = [ 'name' => 'Recipes',     'href' => route('admin.personal.recipe.index') ];
-    $breadcrumbs[] = [ 'name' => $recipe->name, 'href' => route('admin.personal.recipe.show', $recipe)  ];
+    $breadcrumbs[] = [ 'name' => 'Personal',                           'href' => route('admin.personal.index') ];
+    $breadcrumbs[] = [ 'name' => 'Recipes',                            'href' => route('admin.personal.recipe.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($recipe, false), 'href' => route('admin.personal.recipe.show', $recipe)  ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

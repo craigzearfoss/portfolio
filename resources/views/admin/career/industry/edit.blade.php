@@ -5,16 +5,16 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $industry      = $industry ?? null;
 
-    $title    = getAdminPageTitle($industry);
+    $title    = getResourcePageTitle($industry);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
-        [ 'name' => $industry->name,   'href' => route('admin.career.industry.show', $industry) ],
+        [ 'name' => 'Home',                                 'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                      'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                               'href' => route('admin.career.index') ],
+        [ 'name' => 'Industries',                           'href' => route('admin.career.industry.index') ],
+        [ 'name' => getResourcePageTitle($industry, false), 'href' => route('admin.career.industry.show', $industry) ],
         [ 'name' => 'Edit' ]
     ];
 

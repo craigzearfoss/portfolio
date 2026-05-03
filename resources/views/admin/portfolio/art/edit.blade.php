@@ -5,20 +5,20 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $art         = $art ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($art);
+    $title    = 'Edit ' . getResourcePageTitle($art);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                         'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                              'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                      'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-    $breadcrumbs[] = [ 'name' => 'Art',        'href' => route('admin.portfolio.art.index') ];
-    $breadcrumbs[] = [ 'name' => $art->name . (!empty($art->artist) ? ' - ' . $art->artist : ''),   'href' => route('admin.portfolio.art.show', $art) ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',                       'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Art',                             'href' => route('admin.portfolio.art.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($art, false), 'href' => route('admin.portfolio.art.show', $art) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

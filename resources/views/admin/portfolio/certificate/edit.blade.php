@@ -8,20 +8,20 @@
     $isRootAdmin = $isRootAdmin ?? false;
     $certificate = $certificate ?? null;
 
-    $title    = 'Edit ' . getAdminPageTitle($certificate);
+    $title    = 'Edit ' . getResourcePageTitle($certificate);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                          'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',               'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                                                'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                     'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',                              'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index') ];
-    $breadcrumbs[] = [ 'name' => 'Certificates',     'href' => route('admin.portfolio.certificate.index') ];
-    $breadcrumbs[] = [ 'name' => $certificate->name, 'href' => route('admin.portfolio.certificate.show', $certificate) ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',                               'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Certificates',                            'href' => route('admin.portfolio.certificate.index') ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($certificate, false), 'href' => route('admin.portfolio.certificate.show', $certificate) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

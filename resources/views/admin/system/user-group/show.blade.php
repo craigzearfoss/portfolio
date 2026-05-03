@@ -6,8 +6,8 @@
     $userGroup   = $userGroup ?? null;
 
     $title    = !$isRootAdmin
-        ? str_replace('UserGroup', 'Group', getAdminPageTitle($userGroup))
-        : getAdminPageTitle($userGroup);
+        ? str_replace('UserGroup', 'Group', getResourcePageTitle($userGroup))
+        : getResourcePageTitle($userGroup);
     $subtitle = $title;
 
     // set breadcrumbs

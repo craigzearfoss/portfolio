@@ -31,171 +31,155 @@
     ];
 
     // get the options for the application select list
-    if (!empty($application->owner_id)) {
-        $applicationListOptions = new Application()->listOptions(
-            [ 'owner_id' => $application->owner_id ],
-            'id',
-            'name',
-            true,
-            false,
-            [ 'name', 'asc' ]
-        );
-    } elseif ($isRootAdmin) {
-        $applicationListOptions = new Application()->listOptions(
-            [],
-            'id',
-            'name',
-            true,
-            false,
-            [ 'name', 'asc' ]
-        );
-    } else {
-        $applicationListOptions = new Application()->listOptions(
-            [ 'owner_id' => $admin->id ],
-            'id',
-            'name',
-            true,
-            false,
-            [ 'name', 'asc' ]
-        );
-    }
+    $applicationListOptions = new Application()->filteredListOptions($admin, $application->owner_id ?? null);
 @endphp
 
 @extends('admin.layouts.default')
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    @if (empty($applicationListOptions))
 
-        <form action="{{ route('admin.career.communication.store', request()->all()) }}" method="POST">
-            @csrf
+        <div class="edit-container form-container p-4">
+            <p>There are no applications to attach a communication to.</p>
+        </div>
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.career.communication.index')
-            ])
+    @else
 
-            @if ($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $application->owner_id ?? '',
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
+        <div class="edit-container card form-container p-4">
+
+            <form action="{{ route('admin.career.communication.store', request()->all()) }}" method="POST">
+                @csrf
+
                 @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $admin->id ?? null,
+                    'name'  => 'referer',
+                    'value' => referer('admin.career.communication.index')
                 ])
-            @endif
 
-            @if (empty($application->id))
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $application->owner_id ?? '',
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $admin->id ?? null,
+                    ])
+                @endif
+
+                @if (empty($application->id))
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'application_id',
+                        'label'    => 'application',
+                        'value'    => old('application_id') ?? $application->id ?? '',
+                        'list'     => $applicationListOptions,
+                        'required' => true,
+                        'message'  => $message ?? '',
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'    => 'application_id',
+                        'value'   => $application->id,
+                        'message' => $message ?? '',
+                    ])
+                @endif
+
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'application_id',
-                    'label'   => 'application',
-                    'value'   => old('application_id') ?? $application->id ?? '',
-                    'list'    => $applicationListOptions,
+                    'name'    => 'communication_type_id',
+                    'label'   => 'type',
+                    'value'   => old('communication_type_id') ?? '',
+                    'list'    => new CommunicationType()->listOptions([], 'id', 'name', true),
                     'message' => $message ?? '',
                 ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'    => 'application_id',
-                    'value'   => $application->id,
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'subject',
+                    'value'     => old('subject') ?? '',
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'to',
+                    'value'     => old('to') ?? '',
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'from',
+                    'value'     => old('from') ?? '',
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'type'    => 'datetime-local',
+                    'name'    => 'communication_datetime',
+                    'label'   => 'datetime',
+                    'value'   => old('communication_datetime') ?? '',
+                    'message' => $message ?? '',
+                    'style'   => 'width: 15rem;',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'body',
+                    'id'      => 'inputEditor',
+                    'value'   => old('body') ?? '',
                     'message' => $message ?? '',
                 ])
-            @endif
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'communication_type_id',
-                'label'   => 'type',
-                'value'   => old('communication_type_id') ?? '',
-                'list'    => new CommunicationType()->listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? '',
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'subject',
-                'value'     => old('subject') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? '',
+                    'name' => old('link_name') ?? '',
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'to',
-                'value'     => old('to') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? '',
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'from',
-                'value'     => old('from') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? '',
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'datetime-local',
-                'name'    => 'communication_datetime',
-                'label'   => 'datetime',
-                'value'   => old('communication_datetime') ?? '',
-                'message' => $message ?? '',
-                'style'   => 'width: 15rem;',
-            ])
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? 0,
+                    'is_readonly' => old('is_readonly') ?? 0,
+                    'is_root'     => old('is_root')     ?? 0,
+                    'is_disabled' => old('is_disabled') ?? 0,
+                    'is_demo'     => old('is_demo')     ?? 0,
+                    'sequence'    => old('sequence')    ?? 0,
+                    'message'     => $message           ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'body',
-                'id'      => 'inputEditor',
-                'value'   => old('body') ?? '',
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-button-submit-horizontal', [
+                    'label'      => 'Add Communication',
+                    'cancel_url' => referer('admin.career.communication.index')
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? '',
-                'message' => $message ?? '',
-            ])
+            </form>
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? '',
-                'name' => old('link_name') ?? '',
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? '',
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
-
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? 0,
-                'is_readonly' => old('is_readonly') ?? 0,
-                'is_root'     => old('is_root')     ?? 0,
-                'is_disabled' => old('is_disabled') ?? 0,
-                'is_demo'     => old('is_demo')     ?? 0,
-                'sequence'    => old('sequence')    ?? 0,
-                'message'     => $message           ?? '',
-            ])
-
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Communication',
-                'cancel_url' => referer('admin.career.communication.index')
-            ])
-
-        </form>
-
-    </div>
+    @endif
 
 @endsection
