@@ -1330,6 +1330,7 @@ if (! function_exists('getPageTitle')) {
                 'App\\Models\\Personal\\RecipeStep' => 'step ' . $resource->step . ' for ' . $resource->recipe['name'],
                 'App\\Models\\Portfolio\\Art', 'App\\Models\\Portfolio\\Music' => $resource->name . (!empty($resource->artist) ? ' - ' . $resource->artist : ''),
                 'App\\Models\\Portfolio\\Education' => $resource->degreeType->name . ' ' . $resource->major,
+                'App\\Models\\Portfolio\\JobTask' => 'task ' . $resource->id,
                 'App\\Models\\System\\AdminEmail', 'App\\Models\\System\\UserEmail' => $resource->email,
                 'App\\Models\\System\\AdminPhone', 'App\\Models\\System\\UserPhone' => $resource->phone,
                 default => $resource->name ?? $resource->title ?? $resource->subject ?? $resource->id,

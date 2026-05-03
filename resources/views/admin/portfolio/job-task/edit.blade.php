@@ -13,12 +13,12 @@
 
     // set navigation buttons
     $breadcrumbs = [
-        [ 'name' => 'Home',              'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
-        [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
+        [ 'name' => 'Home',                                'href' => route('admin.index') ],
+        [ 'name' => 'Admin Dashboard',                     'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',                           'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs',                                'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => 'Job Tasks',                           'href' => route('admin.portfolio.job-task.index') ],
+        [ 'name' => getResourcePageTitle($jobTask, false), 'href' => route('admin.portfolio.job-task.show', $jobTask) ],
         [ 'name' => 'Edit' ],
     ];
 

@@ -20,7 +20,7 @@
     $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Jobs' ,      'href' => route('admin.portfolio.job.index') ];
     $breadcrumbs[] = [ 'name' => 'Job Tasks',  'href' => route('admin.portfolio.job-task.index') ];
-    $breadcrumbs[] = [ 'name' => 'Step ' . $jobTask->step ];
+    $breadcrumbs[] = [ 'name' => getResourcePageTitle($jobTask, false) ];
 
     // set navigation buttons
     $navButtons = [];
