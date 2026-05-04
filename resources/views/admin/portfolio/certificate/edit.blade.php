@@ -170,20 +170,27 @@
                 'message'     => $message ?? '',
             ])
 
+            <?php
+            /* --------------------------------------------- */
+            /* Note: images are uploaded from the show page. */
+            /* --------------------------------------------- */
+            ?>
             @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $certificate->image,
-                'credit'  => old('image_credit') ?? $certificate->image_credit,
-                'source'  => old('image_source') ?? $certificate->image_source,
-                'message' => $message ?? '',
+                'src'        => old('image') ?? $certificate->image,
+                'credit'     => old('image_credit') ?? $certificate->image_credit,
+                'source'     => old('image_source') ?? $certificate->image_source,
+                'message'    => $message ?? '',
+                'uploadable' => false,
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $certificate->thumbnail,
-                'credit'    => false,
-                'source'    => false,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
+                'name'       => 'thumbnail',
+                'src'        => old('thumbnail') ?? $certificate->thumbnail,
+                'credit'     => false,
+                'source'     => false,
+                'maxlength'  => 500,
+                'message'    => $message ?? '',
+                'uploadable' => false,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

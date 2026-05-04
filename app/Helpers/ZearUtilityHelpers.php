@@ -770,26 +770,26 @@ if (! function_exists('dateRangeDetails')) {
 
 if (! function_exists('imageUrl')) {
     /**
-     * Returns the url of an image. If not a fully specifed url then the asset directory is used.
+     * Returns the url of an image. If not a fully specified url then the asset directory is used.
      *
-     * @param string|null $source
+     * @param string|null $src
      * @return string
      */
-    function imageUrl(string|null $source): string
+    function imageUrl(string|null $src): string
     {
-        if (empty($source)) {
+        if (empty($src)) {
+
             return '';
-        } elseif ('http://' === strtolower(substr($source, 0, 7))) {
-            return $source;
-        } elseif ('https://' === strtolower(substr($source, 0, 8))) {
-            return $source;
+
         } else {
-            if ($imageUrl = config('app.image_url')) {
-                return $imageUrl . '/' . $source;
-            } else {
-                return asset($source);
+
+            if (!str_starts_with(strtolower($src), 'http://') && !str_starts_with(strtolower($src), 'https://')) {
+                $src = trim($src, ' /');
+                $src = '/'. str_replace(DIRECTORY_SEPARATOR, '/', $src);
             }
         }
+
+        return $src;
     }
 }
 

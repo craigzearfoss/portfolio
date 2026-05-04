@@ -1,5 +1,8 @@
 @php
-    $src = $src ?? '';
+    $uploadable = $uploadable ?? false;
+
+    $src = imageUrl($src ?? '');
+
     $name = $name ?? 'image';
     $label = $label ?? 'image';
     if (!empty($src)) {
@@ -37,28 +40,48 @@
         </label>
     </div>
     <div class="field-body">
-        <div class="field">
-            <div class="control ">
 
-                <input class="input"
-                       type="text"
-                       id="inputImage"
-                       name="{{ $name ?? 'image' }}"
-                       value="{{ $src ?? '' }}"
-                       style="" maxlength="500"
-                >
+        @if ($uploadable)
 
-                <?php /* @TODO: need to implement file uploads  */ ?>
-                @if (config('app.upload_enabled'))
+            <div class="field">
+                <div class="control ">
 
-                    @include('user.components.form-button-upload', [
-                        'name' => !empty($src) ? 'Replace' : 'Upload'
-                    ])
+                    <input class="input"
+                           type="text"
+                           id="inputImage"
+                           name="{{ $name ?? 'image' }}"
+                           value="{{ $src ?? '' }}"
+                           style="" maxlength="500"
+                    >
 
-                @endif
+                    <?php /* @TODO: need to implement file uploads  */ ?>
+                    @if (config('app.upload_enabled'))
 
+                        @include('user.components.form-button-upload', [
+                            'name' => !empty($src) ? 'Replace' : 'Upload'
+                        ])
+
+                    @endif
+
+                </div>
             </div>
-        </div>
+
+        @else
+
+            <div style="display: inline-block;">
+                @if (!empty($src))
+                    @include('user.components.image', [
+                        'src'   => $src,
+                        'alt'   => $name,
+                        'width' => '48px',
+                    ])
+                @else
+                    <i>none (Add via the show page.)</i>
+                @endif
+            </div>
+
+        @endif
+
     </div>
 </div>
 

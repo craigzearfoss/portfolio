@@ -110,34 +110,43 @@
                 'message' => $message ?? '',
             ])
 
+            <?php
+            /* --------------------------------------------- */
+            /* Note: images are uploaded from the show page. */
+            /* --------------------------------------------- */
+            ?>
             @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $school->image,
-                'credit'  => old('image_credit') ?? $school->image_credit,
-                'source'  => old('image_source') ?? $school->image_source,
-                'message' => $message ?? '',
+                'src'        => old('image') ?? $school->image,
+                'credit'     => old('image_credit') ?? $school->image_credit,
+                'source'     => old('image_source') ?? $school->image_source,
+                'message'    => $message ?? '',
+                'uploadable' => false,
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $school->thumbnail,
-                'credit'    => false,
-                'source'    => false,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
+                'name'       => 'thumbnail',
+                'src'        => old('thumbnail') ?? $school->thumbnail,
+                'credit'     => false,
+                'source'     => false,
+                'maxlength'  => 500,
+                'message'    => $message ?? '',
+                'uploadable' => false,
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'logo',
-                'src'       => old('logo') ?? $school->logo,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'name'       => 'logo',
+                'src'        => old('logo') ?? $school->logo,
+                'maxlength'  => 500,
+                'message'    => $message ?? '',
+                'uploadable' => false,
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'logo_small',
-                'src'       => old('logo_small') ?? $school->logo_small,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'name'       => 'logo_small',
+                'src'        => old('logo_small') ?? $school->logo_small,
+                'maxlength'  => 500,
+                'message'    => $message ?? '',
+                'uploadable' => false,
             ])
 
             @include('admin.components.form-visibility-horizontal', [
