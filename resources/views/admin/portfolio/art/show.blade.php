@@ -1,4 +1,6 @@
 @php
+    use App\Models\System\Resource;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
@@ -36,6 +38,12 @@
 @extends('admin.layouts.default')
 
 @section('content')
+
+    @include('admin.components.partials.image-upload-overlay', [
+        'resource'      => $art,
+        'resource_type' => new Resource()->newQuery()->where('class', get_class($art))->first(),
+        'column'        => 'image',
+    ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

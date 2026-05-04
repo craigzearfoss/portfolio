@@ -10,6 +10,7 @@ use App\Models\System\Owner;
 use App\Models\System\User;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -52,6 +53,8 @@ trait SearchableModelTrait
         'updated_at',
         'deleted_at',
     ];
+
+    protected $appends = ['resource_type_id'];
 
     /**
      *
@@ -731,6 +734,32 @@ trait SearchableModelTrait
                     $query->where($column, '=', $value);
                 }
                 break;
+        }
+    }
+
+
+    /**
+     * Get the name of the application.
+     */
+    protected function resourceTypeId(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->getResourceTypeId(),
+        );
+    }
+
+
+    /**
+     * Calculate the name of the resource type id (The id from the resources table.)
+     *
+     * @return int|null
+     */
+    protected function getResourceTypeId(): int|null
+    {
+        if ($resourceType = new \App\Models\System\Resource()->newQuery()->where('class', get_class($this))->first()) {
+            return $resourceType->id;
+        } else {
+            return null;
         }
     }
 }

@@ -278,7 +278,7 @@ class MenuService
 
                 if ($this->isRootAdmin) {
                     foreach ($menu as $i => $menuItem) {
-                        if (property_exists($menuItem, 'tag') && ($menuItem->tag === 'db')) {
+                        if (array_key_exists('tag', $menuItem->getAttributes()) && ($menuItem->tag === 'db')) {
                             $menuItem[$i]->children[] = $this->menuItem([
                                 'tag'   => 'databases',
                                 'title' => 'Databases',
@@ -454,7 +454,7 @@ class MenuService
                 if ($this->isRootAdmin) {
 
                     foreach ($menu as $menuItem) {
-                        if (property_exists($menuItem, 'tag') && ($menuItem->tag === 'db')) {
+                        if (array_key_exists('tag', $menuItem->getAttributes()) && ($menuItem->tag === 'db')) {
                             $adminDropdownMenu->children[] = $this->menuItem([
                                 'tag'  => 'databases',
                                 'title'=> 'Databases',

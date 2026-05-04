@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         {
             if ($admin->is_root) return true;
 
-            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
+            if (array_key_exists('owner_id', $resourceObj->getAttributes()) && ($resourceObj->owner_id === $admin->id)) {
                 return true;
             } else {
                 return false;
@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
         {
             if ($admin['is_root']) return true;
 
-            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
+            if (array_key_exists('owner_id', $resourceObj->getAttributes()) && ($resourceObj->owner_id === $admin->id)) {
                 return true;
             } else {
                 return false;

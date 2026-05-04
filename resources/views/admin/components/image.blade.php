@@ -2,7 +2,7 @@
     $download = $download ?? false;
     $external = $external ?? false;
 
-    $imageUrl  = !empty($src) ? imageUrl($src) : $src;
+    $imageUrl  = !empty($src) ? imageUrl($src) : null;
     $extension = pathinfo($imageUrl, PATHINFO_EXTENSION);
     $filename  = ($filename ?? 'download') . (!empty($extension) ? '.'. $extension : '');
 @endphp

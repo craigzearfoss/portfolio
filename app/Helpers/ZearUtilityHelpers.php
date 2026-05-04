@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use PhpOffice\PhpWord\IOFactory;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 if (! function_exists('getEnvType')) {
     /**
@@ -64,14 +62,20 @@ if ( !function_exists('getRouteBase')) {
 
 if (! function_exists('dbName')) {
     /**
-     * Returns the name of a database from the database tag.
+     * Returns the name of a database from the database tag or database id.
      * This is because names of databases can be specified in the .env file.
      *
-     * @param string $dbTag
+     * @param string|int $dbTagOrId
      * @return string|null
      */
-    function dbName(string $dbTag): string|null  {
-        if ($database = Database::query()->where('tag', '=', $dbTag)->first()) {
+    function dbName(string|int $dbTagOrId): string|null  {
+        if (is_int($dbTagOrId)) {
+            if ($database = Database::query()->where('id', '=', $dbTagOrId)->first()) {
+                return $database->name;
+            } else {
+                return null;
+            }
+        } elseif ($database = Database::query()->where('tag', '=', $dbTagOrId)->first()) {
             return $database->database;
         } else {
             return null;
@@ -312,42 +316,79 @@ if (! function_exists('canRead')) {
             if (is_string($resourceObjectOrClass)) {
 
                 $resourceClass = $resourceObjectOrClass;
-                $resourceObject = null;
 
-                try {
-                    $resource = AdminResource::query()->where('class', '=', $resourceClass)
-                        ->where('owner_id', '=', $admin['id'])
-                        ->where($envType->value, '=', true)
-                        ->first();
-                } catch (Throwable $th) {
-                    $retValue = false;
+                // first look in the system.resources table
+                if (!$resource = Resource::query()->where('class', '=', $resourceClass)
+                    ->where($envType->value, '=', true)
+                    ->first()
+                ) {
+                    return false;
+                } elseif (!array_key_exists('has_owner', $resource->getAttributes())) {
+
+                    // anyone can view a resource that doesn't have an owner
+                    return true;
+
+                } elseif (empty($admin)) {
+
+                    if (in_array($envType->value, [ 'guest', 'user' ])) {
+
+                        // to read in guest and user areas the resource must be public and not disabled
+                        return $resource->is_public && !$resource->is_disabled;
+
+                    } else {
+
+                        // admins can read all resource classes
+                        return true;
+                    }
+
+                }
+
+                // then look in the system.admin_resources table
+                if (!$adminResource = AdminResource::query()->where('class', '=', $resourceClass)
+                    ->where('owner_id', '=', $admin['id'])
+                    ->where($envType->value, '=', true)
+                    ->first()
+                ) {
+                    // no admin resource found
+                    return false;
+
+                } elseif (in_array($envType->value, [ 'guest', 'user' ])) {
+
+                    // to read in guest and user areas the resource must be public and not disabled
+                    return $adminResource->is_public && !$adminResource->is_disabled;
+
+                } else {
+
+                    // admins can read all resource classes
+                    return true;
                 }
 
             } else {
 
-                $resourceClass = get_class($resourceObjectOrClass);
                 $resourceObject = $resourceObjectOrClass;
 
-                try {
-                    $resource = AdminResource::query()->where('class', '=', $resourceClass)
-                        ->where('owner_id', '=', $admin['id'])
-                        ->where($envType->value, '=', true)
-                        ->first();
-                } catch (Throwable $th) {
-                    $retValue = false;
+                if (!$resourceObject['owner_id']) {
+
+                    // anyone can view a resource that doesn't have an owner
+                    return true;
+
+                } elseif ($resourceObject['owner_id'] == ($admin['id'] ?? -1)) {
+
+                    return true;
+
+                } elseif ($envType == EnvTypes::ADMIN) {
+
+                    // in the admin area no admin can read the resource of another admin
+                    return false;
+
+                } else {
+
+                    return $resourceObject['is_public'] && !$resourceObject['is_disabled'];
                 }
             }
-
-            if (empty($resource)) {
-                $retValue = false;
-            } else {
-                // @TODO: should we check the is_public property
-                $retValue = true;
-            }
-
         }
 
-        return $retValue;
+        return false;
     }
 }
 
@@ -387,7 +428,7 @@ if (! function_exists('canUpdate')) {
                 ->where('owner_id', '=', $admin['id'])
                 ->where($envType->value, '=', true)->first()
             ) {
-                if (!$adminResource->has_owner) {
+                if (!array_key_exists('has_owner', $adminResource->getAttributes())) {
                     // non-root admins cannot update resource types that do not have owners
                     $retValue = false;
                 } elseif ($resourceObject->owner_id == $admin['id']) {

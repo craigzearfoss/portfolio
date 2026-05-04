@@ -45,6 +45,9 @@ div.field.is-horizontal div.field-label label.label {
     cursor: pointer;
 }
 
+.message-header p {
+    margin-bottom: 0 !important;
+}
 /* edit container */
 .edit-container .input,
 .edit-container span.file-cta,
@@ -604,7 +607,10 @@ div.floating-div-container.settings div.floating-div {
     padding: 0.2rem !important;
     margin: 0 !important;
 }
-
+.modal-card-foot {
+    margin-top: 0 !important;
+    background-color: #f5f5f5 !important;
+}
 .top-left-span {
     position: absolute;
     top: 0;

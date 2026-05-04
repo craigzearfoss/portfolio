@@ -58,77 +58,94 @@
 
                         <div class="floating-div p-2 mb-2 mr-2" style="border: 1px solid #ccc;">
 
-                            <strong>{{ str_replace('_', ' ', $imageName) }}</strong>
-                            <br>
+                            <div style="display: block;">
+                                <div style="display: inline-block;">
+                                    {{ str_replace('_', ' ', $imageName) }}
+                                </div>
+                                <div style="display: inline-block; float: right;">
+                                    @if (config('app.upload_enabled'))
+                                        @include('guest.components.button-upload-image', [
+                                            'label'       => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
+                                            'resource'    => $resource,
+                                            'column'      => $imageName,
+                                            'target_data' => 'resource-' . $imageName,
+                                        ])
+                                    @endif
+                                </div>
+                            </div>
 
-                            @if (!empty($resource->{$imageName}))
+                            <div>
 
-                                @php
+                                @if (!empty($resource->{$imageName}))
 
-                                    switch ($imageName) {
-                                        case 'certificate_url':
-                                            $src           = $resource->certificate_url;
-                                            $downloadType  = 'certificate';
-                                            $suffix        = null;
-                                            $width         = '300px';
-                                            break;
-                                        case 'image':
-                                            $src           = $resource->image;
-                                            $downloadType  = 'image';
-                                            $suffix        = null;
-                                            $width         = '300px';
-                                            break;
-                                        case 'logo':
-                                            $src           = $resource->logo;
-                                            $downloadType  = 'logo';
-                                            $suffix        = '-logo';
-                                            $width         = '100px';
-                                            break;
-                                        case 'logo_small':
-                                            $src           = $resource->logo_small;
-                                            $downloadType  = 'small logo';
-                                            $suffix        = '-logo-small';
-                                            $width         = '100px';
-                                            break;
-                                        case 'thumbnail':
-                                            $src           = $resource->thumbnail;
-                                            $downloadType  = 'thumbnail';
-                                            $suffix        = '-thumbnail';
-                                            $width         = '100px';
-                                            break;
-                                        default:
-                                            $downloadType  = 'image';
-                                            $suffix        = null;
-                                            $width         = null;
-                                            break;
-                                    }
+                                    @php
 
-                                    $filename = generateDownloadFilename($resource, $suffix);
+                                        switch ($imageName) {
+                                            case 'certificate_url':
+                                                $src           = $resource->certificate_url;
+                                                $downloadType  = 'certificate';
+                                                $suffix        = null;
+                                                $width         = '300px';
+                                                break;
+                                            case 'image':
+                                                $src           = $resource->image;
+                                                $downloadType  = 'image';
+                                                $suffix        = null;
+                                                $width         = '300px';
+                                                break;
+                                            case 'logo':
+                                                $src           = $resource->logo;
+                                                $downloadType  = 'logo';
+                                                $suffix        = '-logo';
+                                                $width         = '100px';
+                                                break;
+                                            case 'logo_small':
+                                                $src           = $resource->logo_small;
+                                                $downloadType  = 'small logo';
+                                                $suffix        = '-logo-small';
+                                                $width         = '100px';
+                                                break;
+                                            case 'thumbnail':
+                                                $src           = $resource->thumbnail;
+                                                $downloadType  = 'thumbnail';
+                                                $suffix        = '-thumbnail';
+                                                $width         = '100px';
+                                                break;
+                                            default:
+                                                $downloadType  = 'image';
+                                                $suffix        = null;
+                                                $width         = null;
+                                                break;
+                                        }
 
-                                @endphp
+                                        $filename = generateDownloadFilename($resource, $suffix);
 
-                                @include('guest.components.image', [
-                                    'name'     => 'image',
-                                    'src'      => $src,
-                                    'filename' => $filename,
-                                    'alt'      => $downloadType,
-                                    'width'    => $width,
-                                    'download' => $download,
-                                    'external' => $external,
-                                ])
+                                    @endphp
 
-                                @if ($imageName === 'image')
-                                    <div class=flex">
-                                        <strong>image credit:</strong>
-                                        <span>{{ $resource->image_credit }}</span>
-                                    </div>
-                                    <div class=flex">
-                                        <strong>image source:</strong>
-                                        <span>{{ $resource->image_source ?? '' }}</span>
-                                    </div>
+                                    @include('guest.components.image', [
+                                        'name'     => 'image',
+                                        'src'      => $src,
+                                        'filename' => $filename,
+                                        'alt'      => $downloadType,
+                                        'width'    => $width,
+                                        'download' => $download,
+                                        'external' => $external,
+                                    ])
+
+                                    @if ($imageName === 'image')
+                                        <div class=flex">
+                                            <strong>image credit:</strong>
+                                            <span>{{ $resource->image_credit }}</span>
+                                        </div>
+                                        <div class=flex">
+                                            <strong>image source:</strong>
+                                            <span>{{ $resource->image_source ?? '' }}</span>
+                                        </div>
+                                    @endif
+
                                 @endif
 
-                            @endif
+                            </div>
 
                         </div>
 

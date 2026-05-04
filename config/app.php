@@ -12,6 +12,20 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
+    'upload_enabled'          => boolval(env('UPLOAD_ENABLED', false)),
+    'upload_max_filesize'     => intval(env('UPLOAD_MAX_FILESIZE', 2048)),
+    'upload_audio_accept'     => !empty(trim(env('UPLOAD_AUDIO_ACCEPT', '')))
+        ? explode('|', trim(env('UPLOAD_AUDIO_ACCEPT', '')))
+        : [],
+    'upload_document_accept'  => !empty(trim(env('UPLOAD_DOCUMENT_ACCEPT', '')))
+        ? explode('|', trim(env('UPLOAD_DOCUMENT_ACCEPT', '')))
+        : [],
+    'upload_image_accept'     => !empty(trim(env('UPLOAD_IMAGE_ACCEPT', '')))
+        ? explode('|', trim(env('UPLOAD_IMAGE_ACCEPT', '')))
+        : [],
+    'upload_video_accept'     => !empty(trim(env('UPLOAD_VIDEO_ACCEPT', '')))
+        ? explode('|', trim(env('UPLOAD_VIDEO_ACCEPT', '')))
+        : [],
 
     'admin_login_enabled'     => boolval(env('APP_ADMIN_LOGIN_ENABLED', false)),
     'admin_table_classes'     => explode('|', env('ADMIN_TABLE_CLASSES', '')),
@@ -72,14 +86,6 @@ return [
     'system_db'               => env('SYSTEM_DB_DATABASE'),
     'theme'                   => env('APP_THEME'),
     'top_column_headings'     => boolval(env('APP_TOP_COLUMN_HEADINGS', 1)),
-    'upload_doc_accept'       => !empty(trim(env('APP_UPLOAD_DOC_ACCEPT', '')))
-        ? explode('|', trim(env('APP_UPLOAD_DOC_ACCEPT', '')))
-        : [],
-    'upload_enabled'          => boolval(env('APP_UPLOAD_ENABLED', false)),
-    'upload_image_accept'     => !empty(trim(env('APP_UPLOAD_IMAGE_ACCEPT', '')))
-        ? explode('|', trim(env('APP_UPLOAD_IMAGE_ACCEPT', '')))
-        : [],
-    'upload_max_file_size'    => intval(env('APP_UPLOAD_MAX_FILE_SIZE', 2048)),
     'user_login_enabled'      => boolval(env('APP_USER_LOGIN_ENABLED', false)),
     'user_table_classes'      => explode('|', env('USER_TABLE_CLASSES', '')),
     'users_enabled'           => boolval(env('APP_USERS_ENABLED', true)),

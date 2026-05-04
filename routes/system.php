@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\FileController as FileController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\System\AdminController as AdminSystemAdminController;
@@ -40,6 +41,7 @@ use App\Http\Controllers\Guest\Dictionary\LibraryController as GuestDictionaryLi
 use App\Http\Controllers\Guest\Dictionary\OperatingSystemController as GuestDictionaryOperatingSystemController;
 use App\Http\Controllers\Guest\Dictionary\ServerController as GuestDictionaryServerController;
 use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStackController;
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // base routes
@@ -107,6 +109,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
         Route::get('dashboard', [AdminIndexController::class, 'dashboard'])->name('dashboard');
         Route::get('/download-from-storage', [IndexController::class, 'download_from_storage'])->name('download-from-storage');
+        Route::post('file-upload', [FileController::class, 'store'])->name('file.store');
         Route::get('profile', [AdminProfileController::class, 'show'])->name('profile.show');
         Route::get('profile/change-password', [AdminProfileController::class, 'change_password'])->name('profile.change-password');
         Route::put('profile/change-password', [AdminProfileController::class, 'change_password_submit'])->name('profile.change-password-submit');
