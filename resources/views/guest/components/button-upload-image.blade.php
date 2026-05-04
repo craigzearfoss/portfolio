@@ -12,12 +12,20 @@
         abort(500, 'No $dataTarget parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'button-upload-image.blade.php.');
     }
 
-    $label = $label ?? 'Upload';
-    $message = $message ?? '';
+    // get the accepted file types
+    $accept = !empty($accept)
+        ? is_array($accept) ? $accept : explode(',', $accept)
+        : [];
+    if (empty($accept)) {
+        $accept = config('app.upload_image_accept');
+    }
 
     $resourceName = $resource->name ?? $resource->title ?? $resource->label ??
         (substr(strrchr(get_class($resource), '\\'), 1) . ' ' . $resource->id);
-    $modalTitle = (!empty($resource->{$column}) ? 'Replace ' : 'Upload ') .  ' ' . $resourceName . ' ' .  $column;
+
+    $modalTitle = $modalTitle ?? (!empty($resource->{$column}) ? 'Replace ' : 'Upload ') .  ' ' . $resourceName . ' ' .  $column;
+    $label = $label ?? 'Upload';
+    $message = $message ?? '';
 
     // get classes
     $class = !empty($class)
@@ -52,7 +60,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
 
-        <form action="{{ route('geust.file.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('guest.file.store') }}" method="POST" enctype="multipart/form-data">
 
             <header class="modal-card-head">
                 <p class="modal-card-title" style="margin-bottom: 0 !important; font-size: 1.2rem; font-weight: 700;" >{{ $modalTitle }}</p>
@@ -85,8 +93,11 @@
                         type="file"
                         name="file"
                         id="inputFile"
-                        class="form-control button is-small is-gray my-0 nav-button @error('file') is-invalid @enderror">
-
+                        class="form-control button is-small is-gray my-0 nav-button @error('file') is-invalid @enderror"
+                        @if (!empty($accept))
+                            accept="{{ implode(',', array_map(function($val) { $val = trim($val, ' ,'); return '.' . $val; }, $accept)) }}"
+                        @endif
+                    >
                     @error('file')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

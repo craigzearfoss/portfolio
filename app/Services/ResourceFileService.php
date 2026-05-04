@@ -36,6 +36,7 @@ class ResourceFileService {
      */
     const array DOCUMENT_COLUMNS = [
         'doc_filepath',
+        'filepath',
         'pdf_filepath',
     ];
 
@@ -243,7 +244,7 @@ class ResourceFileService {
 
             $this->relativePath = 'portfolio' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR .
                 dbName($this->adminResource['database_id']) . DIRECTORY_SEPARATOR .
-                Str::snake($this->resourceTypeName) . DIRECTORY_SEPARATOR .
+                str_replace('_', '-', Str::snake($this->resourceTypeName)) . DIRECTORY_SEPARATOR .
                 $this->resource->id;
             $this->destinationPath = $this->rootPath . DIRECTORY_SEPARATOR . $this->relativePath;
 

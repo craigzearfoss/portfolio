@@ -86,21 +86,63 @@
 
                                 @endif
 
+                                <div class="property-list columns">
+                                    <div class="column is-2 label" style="min-width: 6rem;">
+                                        <strong>File</strong>:
+                                    </div>
+                                    <div class="column is-10 value">
+
+                                        @if (config('app.upload_enabled'))
+                                            @include('admin.components.button-upload-document', [
+                                                'modalTitle'  => (empty($coverLetter->filepath) ? 'Upload ' : 'Replace ')
+                                                    . str_replace('Resume: ', '', $title) . ' cover letter file',
+                                                'label'       => empty($coverLetter->filepath) ? 'Upload' : 'Replace',
+                                                'resource'    => $coverLetter,
+                                                'column'      => 'filepath',
+                                                'target_data' => 'resource-filepath',
+                                            ])
+                                        @endif
+
+                                    </div>
+                                </div>
+
                                 @if (!empty($coverLetter->filepath))
 
-                                    @if (in_array($fileExtension, ['doc', 'docx']))
+                                    @if ($fileExtension == 'pdf')
 
                                         @include('admin.components.show-row-link', [
-                                            'name'   => $fileExtension . ' file',
-                                            'label'  => '<i class="fa-solid fa-download"></i>download',
-                                            'href'   => route('download-from-public', [ 'file' => $coverLetter->filepath, 'name' => $coverLetter->slug ]),
-                                            'target' => '_blank',
-                                            'style'  => 'white-space: nowrap'
+                                            'name'       => 'PDF file',
+                                            'label'      => '<i class="fa-solid fa-download"></i>download',
+                                            'href'       => route('download-from-public', [
+                                                                'file' => $coverLetter->filepath,
+                                                                'name' => $coverLetter->slug ]
+                                                            ),
+                                            'target'     => '_blank',
+                                            'class'      => 'resume-download',
+                                            'attributes' => [ 'data-filename' => $coverLetter->slug ],
                                         ])
 
-                                            <iframe src="{{ route('view-document', [ 'file' => $coverLetter->filepath ]) }}"
-                                                    style="width:100%; min-height:400px; border: 1px solid #ccc;">
-                                            </iframe>
+                                        <iframe src="{{ '/' . trim(str_replace('\\', '/', $coverLetter->filepath), ' /') }}"
+                                                style="width:100%; min-height:800px; border: 1px solid #ccc;">
+                                        </iframe>
+
+                                    @elseif (in_array($fileExtension, ['doc', 'docx']))
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'       => 'Word file',
+                                            'label'      => '<i class="fa-solid fa-download"></i>download',
+                                            'href'       => route('download-from-public', [
+                                                                'file' => $coverLetter->filepath,
+                                                                'name' => $coverLetter->slug ]
+                                                            ),
+                                            'target'     => '_blank',
+                                            'class'      => 'resume-download',
+                                            'attributes' => [ 'data-filename' => $coverLetter->slug ],
+                                        ])
+
+                                        <iframe src="{{ route('view-document', ['file' => $coverLetter->filepath]) }}"
+                                                style="width:100%; min-height:800px; border: 1px solid #ccc;">
+                                        </iframe>
 
                                     @else
 
@@ -112,8 +154,7 @@
                                             'style'  => 'white-space: nowrap'
                                         ])
 
-                                            <iframe src="{{ route('view-document', ['file' => $coverLetter->filepath]) }}"
-                                                    style="width:100%; min-height:300px; border: 1px solid #ccc;">
+                                            <iframe src="{{ '/' . str_replace(DIRECTORY_SEPARATOR, '\\', trim($coverLetter->filepath, ' /\\')) }}" style="width:100%; min-height:300px; border: 1px solid #ccc;">
                                             </iframe>
 
                                     @endif

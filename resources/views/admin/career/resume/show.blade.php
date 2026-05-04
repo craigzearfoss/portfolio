@@ -183,14 +183,28 @@
                                     'value' => longDate($resume->resume_date)
                                 ])
 
-                                @if (empty($resume->pdf_filepath))
+                                <div class="property-list columns">
+                                    <div class="column is-2 label" style="min-width: 6rem;">
+                                        <strong>PDF file</strong>:
+                                    </div>
+                                    <div class="column is-10 value">
 
-                                    @include('admin.components.show-row', [
-                                        'name'   => 'PDF file',
-                                        'value' => '<i>(none)</i>'
-                                    ])
+                                        @if (config('app.upload_enabled'))
+                                            @include('admin.components.button-upload-document', [
+                                                'modalTitle'  => (empty($resume->pdf_filepath) ? 'Upload ' : 'Replace ')
+                                                    . str_replace('Resume: ', '', $title) . ' resume PDF file',
+                                                'label'       => empty($resume->pdf_filepath) ? 'Upload' : 'Replace',
+                                                'resource'    => $resume,
+                                                'column'      => 'pdf_filepath',
+                                                'target_data' => 'resource-pdf-filepath',
+                                                'accept'      => 'pdf',
+                                            ])
+                                        @endif
 
-                                @else
+                                    </div>
+                                </div>
+
+                                @if (!empty($resume->pdf_filepath))
 
                                     @include('admin.components.show-row-link', [
                                         'name'       => 'PDF file',
@@ -204,7 +218,7 @@
                                         'attributes' => [ 'data-filename' => $resume->slug ],
                                     ])
 
-                                    <iframe src="{{ str_replace('\\', '/', $resume->pdf_filepath) }}"
+                                    <iframe src="{{ '/' . trim(str_replace('\\', '/', $resume->pdf_filepath), ' /') }}"
                                             style="width:100%; min-height:800px; border: 1px solid #ccc;">
                                     </iframe>
 
@@ -228,15 +242,28 @@
                                     'value' => longDate($resume->resume_date)
                                 ])
 
+                                <div class="property-list columns">
+                                    <div class="column is-2 label" style="min-width: 6rem;">
+                                        <strong>MS Word file</strong>:
+                                    </div>
+                                    <div class="column is-10 value">
 
-                                @if (empty($resume->doc_filepath)) {
+                                        @if (config('app.upload_enabled'))
+                                            @include('admin.components.button-upload-document', [
+                                                'modalTitle'  => (empty($resume->doc_filepath) ? 'Upload ' : 'Replace ')
+                                                    . str_replace('Resume: ', '', $title) . ' resume MS Word document',
+                                                'label'       => empty($resume->doc_filepath) ? 'Upload' : 'Replace',
+                                                'resource'    => $resume,
+                                                'column'      => 'doc_filepath',
+                                                'target_data' => 'resource-doc-filepath',
+                                                'accept'      => 'doc,docx',
+                                            ])
+                                        @endif
 
-                                @include('admin.components.show-row', [
-                                    'name'   => 'Word file',
-                                    'value' => '<i>(none)</i>'
-                                ])
+                                    </div>
+                                </div>
 
-                                @else
+                                @if (!empty($resume->doc_filepath)) {
 
                                     @include('admin.components.show-row-link', [
                                         'name'       => 'Word file',

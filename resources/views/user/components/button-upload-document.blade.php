@@ -12,10 +12,20 @@
         abort(500, 'No $dataTarget parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'button-upload-document.blade.php.');
     }
 
+    // get the accepted file types
+    $accept = !empty($accept)
+        ? is_array($accept) ? $accept : explode(',', $accept)
+        : [];
+    if (empty($accept)) {
+        $accept = config('app.upload_document_accept');
+    }
+
+    $resourceName = $resource->name ?? $resource->title ?? $resource->label ??
+        (substr(strrchr(get_class($resource), '\\'), 1) . ' ' . $resource->id);
+
+    $modalTitle = $modalTitle ?? (!empty($resource->{$column}) ? 'Replace ' : 'Upload ') .  ' ' . $resourceName . ' ' .  $column;
     $label = $label ?? 'Upload';
     $message = $message ?? '';
-
-    $modalTitle = (!empty($resource->{$column}) ? 'Replace ' : 'Upload ') . $column;
 
     // get classes
     $class = !empty($class)
@@ -83,8 +93,11 @@
                         type="file"
                         name="file"
                         id="inputFile"
-                        class="form-control button is-small is-gray my-0 nav-button @error('file') is-invalid @enderror">
-
+                        class="form-control button is-small is-gray my-0 nav-button @error('file') is-invalid @enderror"
+                        @if (!empty($accept))
+                            accept="{{ implode(',', array_map(function($val) { $val = trim($val, ' ,'); return '.' . $val; }, $accept)) }}"
+                        @endif
+                    >
                     @error('file')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
