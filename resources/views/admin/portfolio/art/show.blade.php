@@ -39,12 +39,6 @@
 
 @section('content')
 
-    @include('admin.components.partials.image-upload-overlay_OLD', [
-        'resource'      => $art,
-        'resource_type' => new Resource()->newQuery()->where('class', get_class($art))->first(),
-        'column'        => 'image',
-    ])
-
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
