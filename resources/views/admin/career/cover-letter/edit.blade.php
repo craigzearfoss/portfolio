@@ -89,14 +89,6 @@
                     'message' => $message ?? '',
                 ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'      => 'url',
-                    'label'      => 'cover letter url',
-                    'value'     => old('url') ?? $coverLetter->url,
-                    'maxlength' => 500,
-                    'message'   => $message ?? '',
-                ])
-
                 @include('admin.components.form-textarea-horizontal', [
                     'name'    => 'notes',
                     'value'   => old('notes') ?? $coverLetter->notes,

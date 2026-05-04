@@ -94,22 +94,42 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'doc_url',
-                'label'     => 'doc url',
-                'value'     => old('doc_url') ?? $resume->doc_url,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <strong>MS Word file</strong>:
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control ">
+                            @if (!empty($resume->doc_filepath))
+                                {{ substr(strrchr($resume->doc_filepath, DIRECTORY_SEPARATOR), 1) }}
+                            @else
+                                <i>none (Add via the show page.)</i>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'pdf_url',
-                'label'     => 'pdf url',
-                'value'     => old('pdf_url') ?? $resume->pdf_url,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
 
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <strong>PDF file</strong>:
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control ">
+                            @if (!empty($resume->pdf_filepath))
+                                {{ substr(strrchr($resume->pdf_filepath, DIRECTORY_SEPARATOR), 1) }}
+                            @else
+                                <i>none (Add via the show page.)</i>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php /*
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'file_type',
                 'label'    => 'file type',
@@ -118,6 +138,7 @@
                 'list'     => Resume::fileTypes(true),
                 'message'  => $message ?? '',
             ])
+            */ ?>
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
