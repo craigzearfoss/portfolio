@@ -79,26 +79,36 @@
 
                                 @if (!empty($coverLetter->content))
 
+                                    <?php /*
                                     @include('admin.components.show-row', [
                                         'name'    => 'content',
                                         'value'   => $coverLetter->content,
                                     ])
+                                    */ ?>
 
                                 @endif
 
                                 <div class="property-list columns">
                                     <div class="column is-2 label" style="min-width: 6rem;">
-                                        <strong>File</strong>:
+                                        <strong>file</strong>:
+                                        @if (!empty($coverLetter->filepath))
+                                            @include('admin.components.download-links', [
+                                                'name'     => 'image',
+                                                'href'     => imageUrl($coverLetter->filepath),
+                                                'filename' => Str::slug(str_replace('CoverLetter: ', '', $title)). '.' . substr(strrchr($coverLetter->filepath, '.'), 1),
+                                                'download' => true,
+                                                'external' => !in_array($fileExtension, [ 'doc', 'docx' ]),
+                                            ])
+                                        @endif
                                     </div>
                                     <div class="column is-10 value">
 
                                         @if (config('app.upload_enabled'))
                                             @include('admin.components.button-upload-document', [
-                                                'modalTitle'  => (empty($coverLetter->filepath) ? 'Upload ' : 'Replace ')
-                                                    . str_replace('Resume: ', '', $title) . ' cover letter file',
+                                                'modalTitle'  => 'Replace ' . str_replace('CoverLetter: ', '', $title) . ' cover letter file',
                                                 'label'       => empty($coverLetter->filepath) ? 'Upload' : 'Replace',
                                                 'resource'    => $coverLetter,
-                                                'column'      => 'filepath',
+                                                'column'      => 'doc_filepath',
                                                 'target_data' => 'resource-filepath',
                                             ])
                                         @endif
@@ -106,56 +116,29 @@
                                     </div>
                                 </div>
 
-                                @if (!empty($coverLetter->filepath))
+
+                            @if (!empty($coverLetter->filepath))
 
                                     @if ($fileExtension == 'pdf')
 
-                                        @include('admin.components.show-row-link', [
-                                            'name'       => 'PDF file',
-                                            'label'      => '<i class="fa-solid fa-download"></i>download',
-                                            'href'       => route('download-from-public', [
-                                                                'file' => $coverLetter->filepath,
-                                                                'name' => $coverLetter->slug ]
-                                                            ),
-                                            'target'     => '_blank',
-                                            'class'      => 'resume-download',
-                                            'attributes' => [ 'data-filename' => $coverLetter->slug ],
-                                        ])
-
                                         <iframe src="{{ '/' . trim(str_replace('\\', '/', $coverLetter->filepath), ' /') }}"
-                                                style="width:100%; min-height:800px; border: 1px solid #ccc;">
+                                                style="width:100%; min-height:800px; border: 1px solid #ccc;"
+                                        >
                                         </iframe>
 
                                     @elseif (in_array($fileExtension, ['doc', 'docx']))
 
-                                        @include('admin.components.show-row-link', [
-                                            'name'       => 'Word file',
-                                            'label'      => '<i class="fa-solid fa-download"></i>download',
-                                            'href'       => route('download-from-public', [
-                                                                'file' => $coverLetter->filepath,
-                                                                'name' => $coverLetter->slug ]
-                                                            ),
-                                            'target'     => '_blank',
-                                            'class'      => 'resume-download',
-                                            'attributes' => [ 'data-filename' => $coverLetter->slug ],
-                                        ])
-
                                         <iframe src="{{ route('view-document', ['file' => $coverLetter->filepath]) }}"
-                                                style="width:100%; min-height:800px; border: 1px solid #ccc;">
+                                                style="width:100%; min-height:800px; border: 1px solid #ccc;"
+                                        >
                                         </iframe>
 
                                     @else
 
-                                        @include('admin.components.show-row-link', [
-                                            'name'   => $fileExtension . ' file',
-                                            'label'  => '<i class="fa-solid fa-download"></i>download',
-                                            'href'   => route('download-from-public', [ 'file' => $coverLetter->filepath, 'name' => $coverLetter->slug ]),
-                                            'target' => '_blank',
-                                            'style'  => 'white-space: nowrap'
-                                        ])
-
-                                            <iframe src="{{ '/' . str_replace(DIRECTORY_SEPARATOR, '\\', trim($coverLetter->filepath, ' /\\')) }}" style="width:100%; min-height:300px; border: 1px solid #ccc;">
-                                            </iframe>
+                                        <iframe src="{{ '/' . str_replace(DIRECTORY_SEPARATOR, '\\', trim($coverLetter->filepath, ' /\\')) }}"
+                                                style="width:100%; min-height:300px; border: 1px solid #ccc;"
+                                        >
+                                        </iframe>
 
                                     @endif
 
@@ -205,17 +188,28 @@
                                     'value' => longDate($coverLetter->cover_letter_date)
                                 ])
 
-                                @include('admin.components.show-row-link', [
-                                    'name'   => $fileExtension . ' file',
-                                    'label'  => !empty($coverLetter->filepath) ? '<i class="fa-solid fa-download"></i>download' : '',
-                                    'href'   => !empty($coverLetter->filepath)
-                                                    ? route('download-from-public', [ 'file' => $coverLetter->filepath,
-                                                                                      'name' => $coverLetter->slug ]
-                                                            )
-                                                    : '',
-                                    'target' => '_blank',
-                                    'style'  => 'white-space: nowrap'
-                                ])
+                                <div class="property-list columns">
+                                    <div class="column is-2 label">
+                                        <strong>file</strong>:
+                                    </div>
+                                    <div class="column is-10 value">
+
+                                        @if (!empty($coverLetter->filepath))
+                                            {{ substr(strrchr($coverLetter->filepath, DIRECTORY_SEPARATOR), 1) }}
+                                            @include('admin.components.download-links', [
+                                                'name'     => 'image',
+                                                'href'     => imageUrl($coverLetter->filepath),
+                                                'filename' => Str::slug(str_replace('CoverLetter: ', '', getResourcePageTitle($coverLetter)))
+                                                                  . '.' . substr(strrchr($coverLetter->filepath, '.'), 1),
+                                                'download' => true,
+                                                'external' => !in_array($fileExtension, [ 'doc', 'docx' ]),
+                                            ])
+                                        @else
+                                            <i>none (Add via the Cover Letter tab.)</i>
+                                        @endif
+
+                                    </div>
+                            </div>
 
                                 <?php /*
                                 @include('admin.components.show-row', [

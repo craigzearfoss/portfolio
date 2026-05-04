@@ -27,6 +27,10 @@
     $navButtons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.career.resume.index') ])->render(),
     ];
+
+    $fileExtension = !empty($coverLetter->filepath)
+        ? Illuminate\Support\Facades\File::extension($coverLetter->filepath)
+        : '';
 @endphp
 
 @extends('admin.layouts.default')
@@ -103,6 +107,14 @@
                         <div class="control ">
                             @if (!empty($resume->doc_filepath))
                                 {{ substr(strrchr($resume->doc_filepath, DIRECTORY_SEPARATOR), 1) }}
+                                @include('admin.components.download-links', [
+                                    'name'     => 'image',
+                                    'href'     => imageUrl($resume->doc_filepath),
+                                    'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
+                                                      . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                    'download' => true,
+                                    'external' => false,
+                                ])
                             @else
                                 <i>none (Add via the show page.)</i>
                             @endif
@@ -111,7 +123,6 @@
                 </div>
             </div>
 
-
             <div class="field is-horizontal">
                 <div class="field-label">
                     <strong>PDF file</strong>:
@@ -119,8 +130,17 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control ">
+
                             @if (!empty($resume->pdf_filepath))
                                 {{ substr(strrchr($resume->pdf_filepath, DIRECTORY_SEPARATOR), 1) }}
+                                @include('admin.components.download-links', [
+                                    'name'     => 'image',
+                                    'href'     => imageUrl($resume->pdf_filepath),
+                                    'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
+                                                      . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                    'download' => true,
+                                    'external' => !in_array($fileExtension, [ 'doc', 'docx' ]),
+                                ])
                             @else
                                 <i>none (Add via the show page.)</i>
                             @endif

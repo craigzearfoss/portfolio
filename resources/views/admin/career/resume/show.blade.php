@@ -186,6 +186,15 @@
                                 <div class="property-list columns">
                                     <div class="column is-2 label" style="min-width: 6rem;">
                                         <strong>PDF file</strong>:
+                                        @if (!empty($resume->pdf_filepath))
+                                            @include('admin.components.download-links', [
+                                                'name'     => 'image',
+                                                'href'     => imageUrl($resume->pdf_filepath),
+                                                'filename' => Str::slug(str_replace('Resume: ', '', $title)). '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                                'download' => true,
+                                                'external' => true,
+                                            ])
+                                        @endif
                                     </div>
                                     <div class="column is-10 value">
 
@@ -205,18 +214,6 @@
                                 </div>
 
                                 @if (!empty($resume->pdf_filepath))
-
-                                    @include('admin.components.show-row-link', [
-                                        'name'       => 'PDF file',
-                                        'label'      => '<i class="fa-solid fa-download"></i>download',
-                                        'href'       => route('download-from-public', [
-                                                            'file' => $resume->pdf_filepath,
-                                                            'name' => $resume->slug ]
-                                                        ),
-                                        'target'     => '_blank',
-                                        'class'      => 'resume-download',
-                                        'attributes' => [ 'data-filename' => $resume->slug ],
-                                    ])
 
                                     <iframe src="{{ '/' . trim(str_replace('\\', '/', $resume->pdf_filepath), ' /') }}"
                                             style="width:100%; min-height:800px; border: 1px solid #ccc;">
@@ -245,17 +242,26 @@
                                 <div class="property-list columns">
                                     <div class="column is-2 label" style="min-width: 6rem;">
                                         <strong>MS Word file</strong>:
+                                        @if (!empty($resume->doc_filepath))
+                                            @include('admin.components.download-links', [
+                                                'name'     => 'image',
+                                                'href'     => imageUrl($resume->doc_filepath),
+                                                'filename' => Str::slug(str_replace('Resume: ', '', $title)). '.' . substr(strrchr($resume->doc_filepath, '.'), 1),
+                                                'download' => true,
+                                                'external' => false,
+                                            ])
+                                        @endif
                                     </div>
                                     <div class="column is-10 value">
 
                                         @if (config('app.upload_enabled'))
                                             @include('admin.components.button-upload-document', [
                                                 'modalTitle'  => (empty($resume->doc_filepath) ? 'Upload ' : 'Replace ')
-                                                    . str_replace('Resume: ', '', $title) . ' resume MS Word document',
+                                                    . str_replace('Resume: ', '', $title) . ' resume MS Word file',
                                                 'label'       => empty($resume->doc_filepath) ? 'Upload' : 'Replace',
                                                 'resource'    => $resume,
                                                 'column'      => 'doc_filepath',
-                                                'target_data' => 'resource-doc-filepath',
+                                                'target_data' => 'resource-doc_filepath',
                                                 'accept'      => 'doc,docx',
                                             ])
                                         @endif
@@ -263,19 +269,7 @@
                                     </div>
                                 </div>
 
-                                @if (!empty($resume->doc_filepath)) {
-
-                                    @include('admin.components.show-row-link', [
-                                        'name'       => 'Word file',
-                                        'label'      => '<i class="fa-solid fa-download"></i>download',
-                                        'href'       => route('download-from-public', [
-                                                            'file' => $resume->doc_filepath,
-                                                            'name' => $resume->slug ]
-                                                        ),
-                                        'target'     => '_blank',
-                                        'class'      => 'resume-download',
-                                        'attributes' => [ 'data-filename' => $resume->slug ],
-                                    ])
+                                @if (!empty($resume->doc_filepath))
 
                                     <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
                                             style="width:100%; min-height:800px; border: 1px solid #ccc;">

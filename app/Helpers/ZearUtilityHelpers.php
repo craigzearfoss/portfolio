@@ -784,7 +784,7 @@ if (! function_exists('imageUrl')) {
         } else {
 
             if (!str_starts_with(strtolower($src), 'http://') && !str_starts_with(strtolower($src), 'https://')) {
-                $src = trim($src, ' /');
+                $src = trim($src, ' /\\');
                 $src = '/'. str_replace(DIRECTORY_SEPARATOR, '/', $src);
             }
         }

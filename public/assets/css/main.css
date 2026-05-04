@@ -611,6 +611,15 @@ div.floating-div-container.settings div.floating-div {
     margin-top: 0 !important;
     background-color: #f5f5f5 !important;
 }
+.modal-card-head {
+    display: block;
+    padding: 1rem;
+}
+.delete.cancel-file-upload-modal {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
 .top-left-span {
     position: absolute;
     top: 0;

@@ -82,12 +82,40 @@
                     'message' => $message ?? '',
                 ])
 
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <strong>file</strong>:
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control ">
+
+                                @if (!empty($coverLetter->filepath))
+                                    {{ substr(strrchr($coverLetter->filepath, DIRECTORY_SEPARATOR), 1) }}
+                                    @include('admin.components.download-links', [
+                                        'name'     => 'image',
+                                        'href'     => imageUrl($coverLetter->filepath),
+                                        'filename' => Str::slug(str_replace('CoverLetter: ', '', getResourcePageTitle($coverLetter)))
+                                                          . '.' . substr(strrchr($coverLetter->filepath, '.'), 1),
+                                        'download' => true,
+                                        'external' => true,
+                                    ])
+                                @else
+                                    <i>none (Add via the show page.)</i>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php /*
                 @include('admin.components.form-textarea-horizontal', [
                     'name'    => 'content',
                     'id'      => 'inputEditor',
                     'value'   => old('content') ?? $coverLetter->content,
                     'message' => $message ?? '',
                 ])
+                */ ?>
 
                 @include('admin.components.form-textarea-horizontal', [
                     'name'    => 'notes',

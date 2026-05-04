@@ -51,6 +51,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // download link with prompt to rename the downloaded d file
+    const downloadWLinksWithPromptBtns= document.querySelectorAll('.download-link-with-prompt');
+
+    downloadWLinksWithPromptBtns.forEach((elem) => {
+        elem.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // get the export url
+            let downloadUrl = elem.getAttribute('data-href');
+            if (!downloadUrl) {
+                downloadUrl = elem.getAttribute('data-url');
+            }
+
+            // get the filename
+            let filename = elem.getAttribute('data-filename');
+
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+    });
+
+    // excel export buttons
     const exportToExcelBtns= document.querySelectorAll('.export-to-excel-btn');
     exportToExcelBtns.forEach((elem) => {
         elem.addEventListener('click', function(event) {
