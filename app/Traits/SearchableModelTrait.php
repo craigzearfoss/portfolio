@@ -54,13 +54,22 @@ trait SearchableModelTrait
         'deleted_at',
     ];
 
-    protected $appends = ['resource_type_id'];
-
     /**
      *
      */
     public function __construct()
     {
+    }
+
+    public function initializeHasCustomAttributes(): void
+    {
+        // Merge without overwriting
+        $this->appends = array_unique(array_merge($this->appends ?? [], ['custom_attribute']));
+    }
+
+    public function getCustomAttributeAttribute(): string
+    {
+        return 'value';
     }
 
     /**
