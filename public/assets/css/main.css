@@ -185,6 +185,9 @@ div.field.is-horizontal div.field-label label.label {
     color: #7a7a7a;
     line-height: 1.2em;
 }
+.list-item-description ul.job-tasks {
+    list-style: none !important;
+}
 
 .search-container {
     min-width: 30rem;

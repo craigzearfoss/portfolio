@@ -101,7 +101,7 @@
 
                         <div class="list-item-description pt-1">
                             @if (!empty($job->tasks))
-                                <ul>
+                                <ul class="job-tasks">
                                     @foreach ($job->tasks as $task)
                                         <li>• {!! $task->summary !!}</li>
                                     @endforeach
