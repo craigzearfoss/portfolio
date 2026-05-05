@@ -19,22 +19,22 @@
     @foreach ($coworkers as $coworker)
 
         <tr>
-            <td>
+            <td data-field="id" style="white-space: nowrap;">
                 @include('admin.components.link', [
                     'name' => $coworker->name,
                     'href' => route('admin.portfolio.job-coworker.show', $coworker)
                 ])
             </td>
-            <td data-field="title">
+            <td data-field="title" style="white-space: nowrap;">
                 {!! $coworker->title !!}
             </td>
-            <td data-field="level">
+            <td data-field="level" style="white-space: nowrap;">
                 {!! $coworker->level !!}
             </td>
-            <td data-field="phone">
+            <td data-field="phone" style="white-space: nowrap;">
                 {!! $coworker->phone !!}
             </td>
-            <td data-field="email">
+            <td data-field="email" style="white-space: nowrap;">
                 {!! $coworker->email !!}
             </td>
             <td data-field="is_public" class="has-text-centered">

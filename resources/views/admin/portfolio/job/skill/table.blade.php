@@ -16,10 +16,10 @@
     @foreach ($skills as $skill)
 
         <tr>
-            <td data-field="name">
+            <td data-field="name" style="white-space: nowrap;">
                 {!! $skill->name !!}
             </td>
-            <td data-field="dictionary_category_id">
+            <td data-field="dictionary_category_id" style="white-space: nowrap;">
                  @if (!empty($skill->category->name))
                      {!! $skill->category->name !!}
                  @endif
