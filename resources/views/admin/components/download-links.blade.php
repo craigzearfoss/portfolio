@@ -4,15 +4,9 @@
 
     $href = $href ?? null;
     $filename = $filename ?? '';
-    if (empty($file)) {
-        abort(500, 'No $file parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'download-links.blade.php.');
+    if (empty($filename)) {
+        abort(500, 'No $filename parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'download-links.blade.php.');
     }
-@endphp
-
-@php
-
-//    $filepath  = !empty($src) ? imageUrl($src) : null;
-//    $filename  = ($filename ?? 'download') . (!empty($extension) ? '.'. $extension : '');
 @endphp
 <div style="display: inline-block;">
 
