@@ -111,6 +111,7 @@
                                 ])
 
                                 <?php /*
+                                // we currently aren't using the file_type column
                                 @include('admin.components.show-row', [
                                     'name'  => 'file type',
                                     'value' => $resume->file_type

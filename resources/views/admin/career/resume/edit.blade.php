@@ -150,6 +150,7 @@
             </div>
 
             <?php /*
+            // we currently aren't using the file_type column
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'file_type',
                 'label'    => 'file type',

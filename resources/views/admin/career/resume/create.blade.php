@@ -95,22 +95,8 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'doc_url',
-                'label'     => 'doc url',
-                'value'     => old('doc_url') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'pdf_url',
-                'label'     => 'pdf url',
-                'value'     => old('pdf_url') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
+            <?php /*
+            // we currently aren't using the file_type column
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'file_type',
                 'label'    => 'file type',
@@ -119,6 +105,9 @@
                 'list'     => Resume::fileTypes(true),
                 'message'  => $message ?? '',
             ])
+            */ ?>
+            <input type="hidden" name="file_type" value="other">
+
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
