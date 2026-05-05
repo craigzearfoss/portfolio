@@ -5,8 +5,8 @@
     <thead>
     <tr>
         <th>summary</th>
-        <th>public</th>
-        <th>disabled</th>
+        <th class="has-text-centered">public</th>
+        <th class="has-text-centered">disabled</th>
         <th>actions</th>
     </tr>
     </thead>
