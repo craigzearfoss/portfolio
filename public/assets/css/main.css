@@ -518,6 +518,10 @@ table.table.guest-table {
     margin-bottom: .75rem !important;
 }
 
+table.admin-table thead tr th {
+    white-space: nowrap;
+}
+
 table.table.admin-table tbody tr:not(.is-selected):nth-child(even),
 table.table.user-table tbody tr:not(.is-selected):nth-child(even),
 table.table.guest-table tbody tr:not(.is-selected):nth-child(even) {
