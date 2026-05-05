@@ -96,7 +96,7 @@ class JobSkillController extends BaseAdminController
         list($prev, $next) = new JobSkill()->prevAndNextPages(
             $jobSkill['id'],
             'admin.portfolio.job-skill.show',
-            $this->owner->id ?? null,
+            $this->owner ?? null,
             [ 'name', 'asc' ]
         );
 

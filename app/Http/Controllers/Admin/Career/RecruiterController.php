@@ -90,7 +90,7 @@ class RecruiterController extends BaseAdminController
         list($prev, $next) = $recruiter->prevAndNextPages(
             $recruiter['id'],
             'admin.career.recruiter.show',
-            null,
+            $this->owner ?? null,
             [ 'name', 'asc' ]
         );
 

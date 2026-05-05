@@ -90,7 +90,7 @@ class LanguageController extends BaseAdminController
         list($prev, $next) = $language->prevAndNextPages(
             $language['id'],
             'admin.dictionary.language.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

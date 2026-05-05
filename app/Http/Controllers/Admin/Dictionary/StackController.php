@@ -90,7 +90,7 @@ class StackController extends BaseAdminController
         list($prev, $next) = $stack->prevAndNextPages(
             $stack['id'],
             'admin.dictionary.stack.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

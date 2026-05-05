@@ -90,7 +90,7 @@ class IndustryController extends BaseAdminController
         list($prev, $next) = $industry->prevAndNextPages(
             $industry['id'],
             'admin.career.industry.show',
-            null,
+            $this->owner ?? null,
             [ 'name', 'asc' ]
         );
 

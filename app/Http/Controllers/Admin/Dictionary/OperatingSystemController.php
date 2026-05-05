@@ -88,7 +88,7 @@ class OperatingSystemController extends BaseAdminController
         list($prev, $next) = $operatingSystem->prevAndNextPages(
             $operatingSystem['id'],
             'admin.dictionary.operating-system.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

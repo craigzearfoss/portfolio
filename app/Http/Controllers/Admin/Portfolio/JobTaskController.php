@@ -96,7 +96,7 @@ class JobTaskController extends BaseAdminController
         list($prev, $next) = new JobTask()->prevAndNextPages(
             $jobTask['id'],
             'admin.portfolio.job-task.show',
-            $this->owner->id ?? null,
+            $this->owner ?? null,
             [ 'id', 'asc' ]
         );
 

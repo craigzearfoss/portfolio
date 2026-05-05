@@ -90,7 +90,7 @@ class FrameworkController extends BaseAdminController
         list($prev, $next) = $framework->prevAndNextPages(
             $framework['id'],
             'admin.dictionary.framework.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

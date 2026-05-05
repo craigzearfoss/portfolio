@@ -90,7 +90,7 @@ class DatabaseController extends BaseAdminController
         list($prev, $next) = $database->prevAndNextPages(
             $database['id'],
             'admin.dictionary.database.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

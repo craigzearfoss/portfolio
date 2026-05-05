@@ -90,7 +90,7 @@ class JobBoardController extends BaseAdminController
         list($prev, $next) = $jobBoard->prevAndNextPages(
             $jobBoard['id'],
             'admin.career.job-board.show',
-            null,
+            $this->owner ?? null,
             [ 'name', 'asc' ]
         );
 

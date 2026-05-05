@@ -90,7 +90,7 @@ class CategoryController extends BaseAdminController
         list($prev, $next) = $category->prevAndNextPages(
             $category['id'],
             'admin.dictionary.category.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

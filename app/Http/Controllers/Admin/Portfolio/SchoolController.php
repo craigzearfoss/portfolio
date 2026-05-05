@@ -91,7 +91,7 @@ class SchoolController extends BaseAdminController
         list($prev, $next) = $school->prevAndNextPages(
             $school['id'],
             'admin.portfolio.school.show',
-            null,
+            $this->owner,
             [ 'name', 'asc' ]
         );
 

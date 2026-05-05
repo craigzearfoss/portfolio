@@ -90,7 +90,7 @@ class LibraryController extends BaseAdminController
         list($prev, $next) = $library->prevAndNextPages(
             $library['id'],
             'admin.dictionary.library.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 

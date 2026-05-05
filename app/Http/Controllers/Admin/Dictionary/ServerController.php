@@ -90,7 +90,7 @@ class ServerController extends BaseAdminController
         list($prev, $next) = $server->prevAndNextPages(
             $server['id'],
             'admin.dictionary.server.show',
-            null,
+            $this->owner ?? null,
             [ 'full_name', 'asc' ]
         );
 
