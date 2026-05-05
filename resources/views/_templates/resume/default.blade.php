@@ -92,7 +92,7 @@
                             {!!
                                 formatLocation([
                                     'city'  => $job->city,
-                                    'state' => $job->state->code
+                                    'state' => $job->state->code ?? ''
                                 ])
                             !!}
                             <div class="tag is-rounded">
