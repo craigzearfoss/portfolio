@@ -108,7 +108,7 @@
                                                 'modalTitle'  => 'Replace ' . str_replace('CoverLetter: ', '', $title) . ' cover letter file',
                                                 'label'       => empty($coverLetter->filepath) ? 'Upload' : 'Replace',
                                                 'resource'    => $coverLetter,
-                                                'column'      => 'doc_filepath',
+                                                'column'      => 'filepath',
                                                 'target_data' => 'resource-filepath',
                                             ])
                                         @endif
