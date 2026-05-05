@@ -105,21 +105,17 @@
                                     'value' => $resume->content
                                 ])
 
-                                @include('admin.components.show-row-images', [
-                                    'resource' => $resume,
-                                    'download' => !empty($resume->doc_filepath) && !Str::startsWith($resume->doc_filepath, 'http'),
-                                    'external' => true,
-                                ])
-
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
                                     'value' => $resume->notes
                                 ])
 
+                                <?php /*
                                 @include('admin.components.show-row', [
                                     'name'  => 'file type',
                                     'value' => $resume->file_type
                                 ])
+                                */ ?>
 
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
@@ -138,17 +134,17 @@
                                     'value' => $resume->description
                                 ])
 
+                                @include('admin.components.show-row-images', [
+                                    'resource' => $resume,
+                                    'download' => !empty($resume->doc_filepath) && !Str::startsWith($resume->doc_filepath, 'http'),
+                                    'external' => true,
+                                ])
+
                                 @include('admin.components.show-row', [
                                     'name'  => 'disclaimer',
                                     'value' => view('admin.components.disclaimer', [
                                                     'value' => $resume->disclaimer
                                                ])
-                                ])
-
-                                @include('admin.components.show-row-images', [
-                                    'resource' => $resume,
-                                    'download' => true,
-                                    'external' => true,
                                 ])
 
                                 @include('admin.components.show-row-visibility', [
