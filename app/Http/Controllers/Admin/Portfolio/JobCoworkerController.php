@@ -58,13 +58,16 @@ class JobCoworkerController extends BaseAdminController
     {
         createGate(JobCoworker::class, $this->admin);
 
-        if ($jobId = $request->query('job_id')) {
-            $job = Job::query()->find($jobId);
+        $jobId = $request->input('job_id');
+        if ($job = !empty($jobId) ? Job::query()->find($jobId) : null) {
+            $owner    = $job->owner;
+            $owner_id = $job->owner->id;
         } else {
-            $job = null;
+            $owner    = $this->owner;
+            $owner_id = $this->owner->id;
         }
 
-        return view('admin.portfolio.job-coworker.create', compact('job'));
+        return view('admin.portfolio.job-coworker.create', compact('job', 'owner', 'owner_id'));
     }
 
     /**

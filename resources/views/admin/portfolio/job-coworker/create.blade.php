@@ -62,7 +62,7 @@
                     @include('admin.components.form-select-horizontal', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
-                        'value'    => old('owner_id') ?? '',
+                        'value'    => old('owner_id') ?? $owner_id,
                         'required' => true,
                         'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'message'  => $message ?? '',

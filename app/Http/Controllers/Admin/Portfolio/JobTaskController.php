@@ -58,9 +58,15 @@ class JobTaskController extends BaseAdminController
         createGate(JobTask::class, $this->admin);
 
         $jobId = $request->input('job_id');
-        $job = !empty($jobId) ? Job::query()->find($jobId) : null;
+        if ($job = !empty($jobId) ? Job::query()->find($jobId) : null) {
+            $owner    = $job->owner;
+            $owner_id = $job->owner->id;
+        } else {
+            $owner    = $this->owner;
+            $owner_id = $this->owner->id;
+        }
 
-        return view('admin.portfolio.job-task.create', compact('job'));
+        return view('admin.portfolio.job-task.create', compact('job', 'owner', 'owner_id'));
     }
 
     /**
