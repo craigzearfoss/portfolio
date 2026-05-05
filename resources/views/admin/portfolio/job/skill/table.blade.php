@@ -6,6 +6,8 @@
     <tr>
         <th>name</th>
         <th>category</th>
+        <th>public</th>
+        <th>disabled</th>
         <th>actions</th>
     </tr>
     </thead>
@@ -21,6 +23,12 @@
                  @if (!empty($skill->category->name))
                      {!! $skill->category->name !!}
                  @endif
+            </td>
+            <td data-field="is_public" class="has-text-centered">
+                @include('admin.components.checkmark', [ 'checked' => $skill->is_public ])
+            </td>
+            <td data-field="is_disabled" class="has-text-centered">
+                @include('admin.components.checkmark', [ 'checked' => $skill->is_disabled ])
             </td>
             <td class="is-1">
 

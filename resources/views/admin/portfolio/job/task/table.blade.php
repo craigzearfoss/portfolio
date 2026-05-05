@@ -5,6 +5,8 @@
     <thead>
     <tr>
         <th>summary</th>
+        <th>public</th>
+        <th>disabled</th>
         <th>actions</th>
     </tr>
     </thead>
@@ -15,6 +17,12 @@
         <tr>
             <td data-field="summary">
                 {{ $task->summary ?? '' }}
+            </td>
+            <td data-field="is_public" class="has-text-centered">
+                @include('admin.components.checkmark', [ 'checked' => $task->is_public ])
+            </td>
+            <td data-field="is_disabled" class="has-text-centered">
+                @include('admin.components.checkmark', [ 'checked' => $task->is_disabled ])
             </td>
             <td class="is-1">
 

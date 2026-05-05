@@ -9,6 +9,8 @@
         <th>level</th>
         <th>phone</th>
         <th>email</th>
+        <th>public</th>
+        <th>disabled</th>
         <th>actions</th>
     </tr>
     </thead>
@@ -34,6 +36,12 @@
             </td>
             <td data-field="email">
                 {!! $coworker->email !!}
+            </td>
+            <td data-field="is_public" class="has-text-centered">
+                @include('admin.components.checkmark', [ 'checked' => $coworker->is_public ])
+            </td>
+            <td data-field="is_disabled" class="has-text-centered">
+                @include('admin.components.checkmark', [ 'checked' => $coworker->is_disabled ])
             </td>
             <td class="is-1">
 
