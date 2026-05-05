@@ -278,7 +278,11 @@ class MenuService
 
                 if ($this->isRootAdmin) {
                     foreach ($menu as $i => $menuItem) {
-                        if (array_key_exists('tag', $menuItem->getAttributes()) && ($menuItem->tag === 'db')) {
+                        if (!empty($menuItem)
+                            && method_exists($menuItem, 'getAttributes')
+                            && array_key_exists('tag', $menuItem->getAttributes())
+                            && ($menuItem->tag === 'db')
+                        ) {
                             $menuItem[$i]->children[] = $this->menuItem([
                                 'tag'   => 'databases',
                                 'title' => 'Databases',
@@ -454,7 +458,11 @@ class MenuService
                 if ($this->isRootAdmin) {
 
                     foreach ($menu as $menuItem) {
-                        if (array_key_exists('tag', $menuItem->getAttributes()) && ($menuItem->tag === 'db')) {
+                        if (!empty($menuItem)
+                            && method_exists($menuItem, 'getAttributes')
+                            && array_key_exists('tag', $menuItem->getAttributes())
+                            && ($menuItem->tag === 'db')
+                        ) {
                             $adminDropdownMenu->children[] = $this->menuItem([
                                 'tag'  => 'databases',
                                 'title'=> 'Databases',
