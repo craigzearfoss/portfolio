@@ -37,7 +37,7 @@
 >
     <div class="column is-2 label">
         @if (!empty($name))
-            <strong>{!! $name !!}</strong>:
+            <strong>images</strong>:
         @endif
     </div>
     <div class="column is-10 value">
@@ -119,11 +119,12 @@
                                         }
 
                                         $filename = generateDownloadFilename($resource, $suffix);
-
+                                        $imageTitle = str_replace(get_class($resource) . ': ', '', getResourcePageTitle($resource, false))
                                     @endphp
 
                                     @include('guest.components.image', [
                                         'name'     => 'image',
+                                        'title'    => $imageTitle,
                                         'src'      => $src,
                                         'filename' => $filename,
                                         'alt'      => $downloadType,

@@ -39,7 +39,7 @@
                 <a class="download-link text-xl"
                     title="{!! $title ?? 'download file'!!}"
                     data-url="{!! $imageUrl !!}"
-                    data-filename="{!! $filename ?? '' !!}"
+                    data-filename="{!! $filename !!}"
                 >
                     <i class="fa fa-download"></i>
                 </a>
