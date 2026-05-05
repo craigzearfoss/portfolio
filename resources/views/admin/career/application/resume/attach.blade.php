@@ -1,6 +1,11 @@
 @php
     use App\Models\Career\Resume;
 
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+    $errors      = $errors ?? false;
+
     $title    = $pageTitle ?? 'Attach a resume' . (!empty($application) ? ' to ' . $application->name . ' application' : '');
     $subtitle = $title;
 
@@ -26,7 +31,7 @@
     $navButtons = [];
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render();
 
-    $resumeOptionsList = new Resume()->listOptions([], 'id', 'name', true);
+    $resumeOptionsList = new Resume()->listOptions([ 'active' => 1 ], 'id', 'name', true);
 
     $selectedResumeId = !empty($errors->any()) || !empty($errors->get('GLOBAL'))
         ? null

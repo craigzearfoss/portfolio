@@ -106,18 +106,16 @@
                     <div id="pdf-file">
 
                         @include('admin.components.show-row-resume', [
-                            'filetype'  => 'pdf',
-                            'filepath'  => $resume->pdf_filepath,
-                            'slug'      => $resume->slug,
+                            'filetype' => 'pdf',
+                            'resume'   => $resume,
                         ])
 
                     </div>
                     <div id="word-file">
 
                         @include('admin.components.show-row-resume', [
-                            'filetype'  => 'doc',
-                            'filepath'  => $resume->doc_filepath,
-                            'slug'      => $resume->slug,
+                            'filetype' => 'doc',
+                            'resume'   => $resume,
                         ])
 
                     </div>

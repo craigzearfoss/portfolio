@@ -5,7 +5,7 @@
     <thead>
     <tr>
         <th>subject</th>
-        <th>body</th>
+        <?php /*<th>body</th> */ ?>
         <th>time</th>
         <th>actions</th>
     </tr>
@@ -18,9 +18,11 @@
             <td>
                 {!! $note->subject !!}
             </td>
+            <?php /*
             <td>
                 {!! $note->body !!}
             </td>
+            */ ?>
             <td>
                 {{ longDateTime($note->created_at) }}
             </td>
