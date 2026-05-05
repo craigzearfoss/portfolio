@@ -104,6 +104,7 @@
                     @include('admin.components.form-input-with-icon', [
                         'type'      => 'hidden',
                         'name'      => 'dictionary_term_id',
+                        'label'     => 'dictionary_term',
                         'value'     => old('dictionary_term_id') ?? '',
                         'message'   => $message ?? '',
                     ])

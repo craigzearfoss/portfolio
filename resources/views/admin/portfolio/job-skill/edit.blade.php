@@ -94,12 +94,15 @@
                     'message'   => $message ?? '',
                 ])
 
+                <div style="display: none;">
                 @include('admin.components.form-input-with-icon', [
                     'type'      => 'hidden',
                     'name'      => 'dictionary_term_id',
+                    'label'     => 'dictionary term',
                     'value'     => old('dictionary_term_id') ?? $jobSkill->dictionary_term_id,
                     'message'   => $message ?? '',
                 ])
+                </div>
 
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'summary',
