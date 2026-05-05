@@ -309,7 +309,7 @@ if (! function_exists('canRead')) {
     {
         if ($admin['is_root'] ?? 0) {
 
-            $retValue = true;
+            return true;
 
         } else {
 
