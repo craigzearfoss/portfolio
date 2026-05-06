@@ -286,13 +286,13 @@
                         <td data-field="wage_rate" class="has-text-centered whitespace-nowrap" style="white-space: nowrap; display: none;">
                             {{ wageRateFormat($application->wage_rate, 0) }}
                         </td>
-                        <td data-field="job_duration_id" style="display: none;">
+                        <td data-field="job_duration_id" style="white-space: nowrap; display: none;">
                             {{ $application->durationType['name'] ?? '' }}
                         </td>
-                        <td data-field="job_employment_type_id" class="has-text-centered hide-at-1300">
+                        <td data-field="job_employment_type_id" class="has-text-centered hide-at-1300" style="white-space: nowrap;">
                             {{ $application->employmentType->name ?? '' }}
                         </td>
-                        <td data-field="job_location_type_id" class="has-text-centered hide-at-1300">
+                        <td data-field="job_location_type_id" class="has-text-centered hide-at-1300" style="white-space: nowrap;">
                             {{ $application->locationType->name ?? '' }}
                         </td>
                         <td data-field="location" class="hide-at-1400">
