@@ -82,11 +82,26 @@
                 'message'     => $message ?? '',
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'        => 'cover letter',
+                'value'       => '<li>' . ($application->coverLetter['filepath'] ?? '') . '</li>',
+                'message'     => $message ?? '',
+            ])
+
+            <?php /*
             @include('admin.components.form-select-horizontal', [
                 'name'        => 'resume_id',
                 'label'       => 'resume',
                 'value'       => old('resume_id') ?? $application->resume_id,
-                'list'        => new Resume()->listOptions([], 'id', 'name', true),
+                'list'        => new Resume()->listOptions([ 'active' => 1 ], 'id', 'name', true),
+                'message'     => $message ?? '',
+            ])
+            */ ?>
+            @include('admin.components.form-text-horizontal', [
+                'name'        => 'resume(s)',
+                'label'       => 'resume',
+                'value'       => '<li><strong>PDF file</strong>: ' . ($application->resume['pdf_filepath'] ?? '') . '</li>'
+                                     . '<li><strong>MS Word file</strong>: ' . ($application->resume['doc_filepath'] ?? '') . '</li>',
                 'message'     => $message ?? '',
             ])
 

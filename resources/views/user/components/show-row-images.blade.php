@@ -1,12 +1,19 @@
 @php
-    $download     = $download ?? false;
-    $external     = $external ?? false;
+    $upload   = $upload ?? false;
+    $download = $download ?? false;
+    $external = $external ?? false;
+    $editPage = $editPage ?? false;
 
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
-    $classes[] ='property-list';
-    $classes[] ='columns';
+    if ($editPage) {
+        $classes[] ='field';
+        $classes[] ='is-horizontal';
+    } else {
+        $classes[] ='property-list';
+        $classes[] ='columns';
+    }
 
     $styles = !empty($style)
         ? (is_array($style) ? $style : explode(';', $style))
@@ -35,12 +42,10 @@
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
-    <div class="column is-2 label">
-        @if (!empty($name))
-            <strong>images</strong>:
-        @endif
+    <div class="{{ $editPage ? 'field-label' : 'column is-2 label' }}">
+        <strong>images</strong>:
     </div>
-    <div class="column is-10 value">
+    <div class="{{ $editPage ? 'field-body' : 'column is-10 value' }}">
 
         <div class="floating-div-container">
 
@@ -60,17 +65,25 @@
 
                             <div style="display: block;">
                                 <div style="display: inline-block;">
-                                    {{ str_replace('_', ' ', $imageName) }}
+                                    <strong>{{ str_replace('_', ' ', $imageName) }}</strong>
                                 </div>
                                 <div style="display: inline-block; float: right;">
-                                    @if (config('app.upload_enabled'))
-                                        @include('user.components.button-upload-image', [
-                                            'label'       => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
-                                            'resource'    => $resource,
-                                            'column'      => $imageName,
-                                            'target_data' => 'resource-' . $imageName,
-                                        ])
+
+                                    @if ($upload)
+
+                                        @if (config('app.upload_enabled'))
+                                            @include('user.components.button-upload-image', [
+                                                'label'       => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
+                                                'resource'    => $resource,
+                                                'column'      => $imageName,
+                                                'target_data' => 'resource-' . $imageName,
+                                            ])
+                                        @else
+                                            <strong>UPLOAD_IMAGE setting not enabled in .env file.</strong>
+                                        @endif
+
                                     @endif
+
                                 </div>
                             </div>
 
@@ -122,16 +135,18 @@
                                         $imageTitle = str_replace(get_class($resource) . ': ', '', getResourcePageTitle($resource, false))
                                     @endphp
 
-                                    @include('user.components.image', [
-                                        'name'     => 'image',
-                                        'title'    => $imageTitle,
-                                        'src'      => $src,
-                                        'filename' => $filename,
-                                        'alt'      => $downloadType,
-                                        'width'    => $width,
-                                        'download' => $download,
-                                        'external' => $external,
-                                    ])
+                                    @if (!empty($filename))
+                                        @include('user.components.image', [
+                                            'name'     => 'image',
+                                            'title'    => $imageTitle,
+                                            'src'      => $src,
+                                            'filename' => $filename,
+                                            'alt'      => $downloadType,
+                                            'width'    => $width,
+                                            'download' => $download,
+                                            'external' => $external,
+                                        ])
+                                    @endif
 
                                     @if ($imageName === 'image')
                                         <div class=flex">
@@ -142,6 +157,16 @@
                                             <strong>image source:</strong>
                                             <span>{{ $resource->image_source ?? '' }}</span>
                                         </div>
+                                    @endif
+
+                                @else
+
+                                    @if ($editPage)
+                                        <i>
+                                            No image has been uploaded.
+                                            <br>
+                                            Add via the show page.
+                                        </i>
                                     @endif
 
                                 @endif

@@ -18,7 +18,7 @@
                     @if ($raw)
                         {!! $value ?? '' !!}
                     @else
-                        {{ $value ?? '' }}
+                        {!! $value ?? '' !!}
                     @endif
                 </span>
             </div>

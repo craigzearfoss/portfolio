@@ -31,20 +31,6 @@
 
 @section('content')
 
-    <?php /* @TODO: need to implement file uploads  */ ?>
-    @if (config('app.upload_enabled'))
-        @include('admin.components.overlay-image-upload', [
-            'name'        => 'frmImageUpload',
-            'action'      => route('admin.portfolio.image.upload', ['art', 'image']),
-            'file'        => $art->image,
-            'credit'      => $art->credit,
-            'src'         => $art->source,
-            'maxFileSize' => config('app.upload_max_file_size'),
-            'accept'      => config('app.upload_image_accept'),
-            'message'     => $message ?? '',
-        ])
-    @endif
-
     <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.portfolio.art.update', array_merge([$art], request()->all())) }}" method="POST">
@@ -134,28 +120,11 @@
                 'message'     => $message ?? '',
             ])
 
-            <?php
-            /* --------------------------------------------- */
-            /* Note: images are uploaded from the show page. */
-            /* --------------------------------------------- */
-            ?>
-            @include('admin.components.form-image-horizontal', [
-                'src'        => old('image') ?? $art->image,
-                'credit'     => old('image_credit') ?? $art->image_credit,
-                'source'     => old('image_source') ?? $art->image_source,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'       => 'thumbnail',
-                'src'        => old('thumbnail') ?? $art->thumbnail,
-                'credit'     => false,
-                'source'     => false,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
+            @include('admin.components.show-row-images', [
+                'resource' => $art,
+                'download' => !empty($art->image) && !Str::startsWith($art->image, 'http'),
+                'external' => true,
+                'editPage' => true,
             ])
 
             @include('admin.components.form-visibility-horizontal', [
