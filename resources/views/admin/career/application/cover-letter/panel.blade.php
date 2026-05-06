@@ -1,6 +1,12 @@
 @php
     $applicationId = $applicationId ?? null;
     $coverLetter   = $coverLetter ?? null;
+
+    $filename = str_replace('CoverLetter: ', '', getResourcePageTitle($coverLetter, false));
+
+    $fileExtension = !empty($coverLetter->filepath)
+        ? Illuminate\Support\Facades\File::extension($coverLetter->filepath)
+        : '';
 @endphp
 <div class="card p-4">
 
@@ -62,41 +68,46 @@
                     'value' => longDate($coverLetter->cover_letter_date),
                 ])
 
-                @if (!empty($coverLetter->url))
+                @if (!empty($coverLetter->filepath))
 
-                    @if (in_array(Illuminate\Support\Facades\File::extension($coverLetter->fillepath), ['doc', 'docx']))
-
-                        @include('admin.components.show-row-link', [
-                            'name'   => 'Word doc',
-                            'label'  => '<i class="fa-solid fa-download"></i>download',
-                            'href'   => route('download-from-public', [ 'file' => $coverLetter->url, 'name' => $coverLetter->slug ]),
-                            'target' => '_blank',
-                            'style'  => 'white-space: nowrap'
-                        ])
-
-                        <div style="flex: 1; padding: 5px;">
-                            <iframe src="{{ str_replace('\\', '/', $coverLetter->url) }}"
-                                    style="width:100%; min-height:300px; border: 1px solid #ccc;">
-                            </iframe>
+                    <div class="property-list columns">
+                        <div class="column is-2 label" style="min-width: 6rem;">
+                            <strong>file</strong>:
+                            @include('admin.components.download-links', [
+                                'name'     => 'image',
+                                'href'     => imageUrl($coverLetter->filepath),
+                                'filename' => Str::slug(str_replace('CoverLetter: ', '', $title)). '.' . substr(strrchr($coverLetter->filepath, '.'), 1),
+                                'download' => true,
+                                'external' => !in_array($fileExtension, [ 'doc', 'docx' ]),
+                            ])
                         </div>
+                        <div class="column is-10 value">
 
-                    @else
+                            @if ($fileExtension == 'pdf')
 
-                        @include('admin.components.show-row-link', [
-                            'name'   => 'PDF doc',
-                            'label'  => '<i class="fa-solid fa-download"></i>download',
-                            'href'   => route('download-from-public', [ 'file' => $coverLetter->url, 'name' => $coverLetter->slug ]),
-                            'target' => '_blank',
-                            'style'  => 'white-space: nowrap'
-                        ])
-
-                            <div style="flex: 1; padding: 5px;">
-                                <iframe src="{{ route('view-document', ['file' => $coverLetter->url]) }}"
-                                        style="width:100%; min-height:300px; border: 1px solid #ccc;">
+                                <iframe src="{{ '/' . trim(str_replace('\\', '/', $coverLetter->filepath), ' /') }}"
+                                        style="width:100%; min-height:800px; border: 1px solid #ccc;"
+                                >
                                 </iframe>
-                            </div>
 
-                    @endif
+                            @elseif (in_array($fileExtension, ['doc', 'docx']))
+
+                                <iframe src="{{ route('view-document', ['file' => $coverLetter->filepath]) }}"
+                                        style="width:100%; min-height:800px; border: 1px solid #ccc;"
+                                >
+                                </iframe>
+
+                            @else
+
+                                <iframe src="{{ '/' . str_replace(DIRECTORY_SEPARATOR, '\\', trim($coverLetter->filepath, ' /\\')) }}"
+                                        style="width:100%; min-height:300px; border: 1px solid #ccc;"
+                                >
+                                </iframe>
+
+                            @endif
+
+                        </div>
+                    </div>
 
                 @endif
 
@@ -136,11 +147,13 @@
                                ])
                 ])
 
+                <?php /*
                 @include('admin.components.show-row-images', [
                     'resource' => $coverLetter,
                     'download' => true,
                     'external' => true,
                 ])
+                */ ?>
 
                 @include('admin.components.show-row-visibility', [
                     'resource' => $coverLetter,

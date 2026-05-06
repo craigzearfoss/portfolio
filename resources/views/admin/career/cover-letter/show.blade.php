@@ -116,8 +116,7 @@
                                     </div>
                                 </div>
 
-
-                            @if (!empty($coverLetter->filepath))
+                                @if (!empty($coverLetter->filepath))
 
                                     @if ($fileExtension == 'pdf')
 

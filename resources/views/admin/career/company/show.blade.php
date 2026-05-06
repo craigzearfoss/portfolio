@@ -22,6 +22,10 @@
 
     // set navigation buttons
     $navButtons = [];
+    $navButtons[] = view('admin.components.nav-button-edit', [
+        'name' => 'Apply to Company',
+        'href' => route('admin.career.application.create', [ 'company_id' => $company->id ])
+    ])->render();
     if (canUpdate($company, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.company.edit', $company) ])->render();
     }
