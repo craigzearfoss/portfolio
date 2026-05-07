@@ -181,43 +181,16 @@
                                     'value' => longDate($resume->resume_date)
                                 ])
 
-                                <div class="property-list columns">
-                                    <div class="column is-2 label" style="min-width: 6rem;">
-                                        <strong>PDF file</strong>:
-                                        @if (!empty($resume->pdf_filepath))
-                                            @include('admin.components.download-links', [
-                                                'name'     => 'image',
-                                                'href'     => imageUrl($resume->pdf_filepath),
-                                                'filename' => Str::slug(str_replace('Resume: ', '', $title)). '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
-                                                'download' => true,
-                                                'external' => true,
-                                            ])
-                                        @endif
-                                    </div>
-                                    <div class="column is-10 value">
-
-                                        @if (config('app.upload_enabled'))
-                                            @include('admin.components.button-upload-document', [
-                                                'modalTitle'  => (empty($resume->pdf_filepath) ? 'Upload ' : 'Replace ')
-                                                    . str_replace('Resume: ', '', $title) . ' resume PDF file',
-                                                'label'       => empty($resume->pdf_filepath) ? 'Upload' : 'Replace',
-                                                'resource'    => $resume,
-                                                'column'      => 'pdf_filepath',
-                                                'target_data' => 'resource-pdf-filepath',
-                                                'accept'      => 'pdf',
-                                            ])
-                                        @endif
-
-                                    </div>
-                                </div>
-
-                                @if (!empty($resume->pdf_filepath))
-
-                                    <iframe src="{{ '/' . trim(str_replace('\\', '/', $resume->pdf_filepath), ' /') }}"
-                                            style="width:100%; min-height:800px; border: 1px solid #ccc;">
-                                    </iframe>
-
-                                @endif
+                                @include('admin.components.show-row-document', [
+                                    'resource' => $resume,
+                                    'column'   => 'pdf_filepath',
+                                    'label'    => 'PDF file',
+                                    'filename' => $resume->name,
+                                    'accept'   => [ 'pdf' ],
+                                    'upload'   => false,
+                                    'download' => true,
+                                    'external' => true,
+                                ])
 
                             </div>
 
@@ -237,6 +210,17 @@
                                     'value' => longDate($resume->resume_date)
                                 ])
 
+                                @include('admin.components.show-row-document', [
+                                    'resource' => $resume,
+                                    'column'   => 'doc_filepath',
+                                    'label'    => 'MS Word file',
+                                    'filename' => $resume->name,
+                                    'accept'   => [ 'doc', 'docx'],
+                                    'upload'   => false,
+                                    'download' => true,
+                                    'external' => true,
+                                ])
+<?php /*
                                 <div class="property-list columns">
                                     <div class="column is-2 label" style="min-width: 6rem;">
                                         <strong>MS Word file</strong>:
@@ -260,7 +244,7 @@
                                                 'resource'    => $resume,
                                                 'column'      => 'doc_filepath',
                                                 'target_data' => 'resource-doc_filepath',
-                                                'accept'      => 'doc,docx',
+                                                'accept'      => [ 'doc', 'docx' ],
                                             ])
                                         @endif
 
@@ -274,7 +258,7 @@
                                     </iframe>
 
                                 @endif
-
+*/ ?>
                             </div>
 
                         </div>

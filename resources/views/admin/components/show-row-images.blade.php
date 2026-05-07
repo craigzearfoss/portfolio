@@ -211,7 +211,7 @@
 
                                     @if ($editPage)
                                         <i>
-                                            No image has been uploaded.
+                                            No {{ $imageName }} has been uploaded.
                                             <br>
                                             Add via the show page.
                                         </i>

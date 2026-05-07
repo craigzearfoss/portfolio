@@ -19,18 +19,13 @@
                         <i class="fa-solid fa-list"></i>
                     </a>
 
+                <?php /*
+                // don't show the edit resume link because resumes are used for multiple applications
                 <a title="edit" class="button is-small px-1 py-0"
                    href="{!! route('admin.career.resume.edit',$resume->id) !!}">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-
-                @if (!empty($resume->url))
-                    @include('admin.components.button-download', [ 'file' => $resume->url,
-                                                                   'name' =>$resume->slug . '-resume' ])
-                @endif
-
-                @include('admin.components.button-download', [ 'file' => '',
-                                                                   'name' =>$resume->slug . '-resume' ])
+                */ ?>
 
             @endif
 

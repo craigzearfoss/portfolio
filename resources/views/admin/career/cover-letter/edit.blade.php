@@ -82,31 +82,16 @@
                     'message' => $message ?? '',
                 ])
 
-                <div class="field is-horizontal">
-                    <div class="field-label">
-                        <strong>file</strong>:
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control ">
-
-                                @if (!empty($coverLetter->filepath))
-                                    {{ substr(strrchr($coverLetter->filepath, DIRECTORY_SEPARATOR), 1) }}
-                                    @include('admin.components.download-links', [
-                                        'name'     => 'image',
-                                        'href'     => imageUrl($coverLetter->filepath),
-                                        'filename' => Str::slug(str_replace('CoverLetter: ', '', getResourcePageTitle($coverLetter)))
-                                                          . '.' . substr(strrchr($coverLetter->filepath, '.'), 1),
-                                        'download' => true,
-                                        'external' => true,
-                                    ])
-                                @else
-                                    <i>none (Add via the show page.)</i>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('admin.components.show-row-document', [
+                    'resource' => $coverLetter,
+                    'column'   => 'filepath',
+                    'label'    => 'file',
+                    'filename' => $coverLetter->name,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
 
                 <?php /*
                 @include('admin.components.form-textarea-horizontal', [
@@ -141,14 +126,6 @@
                     'value'       => old('disclaimer') ?? $coverLetter->disclaimer,
                     'maxlength'   => 500,
                     'message'     => $message ?? '',
-                ])
-
-                @include('admin.components.show-row-images', [
-                    'resource' => $coverLetter,
-                    'upload'   => false,
-                    'download' => true,
-                    'external' => true,
-                    'editPage' => true,
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

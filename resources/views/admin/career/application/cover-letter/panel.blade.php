@@ -68,6 +68,17 @@
                     'value' => longDate($coverLetter->cover_letter_date),
                 ])
 
+                @include('admin.components.show-row-document', [
+                    'resource' => $coverLetter,
+                    'column'   => 'filepath',
+                    'label'    => 'file',
+                    'filename' => $coverLetter->name,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                ])
+
+<?php /*
                 @if (!empty($coverLetter->filepath))
 
                     <div class="property-list columns">
@@ -110,17 +121,13 @@
                     </div>
 
                 @endif
-
+*/ ?>
+                <?php /*
                 @include('admin.components.show-row', [
                     'name'  => 'content',
                     'value' => $coverLetter->content
                 ])
-
-                @include('admin.components.show-row-link', [
-                    'name'   => 'url',
-                    'href'   => $coverLetter->url,
-                    'target' => '_blank'
-                ])
+                */ ?>
 
                 @include('admin.components.show-row', [
                     'name'  => 'notes',

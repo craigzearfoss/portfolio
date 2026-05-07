@@ -14,7 +14,7 @@
     if (empty($message)) {
         $message = 'You may have mistyped the address or the page may have moved.';
     }
-    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '404.png';
+    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '404.gif';
 @endphp
 @extends($envType->value.'.layouts.empty', [
     'title'   => $title,

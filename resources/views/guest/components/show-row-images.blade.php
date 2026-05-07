@@ -1,4 +1,6 @@
 @php
+    // @TODO: The logic of this page is quite circuitous and should probably cleaned up at some point.
+
     $upload   = $upload ?? false;
     $download = $download ?? false;
     $external = $external ?? false;
@@ -43,7 +45,7 @@
      @endif
 >
     <div class="{{ $editPage ? 'field-label' : 'column is-2 label' }}">
-        <strong>images</strong>:
+        <strong>images</strong>
     </div>
     <div class="{{ $editPage ? 'field-body' : 'column is-10 value' }}">
 
@@ -61,16 +63,81 @@
 
                     @if ($resource->hasAttribute($imageName))
 
+                        @if (!empty($resource->{$imageName}))
+
+                            @php
+
+                                switch ($imageName) {
+                                    case 'certificate_url':
+                                        $src           = $resource->certificate_url;
+                                        $downloadType  = 'certificate';
+                                        $href          = imageUrl($resource->certificate_url);
+                                        $suffix        = null;
+                                        $width         = '300px';
+                                        $download = $external = !empty($resource->image) && !Str::startsWith($resource->image, 'http');
+                                        break;
+                                    case 'image':
+                                        $src           = $resource->image;
+                                        $downloadType  = 'image';
+                                        $href          = imageUrl($resource->image);
+                                        $suffix        = null;
+                                        $width         = '300px';
+                                        break;
+                                    case 'logo':
+                                        $src           = $resource->logo;
+                                        $downloadType  = 'logo';
+                                        $href          = imageUrl($resource->logo);
+                                        $suffix        = '-logo';
+                                        $width         = '100px';
+                                        break;
+                                    case 'logo_small':
+                                        $src           = $resource->logo_small;
+                                        $downloadType  = 'small logo';
+                                        $href          = imageUrl($resource->logo_small);
+                                        $suffix        = '-logo-small';
+                                        $width         = '100px';
+                                        break;
+                                    case 'thumbnail':
+                                        $src           = $resource->thumbnail;
+                                        $downloadType  = 'thumbnail';
+                                        $href          = imageUrl($resource->thumbnail);
+                                        $suffix        = '-thumbnail';
+                                        $width         = '100px';
+                                        break;
+                                    default:
+                                        $downloadType  = 'image';
+                                        $href          = '';
+                                        $suffix        = null;
+                                        $width         = null;
+                                        break;
+                                }
+
+                                $filename = generateDownloadFilename($resource, $suffix);
+                                $imageTitle = str_replace(get_class($resource) . ': ', '', getResourcePageTitle($resource, false))
+                            @endphp
+
+                        @endif
+
                         <div class="floating-div p-2 mb-2 mr-2" style="border: 1px solid #ccc;">
 
                             <div style="display: block;">
-                                <div style="display: inline-block;">
+                                <div style="display: inline-block; width: 100%;">
                                     <strong>{{ str_replace('_', ' ', $imageName) }}</strong>
+
+                                    @if (!empty($resource->{$imageName}))
+                                        <div style="display: inline-block; float: right;">
+                                            @include('guest.components.download-links', [
+                                                'href'     => $href,
+                                                'download' => $download,
+                                                'external' => $external,
+                                            ])
+                                        </div>
+                                    @endif
+
                                 </div>
                                 <div style="display: inline-block; float: right;">
 
                                     @if ($upload)
-
                                         @if (config('app.upload_enabled'))
                                             @include('guest.components.button-upload-image', [
                                                 'label'       => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
@@ -81,8 +148,8 @@
                                         @else
                                             <strong>UPLOAD_IMAGE setting not enabled in .env file.</strong>
                                         @endif
-
                                     @endif
+
 
                                 </div>
                             </div>
@@ -90,50 +157,6 @@
                             <div>
 
                                 @if (!empty($resource->{$imageName}))
-
-                                    @php
-
-                                        switch ($imageName) {
-                                            case 'certificate_url':
-                                                $src           = $resource->certificate_url;
-                                                $downloadType  = 'certificate';
-                                                $suffix        = null;
-                                                $width         = '300px';
-                                                break;
-                                            case 'image':
-                                                $src           = $resource->image;
-                                                $downloadType  = 'image';
-                                                $suffix        = null;
-                                                $width         = '300px';
-                                                break;
-                                            case 'logo':
-                                                $src           = $resource->logo;
-                                                $downloadType  = 'logo';
-                                                $suffix        = '-logo';
-                                                $width         = '100px';
-                                                break;
-                                            case 'logo_small':
-                                                $src           = $resource->logo_small;
-                                                $downloadType  = 'small logo';
-                                                $suffix        = '-logo-small';
-                                                $width         = '100px';
-                                                break;
-                                            case 'thumbnail':
-                                                $src           = $resource->thumbnail;
-                                                $downloadType  = 'thumbnail';
-                                                $suffix        = '-thumbnail';
-                                                $width         = '100px';
-                                                break;
-                                            default:
-                                                $downloadType  = 'image';
-                                                $suffix        = null;
-                                                $width         = null;
-                                                break;
-                                        }
-
-                                        $filename = generateDownloadFilename($resource, $suffix);
-                                        $imageTitle = str_replace(get_class($resource) . ': ', '', getResourcePageTitle($resource, false))
-                                    @endphp
 
                                     @if (!empty($filename))
                                         @include('guest.components.image', [
@@ -143,27 +166,52 @@
                                             'filename' => $filename,
                                             'alt'      => $downloadType,
                                             'width'    => $width,
-                                            'download' => $download,
-                                            'external' => $external,
+                                            'download' => false, // download link is created above the image
+                                            'external' => false, // external link is created above the image
                                         ])
                                     @endif
 
                                     @if ($imageName === 'image')
-                                        <div class=flex">
-                                            <strong>image credit:</strong>
-                                            <span>{{ $resource->image_credit }}</span>
-                                        </div>
-                                        <div class=flex">
-                                            <strong>image source:</strong>
-                                            <span>{{ $resource->image_source ?? '' }}</span>
-                                        </div>
+
+                                        @if ($editPage)
+
+                                            <div>
+                                                <div style="display: inline-block; width: 65px;">
+                                                    <label for="inputImage_credit" class="label">credit:</label>
+                                                </div>
+                                                <div style="display: inline-block;">
+                                                    <input type="text" id="inputImage_credit" name="image_credit" class="input" value="{{ $resource->image_credit ?? '' }}" style="width: 100%;">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div style="display: inline-block; width: 65px;">
+                                                    <label for="inputImage_credit" class="label">source:</label>
+                                                </div>
+                                                <div style="display: inline-block;">
+                                                    <input type="text" id="inputImage_credit" name="image_credit" class="input" value="{{ $resource->image_source ?? '' }}" style="width: 100%;">
+                                                </div>
+                                            </div>
+
+                                        @else
+
+                                            <div class=flex">
+                                                <strong>image credit:</strong>
+                                                <span>{{ $resource->image_credit }}</span>
+                                            </div>
+                                            <div class=flex">
+                                                <strong>image source:</strong>
+                                                <span>{{ $resource->image_source ?? '' }}</span>
+                                            </div>
+
+                                        @endif
+
                                     @endif
 
                                 @else
 
                                     @if ($editPage)
                                         <i>
-                                            No image has been uploaded.
+                                            No {{ $imageName }} has been uploaded.
                                             <br>
                                             Add via the show page.
                                         </i>
