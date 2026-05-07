@@ -196,7 +196,7 @@ class CopySourceImages extends Command
                                                     $destPath = $this->imagesDestPath . $DS . $databaseDir . $DS
                                                         . $resourceDir . $DS . $item->id;
 
-                                                    $destFileName = Str::uuid();
+                                                    $destFileName = $fileName;  // note that we keep the original file name rather than generate a random unique one
                                                     $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                                                     if (!File::exists($destPath)) {
@@ -311,7 +311,7 @@ class CopySourceImages extends Command
                         // determine the destination file
                         // Note that we encode the filename for enhanced security.
                         $destPath     = $this->imagesDestPath . $DS . $coverLetterId;
-                        $destFileName = Str::uuid();
+                        $destFileName = $fileName;  // note that we keep the original file name rather than generate a random unique one
                         $destFile     = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                         if (!File::exists($destPath)) {
@@ -420,7 +420,7 @@ class CopySourceImages extends Command
                         // determine the destination file
                         // Note that we encode the filename for enhanced security.
                         $destPath     = $this->imagesDestPath . $DS . $resumeId;
-                        $destFileName = Str::uuid();
+                        $destFileName = $fileName;  // note that we keep the original file name rather than generate a random unique one
                         $destFile     = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                         if (!File::exists($destPath)) {
