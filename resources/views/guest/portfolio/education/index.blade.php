@@ -40,27 +40,47 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>major</th>
-                        <th>degree</th>
-                        <th>school</th>
-                        <th class="has-text-centered hide-at-480">graduated</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>major</th>
-                        <th>degree</th>
-                        <th>school</th>
-                        <th class="has-text-centered hide-at-480">graduated</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'major',
+                                'sort'  => 'major|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'degree',
+                                'sort'  => 'degree_type_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'school',
+                                'sort'  => 'school_name|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered hide-at-480">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'graduated',
+                                'sort'  => 'graduation_date|desc',
+                            ])
+                        </th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

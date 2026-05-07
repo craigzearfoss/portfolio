@@ -91,6 +91,64 @@
                     </tfoot>
                 @endif
 
+
+
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
+
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
+                    <tr>
+                        @if ($isRootAdmin)
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
+                        @endif
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'language',
+                                'sort'  => 'language|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'project_year|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'repository',
+                                'sort'  => 'repository|asc',
+                            ])
+                        </th>
+                        <th>public</th>
+                        <th>disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </{{ $labelElem }}>
+
+                @endforeach
+
+
+
                 <tbody>
 
                 @forelse ($projects as $project)

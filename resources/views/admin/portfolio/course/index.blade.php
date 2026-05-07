@@ -57,41 +57,66 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>academy</th>
-                        <th>instructor</th>
-                        <th class="has-text-centered">completion<br>date</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if (!empty($bottom_column_headings))
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>name</th>
-                        <th>academy</th>
-                        <th>instructor</th>
-                        <th class="has-text-centered">completion<br>date</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'academy',
+                                'sort'  => 'academy_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'instructor',
+                                'sort'  => 'instructor|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'completion date',
+                                'sort'  => 'completion_date|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

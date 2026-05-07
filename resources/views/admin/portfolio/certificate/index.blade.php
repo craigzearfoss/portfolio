@@ -55,47 +55,92 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>academy</th>
-                        <th>year</th>
-                        <th>received</th>
-                        <th>expiration</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
+                @include('admin.components.export-buttons-container', [
+                    'href'     => route('admin.portfolio.academy.export', request()->except([ 'page' ])),
+                    'filename' => 'academies_' . date("Y-m-d-His") . '.xlsx',
+                ])
+
+                <p><i>{{ number_format($certificates->total()) }} records found.</i></p>
+
+                @if (!empty($pagination_top))
+                    {!! $certificates->links('vendor.pagination.bulma') !!}
                 @endif
 
-                @if (!empty($bottom_column_headings))
-                    <tfoot>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>academy</th>
-                        <th>year</th>
-                        <th>received</th>
-                        <th>expiration</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </tfoot>
-                @endif
+                <?php /* <p class="admin-table-caption"></p> */ ?>
 
-                <tbody>
+                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @forelse ($certificates as $certificate)
+                    @php
+                        $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                        if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                    @endphp
+
+                    @foreach ($labelElems as $labelElem)
+
+                        <{{ $labelElem }}>
+                        <tr>
+                            @if ($isRootAdmin)
+                                <th>
+                                    @include('guest.components.column-heading', [
+                                        'class' => $className,
+                                        'name'  => 'id',
+                                        'sort'  => 'id|asc',
+                                    ])
+                                </th>
+                                <th>
+                                    @include('guest.components.column-heading', [
+                                        'class' => $className,
+                                        'name'  => 'owner',
+                                        'sort'  => 'owner_username|asc',
+                                    ])
+                                </th>
+                            @endif
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'name',
+                                    'sort'  => 'name|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'academy',
+                                    'sort'  => 'academy_name|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'year',
+                                    'sort'  => 'certificate_year|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'received',
+                                    'sort'  => 'received|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'expiration',
+                                    'sort'  => 'expiration|asc',
+                                ])
+                            </th>
+                            <th class="has-text-centered">public</th>
+                            <th class="has-text-centered">disabled</th>
+                            <th>actions</th>
+                        </tr>
+                        </{{ $labelElem }}>
+
+                    @endforeach
+
+                    <tbody>
+
+                    @forelse ($certificates as $certificate)
 
                     <tr data-id="{{ $certificate->id }}">
                         @if ($isRootAdmin)

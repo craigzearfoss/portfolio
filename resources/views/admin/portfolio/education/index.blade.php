@@ -56,43 +56,79 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th class="has-text-centered">degree</th>
-                        <th>major</th>
-                        <th>minor</th>
-                        <th>school</th>
-                        <th class="has-text-centered">enrolled</th>
-                        <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">currently<br>enrolled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th class="has-text-centered">degree</th>
-                        <th>major</th>
-                        <th>minor</th>
-                        <th>school</th>
-                        <th class="has-text-centered">enrolled</th>
-                        <th class="has-text-centered">graduated</th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'degree',
+                                'sort'  => 'degree_type_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'major',
+                                'sort'  => 'major|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'minor',
+                                'sort'  => 'minor|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'school',
+                                'sort'  => 'school_name|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'enrolled',
+                                'sort'  => 'enrollment_date|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'graduated',
+                                'sort'  => 'graduation_date|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -107,22 +143,22 @@
                                 {{ $education->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="degreeType.name">
+                        <td data-field="degreeType.name" style="white-space: nowrap;">
                             {{ $education->degreeType->name ?? '' }}
                         </td>
                         <td data-field="major" style="white-space: nowrap;">
                             {{ $education->major }}{!! !empty($education->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="minor">
+                        <td data-field="minor" style="white-space: nowrap;">
                             {{ $education->minor }}
                         </td>
-                        <td data-field="school.name">
+                        <td data-field="school.name" style="white-space: nowrap;">
                             {{ $education->school->name ?? '' }}
                         </td>
-                        <td data-field="enrollment_date" class="has-text-centered">
+                        <td data-field="enrollment_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ !empty($education->enrollment_date) ? Carbon::parse($education->enrollment_date)->format("M y") : '' }}
                         </td>
-                        <td data-field="graduation_date" class="has-text-centered">
+                        <td data-field="graduation_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ !empty($education->graduation_date) ? Carbon::parse($education->graduation_date)->format("M y") : '' }}
                         </td>
                         <td data-field="currently_enrolled" class="has-text-centered">

@@ -61,7 +61,7 @@ class Certification extends Model
     /**
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
-    const array PREDEFINED_SEARCH_COLUMNS = [ 'type_name' ];
+    const array PREDEFINED_SEARCH_COLUMNS = [ 'certification_type_name' ];
 
     /**
      * SearchableModelTrait variables.
@@ -79,13 +79,13 @@ class Certification extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'abbreviation|asc' => 'abbreviation',
-        'created_at|desc'  => 'datetime created',
-        'updated_at|desc'  => 'datetime updated',
-        'id|asc'           => 'id',
-        'name|asc'         => 'name',
-        'sequence|asc'     => 'sequence',
-        'type_name|asc'    => 'type',
+        'abbreviation|asc'            => 'abbreviation',
+        'created_at|desc'             => 'datetime created',
+        'updated_at|desc'             => 'datetime updated',
+        'id|asc'                      => 'id',
+        'name|asc'                    => 'name',
+        'sequence|asc'                => 'sequence',
+        'certification_type_name|asc' => 'type',
     ];
 
     /**
@@ -148,8 +148,7 @@ class Certification extends Model
             });
 
         // join to certification_types table
-        $query->join( dbName('portfolio_db') . '.certification_types', 'certification_types.id', '=', $this->table . '.certification_type_id')
-            ->addSelect(DB::Raw('certification_types.name as type_name'));
+        $query->join( dbName('portfolio_db') . '.certification_types', 'certification_types.id', '=', $this->table . '.certification_type_id');
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
@@ -157,7 +156,7 @@ class Certification extends Model
         // select columns
         $query->select(
             DB::raw(dbName($this->connection) . '.' . $this->table . '.*'),
-            DB::raw(dbName('portfolio_db') . '.certification_types.name AS `type_name`')
+            DB::raw(dbName('portfolio_db') . '.certification_types.name AS `certification_type_name`')
         );
 
         // add additional filters

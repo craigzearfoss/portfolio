@@ -56,43 +56,67 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>company</th>
-                        <th>logo</th>
-                        <th>role</th>
-                        <th class="has-text-centered">start</th>
-                        <th class="has-text-centered">end</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>s
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>company</th>
-                        <th>logo</th>
-                        <th>role</th>
-                        <th class="has-text-right">start</th>
-                        <th class="has-text-right">end</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'company',
+                                'sort'  => 'company|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">logo</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'role',
+                                'sort'  => 'role|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'start',
+                                'sort'  => 'start_date|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'end',
+                                'sort'  => 'end_date|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -110,14 +134,14 @@
                         <td data-field="company" style="white-space: nowrap;">
                             {{ $job->company }}{!! !empty($job->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="logo_small">
+                        <td data-field="logo_small" class="has-text-centered">
                             @include('admin.components.image', [
                                 'src'   => $job->logo_small,
                                 'alt'   => $job->name,
                                 'width' => '48px',
                             ])
                         </td>
-                        <td data-field="role">
+                        <td data-field="role" style="white-space: nowrap;">
                             {{ $job->role }}
                         </td>
                         <td data-field="start_date" class="has-text-centered" style="white-space: nowrap;">

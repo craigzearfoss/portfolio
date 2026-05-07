@@ -60,14 +60,14 @@
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'category',
-                                'sort'  => 'category|asc',
+                                'sort'  => 'dictionary_category_name|asc',
                             ])
                         </th>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'level',
-                                'sort'  => 'level|asc',
+                                'sort'  => 'level|desc',
                             ])
                         </th>
                         <th class="has-text-centered hide-at-480">

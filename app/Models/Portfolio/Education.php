@@ -71,13 +71,11 @@ class Education extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'all' => [
-            'owner_name', 'owner_username', 'owner_email',
-            'degree_type_name',
-            'enrollment_date',
-            'graduation_date',
-            'school_name',
-        ],
+        'owner_name', 'owner_username', 'owner_email',
+        'degree_type_name',
+        'enrollment_date',
+        'graduation_date',
+        'school_name',
     ];
 
     /**
@@ -168,6 +166,9 @@ class Education extends Model
             })
             ->when(!empty($filters['degree_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.degree_type_id', '=', intval($filters['degree_type_id']));
+            })
+            ->when(!empty($filters['degree_type_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.degree_type_name', '=', intval($filters['degree_type_name']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');

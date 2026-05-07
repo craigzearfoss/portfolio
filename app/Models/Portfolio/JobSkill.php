@@ -78,7 +78,7 @@ class JobSkill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'name', 'featured', 'summary', 'type',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'job_id', 'name', 'featured', 'summary', 'type',
         'dictionary_category_id', 'dictionary_term_id', 'notes', 'description', 'disclaimer', 'is_public',
         'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];

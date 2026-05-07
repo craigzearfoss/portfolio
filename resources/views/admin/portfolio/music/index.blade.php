@@ -55,43 +55,73 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>artist</th>
-                        <th class="hide-at-900">year</th>
-                        <th class="hide-at-750">label</th>
-                        <th class="hide-at-900">cat#</th>
-                        <th class="has-text-centered hide-at-1024">public</th>
-                        <th class="has-text-centered hide-at-1024">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>name</th>
-                        <th>artist</th>
-                        <th class="hide-at-900">year</th>
-                        <th class="hide-at-750">label</th>
-                        <th class="hide-at-900">cat#</th>
-                        <th class="has-text-centered hide-at-1024">public</th>
-                        <th class="has-text-centered hide-at-1024">disabled</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'artist',
+                                'sort'  => 'artist|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'year',
+                                'sort'  => 'music_year|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'label',
+                                'sort'  => 'label|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'cat#',
+                                'sort'  => 'catalog_number|asc',
+                            ])
+                        </th>
+                        <th>public</th>
+                        <th>disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -112,13 +142,13 @@
                         <td data-field="artist" style="white-space: nowrap;">
                             {{ $music->artist }}
                         </td>
-                        <td data-field="music_year" class="hide-at-900">
+                        <td data-field="music_year" class="hide-at-900" class="has-text-centered">
                             {{ $music->music_year }}
                         </td>
-                        <td data-field="label" class="hide-at-750">
+                        <td data-field="label" class="hide-at-750" style="white-space: nowrap;">
                             {{ $music->label }}
                         </td>
-                        <td data-field="catalog_number" class="hide-at-900">
+                        <td data-field="catalog_number" class="hide-at-900" style="white-space: nowrap;">
                             {{ $music->catalog_number }}
                         </td>
                         <td data-field="is_public" class="has-text-centered hide-at-1024">
