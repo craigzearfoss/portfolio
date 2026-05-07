@@ -9,10 +9,15 @@
         default => 'guest.index',
     };
 
+    $title   = '403 Forbidden';
     $message = !empty($exception) ? $exception->getMessage() : '';
+    if (empty($message)) {
+        $message = 'You tried to access a page for which you do not have permission.';
+    }
+    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '403.png';
 @endphp
 @extends($envType->value.'.layouts.empty', [
-    'title' => '403 Forbidden',
+    'title'   => $title,
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -27,31 +32,23 @@
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
 
-                    @if (!empty($message))
-
-                        <div class="box has-text-centered">
-                            <h1 class="title">403 Forbidden</h1>
-                            <p>{{ $message }}</p>
-                        </div>
-
-                    @else
-
-                        <div class="box has-text-centered">
-                            <h1 class="title">403 Forbidden</h1>
-                            <p>You tried to access a page for which you are not authorized.</p>
-                            <p>If you are the application owner check the logs for more information.</p>
-                        </div>
-
-                    @endif
+                    <div class="box has-text-centered">
+                        <h1 class="title">{{ $title }}</h1>
+                        @if (file_exists(public_path() . $errorImagePath))
+                            <img src="{{ str_replace(DIRECTORY_SEPARATOR, '/', $errorImagePath) }}" alt="{{ $title }} image" />
+                        @endif
+                        <p>{{ $message }}</p>
+                    </div>
 
                     <div>
 
                         @include($envType->value.'.components.link', [
                             'name' => 'Back',
-                            'href' => referer($backRoute)
+                            'href' => route($backRoute)
                         ])
 
                     </div>
+
                 </div>
             </div>
         </div>

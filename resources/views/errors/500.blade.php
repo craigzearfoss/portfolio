@@ -9,10 +9,15 @@
         default => 'guest.index',
     };
 
+    $title   = '500 Internal Server Error';
     $message = !empty($exception) ? $exception->getMessage() : '';
+    if (empty($message)) {
+        $message = 'The server encountered an internal error or misconfiguration and was unable to complete your request.';
+    }
+    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '500.png';
 @endphp
 @extends($envType->value.'.layouts.empty', [
-    'title' => '403 Forbidden',
+    'title'   => $title,
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -29,21 +34,21 @@
 
 
                     <div class="box has-text-centered">
-                        <h1 class="title">500 Server Error</h1>
-
-                        @if (!empty($message))
-
-                            <p>{{ $message }}</p>
-
+                        <h1 class="title">{{ $title }}</h1>
+                        @if (file_exists(public_path() . $errorImagePath))
+                            <img src="{{ str_replace(DIRECTORY_SEPARATOR, '/', $errorImagePath) }}" alt="{{ $title }} image" />
                         @endif
-
+                        <p>{{ $message }}</p>
                     </div>
 
+                    <div>
 
-                    @include($envType->value.'.components.link', [
-                        'name' => 'Back',
-                        'href' => referer($backRoute)
-                    ])
+                        @include($envType->value.'.components.link', [
+                            'name' => 'Back',
+                            'href' => route($backRoute)
+                        ])
+
+                    </div>
 
                 </div>
             </div>

@@ -9,10 +9,15 @@
         default => 'guest.index',
     };
 
+    $title   = '400 Bad Request';
     $message = !empty($exception) ? $exception->getMessage() : '';
+    if (empty($message)) {
+        $message = 'The server can’t return a valid response due to an error from the client’s side.';
+    }
+    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '400.png';
 @endphp
 @extends($envType->value.'.layouts.empty', [
-    'title' => '400 Bad Request',
+    'title'   => $title,
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -27,23 +32,22 @@
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
 
-
                     <div class="box has-text-centered">
-                        <h1 class="title">400 Bad Request</h1>
-
-                        @if (!empty($message))
-
-                            <p>{{ $message }}</p>
-
+                        <h1 class="title">{{ $title }}</h1>
+                        @if (file_exists(public_path() . $errorImagePath))
+                            <img src="{{ str_replace(DIRECTORY_SEPARATOR, '/', $errorImagePath) }}" alt="{{ $title }} image" />
                         @endif
-
+                        <p>{{ $message }}</p>
                     </div>
 
+                    <div>
 
-                    @include($envType->value.'.components.link', [
-                        'name' => 'Back',
-                        'href' => referer($backRoute)
-                    ])
+                        @include($envType->value.'.components.link', [
+                            'name' => 'Back',
+                            'href' => route($backRoute)
+                        ])
+
+                    </div>
 
                 </div>
             </div>

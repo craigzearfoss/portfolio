@@ -9,10 +9,15 @@
         default => 'guest.index',
     };
 
+    $title   = '404 Not Found';
     $message = !empty($exception) ? $exception->getMessage() : '';
+    if (empty($message)) {
+        $message = 'You may have mistyped the address or the page may have moved.';
+    }
+    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '404.png';
 @endphp
 @extends($envType->value.'.layouts.empty', [
-    'title' => '404 Not Found',
+    'title'   => $title,
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -26,24 +31,15 @@
         <div class="section">
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
+
                     <div class="box has-text-centered">
-                        <h1 class="title">404 Not Found</h1>
-
-                        @if (!empty($message))
-
-                            <p>
-                                {{ $message }}
-                            </p>
-
-                        @else
-
-                            <p>You may have mistyped the address or the page may have moved.</p>
-
-                            <p>If you are the application owner check the logs for more information.</p>
-
+                        <h1 class="title">{{ $title }}</h1>
+                        @if (file_exists(public_path() . $errorImagePath))
+                            <img src="{{ str_replace(DIRECTORY_SEPARATOR, '/', $errorImagePath) }}" alt="{{ $title }} image" />
                         @endif
-
+                        <p>{{ $message }}</p>
                     </div>
+
                     <div>
 
                         @include($envType->value.'.components.link', [
@@ -52,6 +48,7 @@
                         ])
 
                     </div>
+
                 </div>
             </div>
         </div>

@@ -1,8 +1,23 @@
 @php
+    use App\Enums\EnvTypes;
+
+    $envType = getEnvType();
+
+    $backRoute = match ($envType) {
+        EnvTypes::ADMIN => 'admin.dashboard',
+        EnvTypes::USER => 'user.dashboard',
+        default => 'guest.index',
+    };
+
+    $title   = '503 Service Unavailable';
     $message = !empty($exception) ? $exception->getMessage() : '';
+    if (empty($message)) {
+        $message = 'The server can’t handle the request.';
+    }
+    $errorImagePath = DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'error' . DIRECTORY_SEPARATOR . '503.png';
 @endphp
-@extends('guest.layouts.blank', [
-    'title' => '503 Service Unavailable',
+@extends($envType->value.'.layouts.empty', [
+    'title'   => $title,
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -16,25 +31,24 @@
         <div class="section">
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
+
                     <div class="box has-text-centered">
-
-                        @if (!empty($message))
-
-                            <p>
-                                {{ $message }}
-                            </p>
-
-                        @else
-
-                            <h1 class="title">We'll be right back!</h1>
-                            <div>
-                                <p>Sorry for the inconvenience but we're performing some maintenance at the moment. We'll be back online shortly!</p>
-                                <p>&mdash; The Team</p>
-                            </div>
-
+                        <h1 class="title">{{ $title }}</h1>
+                        @if (file_exists(public_path() . $errorImagePath))
+                            <img src="{{ str_replace(DIRECTORY_SEPARATOR, '/', $errorImagePath) }}" alt="{{ $title }} image" />
                         @endif
+                        <p>{{ $message }}</p>
+                    </div>
+
+                    <div>
+
+                        @include($envType->value.'.components.link', [
+                            'name' => 'Back',
+                            'href' => route($backRoute)
+                        ])
 
                     </div>
+
                 </div>
             </div>
         </div>
