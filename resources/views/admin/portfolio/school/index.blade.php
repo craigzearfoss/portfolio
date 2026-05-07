@@ -83,8 +83,6 @@
                                 'sort'  => 'state_name|asc',
                             ])
                         </th>
-                        <th>public</th>
-                        <th>disabled</th>
                         <th>actions</th>
                     </tr>
                     </{{ $labelElem }}>
@@ -96,9 +94,11 @@
                 @forelse ($schools as $school)
 
                     <tr data-id="{{ $school->id }}">
-                        <td data-field="id">
-                            {{ $school->id }}
-                        </td>
+                        @if ($isRootAdmin)
+                            <td data-field="id">
+                                {{ $school->id }}
+                            </td>
+                        @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {{ $school->name }}
                         </td>
