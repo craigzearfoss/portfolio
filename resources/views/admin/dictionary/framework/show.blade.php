@@ -114,34 +114,11 @@
             'value' => $framework->description
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $framework->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $framework,
+            'upload'   => true,
             'download' => true,
             'external' => true,
-            'filename' => generateDownloadFilename($framework)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $framework->image_credit
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => $framework->image_source
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $framework->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => generateDownloadFilename($framework, '-thumbnail')
         ])
 
         @include('admin.components.show-row-visibility', [

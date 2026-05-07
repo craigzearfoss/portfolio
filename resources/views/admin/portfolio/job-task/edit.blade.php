@@ -110,27 +110,12 @@
                     'message'     => $message ?? '',
                 ])
 
-                <?php
-                /* --------------------------------------------- */
-                /* Note: images are uploaded from the show page. */
-                /* --------------------------------------------- */
-                ?>
-                @include('admin.components.form-image-horizontal', [
-                    'src'        => old('image') ?? $jobTask->image,
-                    'credit'     => old('image_credit') ?? $jobTask->image_credit,
-                    'source'     => old('image_source') ?? $jobTask->image_source,
-                    'message'    => $message ?? '',
-                    'uploadable' => false,
-                ])
-
-                @include('admin.components.form-image-horizontal', [
-                    'name'       => 'thumbnail',
-                    'src'        => old('thumbnail') ?? $jobTask->thumbnail,
-                    'credit'     => false,
-                    'source'     => false,
-                    'maxlength'  => 500,
-                    'message'    => $message ?? '',
-                    'uploadable' => false,
+                @include('admin.components.show-row-images', [
+                    'resource' => $jobTask,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

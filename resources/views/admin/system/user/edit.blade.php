@@ -184,27 +184,19 @@
                 'message' => $message ?? '',
             ])
 
-            <?php
-            /* --------------------------------------------- */
-            /* Note: images are uploaded from the show page. */
-            /* --------------------------------------------- */
-            ?>
-            @include('admin.components.form-image-horizontal', [
-                'src'        => old('image') ?? $thisUser->image,
-                'credit'     => old('image_credit') ?? $thisUser->image_credit,
-                'source'     => old('image_source') ?? $thisUser->image_source,
-                'message'    => $message ?? '',
-                'uploadable' => false,
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? $thisUser->disclaimer,
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-image-horizontal', [
-                'name'       => 'thumbnail',
-                'src'        => old('thumbnail') ?? $thisUser->thumbnail,
-                'credit'     => false,
-                'source'     => false,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
+            @include('admin.components.show-row-images', [
+                'resource' => $thisUser,
+                'upload'   => false,
+                'download' => true,
+                'external' => true,
+                'editPage' => true,
             ])
 
             @include('admin.components.form-select-horizontal', [

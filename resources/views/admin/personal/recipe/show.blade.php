@@ -196,6 +196,7 @@
 
                                 @include('admin.components.show-row-images', [
                                     'resource' => $recipe,
+                                    'upload'   => true,
                                     'download' => true,
                                     'external' => true,
                                 ])

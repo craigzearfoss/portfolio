@@ -187,8 +187,16 @@
                 'value' => $thisAdmin->description
             ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $thisAdmin->disclaimer
+                           ])
+            ])
+
             @include('admin.components.show-row-images', [
                 'resource' => $thisAdmin,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

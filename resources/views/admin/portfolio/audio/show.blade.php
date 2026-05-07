@@ -173,6 +173,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $audio,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

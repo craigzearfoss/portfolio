@@ -154,6 +154,7 @@
 
         @include('admin.components.show-row-images', [
             'resource' => $reference,
+            'upload'   => true,
             'download' => true,
             'external' => true,
         ])

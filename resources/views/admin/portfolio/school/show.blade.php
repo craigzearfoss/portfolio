@@ -111,6 +111,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $school,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

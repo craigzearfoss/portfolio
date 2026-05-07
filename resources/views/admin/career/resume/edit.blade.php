@@ -187,20 +187,12 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $resume->image,
-                'credit'  => old('image_credit') ?? $resume->image_credit,
-                'source'  => old('image_source') ?? $resume->image_source,
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $resume->thumbnail,
-                'credit'    => false,
-                'source'    => false,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
+            @include('admin.components.show-row-images', [
+                'resource' => $resume,
+                'upload'   => false,
+                'download' => true,
+                'external' => true,
+                'editPage' => true,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

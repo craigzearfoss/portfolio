@@ -87,27 +87,12 @@
                 'message' => $message ?? '',
             ])
 
-            <?php
-            /* --------------------------------------------- */
-            /* Note: images are uploaded from the show page. */
-            /* --------------------------------------------- */
-            ?>
-            @include('admin.components.form-image-horizontal', [
-                'src'        => old('image') ?? $adminGroup->image,
-                'credit'     => old('image_credit') ?? $adminGroup->image_credit,
-                'source'     => old('image_source') ?? $adminGroup->image_source,
-                'message'    => $message ?? '',
-                'uploadable' => false,
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'       => 'thumbnail',
-                'src'        => old('thumbnail') ?? $adminGroup->thumbnail,
-                'credit'     => false,
-                'source'     => false,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
+            @include('admin.components.show-row-images', [
+                'resource' => $adminGroup,
+                'upload'   => false,
+                'download' => true,
+                'external' => true,
+                'editPage' => true,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

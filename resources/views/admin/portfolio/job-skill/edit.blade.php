@@ -137,33 +137,12 @@
                     'message'     => $message ?? '',
                 ])
 
-                @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $jobSkill->link,
-                    'name' => old('link_name') ?? $jobSkill->link_name,
-                    'message'   => $message ?? '',
-                ])
-
-                    <?php
-                    /* --------------------------------------------- */
-                    /* Note: images are uploaded from the show page. */
-                    /* --------------------------------------------- */
-                    ?>
-                @include('admin.components.form-image-horizontal', [
-                    'src'        => old('image') ?? $jobSkill->image,
-                    'credit'     => old('image_credit') ?? $jobSkill->image_credit,
-                    'source'     => old('image_source') ?? $jobSkill->image_source,
-                    'message'    => $message ?? '',
-                    'uploadable' => false,
-                ])
-
-                @include('admin.components.form-image-horizontal', [
-                    'name'       => 'thumbnail',
-                    'src'        => old('thumbnail') ?? $jobSkill->thumbnail,
-                    'credit'     => false,
-                    'source'     => false,
-                    'maxlength'  => 500,
-                    'message'    => $message ?? '',
-                    'uploadable' => false,
+                @include('admin.components.show-row-images', [
+                    'resource' => $jobSkill,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

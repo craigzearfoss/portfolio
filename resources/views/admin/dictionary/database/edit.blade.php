@@ -30,7 +30,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.database.update', array_merge([$ddatabase], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.dictionary.database.update', array_merge([$database], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -149,27 +149,12 @@
                 'message' => $message ?? '',
             ])
 
-            <?php
-            /* --------------------------------------------- */
-            /* Note: images are uploaded from the show page. */
-            /* --------------------------------------------- */
-            ?>
-            @include('admin.components.form-image-horizontal', [
-                'src'        => old('image') ?? $database->image,
-                'credit'     => old('image_credit') ?? $database->image_credit,
-                'source'     => old('image_source') ?? $database->image_source,
-                'message'    => $message ?? '',
-                'uploadable' => false,
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'        => old('thumbnail') ?? $database->thumbnail,
-                'credit'     => false,
-                'source'     => false,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
+            @include('admin.components.show-row-images', [
+                'resource' => $database,
+                'upload'   => false,
+                'download' => true,
+                'external' => true,
+                'editPage' => true,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

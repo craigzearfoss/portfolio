@@ -177,20 +177,6 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'logo',
-                'src'       => old('logo') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'logo_small',
-                'src'       => old('logo_small') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-visibility-horizontal', [
                 'is_public'   => old('is_public')   ?? 0,
                 'is_readonly' => old('is_readonly') ?? 0,

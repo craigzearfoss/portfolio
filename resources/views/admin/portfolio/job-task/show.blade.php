@@ -103,6 +103,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $jobTask,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

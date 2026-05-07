@@ -179,6 +179,7 @@
 
                                 @include('admin.components.show-row-images', [
                                     'resource' => $job,
+                                    'upload'   => true,
                                     'download' => true,
                                     'external' => true,
                                 ])

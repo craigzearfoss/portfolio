@@ -110,43 +110,12 @@
                 'message' => $message ?? '',
             ])
 
-            <?php
-            /* --------------------------------------------- */
-            /* Note: images are uploaded from the show page. */
-            /* --------------------------------------------- */
-            ?>
-            @include('admin.components.form-image-horizontal', [
-                'src'        => old('image') ?? $school->image,
-                'credit'     => old('image_credit') ?? $school->image_credit,
-                'source'     => old('image_source') ?? $school->image_source,
-                'message'    => $message ?? '',
-                'uploadable' => false,
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'       => 'thumbnail',
-                'src'        => old('thumbnail') ?? $school->thumbnail,
-                'credit'     => false,
-                'source'     => false,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'       => 'logo',
-                'src'        => old('logo') ?? $school->logo,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'       => 'logo_small',
-                'src'        => old('logo_small') ?? $school->logo_small,
-                'maxlength'  => 500,
-                'message'    => $message ?? '',
-                'uploadable' => false,
+            @include('admin.components.show-row-images', [
+                'resource' => $school,
+                'upload'   => false,
+                'download' => true,
+                'external' => true,
+                'editPage' => true,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

@@ -71,7 +71,7 @@
 
                 <tbody>
 
-                @forelse ($categories as $category)
+                @forelse ($categories as $i=>$category)
 
                     @php
                         // don't displace the entry for "other"

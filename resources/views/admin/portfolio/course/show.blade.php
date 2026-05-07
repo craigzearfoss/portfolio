@@ -148,6 +148,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $course,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

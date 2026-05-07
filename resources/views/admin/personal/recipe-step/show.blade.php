@@ -73,6 +73,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $recipeStep,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

@@ -101,6 +101,7 @@
 
         @include('admin.components.show-row-images', [
             'resource' => $jobBoard,
+            'upload'   => true,
             'download' => true,
             'external' => true,
         ])

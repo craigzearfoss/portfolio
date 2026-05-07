@@ -155,17 +155,25 @@
             ])
 
             @include('admin.components.show-row', [
+                'name'  => 'bio',
+                'value' => $thisUser->bio
+            ])
+
+            @include('admin.components.show-row', [
                 'name'  => 'description',
                 'value' => $thisUser->description
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'bio',
-                'value' => $thisUser->bio
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $thisUser->disclaimer
+                           ])
             ])
 
             @include('admin.components.show-row-images', [
                 'resource' => $thisUser,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

@@ -139,6 +139,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $reading,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

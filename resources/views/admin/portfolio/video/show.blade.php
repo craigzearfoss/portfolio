@@ -173,6 +173,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $video,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

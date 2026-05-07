@@ -78,6 +78,13 @@
                 'value' => $userTeam->description
             ])
 
+            @include('admin.components.show-row-images', [
+                'resource' => $userTeam,
+                'upload'   => true,
+                'download' => true,
+                'external' => true,
+            ])
+
             @include('admin.components.show-row-visibility', [
                 'resource' => $userTeam,
             ])

@@ -140,6 +140,7 @@
 
         @include('admin.components.show-row-images', [
             'resource' => $recruiter,
+            'upload'   => true,
             'download' => true,
             'external' => true,
         ])

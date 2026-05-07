@@ -77,6 +77,13 @@
                 'value' => $userGroup->description
             ])
 
+            @include('admin.components.show-row-images', [
+                'resource' => $userGroup,
+                'upload'   => true,
+                'download' => true,
+                'external' => true,
+            ])
+
             @include('admin.components.show-row-visibility', [
                 'resource' => $userGroup,
             ])

@@ -116,6 +116,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $jobSkill,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

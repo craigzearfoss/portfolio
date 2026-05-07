@@ -104,6 +104,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $certificate,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

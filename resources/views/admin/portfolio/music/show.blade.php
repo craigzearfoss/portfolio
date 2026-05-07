@@ -183,6 +183,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $music,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

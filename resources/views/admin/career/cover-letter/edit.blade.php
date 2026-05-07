@@ -143,6 +143,14 @@
                     'message'     => $message ?? '',
                 ])
 
+                @include('admin.components.show-row-images', [
+                    'resource' => $coverLetter,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
                 @include('admin.components.form-visibility-horizontal', [
                     'is_public'   => old('is_public')   ?? $coverLetter->is_public,
                     'is_readonly' => old('is_readonly') ?? $coverLetter->is_readonly,

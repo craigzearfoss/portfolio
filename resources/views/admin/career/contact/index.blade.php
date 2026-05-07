@@ -115,7 +115,7 @@
                                     }
                                 );
                             @endphp
-                            {{ $companyLinks->implode(', ') }}
+                            {!! $companyLinks->implode(', ') !!}
                         </td>
                         <td data-field="phone" style="white-space: nowrap;">
                             {{ $contact->phone }}

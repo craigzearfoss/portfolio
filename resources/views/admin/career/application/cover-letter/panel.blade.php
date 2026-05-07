@@ -147,14 +147,6 @@
                                ])
                 ])
 
-                <?php /*
-                @include('admin.components.show-row-images', [
-                    'resource' => $coverLetter,
-                    'download' => true,
-                    'external' => true,
-                ])
-                */ ?>
-
                 @include('admin.components.show-row-visibility', [
                     'resource' => $coverLetter,
                 ])

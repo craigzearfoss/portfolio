@@ -143,12 +143,6 @@
                     'message'     => $message ?? '',
                 ])
 
-                @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? '',
-                    'name' => old('link_name') ?? '',
-                    'message'   => $message ?? '',
-                ])
-
                 @include('admin.components.form-visibility-horizontal', [
                     'is_public'   => old('is_public')   ?? 0,
                     'is_readonly' => old('is_readonly') ?? 0,

@@ -171,6 +171,7 @@
 
                                 @include('admin.components.show-row-images', [
                                     'resource' => $contact,
+                                    'upload'   => true,
                                     'download' => true,
                                     'external' => true,
                                 ])

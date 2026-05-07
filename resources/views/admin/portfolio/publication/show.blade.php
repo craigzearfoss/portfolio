@@ -203,6 +203,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $publication,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

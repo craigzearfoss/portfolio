@@ -122,7 +122,8 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $art,
-                'download' => !empty($art->image) && !Str::startsWith($art->image, 'http'),
+                'upload'   => false,
+                'download' => true,
                 'external' => true,
                 'editPage' => true,
             ])

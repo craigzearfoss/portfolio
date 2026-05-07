@@ -248,6 +248,7 @@
 
                                 @include('admin.components.show-row-images', [
                                     'resource' => $coverLetter,
+                                    'upload'   => true,
                                     'download' => true,
                                     'external' => true,
                                 ])

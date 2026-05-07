@@ -94,6 +94,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $award,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

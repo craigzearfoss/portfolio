@@ -128,6 +128,7 @@
 
             @include('admin.components.show-row-images', [
                 'resource' => $jobCoworker,
+                'upload'   => true,
                 'download' => true,
                 'external' => true,
             ])

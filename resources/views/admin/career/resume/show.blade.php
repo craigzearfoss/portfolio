@@ -135,17 +135,18 @@
                                     'value' => $resume->description
                                 ])
 
-                                @include('admin.components.show-row-images', [
-                                    'resource' => $resume,
-                                    'download' => !empty($resume->doc_filepath) && !Str::startsWith($resume->doc_filepath, 'http'),
-                                    'external' => true,
-                                ])
-
                                 @include('admin.components.show-row', [
                                     'name'  => 'disclaimer',
                                     'value' => view('admin.components.disclaimer', [
                                                     'value' => $resume->disclaimer
                                                ])
+                                ])
+
+                                @include('admin.components.show-row-images', [
+                                    'resource' => $resume,
+                                    'upload'   => true,
+                                    'download' => true,
+                                    'external' => true,
                                 ])
 
                                 @include('admin.components.show-row-visibility', [
