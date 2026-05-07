@@ -1401,7 +1401,7 @@ if (! function_exists('getPageTitle')) {
         }
 
         // add an owner link (only if this is for a root admin)
-        if (!empty($resource->owner_id) && isRootAdmin()) {
+        if (isset($resource['owner_id']) && !empty($resource['owner']) && isRootAdmin()) {
             $title .= $includeOwnerLink
                 ?  ' (' .
                    view('admin.components.link', [
