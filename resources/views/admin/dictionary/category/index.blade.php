@@ -81,7 +81,7 @@
                     <tr data-id="{{ $category->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $category }}
+                                {{ $category->id }}
                             </td>
                         @endif
                         <td data-field="name">

@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection(dbName('career_db') . '.resumes', function (Blueprint $table) {
+        Schema::table(dbName('career_db') . '.resumes', function (Blueprint $table) {
             $table->dropColumn('active');
         });
     }

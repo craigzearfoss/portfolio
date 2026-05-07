@@ -10,6 +10,7 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionException;
 use Throwable;
@@ -104,7 +105,7 @@ class CopySourceImages extends Command
 
         text('Hit Enter to continue or Ctrl-C to cancel');
 
-        $this->copyResourcemages();
+        $this->copyResourceImages();
         $this->copyCoverLetters();
         $this->copyResumes();
 
@@ -122,34 +123,34 @@ class CopySourceImages extends Command
      * @return void
      * @throws ReflectionException
      */
-    protected function copyResourcemages(): void
+    protected function copyResourceImages(): void
     {
         $DS = DIRECTORY_SEPARATOR;
 
-        foreach (scandir($this->imagesSrcPath) as $databaseSlug) {
+        foreach (scandir($this->imagesSrcPath) as $databaseDir) {
 
-            if ($databaseSlug == '.' || $databaseSlug == '..') continue;
+            if ($databaseDir == '.' || $databaseDir == '..') continue;
 
-            $databasePath = $this->imagesSrcPath . $DS . $databaseSlug;
+            $databasePath = $this->imagesSrcPath . $DS . $databaseDir;
 
             if (File::isDirectory($databasePath)) {
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
 
-                if (new Database()->where('name', '=', $databaseSlug)->first()) {
+                if (new Database()->where('name', '=', $databaseDir)->first()) {
 
-                    foreach (scandir($databasePath) as $resourceSlug) {
+                    foreach (scandir($databasePath) as $resourceDir) {
 
-                        if ($resourceSlug == '.' || $resourceSlug == '..') continue;
+                        if ($resourceDir == '.' || $resourceDir == '..') continue;
 
-                        $resourcePath = $databasePath . $DS . $resourceSlug;
+                        $resourcePath = $databasePath . $DS . $resourceDir;
 
                         if (File::isDirectory($resourcePath)) {
 
                             echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $resourcePath) . ' ...'
                                 . PHP_EOL;
 
-                            if ($resourceDefinition = new Resource()->where('name', '=', $resourceSlug)->first()) {
+                            if ($resourceDefinition = new Resource()->where('name', '=', $resourceDir)->first()) {
 
                                 try {
                                     $reflectionClass = new ReflectionClass($resourceDefinition->class);
@@ -192,13 +193,10 @@ class CopySourceImages extends Command
 
                                                     // determine the destination file
                                                     // Note that we encode the filename for enhanced security.
-                                                    $destPath = $this->imagesDestPath . $DS . $databaseSlug . $DS
-                                                        . $resourceSlug . $DS . $item->id;
+                                                    $destPath = $this->imagesDestPath . $DS . $databaseDir . $DS
+                                                        . $resourceDir . $DS . $item->id;
 
-                                                    $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
-                                                        ? generateEncodedFilename(($item->slug ?? $item->name ?? $item->id), $fileName)
-                                                        : generateEncodedFilename($fileName);
-
+                                                    $destFileName = Str::uuid();
                                                     $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                                                     if (!File::exists($destPath)) {
@@ -312,9 +310,9 @@ class CopySourceImages extends Command
 
                         // determine the destination file
                         // Note that we encode the filename for enhanced security.
-                        $destPath = $this->imagesDestPath . $DS . $coverLetterId;
-                        $destFileName = generateEncodedFilename($coverLetterId, $coverLetterFile);
-                        $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
+                        $destPath     = $this->imagesDestPath . $DS . $coverLetterId;
+                        $destFileName = Str::uuid();
+                        $destFile     = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                         if (!File::exists($destPath)) {
                             File::makeDirectory($destPath, 755, true);
@@ -421,9 +419,9 @@ class CopySourceImages extends Command
 
                         // determine the destination file
                         // Note that we encode the filename for enhanced security.
-                        $destPath = $this->imagesDestPath . $DS . $resumeId;
-                        $destFileName = generateEncodedFilename($resumeId, $resumeFile);
-                        $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
+                        $destPath     = $this->imagesDestPath . $DS . $resumeId;
+                        $destFileName = Str::uuid();
+                        $destFile     = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                         if (!File::exists($destPath)) {
                             File::makeDirectory($destPath, 755, true);

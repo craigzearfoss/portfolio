@@ -150,6 +150,9 @@ class RecipeStep extends Model
             ->when(!empty($filters['recipe_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.recipe_id', '=', intval($filters['recipe_id']));
             })
+            ->when(!empty($filters['recipe_name']), function ($query) use ($filters) {
+                $query->where('recipes.name', 'like', '%' . $filters['recipe_name'] . '%');
+            })
             ->when(!empty($filters['step']), function ($query) use ($filters) {
                 $query->where($this->table . '.step', '=', intval($filters['step']));
             });
@@ -159,9 +162,8 @@ class RecipeStep extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to recipes table
-        $query->leftJoin( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id');
-
-        $query->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
+        $query->leftJoin( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id')
+            ->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
 
         // add order by clause
         return $this->addOrderBy($query, $sort);

@@ -56,39 +56,57 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        @if (empty($recipeId))
-                            <th>recipe</th>
-                        @endif
-                        <th class="has-text-centered">step</th>
-                        <th>description</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        @if (empty($recipeId))
-                            <th>recipe</th>
-                        @endif
-                        <th class="has-text-centered">step</th>
-                        <th>description</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'recipe',
+                                'sort'  => 'recipe_name|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'step',
+                                'sort'  => 'step|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'description',
+                                'sort'  => 'description|asc',
+                            ])
+                        </th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -104,7 +122,7 @@
                             </td>
                         @endif
                         @if (empty($recipeId))
-                            <td data-field="recipe.name">
+                            <td data-field="recipe.name" style="white-space: nowrap;">
                                 @if (!empty($recipeStep->recipe))
                                     @include('admin.components.link', [
                                         'name' => $recipeStep->recipe->name ?? '',

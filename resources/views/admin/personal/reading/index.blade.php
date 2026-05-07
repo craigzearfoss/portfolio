@@ -55,45 +55,62 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>title</th>
-                        <th>author</th>
-                        <th>type</th>
-                        <th class="has-text-centered">published</th>
-                        <th>media</th>
-                        <th class="has-text-centered">wishlist</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>name</th>
-                        <th>author</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'title',
+                                'sort'  => 'title|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'author',
+                                'sort'  => 'author|asc',
+                            ])
+                        </th>
                         <th>type</th>
-                        <th class="has-text-centered">published</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'published',
+                                'sort'  => 'publication_year|asc',
+                            ])
+                        </th>
                         <th>media</th>
                         <th class="has-text-centered">wishlist</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
-                    </tr>
-                    </tfoot>
-                @endif
+                        </tr>
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

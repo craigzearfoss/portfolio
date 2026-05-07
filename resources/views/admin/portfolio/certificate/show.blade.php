@@ -38,7 +38,7 @@
 @section('content')
 
     <div class="floating-div-container">
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="width: 100%;">
 
             @include('admin.components.show-row', [
                 'name'  => 'id',

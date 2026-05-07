@@ -100,12 +100,12 @@ class PhotographyController extends BaseAdminController
     /**
      * Show the form for editing the specified photo.
      *
-     * @param Photography $photo
+     * @param Photography $photography
      * @return View
      */
-    public function edit(Photography $photo): View
+    public function edit(Photography $photography): View
     {
-        updateGate($photo, $this->admin);
+        updateGate($photo = $photography, $this->admin);
 
         return view('admin.portfolio.photography.edit', compact('photo'));
     }
@@ -134,12 +134,12 @@ class PhotographyController extends BaseAdminController
     /**
      * Remove the specified photo from storage.
      *
-     * @param Photography $photo
+     * @param Photography $photography
      * @return RedirectResponse
      */
-    public function destroy(Photography $photo): RedirectResponse
+    public function destroy(Photography $photography): RedirectResponse
     {
-        deleteGate($photo, $this->admin);
+        deleteGate($photo = $photography, $this->admin);
 
         $photo->delete();
 

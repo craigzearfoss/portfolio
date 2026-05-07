@@ -58,41 +58,58 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        @if (empty($recipe))
-                            <th>recipe</th>
-                        @endif
-                        <th class="has-text-centered">amount</th>
-                        <th>unit</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>name</th>
-                        @if (empty($recipe))
-                            <th>recipe</th>
-                        @endif
-                        <th class="has-text-centered">amount</th>
-                        <th>unit</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'ingredient_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'recipe',
+                                'sort'  => 'recipe_name|asc',
+                            ])
+                        </th>
+                        <th>amount</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'unit',
+                                'sort'  => 'unit_name|asc',
+                            ])
+                        </th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -107,19 +124,17 @@
                                 {{ $recipeIngredient->owner->username ?? '' }}
                             </td>
                         @endif
-                        <td data-field="ingredient.name">
+                        <td data-field="ingredient.name" style="white-space: nowrap;">
                             {{ $recipeIngredient->ingredient->name ?? '' }}
                         </td>
-                        @if (empty($recipe))
-                            <td data-field="recipe.name">
-                                @if (!empty($recipeIngredient->recipe))
-                                    @include('admin.components.link', [
-                                        'name' => $recipeIngredient->recipe->name,
-                                        'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
-                                    ])
-                                @endif
-                            </td>
-                        @endif
+                        <td data-field="recipe.name" style="white-space: nowrap;">
+                            @if (!empty($recipeIngredient->recipe))
+                                @include('admin.components.link', [
+                                    'name' => $recipeIngredient->recipe->name,
+                                    'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
+                                ])
+                            @endif
+                        </td>
                         <td data-field="amount" class="has-text-centered">
                             {{ $recipeIngredient->amount }}
                         </td>
