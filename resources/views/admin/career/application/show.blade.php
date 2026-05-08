@@ -339,8 +339,7 @@
 
                         <div id="resume" class="is-hidden">
                             @include('admin.career.application.resume.panel', [
-                                'resume'        => $application->resume ?? null,
-                                'applicationId' => $application->id ?? null,
+                                'application' => $application ?? null,
                             ])
                         </div>
 

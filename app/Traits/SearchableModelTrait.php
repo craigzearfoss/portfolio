@@ -637,7 +637,11 @@ trait SearchableModelTrait
     protected function addOrderBy(Builder $query, string|null $sort = null): Builder
     {
         if (empty($sort)) {
-            $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+            $column = self::SEARCH_ORDER_BY[0];
+            if (!in_array($column, self::PREDEFINED_SEARCH_COLUMNS)) {
+                $column = $this->table . '.' . $column;
+            }
+            $query->orderBy($column, self::SEARCH_ORDER_BY[1]);
         } else {
             $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
             $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
@@ -645,17 +649,6 @@ trait SearchableModelTrait
             if (!empty($orderByCol) && !empty($orderByDir)) {
                 $query->orderBy($orderByCol, $orderByDir);
             }
-/*
-            if (in_array($orderByCol, array_merge($this->sortableColumns(), ['created_at', 'updated_at', 'deleted_at']))) {
-                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
-            } elseif(in_array($orderByCol, self::PREDEFINED_SEARCH_COLUMNS)) {
-                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
-            } elseif (str_starts_with($orderByCol, 'owner.')) {
-                $query->orderBy('admins.' . explode('.',  $orderByCol)[1], in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
-            } else {
-                $query->orderBy($this->table . '.' . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
-            }
-            */
         }
 
         return $query;

@@ -6,7 +6,7 @@
 
     $propsArray = [];
     foreach ($props ?? [] as $key=>$value) {
-        $propsArray[] = "{$key}={$value}";
+        $propsArray[] = $key . '="' . $value . '"';
     }
 @endphp
 

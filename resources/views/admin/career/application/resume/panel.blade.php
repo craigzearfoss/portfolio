@@ -1,126 +1,141 @@
 @php
     use App\Models\Career\Resume;
 
-    $applicationId = $applicationId ?? null;
-    $resume        = $resume ?? null;
+    if (!$application = $application ?? null) {
+        abort(500, 'No $application specified.');
+    }
+
+    $resumeModel = new Resume();
+
+    $resumeId                  = $application->resume_id;
+    $applicationResumeFilepath = $application->resume_filepath;
+    $applicationResumeDate     = $application->resume_date;
+
+    if (!empty($applicationResumeFilepath)) {
+        $fileExtension = substr($applicationResumeFilepath, strrpos($applicationResumeFilepath, '.') + 1);
+        $href = imageUrl($applicationResumeFilepath);
+    } else {
+        $fileExtension = null;
+        $href = null;
+    }
+
+    $resume = !empty($resumeId)
+        ? $resumeModel->find($resumeId)
+        : null;
+
+    $resumes = $resumeModel->searchQuery([ 'owner_id' => $application->owner_id ])->get();
+//    dd($resumes);
 @endphp
 <div class="card p-4">
 
     <h3 class="is-size-5 title mb-3">
 
         Resume
-
-        <span style="display: inline-flex; float: right;">
-
-            @if (!empty($resume))
-
-                <a title="show" class="button is-small px-1 py-0"
-                   href="{!! route('admin.career.resume.show', $resume) !!}">
-                        <i class="fa-solid fa-list"></i>
-                    </a>
-
-                <?php /*
-                // don't show the edit resume link because resumes are used for multiple applications
-                <a title="edit" class="button is-small px-1 py-0"
-                   href="{!! route('admin.career.resume.edit',$resume->id) !!}">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                */ ?>
-
-            @endif
-
-        </span>
-
     </h3>
 
     <hr class="navbar-divider">
 
-    @if (empty($resume))
+    <div class="has-text-centered" style="max-width: 80rem;">
 
-        <div class="has-text-centered" style="max-width: 30rem;">
+        <div class="edit-container">
 
-            @include('admin.components.link', [
-                'name'  => 'Attach an existing resume',
-                'href'  => route('admin.career.application.resume.attach', $application ?? null),
-                'class'    => 'button is-primary my-0',
-            ])
-
-            <h4 class="subtitle has-text-centered pt-4">or</h4>
-
-            @include('admin.components.link', [
-                'name'  => 'Add a new resume',
-                'href'  => route(
-                                'admin.career.resume.create',
-                                !empty($applicationId) ? ['application_id' => $applicationId] : []
-                            ),
-                'class'    => 'button is-primary my-0',
-            ])
-
-        </div>
-
-    @else
-
-        <div style="height: 12px; margin: 0; padding: 0;"></div>
-
-        <div style="display: flex; align-items: flex-start; column-gap: 20px; width: 100%; max-width: 1300rem;">
-
-            <div style="flex: 1; padding: 5px;">
-
-                @include('admin.components.show-row', [
-                    'name'  => 'name',
-                    'value' => $resume->name,
-                ])
-
-                @include('admin.components.show-row', [
-                    'name'  => 'date',
-                    'value' => longDate($resume->resume_date),
-                ])
-
-                @if (!empty($resume->description))
-                    @include('admin.components.show-row', [
-                        'name'  => 'description',
-                        'value' => $resume->description
-                    ])
-                @endif
-
-                <!-- tabbed content -->
-                <div class="resume-tabs is-boxed mb-0">
-                    <ul style="border-bottom-width: 0 !important;">
-                        <li data-target="pdf-file" class="is-active">
-                            <a>PDF file {!! empty($resume->pdf_filepath) ? ' <i>(none)</i>' : '' !!}</a>
-                        </li>
-                        <li id="initial-selected-tab" data-target="word-file">
-                            <a>Word file {!! empty($resume->doc_filepath) ? ' <i>(none)</i>' : '' !!}</a>
-                        </li>
-                    </ul>
-
+            <div class="field is-horizontal">
+                <div class="field-label" style="min-width: 6rem;">
+                    <strong>name</strong>
                 </div>
+                <div class="field-body">
+                    <div class="field has-text-left">
 
-                <div class="card p-4" id="resume-tab-content">
+                        <form name="frmAttachResumeFile"
+                              action="{{ route('admin.career.application.resume.attach.store', $application) }}"
+                              method="post"
+                        >
+                            @csrf
 
-                    <div id="pdf-file">
+                            <select id="application-select-resume"
+                                    name="application_resume"
+                                    class="form-select"
+                                    data-current-resume-id="{{ $resumeId }}"
+                            >
 
-                        @include('admin.components.show-row-resume', [
-                            'filetype' => 'pdf',
-                            'resume'   => $resume,
+                                <option value="" data-active="1"></option>
+
+                                @foreach ($resumes as $resume)
+
+                                    @foreach ([ 'pdf' => 'pdf_filepath', 'doc' => 'doc_filepath' ] as $fileType=>$column)
+
+                                        @if (!empty($resume->{$column}))
+                                            <option data-active   ="{{ $resume['active'] ? '1' : '0' }}"
+                                                    value         = "{{ $resume['id'] }}|{{ $fileType }}"
+                                                    data-id       = "{{ $resume['id'] }}"
+                                                    data-href     = "{{ imageUrl($resume->{$column}) }}"
+                                                    data-filetype = "{{ $fileType }}"
+                                                    data-current  = "{{ $resume['id'] == $resumeId ? '1' : '0' }}"
+                                                    @if ($resume['active'])
+                                                        style="color: rgb(0, 209, 178); font-weight: 700;"
+                                                    @endif
+                                                    @if ($resume['id'] == $resumeId)
+                                                        selected
+                                                    @endif
+                                            >
+                                                {{ $resume['name'] }} - {{ shortDate($resume['resume_date']) }}{{ $resume['primary'] ? '*' : '' }} ({{ $fileType }})
+                                            </option>
+                                        @endif
+
+                                    @endforeach
+
+                                @endforeach
+                            </select>
+
+                            @include('admin.components.form-button', [
+                                'name'  => 'Attach',
+                                'label' => 'Attach',
+                                'id'    => 'attach-resume-button',
+                                'class' => 'button is-small is-dark my-0 nav-button',
+                                'style' => [ 'display: none' ],
+                                'props' => !empty($resume->{$column})
+                                    ? [ 'title' => 'Replace the current resume with this resume' ]
+                                    : [ 'title' => 'Attach this resume to the application' ]
+                            ])
+
+                        </form>
+
+                        <div style="display: inline-block; font-size: 0.8rem;">
+                            <div style="display: inline-block; background-color: rgb(0, 209, 178); width: 12px; height: 12px;"></div> Indicates a primary resume.
+                            An asterisk `*` indicates an active resume.
+                        </div>
+
+                        @include('admin.components.form-button', [
+                            'name'  => 'all_active_resumes',
+                            'label' => 'Show Only Active Resumes',
+                            'id'    => 'all_active_resumes',
+                            'title' => 'show only active resumes',
+                            'class' => 'button is-small is-gray my-0 nav-button',
+                            'style' => 'padding: 0 2px 0 2px',
                         ])
 
                     </div>
-                    <div id="word-file">
-
-                        @include('admin.components.show-row-resume', [
-                            'filetype' => 'doc',
-                            'resume'   => $resume,
-                        ])
-
-                    </div>
-
                 </div>
-
             </div>
 
+            @if (!empty($application['resume_datetime']))
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'datetime',
+                    'value' => longDateTime($application['resume_datetime']),
+                ])
+            @endif
+
+            <iframe src="{{ $href }}"
+                    id="application-resume-preview"
+                    class="application-resume-preview"
+                    @if (empty($fileExtension))
+                        style="display: none;"
+                    @endif
+            >
+            </iframe>
+
         </div>
 
-    @endif
+    </div>
 
 </div>

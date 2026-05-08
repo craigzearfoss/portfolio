@@ -786,6 +786,11 @@ if (! function_exists('imageUrl')) {
             if (!str_starts_with(strtolower($src), 'http://') && !str_starts_with(strtolower($src), 'https://')) {
                 $src = trim($src, ' /\\');
                 $src = '/'. str_replace(DIRECTORY_SEPARATOR, '/', $src);
+
+                // for MS Word documents we have to send them to a preview page
+                if (in_array(substr($src, strrpos($src, '.') + 1), [ 'doc', 'docx' ])) {
+                    $src = route('view-document', [ 'file' => $src ]);
+                }
             }
         }
 

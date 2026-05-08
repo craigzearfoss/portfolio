@@ -10,9 +10,11 @@ use App\Models\Career\Application;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
+use Doctrine\Inflector\Rules\English\Rules;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -252,28 +254,59 @@ class ApplicationController extends BaseAdminController
     {
         updateGate($application, $this->admin);
 
-        $request->validate([
-            'application_id' => [
-                'integer',
-                'required',
-                Rule::in(new Application()->where('owner_id', $application['owner_id'])
-                    ->get()->pluck('id')->toArray()),
-            ],
-            [
-                'application_id.in' => 'Application ' . $request['application_id'] . ' does not belong to admin ' . $application['owner_id'] . '.'
-            ],
-            'resume_id' => [
-                'integer',
-                'required',
-                Rule::in(new Resume()->where('owner_id', $application['owner_id'])
-                    ->get()->pluck('id')->toArray()),
-            ],
-            [
-                'resume_id.in' => 'Resume ' . $request['resume_id'] . ' does not belong to admin ' . $application['owner_id'] . '.'
-            ],
-        ]);
+        $applicationResume = $request->input('application_resume');
 
-        $application['resume_id'] = $request['resume_id'];
+        if (!$resumeId = explode('|', $applicationResume)[0]) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'No resume id specified.']);
+        }
+
+        if (!$fileType = explode('|', $applicationResume)[1] ?? null) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'No file specified.']);
+        } elseif (!in_array($fileType, [ 'doc', 'pdf' ])) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'Invalid file type `' . $fileType . '`.']);
+        }
+
+        if (!$resume = Resume::query()->find($resumeId)) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'Resume `' . $resumeId . '` not found.']);
+        } elseif ($resume['owner_id'] != $application['owner_id']) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'Resume `' . $resumeId . '` does not belong to this application..']);
+        }
+
+        $column = match ($fileType) {
+            'doc' => 'doc_filepath',
+            default => 'pdf_filepath',
+        };
+
+        if (empty($resume->{$column})) {
+            return redirect()->back()->withErrors(['GLOBAL' => strtoupper($fileType) . ' file not found for resume `' . $resumeId . '`.']);
+        }
+
+        // copy the resume source file
+        $relativeSrcPath = DIRECTORY_SEPARATOR . $resume->{$column};
+        $absoluteSrcPath = public_path() . DIRECTORY_SEPARATOR . $relativeSrcPath;
+        $resumeFileName = substr(strrchr($relativeSrcPath, DIRECTORY_SEPARATOR), 1);
+        if (!file_exists($absoluteSrcPath)) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'Resume `' . $resumeId . '` file not found.']);
+        }
+
+        // determine the resume destination file
+        $relativeDestPath = 'images' . DIRECTORY_SEPARATOR . 'portfolio' . DIRECTORY_SEPARATOR . 'career' .
+            DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR . $application['id'] . DIRECTORY_SEPARATOR . $resumeFileName;
+        $absoluteDestPath = public_path() . DIRECTORY_SEPARATOR . $relativeDestPath;
+        $absoluteDestDirectory = strrchr($absoluteDestPath, DIRECTORY_SEPARATOR, true);
+
+        if (!File::exists($absoluteDestDirectory)) {
+            File::makeDirectory($absoluteDestDirectory, 755, true);
+        }
+
+        File::copy($absoluteSrcPath,$absoluteDestPath);
+        if (!file_exists($absoluteDestPath)) {
+            return redirect()->back()->withErrors(['GLOBAL' => 'Resume `' . $resumeId . '` file could not be copied.']);
+        }
+
+        $application['resume_id']       = $resumeId;
+        $application['resume_filepath'] = $relativeDestPath;
+        $application['resume_datetime'] = date("Y-m-d H:i:s");
         $application->save();
 
         return redirect()->route('admin.career.application.show', $application)

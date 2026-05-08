@@ -149,32 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     });
 
-    const resumeTabs= document.querySelectorAll('.resume-tabs a');
-    resumeTabs.forEach((elem) => {
-
-        // hide inactive resume tabs
-        document.querySelectorAll('#resume-tab-content .property-list').forEach((elem) => {
-            elem.style.display = 'none';
-        });
-        document.querySelector('#resume-tab-content :first-child .property-list').style.display = 'flex';
-
-        // add listeners to display is-active tabs
-        elem.addEventListener('click', function() {
-            const dataTarget = elem.parentElement.getAttribute('data-target');
-
-            document.querySelectorAll('.resume-tabs ul li').forEach((elem) => {
-                elem.classList.remove('is-active');
-            });
-            elem.parentElement.classList.add('is-active');
-
-            document.querySelectorAll('#resume-tab-content .property-list').forEach((elem) => {
-                elem.style.display = 'none';
-            });
-
-            document.querySelector(`#resume-tab-content > #${dataTarget} .property-list`).style.display = 'flex';
-        });
-    });
-
     // Functions to open and close a modal
     function openModal($el) {
         $el.classList.add('is-active');
@@ -187,6 +161,71 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeAllModals() {
         (document.querySelectorAll('.modal') || []).forEach(($modal) => {
             closeModal($modal);
+        });
+    }
+
+    // application resume select
+    const applicationResumeSelect = document.getElementById('application-select-resume');
+    if (applicationResumeSelect) {
+        applicationResumeSelect.addEventListener('change', (event) => {
+            const selectListElem = event.target;
+            const currentResumeId = selectListElem.getAttribute('data-current-resume-id')
+            const selectedOption = selectListElem.selectedOptions[0]
+
+            const resumeId = selectedOption.getAttribute('data-id');
+            const href = selectedOption.getAttribute('data-href');
+
+            const previewIframeElem = document.getElementById('application-resume-preview');
+
+            // show/hide the preview iframe
+            if (href) {
+                previewIframeElem.style.display = 'block';
+            } else {
+                previewIframeElem.style.display = 'none';
+            }
+
+            previewIframeElem.setAttribute('src', href);
+
+            // show/hide the attach button
+            if (resumeId && (resumeId !== currentResumeId)) {
+                document.getElementById('attach-resume-button').style.display = 'inline-block';
+            } else {
+                document.getElementById('attach-resume-button').style.display = 'none';
+            }
+
+            if (resumeId === currentResumeId) {
+                document.getElementById('attach-resume-button').style.display = 'none';
+            } else {
+                document.getElementById('attach-resume-button').style.display = 'inline-block';
+            }
+        });
+    }
+
+    const allActiveResumesBtn = document.getElementById('all_active_resumes');
+    if (allActiveResumesBtn) {
+        allActiveResumesBtn.addEventListener('click',  (event) => {
+            let elem = event.target
+
+           const btnText = elem.innerText;
+            if (btnText === 'Show All Resumes') {
+                elem.innerText = 'Show Only Active Resumes';
+                elem. setAttribute('title', 'show only active resumes')
+                document.querySelectorAll('#application-select-resume option').forEach((optionElem) => {
+                    optionElem.style.display = 'block';
+                });
+            } else {
+                elem.innerText = 'Show All Resumes';
+                elem. setAttribute('title', 'show all resumes')
+                document.querySelectorAll('#application-select-resume option').forEach((optionElem) => {
+                    if (parseInt(optionElem.getAttribute('data-active'))) {
+                        optionElem.style.display = 'block';
+                    } else {
+                        optionElem.style.display = 'none';
+                    }
+                });
+            }
+            document.getElementById('application-select-resume').selectedIndex = -1;
+            document.getElementById('attach-resume-button').style.display = 'inline-block';
         });
     }
 

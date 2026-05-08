@@ -105,19 +105,8 @@
 @if (!empty($href))
 
     <div style="flex: 1; padding: 5px;">
-
-        @if (in_array($fileExtension, [ 'doc', 'docx' ]))
-
-            <iframe src="{{ route('view-document', [ 'file' => $href ]) }}" style="width:100%; min-height:30rem; border: 1px solid #ccc;">
-            </iframe>
-
-        @else
-
-            <iframe src="{{ $href }}" style="width:100%; min-height:300px; border: 1px solid #ccc;">
-            </iframe>
-
-        @endif
-
+        <iframe class="application-resume-preview" src="{{ $href }}">
+        </iframe>
     </div>
 
 @else

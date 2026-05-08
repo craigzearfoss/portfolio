@@ -44,9 +44,6 @@
                                                                    'name' =>$coverLetter->slug . '-cover-letter' ])
                 @endif
 
-                @include('admin.components.button-download', [ 'file' => '',
-                                                               'name' =>$coverLetter->slug . '-cover-letter' ])
-
             @endif
 
         </span>
@@ -77,57 +74,6 @@
                     'download' => true,
                     'external' => true,
                 ])
-
-<?php /*
-                @if (!empty($coverLetter->filepath))
-
-                    <div class="property-list columns">
-                        <div class="column is-2 label" style="min-width: 6rem;">
-                            <strong>file</strong>:
-                            @include('admin.components.download-links', [
-                                'name'     => 'image',
-                                'href'     => imageUrl($coverLetter->filepath),
-                                'filename' => Str::slug(str_replace('CoverLetter: ', '', $title)). '.' . substr(strrchr($coverLetter->filepath, '.'), 1),
-                                'download' => true,
-                                'external' => !in_array($fileExtension, [ 'doc', 'docx' ]),
-                            ])
-                        </div>
-                        <div class="column is-10 value">
-
-                            @if ($fileExtension == 'pdf')
-
-                                <iframe src="{{ '/' . trim(str_replace('\\', '/', $coverLetter->filepath), ' /') }}"
-                                        style="width:100%; min-height:800px; border: 1px solid #ccc;"
-                                >
-                                </iframe>
-
-                            @elseif (in_array($fileExtension, ['doc', 'docx']))
-
-                                <iframe src="{{ route('view-document', ['file' => $coverLetter->filepath]) }}"
-                                        style="width:100%; min-height:800px; border: 1px solid #ccc;"
-                                >
-                                </iframe>
-
-                            @else
-
-                                <iframe src="{{ '/' . str_replace(DIRECTORY_SEPARATOR, '\\', trim($coverLetter->filepath, ' /\\')) }}"
-                                        style="width:100%; min-height:300px; border: 1px solid #ccc;"
-                                >
-                                </iframe>
-
-                            @endif
-
-                        </div>
-                    </div>
-
-                @endif
-*/ ?>
-                <?php /*
-                @include('admin.components.show-row', [
-                    'name'  => 'content',
-                    'value' => $coverLetter->content
-                ])
-                */ ?>
 
                 @include('admin.components.show-row', [
                     'name'  => 'notes',
