@@ -397,7 +397,7 @@ class AlexReiger extends Command
                 'application_id'    => $this->applications['#APPLICATION_SLUG#'],
                 'name'              => '',
                 'slug'              => '',
-                'cover_letter_date' => null,
+                'cover_letter_datetime' => null,
                 'content'           => <<<EOD
 EOD,
             ],

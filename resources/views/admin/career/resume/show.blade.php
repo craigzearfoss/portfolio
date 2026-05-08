@@ -52,7 +52,10 @@
                                 <a>PDF file {!! empty($resume->pdf_filepath) ? ' <i>(none)</i>' : '' !!}</a>
                             </li>
                             <li data-target="word-file">
-                                <a>Word file {!! empty($resume->doc_filepath) ? ' <i>(none)</i>' : '' !!}</a>
+                                <a>MS Word file {!! empty($resume->doc_filepath) ? ' <i>(none)</i>' : '' !!}</a>
+                            </li>
+                            <li data-target="other-file">
+                                <a>Other file {!! empty($resume->other_filepath) ? ' <i>(none)</i>' : '' !!}</a>
                             </li>
                             <li data-target="applications">
                                 <a>Applications</a>
@@ -100,23 +103,17 @@
                                     'value' => longDate($resume->resume_date)
                                 ])
 
+                                <?php /*
                                 @include('admin.components.show-row', [
                                     'name'  => 'content',
                                     'value' => $resume->content
                                 ])
+                                */ ?>
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
                                     'value' => $resume->notes
                                 ])
-
-                                <?php /*
-                                // we currently aren't using the file_type column
-                                @include('admin.components.show-row', [
-                                    'name'  => 'file type',
-                                    'value' => $resume->file_type
-                                ])
-                                */ ?>
 
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
@@ -172,24 +169,20 @@
                             <div class="show-container card p-4">
 
                                 @include('admin.components.show-row', [
-                                    'name'  => 'name',
-                                    'value' => $resume->name
-                                ])
-
-                                @include('admin.components.show-row', [
                                     'name'  => 'date',
-                                    'value' => longDate($resume->resume_date)
+                                    'value' => longDateTime($resume->pdf_datetime)
                                 ])
 
                                 @include('admin.components.show-row-document', [
-                                    'resource' => $resume,
-                                    'column'   => 'pdf_filepath',
-                                    'label'    => 'PDF file',
-                                    'filename' => $resume->name,
-                                    'accept'   => [ 'pdf' ],
-                                    'upload'   => false,
-                                    'download' => true,
-                                    'external' => true,
+                                    'resource'        => $resume,
+                                    'column'          => 'pdf_filepath',
+                                    'datetime_column' => 'pdf_datetime',
+                                    'label'           => 'file:',
+                                    'filename'        => $resume->name,
+                                    'accept'          => [ 'pdf' ],
+                                    'upload'          => false,
+                                    'download'        => true,
+                                    'external'        => true,
                                 ])
 
                             </div>
@@ -201,64 +194,47 @@
                             <div class="show-container card p-4">
 
                                 @include('admin.components.show-row', [
-                                    'name'  => 'name',
-                                    'value' => $resume->name
-                                ])
-
-                                @include('admin.components.show-row', [
                                     'name'  => 'date',
-                                    'value' => longDate($resume->resume_date)
+                                    'value' => longDateTime($resume->doc_datetime)
                                 ])
 
                                 @include('admin.components.show-row-document', [
-                                    'resource' => $resume,
-                                    'column'   => 'doc_filepath',
-                                    'label'    => 'MS Word file',
-                                    'filename' => $resume->name,
-                                    'accept'   => [ 'doc', 'docx'],
-                                    'upload'   => false,
-                                    'download' => true,
-                                    'external' => true,
+                                    'resource'        => $resume,
+                                    'column'          => 'doc_filepath',
+                                    'datetime_column' => 'doc_datetime',
+                                    'label'           => 'file:',
+                                    'filename'        => $resume->name,
+                                    'accept'          => [ 'doc', 'docx'],
+                                    'upload'          => false,
+                                    'download'        => true,
+                                    'external'        => true,
                                 ])
-<?php /*
-                                <div class="property-list columns">
-                                    <div class="column is-2 label" style="min-width: 6rem;">
-                                        <strong>MS Word file</strong>:
-                                        @if (!empty($resume->doc_filepath))
-                                            @include('admin.components.download-links', [
-                                                'name'     => 'image',
-                                                'href'     => imageUrl($resume->doc_filepath),
-                                                'filename' => Str::slug(str_replace('Resume: ', '', $title)). '.' . substr(strrchr($resume->doc_filepath, '.'), 1),
-                                                'download' => true,
-                                                'external' => false,
-                                            ])
-                                        @endif
-                                    </div>
-                                    <div class="column is-10 value">
 
-                                        @if (config('app.upload_enabled'))
-                                            @include('admin.components.button-upload-document', [
-                                                'modalTitle'  => (empty($resume->doc_filepath) ? 'Upload ' : 'Replace ')
-                                                    . str_replace('Resume: ', '', $title) . ' resume MS Word file',
-                                                'label'       => empty($resume->doc_filepath) ? 'Upload' : 'Replace',
-                                                'resource'    => $resume,
-                                                'column'      => 'doc_filepath',
-                                                'target_data' => 'resource-doc_filepath',
-                                                'accept'      => [ 'doc', 'docx' ],
-                                            ])
-                                        @endif
+                            </div>
 
-                                    </div>
-                                </div>
+                        </div>
 
-                                @if (!empty($resume->doc_filepath))
+                        <div id="other-file">
 
-                                    <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
-                                            style="width:100%; min-height:800px; border: 1px solid #ccc;">
-                                    </iframe>
+                            <div class="show-container card p-4">
 
-                                @endif
-*/ ?>
+                                @include('admin.components.show-row', [
+                                    'name'  => 'date',
+                                    'value' => longDateTime($resume->other_datetime)
+                                ])
+
+                                @include('admin.components.show-row-document', [
+                                    'resource'        => $resume,
+                                    'column'          => 'other_filepath',
+                                    'datetime_column' => 'other_datetime',
+                                    'label'           => 'file:',
+                                    'filename'        => $resume->name,
+                                    'accept'          => array_diff(config('app.upload_document_accept'), [ 'doc', 'docx', 'pdf' ]),
+                                    'upload'          => true,
+                                    'download'        => true,
+                                    'external'        => true,
+                                ])
+
                             </div>
 
                         </div>

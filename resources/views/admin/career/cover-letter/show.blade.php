@@ -78,18 +78,19 @@
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => 'date',
-                                    'value' => longDate($coverLetter->cover_letter_date)
+                                    'name'  => 'datetime',
+                                    'value' => longDateTime($coverLetter->cover_letter_datetime)
                                 ])
 
                                 @include('admin.components.show-row-document', [
-                                    'resource' => $coverLetter,
-                                    'column'   => 'filepath',
-                                    'label'    => 'file',
-                                    'filename' => $coverLetter->name,
-                                    'upload'   => false,
-                                    'download' => true,
-                                    'external' => true,
+                                    'resource'        => $coverLetter,
+                                    'column'          => 'filepath',
+                                    'datetime_column' => 'cover_letter_datetime',
+                                    'label'           => 'file',
+                                    'filename'        => $coverLetter->name,
+                                    'upload'          => false,
+                                    'download'        => true,
+                                    'external'        => true,
                                 ])
 
                                 @if (!empty($coverLetter->content))
@@ -144,7 +145,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'date',
-                                    'value' => longDate($coverLetter->cover_letter_date)
+                                    'value' => longDate($coverLetter->cover_letter_datetime)
                                 ])
 
                                 <?php /*

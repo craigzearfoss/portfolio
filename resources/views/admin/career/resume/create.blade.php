@@ -95,20 +95,6 @@
                 'message' => $message ?? '',
             ])
 
-            <?php /*
-            // we currently aren't using the file_type column
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'file_type',
-                'label'    => 'file type',
-                'value'    => old('file_type') ?? '',
-                'required' => true,
-                'list'     => Resume::fileTypes(true),
-                'message'  => $message ?? '',
-            ])
-            */ ?>
-            <input type="hidden" name="file_type" value="other">
-
-
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
                 'value'   => old('notes') ?? '',

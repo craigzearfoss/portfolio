@@ -67,7 +67,7 @@ class UpdateCoverLettersRequest extends UpdateAppBaseRequest
                 Rule::unique('career_db.cover_letters', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->ownerId)
                         ->where('name', $this['name'])
-                        ->where('cover_letter_date', $this['cover_letter_date'])
+                        ->where('cover_letter_datetime', $this['cover_letter_datetime'])
                         ->whereNot('id', $this['cover_letter']['id']);
                 })
             ],
@@ -78,11 +78,11 @@ class UpdateCoverLettersRequest extends UpdateAppBaseRequest
                 Rule::unique('career_db.cover_letters', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->ownerId)
                         ->where('slug', $this['slug'])
-                        ->where('cover_letter_date', $this['cover_letter_date'])
+                        ->where('cover_letter_datetime', $this['cover_letter_datetime'])
                         ->whereNot('id', $this['cover_letter']['id']);
                 })
             ],
-            'cover_letter_date' => ['date', 'nullable'],
+            'cover_letter_datetime' => ['date', 'nullable'],
             'filepath'          => ['string', 'max:500', 'nullable'],
             'content'           => ['nullable'],
             'notes'             => ['nullable'],

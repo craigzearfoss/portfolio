@@ -100,6 +100,32 @@
 
             <div class="field is-horizontal">
                 <div class="field-label">
+                    <strong>PDF file</strong>:
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control ">
+
+                            @if (!empty($resume->pdf_filepath))
+                                {{ substr(strrchr($resume->pdf_filepath, DIRECTORY_SEPARATOR), 1) }}
+                                @include('admin.components.download-links', [
+                                    'name'     => 'image',
+                                    'href'     => imageUrl($resume->pdf_filepath),
+                                    'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
+                                                      . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                    'download' => true,
+                                    'external' => true,
+                                ])
+                            @else
+                                <i>none (Add via the show page.)</i>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
                     <strong>MS Word file</strong>:
                 </div>
                 <div class="field-body">
@@ -125,21 +151,21 @@
 
             <div class="field is-horizontal">
                 <div class="field-label">
-                    <strong>PDF file</strong>:
+                    <strong>other file</strong>:
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control ">
 
-                            @if (!empty($resume->pdf_filepath))
-                                {{ substr(strrchr($resume->pdf_filepath, DIRECTORY_SEPARATOR), 1) }}
+                            @if (!empty($resume->other_filepath))
+                                {{ substr(strrchr($resume->other_filepath, DIRECTORY_SEPARATOR), 1) }}
                                 @include('admin.components.download-links', [
                                     'name'     => 'image',
-                                    'href'     => imageUrl($resume->pdf_filepath),
+                                    'href'     => imageUrl($resume->other_filepath),
                                     'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
-                                                      . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                                      . '.' . substr(strrchr($resume->other_filepath, '.'), 1),
                                     'download' => true,
-                                    'external' => !in_array($fileExtension, [ 'doc', 'docx' ]),
+                                    'external' => true,
                                 ])
                             @else
                                 <i>none (Add via the show page.)</i>
@@ -148,18 +174,6 @@
                     </div>
                 </div>
             </div>
-
-            <?php /*
-            // we currently aren't using the file_type column
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'file_type',
-                'label'    => 'file type',
-                'value'    => old('file_type') ?? $resume->file_type,
-                'required' => true,
-                'list'     => Resume::fileTypes(true),
-                'message'  => $message ?? '',
-            ])
-            */ ?>
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',

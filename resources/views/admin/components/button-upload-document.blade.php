@@ -6,6 +6,7 @@
     if (empty($column)) {
         abort(500, 'No $column parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'button-upload-document.blade.php.');
     }
+    $datetime_column = $datetime_column ?? '';
 
     $target_data = $target_data ?? null;
     if (empty($target_data)) {
@@ -74,17 +75,20 @@
 
                     <div style="display: none;">
 
-                        <label class="form-label" for="inputUploadType">upload_type</label>
-                        <input type="text" id="inputUploadType" name="upload_type" value="document">
+                        <label class="form-label" for="inputUploadType_{{ $column }}">upload_type</label>
+                        <input type="text" id="inputUploadType_{{ $column }}" name="upload_type" value="document">
 
-                        <label class="form-label" for="inputResourceType">resource_type_id</label>
-                        <input type="text" id="inputResourceTypeId" name="resource_type_id" value="{{ $resource->resource_type_id }}">
+                        <label class="form-label" for="inputResourceTypeId_{{ $column }}">resource_type_id</label>
+                        <input type="text" id="inputResourceTypeId_{{ $column }}" name="resource_type_id" value="{{ $resource->resource_type_id }}">
 
-                        <label class="form-label" for="artId">resource_id</label>
-                        <input type="text" id="inputResourceId" name="resource_id" value="{{ $resource->id }}">
+                        <label class="form-label" for="inputResourceId_{{ $column }}">resource_id</label>
+                        <input type="text" id="inputResourceId_{{ $column }}" name="resource_id" value="{{ $resource->id }}">
 
-                        <label class="form-label" for="artId">column</label>
-                        <input type="text" id="inputColumn" name="column" value="{{ $column }}">
+                        <label class="form-label" for="inputColumn_{{ $column }}">column</label>
+                        <input type="text" id="inputColumn_{{ $column }}" name="column" value="{{ $column }}">
+
+                        <label class="form-label" for="inputDatetimeColumn_{{ $column }}">datetime_column</label>
+                        <input type="text" id="inputDatetimeColumn_{{ $column }}" name="datetime_column" value="{{ $datetime_column }}">
 
                     </div>
 
@@ -92,7 +96,7 @@
                     <input
                         type="file"
                         name="file"
-                        id="inputFile"
+                        id="inputFile_{{ $column }}"
                         class="form-control button is-small is-gray my-0 nav-button @error('file') is-invalid @enderror"
                         @if (!empty($accept))
                             accept="{{ implode(',', array_map(function($val) { $val = trim($val, ' ,'); return '.' . $val; }, $accept)) }}"

@@ -274,7 +274,8 @@ class ApplicationController extends BaseAdminController
 
         $column = match ($fileType) {
             'doc' => 'doc_filepath',
-            default => 'pdf_filepath',
+            'pdf' => 'pdf_filepath',
+            default => 'other_filepath',
         };
 
         if (empty($resume->{$column})) {

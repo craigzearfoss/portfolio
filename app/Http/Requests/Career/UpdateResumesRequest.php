@@ -38,7 +38,7 @@ class UpdateResumesRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => [
+            'owner_id'       => [
                 'filled',
                 'integer',
                 Rule::in(array_unique(array_merge(
@@ -46,7 +46,7 @@ class UpdateResumesRequest extends UpdateAppBaseRequest
                     [ $this->ownerId ]
                 )))
             ],
-            'name'         => [
+            'name'           => [
                 'filled',
                 'string',
                 'max:255',
@@ -57,7 +57,7 @@ class UpdateResumesRequest extends UpdateAppBaseRequest
                         ->whereNot('id', $this['resume']['id']);
                 })
             ],
-            'slug'         => [
+            'slug'           => [
                 'filled',
                 'string',
                 'max:255',
@@ -68,28 +68,28 @@ class UpdateResumesRequest extends UpdateAppBaseRequest
                         ->whereNot('id', $this['resume']['id']);
                 })
             ],
-            'primary'      => ['integer', 'between:0,1'],
-            'active'       => ['integer', 'between:0,1'],
-            'resume_date'  => ['date', 'between:0,3000', 'nullable'],
-            'doc_filepath' => ['string', 'max:500', 'nullable'],
-            'pdf_filepath' => ['string', 'max:500', 'nullable'],
-            'content'      => ['nullable'],
-            'file_type'    => ['string', 'max:10', 'nullable'],
-            'notes'        => ['nullable'],
-            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'link_name'    => ['string', 'max:255', 'nullable'],
-            'description'  => ['nullable'],
-            'disclaimer'   => ['string', 'max:500', 'nullable'],
-            'image'        => ['string', 'max:500', 'nullable'],
-            'image_credit' => ['string', 'max:255', 'nullable'],
-            'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:500', 'nullable'],
-            'is_public'    => ['integer', 'between:0,1'],
-            'is_readonly'  => ['integer', 'between:0,1'],
-            'is_root'      => ['integer', 'between:0,1'],
-            'is_disabled'  => ['integer', 'between:0,1'],
-            'is_demo'      => ['integer', 'between:0,1'],
-            'sequence'     => ['integer', 'min:0', 'nullable'],
+            'primary'        => ['integer', 'between:0,1'],
+            'active'         => ['integer', 'between:0,1'],
+            'resume_date'    => ['date', 'between:0,3000', 'nullable'],
+            'doc_filepath'   => ['string', 'max:500', 'nullable'],
+            'pdf_filepath'   => ['string', 'max:500', 'nullable'],
+            'other_filepath' => ['string', 'max:500', 'nullable'],
+            'content'        => ['nullable'],
+            'notes'          => ['nullable'],
+            'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'      => ['string', 'max:255', 'nullable'],
+            'description'    => ['nullable'],
+            'disclaimer'     => ['string', 'max:500', 'nullable'],
+            'image'          => ['string', 'max:500', 'nullable'],
+            'image_credit'   => ['string', 'max:255', 'nullable'],
+            'image_source'   => ['string', 'max:255', 'nullable'],
+            'thumbnail'      => ['string', 'max:500', 'nullable'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
         ];
     }
 

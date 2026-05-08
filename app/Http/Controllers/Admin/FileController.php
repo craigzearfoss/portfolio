@@ -30,6 +30,7 @@ class FileController extends Controller
     const array DOCUMENT_COLUMNS = [
         'doc_filepath',
         'pdf_filepath',
+        'other_filepath',
     ];
 
     const array IMAGE_COLUMNS = [

@@ -48,9 +48,12 @@ class Resume extends Model
         'primary',
         'active',
         'doc_filepath',
+        'doc_datetime',
         'pdf_filepath',
+        'pdf_datetime',
+        'other_filepath',
+        'other_datetime',
         'content',
-        'file_type',
         'notes',
         'link',
         'link_name',
@@ -82,6 +85,7 @@ class Resume extends Model
         '.odt'   => 'OpenDocument Text (*.odt)',
         '.pdf'   => 'Adobe PDF (*.pdf)',
         '.rtf'   => 'Rich Text Format (*.rtf)',
+        '.txt'   => 'Text (*.txt)',
         '.xls'   => 'Microsoft Excel 5.0/95 Workbook (*.xls)',
         '.xlsx'  => 'Excel (*.xlsx)',
         '.xml'   => 'XML Spreadsheet 2003 (*.xml)',
@@ -99,9 +103,10 @@ class Resume extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'resume_date', 'primary', 'active',
-        'doc_filepath', 'pdf_filepath', 'content', 'file_type', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'resume_date', 'primary', 'active', 'doc_filepath',
+        'doc_datetime', 'pdf_filepath', 'pdf_datetime', 'other_filepath', 'other_datetime', 'content', 'notes',
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
+        'updated_at'
     ];
 
     /**
@@ -113,23 +118,26 @@ class Resume extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'active|desc'        => 'active',
-        //'application_id|asc' => 'application id',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'resume_date|desc'   => 'date',
-        'is_demo|desc'       => 'demo',
-        'is_disabled|desc'   => 'disabled',
-        'id|asc'             => 'id',
-        'name|asc'           => 'name',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'primary|desc'       => 'primary',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
+        'active|desc'         => 'active',
+        //'application_id|asc'  => 'application id',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'resume_date|desc'    => 'date',
+        'doc_datetime|desc'   => 'datetime MS Word file',
+        'other_datetime|desc' => 'datetime other file',
+        'pdf_datetime|desc'   => 'datetime PDF file',
+        'is_demo|desc'        => 'demo',
+        'is_disabled|desc'    => 'disabled',
+        'id|asc'              => 'id',
+        'name|asc'            => 'name',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'primary|desc'        => 'primary',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
     ];
 
     /**
@@ -301,17 +309,35 @@ class Resume extends Model
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
+            ->when(!empty($filters['doc_datetime-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.doc_datetime', '<=', $filters['doc_datetime-max']);
+            })
+            ->when(!empty($filters['doc_datetime-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.doc_datetime', '>=', $filters['doc_datetime-min']);
+            })
             ->when(!empty($filters['doc_filepath']), function ($query) use ($filters) {
                 $query->where($this->table . '.doc_filepath', 'like', '%' . $filters['doc_filepath'] . '%');
-            })
-            ->when(!empty($filters['file_type']), function ($query) use ($filters) {
-                $query->where($this->table . '.file_type', '=', $filters['file_type']);
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['other_datetime-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.other_datetime', '<=', $filters['other_datetime-max']);
+            })
+            ->when(!empty($filters['other_datetime-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.other_datetime', '>=', $filters['other_datetime-min']);
+            })
+            ->when(!empty($filters['other_filepath']), function ($query) use ($filters) {
+                $query->where($this->table . '.other_filepath', 'like', '%' . $filters['other_filepath'] . '%');
+            })
+            ->when(!empty($filters['pdf_datetime-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.pdf_datetime', '<=', $filters['pdf_datetime-max']);
+            })
+            ->when(!empty($filters['doc_datetime-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.doc_datetime', '>=', $filters['doc_datetime-min']);
             })
             ->when(!empty($filters['pdf_filepath']), function ($query) use ($filters) {
                 $query->where($this->table . '.pdf_filepath', 'like', '%' . $filters['pdf_filepath'] . '%');

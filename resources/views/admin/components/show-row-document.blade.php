@@ -5,11 +5,12 @@
         abort(500, 'No $resource parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'button-upload-document.blade.php.');
     }
 
-    $column        = $column ?? 'filepath';
-    $label         = $label ?? 'file';
-    $href          = imageUrl($resource->{$column});
-    $fileExtension = substr(strrchr($href, '.'), 1);
-    $filename      = $filename ?? 'file';
+    $column          = $column ?? 'filepath';
+    $datetime_column = $datetime_column ?? 'filepath';
+    $label           = $label ?? 'file';
+    $href            = imageUrl($resource->{$column});
+    $fileExtension   = substr(strrchr($href, '.'), 1);
+    $filename        = $filename ?? 'file';
 
     $accept   = !empty($accept)
         ? is_array($accept) ? $accept : array_map(function($val) { return trim($val); }, explode(',', $accept))
@@ -91,20 +92,30 @@
 
         @if (!$editPage && config('app.upload_enabled'))
             @include('admin.components.button-upload-document', [
-                'modalTitle'  => (empty($resource->{$column}) ? 'Upload ' : 'Replace ') . $label,
-                'label'       => empty($resource->{$column}) ? 'Upload' : 'Replace',
-                'resource'    => $resource,
-                'column'      => $column,
-                'target_data' => 'resource-' . str_replace('_', '-', $column),
-                'accept'      => implode(',', $accept),
+                'modalTitle'      => (empty($resource->{$column}) ? 'Upload ' : 'Replace ') . $label,
+                'label'           => empty($resource->{$column}) ? 'Upload' : 'Replace',
+                'resource'        => $resource,
+                'column'          => $column,
+                'datetime_column' => $datetime_column,
+                'target_data'     => 'resource-' . str_replace('_', '-', $column),
+                'accept'          => implode(',', $accept),
             ])
         @endif
 </div>
-<div class="{{ $editPage ? 'field-body' : 'column is-10 value' }}">
+<div class="{{ $editPage ? 'field-body' : 'column is-10 value' }}" style="display: block;">
 
 @if (!empty($href))
 
-    <div style="flex: 1; padding: 5px;">
+    <div style="display: block; width: 100%; padding: 5px;">
+        @if (!empty($resource->{$column}))
+            @include('admin.components.link', [
+                'name'   => $resource->{$column},
+                'value'  => $resource->{$column},
+                'target' => '_blank',
+            ])
+        @endif
+    </div>
+    <div style="display: block; width: 100%; padding: 5px;">
         <iframe class="application-resume-preview" src="{{ $href }}">
         </iframe>
     </div>

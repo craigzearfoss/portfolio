@@ -575,7 +575,7 @@ class Application extends Model
     public function coverLetter(): HasOne
     {
         return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'application_id')
-            ->orderBy('cover_letter_date', 'desc');
+            ->orderBy('cover_letter_datetime', 'desc');
     }
 
     /**

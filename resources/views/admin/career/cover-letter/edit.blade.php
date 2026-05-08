@@ -76,9 +76,9 @@
 
                 @include('admin.components.form-input-horizontal', [
                     'type'    => 'date',
-                    'name'    => 'cover_letter_date',
+                    'name'    => 'cover_letter_datetime',
                     'label'   => 'date',
-                    'value'   => old('cover_letter_date') ?? $coverLetter->cover_letter_date,
+                    'value'   => old('cover_letter_datetime') ?? $coverLetter->cover_letter_datetime,
                     'message' => $message ?? '',
                 ])
 

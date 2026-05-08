@@ -37,6 +37,7 @@ class ResourceFileService {
     const array DOCUMENT_COLUMNS = [
         'doc_filepath',
         'filepath',
+        'other_filepath',
         'pdf_filepath',
     ];
 
@@ -100,6 +101,8 @@ class ResourceFileService {
     protected Object|null $resource = null;
 
     protected string|null $column = null;
+
+    protected string|null $datetime_column = null;
 
     protected Admin|Owner|null $admin = null;
     protected string|null $rootPath = null;
@@ -215,6 +218,9 @@ class ResourceFileService {
             default => [],
         };
 
+        // get the date column (if specified)
+        $this->datetime_column = $request->input('datetime_column');
+
         $this->fileUploaded = true;
 
         // validate the file
@@ -257,7 +263,15 @@ class ResourceFileService {
             $this->uploadVerified = true;
 
             // update the database with the filepath
-            $this->resource->update([ $this->column => $this->relativePath . DIRECTORY_SEPARATOR . $this->filename ]);
+            $data = [
+                $this->column => $this->relativePath . DIRECTORY_SEPARATOR . $this->filename,
+                'updated_at'  => date("H-m-d i:m:s"),
+            ];
+            if (!empty($this->datetime_column)) {
+                $data[$this->datetime_column] = date("Y-m-d H:i:s");
+            }
+
+            $this->resource->update($data);
 
             if (!File::exists($this->destinationPath . DIRECTORY_SEPARATOR . $this->filename)) {
                 return $this->addError('File could not be moved.');
@@ -355,6 +369,7 @@ class ResourceFileService {
             'reflectionClass'        => $this->reflectionClass,
             'resource'               => $this->resource,
             'column'                 => $this->column,
+            'datetime_column'        => $this->datetime_column,
             'admin'                  => $this->admin,
             'filename'               => $this->filename,
             'rootPath'               => $this->rootPath,
