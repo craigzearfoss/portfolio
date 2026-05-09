@@ -42,6 +42,7 @@ class BackupDatabases extends Command
         if (!$backupDirectory = config('app.backup_directory')) {
             $backupDirectory = storage_path() . DIRECTORY_SEPARATOR . 'backups' . DIRECTORY_SEPARATOR;
         }
+        $backupDirectory .= ((substr($backupDirectory, -1) != DIRECTORY_SEPARATOR) ? DIRECTORY_SEPARATOR : '') . 'database';
         $filename = 'portfolio_' . date("Ymd-His") . '.sql';
         $exportFile = $backupDirectory . $filename;
 
@@ -53,8 +54,6 @@ class BackupDatabases extends Command
         if (!File::exists($backupDirectory)) {
             abort('Directory ' . $backupDirectory . ' could not be created.');
         }
-
-
 
         echo PHP_EOL . 'username: ' . $username . PHP_EOL;
         echo 'password: ' . str_repeat('#', strlen($password)) . PHP_EOL;
