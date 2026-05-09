@@ -117,9 +117,10 @@ class State extends Model
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
 
-
         // add joins
         $query->leftJoin( dbName('system_db') . '.countries', 'countries.id', '=', $this->table . '.country_id');
+
+        $query->with('country');
 
         $query->addSelect(
             DB::Raw('countries.name as country_name'),

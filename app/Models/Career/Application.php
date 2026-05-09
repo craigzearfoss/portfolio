@@ -478,6 +478,8 @@ class Application extends Model
             ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'applications.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'applications.country_id');
 
+        $query->with('owner', 'company', 'jobBoard', 'resume', 'coverLetter', 'durationType', 'employmentType', 'locationType', 'compensationUnit', 'state', 'country');
+
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('admins.name AS `owner_name`'),

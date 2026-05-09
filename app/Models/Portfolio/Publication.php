@@ -275,6 +275,8 @@ class Publication extends Model
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

@@ -254,6 +254,8 @@ class Audio extends Model
                 $query->where($this->table . '.audio_year', '=', $filters['audio_year']);
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

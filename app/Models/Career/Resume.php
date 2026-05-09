@@ -355,6 +355,8 @@ class Resume extends Model
                 $query->where($this->table . '.resume_date', '<=', $filters['resume_date_to']);
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

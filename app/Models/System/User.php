@@ -247,6 +247,8 @@ class User extends Authenticatable
                 $query->where($this->table . '.user_team_id', '=', intval($filters['user_team_id']));
             });
 
+        $query->with('state', 'country', 'team');
+
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

@@ -177,6 +177,8 @@ class School extends Model
             ->addSelect(DB::Raw('states.code as state_code'))
             ->addSelect(DB::Raw('states.name as state_name'));
 
+        $query->with('state', 'country');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

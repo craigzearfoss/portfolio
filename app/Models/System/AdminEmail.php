@@ -125,6 +125,8 @@ class AdminEmail extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
+        $query->with('owner');
+
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 

@@ -141,6 +141,8 @@ class AdminGroup extends Model
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
 
+        $query->with('owner');
+
         $query = $this->appendStandardFilters($query, $filters);
 
         return $this->appendTimestampFilters($query, $filters);

@@ -257,6 +257,8 @@ class Skill extends Model
         $query->join( dbName('dictionary_db') . '.categories', 'categories.id', '=', $this->table . '.dictionary_category_id')
             ->addSelect(DB::Raw('categories.name as dictionary_category_name'));
 
+        $query->with('owner', 'category');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

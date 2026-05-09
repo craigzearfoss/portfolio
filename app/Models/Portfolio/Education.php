@@ -215,6 +215,8 @@ class Education extends Model
         $query->join( dbName('portfolio_db') . '.degree_types', 'degree_types.id', '=', $this->table . '.degree_type_id')
             ->addSelect(DB::Raw('degree_types.name as degree_type_name'));
 
+        $query->with('owner', 'school', 'degreeType');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

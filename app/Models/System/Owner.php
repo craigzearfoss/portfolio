@@ -272,6 +272,8 @@ class Owner extends Model
                 $query->where($this->table . '.username', 'like', '%' . $filters['username'] . '%');
             });
 
+        $query->with('state', 'country', 'team');
+
         $query =$this->appendAddressFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

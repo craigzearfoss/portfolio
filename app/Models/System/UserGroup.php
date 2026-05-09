@@ -143,6 +143,8 @@ class UserGroup extends Model
                 $query->where($this->table . '.user_team_id', '=', intval($filters['user_team_id']));
             });
 
+        $query->with('user', 'team');
+
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 

@@ -242,6 +242,8 @@ class Communication extends Model
             ->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
             ->leftJoin('communication_types', 'communication_types.id', '=', 'communication_type_id');
 
+        $query->with('owner', 'application', 'company', 'communicationType');
+
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('applications.apply_date as application_apply_date'),

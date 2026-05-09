@@ -189,6 +189,8 @@ class Award extends Model
                 $query->where($this->table . '.award_year', '=', intval($filters['award_year']));
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

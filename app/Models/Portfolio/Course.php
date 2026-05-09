@@ -212,6 +212,8 @@ class Course extends Model
         // join to academies table
         $query->leftJoin( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id');
 
+        $query->with('owner', 'academy');
+
         $query->addSelect(DB::Raw('academies.name as academy_name'));
 
         // add additional filters

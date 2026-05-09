@@ -166,6 +166,8 @@ class Database extends Model
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
+        $query->with('owner');
+
         $query = $this->appendEnvironmentFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

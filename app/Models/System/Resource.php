@@ -268,6 +268,8 @@ class Resource extends Model
         // add joins
         $query->leftJoin( dbName('system_db') . '.databases', 'databases.id', '=', $this->table . '.database_id');
 
+        $query->with('owner');
+
         $query->addSelect(
             DB::Raw('databases.name as database_name'),
             DB::Raw('databases.tag as database_tag'),

@@ -289,6 +289,8 @@ class Recipe extends Model
                 }
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

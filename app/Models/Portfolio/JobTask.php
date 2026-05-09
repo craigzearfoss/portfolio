@@ -178,6 +178,8 @@ class JobTask extends Model
         // join to jobs table
         $query->leftJoin( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id');
 
+        $query->with('owner', 'job');
+
         $query->addSelect(DB::Raw('jobs.company as company_name'))
             ->addSelect(DB::Raw('jobs.role as role'));
 

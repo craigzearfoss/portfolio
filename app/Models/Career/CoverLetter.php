@@ -258,6 +258,8 @@ class CoverLetter extends Model
         $query->join('applications', 'applications.id', '=', $this->table . '.application_id')
             ->join('companies', 'companies.id', '=', 'applications.company_id');
 
+        $query->with('owner', 'application');
+
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('applications.apply_date as application_apply_date'),

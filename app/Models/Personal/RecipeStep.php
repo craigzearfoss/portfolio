@@ -165,6 +165,8 @@ class RecipeStep extends Model
         $query->leftJoin( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id')
             ->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
 
+        $query->with('owner', 'recipe');
+
         // add order by clause
         return $this->addOrderBy($query, $sort);
     }

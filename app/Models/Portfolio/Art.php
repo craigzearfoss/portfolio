@@ -201,6 +201,8 @@ class Art extends Model
                 $query->where($this->table . '.art_year', '=', intval($filters['art_year']));
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

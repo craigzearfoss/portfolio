@@ -134,6 +134,8 @@ class Message extends Model
                 $query->where($this->table . '.subject', 'like', '%' . $filters['subject'] . '%');
             });
 
+        $query->with('owner');
+
         $query = $this->appendStandardFilters($query, $filters);
         $query =  $this->appendTimestampFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

@@ -128,6 +128,8 @@ class AdminPhone extends Model
                 $query->where($this->table . '.phone', 'like', '%' . $filters['phone'] . '%');
             });
 
+        $query->with('owner');
+
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 

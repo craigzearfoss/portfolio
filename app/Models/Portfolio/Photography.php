@@ -186,6 +186,8 @@ class Photography extends Model
                 $query->where($this->table . '.photo_year', '=', intval($filters['photo_year']));
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

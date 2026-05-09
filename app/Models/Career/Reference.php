@@ -238,6 +238,8 @@ class Reference extends Model
         $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'references.country_id');
 
+        $query->with('owner', 'state', 'country');
+
         $query->addSelect(
             DB::raw('states.name as state_name'),
             DB::raw('states.code as state_code'),

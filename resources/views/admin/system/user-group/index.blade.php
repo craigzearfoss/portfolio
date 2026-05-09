@@ -97,7 +97,7 @@
                     <tr data-id="{{ $userGroup->id }}">
                         @if ($isRootAdmin)
                             <td data-field="id">
-                                {{ $userGroup }}
+                                {{ $userGroup->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $userGroup->owner->username ?? '' }}

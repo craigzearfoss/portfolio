@@ -173,13 +173,18 @@ class RecipeIngredient extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to recipes table
-        $query->leftJoin( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id');
-
-        $query->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
+        $query->leftJoin( dbName('personal_db') . '.recipes', 'recipes.id', '=', $this->table . '.recipe_id')
+            ->addSelect(DB::raw(dbName($this->connection) . '.recipes.name AS recipe_name'));
 
         // join to ingredients table
         $query->join( dbName('personal_db') . '.ingredients', 'ingredients.id', '=', $this->table . '.ingredient_id')
             ->addSelect(DB::raw(dbName($this->connection) . '.ingredients.name AS ingredient_name'));
+
+        // join to units table
+        $query->leftJoin( dbName('personal_db') . '.units', 'units.id', '=', $this->table . '.unit_id')
+            ->addSelect(DB::raw(dbName($this->connection) . '.units.name AS unit_name'));
+
+        $query->with('owner', 'recipe', 'ingredient', 'unit');
 
         // add order by clause
         return $this->addOrderBy($query, $sort);

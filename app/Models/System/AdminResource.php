@@ -275,6 +275,8 @@ class AdminResource extends Model
         // add joins
         $query->leftJoin( dbName('system_db') . '.admin_databases', 'admin_databases.id', '=', $this->table . '.admin_database_id');
 
+        $query->with('owner', 'database');
+
         $query->addSelect(
             DB::Raw('admin_databases.name as database_name'),
             DB::Raw('admin_databases.tag as database_tag'),

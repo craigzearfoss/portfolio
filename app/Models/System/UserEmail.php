@@ -131,6 +131,8 @@ class UserEmail extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
+        $query->with('user');
+
         // add order by clause
         return $this->addOrderBy($query, $sort);
     }

@@ -209,6 +209,8 @@ class Music extends Model
                 $query->where('music_year', '=', intval($filters['music_year']));
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

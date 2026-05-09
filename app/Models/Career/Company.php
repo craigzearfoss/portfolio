@@ -199,6 +199,8 @@ class Company extends Model
             ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'companies.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'companies.country_id');
 
+        $query->with('owner', 'industry', 'state', 'country');
+
         // add additional filters
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendPhoneFilters($query, $filters);

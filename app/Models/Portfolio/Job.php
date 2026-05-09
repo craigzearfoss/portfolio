@@ -326,6 +326,8 @@ class Job extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);

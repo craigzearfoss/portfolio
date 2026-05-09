@@ -134,6 +134,8 @@ class AdminTeam extends Model
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
 
+        $query->with('owner');
+
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 

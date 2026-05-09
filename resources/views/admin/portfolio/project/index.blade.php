@@ -55,44 +55,6 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>language</th>
-                        <th>year</th>
-                        <th>repository</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
-
-                @if ($bottom_column_headings)
-                    <tfoot>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>language</th>
-                        <th>year</th>
-                        <th>repository</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </tfoot>
-                @endif
-
-
-
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
                     if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';

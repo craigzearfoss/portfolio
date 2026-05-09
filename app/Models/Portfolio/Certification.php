@@ -150,6 +150,8 @@ class Certification extends Model
         // join to certification_types table
         $query->join( dbName('portfolio_db') . '.certification_types', 'certification_types.id', '=', $this->table . '.certification_type_id');
 
+        $query->with('certificationType');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
 

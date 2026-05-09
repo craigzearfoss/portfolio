@@ -205,6 +205,8 @@ class Certificate extends Model
         $query->leftJoin( dbName('portfolio_db') . '.academies', 'academies.id', '=', $this->table . '.academy_id')
             ->addSelect(DB::Raw('academies.name as academy_name'));
 
+        $query->with('owner','academy');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

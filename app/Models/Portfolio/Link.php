@@ -171,6 +171,8 @@ class Link extends Model
                 $query->where($this->table . '.url', 'like', '%' . $filters['url'] . '%');
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

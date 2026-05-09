@@ -242,6 +242,8 @@ class Video extends Model
                 $query->where($this->table . '.video_year', '=', intval($filters['video_year']));
             });
 
+        $query->with('owner');
+
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

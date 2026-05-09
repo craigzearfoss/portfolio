@@ -134,6 +134,8 @@ class Tag extends Model
                 $query->where($this->table . '.resource_id', '=', intval($filters['resource_id']));
             });
 
+        $query->with('owner');
+
         // add order by clause
         return $this->addOrderBy($query, $sort);
     }
