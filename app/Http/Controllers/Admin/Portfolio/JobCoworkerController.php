@@ -64,7 +64,7 @@ class JobCoworkerController extends BaseAdminController
             $owner_id = $job->owner->id;
         } else {
             $owner    = $this->owner;
-            $owner_id = $this->owner->id;
+            $owner_id = $this->owner['id'];
         }
 
         return view('admin.portfolio.job-coworker.create', compact('job', 'owner', 'owner_id'));

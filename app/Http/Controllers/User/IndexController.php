@@ -80,10 +80,10 @@ class IndexController extends BaseUserController
 
             if (Auth::guard('user')->attempt($data)) {
                 $user = Auth::guard('user')->user();
-                if ($user->disabled) {
+                if ($user['disabled']) {
                     return view(themedTemplate('user.login'))
                         ->with('username', $username)
-                        ->withErrors($user->username . ' account has been disabled.');
+                        ->withErrors($user['username'] . ' account has been disabled.');
                 } else {
                     return redirect()->route('admin.dashboard');
                 }
@@ -146,7 +146,7 @@ class IndexController extends BaseUserController
                 'pResetLink' => $pResetLink
             ];
 
-            Mail::to($request->email)->send(new ResetPassword($subject, $info));
+            Mail::to($request['email'])->send(new ResetPassword($subject, $info));
 
             return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check
             your email. If you do not find the email in your inbox, please check your spam folder.');
@@ -188,7 +188,7 @@ class IndexController extends BaseUserController
                 'username' => $user->username,
             ];
 
-            Mail::to($request->email)->send(new ForgotUsername($subject, $info));
+            Mail::to($request['email'])->send(new ForgotUsername($subject, $info));
 
             return redirect()->back()->with('success', 'An email with your username has been sent to your email address.
             Please check your email. If you do not find the email in your inbox, please check your spam folder.');
@@ -236,11 +236,11 @@ class IndexController extends BaseUserController
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
         }
 
-        if (Hash::check($request->password, $user->password)) {
+        if (Hash::check($request['password'], $user->password)) {
             return redirect()->back()->with('error', ' You cannot use your old password again.');
         }
 
-        $user->password = Hash::make($request->password);
+        $user->password = Hash::make($request['password']);
         $user->token = null;
         $user->update();
 
@@ -257,7 +257,7 @@ class IndexController extends BaseUserController
             $user = new User();
             $user['name']     = $request->input('name');
             $user['email']    = $request->input('email');
-            $user['password'] = Hash::make($request->password);
+            $user['password'] = Hash::make($request['password']);
             $user['token']    = hash('sha256', time());
             $user['status']   = 0;
             $user['disabled'] = 1;
@@ -266,7 +266,7 @@ class IndexController extends BaseUserController
 
             $verificationLink = route(
                 'user.email-verification',
-                ['token' => $user['token'], 'email' => urlencode($request->email)]
+                ['token' => $user['token'], 'email' => urlencode($request['email'])]
             );
             $subject = "Email Verification from " . config('app.name');
             $info = [
@@ -274,7 +274,7 @@ class IndexController extends BaseUserController
                 'verificationLink' => $verificationLink
             ];
 
-            Mail::to($request->email)->send(new VerifyEmail($subject, $info));
+            Mail::to($request['email'])->send(new VerifyEmail($subject, $info));
 
             return redirect()->back()->with('success', 'You need to verify your email to complete your registration.
             We have sent a verification link to your email. If you cannot find the email in your inbox, please check

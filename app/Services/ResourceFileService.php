@@ -5,14 +5,21 @@ namespace App\Services;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Models\System\Owner;
+use Exception;
+use Illuminate\Config\Repository;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use ReflectionClass;
 use ReflectionException;
 use Str;
+use JetBrains\PhpStorm\NoReturn;
 
+/**
+ *
+ */
 class ResourceFileService {
 
     /**
@@ -61,58 +68,142 @@ class ResourceFileService {
 
 
     /**
-     * Is
+     * Has the file been uploaded?
      *
      * @var bool
      */
     public bool $fileUploaded = false;
 
+    /**
+     * Has the request been validated?
+     *
+     * @var bool
+     */
     public bool $requestValidated = false;
 
+    /**
+     * Has the file been moved to it's final destination?
+     *
+     * @var bool
+     */
     public bool $fileMoved = false;
 
+    /**
+     * Have we verified that the file has been uploaded successfully?
+     *
+     * @var bool
+     */
     public bool $uploadVerified = false;
 
+    /**
+     * Has the database been updated?
+     *
+     * @var bool
+     */
     public bool $databaseUpdated = false;
 
+    /**
+     * @var bool
+     */
     public bool $uploadCompleted = false;
 
+    /**
+     * @var bool|Repository|Application|mixed|object|null
+     */
     protected bool $uploadsEnabled = false;
 
+    /**
+     * @var int|Repository|Application|mixed|object
+     */
     protected int $maxFileSize = 2048;
 
+    /**
+     * @var string|null
+     */
     protected string|null $uploadType = null;
 
+    /**
+     * @var array
+     */
     protected array $validColumns = [];
 
+    /**
+     * @var array
+     */
     protected array $acceptedFileExtensions = [];
+    /**
+     * @var int|null
+     */
     protected int|null $resourceTypeId = null;
 
+    /**
+     * @var int|null
+     */
     protected int|null $resourceId = null;
 
+    /**
+     * @var Request|null
+     */
     protected Request|null $request = null;
 
+    /**
+     * @var string|null
+     */
     protected string|null $resourceTypeName = null;
 
+    /**
+     * @var Object|null
+     */
     protected Object|null $adminResource = null;
 
+    /**
+     * @var Object|null
+     */
     protected Object|null $reflectionClass = null;
 
+    /**
+     * @var Object|null
+     */
     protected Object|null $resource = null;
 
+    /**
+     * @var string|null
+     */
     protected string|null $column = null;
 
+    /**
+     * @var string|null
+     */
     protected string|null $datetime_column = null;
 
+    /**
+     * @var Admin|Owner|null
+     */
     protected Admin|Owner|null $admin = null;
+
+    /**
+     * @var string|null
+     */
     protected string|null $rootPath = null;
 
+    /**
+     * @var string|null
+     */
     protected string|null $relativePath = null;
 
+    /**
+     * @var string|null
+     */
     protected string|null $destinationPath = null;
 
+    /**
+     * @var string|null
+     */
     protected string|null $filename = null;
 
+    /**
+     * @var array
+     */
     protected array $errors = [];
 
     /**
@@ -246,7 +337,7 @@ class ResourceFileService {
     {
         try {
             // move the file to the public directory
-            $this->filename = Str::uuid() . '.' . $this->request->file->extension();
+            $this->filename = Str::uuid() . '.' . $this->request['file']->extension();
 
             $this->relativePath = 'portfolio' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR .
                 dbName($this->adminResource['database_id']) . DIRECTORY_SEPARATOR .
@@ -256,7 +347,7 @@ class ResourceFileService {
 
             Storage::disk('public')->makeDirectory($this->relativePath);
 
-            $this->request->file->move($this->destinationPath, $this->filename);
+            $this->request['file']->move($this->destinationPath, $this->filename);
 
             $this->fileMoved = true;
 
@@ -280,7 +371,7 @@ class ResourceFileService {
             }
             $this->databaseUpdated = true;
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
 
             return $this->addError($exception->getMessage());
         }
@@ -290,21 +381,33 @@ class ResourceFileService {
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getRootPath(): string
     {
         return $this->rootPath;
     }
 
+    /**
+     * @return string|null
+     */
     public function getRelativePath(): string|null
     {
         return $this->relativePath;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDestinationPath(): string|null
     {
         return $this->destinationPath;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFilename(): string|null
     {
         return $this->filename;
@@ -353,7 +456,7 @@ class ResourceFileService {
      *
      * @return void
      */
-    public function dd()
+    #[NoReturn] public function dd(): void
     {
         dd([
             'uploadsEnabled'         => $this->uploadsEnabled,

@@ -29,6 +29,7 @@ use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Observers\System\AdminObserver;
 use App\Traits\SearchableModelTrait;
+use Exception;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -207,7 +208,7 @@ class Admin extends Authenticatable
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],

@@ -407,7 +407,7 @@ class Resource extends Model
                     $operator = trim($parts[1]);
 
                     if (in_array($operator, ['<>', '!=', '=!'])) {
-                        $query->where($col, '<>', is_numeric($value) ? $value : str_replace("'", '', "'{$value}'"));
+                        $query->where($col, '<>', is_numeric($value) ? $value : str_replace("'", '', "'$value'"));
                     } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
@@ -520,15 +520,15 @@ class Resource extends Model
     {
         $url = null;
 
-        $routeName = $envType->value . '.' . str_replace('_', '-', $database->name) . '.index';
+        $routeName = $envType->value . '.' . str_replace('_', '-', $database['name']) . '.index';
 
         if (Route::has($routeName)) {
             $url = route($routeName);
         }
 
-        $database->route = $routeName;
-        $database->url = $url;
-        $database->active = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
+        $database['route']  = $routeName;
+        $database['url']    = $url;
+        $database['active'] = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
     }
 
     /**
@@ -545,17 +545,17 @@ class Resource extends Model
         $url = null;
 
         $routeName = $envType->value
-            . '.' . str_replace('_', '-', $resource->database_name)
-            . '.' . $resource->name
+            . '.' . str_replace('_', '-', $resource['database_name'])
+            . '.' . $resource['name']
             . '.index';
 
         if (Route::has($routeName)) {
             $url = Route::has($routeName) ? route($routeName) : null;
         }
 
-        $resource->route = $routeName;
-        $resource->url = $url;
-        $resource->active = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
+        $resource['route']  = $routeName;
+        $resource['url']    = $url;
+        $resource['active'] = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
     }
 
     /**
@@ -570,7 +570,7 @@ class Resource extends Model
         Admin|Owner $owner): void
     {
         if ($resource['has_owner']) {
-            $resource->owner = $owner;
+            $resource['owner'] = $owner;
         }
     }
 
@@ -597,8 +597,8 @@ class Resource extends Model
         }
 
         $this->appendRouteFieldToDatabase($database, $envType);
-        $database->owner = $owner;
+        $database['owner'] = $owner;
 
-        $resource->database = $database;
+        $resource['database'] = $database;
     }
 }

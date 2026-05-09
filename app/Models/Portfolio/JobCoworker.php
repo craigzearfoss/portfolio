@@ -283,7 +283,7 @@ class JobCoworker extends Model
     protected function level(): Attribute
     {
         return new Attribute(
-            get: fn () => self::LEVELS[$this->level_id] ?? ''
+            get: fn () => self::LEVELS[$this['level_id']] ?? ''
         );
     }
 }

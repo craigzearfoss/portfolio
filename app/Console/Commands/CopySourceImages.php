@@ -343,7 +343,7 @@ class CopySourceImages extends Command
 
                             $coverLetter = $coverLetterModel->withoutGlobalScope(AdminPublicScope::class)
                                 ->find($coverLetterId);
-                            $coverLetter->filepath = $relativeDestPath;
+                            $coverLetter['filepath'] = $relativeDestPath;
                             $coverLetter->save();
 
                         } catch (Throwable $e) {
@@ -453,9 +453,9 @@ class CopySourceImages extends Command
                                 ->find($resumeId);
 
                             if ($fileExt == 'pdf') {
-                                $resume->pdf_filepath = $relativeDestPath;
+                                $resume['pdf_filepath'] = $relativeDestPath;
                             } else {
-                                $resume->doc_filepath = $relativeDestPath;
+                                $resume['doc_filepath'] = $relativeDestPath;
                             }
                             $resume->save();
 

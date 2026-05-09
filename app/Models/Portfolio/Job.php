@@ -350,7 +350,7 @@ class Job extends Model
      */
     protected function calculateName(): string
     {
-        return $this->company . (!empty($this->role) ? ' (' . $this->role . ')' : '');
+        return $this['company'] . (!empty($this->role) ? ' (' . $this->role . ')' : '');
     }
 
     /**

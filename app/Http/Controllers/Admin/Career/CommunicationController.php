@@ -61,8 +61,8 @@ class CommunicationController extends BaseAdminController
     {
         createGate(Communication::class, $this->admin);
 
-        $application = $request->application_id
-            ? Application::query()->find($request->application_id)
+        $application = $request['application_id']
+            ? Application::query()->find($request['application_id'])
             : null;
 
         return view('admin.career.communication.create', compact('application'));

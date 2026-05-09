@@ -111,10 +111,10 @@ class IndexController extends BaseAdminController
             if (Auth::guard('admin')->attempt($data)) {
 
                 $admin = Auth::guard('admin')->user();
-                if ($admin->is_disabled) {
+                if ($admin['is_disabled']) {
                     return view(themedTemplate('admin.login'))
                         ->with('username', $username)
-                        ->withErrors($admin->username . ' account has been disabled.');
+                        ->withErrors($admin['username'] . ' account has been disabled.');
                 } else {
                     return redirect()->route('admin.dashboard');
                 }
@@ -182,7 +182,7 @@ class IndexController extends BaseAdminController
                 'pResetLink' => $pResetLink
             ];
 
-            Mail::to($request->email)->send(new ResetPassword($subject, $info));
+            Mail::to($request['email'])->send(new ResetPassword($subject, $info));
 
             return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check
             your email. If you do not find the email in your inbox, please check your spam folder.');
@@ -228,11 +228,11 @@ class IndexController extends BaseAdminController
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
         }
 
-        if (Hash::check($request->password, $admin->password)) {
+        if (Hash::check($request['password'], $admin->password)) {
             return redirect()->back()->with('error', ' You cannot use your old password again.');
         }
 
-        $admin->password = Hash::make($request->password);
+        $admin->password = Hash::make($request['password']);
         $admin->token = null;
         $admin->update();
 

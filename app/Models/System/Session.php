@@ -3,6 +3,7 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -84,7 +85,7 @@ class Session extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],

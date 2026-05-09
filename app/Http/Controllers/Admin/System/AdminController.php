@@ -133,17 +133,17 @@ class AdminController extends BaseAdminController
 
         $dbColumns = [
             'Portfolio' => new AdminResource()->ownerResources(
-                $thisAdmin ?? null,
+                $thisAdmin,
                 EnvTypes::ADMIN,
                 'portfolio_db'
             ),
             'Personal' => new AdminResource()->ownerResources(
-                $thisAdmin ?? null,
+                $thisAdmin,
                 EnvTypes::ADMIN,
                 'personal_db'
             ),
             'Career' => new AdminResource()->ownerResources(
-                $thisAdmin ?? null,
+                $thisAdmin,
                 EnvTypes::ADMIN,
                 'career_db'
             ),
@@ -247,11 +247,11 @@ class AdminController extends BaseAdminController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        if (Hash::check($request->password, $this->owner['password'])) {
+        if (Hash::check($request['password'], $this->owner['password'])) {
             return redirect()->back()->with(['error' => 'You cannot use the old password again.']);
         }
 
-        $this->owner['password'] = Hash::make($request->password);
+        $this->owner['password'] = Hash::make($request['password']);
         $this->owner['token'] = null;
         $this->owner->update();
 

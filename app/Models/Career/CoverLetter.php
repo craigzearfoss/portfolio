@@ -298,7 +298,7 @@ class CoverLetter extends Model
      */
     protected function calculateName():string
     {
-        $company = $this->application->company['name'];
+        $company = $this['application']->company['name'];
         $role = $this->application['role'] ?? '?role?';
         $date = !empty($this->application['apply_date'])
             ? ' [applied: ' . $this->application['apply_date'] . ']'

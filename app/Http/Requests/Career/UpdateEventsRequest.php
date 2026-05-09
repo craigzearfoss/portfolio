@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Http\Requests\UpdateAppBaseRequest;
+use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -97,7 +98,7 @@ class UpdateEventsRequest extends UpdateAppBaseRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws \DateMalformedStringException
+     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {

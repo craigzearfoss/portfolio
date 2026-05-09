@@ -7,6 +7,7 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -115,7 +116,7 @@ class Language extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],

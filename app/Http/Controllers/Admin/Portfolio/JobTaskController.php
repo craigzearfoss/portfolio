@@ -63,7 +63,7 @@ class JobTaskController extends BaseAdminController
             $owner_id = $job->owner->id;
         } else {
             $owner    = $this->owner;
-            $owner_id = $this->owner->id;
+            $owner_id = $this->owner['id'];
         }
 
         return view('admin.portfolio.job-task.create', compact('job', 'owner', 'owner_id'));

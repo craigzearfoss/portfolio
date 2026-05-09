@@ -6,6 +6,7 @@ use App\Models\System\User as UserModel;
 use App\Observers\System\UserObserver;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\System\UserFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -183,7 +184,7 @@ class User extends Authenticatable
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],

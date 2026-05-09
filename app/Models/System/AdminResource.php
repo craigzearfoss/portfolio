@@ -383,7 +383,7 @@ class AdminResource extends Model
         ->join('admins', 'admins.id', 'admin_resources.owner_id')
         ->join('admin_databases', 'admin_databases.id', 'admin_resources.admin_database_id')
         ->where('admin_resources.'.$envType->value, '=', true)
-        ->where('admin_resources.owner_id', '=', $owner->id)
+        ->where('admin_resources.owner_id', '=', $owner['id'])
         ->orderBy($sortField, $sortDir);
 
         // apply database filter
@@ -415,7 +415,7 @@ class AdminResource extends Model
                     $operator = trim($parts[1]);
 
                     if (in_array($operator, ['<>', '!=', '=!'])) {
-                        $query->where($col, '<>', is_numeric($value) ? $value : str_replace("'", '', "'{$value}'"));
+                        $query->where($col, '<>', is_numeric($value) ? $value : str_replace("'", '', "'$value'"));
                     } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
@@ -512,19 +512,8 @@ class AdminResource extends Model
      */
     #[NoReturn] public function getResourceByName(Admin|Owner $owner, string $databaseName, string $resourceName): ?AdminResource
     {
-
-        // get column names for select
-        $selectColumns = [
-            DB::raw("admins.name AS 'admin_name'"),
-            DB::raw("admins.username AS 'admin_username'"),
-            DB::raw("admins.label AS 'admin_label'"),
-        ];
-        foreach (self::DATABASE_PROPERTIES as $field => $name) {
-            $selectColumns[] =  DB::raw("admin_databases.$name AS '$field'");
-        }
-
         $adminResource = new self()->join('admin_databases', 'admin_databases.id', '=', 'admin_resources.admin_database_id')
-            ->where('admin_databases.owner_id', '=', $owner->id)
+            ->where('admin_databases.owner_id', '=', $owner['id'])
             ->where('admin_databases.name', '=', $databaseName)
             ->where('admin_resources.name', '=', $resourceName)
             ->first(DB::Raw(implode(', ', [
@@ -572,7 +561,7 @@ class AdminResource extends Model
     {
         $url = null;
 
-        $routeName = $envType->value . '.' . str_replace('_', '-', $adminDatabase->name) . '.index';
+        $routeName = $envType->value . '.' . str_replace('_', '-', $adminDatabase['name']) . '.index';
 
         if (Route::has($routeName)) {
             if ($envType == EnvTypes::GUEST) {
@@ -582,9 +571,9 @@ class AdminResource extends Model
             }
         }
 
-        $adminDatabase->route = $routeName;
-        $adminDatabase->url = $url;
-        $adminDatabase->active = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
+        $adminDatabase['route'] = $routeName;
+        $adminDatabase['url'] = $url;
+        $adminDatabase['active'] = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
     }
 
     /**
@@ -603,8 +592,8 @@ class AdminResource extends Model
         $url = null;
 
         $routeName = $envType->value
-            . '.' . str_replace('_', '-', $adminResource->database_name)
-            . '.' . $adminResource->name
+            . '.' . str_replace('_', '-', $adminResource['database_name'])
+            . '.' . $adminResource['name']
             . '.index';
 
         if (Route::has($routeName)) {
@@ -615,9 +604,9 @@ class AdminResource extends Model
             }
         }
 
-        $adminResource->route = $routeName;
-        $adminResource->url = $url;
-        $adminResource->active = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
+        $adminResource['route']  = $routeName;
+        $adminResource['url']    = $url;
+        $adminResource['active'] = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
     }
 
     /**
@@ -647,7 +636,7 @@ class AdminResource extends Model
             unset($adminResource[$field]);
         }
 
-        $adminResource->owner = $owner;
+        $adminResource['owner'] = $owner;
     }
 
     /**
@@ -673,8 +662,8 @@ class AdminResource extends Model
         }
 
         $this->appendRouteFieldToDatabase($adminDatabase, $envType, $owner);
-        $adminDatabase->owner = $owner;
+        $adminDatabase['owner'] = $owner;
 
-        $adminResource->database = $adminDatabase;
+        $adminResource['database'] = $adminDatabase;
     }
 }

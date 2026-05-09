@@ -1330,7 +1330,7 @@ if (! function_exists('ownerParams')) {
      * @param Admin|Owner|null $admin
      * @return array|mixed
      */
-    function ownerParams(mixed $params, int|null $owner_id, Admin|Owner|null $admin)
+    function ownerParams(mixed $params, int|null $owner_id, Admin|Owner|null $admin): mixed
     {
         if (!is_array($params)) {
             $params = [ $params ];

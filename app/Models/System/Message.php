@@ -4,6 +4,7 @@ namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ApplicationFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -106,7 +107,7 @@ class Message extends Model
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
-     * @throws \Exception
+     * @throws Exception
      */
     public function searchQuery(
         array $filters = [],
