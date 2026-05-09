@@ -158,7 +158,7 @@
                             @if (!empty($certificate->academy))
                                 @include('admin.components.link', [
                                     'name'   => $certificate->academy->name,
-                                    'href'   => route('admin.portfolio.academy.show', \App\Models\Portfolio\Academy::find($certificate->academy->id)),
+                                    'href'   => route('admin.portfolio.academy.show', $certificate->academy),
                                 ])
                             @endif
                         </td>

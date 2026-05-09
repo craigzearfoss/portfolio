@@ -138,7 +138,7 @@
                             @if (!empty($course->academy))
                                 @include('admin.components.link', [
                                     'name'   => $course->academy->name ?? '',
-                                    'href'   => route('admin.portfolio.academy.show', Academy::find($course->academy->id)),
+                                    'href'   => route('admin.portfolio.academy.show', $course->academy),
                                 ])
                             @endif
                         </td>

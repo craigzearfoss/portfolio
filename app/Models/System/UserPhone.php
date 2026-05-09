@@ -128,7 +128,7 @@ class UserPhone extends Model
                 $query->where($this->table . '.user_id', '=', intval($filters['user_id']));
             });
 
-        $query->with('user');
+        $query->with('owner');
 
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

@@ -250,7 +250,7 @@ class Contact extends Model
             ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'contacts.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'contacts.country_id');
 
-        $query->with('owner', 'state', 'country');
+        $query->with('owner', 'companies', 'state', 'country');
 
         $query->addSelect(
                 DB::raw(dbName($this->connection) . '.companies.id AS company_id'),

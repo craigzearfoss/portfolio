@@ -75,10 +75,8 @@ if (! function_exists('dbName')) {
             } else {
                 return null;
             }
-        } elseif ($database = Database::query()->where('tag', '=', $dbTagOrId)->first()) {
-            return $database->database;
         } else {
-            return null;
+            return config('database.connections')[$dbTagOrId]['database'] ?? null;
         }
     }
 }
@@ -387,8 +385,6 @@ if (! function_exists('canRead')) {
                 }
             }
         }
-
-        return false;
     }
 }
 

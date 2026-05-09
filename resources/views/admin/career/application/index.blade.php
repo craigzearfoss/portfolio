@@ -251,9 +251,7 @@
                             @if (!empty($application->company))
                                 @include('admin.components.link', [
                                     'name' => $application->company->name ?? '',
-                                    'href' => route('admin.career.company.show',
-                                                    Company::find($application->company->id)
-                                                   )
+                                    'href' => route('admin.career.company.show', $application->company)
                                 ])
                             @endif
                         </td>
