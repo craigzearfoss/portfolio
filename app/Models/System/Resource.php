@@ -461,10 +461,8 @@ class Resource extends Model
 
                 $databaseIds[] = $resource->database_id;
 
-                $database = new Database()->find($resource->database_id);
-                $this->appendRouteFieldToDatabase($database, $envType);
-
-                $databases[] = $database;
+                $this->appendRouteFieldToDatabase($resource->database, $envType);
+                $databases[] = $resource->database;
                 $resourcesByDatabaseId[$resource->database_id] = [];
             }
             $resourcesByDatabaseId[$resource->database_id][] = $resource;

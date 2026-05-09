@@ -467,7 +467,7 @@ class AdminResource extends Model
 
         $adminDatabaseIds = [];
         $adminDatabases = [];
-        $adminResourcesByAdminDatabaseId = [];
+        $adminResourcesByDatabaseId = [];
 
         foreach ($adminResources as $adminResource) {
 
@@ -475,17 +475,15 @@ class AdminResource extends Model
 
                 $adminDatabaseIds[] = $adminResource->admin_database_id;
 
-                $adminDatabase = new AdminDatabase()->find($adminResource->admin_database_id);
-                $this->appendRouteFieldToDatabase($adminDatabase, $envType, $owner);
-                $adminDatabase->owner = $owner;
-                $adminDatabases[] = $adminDatabase;
-                $adminResourcesByAdminDatabaseId[$adminResource->admin_database_id] = [];
+                $this->appendRouteFieldToDatabase($adminResource->database, $envType, $owner);
+                $adminDatabases[] = $adminResource->database;
+                $adminResourcesByDatabaseId[$adminResource->database_id] = [];
             }
-            $adminResourcesByAdminDatabaseId[$adminResource->admin_database_id][] = $adminResource;
+            $adminResourcesByDatabaseId[$adminResource->database_id][] = $adminResource;
         }
 
         foreach ($adminDatabases as $adminDatabase) {
-            $adminDatabase->resources = Collection::make($adminResourcesByAdminDatabaseId[$adminDatabase['id']]);
+            $adminDatabase->resources = Collection::make($adminResourcesByDatabaseId[$adminDatabase['id']]);
         }
 
         // add dictionary item
