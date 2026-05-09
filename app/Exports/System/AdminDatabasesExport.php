@@ -3,14 +3,16 @@
 namespace App\Exports\System;
 
 use App\Models\System\AdminDatabase;
+use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class AdminDatabasesExport implements FromCollection
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
         $query = new AdminDatabase()->searchQuery(

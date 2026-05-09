@@ -3,6 +3,7 @@
 namespace App\Exports\Personal;
 
 use App\Models\Personal\Ingredient;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -11,8 +12,9 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class IngredientsExport implements FromCollection, WithHeadings
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
         $query = new Ingredient()->searchQuery(

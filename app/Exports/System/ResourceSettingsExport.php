@@ -3,14 +3,16 @@
 namespace App\Exports\System;
 
 use App\Models\System\ResourceSetting;
+use Exception;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ResourceSettingsExport implements FromCollection
 {
     /**
-    * @return Collection
-    */
+     * @return Collection
+     * @throws Exception
+     */
     public function collection(): Collection
     {
         $query = new ResourceSetting()->searchQuery(
