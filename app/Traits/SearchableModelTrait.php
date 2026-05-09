@@ -728,14 +728,7 @@ trait SearchableModelTrait
             case WhereClauseTypes::WILDCARD:
                 $query->where($column, 'like', '%' . $value . '%');
                 break;
-            case WhereClauseTypes::DEFAULT:
             default:
-                if (is_array($value)) {
-                    $query->whereIn($column,  $value);
-                } else {
-                    $query->where($column, '=', $value);
-                }
-                break;
         }
     }
 
