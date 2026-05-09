@@ -57,37 +57,57 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>application</th>
-                        <th>subject</th>
-                        <th>body</th>
-                        <th>created at</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if (!empty($bottom_column_headings))
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>application</th>
-                        <th>subject</th>
-                        <th>body</th>
-                        <th>created at</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'application',
+                                'sort'  => 'application_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'subject',
+                                'sort'  => 'subject|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'created at',
+                                'sort'  => 'created_at|asc',
+                            ])
+                        </th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -114,13 +134,6 @@
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
                             {{ $note->subject }}
-                        </td>
-                        <td data-field="body" style="min-width: 30rem;">
-                            @if (strlen($note->body) > 200)
-                                {!! substr($note->body, 0, 200) !!}...
-                            @else
-                                {!! $note->body !!}
-                            @endif
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">
                             {{ shortDateTime($note->created_at) }}

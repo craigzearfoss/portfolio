@@ -56,7 +56,81 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
+
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
+                    <tr>
+                        @if ($isRootAdmin)
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
+                        @endif
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'application',
+                                'sort'  => 'application_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'type',
+                                'sort'  => 'communication_type_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'subject',
+                                'sort'  => 'subject|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'to',
+                                'sort'  => 'application_apply_date|desc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'from',
+                                'sort'  => 'from|desc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'datetime',
+                                'sort'  => 'communication_datetime|desc',
+                            ])
+                        </th>
+                        <th>actions</th>
+                    </tr>
+                    </{{ $labelElem }}>
+
+                @endforeach
+
+
+        @if ($top_column_headings)
                     <thead>
                     <tr>
                         @if ($isRootAdmin)

@@ -70,6 +70,7 @@ class Communication extends Model
         'application_apply_date',
         'application_post_date',
         'application_role',
+        'communication_type_name',
         'company_id',
         'company_name',
     ];
@@ -112,7 +113,8 @@ class Communication extends Model
         'sequence|asc'                => 'sequence',
         'subject|asc'                 => 'subject',
         'to|asc'                      => 'to',
-        'communication_type_id|asc'   => 'type',
+        'communication_type_id|asc'   => 'type id',
+        'communication_type_name|asc' => 'type',
     ];
 
     /**
@@ -223,6 +225,12 @@ class Communication extends Model
             })
             ->when(!empty($filters['to']), function ($query) use ($filters) {
                 $query->where($this->table . '.to', 'like', '%' . $filters['to'] . '%');
+            })
+            ->when(!empty($filters['type_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.type_id', '=', intval($filters['type_id']));
+            })
+            ->when(!empty($filters['type_name']), function ($query) use ($filters) {
+                $query->where('communication_types.name', 'like', '%' . $filters['type_name'] . '%');
             });
 
         // add additional filters
