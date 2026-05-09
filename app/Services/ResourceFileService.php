@@ -340,7 +340,7 @@ class ResourceFileService {
             $this->filename = Str::uuid() . '.' . $this->request['file']->extension();
 
             $this->relativePath = 'portfolio' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR .
-                dbName($this->adminResource['database_id']) . DIRECTORY_SEPARATOR .
+                dbName($this->adminResource->database['database']) . DIRECTORY_SEPARATOR .
                 str_replace('_', '-', Str::snake($this->resourceTypeName)) . DIRECTORY_SEPARATOR .
                 $this->resource->id;
             $this->destinationPath = $this->rootPath . DIRECTORY_SEPARATOR . $this->relativePath;

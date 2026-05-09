@@ -62,22 +62,14 @@ if ( !function_exists('getRouteBase')) {
 
 if (! function_exists('dbName')) {
     /**
-     * Returns the name of a database from the database tag or database id.
-     * This is because names of databases can be specified in the .env file.
+     * Returns the name of a database from the database tag. If gets the value defined in the .env file
+     * using the config method.
      *
-     * @param string|int $dbTagOrId
+     * @param string $databaseTag
      * @return string|null
      */
-    function dbName(string|int $dbTagOrId): string|null  {
-        if (is_int($dbTagOrId)) {
-            if ($database = Database::query()->where('id', '=', $dbTagOrId)->first()) {
-                return $database->name;
-            } else {
-                return null;
-            }
-        } else {
-            return config('database.connections')[$dbTagOrId]['database'] ?? null;
-        }
+    function dbName(string $databaseTag): string|null  {
+        return config('database.connections')[$databaseTag]['database'] ?? null;
     }
 }
 
