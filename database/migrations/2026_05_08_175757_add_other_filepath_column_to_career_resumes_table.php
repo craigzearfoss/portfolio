@@ -31,16 +31,16 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table(dbName('career_db') . '.resumes', function (Blueprint $table) {
-            $table->dropColumn('other_datetime');
-            $table->dropColumn('pdf_filepath');
-            $table->dropColumn('doc_filepath');
-            $table->dropColumn('other_filepath');
-            $table->string('file_type', 10)->default('other')->after('content');
+            //$table->dropColumn('other_datetime');
+            //$table->dropColumn('pdf_filepath');
+            //$table->dropColumn('doc_filepath');
+            //$table->dropColumn('other_filepath');
+            //$table->string('file_type', 10)->default('other')->after('content');
         });
 
         Schema::table(dbName('career_db') . '.cover_letters', function (Blueprint $table) {
-            $table->date('cover_letter_datetime')->change();
-            $table->renameColumn('cover_letter_datetime', 'cover_letter_date');
+            //$table->date('cover_letter_datetime')->change();
+            //$table->renameColumn('cover_letter_datetime', 'cover_letter_date');
         });
     }
 };
