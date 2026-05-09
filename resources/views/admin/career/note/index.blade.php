@@ -82,13 +82,7 @@
                                 ])
                             </th>
                         @endif
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'application',
-                                'sort'  => 'application_name|asc',
-                            ])
-                        </th>
+                        <th>application</th>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,

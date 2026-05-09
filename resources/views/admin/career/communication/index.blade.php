@@ -81,13 +81,7 @@
                                 ])
                             </th>
                         @endif
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'application',
-                                'sort'  => 'application_name|asc',
-                            ])
-                        </th>
+                        <th>application</th>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
@@ -128,43 +122,6 @@
                     </{{ $labelElem }}>
 
                 @endforeach
-
-
-        @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>application</th>
-                        <th>type</th>
-                        <th>subject</th>
-                        <th>to</th>
-                        <th>from</th>
-                        <th>datetime</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
-
-                @if ($bottom_column_headings)
-                    <tfoot>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>application</th>
-                        <th>type</th>
-                        <th>subject</th>
-                        <th>to</th>
-                        <th>from</th>
-                        <th>datetime</th>
-                        <th>actions</th>
-                    </tr>
-                    </tfoot>
-                @endif
 
                 <tbody>
 
