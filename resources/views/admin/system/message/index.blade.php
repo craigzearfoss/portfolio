@@ -51,35 +51,62 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>owner</th>
-                        <th><span title="Was the message sent from the admin area?">from<br>admin</span></th>
-                        <th>name</th>
-                        <th>email</th>
-                        <th>subject</th>
-                        <th>created at</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>id</th>
-                        <th>owner</th>
-                        <th><span title="Was the message sent from the admin area?">from<br>admin</span></th>
-                        <th>name</th>
-                        <th>email</th>
-                        <th>subject</th>
-                        <th>created at</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'id',
+                                'sort'  => 'id|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'owner',
+                                'sort'  => 'owner_username|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'from',
+                                'sort'  => 'from_admin|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'email',
+                                'sort'  => 'email|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'subject',
+                                'sort'  => 'subject|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'created at',
+                                'sort'  => 'created_at|asc',
+                            ])
+                        </th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -150,7 +177,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="8">No messages found.</td>
+                        <td colspan="7">No messages found.</td>
                     </tr>
 
                 @endforelse

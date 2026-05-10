@@ -66,41 +66,72 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th style="white-space: nowrap;">user name</th>
-                        <th>label</th>
-                        <th>team</th>
-                        <th>email</th>
-                        <th class="has-text-centered">verified</th>
-                        <th>status</th>
-                        <th class="has-text-centered">root</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th style="white-space: nowrap;">user name</th>
-                        <th>label</th>
-                        <th>team</th>
-                        <th>email</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'id',
+                                'sort'  => 'id|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th style="white-space: nowrap;">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'username',
+                                'sort'  => 'username|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'label',
+                                'sort'  => 'label|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'team',
+                                'sort'  => 'team_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'email',
+                                'sort'  => 'email|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">verified</th>
-                        <th>status</th>
-                        <th class="has-text-centered">root</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'status',
+                                'sort'  => 'status|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 

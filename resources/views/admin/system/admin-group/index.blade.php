@@ -58,37 +58,59 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>name</th>
-                        <th>team</th>
-                        <th>abbreviation</th>
-                        <th class="has-text-centered">disabled</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>name</th>
-                        <th>team</th>
-                        <th>abbreviation</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'team',
+                                'sort'  => 'user_team_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'abbreviation',
+                                'sort'  => 'abbreviation|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -126,6 +148,9 @@
                         </td>
                         <td data-field="abbreviation">
                             {{ $adminGroup->abbreviation }}
+                        </td>
+                        <td data-field="is_public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $adminGroup->is_public ])
                         </td>
                         <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminGroup->is_disabled ])
@@ -171,9 +196,9 @@
 
                     <tr>
                         @if ($isRootAdmin)
-                            <td colspan="7">No admin groups found.</td>
+                            <td colspan="8">No admin groups found.</td>
                         @else
-                            <td colspan="5">No groups found.</td>
+                            <td colspan="6">No groups found.</td>
                         @endif
                     </tr>
 

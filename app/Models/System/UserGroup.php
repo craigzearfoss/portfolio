@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -59,7 +60,7 @@ class UserGroup extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'user_name', 'user_username', 'user_email'
+        'user_name', 'user_username', 'user_email', 'user_team_name'
     ];
 
     /**
@@ -136,12 +137,36 @@ class UserGroup extends Model
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
+            ->when(!empty($filters['team_name']), function ($query) use ($filters) {
+                $query->where('user_teams.name', 'like', '%' . $filters['team_name'] . '%');
+            })
+            ->when(!empty($filters['user_email']), function ($query) use ($filters) {
+                $query->where('users.email', 'like', '%' . $filters['user_email'] . '%');
+            })
             ->when(!empty($filters['user_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.user_id', '=', intval($filters['user_id']));
+            })
+            ->when(!empty($filters['user_name']), function ($query) use ($filters) {
+                $query->where('users.name', 'like', '%' . $filters['user_name'] . '%');
+            })
+            ->when(!empty($filters['user_username']), function ($query) use ($filters) {
+                $query->where('users.username', 'like', '%' . $filters['user_username'] . '%');
             })
             ->when(!empty($filters['user_team_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.user_team_id', '=', intval($filters['user_team_id']));
             });
+
+        // join to users and user teams
+        $query->join( dbName('system_db') . '.users', 'users.id', '=', $this->table . '.user_id')
+            ->join( dbName('system_db') . '.user_teams', 'user_teams.id', '=', $this->table . '.user_team_id');
+
+        $query->select(
+            DB::Raw('user_groups.*'),
+            DB::Raw('users.email as user_email'),
+            DB::Raw('users.name as user_name'),
+            DB::Raw('users.username as user_username'),
+            DB::Raw('user_teams.name as user_team_name'),
+        );
 
         $query->with('owner', 'team');
 

@@ -53,35 +53,52 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owning user</th>
-                        @endif
-                        <th>phone</th>
-                        <th>label</th>
-                        <th class="has-text-centered">public</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                    @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owning user</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'user',
+                                    'sort'  => 'user_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>phone</th>
-                        <th>label</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'phone',
+                                'sort'  => 'phone|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'label',
+                                'sort'  => 'label|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -92,8 +109,8 @@
                             <td data-field="id">
                                 {{ $userPhone->id }}
                             </td>
-                            <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $userPhone->owner->username ?? '' }}
+                            <td data-field="user.username" style="white-space: nowrap;">
+                                {{ $userPhone->user->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="phone" style="white-space: nowrap;">
@@ -104,6 +121,9 @@
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $userPhone->is_public ])
+                        </td>
+                        <td data-field="is_disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $userPhone->is_disabled ])
                         </td>
                         <td class="is-1">
 
@@ -146,9 +166,9 @@
 
                     <tr>
                         @if ($isRootAdmin)
-                            <td colspan="6">No user phone numbers found.</td>
+                            <td colspan="7">No user phone numbers found.</td>
                         @else
-                            <td colspan="4">No phone numbers found.</td>
+                            <td colspan="5">No phone numbers found.</td>
                         @endif
                     </tr>
 

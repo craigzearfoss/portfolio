@@ -52,35 +52,52 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>phone</th>
-                        <th>label</th>
-                        <th class="has-text-centered">public</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>phone</th>
-                        <th>label</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'phone',
+                                'sort'  => 'phone|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'label',
+                                'sort'  => 'label|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -111,6 +128,9 @@
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminPhone->is_public ])
                         </td>
+                            <td data-field="is_disabled" class="has-text-centered">
+                                @include('admin.components.checkmark', [ 'checked' => $adminPhone->is_disabled ])
+                            </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">
@@ -152,9 +172,9 @@
 
                     <tr>
                         @if ($isRootAdmin)
-                            <td colspan="6">No admin phone numbers found.</td>
+                            <td colspan="7">No admin phone numbers found.</td>
                         @else
-                            <td colspan="4">No phone numbers found.</td>
+                            <td colspan="5">No phone numbers found.</td>
                         @endif
                     </tr>
 

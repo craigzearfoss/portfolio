@@ -45,83 +45,124 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>database</th>
-                        @if ($isRootAdmin)
-                            <th>db tag</th>
-                            <th>table</th>
-                        @endif
-                        <th>name</th>
-                        <th>title</th>
-                        <th>plural</th>
-                        <th class="has-text-centered">icon</th>
-                        <th class="has-text-centered">guest</th>
-                        <th class="has-text-centered">user</th>
-                        <th class="has-text-centered">admin</th>
-                        <th class="has-text-centered">sequence</th>
-                        <th class="has-text-centered">menu</th>
-                        <th class="has-text-centered">menu<br>level</th>
-                        <th class="has-text-centered">public</th>
-                        @if ($isRootAdmin)
-                            <th class="has-text-centered">read-only</th>
-                        @endif
-                        @if ($isRootAdmin)
-                            <th class="has-text-centered">root</th>
-                        @endif
-                        <th class="has-text-centered">disabled</th>
-                        @if ($isRootAdmin)
-                            <th class="has-text-centered">demo</th>
-                        @endif
-                        <th class="has-text-centered">sequence</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>database</th>
-                        @if ($isRootAdmin)
-                            <th>db tag</th>
-                            <th>table</th>
-                        @endif
-                        <th>name</th>
-                        <th>title</th>
-                        <th>plural</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'id',
+                                'sort'  => 'id|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'owner',
+                                'sort'  => 'owner_username|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'database',
+                                'sort'  => 'database_database|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'db tag',
+                                'sort'  => 'database_tag|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'table',
+                                'sort'  => 'table_name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'title',
+                                'sort'  => 'title|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'plural',
+                                'sort'  => 'plural|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">icon</th>
-                        <th class="has-text-centered">guest</th>
-                        <th class="has-text-centered">user</th>
-                        <th class="has-text-centered">admin</th>
-                        <th class="has-text-centered">sequence</th>
-                        <th class="has-text-centered">menu</th>
-                        <th class="has-text-centered">menu<br>level</th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'guest',
+                                'sort'  => 'guest|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'user',
+                                'sort'  => 'user|desc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'admin',
+                                'sort'  => 'admin|desc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'sequence',
+                                'sort'  => 'sequence|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'menu',
+                                'sort'  => 'menu|desc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'menu<br>level',
+                                'sort'  => 'menu_level|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">public</th>
-                        @if ($isRootAdmin)
-                            <th class="has-text-centered">read-only</th>
-                        @endif
-                        @if ($isRootAdmin)
-                            <th class="has-text-centered">root</th>
-                        @endif
+                        <th class="has-text-centered">read-only</th>
+                        <th class="has-text-centered">root</th>
                         <th class="has-text-centered">disabled</th>
-                        @if ($isRootAdmin)
-                            <th class="has-text-centered">demo</th>
-                        @endif
-                        <th class="has-text-centered">sequence</th>
+                        <th class="has-text-centered">demo</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -210,9 +251,6 @@
                                 @include('admin.components.checkmark', [ 'checked' => $adminResource->is_demo ])
                             </td>
                         @endif
-                        <td data-field="sequence" class="has-text-centered">
-                            {{ $adminResource->sequence }}
-                        </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">

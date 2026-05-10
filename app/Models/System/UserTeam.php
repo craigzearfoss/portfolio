@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -146,6 +147,18 @@ class UserTeam extends Model
             ->when(!empty($filters['user_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.user_id', '=', intval($filters['user_id']));
             });
+
+        // join to users
+        $query->join( dbName('system_db') . '.users', 'users.id', '=', $this->table . '.user_id');
+
+        $query->select(
+            DB::Raw('user_teams.*'),
+            DB::Raw('users.email as user_email'),
+            DB::Raw('users.name as user_name'),
+            DB::Raw('users.username as user_username'),
+            DB::Raw('user_teams.name as user_team_name'),
+        );
+
 
         $query->with('owner');
 

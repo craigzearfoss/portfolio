@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -147,7 +148,9 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array PREDEFINED_SEARCH_COLUMNS = [];
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'team_name',
+    ];
 
     /**
      * SearchableModelTrait variables.
@@ -267,12 +270,22 @@ class Admin extends Authenticatable
             ->when(!empty($filters['status']), function ($query) use ($filters) {
                 $query->where($this->table . '.status', '=', intval($filters['status']));
             })
+            ->when(!empty($filters['team_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.team_id', 'like', intval($filters['team_id']));
+            })
+            ->when(!empty($filters['team_name']), function ($query) use ($filters) {
+                $query->where('teams.name', 'like', intval($filters['team_name']));
+            })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             })
             ->when(!empty($filters['username']), function ($query) use ($filters) {
                 $query->where($this->table . '.username', 'like', '%' . $filters['username'] . '%');
             });
+
+        // join to admin teams
+        $query->join( dbName('system_db') . '.admin_teams', 'admin_teams.id', '=', $this->table . '.admin_team_id')
+            ->addSelect(DB::Raw('admin_teams.name as team_name'));
 
         $query->with('state', 'country', 'team');
 

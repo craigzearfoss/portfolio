@@ -52,35 +52,52 @@
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                @if ($top_column_headings)
-                    <thead>
-                    <tr>
-                        @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
-                        @endif
-                        <th>email</th>
-                        <th>label</th>
-                        <th class="has-text-centered">public</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                @endif
+                @php
+                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                @endphp
 
-                @if ($bottom_column_headings)
-                    <tfoot>
+                @foreach ($labelElems as $labelElem)
+
+                    <{{ $labelElem }}>
                     <tr>
                         @if ($isRootAdmin)
-                            <th>id</th>
-                            <th>owner</th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'id',
+                                    'sort'  => 'id|asc',
+                                ])
+                            </th>
+                            <th>
+                                @include('guest.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => 'owner',
+                                    'sort'  => 'owner_username|asc',
+                                ])
+                            </th>
                         @endif
-                        <th>email</th>
-                        <th>label</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'email',
+                                'sort'  => 'email|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'label',
+                                'sort'  => 'label|asc',
+                            ])
+                        </th>
                         <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
-                @endif
+                    </{{ $labelElem }}>
+
+                @endforeach
 
                 <tbody>
 
@@ -110,6 +127,9 @@
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminEmail->is_public ])
+                        </td>
+                        <td data-field="is_disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $adminEmail->is_disabled ])
                         </td>
                         <td class="is-1">
 
@@ -152,9 +172,9 @@
 
                     <tr>
                         @if ($isRootAdmin)
-                            <td colspan="6">No admin email addresses found.</td>
+                            <td colspan="7">No admin email addresses found.</td>
                         @else
-                            <td colspan="4">No email addresses found.</td>
+                            <td colspan="5">No email addresses found.</td>
                         @endif
                     </tr>
 

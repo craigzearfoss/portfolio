@@ -141,7 +141,8 @@ class AdminResource extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email', 'database_name', 'database_tag', 'database_title',
+        'owner_name', 'owner_username', 'owner_email', 'database_tag', 'database_name', 'database_database',
+        'database_title',
     ];
 
     /**
@@ -162,25 +163,26 @@ class AdminResource extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'class|asc'          => 'class',
-        'database_id|asc'    => 'database id',
-        'database_name|asc'  => 'database name',
-        'database_tag|asc'   => 'database tag',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'icon|asc'           => 'icon',
-        'id|asc'             => 'id',
-        'menu|desc'          => 'menu',
-        'menu_level|asc'     => 'menu level',
-        'name|asc'           => 'name',
-        'owner_username|asc' => 'owner',
-        'owner_id|asc'       => 'owner id',
-        'parent_id|asc'      => 'parent id',
-        'plural|asc'         => 'plural',
-        'resource_id|asc'    => 'resource id',
-        'sequence|asc'       => 'sequence',
-        'table_name|asc'     => 'table name',
-        'title|asc'          => 'title',
+        'class|asc'             => 'class',
+        'database_database|asc' => 'database',
+        'database_id|asc'       => 'database id',
+        'database_name|asc'     => 'database name',
+        'database_tag|asc'      => 'database tag',
+        'created_at|desc'       => 'datetime created',
+        'updated_at|desc'       => 'datetime updated',
+        'icon|asc'              => 'icon',
+        'id|asc'                => 'id',
+        'menu|desc'             => 'menu',
+        'menu_level|asc'        => 'menu level',
+        'name|asc'              => 'name',
+        'owner_username|asc'    => 'owner',
+        'owner_id|asc'          => 'owner id',
+        'parent_id|asc'         => 'parent id',
+        'plural|asc'            => 'plural',
+        'resource_id|asc'       => 'resource id',
+        'sequence|asc'          => 'sequence',
+        'table_name|asc'        => 'table name',
+        'title|asc'             => 'title',
     ];
 
     /**
@@ -188,7 +190,7 @@ class AdminResource extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'owner_username', 'is_public', 'sequence', 'table', 'title', 'user', ],
+        'admin' => [ 'admin', 'class', 'database', 'database_id', 'database_name', 'database_tag', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'owner_username', 'is_public', 'sequence', 'table', 'title', 'user', ],
         'guest' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'guest', 'icon', 'menu', 'menu_level', 'name', 'sequence', 'table', 'title', 'user', ],
     ];
 
@@ -225,6 +227,9 @@ class AdminResource extends Model
             })
             ->when(!empty($filters['class']), function ($query) use ($filters) {
                 $query->where($this->table . '.class', 'like', '%' . $filters['class'] . '%');
+            })
+            ->when(!empty($filters['database_database']), function ($query) use ($filters) {
+                $query->where('admin_databases.database', '=', $filters['database_database']);
             })
             ->when(!empty($filters['database_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.database_id', '=', intval($filters['database_id']));
@@ -278,8 +283,9 @@ class AdminResource extends Model
         $query->with('owner', 'database');
 
         $query->addSelect(
-            DB::Raw('admin_databases.name as database_name'),
             DB::Raw('admin_databases.tag as database_tag'),
+            DB::Raw('admin_databases.name as database_name'),
+            DB::Raw('admin_databases.database as database_database'),
             DB::Raw('admin_databases.title as database_title'),
             DB::Raw('admin_databases.plural as database_plural'),
             DB::Raw('admin_databases.has_owner as database_has_owner'),

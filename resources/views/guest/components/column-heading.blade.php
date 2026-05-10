@@ -32,7 +32,7 @@
     <a href="{{ route(Route::currentRouteName(), array_merge($params, ['sort' => $sort, $owner])) }}"
        class="col-heading"
     >
-        {{ $name }}
+        {!! $name !!}
         @if ($sortField == $currentSortField)
             <i class="fa fa-sort-{{ $sortDir }}" aria-hidden="true"></i>
         @endif

@@ -135,6 +135,9 @@ class Database extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = $this->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['admin']), function ($query) use ($filters) {
+                $query->where($this->table . '.admin', '=', boolval(['admin']));
+            })
             ->when(!empty($filters['database']), function ($query) use ($filters) {
                 $query->where($this->table . '.database', 'like', '%' . $filters['database'] . '%');
             })
@@ -143,6 +146,15 @@ class Database extends Model
             })
             ->when(!empty($filters['icon']), function ($query) use ($filters) {
                 $query->where($this->table . '.icon', '=', ['icon']);
+            })
+            ->when(!empty($filters['guest']), function ($query) use ($filters) {
+                $query->where($this->table . '.guest', '=', boolval(['guest']));
+            })
+            ->when(!empty($filters['is_disabled']), function ($query) use ($filters) {
+                $query->where($this->table . '.is_disabled', '=', boolval(['is_disabled']));
+            })
+            ->when(!empty($filters['is_public']), function ($query) use ($filters) {
+                $query->where($this->table . '.is_public', '=', boolval(['is_public']));
             })
             ->when(!empty($filters['menu']), function ($query) use ($filters) {
                 $query->where($this->table . '.menu', '=', boolval($filters['menu']));
@@ -159,11 +171,17 @@ class Database extends Model
             ->when(!empty($filters['plural']), function ($query) use ($filters) {
                 $query->where($this->table . '.plural', 'like', '%' . $filters['plural'] . '%');
             })
+            ->when(!empty($filters['root']), function ($query) use ($filters) {
+                $query->where($this->table . '.root', '=', boolval(['root']));
+            })
             ->when(!empty($filters['tag']), function ($query) use ($filters) {
                 $query->where($this->table . '.tag', 'like', '%' . $filters['tag'] . '%');
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
+            })
+            ->when(!empty($filters['user']), function ($query) use ($filters) {
+                $query->where($this->table . '.user', '=', boolval(['user']));
             });
 
         $query->with('owner');
