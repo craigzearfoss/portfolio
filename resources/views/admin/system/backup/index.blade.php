@@ -29,121 +29,207 @@
 
         <div class="show-container card floating-div">
 
-            @include('admin.components.export-buttons-container')
+            <div class="columns is-12 is-variable">
+                <div class="column is-12-tablet">
 
-            <p><i>{{ number_format($backups->total()) }} records found.</i></p>
+                    <!-- tabbed content -->
+                    <div class="tabs is-boxed mb-2">
+                        <ul>
 
-            @if (!empty($pagination_top))
-                {!! $certifictaions->links('vendor.pagination.bulma') !!}
-            @endif
+                            <li id="initial-selected-tab" class="is-active" data-target="database-backups">
+                                <a>Database</a>
+                            </li>
+                            <li data-target="image-file-backups">
+                                <a>Image Files</a>
+                            </li>
 
-            <p class="admin-table-caption"></p>
+                        </ul>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                    </div>
 
-                @php
-                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
-                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
-                @endphp
+                    <div class="px-2" id="tab-content">
 
-                @foreach ($labelElems as $labelElem)
+                        <div id="database-backups">
 
-                    <{{ $labelElem }}>
-                    <tr>
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'id',
-                                'sort'  => 'id|asc',
-                            ])
-                        </th>
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'name',
-                                'sort'  => 'name|asc',
-                            ])
-                        </th>
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'file',
-                                'sort'  => 'filepath|asc',
-                            ])
-                        </th>
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'datetime',
-                                'sort'  => 'updated_at|asc',
-                            ])
-                        </th>
-                        <th>actions</th>
-                    </tr>
-                    </{{ $labelElem }}>
+                            <h2 class="subtitle mt-4">Database Backups</h2>
 
-                @endforeach
+                            <p><i>{{ number_format($databaseBackups->total()) }} records found.</i></p>
 
-                <tbody>
+                            @if (!empty($pagination_top))
+                                {!! $databaseBackups->links('vendor.pagination.bulma') !!}
+                            @endif
 
-                @forelse ($backups as $backup)
+                            <p class="admin-table-caption"></p>
 
-                    <tr data-id="{{ $backup->id }}">
-                        <td data-field="id">
-                            {{ $backup->id }}
-                        </td>
-                        <td data-field="name" style="white-space: nowrap;">
-                            {{ $backup->name }}
-                        </td>
-                        <td data-field="filepath" style="white-space: nowrap;">
-                            {{ $backup->filepath }}
-                        </td>
-                        <td data-field="updated_at" style="white-space: nowrap;">
-                            {{ longDateTime($backup->updated_at) }}
-                        </td>
-                        <td class="is-1">
+                            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-                            <div class="action-button-panel">
+                                @php
+                                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                                @endphp
 
-                                @include('admin.components.link-icon', [
-                                    'title'  => 'Download file',
-                                    'href'   => route('admin.system.backup.download', $backup),
-                                    'icon'   => 'fa-download',
-                                    'target' => '_blank'
-                                ])
+                                @foreach ($labelElems as $labelElem)
 
-                            @if (canDelete($backup, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.backup.destroy', $backup) !!}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        @include('admin.components.button-icon', [
-                                            'title' => 'delete',
-                                            'class' => 'delete-btn',
-                                            'icon'  => 'fa-trash'
-                                        ])
-                                    </form>
-                                @endif
+                                    <{{ $labelElem }}>
+                                    <tr>
+                                        <th>
+                                            @include('guest.components.column-heading', [
+                                                'class' => $className,
+                                                'name'  => 'id',
+                                                'sort'  => 'id|asc',
+                                            ])
+                                        </th>
+                                        <th>
+                                            @include('guest.components.column-heading', [
+                                                'class' => $className,
+                                                'name'  => 'name',
+                                                'sort'  => 'name|asc',
+                                            ])
+                                        </th>
+                                        <th>
+                                            @include('guest.components.column-heading', [
+                                                'class' => $className,
+                                                'name'  => 'file',
+                                                'sort'  => 'filepath|asc',
+                                            ])
+                                        </th>
+                                        <th>
+                                            @include('guest.components.column-heading', [
+                                                'class' => $className,
+                                                'name'  => 'datetime',
+                                                'sort'  => 'updated_at|asc',
+                                            ])
+                                        </th>
+                                        <th>actions</th>
+                                    </tr>
+                            </{{ $labelElem }}>
 
-                            </div>
+                            @endforeach
 
-                        </td>
-                    </tr>
+                            <tbody>
 
-                @empty
+                            @forelse ($databaseBackups as $databaseBackup)
 
-                    <tr>
-                        <td colspan="5">No backups found.</td>
-                    </tr>
+                                <tr data-id="{{ $databaseBackup->id }}">
+                                    <td data-field="id">
+                                        {{ $databaseBackup->id }}
+                                    </td>
+                                    <td data-field="name" style="white-space: nowrap;">
+                                        {{ $databaseBackup->name }}
+                                    </td>
+                                    <td data-field="filepath" style="white-space: nowrap;">
+                                        {{ $databaseBackup->filepath }}
+                                    </td>
+                                    <td data-field="updated_at" style="white-space: nowrap;">
+                                        {{ longDateTime($databaseBackup->updated_at) }}
+                                    </td>
+                                    <td class="is-1">
 
-                @endforelse
+                                        <div class="action-button-panel">
 
-                </tbody>
+                                            @include('admin.components.link-icon', [
+                                                'title'  => 'Download file',
+                                                'href'   => route('admin.system.backup.download', $databaseBackup),
+                                                'icon'   => 'fa-download',
+                                                'target' => '_blank'
+                                            ])
 
-            </table>
+                                            @if (canDelete($databaseBackup, $admin))
+                                                <form class="delete-resource" action="{!! route('admin.system.backup.destroy', $databaseBackup) !!}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @include('admin.components.button-icon', [
+                                                        'title' => 'delete',
+                                                        'class' => 'delete-btn',
+                                                        'icon'  => 'fa-trash'
+                                                    ])
+                                                </form>
+                                            @endif
 
-            @if (!empty($pagination_bottom))
-                {!! $backups->links('vendor.pagination.bulma') !!}
-            @endif
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+                            @empty
+
+                                <tr>
+                                    <td colspan="5">No backups found.</td>
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                            </table>
+
+                            @if (!empty($pagination_bottom))
+                                {!! $databaseBackups->links('vendor.pagination.bulma') !!}
+                            @endif
+
+                        </div>
+
+                        <div id="image-file-backups">
+
+                            <h2 class="subtitle mt-4">Image File Backups</h2>
+
+                            <p><i>{{ number_format(count($imageFileBackups)) }} records found.</i></p>
+
+                            <p class="admin-table-caption"></p>
+
+                            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+
+                                @php
+                                    $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
+                                    if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
+                                @endphp
+
+                                @foreach ($labelElems as $labelElem)
+
+                                    <{{ $labelElem }}>
+                                    <tr>
+                                        <th>directory</th>
+                                        <th>actions</th>
+                                    </tr>
+                            </{{ $labelElem }}>
+
+                            @endforeach
+
+                            <tbody>
+
+                            @forelse ($imageFileBackups as $imageFileBackupDirectory)
+
+                                <tr data-file="{{ $imageFileBackupDirectory }}">
+                                    <td data-field="name" style="white-space: nowrap;">
+                                        {{ $imageFileBackupDirectory }}
+                                    </td>
+                                    <td class="is-1">
+
+                                        <div class="action-button-panel">
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+                            @empty
+
+                                <tr>
+                                    <td colspan="5">No backups found.</td>
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
 
         </div>
 

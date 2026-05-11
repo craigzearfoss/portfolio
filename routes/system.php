@@ -156,6 +156,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('admin-phone', AdminSystemAdminPhoneController::class)->parameter('admin-phone', 'admin_phone');
             Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
             Route::get('backup', [AdminSystemBackupController::class, 'index'])->name('backup.index');
+            Route::get('backup/backup-databases', [AdminSystemBackupController::class, 'backupDatabases'])->name('backup.backup-databases');
+            Route::get('backup/backup-image-files', [AdminSystemBackupController::class, 'backupImageFiles'])->name('backup.backup-image-files');
             Route::delete('backup/destroy/{backup}', [AdminSystemBackupController::class, 'destroy'])->name('backup.destroy');
             Route::get('backup/download/{backup}', [AdminSystemBackupController::class, 'download'])->name('backup.download');
             Route::get('environment', [AdminSystemEnvironmentController::class, 'index'])->name('environment.index');

@@ -34,6 +34,7 @@
 
                     <!-- tabbed content -->
                     <div class="tabs is-boxed mb-2">
+
                         <ul>
                             <li id="initial-selected-tab" class="is-active" data-target="env-file">
                                 <a>.env file</a>
@@ -141,8 +142,8 @@
                         </div>
 
                     </div>
-                </div>
 
+                </div>
             </div>
 
         </div>

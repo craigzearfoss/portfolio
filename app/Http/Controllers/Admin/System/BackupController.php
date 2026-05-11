@@ -7,8 +7,11 @@ use App\Models\System\Backup;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
@@ -31,15 +34,20 @@ class BackupController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $backups = new Backup()->searchQuery(
+        // get database backups
+        $databaseBackups = new Backup()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Backup::SEARCH_ORDER_BY),
             !$this->isRootAdmin ? $this->admin : null
         )->paginate($perPage)->appends(request()->except('page'));
 
+        // get image file backups
+        $imageFileBackups = $this->getImageFileBackups();
+
         $pageTitle = 'Backups';
 
-        return view('admin.system.backup.index', compact('backups', 'pageTitle'))
+        return view('admin.system.backup.index',
+            compact('databaseBackups', 'imageFileBackups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -88,5 +96,56 @@ class BackupController extends BaseAdminController
 
         return redirect(referer('admin.system.backup.index'))
             ->with('success', $backup['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * Runs the console commands app:backup-databases.
+     *
+     * @return RedirectResponse
+     */
+    public function backupDatabases(): RedirectResponse
+    {
+        if (!$this->isRootAdmin) {
+            abort(403, 'Not authorized.');
+        }
+
+        Artisan::call('app:backup-databases');
+
+        return redirect()->back()->with('success', __('Database backup has been created.'));
+    }
+
+    /**
+     * Runs the console commands app:backup-image-files.
+     *
+     * @return RedirectResponse
+     */
+    public function backupImageFiles(): RedirectResponse
+    {
+        if (!$this->isRootAdmin) {
+            abort(403, 'Not authorized.');
+        }
+
+        Artisan::call('app:backup-image-files');
+
+        return redirect()->back()->with('success', __('Image files have been backed up.'));
+    }
+
+    /**
+     * @return array|SplFileInfo
+     */
+    protected function getImageFileBackups(): array|SplFileInfo
+    {
+        // determine the backup root directory
+        if (!$backupDirectoryRoot = config('app.backup_directory')) {
+            $backupDirectoryRoot = storage_path() . DIRECTORY_SEPARATOR . 'backups';
+        }
+        $backupDirectoryRoot .= DIRECTORY_SEPARATOR . 'files';;
+
+        // make sure the backup root directory exists
+        if (!File::exists($backupDirectoryRoot)) {
+            return [];
+        } else {
+            return File::directories($backupDirectoryRoot);
+        }
     }
 }
