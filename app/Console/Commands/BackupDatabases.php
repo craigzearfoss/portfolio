@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\System\Backup;
 use App\Models\System\Database;
+use Doctrine\Inflector\Rules\French\Rules;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use JetBrains\PhpStorm\NoReturn;
 use PHPUnit\Event\Runtime\PHP;
@@ -34,15 +37,18 @@ class BackupDatabases extends Command
         // get the databases
         $databases = new Database()->all()->pluck('database')->toArray();
 
-        $username = text('Enter the database username.');
-
-        $password = text('Enter a password for the '. $username . ' (at least 8 characters).');
+        // get username and password from .env file
+        $username = config('database.connections.mysql.username');
+        $password = config('database.connections.mysql.password');
+        if (empty($username)) {
+            die('No DB_USERNAME and / or DB_PASSWORD specified in .env file');
+        }
 
         // determine the backup directory and file
         if (!$backupDirectory = config('app.backup_directory')) {
             $backupDirectory = storage_path() . DIRECTORY_SEPARATOR . 'backups' . DIRECTORY_SEPARATOR;
         }
-        $backupDirectory .= ((substr($backupDirectory, -1) != DIRECTORY_SEPARATOR) ? DIRECTORY_SEPARATOR : '') . 'database';
+        $backupDirectory .= 'database' . DIRECTORY_SEPARATOR;
         $filename = 'portfolio_' . date("Ymd-His") . '.sql';
         $exportFile = $backupDirectory . $filename;
 
@@ -55,12 +61,6 @@ class BackupDatabases extends Command
             abort('Directory ' . $backupDirectory . ' could not be created.');
         }
 
-        echo PHP_EOL . 'username: ' . $username . PHP_EOL;
-        echo 'password: ' . str_repeat('#', strlen($password)) . PHP_EOL;
-        echo 'file:     ' . $exportFile . PHP_EOL;
-
-        text('Hit Enter to continue or Ctrl-C to cancel');
-
         $cmd = 'mysqldump -u ' . $username;
         if (!empty($password)) {
             $cmd .= ' -p' . $password;
@@ -68,9 +68,16 @@ class BackupDatabases extends Command
         $cmd .= ' --databases ' . implode(' ', $databases) . ' --single-transaction --routines --triggers > ' . $exportFile . PHP_EOL;
 
         echo PHP_EOL . 'Backing up to ' .  $exportFile . PHP_EOL;
-        //echo PHP_EOL . $cmd . PHP_EOL;die;
 
         $result = Process::run($cmd);
+
+        // insert a record into the system backups table
+        $backup = new Backup;
+        $backup['name']        = 'all databases (' . longDateTime(date('Y-m-d H:i:s')) . ')';
+        $backup['description'] = 'Backup of all databases and tables.';
+        $backup['filepath']    = $exportFile;
+        $backup->save();
+
 
         if ($result->successful()) {
             echo 'Backup done';

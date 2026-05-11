@@ -1,38 +1,34 @@
 <?php
 
-namespace App\Models\Personal;
+namespace App\Models\System;
 
-use App\Models\System\Admin;
-use App\Models\System\Owner;
-use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 /**
  *
  */
-class Unit extends Model
+class Backup extends Model
 {
     use SearchableModelTrait;
 
     /**
      * @var string
      */
-    protected $connection = 'personal_db';
+    protected $connection = 'system_db';
 
     /**
      * @var string
      */
-    protected $table = 'units';
+    protected $table = 'backups';
 
     /**
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -41,17 +37,8 @@ class Unit extends Model
      */
     protected $fillable = [
         'name',
-        'slug',
-        'abbreviation',
-        'system',
-        'link',
-        'link_name',
         'description',
-        'image',
-        'image_credit',
-        'image_source',
-        'thumbnail',
-        'sequence',
+        'filepath',
     ];
 
     /**
@@ -62,21 +49,21 @@ class Unit extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'abbreviation', 'system' ];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'filepath', 'updated_at' ];
 
     /**
      * This is the default sort order for searches.
      */
-    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'updated_at', 'desc' ];
 
     /**
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'id|asc'           => 'id',
-        'name|asc'         => 'name',
-        'abbreviation|asc' => 'abbreviation',
-        'sequence|asc'     => 'sequence',
+        'updated_at|asc' => 'datetime',
+        'id|asc'         => 'id',
+        'filepath|asc'   => 'filepath',
+        'name|asc'       => 'name',
     ];
 
     /**
@@ -84,8 +71,8 @@ class Unit extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'abbreviation', 'name', 'sequence', ],
-        'guest' => [ 'abbreviation', 'name', 'sequence', ],
+        'admin' => [ 'id', 'name', 'filepath', 'updated_at' ],
+        'guest' => [ 'id', 'name', 'filepath', 'updated_at' ],
     ];
 
     /**
@@ -116,29 +103,24 @@ class Unit extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = $this->getSearchQuery($filters, false)
-            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
-                $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['filepath']), function ($query) use ($filters) {
+                $query->where($this->table . '.filepath', 'like', '%' . $filters['filepath'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
-            })
-            ->when(!empty($filters['system']), function ($query) use ($filters) {
-                $query->where($this->table . '.system', '=', $filters['system']);
             });
 
+        // add timestamp filters
+        $query = $this->appendTimestampFilters($query, $filters);
+
         $query->select([
-            DB::raw('units.*'),
+            DB::raw('backups.*'),
         ] );
 
         // add order by clause
         return $this->addOrderBy($query, $sort);
-    }
-
-    /**
-     * Get the personal recipe ingredients for the unit.
-     */
-    public function recipeIngredients(): HasMany
-    {
-        return $this->hasMany(RecipeIngredient::class, 'unit_id');
     }
 }

@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGr
 use App\Http\Controllers\Admin\System\AdminPhoneController as AdminSystemAdminPhoneController;
 use App\Http\Controllers\Admin\System\AdminResourceController as AdminSystemAdminResourceController;
 use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
+use App\Http\Controllers\Admin\System\BackupController as AdminSystemBackupController;
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
+use App\Http\Controllers\Admin\System\EnvironmentController as AdminSystemEnvironmentController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
 use App\Http\Controllers\Admin\System\LogController as AdminSystemLogController;
 use App\Http\Controllers\Admin\System\MessageController as AdminSystemMessageController;
@@ -153,6 +155,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
             Route::resource('admin-phone', AdminSystemAdminPhoneController::class)->parameter('admin-phone', 'admin_phone');
             Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
+            Route::get('backup', [AdminSystemBackupController::class, 'index'])->name('backup.index');
+            Route::delete('backup/destroy/{backup}', [AdminSystemBackupController::class, 'destroy'])->name('backup.destroy');
+            Route::get('backup/download/{backup}', [AdminSystemBackupController::class, 'download'])->name('backup.download');
+            Route::get('environment', [AdminSystemEnvironmentController::class, 'index'])->name('environment.index');
             Route::resource('database', AdminSystemDatabaseController::class);
             Route::resource('admin-database', AdminSystemAdminDatabaseController::class)->parameter('admin-database', 'admin_database');
             Route::resource('log', AdminSystemLogController::class);
