@@ -10,9 +10,7 @@ use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGr
 use App\Http\Controllers\Admin\System\AdminPhoneController as AdminSystemAdminPhoneController;
 use App\Http\Controllers\Admin\System\AdminResourceController as AdminSystemAdminResourceController;
 use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
-use App\Http\Controllers\Admin\System\BackupController as AdminSystemBackupController;
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
-use App\Http\Controllers\Admin\System\EnvironmentController as AdminSystemEnvironmentController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
 use App\Http\Controllers\Admin\System\LogController as AdminSystemLogController;
 use App\Http\Controllers\Admin\System\MessageController as AdminSystemMessageController;
@@ -24,6 +22,10 @@ use App\Http\Controllers\Admin\System\UserEmailController as AdminSystemUserEmai
 use App\Http\Controllers\Admin\System\UserGroupController as AdminSystemUserGroupController;
 use App\Http\Controllers\Admin\System\UserPhoneController as AdminSystemUserPhoneController;
 use App\Http\Controllers\Admin\System\UserTeamController as AdminSystemUserTeamController;
+
+use App\Http\Controllers\System\BackupController as SystemBackupController;
+use App\Http\Controllers\System\EnvironmentController as SystemEnvironmentController;
+use App\Http\Controllers\System\IndexController as SystemIndexController;
 
 use App\Http\Controllers\Guest\IndexController as GuestIndexController;
 use App\Http\Controllers\Guest\System\AdminController as GuestSystemAdminController;
@@ -84,6 +86,19 @@ Route::name('user.')->group(function () {
         Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('edit');
         Route::put('/profile/update/{user}', [UserProfileController::class, 'update'])->name('update');
     });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------
+// system routes
+// ---------------------------------------------------------------------------------------------------------------------
+Route::prefix('system')->name('system.')->middleware('admin')->group(function () {
+    Route::get('/', [SystemIndexController::class, 'index'])->name('index');
+    Route::get('backup', [SystemBackupController::class, 'index'])->name('backup.index');
+    Route::get('backup/backup-databases', [SystemBackupController::class, 'backupDatabases'])->name('backup.backup-databases');
+    Route::get('backup/backup-image-files', [SystemBackupController::class, 'backupImageFiles'])->name('backup.backup-image-files');
+    Route::delete('backup/destroy/{backup}', [SystemBackupController::class, 'destroy'])->name('backup.destroy');
+    Route::get('backup/download/{backup}', [SystemBackupController::class, 'download'])->name('backup.download');
+    Route::get('environment', [SystemEnvironmentController::class, 'index'])->name('environment.index');
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -155,12 +170,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
             Route::resource('admin-phone', AdminSystemAdminPhoneController::class)->parameter('admin-phone', 'admin_phone');
             Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
-            Route::get('backup', [AdminSystemBackupController::class, 'index'])->name('backup.index');
-            Route::get('backup/backup-databases', [AdminSystemBackupController::class, 'backupDatabases'])->name('backup.backup-databases');
-            Route::get('backup/backup-image-files', [AdminSystemBackupController::class, 'backupImageFiles'])->name('backup.backup-image-files');
-            Route::delete('backup/destroy/{backup}', [AdminSystemBackupController::class, 'destroy'])->name('backup.destroy');
-            Route::get('backup/download/{backup}', [AdminSystemBackupController::class, 'download'])->name('backup.download');
-            Route::get('environment', [AdminSystemEnvironmentController::class, 'index'])->name('environment.index');
             Route::resource('database', AdminSystemDatabaseController::class);
             Route::resource('admin-database', AdminSystemAdminDatabaseController::class)->parameter('admin-database', 'admin_database');
             Route::resource('log', AdminSystemLogController::class);

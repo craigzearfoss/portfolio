@@ -11,10 +11,10 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Settings' ],
+        [ 'name' => 'Home',             'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'System Dashboard', 'href' => route('system.index') ],
+        [ 'name' => 'System Backups' ],
     ];
 
     // set navigation buttons
@@ -129,13 +129,15 @@
 
                                             @include('admin.components.link-icon', [
                                                 'title'  => 'Download file',
-                                                'href'   => route('admin.system.backup.download', $databaseBackup),
+                                                'href'   => route('system.backup.download', $databaseBackup),
                                                 'icon'   => 'fa-download',
                                                 'target' => '_blank'
                                             ])
 
                                             @if (canDelete($databaseBackup, $admin))
-                                                <form class="delete-resource" action="{!! route('admin.system.backup.destroy', $databaseBackup) !!}" method="POST">
+                                                <form class="delete-resource"
+                                                      action="{!! route('system.backup.destroy', $databaseBackup) !!}"
+                                                      method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     @include('admin.components.button-icon', [

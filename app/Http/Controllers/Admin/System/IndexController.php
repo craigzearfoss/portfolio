@@ -16,7 +16,7 @@ use Illuminate\View\View;
 class IndexController extends BaseAdminController
 {
     /**
-     * Displays all system resource type.
+     * Displays all admin system resource type.
      *
      * @return View
      * @throws Exception
