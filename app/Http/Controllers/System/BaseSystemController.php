@@ -10,6 +10,10 @@ class BaseSystemController extends BaseAdminController
 {
     public function __construct(PermissionService $permissionService)
     {;
-        parent::__construct($permissionService, EnvTypes::ADMIN);
+        parent::__construct($permissionService);
+
+        if (!$this->isRootAdmin) {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }
