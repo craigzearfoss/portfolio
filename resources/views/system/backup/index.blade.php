@@ -72,7 +72,7 @@
 
                                     <{{ $labelElem }}>
                                     <tr>
-                                        <th>
+                                        <th style="display: none;">
                                             @include('guest.components.column-heading', [
                                                 'class' => $className,
                                                 'name'  => 'id',
@@ -93,6 +93,7 @@
                                                 'sort'  => 'filepath|asc',
                                             ])
                                         </th>
+                                        <th>location</th>
                                         <th>
                                             @include('guest.components.column-heading', [
                                                 'class' => $className,
@@ -111,14 +112,17 @@
                             @forelse ($databaseBackups as $databaseBackup)
 
                                 <tr data-id="{{ $databaseBackup->id }}">
-                                    <td data-field="id">
+                                    <td data-field="id" style="display: none;">
                                         {{ $databaseBackup->id }}
                                     </td>
                                     <td data-field="name" style="white-space: nowrap;">
                                         {{ $databaseBackup->name }}
                                     </td>
                                     <td data-field="filepath" style="white-space: nowrap;">
-                                        {{ $databaseBackup->filepath }}
+                                        {{ substr($databaseBackup->filepath, strrpos($databaseBackup->filepath, DIRECTORY_SEPARATOR) + 1) }}
+                                    </td>
+                                    <td data-field="filepath" style="white-space: nowrap;">
+                                        {{ substr($databaseBackup->filepath, 0, strrpos($databaseBackup->filepath, DIRECTORY_SEPARATOR)) }}
                                     </td>
                                     <td data-field="updated_at" style="white-space: nowrap;">
                                         {{ longDateTime($databaseBackup->updated_at) }}
@@ -191,6 +195,7 @@
                                     <{{ $labelElem }}>
                                     <tr>
                                         <th>directory</th>
+                                        <th>location</th>
                                         <th>actions</th>
                                     </tr>
                             </{{ $labelElem }}>
@@ -203,7 +208,10 @@
 
                                 <tr data-file="{{ $imageFileBackupDirectory }}">
                                     <td data-field="name" style="white-space: nowrap;">
-                                        {{ $imageFileBackupDirectory }}
+                                        {{ substr($imageFileBackupDirectory, strrpos($imageFileBackupDirectory, DIRECTORY_SEPARATOR) + 1) }}
+                                    </td>
+                                    <td data-field="name" style="white-space: nowrap;">
+                                        {{ substr($imageFileBackupDirectory, 0, strrpos($imageFileBackupDirectory, DIRECTORY_SEPARATOR)) }}
                                     </td>
                                     <td class="is-1">
 

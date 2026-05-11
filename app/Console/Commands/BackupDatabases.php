@@ -73,7 +73,7 @@ class BackupDatabases extends Command
 
         // insert a record into the system backups table
         $backup = new Backup;
-        $backup['name']        = 'all databases (' . longDateTime(date('Y-m-d H:i:s')) . ')';
+        $backup['name']        = 'all databases - ' . longDateTime(date('Y-m-d H:i:s'));
         $backup['description'] = 'Backup of all databases and tables.';
         $backup['filepath']    = $exportFile;
         $backup->save();
