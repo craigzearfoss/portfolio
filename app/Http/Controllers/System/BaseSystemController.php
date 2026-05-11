@@ -12,7 +12,8 @@ class BaseSystemController extends BaseAdminController
     {;
         parent::__construct($permissionService);
 
-        if (!$this->isRootAdmin) {
+        // only the system 'root' admin can access system pages, that is username=root
+        if ($this->admin['username'] !== 'root') {
             abort(403, 'Unauthorized action.');
         }
     }
