@@ -11,6 +11,38 @@ function toggleHamburgerMenu() {
     }
 }
 
+async function postDataToUrl(url = '', data = {}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
+async function fetchUrl(url = '') {
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -44,17 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // delete header message button
-    const headerMessageDeleteBtn= document.querySelector('div.message-header button.delete');
-    if (headerMessageDeleteBtn) {
-        headerMessageDeleteBtn.addEventListener('click', () => {
+    const headerMessageDeleteButton= document.querySelector('div.message-header button.delete');
+    if (headerMessageDeleteButton) {
+        headerMessageDeleteButton.addEventListener('click', () => {
             document.getElementById('header-message-div').remove();
         });
     }
 
     // download link with prompt to rename the downloaded d file
-    const downloadWLinksWithPromptBtns= document.querySelectorAll('.download-link-with-prompt');
+    const downloadLinksWithPromptButtons= document.querySelectorAll('.download-link-with-prompt');
 
-    downloadWLinksWithPromptBtns.forEach((elem) => {
+    downloadLinksWithPromptButtons.forEach((elem) => {
         elem.addEventListener('click', function(event) {
             event.preventDefault();
 
@@ -77,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // excel export buttons
-    const exportToExcelBtns= document.querySelectorAll('.export-to-excel-btn');
-    exportToExcelBtns.forEach((elem) => {
+    const exportToExcelButtons= document.querySelectorAll('.export-to-excel-btn');
+    exportToExcelButtons.forEach((elem) => {
         elem.addEventListener('click', function(event) {
             event.preventDefault();
 
@@ -201,9 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const allActiveResumesBtn = document.getElementById('all_active_resumes');
-    if (allActiveResumesBtn) {
-        allActiveResumesBtn.addEventListener('click',  (event) => {
+    const allActiveResumesButton = document.getElementById('all_active_resumes');
+    if (allActiveResumesButton) {
+        allActiveResumesButton.addEventListener('click',  (event) => {
             let elem = event.target
 
            const btnText = elem.innerText;
@@ -255,4 +287,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const applicationSkillCheckboxes= document.querySelectorAll('.application-skill-checkbox');
+    applicationSkillCheckboxes.forEach((elem) => {
+        elem.addEventListener('click', function(event) {
+            let checkbox = event.target;
+
+            const applicationId = checkbox.getAttribute('data-application_id');
+            const applicationSkillId = checkbox.getAttribute('data-application_skill_id');
+
+            let dataForPost = {
+
+                name: checkbox.getAttribute('data-name'),
+                application_skill_id: checkbox.getAttribute('application_skill_id'),
+                portfolio_skill_id: checkbox.getAttribute('portfolio_skill_id'),
+            };
+
+            if (checkbox.checked) {
+
+                postDataToUrl(`/admin/career/application/${applicationId}/add-skill`, dataForPost)
+                    .then((data) => {
+                        if (!data.success) {
+                            console.log(data)
+                            alert(data.message ?? 'Skill could not be added.');
+                            elem.checked = false;
+                        }
+                    })
+                    .catch((error) => console.error('Error:', error));
+
+            } else {
+
+                fetchUrl(`/admin/career/application/${applicationId}/remove-skill/${applicationSkillId}`)
+                    .then((data) => {
+                        if (!data.success) {
+                            console.log(data)
+                            alert(data.message ?? 'Skill could not be removed.');
+                            elem.checked = true;
+                        }
+                    })
+                    .catch((error) => console.error('Error:', error));
+            }
+        });
+    });
+
+    if (window.editor) {
+        window.editor.model.document.on('change:data', () => {
+            console.log('The document has changed!');
+            if (document.getElementById('inputDescriptionChanged')) {
+                document.getElementById('inputDescriptionChanged').value = 1;
+            }
+        });
+    }
+
+    document.querySelectorAll('form input[name="description"]').forEach((elem) => {
+        elem.addEventListener('input', (event) =>  {
+            console.log('description changed');
+            let inputDescriptionChangedElem = document.getElementById('inputDescriptionChanged');
+            if (inputDescriptionChangedElem) {
+                inputDescriptionChangedElem.value = 1;
+            }
+        });
+    });
+
+    document.getElementById('clearAnalyzeApplicationDescription').addEventListener('click', (event) => {
+        document.querySelectorAll('.analyze-application-description').forEach((elem) => {
+            window.editor.setData('');
+        });
+    })
 });

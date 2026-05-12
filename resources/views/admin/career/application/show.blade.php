@@ -46,8 +46,11 @@
                     <!-- tabbed content -->
                     <div class="tabs is-boxed mb-0">
                         <ul style="border-bottom-width: 0 !important;">
-                            <li id="initial-selected-tab"  class="is-active" data-target="overview">
+                            <li id="initial-selected-tab" class="is-active" data-target="overview">
                                 <a>Overview</a>
+                            </li>
+                            <li data-target="application-skill">
+                                <a>Skills</a>
                             </li>
                             <li data-target="cover-letter">
                                 <a>Cover Letter</a>
@@ -247,11 +250,15 @@
                                         <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                                             <tbody>
                                             <tr>
-                                                <td><strong>{!! !empty($application->phone_label) ? $applcation->phone_label : 'phone' !!}</strong></td>
+                                                <td>
+                                                    <strong>{!! !empty($application->phone_label) ? $applcation->phone_label : 'phone' !!}</strong>
+                                                </td>
                                                 <td>{!! $application->phone !!}</td>
                                             </tr>
                                             <tr>
-                                                <td><strong>{!! !empty($application->alt_phone_label) ? $application->alt_phone_label : 'alt phone' !!}</strong></td>
+                                                <td>
+                                                    <strong>{!! !empty($application->alt_phone_label) ? $application->alt_phone_label : 'alt phone' !!}</strong>
+                                                </td>
                                                 <td>{!! $application->alt_phone !!}</td>
                                             </tr>
                                             </tbody>
@@ -263,11 +270,15 @@
                                         <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                                             <tbody>
                                             <tr>
-                                                <td><strong>{!! !empty($application->email_label) ?$application->email_label : 'email' !!}</strong></td>
+                                                <td>
+                                                    <strong>{!! !empty($application->email_label) ?$application->email_label : 'email' !!}</strong>
+                                                </td>
                                                 <td>{!! $application->email !!}</td>
                                             </tr>
                                             <tr>
-                                                <td><strong>{!! !empty($application->alt_email_label) ? $application->alt_email_label : 'alt email' !!}</strong></td>
+                                                <td>
+                                                    <strong>{!! !empty($application->alt_email_label) ? $application->alt_email_label : 'alt email' !!}</strong>
+                                                </td>
                                                 <td>{!! $application->alt_email !!}</td>
                                             </tr>
                                             </tbody>
@@ -328,6 +339,13 @@
 
                             </div>
 
+                        </div>
+
+                        <div id="application-skill" class="is-hidden">
+                            @include('admin.career.application.application-skill.panel', [
+                                'application'       => $application ?? null,
+                                'applicationSkills' => $applicationSkills ?? [],
+                            ])
                         </div>
 
                         <div id="cover-letter" class="is-hidden">

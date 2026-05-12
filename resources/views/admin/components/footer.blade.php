@@ -40,6 +40,9 @@
         if (document.querySelector('#inputEditor')) {
             ClassicEditor
                 .create(document.querySelector('#inputEditor'))
+                .then(editor => {
+                    window.editor = editor;
+                })
                 .catch(error => {
                     console.error(error);
                 });

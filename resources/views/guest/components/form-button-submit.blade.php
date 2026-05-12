@@ -1,4 +1,6 @@
 @php
+    $include_cancel = $include_cancel ?? true;
+
     $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
     $class[] = 'button';
     $class[] = 'is-small';
@@ -14,16 +16,18 @@
     $icon = $icon ?? 'fa-floppy-disk';
 @endphp
 
-<a href="{{ $cancel_url ?? route('guest.index') }}"
-   @if (!empty($class))
-       class="{{ implode(' ' , $class) }}"
-    @endif
->
-    @if (!empty($icon))
-        <i class="fa fa-close"></i>
-    @endif
-    Cancel
-</a>
+@if ($include_cancel)
+    <a href="{{ $cancel_url ?? route('guest.dashboard') }}"
+       @if (!empty($class))
+           class="{{ implode(' ' , $class) }}"
+        @endif
+    >
+        @if (!empty($icon))
+            <i class="fa fa-close"></i>
+        @endif
+        Cancel
+    </a>
+@endif
 
 <button
     type="{{ $type ?? 'submit' }}"

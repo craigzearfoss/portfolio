@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Str;
 
 /**
  *
@@ -667,6 +668,75 @@ class Application extends Model
         return $this->hasMany(ApplicationSkill::class, 'application_id')
             ->orderBy('name');
     }
+
+    /**
+     * Returns all the skills from the portfolio.job_skills table and merges them with the skills in the
+     * career.application_skills table for the current application.
+     *
+     * @param bool $reparseDescription
+     * @return array
+     */
+    public function allSkills(bool $reparseDescription = false): array
+    {
+        // get all the skills from the portfolio.job_skills table
+        $allSkills = [];
+
+        if ($reparseDescription) {
+
+            foreach (ApplicationSkill::parseSkills($this, true) as $skill) {
+                $allSkills[Str::slug($skill['name'])] = $skill;
+            }
+
+        } else {
+
+            foreach (ApplicationSkill::jobSkills($this['owner_id']) as $jobSkill) {
+
+                $slug = Str::slug($jobSkill['name']);
+
+                $allSkills[$slug] = [
+                    'id'                     => null,
+                    'owner_id'               => $this['owner_id'],
+                    'application_id'         => $this['id'],
+                    'name'                   => $jobSkill->name,
+                    'slug'                   => $slug,
+                    'type_id'                => null,
+                    'level'                  => -1,
+                    'dictionary_category_id' => $jobSkill->dictionary_category_id,
+                    'found'                  => false,
+                ];
+            }
+        }
+
+        // merge with skills from the career.application_skills
+        foreach (ApplicationSkill::query()->where('application_id', $this['id'])->get() as $applicationSkill) {
+
+            $slug = Str::slug($applicationSkill['name']);
+
+            if ( array_key_exists($slug, $allSkills)) {
+                $allSkills[$slug]['id']    = $applicationSkill['id'];
+                $allSkills[$slug]['found'] = true;
+            } else {
+                $allSkills[$slug] = [
+                    'id'                     => -1,
+                    'owner_id'               => $this['owner_id'],
+                    'application_id'         => $this['id'],
+                    'name'                   => $this['name'],
+                    'slug'                   => $slug,
+                    'version'                => null,
+                    'type_id'                => null,
+                    'level'                  => -1,
+                    'dictionary_category_id' => null,
+                    'found'                  => false,
+                ];
+            }
+
+        }
+
+        ksort($allSkills);
+
+        return array_values($allSkills);
+    }
+
     /**
      * Get the system state that owns the application.
      */

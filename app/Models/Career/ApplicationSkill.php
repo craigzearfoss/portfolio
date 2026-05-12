@@ -2,6 +2,7 @@
 
 namespace App\Models\Career;
 
+use App\Models\Portfolio\Skill;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -9,8 +10,11 @@ use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
+use Str;
 
 /**
  *
@@ -210,5 +214,136 @@ class ApplicationSkill extends Model
     public function application(): BelongsTo
     {
         return $this->belongsTo(Application::class, 'application_id');
+    }
+
+    public static function jobSkills($ownerId): Collection
+    {
+        return Skill::query()->where('owner_id', $ownerId)->get();
+    }
+
+    /**
+     * Returns an array of the user's portfolio.job_skills that are found in the application description column.
+     * By default, it only returns the skills that are found. To return all the job skills in the array, set the
+     * $includeAll parameter to true.
+     *
+     * If no $adminId is specified then the owner_id of the application will be used.
+     *
+     * @param Application $application
+     * @param bool $includeAll
+     * @param int|null $adminId
+     * @return array
+     */
+    public static function  parseSkills(Application $application, bool $includeAll = false, int|null $adminId = null): array
+    {
+        if (!$textOrHTML = $application['description']) {
+            return [];
+        }
+
+        // get the id of the admin/owner
+        $adminId = !empty($adminId) ? $adminId : $application['owner_id'];
+
+        // get the skills from the portfolio skills table
+        $skills = [];
+        foreach (self::jobSkills($adminId) as $jobSkill) {
+
+            $slug = Str::slug($jobSkill->name);
+
+            $skill = [
+                'id'                     => null,
+                'owner_id'               => $application['owner_id'],
+                'application_id'         => $application['id'],
+                'name'                   => $jobSkill->name,
+                'slug'                   => $slug,
+                'type_id'                => null,
+                'level'                  => -1,
+                'dictionary_category_id' => $jobSkill->dictionary_category_id,
+                'found'                  => false,
+            ];
+
+            $skills[$slug] = $skill;
+        }
+
+        $textOrHTML = strip_tags($textOrHTML);
+        foreach ($skills as $slug=>$skill) {
+            if (str_contains($textOrHTML, $skill['name'])) {
+                $skills[$slug]['found'] = 1;
+            }
+        }
+
+        if (!$includeAll) {
+            $skills = array_filter($skills, function ($skill) {
+                return $skill['found'];
+            });
+        }
+
+        return array_values($skills);
+    }
+
+    /**
+     * Adds an application skill into the database. If the skill already exists in the database then it
+     * will remain unchanged.
+     *
+     * @param Application $application
+     * @param array $skill
+     * @return bool
+     */
+    public function addSkill(Application $application, array $skill): bool
+    {
+        if (!$skillName = $skill['name'] ?? null) {
+            return false;
+        }
+
+        // verify that the skill isn't already associated with the application
+        if (ApplicationSkill::query()
+            ->where('application_id', $application['id'])
+            ->where('owner_id', $application['owner_id'])
+            ->where('name', $skillName)->first()
+        ) {
+            return true;
+        }
+
+        // add the skill to the database
+        $applicationSkill = new ApplicationSkill();
+        $applicationSkill['owner_id']               = $application['owner_id'];
+        $applicationSkill['application_id']         = $application['id'];
+        $applicationSkill['name']                   = $skillName;
+        $applicationSkill['level']                  = $application['level'] ?? -1;
+        $applicationSkill['dictionary_category_id'] = $application['dictionary_category_id'] ?? null;
+        $applicationSkill['dictionary_term_id']     = $application['dictionary_term_id'] ?? null;
+
+        if (!$applicationSkill->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Adds an array of application skills into the database. If they already exist in the database they
+     * will remain unchanged.
+     *
+     * @param Application $application
+     * @param array $skills
+     * @return bool
+     */
+    public function addSkills(Application $application, array $skills): bool
+    {
+        $retVal = true;
+        foreach ($skills as $skill) {
+            if (!$this->addSkill($application, $skill)) {
+                $retVal = false;
+            }
+        }
+
+        return $retVal;
+    }
+
+    public function removeSkill(int $applicationSkillId): bool
+    {
+        if (self::query()->where('id', $applicationSkillId)->delete()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

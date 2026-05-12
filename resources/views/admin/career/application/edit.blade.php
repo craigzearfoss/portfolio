@@ -331,6 +331,7 @@
                 'value'   => old('description') ?? $application->description,
                 'message' => $message ?? '',
             ])
+            <input type="hidden" id="inputDescriptionChanged" name="description_changed" value="0">
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'disclaimer',

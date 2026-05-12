@@ -13,7 +13,7 @@
     </div>
     <div class="field-body">
         <div class="field">
-            <div class="control">
+            <div class="control has-text-left">
                 <span class="text-field">
                     @if ($raw)
                         {!! $value ?? '' !!}

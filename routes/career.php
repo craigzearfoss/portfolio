@@ -27,6 +27,8 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('recruiter', AdminCareerRecruiterController::class);
 
     // Excel export routes
+    Route::get('application/analyze', [AdminCareerApplicationController::class, 'analyze'])->name('application.analyze');
+    Route::post('application/analyze', [AdminCareerApplicationController::class, 'analyzePost'])->name('application.analyze-post');
     Route::get('application/export', [AdminCareerApplicationController::class, 'export'])->name('application.export');
     Route::get('communication/export', [AdminCareerCommunicationController::class, 'export'])->name('communication.export');
     Route::get('company/export', [AdminCareerCompanyController::class, 'export'])->name('company.export');
@@ -42,7 +44,9 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::get('resume/export', [AdminCareerResumeController::class, 'export'])->name('resume.export');
 
     Route::resource('application', AdminCareerApplicationController::class);
-    Route::resource('application/{application}/skill', AdminCareerApplicationSkillController::class);
+    Route::get('application/{application}/parse-skills', [AdminCareerApplicationController::class, 'parseSkills'])->name('application.parse-skills');
+    Route::post('application/{application}/add-skill', [AdminCareerApplicationController::class, 'addSkill'])->name('application.add-skill');
+    Route::get('application/{application}/remove-skill/{applicationSkill}', [AdminCareerApplicationController::class, 'removeSkill'])->name('application.remove-skill');
     Route::get('application/{application}/resume/attach', [AdminCareerApplicationController::class, 'attachResume'])->name('application.resume.attach');
     Route::post('application/{application}/resume/attach', [AdminCareerApplicationController::class, 'attachResumeStore'])->name('application.resume.attach.store');
     Route::resource('communication', AdminCareerCommunicationController::class);

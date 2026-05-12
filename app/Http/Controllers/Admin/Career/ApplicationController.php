@@ -7,17 +7,24 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
 use App\Models\Career\Application;
+use App\Models\Career\ApplicationSkill;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
+use App\Models\Portfolio\JobSkill;
+use App\Models\Portfolio\Skill;
 use Doctrine\Inflector\Rules\English\Rules;
 use Exception;
+use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use Str;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
@@ -114,7 +121,7 @@ class ApplicationController extends BaseAdminController
 
         $application = Application::query()->create($request->validated());
 
-        // Create a cover letter for the application.
+        // create a cover letter for the application
         $coverLetterData = [
             'owner_id'       => $application->owner_id,
             'application_id' => $application->id,
@@ -123,6 +130,20 @@ class ApplicationController extends BaseAdminController
         $coverLetterData['slug'] = uniqueSlug($coverLetterData['name'], 'career_db.cover_letters', $application->owner_id);
 
         CoverLetter::query()->insert($coverLetterData);
+
+        // add the portfolio.job_skills found in the description to the application skills
+        if (!empty($application['description'])) {
+            foreach (ApplicationSkill::parseSkills($application) as $skill) {
+                $applicationSkill = new ApplicationSkill();
+                $applicationSkill['owner_id']               = $application['owner_id'];
+                $applicationSkill['application_id']         = $application['id'];
+                $applicationSkill['name']                   = $skill['name'];
+                $applicationSkill['level']                  = -1;
+                $applicationSkill['dictionary_category_id'] = null;
+                $applicationSkill['dictionary_term_id']     = null;
+                $applicationSkill->save();
+            }
+        }
 
         return redirect()->route('admin.career.application.show', $application)
             ->with('success', 'Application successfully added.');
@@ -141,6 +162,7 @@ class ApplicationController extends BaseAdminController
         if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
+        $applicationSkills = $application->allSkills();
 
         list($prev, $next) = $application->prevAndNextPages(
             $application['id'],
@@ -149,7 +171,8 @@ class ApplicationController extends BaseAdminController
             [ 'post_date', 'asc' ]
         );
 
-        return view('admin.career.application.show', compact('application', 'prev', 'next'));
+        return view('admin.career.application.show',
+            compact('application', 'applicationSkills', 'prev', 'next'));
     }
 
     /**
@@ -175,9 +198,21 @@ class ApplicationController extends BaseAdminController
     public function update(UpdateApplicationsRequest $request,
                            Application               $application): RedirectResponse
     {
+        updateGate($application, $this->admin);
+
         $application->update($request->validated());
 
-        updateGate($application, $this->admin);
+        // if the description has changed then update the application skills
+        if ($request->input('description_changed') ?? false) {
+            if (!new ApplicationSkill()->addSkills($application, ApplicationSkill::parseSkills($application))) {
+                if ($referer = $request->input('referer')) {
+                    return redirect($referer)->withErrors(['GLOBAL' => 'Application updated but there was a problem updating the skills.']);
+                } else {
+                    return redirect()->route('admin.career.application.show', $application)
+                        ->withErrors(['GLOBAL' => 'Application updated but there was a problem updating the skills.']);
+                }
+            }
+        }
 
         if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', 'Application successfully updated.');
@@ -315,6 +350,62 @@ class ApplicationController extends BaseAdminController
     }
 
     /**
+     * Add a skill to an application.
+     *
+     * @param Application $application
+     * @return JsonResponse
+     */
+    public function addSkill(Application $application): JsonResponse
+    {
+        $respArray = [
+            'success' => 0,
+        ];
+
+        if (!$skillName = request()->input('name')) {
+            $respArray['message'] = 'No skill name specified.';
+            return response()->json($respArray);
+        }
+
+        // @TODO: Need to add the dictionary_term_id and dictionary_category_id
+        if (new ApplicationSkill()->addSkill($application, request()->all())) {
+            $respArray['success'] = 1;
+            $respArray['message'] = $skillName . ' skill added successfully.';
+        }
+
+        return response()->json($respArray);
+    }
+
+    /**
+     * Remove a skill from an application.
+     *
+     * @param Application $application
+     * @param ApplicationSkill $applicationSkill
+     * @return JsonResponse
+     */
+    public function removeSkill(Application $application, ApplicationSkill $applicationSkill): JsonResponse
+    {
+        $respArray = [
+            'success' => 0,
+        ];
+
+        if (!canUpdate($application, $this->admin)) {
+            $respArray['message'] = 'Not authorized for owner ' . $this->admin['id'] . ' to delete application skill ' .
+                $applicationSkill['id'] . ' (' . $applicationSkill['name'] . ').';
+            return response()->json($respArray);
+        }
+
+        // remove the skill from the application
+        if (new ApplicationSkill()->removeSkill($applicationSkill['id'])) {
+            $respArray['success'] = 1;
+            $respArray['message'] = $applicationSkill['name'] . ' skill removed successfully.';
+        } else {
+            $respArray['message'] = $applicationSkill['name'] . ' skill could not be removed.';
+        }
+
+        return response()->json($respArray);
+    }
+
+    /**
      * Export Microsoft Excel file.
      *
      * @return BinaryFileResponse
@@ -328,5 +419,38 @@ class ApplicationController extends BaseAdminController
             : 'applications.xlsx';
 
         return Excel::download(new ApplicationsExport(), $filename);
+    }
+
+    public function analyze(): View
+    {
+        $owner_id = $this->isRootAdmin
+            ? (request()->input('owner_id') ?? $this->owner['id'])
+            :$this->admin['id'];
+        $isPost            = false;
+        $description       = '';
+        $applicationSkills = [];
+
+        return view('admin.career.application.analyze', compact('owner_id', 'description', 'applicationSkills', 'isPost'));
+    }
+
+    public function analyzePost(Request $request): View
+    {
+        $owner_id = $this->isRootAdmin
+            ? ($request->input('owner_id') ?? $this->owner['id'])
+            :$this->admin['id'];
+        $isPost      = true;
+        $description = $request->input('description');
+
+        $application = new Application();
+        $application['owner_id'] = $owner_id ?? null;
+        $application['application_id'] = null;
+        $application['description'] = $description;
+
+        if (!$applicationSkills = ApplicationSkill::parseSkills($application, true)) {
+            return view('admin.career.application.analyze', compact('owner_id', 'description', 'applicationSkills', 'isPost'))
+                ->withErrors(['GLOBAL' => 'You have no portfolio job skill set.']);
+        } else {
+            return view('admin.career.application.analyze', compact('owner_id', 'description', 'applicationSkills', 'isPost'));
+        }
     }
 }

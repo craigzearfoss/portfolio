@@ -122,6 +122,7 @@ trait SearchableModelTrait
             $query = new self()->withoutGlobalScope(AdminPublicScope::class)
                 ->select($selectColumns)->orderBy($sortColumn, $sortDir);
         } else {
+            if (!in_array($sortDir, ['asc', 'desc' ])) $sortDir = 'asc';
             $query = new self()->distinct()->select($selectColumns)->orderBy($sortColumn, $sortDir);
         }
 

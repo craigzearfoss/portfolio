@@ -15,6 +15,7 @@
     @if ($fb_app_id = config('app.facebook_app_id'))
         <meta property="fb:app_id" content="{{ $fb_app_id }}" />
     @endif
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="{{ asset('images/site/favicon.ico') }}">
     <title>
