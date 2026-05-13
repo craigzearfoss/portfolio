@@ -165,11 +165,6 @@
                                     'checked' => $recipe->snack
                                 ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' => $recipe->notes
-                                ])
-
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $recipe->link,
@@ -199,6 +194,11 @@
                                     'upload'   => true,
                                     'download' => true,
                                     'external' => true,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $recipe->notes
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

@@ -108,11 +108,6 @@
                 'checked' => $reading->wishlist
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $reading->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $reading->link,
@@ -142,6 +137,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $reading->notes
             ])
 
             @include('admin.components.show-row-visibility', [

@@ -135,13 +135,6 @@
                     'message'   => $message ?? '',
                 ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'notes',
-                    'id'      => 'notes',
-                    'value'   => old('notes') ?? $jobCoworker->notes,
-                    'message' => $message ?? '',
-                ])
-
                 @include('admin.components.form-link-horizontal', [
                     'link' => old('link') ?? $jobCoworker->link,
                     'name' => old('link_name') ?? $jobCoworker->link_name,
@@ -168,6 +161,13 @@
                     'download' => true,
                     'external' => true,
                     'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'id'      => 'notes',
+                    'value'   => old('notes') ?? $jobCoworker->notes,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

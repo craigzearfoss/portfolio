@@ -287,12 +287,6 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $application->notes,
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-phone-horizontal', [
                 'phone' => old('phone') ?? $application->phone,
                 'label' => old('phone_label') ?? $application->phone_label,
@@ -346,6 +340,12 @@
                 'download' => true,
                 'external' => true,
                 'editPage' => true,
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $application->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

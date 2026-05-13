@@ -99,11 +99,6 @@
                 'external' => true,
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $award->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $award->link,
@@ -132,6 +127,11 @@
                 'resource' => $award,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $award->notes
             ])
 
             @include('admin.components.show-row-visibility', [

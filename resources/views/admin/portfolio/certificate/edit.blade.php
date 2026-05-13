@@ -144,12 +144,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $certificate->notes,
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-link-horizontal', [
                 'link' => old('link') ?? $certificate->link,
                 'name' => old('link_name') ?? $certificate->link_name,
@@ -176,6 +170,12 @@
                 'download' => true,
                 'external' => true,
                 'editPage' => true,
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $certificate->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

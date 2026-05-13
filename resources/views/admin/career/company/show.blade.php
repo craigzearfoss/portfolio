@@ -133,12 +133,6 @@
                                     'name'  => !empty($company->alt_email_label) ? $company->alt_email_label : 'alt email',
                                     'value' => $company->alt_email
                                 ])
-
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' => $company->notes
-                                ])
-
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $company->link,
@@ -168,6 +162,11 @@
                                     'upload'   => true,
                                     'download' => true,
                                     'external' => true,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $company->notes
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

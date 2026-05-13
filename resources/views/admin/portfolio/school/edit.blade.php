@@ -91,12 +91,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $school->notes,
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-link-horizontal', [
                 'link' => old('link') ?? $school->link,
                 'name' => old('link_name') ?? $school->link_name,
@@ -116,6 +110,12 @@
                 'download' => true,
                 'external' => true,
                 'editPage' => true,
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $school->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

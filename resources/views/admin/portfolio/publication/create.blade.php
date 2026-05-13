@@ -260,12 +260,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? '',
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-link-horizontal', [
                 'link' => old('link') ?? '',
                 'name' => old('link_name') ?? '',
@@ -284,6 +278,12 @@
                 'value'       => old('disclaimer') ?? '',
                 'maxlength'   => 500,
                 'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

@@ -172,11 +172,6 @@
                 'value' => $publication->publication_url,
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $publication->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $publication->link,
@@ -206,6 +201,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $publication->notes
             ])
 
             @include('admin.components.show-row-visibility', [

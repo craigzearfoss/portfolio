@@ -117,11 +117,6 @@
                 'value' => $course->sponsor
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $course->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $course->link,
@@ -151,6 +146,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $course->notes
             ])
 
             @include('admin.components.show-row-visibility', [

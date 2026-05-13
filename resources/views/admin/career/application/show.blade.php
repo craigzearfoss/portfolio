@@ -22,6 +22,11 @@
 
     // set navigation buttons
     $navButtons = [];
+    $navButtons[] = view('admin.components.nav-button', [ 'name'  => 'Analyze Job Description',
+                                                          'href'  => route('admin.career.application.analyze'),
+                                                          'icon'  => 'fa-filter',
+                                                          'class' => 'button is-small is-dark my-0 nav-button'
+                                                        ])->render();
     if (canUpdate($application, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.application.edit', $application) ])->render();
     }
@@ -287,11 +292,6 @@
                                     </div>
                                 </div>
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' => $application->notes
-                                ])
-
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $application->link,
@@ -321,6 +321,11 @@
                                     'upload'   => true,
                                     'download' => true,
                                     'external' => true,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $application->notes
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

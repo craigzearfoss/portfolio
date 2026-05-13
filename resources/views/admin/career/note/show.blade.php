@@ -77,11 +77,6 @@
             'value' => $note->body
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $note->notes
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $note->link,
@@ -104,6 +99,11 @@
             'value' => view('admin.components.disclaimer', [
                             'value' => $note->disclaimer
                        ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $note->notes
         ])
 
         @include('admin.components.show-row-visibility', [

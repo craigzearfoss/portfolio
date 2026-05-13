@@ -104,11 +104,6 @@
                 ])
             @endif
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $skill->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $skill->link,
@@ -138,6 +133,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $skill->notes
             ])
 
             @include('admin.components.show-row-visibility', [

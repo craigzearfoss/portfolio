@@ -107,11 +107,6 @@
             'value'  => $event->link_name,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $event->notes
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $event->link,
@@ -134,6 +129,11 @@
             'value' => view('admin.components.disclaimer', [
                             'value' => $event->disclaimer
                        ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $event->notes
         ])
 
         @include('admin.components.show-row-visibility', [

@@ -152,11 +152,6 @@
                 'target' => '_blank'
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $music->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $music->link,
@@ -186,6 +181,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $music->notes
             ])
 
             @include('admin.components.show-row-visibility', [

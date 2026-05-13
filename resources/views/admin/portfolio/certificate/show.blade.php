@@ -109,11 +109,6 @@
                 'external' => true,
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $certificate->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $certificate->link,
@@ -142,6 +137,11 @@
                 'resource' => $certificate,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $certificate->notes
             ])
 
             @include('admin.components.show-row-visibility', [

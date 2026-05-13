@@ -110,11 +110,6 @@
                                 ])
                                 */ ?>
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' => $resume->notes
-                                ])
-
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $resume->link,
@@ -144,6 +139,11 @@
                                     'upload'   => true,
                                     'download' => true,
                                     'external' => true,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $resume->notes
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

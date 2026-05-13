@@ -68,11 +68,6 @@
                 'value' => $certification->organization
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $certification->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $certification->link,
@@ -95,6 +90,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $certification->notes
             ])
 
             @include('admin.components.show-row-visibility', [

@@ -97,11 +97,6 @@
             'value' => $communication->body
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $communication->notes
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $communication->link,
@@ -124,6 +119,11 @@
             'value' => view('admin.components.disclaimer', [
                             'value' => $communication->disclaimer
                        ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $communication->notes
         ])
 
         @include('admin.components.show-row-visibility', [

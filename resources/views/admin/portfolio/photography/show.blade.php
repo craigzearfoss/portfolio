@@ -87,11 +87,6 @@
                 'value' => $photo->credit
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $photo->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $photo->link,
@@ -121,6 +116,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $photo->notes
             ])
 
             @include('admin.components.show-row-visibility', [

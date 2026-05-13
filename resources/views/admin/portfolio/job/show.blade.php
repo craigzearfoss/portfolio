@@ -148,11 +148,6 @@
                                     'resource' => $job
                                 ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' => $job->notes
-                                ])
-
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $job->link,
@@ -182,6 +177,11 @@
                                     'upload'   => true,
                                     'download' => true,
                                     'external' => true,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $job->notes
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

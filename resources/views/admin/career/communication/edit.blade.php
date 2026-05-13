@@ -123,12 +123,6 @@
                     'message' => $message ?? '',
                 ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'notes',
-                    'value'   => old('notes') ?? $communication->notes,
-                    'message' => $message ?? '',
-                ])
-
                 @include('admin.components.form-link-horizontal', [
                     'link' => old('link') ?? $communication->link,
                     'name' => old('link_name') ?? $communication->link_name,
@@ -157,6 +151,12 @@
                     'is_demo'     => old('is_demo')     ?? $communication->is_demo,
                     'sequence'    => old('sequence')    ?? $communication->sequence,
                     'message'     => $message           ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $communication->notes,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-button-submit-horizontal', [

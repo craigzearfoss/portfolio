@@ -142,11 +142,6 @@
                 'value' => $audio->audio_url,
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $audio->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $audio->link,
@@ -176,6 +171,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $audio->notes
             ])
 
             @include('admin.components.show-row-visibility', [

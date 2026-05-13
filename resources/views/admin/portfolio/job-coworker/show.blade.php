@@ -97,11 +97,6 @@
                 'value' => $jobCoworker->personal_email
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $jobCoworker->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $jobCoworker->link,
@@ -131,6 +126,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $jobCoworker->notes
             ])
 
             @include('admin.components.show-row-visibility', [

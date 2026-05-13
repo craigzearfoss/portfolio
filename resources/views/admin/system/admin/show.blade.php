@@ -206,6 +206,11 @@
                 'value' => \App\Models\System\User::statusName($thisAdmin->status)
             ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $thisAdmin->notes
+            ])
+
             @include('admin.components.show-row-visibility', [
                 'resource' => $thisAdmin,
             ])

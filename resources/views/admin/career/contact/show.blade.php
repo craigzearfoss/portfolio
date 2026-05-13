@@ -140,11 +140,6 @@
                                     'value' => longDate($contact->birthday),
                                 ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' => $contact->notes
-                                ])
-
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $contact->link,
@@ -174,6 +169,11 @@
                                     'upload'   => true,
                                     'download' => true,
                                     'external' => true,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $contact->notes
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

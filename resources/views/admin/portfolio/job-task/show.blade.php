@@ -72,11 +72,6 @@
                 'value' => $jobTask->summary
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $jobTask->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $jobTask->link,
@@ -106,6 +101,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $jobTask->notes
             ])
 
             @include('admin.components.show-row-visibility', [

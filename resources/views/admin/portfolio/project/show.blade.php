@@ -97,11 +97,6 @@
             'value' => $project->repository_name,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $project->notes
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $project->link,
@@ -131,6 +126,11 @@
             'upload'   => true,
             'download' => true,
             'external' => true,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $project->notes
         ])
 
         @include('admin.components.show-row-visibility', [

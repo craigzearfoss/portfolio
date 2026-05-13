@@ -104,11 +104,6 @@
                 'value' => $education->summary ?? ''
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $education->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $education->link,
@@ -138,6 +133,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $education->notes
             ])
 
             @include('admin.components.show-row-visibility', [

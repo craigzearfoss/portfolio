@@ -85,11 +85,6 @@
                 'value' => $jobSkill->summary
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $jobSkill->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $jobSkill->link,
@@ -119,6 +114,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $jobSkill->notes
             ])
 
             @include('admin.components.show-row-visibility', [
