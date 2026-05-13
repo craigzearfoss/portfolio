@@ -42,13 +42,14 @@
 
             <div class="container show-container ml-0" style="max-width: 56rem;">
 
-                @foreach ($applicationSkills as $applicationSkill)
+                @foreach ($applicationSkills as $i=>$applicationSkill)
 
                     <div style="display: inline-block; width: 10rem;">
 
                         <div style="display: inline-block;">
-                            <input type="hidden" name="application_skill[}]" value="0">
+                            <input type="hidden" name="application_skill[]" value="0">
                             <input type="checkbox"
+                                   id="checkBoxSkill_{{ Str::slug($applicationSkill['name']) }}"
                                    data-application_skill_id="{{ $applicationSkill['id'] }}"
                                    data-application_id="{{ $applicationSkill['application_id'] }}"
                                    data-name="{{ $applicationSkill['name'] }}"
@@ -59,7 +60,7 @@
                                 {{ $applicationSkill['found'] ? 'checked' : '' }}
                             >
                         </div>
-                        <span>{{ $applicationSkill['name'] }}</span>
+                        <label for="checkBoxSkill_{{ Str::slug($applicationSkill['name']) }}">{{ $applicationSkill['name'] }}</label>
 
                     </div>
 
@@ -86,7 +87,7 @@
                         </span>
                         <span class="has-text-right mr-2" style="float: right;">
                             <button type="button" id="clearAnalyzeApplicationDescription" class="button is-small is-dark">
-                               <i class="fa fa-floppy-disk"></i>
+                               <i class="fa fa-eraser"></i>
                                 Clear
                             </button>
                         </span>

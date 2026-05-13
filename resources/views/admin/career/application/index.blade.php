@@ -24,6 +24,11 @@
 
     // set navigation buttons
     $navButtons = [];
+    $navButtons[] = view('admin.components.nav-button', [ 'name'  => 'Analyze Job Description',
+                                                          'href'  => route('admin.career.application.analyze'),
+                                                          'icon'  => 'fa-filter',
+                                                          'class' => 'button is-small is-dark my-0 nav-button'
+                                                        ])->render();
     if (canCreate(Application::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Application',
                                                                   'href' => route('admin.career.application.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
