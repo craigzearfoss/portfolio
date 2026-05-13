@@ -1,4 +1,10 @@
 @php
+    // make sure all template variables are defined (this is mostly for the IDE parser)
+    $className   = 'App\Models\Career\Application';
+    $admin       = $admin ?? null;
+    $owner       = $owner ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
+
     $title    = 'Analyze Application Description';
     $subtitle = $title;
 
@@ -13,6 +19,9 @@
 
     // set navigation buttons
     $navButtons = [];
+    $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Application',
+                                                                  'href' => route('admin.career.application.create', $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner->id ] : [])
+                                                            ])->render();
 @endphp
 
 @extends('admin.layouts.default')
@@ -31,7 +40,7 @@
 
         @if ($isPost)
 
-            <div>
+            <div class="container show-container ml-0" style="max-width: 56rem;">
 
                 @foreach ($applicationSkills as $applicationSkill)
 
@@ -60,7 +69,7 @@
 
         @endif
 
-        <div class="container show-container" style="max-width: 60rem;">
+        <div class="container show-container ml-0" style="max-width: 60rem;">
 
             <div class="p-4">
 

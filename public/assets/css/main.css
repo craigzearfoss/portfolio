@@ -867,3 +867,7 @@ iframe.application-resume-preview {
     min-height: 50rem;
     border: 1px solid #ccc;
 }
+/* ckeditor */
+.ck-content {
+    min-height: 20rem;
+}
