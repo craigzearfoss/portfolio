@@ -46,6 +46,9 @@ use App\Http\Controllers\Guest\Dictionary\OperatingSystemController as GuestDict
 use App\Http\Controllers\Guest\Dictionary\ServerController as GuestDictionaryServerController;
 use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStackController;
 
+use App\Http\Controllers\Guest\Career\IndexController as GuestCareerIndexController;
+
+Route::get('analyze-job/', [GuestCareerIndexController::class, 'analyzeJob'])->name('analyze-job');
 
 // ---------------------------------------------------------------------------------------------------------------------
 // base routes

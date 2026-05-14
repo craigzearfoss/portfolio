@@ -66,13 +66,14 @@
                 ])
 
                 @include('admin.components.show-row-document', [
-                    'resource' => $coverLetter,
-                    'column'   => 'filepath',
-                    'label'    => 'file',
-                    'filename' => $coverLetter->name,
-                    'upload'   => false,
-                    'download' => true,
-                    'external' => true,
+                    'resource'        => $coverLetter,
+                    'label'           => 'file',
+                    'filename'        => $coverLetter->name,
+                    'column'          => 'filepath',
+                    'datetime_column' => 'cover_letter_datetime',
+                    'upload'          => false,
+                    'download'        => true,
+                    'external'        => true,
                 ])
 
                 @include('admin.components.show-row', [

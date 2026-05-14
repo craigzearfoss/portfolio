@@ -6,7 +6,7 @@
     }
 
     $column          = $column ?? 'filepath';
-    $datetime_column = $datetime_column ?? 'filepath';
+    $datetime_column = $datetime_column ?? null;
     $label           = $label ?? 'file';
     $href            = imageUrl($resource->{$column});
     $fileExtension   = substr(strrchr($href, '.'), 1);
