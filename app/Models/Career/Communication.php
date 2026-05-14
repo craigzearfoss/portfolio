@@ -242,7 +242,7 @@ class Communication extends Model
             ->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
             ->leftJoin('communication_types', 'communication_types.id', '=', 'communication_type_id');
 
-        $query->with('owner', 'application', 'company', 'communicationType');
+        $query->with('owner', 'application', 'communicationType');
 
         $query->select([
             DB::raw($this->table . '.*'),
@@ -294,5 +294,10 @@ class Communication extends Model
     {
         return $this->hasMany(JobSearchLog::class, 'application_id')
             ->orderBy('time_logged', 'desc');
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
     }
 }

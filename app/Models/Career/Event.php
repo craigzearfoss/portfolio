@@ -223,7 +223,7 @@ class Event extends Model
         $query->leftJoin('applications', 'applications.id', '=', $this->table . '.application_id')
             ->join('companies', 'companies.id', '=', 'applications.company_id');
 
-        $query->with('owner', 'application', 'company');
+        $query->with('owner', 'application');
 
         $query->select([
             DB::raw($this->table . '.*'),
