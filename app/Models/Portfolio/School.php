@@ -41,6 +41,7 @@ class School extends Model
     protected $fillable = [
         'name',
         'slug',
+        'summary',
         'enrollment',
         'founded',
         'street',
@@ -79,9 +80,9 @@ class School extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
-        'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'summary', 'enrollment', 'founded', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**

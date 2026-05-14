@@ -37,8 +37,10 @@ class StoreRecruitersRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'name'            => ['required', 'string', 'max:255', 'unique:' . Recruiter::class],
-            'slug'            => ['required', 'string', 'max:255', 'unique:' . Recruiter::class],
+            'name'            => ['required', 'string', 'max:100', 'unique:' . Recruiter::class],
+            'slug'            => ['required', 'string', 'max:100', 'unique:' . Recruiter::class],
+            'primary'         => ['integer', 'between:0,1'],
+            'summary'         => ['string', 'max:500', 'nullable'],
             'postings_url'    => ['string', 'max:255', 'nullable'],
             'local'           => ['integer', 'between:0,1'],
             'regional'        => ['integer', 'between:0,1'],

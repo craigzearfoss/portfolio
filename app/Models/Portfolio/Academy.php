@@ -3,12 +3,15 @@
 namespace App\Models\Portfolio;
 
 use App\Models\System\Admin;
+use App\Models\System\Country;
 use App\Models\System\Owner;
+use App\Models\System\State;
 use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -36,6 +39,25 @@ class Academy extends Model
     protected $fillable = [
         'name',
         'slug',
+        'primary',
+        'summary',
+        'street',
+        'street2',
+        'city',
+        'state_id',
+        'zip',
+        'country_id',
+        'latitude',
+        'longitude',
+        'phone',
+        'phone_label',
+        'alt_phone',
+        'alt_phone_label',
+        'email',
+        'email_label',
+        'alt_email',
+        'alt_email_label',
+        'notes',
         'link',
         'link_name',
         'description',
@@ -61,8 +83,10 @@ class Academy extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'street', 'street2', 'city', 'state_id',
+        'zip', 'country_id', 'latitude', 'longitude', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
+        'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'description', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -137,10 +161,26 @@ class Academy extends Model
     }
 
     /**
+     * Get the system country that owns the academy.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
      * Get the portfolio courses for the academy.
      */
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class, 'academy_id');
+    }
+
+    /**
+     * Get the system state that owns the job academy.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
 }

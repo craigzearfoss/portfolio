@@ -53,6 +53,54 @@
                 'value' => $academy->slug
             ])
 
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'primary',
+                'checked' => $academy->primary
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $academy->summary
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'location',
+                'value' => formatLocation([
+                    'street'          => $academy->street,
+                    'street2'         => $academy->street2,
+                    'city'            => $academy->city,
+                    'state'           => $academy->state->code ?? '',
+                    'zip'             => $academy->zip,
+                    'country'         => $academy->country->iso_alpha3 ?? '',
+                    'streetSeparator' => '<br>',
+                ])
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => !empty($academy->phone_label) ? $academy->phone_label : 'phone',
+                'value' => $academy->phone
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => $academy->alt_phone_label ?? 'alt phone',
+                'value' => $academy->alt_phone
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => !empty($academy->email_label) ? $academy->email_label : 'email',
+                'value' => $academy->email
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => !empty($academy->alt_email_label) ? $academy->alt_email_label : 'alt email',
+                'value' => $academy->alt_email
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $academy->notes
+            ])
+
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $academy->link,
@@ -75,6 +123,11 @@
                 'upload'   => true,
                 'download' => true,
                 'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $academy->notes
             ])
 
             @include('admin.components.show-row-visibility', [

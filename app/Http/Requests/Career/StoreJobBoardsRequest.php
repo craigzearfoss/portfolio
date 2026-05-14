@@ -5,6 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Http\Requests\StoreAppBaseRequest;
 use App\Models\Career\JobBoard;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -35,26 +36,44 @@ class StoreJobBoardsRequest extends StoreAppBaseRequest
     public function rules(): array
     {
         return [
-            'name'          => ['required', 'string', 'max:100', 'unique:' . JobBoard::class],
-            'slug'          => ['required', 'string', 'max:100', 'unique:' . JobBoard::class],
-            'primary'       => ['integer', 'between:0,1'],
-            'local'         => ['integer', 'between:0,1'],
-            'regional'      => ['integer', 'between:0,1'],
-            'national'      => ['integer', 'between:0,1'],
-            'international' => ['integer', 'between:0,1'],
-            'link'          => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'link_name'     => ['string', 'max:255', 'nullable'],
-            'description'   => ['nullable'],
-            'image'         => ['string', 'max:500', 'nullable'],
-            'image_credit'  => ['string', 'max:255', 'nullable'],
-            'image_source'  => ['string', 'max:255', 'nullable'],
-            'thumbnail'     => ['string', 'max:500', 'nullable'],
-            'is_public'     => ['integer', 'between:0,1'],
-            'is_readonly'   => ['integer', 'between:0,1'],
-            'is_root'       => ['integer', 'between:0,1'],
-            'is_disabled'   => ['integer', 'between:0,1'],
-            'is_demo'       => ['integer', 'between:0,1'],
-            'sequence'      => ['integer', 'min:0', 'nullable'],
+            'name'            => ['required', 'string', 'max:100', 'unique:' . JobBoard::class],
+            'slug'            => ['required', 'string', 'max:100', 'unique:' . JobBoard::class],
+            'primary'         => ['integer', 'between:0,1'],
+            'summary'         => ['string', 'max:500', 'nullable'],
+            'local'           => ['integer', 'between:0,1'],
+            'regional'        => ['integer', 'between:0,1'],
+            'national'        => ['integer', 'between:0,1'],
+            'international'   => ['integer', 'between:0,1'],
+            'street'          => ['string', 'max:255', 'nullable'],
+            'street2'         => ['string', 'max:255', 'nullable'],
+            'city'            => ['string', 'max:100', 'nullable'],
+            'state_id'        => ['integer', 'exists:system_db.states,id', 'nullable'],
+            'zip'             => ['string', 'max:20', 'nullable'],
+            'country_id'      => ['integer', 'exists:system_db.countries,id', 'nullable'],
+            'latitude'        => [Rule::numeric(), 'nullable'],
+            'longitude'       => [Rule::numeric(), 'nullable'],
+            'phone'           => ['string', 'max:20', 'nullable'],
+            'phone_label'     => ['string', 'max:100', 'nullable'],
+            'alt_phone'       => ['string', 'max:20', 'nullable'],
+            'alt_phone_label' => ['string', 'max:100', 'nullable'],
+            'email'           => ['string', 'max:255', 'nullable'],
+            'email_label'     => ['string', 'max:100', 'nullable'],
+            'alt_email'       => ['string', 'max:255', 'nullable'],
+            'alt_email_label' => ['string', 'max:100', 'nullable'],
+            'notes'           => ['nullable'],
+            'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'       => ['string', 'max:255', 'nullable'],
+            'description'     => ['nullable'],
+            'image'           => ['string', 'max:500', 'nullable'],
+            'image_credit'    => ['string', 'max:255', 'nullable'],
+            'image_source'    => ['string', 'max:255', 'nullable'],
+            'thumbnail'       => ['string', 'max:500', 'nullable'],
+            'is_public'       => ['integer', 'between:0,1'],
+            'is_readonly'     => ['integer', 'between:0,1'],
+            'is_root'         => ['integer', 'between:0,1'],
+            'is_disabled'     => ['integer', 'between:0,1'],
+            'is_demo'         => ['integer', 'between:0,1'],
+            'sequence'        => ['integer', 'min:0', 'nullable'],
         ];
     }
 

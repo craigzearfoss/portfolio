@@ -58,6 +58,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $jobBoard->summary
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'coverage area',
             'value' => implode(', ', $jobBoard->coverageAreas ?? [])
         ])
@@ -82,6 +87,44 @@
             'checked' => $jobBoard->international
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'location',
+            'value' => formatLocation([
+                'street'          => $jobBoard->street,
+                'street2'         => $jobBoard->street2,
+                'city'            => $jobBoard->city,
+                'state'           => $jobBoard->state->code ?? '',
+                'zip'             => $jobBoard->zip,
+                'country'         => $jobBoard->country->iso_alpha3 ?? '',
+                'streetSeparator' => '<br>',
+            ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($jobBoard->phone_label) ? $jobBoard->phone_label : 'phone',
+            'value' => $jobBoard->phone
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => $jobBoard->alt_phone_label ?? 'alt phone',
+            'value' => $jobBoard->alt_phone
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($jobBoard->email_label) ? $jobBoard->email_label : 'email',
+            'value' => $jobBoard->email
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($jobBoard->alt_email_label) ? $jobBoard->alt_email_label : 'alt email',
+            'value' => $jobBoard->alt_email
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $jobBoard->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $jobBoard->link,
@@ -104,6 +147,11 @@
             'upload'   => true,
             'download' => true,
             'external' => true,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $jobBoard->notes
         ])
 
         @include('admin.components.show-row-visibility', [

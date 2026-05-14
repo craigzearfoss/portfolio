@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Http\Requests\UpdateAppBaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -34,23 +35,42 @@ class UpdateAcademiesRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
-            'name'         => ['filled', 'string', 'max:255', 'unique:portfolio_db.academies,name,'.$this['academy']['id']],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:portfolio_db.academies,slug,'.$this['academy']['id']],
-            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'link_name'    => ['string', 'max:255', 'nullable'],
-            'description'  => ['nullable'],
-            'image'        => ['string', 'max:500', 'nullable'],
-            'image_credit' => ['string', 'max:255', 'nullable'],
-            'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:500', 'nullable'],
-            'logo'         => ['string', 'max:500', 'nullable'],
-            'logo_small'   => ['string', 'max:500', 'nullable'],
-            'is_public'    => ['integer', 'between:0,1'],
-            'is_readonly'  => ['integer', 'between:0,1'],
-            'is_root'      => ['integer', 'between:0,1'],
-            'is_disabled'  => ['integer', 'between:0,1'],
-            'is_demo'      => ['integer', 'between:0,1'],
-            'sequence'     => ['integer', 'min:0', 'nullable'],
+            'name'            => ['filled', 'string', 'max:255', 'unique:portfolio_db.academies,name,'.$this['academy']['id']],
+            'slug'            => ['filled', 'string', 'max:255', 'unique:portfolio_db.academies,slug,'.$this['academy']['id']],
+            'primary'         => ['integer', 'between:0,1'],
+            'summary'         => ['string', 'max:500', 'nullable'],
+            'street'          => ['string', 'max:255', 'nullable'],
+            'street2'         => ['string', 'max:255', 'nullable'],
+            'city'            => ['string', 'max:100', 'nullable'],
+            'state_id'        => ['integer', 'exists:system_db.states,id', 'nullable'],
+            'zip'             => ['string', 'max:20', 'nullable'],
+            'country_id'      => ['integer', 'exists:system_db.countries,id', 'nullable'],
+            'latitude'        => [Rule::numeric(), 'nullable'],
+            'longitude'       => [Rule::numeric(), 'nullable'],
+            'phone'           => ['string', 'max:20', 'nullable'],
+            'phone_label'     => ['string', 'max:100', 'nullable'],
+            'alt_phone'       => ['string', 'max:20', 'nullable'],
+            'alt_phone_label' => ['string', 'max:100', 'nullable'],
+            'email'           => ['string', 'max:255', 'nullable'],
+            'email_label'     => ['string', 'max:100', 'nullable'],
+            'alt_email'       => ['string', 'max:255', 'nullable'],
+            'alt_email_label' => ['string', 'max:100', 'nullable'],
+            'notes'           => ['nullable'],
+            'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'       => ['string', 'max:255', 'nullable'],
+            'description'     => ['nullable'],
+            'image'           => ['string', 'max:500', 'nullable'],
+            'image_credit'    => ['string', 'max:255', 'nullable'],
+            'image_source'    => ['string', 'max:255', 'nullable'],
+            'thumbnail'       => ['string', 'max:500', 'nullable'],
+            'logo'            => ['string', 'max:500', 'nullable'],
+            'logo_small'      => ['string', 'max:500', 'nullable'],
+            'is_public'       => ['integer', 'between:0,1'],
+            'is_readonly'     => ['integer', 'between:0,1'],
+            'is_root'         => ['integer', 'between:0,1'],
+            'is_disabled'     => ['integer', 'between:0,1'],
+            'is_demo'         => ['integer', 'between:0,1'],
+            'sequence'        => ['integer', 'min:0', 'nullable'],
         ];
     }
 

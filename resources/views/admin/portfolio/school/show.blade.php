@@ -54,6 +54,11 @@
             ])
 
             @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $school->summary
+            ])
+
+            @include('admin.components.show-row', [
                 'name'  => 'enrollment',
                 'value' => $school->enrollment
             ])

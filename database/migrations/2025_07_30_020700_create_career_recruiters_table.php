@@ -26,8 +26,10 @@ return new class extends Migration
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
             $table->id();
-            $table->string('name')->unique('name_unique');
-            $table->string('slug')->unique('slug_unique');
+            $table->string('name', 100)->unique('name_unique');
+            $table->string('slug', 100)->unique('slug_unique');
+            $table->boolean('primary')->default(false);
+            $table->string('summary', 500)->nullable();
             $table->string('postings_url')->nullable();
             $table->boolean('local')->default(false);
             $table->boolean('regional')->default(false);
@@ -55,6 +57,7 @@ return new class extends Migration
             $table->string('email_label', 100)->nullable();
             $table->string('alt_email', 255)->nullable();
             $table->string('alt_email_label', 100)->nullable();
+            $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

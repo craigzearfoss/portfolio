@@ -58,6 +58,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $school->summary,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'enrollment',
                 'value'       => old('enrollment') ?? $school->enrollment,

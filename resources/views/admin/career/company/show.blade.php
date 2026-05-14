@@ -133,6 +133,7 @@
                                     'name'  => !empty($company->alt_email_label) ? $company->alt_email_label : 'alt email',
                                     'value' => $company->alt_email
                                 ])
+
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'link',
                                     'href'   => $company->link,

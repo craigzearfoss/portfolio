@@ -38,6 +38,7 @@ class StoreSchoolsRequest extends StoreAppBaseRequest
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:' . School::class],
             'slug'         => ['required', 'string', 'max:255', 'unique:' . School::class],
+            'summary'      => ['string', 'max:500', 'nullable'],
             'enrollment'   => ['integer', 'min:0', 'nullable'],
             'founded'      => ['integer', 'min:0', 'nullable'],
             'street'       => ['string', 'max:255', 'nullable'],

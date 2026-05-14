@@ -46,6 +46,8 @@ class Recruiter extends Model
     protected $fillable = [
         'name',
         'slug',
+        'primary',
+        'summary',
         'postings_url',
         'local',
         'regional',
@@ -92,10 +94,10 @@ class Recruiter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'postings_url', 'local', 'regional', 'national', 'international',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone',
-        'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary','postings_url', 'local', 'regional', 'national',
+        'international', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'phone_label',
+        'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
     ];
 
     /**

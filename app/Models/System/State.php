@@ -5,8 +5,10 @@ namespace App\Models\System;
 use App\Models\Career\Application;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
+use App\Models\Career\JobBoard;
 use App\Models\Career\Recruiter;
 use App\Models\Career\Reference;
+use App\Models\Portfolio\Academy;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\School;
 use App\Traits\SearchableModelTrait;
@@ -133,6 +135,17 @@ class State extends Model
     }
 
     /**
+     * Get the career academies for the state.
+     *
+     * @return HasMany
+     */
+    public function academies(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Academy::class, 'state_id')
+            ->orderBy('name');
+    }
+
+    /**
      * Get the system admins for the state.
      *
      * @return HasMany
@@ -196,6 +209,17 @@ class State extends Model
     public static function getName(string $code): string
     {
         return new State()->where('code', '=', $code)->first()->name ?? $code;
+    }
+
+    /**
+     * Get the career job board for the state.
+     *
+     * @return HasMany
+     */
+    public function jobBoard(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(JobBoard::class, 'state_id')
+            ->orderBy('name');
     }
 
     /**

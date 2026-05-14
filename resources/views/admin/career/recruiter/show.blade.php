@@ -52,6 +52,16 @@
             'value' => $recruiter->slug
         ])
 
+        @include('admin.components.show-row-checkmark', [
+            'name'    => 'primary',
+            'checked' => $recruiter->primary
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $recruiter->summary
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'coverage area',
             'value' => implode(', ', $recruiter->coverageAreas ?? [])
@@ -143,6 +153,11 @@
             'upload'   => true,
             'download' => true,
             'external' => true,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $recruiter->notes
         ])
 
         @include('admin.components.show-row-visibility', [

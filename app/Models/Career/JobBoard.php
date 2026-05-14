@@ -3,13 +3,16 @@
 namespace App\Models\Career;
 
 use App\Models\System\Admin;
+use App\Models\System\Country;
 use App\Models\System\Owner;
+use App\Models\System\State;
 use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -46,10 +49,28 @@ class JobBoard extends Model
         'name',
         'slug',
         'primary',
+        'summary',
         'local',
         'regional',
         'national',
         'international',
+        'street',
+        'street2',
+        'city',
+        'state_id',
+        'zip',
+        'country_id',
+        'latitude',
+        'longitude',
+        'phone',
+        'phone_label',
+        'alt_phone',
+        'alt_phone_label',
+        'email',
+        'email_label',
+        'alt_email',
+        'alt_email_label',
+        'notes',
         'link',
         'link_name',
         'description',
@@ -73,8 +94,11 @@ class JobBoard extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'local', 'regional', 'national', 'international',
-        'link', 'link_name', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'local', 'regional', 'national', 'international',
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'latitude', 'longitude', 'phone', 'phone_label',
+        'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'notes','link',
+        'link_name', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'
+    ];
 
     /**
      * This is the default sort order for searches.
@@ -207,5 +231,21 @@ class JobBoard extends Model
         if (!empty($this->local)) $coverageAreas[] = 'local';
 
         return $coverageAreas;
+    }
+
+    /**
+     * Get the system country that owns the job board.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the system state that owns the job board.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
 }

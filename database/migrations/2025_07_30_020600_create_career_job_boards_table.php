@@ -22,14 +22,41 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
             $table->string('name', 100)->unique('name_unique');
             $table->string('slug', 100)->unique('slug_unique');
             $table->boolean('primary')->default(false);
+            $table->string('summary', 500)->nullable();
             $table->boolean('local')->default(false);
             $table->boolean('regional')->default(false);
             $table->boolean('national')->default(false);
             $table->boolean('international')->default(false);
+            $table->string('street')->nullable();
+            $table->string('street2')->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained($systemDbName.'.states', 'id')
+                ->onDelete('cascade');
+            $table->string('zip', 20)->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained($systemDbName.'.countries', 'id')
+                ->onDelete('cascade');
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('phone_label', 100)->nullable();
+            $table->string('alt_phone', 20)->nullable();
+            $table->string('alt_phone_label', 100)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('email_label', 100)->nullable();
+            $table->string('alt_email', 255)->nullable();
+            $table->string('alt_email_label', 100)->nullable();
+            $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

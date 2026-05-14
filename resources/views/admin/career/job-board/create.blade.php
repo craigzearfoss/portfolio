@@ -1,4 +1,7 @@
 @php
+    use App\Models\System\Country;
+    use App\Models\System\State;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin         = $admin ?? null;
     $owner         = $owner ?? null;
@@ -53,6 +56,13 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>
@@ -99,6 +109,50 @@
                 </div>
             </div>
 
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? '',
+                'street2'    => old('street2') ?? '',
+                'city'       => old('city') ?? '',
+                'state_id'   => old('state_id') ?? '',
+                'states'     => new State()->listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? '',
+                'country_id' => old('country_id') ?? '',
+                'countries'  => new Country()->listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
+            ])
+
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? '',
+                'longitude' => old('longitude') ?? '',
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-phone-horizontal', [
+                'phone' => old('phone') ?? '',
+                'label' => old('phone_label') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-phone-horizontal', [
+                'phone'   => old('alt_phone') ?? '',
+                'label'   => old('alt_phone_label') ?? '',
+                'alt'     => true,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-email-$jobBoard', [
+                'email'   => old('email') ?? '',
+                'label'   => old('email_label') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('alt_email') ?? '',
+                'label'   => old('alt_email_table') ?? '',
+                'alt'     => true,
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-link-horizontal', [
                 'link' => old('link') ?? '',
                 'name' => old('link_name') ?? '',
@@ -109,6 +163,12 @@
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? '',
                 'message' => $message ?? '',
             ])
 

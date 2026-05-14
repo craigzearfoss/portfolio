@@ -4,8 +4,10 @@ namespace App\Models\System;
 
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
+use App\Models\Career\JobBoard;
 use App\Models\Career\Recruiter;
 use App\Models\Career\Reference;
+use App\Models\Portfolio\Academy;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\School;
 use App\Traits\SearchableModelTrait;
@@ -119,6 +121,17 @@ class Country extends Model
     }
 
     /**
+     * Get the career academies for the country.
+     *
+     * @return HasMany
+     */
+    public function academies(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Academy::class, 'country_id')
+            ->orderBy('name');
+    }
+
+    /**
      * Get the system admins for the country.
      *
      * @return HasMany
@@ -160,6 +173,17 @@ class Country extends Model
     public static function getName(string $abbreviation): string
     {
         return new Country()->where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', '=', $abbreviation)->first()->name ?? $abbreviation;
+    }
+
+    /**
+     * Get the career job boards for the country.
+     *
+     * @return HasMany
+     */
+    public function jobBoards(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(JobBoard::class, 'country_id')
+            ->orderBy('name');
     }
 
     /**
