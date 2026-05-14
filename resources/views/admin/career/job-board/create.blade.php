@@ -140,7 +140,7 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-email-$jobBoard', [
+            @include('admin.components.form-email-horizontal', [
                 'email'   => old('email') ?? '',
                 'label'   => old('email_label') ?? '',
                 'message' => $message ?? '',
