@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('form input[name="description"]').forEach((elem) => {
-        elem.addEventListener('input', (event) =>  {
+        elem.addEventListener('input', () =>  {
             console.log('description changed');
             let inputDescriptionChangedElem = document.getElementById('inputDescriptionChanged');
             if (inputDescriptionChangedElem) {
@@ -348,9 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('clearAnalyzeApplicationDescription').addEventListener('click', (event) => {
-        document.querySelectorAll('.analyze-application-description').forEach((elem) => {
-            window.editor.setData('');
-        });
-    })
+    const clearAnalyzeApplicationDescription = document.getElementById('clearAnalyzeApplicationDescription');
+    if (clearAnalyzeApplicationDescription) {
+        document.getElementById('clearAnalyzeApplicationDescription').addEventListener('click', () => {
+            document.querySelectorAll('.analyze-application-description').forEach(() => {
+                window.editor.setData('');
+            });
+        })
+    }
 });

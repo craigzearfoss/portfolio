@@ -871,3 +871,7 @@ iframe.application-resume-preview {
 .ck-content {
     min-height: 20rem;
 }
+
+input#inputFile_filepath {
+    width: 20rem !important;
+}
