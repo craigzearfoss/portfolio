@@ -233,7 +233,7 @@ class ApplicationSkill extends Model
      * @param int|null $adminId
      * @return array
      */
-    public static function  parseSkills(Application $application, bool $includeAll = false, int|null $adminId = null): array
+    public static function parseSkills(Application $application, bool $includeAll = false, int|null $adminId = null): array
     {
         if (!$textOrHTML = $application['description']) {
             return [];
@@ -263,10 +263,31 @@ class ApplicationSkill extends Model
             $skills[$slug] = $skill;
         }
 
-        $textOrHTML = strip_tags($textOrHTML);
+        // string html tags from text and convert to lowercase
+        $textOrHTML = strtolower(strip_tags($textOrHTML));
+
         foreach ($skills as $slug=>$skill) {
-            if (str_contains($textOrHTML, $skill['name'])) {
-                $skills[$slug]['found'] = 1;
+
+            $skillName = strtolower($skill['name']);
+
+            // account for slight variations of terms
+            $skillNames = [ $skillName ];
+            if (rtrim($skillName, '0...9') !==  $skillName) $skillNames[] = rtrim($skillName, '0...9');
+            if (str_contains($skillName, '.')) {
+                $skillNames[] = strtok($skillName, '.');
+            }
+            if (str_contains($skillName, ' ')) {
+                $skillNames[] = strtok($skillName, ' ');
+            }
+
+            if ($skillName === 'aws') $skillNames[] = 'amazon web services';
+            if ($skillName === 'amazon web services') $skillNames[] = 'aws';
+
+            foreach ($skillNames as $skillName) {
+                if (str_contains($textOrHTML, $skillName)) {
+                    $skills[$slug]['found'] = 1;
+                    break;
+                }
             }
         }
 
