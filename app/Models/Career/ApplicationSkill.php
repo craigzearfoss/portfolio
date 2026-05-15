@@ -280,6 +280,7 @@ class ApplicationSkill extends Model
                 $skillNames[] = strtok($skillName, ' ');
             }
 
+            if ($skillName === 'postgresql') $skillNames[] = 'postgres';
             if ($skillName === 'aws') $skillNames[] = 'amazon web services';
             if ($skillName === 'amazon web services') $skillNames[] = 'aws';
 
