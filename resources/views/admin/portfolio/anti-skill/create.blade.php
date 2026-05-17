@@ -6,26 +6,26 @@
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
-    $skill       = $skill ?? null;
+    $antiSkill   = $antiSkill ?? null;
 
-    $title    = $pageTitle ?? 'Add New Skill';
+    $title    = $pageTitle ?? 'Add New Anti-Skill';
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',                     'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',          'href' => route('admin.dashboard') ],
     ];
     if ($isRootAdmin) {
-        $breadcrumbs[] = [ 'name' => 'Admins', 'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => 'Admins',  'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
-    $breadcrumbs[] = [ 'name' => 'Skills',     'href' => route('admin.portfolio.skill.index') ];
+    $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Anti-Skills', 'href' => route('admin.portfolio.anti-skill.index') ];
     $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
     $navButtons = [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.skill.index') ])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.anti-skill.index') ])->render(),
     ];
 @endphp
 
@@ -35,12 +35,12 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.skill.store', request()->all()) }}" method="POST">
+        <form action="{{ route('admin.portfolio.anti-skill.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.portfolio.skill.index')
+                'value' => referer('admin.portfolio.anti-skill.index')
             ])
 
             @if ($isRootAdmin)
@@ -174,8 +174,8 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Skill',
-                'cancel_url' => referer('admin.portfolio.skill.index')
+                'label'      => 'Add Anti-Skill',
+                'cancel_url' => referer('admin.portfolio.anti-skill.index')
             ])
 
         </form>

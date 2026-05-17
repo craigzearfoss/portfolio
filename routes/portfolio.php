@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Portfolio\AcademyController as AdminPortfolioAcademyController;
+use App\Http\Controllers\Admin\Portfolio\AntiSkillController as AdminPortfolioAntiSkillController;
 use App\Http\Controllers\Admin\Portfolio\ArtController as AdminPortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\AudioController as AdminPortfolioAudioController;
 use App\Http\Controllers\Admin\Portfolio\AwardController as AdminPortfolioAwardController;
@@ -48,6 +49,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
 
     // Excel export routes
     Route::get('academy/export', [AdminPortfolioAcademyController::class, 'export'])->name('academy.export');
+    Route::get('anti-skill/export', [AdminPortfolioAntiSkillController::class, 'export'])->name('anti-skill.export');
     Route::get('art/export', [AdminPortfolioArtController::class, 'export'])->name('art.export');
     Route::get('audio/export', [AdminPortfolioAudioController::class, 'export'])->name('audio.export');
     Route::get('award/export', [AdminPortfolioAwardController::class, 'export'])->name('award.export');
@@ -72,6 +74,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('school', AdminPortfolioSchoolController::class);
 
+    Route::resource('anti-skill', AdminPortfolioAntiSkillController::class);
     Route::resource('art', AdminPortfolioArtController::class);
     Route::resource('audio', AdminPortfolioAudioController::class);
     Route::resource('award', AdminPortfolioAwardController::class);
