@@ -28,47 +28,7 @@
 
 @section('content')
 
-    <section class="section">
-
-        @if ($admin['is_root'])
-            <div class="floating-div">
-                <div class="search-form-control">
-                    @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                </div>
-            </div>
-        @endif
-
-        @if ($isPost)
-
-            <div class="container show-container ml-0" style="max-width: 56rem;">
-
-                @foreach ($applicationSkills as $i=>$applicationSkill)
-
-                    <div style="display: inline-block; width: 10rem;">
-
-                        <div style="display: inline-block;">
-                            <input type="hidden" name="application_skill[]" value="0">
-                            <input type="checkbox"
-                                   id="checkBoxSkill_{{ Str::slug($applicationSkill['name']) }}"
-                                   data-application_skill_id="{{ $applicationSkill['id'] }}"
-                                   data-application_id="{{ $applicationSkill['application_id'] }}"
-                                   data-name="{{ $applicationSkill['name'] }}"
-                                   data-portfolio_skill_id="{{ $applicationSkill['id'] }}"
-                                   name="application_skill[]"
-                                   value="1"
-                                   class="application-skill-checkbox form-check-input "
-                                {{ $applicationSkill['found'] ? 'checked' : '' }}
-                            >
-                        </div>
-                        <label for="checkBoxSkill_{{ Str::slug($applicationSkill['name']) }}">{{ $applicationSkill['name'] }}</label>
-
-                    </div>
-
-                @endforeach
-
-            </div>
-
-        @endif
+    <section class="section pt-0">
 
         <div class="container show-container ml-0" style="max-width: 60rem;">
 
@@ -76,6 +36,166 @@
 
                 <form action="{{ route('admin.career.application.analyze-post') }}" method="post">
                     @csrf
+
+                    @if ($admin['is_root'])
+                        <div class="search-form-control mb-4">
+                            @include('admin.components.search-panel.controls.system-owner', [
+                                'id'       => 'application_analyze_owners_list',
+                                'owner_id' => $owner_id,
+                                'class'    => [ 'load-page-select-list' ],
+                                'attributes' => [
+                                    'data-url' => route('admin.career.application.analyze')
+                                ],
+                            ])
+                        </div>
+                    @endif
+
+                    <div class="card ml-0">
+
+                        <div class="card-header p-2">
+                            <span class="has-text-weight-semibold">
+                                Skills
+                                @if ($isPost)
+                                    <span class="is-size-6" style="font-weight: 400;"><i>({{ count($matchedSkills) }} {{ (count($matchedSkills) == 1) ? 'match' : 'matches' }} found.)</i></span>
+                                @endif
+                            </span>
+                            <span style="position: absolute; right: 4px;">
+
+                                <button type="button"
+                                        id="select-all-skills"
+                                        class="button is-small skill-select-all-button"
+                                        @if ($isPost)
+                                            style="display: none;"
+                                        @endif
+                                >Select All</button>
+
+                                <button type="button"
+                                        id="unselect-all-skills"
+                                        class="button is-small skill-select-all-button"
+                                        @if ($isPost)
+                                            style="display: none;"
+                                        @endif
+                                >Un-select All</button>
+
+                            </span>
+                        </div>
+
+                        <div class="card-body p-2">
+
+                            @foreach ($skills as $skill)
+
+                                <div style="{{ in_array($skill, $selectedSkills) ? 'display: inline-block;' : 'display: none;' }} white-space: nowrap; width: 10rem;">
+
+                                    <div style="display: inline-block;">
+
+                                        @if ($isPost)
+
+                                            @if (in_array($skill, $matchedSkills))
+                                                <i class="application-skill-checkbox-icon fa fa-check ml-2"></i>
+                                            @else
+                                                <i class="application-skill-checkbox-icon fa fa-square-o ml-2"></i>
+                                            @endif
+
+                                        @endif
+
+                                        <input type="checkbox"
+                                               id="checkBoxSkill_{{ Str::slug($skill) }}"
+                                               name="skill[]"
+                                               value="{{ $skill }}"
+                                               @if (!$isPost)
+                                                    checked
+                                               @else
+                                                    style="display: none;"
+                                               @endif
+                                               class="application-skill-checkbox form-check-input"
+                                                {{ !$isPost || in_array($skill, $selectedSkills) ? 'checked' : '' }}
+                                        >
+
+                                    </div>
+                                    <label for="checkBoxSkill_{{ Str::slug($skill) }}">
+                                        {{ $skill }}
+                                    </label>
+
+                                </div>
+
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                    <div class="card ml-0">
+
+                        <div class="card-header p-2">
+                            <span class="has-text-weight-semibold">
+                                Anti-Skills
+                                @if ($isPost)
+                                    <span class="is-size-6" style="font-weight: 400;"><i>({{ count($matchedAntiSkills) }} {{ (count($matchedAntiSkills) == 1) ? 'match' : 'matches' }}  found.)</i></span>
+                                @endif
+                            </span>
+                            <span style="position: absolute; right: 4px;">
+
+                                <button type="button"
+                                        id="select-all-anti-skills"
+                                        class="button is-small skill-select-all-button"
+                                        @if ($isPost)
+                                            style="display: none;"
+                                        @endif
+                                >Select All</button>
+
+                                <button type="button"
+                                        id="unselect-all-anti-skills"
+                                        class="button is-small skill-select-all-button"
+                                        @if ($isPost)
+                                            style="display: none;"
+                                        @endif
+                                >Un-select All</button>
+
+                            </span>
+                        </div>
+
+                        <div class="card-body p-2">
+
+                            @foreach ($antiSkills as $antiSkill)
+
+                                <div style="display: inline-block; white-space: nowrap; width: 10rem;">
+
+                                    <div style="display: inline-block;">
+
+                                        @if ($isPost)
+
+                                            @if (in_array($antiSkill, $matchedAntiSkills))
+                                                <i class="application-anti-skill-checkbox-icon fa fa-check ml-2"></i>
+                                            @else
+                                                <i class="application-anti-skill-checkbox-icon fa fa-square-o ml-2"></i>
+                                            @endif
+
+                                        @endif
+
+                                        <input type="checkbox"
+                                               id="checkBoxAntiSkill_{{ Str::slug($antiSkill) }}"
+                                               name="anti_skill[]"
+                                               value="{{ $antiSkill }}"
+                                               @if (!$isPost)
+                                                   checked
+                                               @else
+                                                   style="display: none;"
+                                               @endif
+                                               class="application-anti-skill-checkbox form-check-input"
+                                                {{ !$isPost || in_array($antiSkill, $selectedAntiSkills) ? 'checked' : '' }}
+                                        >
+                                    </div>
+                                    <label for="checkBoxAntiSkill_{{ Str::slug($antiSkill) }}">
+                                        {{ $antiSkill }}
+                                    </label>
+
+                                </div>
+
+                            @endforeach
+
+                        </div>
+
+                    </div>
 
                     <div>
                         <span>Paste the job description in the text box and click on the "Submit" button.</span>
@@ -85,22 +205,40 @@
                                 'include_cancel' => false,
                             ])
                         </span>
+                        @if ($isPost)
+                            <span class="has-text-right mr-2" style="float: right;">
+                                <a href="{{ route('admin.career.application.analyze') }}"
+                                   id="resetAnalyzeApplication"
+                                   class="button is-small is-dark"
+                                >
+                                   <i class="fa fa-arrow-left"></i>
+                                   Reset
+                                </a>
+                            </span>
+                        @endif
                         <span class="has-text-right mr-2" style="float: right;">
                             <button type="button" id="clearAnalyzeApplicationDescription" class="button is-small is-dark">
                                <i class="fa fa-eraser"></i>
                                 Clear
                             </button>
                         </span>
+
                     </div>
 
-                    @include('admin.components.form-textarea', [
-                        'name'  => 'description',
-                        'id'    => 'inputEditor',
-                        'label' => '',
-                        'value' => $description,
-                        'rows'  => 10,
-                        'class' => 'analyze-application-description',
-                    ])
+                    <div id="parsed-application-description" class="box mt-4" {!! empty($parsedDescription) ? 'style="display: none;"' : '' !!}>
+                        {!! $parsedDescription ?? '' !!}
+                    </div>
+
+                    <div id="source-application-description" {!! !empty($parsedDescription) ? 'style="display: none;"' : '' !!}>
+                        @include('admin.components.form-textarea', [
+                            'name'  => 'description',
+                            'id'    => 'inputEditor',
+                            'label' => '',
+                            'value' => $description,
+                            'rows'  => 10,
+                            'class' => 'analyze-application-description',
+                        ])
+                    </div>
 
                 </form>
 

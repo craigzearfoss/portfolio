@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use App\Enums\EnvTypes;
+use App\Models\Portfolio\Skill;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Country;
@@ -670,6 +671,14 @@ class Application extends Model
     }
 
     /**
+     * Get the system state that owns the application.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
+    }
+
+    /**
      * Returns all the skills from the portfolio.job_skills table and merges them with the skills in the
      * career.application_skills table for the current application.
      *
@@ -738,10 +747,82 @@ class Application extends Model
     }
 
     /**
-     * Get the system state that owns the application.
+     * Returns an array of the user's portfolio.job_skills that are found in the application description column.
+     * By default, it only returns the skills that are found. To return all the job skills in the array, set the
+     * $includeAll parameter to true.
+     *
+     * If no $adminId is specified then the owner_id of the application will be used.
+     *
+     * @param Application $application
+     * @param bool $includeAll
+     * @param int|null $adminId
+     * @return array
      */
-    public function state(): BelongsTo
+    public static function parseSkills(Application $application, bool $includeAll = false, int|null $adminId = null): array
     {
-        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
+        if (!$textOrHTML = $application['description']) {
+            return [];
+        }
+
+        // get the id of the admin/owner
+        $adminId = !empty($adminId) ? $adminId : $application['owner_id'];
+
+        // get the skills from the portfolio skills table
+        $skills = [];
+        foreach (Skill::ownerSkills($adminId) as $jobSkill) {
+
+            $slug = Str::slug($jobSkill->name);
+
+            $skill = [
+                'id'                     => null,
+                'owner_id'               => $application['owner_id'],
+                'application_id'         => $application['id'],
+                'name'                   => $jobSkill->name,
+                'slug'                   => $slug,
+                'type_id'                => null,
+                'level'                  => -1,
+                'dictionary_category_id' => $jobSkill->dictionary_category_id,
+                'found'                  => false,
+            ];
+
+            $skills[$slug] = $skill;
+        }
+
+        // string html tags from text and convert to lowercase
+        $textOrHTML = strtolower(strip_tags($textOrHTML));
+
+        foreach ($skills as $slug=>$skill) {
+
+            $skillName = strtolower($skill['name']);
+
+            // account for slight variations of terms
+            $skillNames = [ $skillName ];
+            if (rtrim($skillName, '0...9') !==  $skillName) $skillNames[] = rtrim($skillName, '0...9');
+            if (str_contains($skillName, '.')) {
+                $skillNames[] = strtok($skillName, '.');
+            }
+            if (str_contains($skillName, ' ')) {
+                $skillNames[] = strtok($skillName, ' ');
+            }
+
+            if ($skillName === 'postgresql') $skillNames[] = 'postgres';
+            if ($skillName === 'aws') $skillNames[] = 'amazon web services';
+            if ($skillName === 'amazon web services') $skillNames[] = 'aws';
+
+            foreach ($skillNames as $skillName) {
+                if (str_contains($textOrHTML, $skillName)) {
+                    $skills[$slug]['found'] = 1;
+                    break;
+                }
+            }
+        }
+
+        if (!$includeAll) {
+            $skills = array_filter($skills, function ($skill) {
+                return $skill['found'];
+            });
+        }
+
+        return array_values($skills);
     }
 }

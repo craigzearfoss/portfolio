@@ -7,10 +7,12 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
 use App\Models\Career\Application;
+use App\Models\Career\ApplicationAntiSkill;
 use App\Models\Career\ApplicationSkill;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
+use App\Models\Portfolio\AntiSkill;
 use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\Skill;
 use Doctrine\Inflector\Rules\English\Rules;
@@ -21,6 +23,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -133,7 +136,7 @@ class ApplicationController extends BaseAdminController
 
         // add the portfolio.job_skills found in the description to the application skills
         if (!empty($application['description'])) {
-            foreach (ApplicationSkill::parseSkills($application) as $skill) {
+            foreach (Application::parseSkills($application) as $skill) {
                 $applicationSkill = new ApplicationSkill();
                 $applicationSkill['owner_id']               = $application['owner_id'];
                 $applicationSkill['application_id']         = $application['id'];
@@ -204,7 +207,7 @@ class ApplicationController extends BaseAdminController
 
         // if the description has changed then update the application skills
         if ($request->input('description_changed') ?? false) {
-            if (!new ApplicationSkill()->addSkills($application, ApplicationSkill::parseSkills($application))) {
+            if (!new ApplicationSkill()->addSkills($application, Application::parseSkills($application))) {
                 if ($referer = $request->input('referer')) {
                     return redirect($referer)->withErrors(['GLOBAL' => 'Application updated but there was a problem updating the skills.']);
                 } else {
@@ -423,34 +426,62 @@ class ApplicationController extends BaseAdminController
 
     public function analyze(): View
     {
-        $owner_id = $this->isRootAdmin
-            ? (request()->input('owner_id') ?? $this->owner['id'])
-            :$this->admin['id'];
+        if ($this->isRootAdmin) {
+            if (!$owner_id = request()->input('owner_id')) {
+                $owner_id = $this->owner['id'] ?? $this->admin['id'] ?? null;
+            }
+        } else {
+            $owner_id = $this->admin['id'] ?? null;
+        }
         $isPost            = false;
         $description       = '';
-        $applicationSkills = [];
 
-        return view('admin.career.application.analyze', compact('owner_id', 'description', 'applicationSkills', 'isPost'));
+        $skills     = Skill::ownerSkills($owner_id)->pluck('name')->toArray();
+        $antiSkills = AntiSkill::ownerSkills($owner_id)->pluck('name')->toArray();
+
+        $selectedSkills = $skills;
+        $selectedAntiSkills = $antiSkills;
+
+        return view('admin.career.application.analyze',
+            compact('owner_id', 'description', 'skills', 'antiSkills',
+                'selectedSkills', 'selectedAntiSkills', 'isPost'));
     }
 
-    public function analyzePost(Request $request): View
+    public function analyzePost(Request $request): View|RedirectResponse
     {
-        $owner_id = $this->isRootAdmin
-            ? ($request->input('owner_id') ?? $this->owner['id'])
-            :$this->admin['id'];
-        $isPost      = true;
-        $description = $request->input('description');
-
-        $application = new Application();
-        $application['owner_id'] = $owner_id ?? null;
-        $application['application_id'] = null;
-        $application['description'] = $description;
-
-        if (!$applicationSkills = ApplicationSkill::parseSkills($application, true)) {
-            return view('admin.career.application.analyze', compact('owner_id', 'description', 'applicationSkills', 'isPost'))
-                ->withErrors(['GLOBAL' => 'You have no portfolio job skill set.']);
+        if ($this->isRootAdmin) {
+            if (!$owner_id = $request->input('owner_id')) {
+                $owner_id = $this->owner['id'] ?? $this->admin['id'] ?? null;
+            }
         } else {
-            return view('admin.career.application.analyze', compact('owner_id', 'description', 'applicationSkills', 'isPost'));
+            $owner_id = $this->admin['id'];
         }
+        $isPost = true;
+        if (!$description = $request->input('description')) {
+            $description = '';
+        }
+
+        $skills     = Skill::ownerSkills($owner_id)->pluck('name')->toArray();
+        $antiSkills = AntiSkill::ownerSkills($owner_id)->pluck('name')->toArray();
+
+        if (!$selectedSkills = $request->input('skill')) {
+            $selectedSkills = [];
+        }
+        if (!$selectedAntiSkills = $request->input('anti_skill')) {
+            $selectedAntiSkills = [];
+        }
+
+        if (empty($description)) {
+            return redirect()->back()->with('error', 'No job description specified.');
+        } elseif (empty($selectedSkills) || empty($selectedAntiSkills)) {
+            return redirect()->back()->with('error', 'No skills or anti-skills specified.');
+        }
+
+        list($matchedSkills, $parsedDescription)     = Skill::parseSkills($selectedSkills, $description);
+        list($matchedAntiSkills, $parsedDescription) = AntiSkill::parseSkills($selectedAntiSkills, $parsedDescription);
+
+        return view('admin.career.application.analyze',
+            compact('owner_id', 'description', 'parsedDescription', 'skills', 'antiSkills',
+                'selectedSkills', 'selectedAntiSkills', 'matchedSkills', 'matchedAntiSkills', 'isPost'));
     }
 }

@@ -293,12 +293,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let checkbox = event.target;
 
             const applicationId = checkbox.getAttribute('data-application_id');
-            const applicationSkillId = checkbox.getAttribute('data-application_skill_id');
+            const applicationSkillId = checkbox.getAttribute('data-skill_id');
 
             let dataForPost = {
 
                 name: checkbox.getAttribute('data-name'),
-                application_skill_id: checkbox.getAttribute('application_skill_id'),
+                application_skill_id: checkbox.getAttribute('skill_id'),
                 portfolio_skill_id: checkbox.getAttribute('portfolio_skill_id'),
             };
 
@@ -351,9 +351,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearAnalyzeApplicationDescription = document.getElementById('clearAnalyzeApplicationDescription');
     if (clearAnalyzeApplicationDescription) {
         document.getElementById('clearAnalyzeApplicationDescription').addEventListener('click', () => {
+            document.querySelectorAll('.application-skill-checkbox').forEach((elem) => {
+                elem.style.display = 'block';
+            });
+            document.querySelectorAll('.application-skill-checkbox-icon').forEach((elem) => {
+                elem.style.display = 'none';
+            });
+            document.querySelectorAll('.application-anti-skill-checkbox').forEach((elem) => {
+                elem.style.display = 'block';
+            });
+            document.querySelectorAll('.application-anti-skill-checkbox-icon').forEach((elem) => {
+                elem.style.display = 'none';
+            });
+            document.getElementById('parsed-application-description').style.display = 'none';
+            document.getElementById('source-application-description').style.display = 'block';
             document.querySelectorAll('.analyze-application-description').forEach(() => {
                 window.editor.setData('');
             });
-        })
+
+            document.querySelectorAll('button.skill-select-all-button').forEach((elem) => {
+                elem.style.display = 'inline-flex';
+            })
+        });
+
+        document.getElementById('select-all-skills').addEventListener('click', () => {
+            document.querySelectorAll('.application-skill-checkbox').forEach((elem) => {
+                elem.checked = true;
+            });
+        });
+        document.getElementById('unselect-all-skills').addEventListener('click', () => {
+            document.querySelectorAll('.application-skill-checkbox').forEach((elem) => {
+                elem.checked = false;
+            });
+        });
+        document.getElementById('select-all-anti-skills').addEventListener('click', () => {
+            document.querySelectorAll('.application-anti-skill-checkbox').forEach((elem) => {
+                elem.checked = true;
+            });
+        });
+        document.getElementById('unselect-all-anti-skills').addEventListener('click', () => {
+            document.querySelectorAll('.application-anti-skill-checkbox').forEach((elem) => {
+                elem.checked = false;
+            });
+        });
     }
+
+    document.querySelectorAll('select.load-page-select-list').forEach((elem) => {
+        elem.addEventListener('change', () =>  {
+            const name = elem.getAttribute('name');
+            const value = elem.value;
+            let url = elem.getAttribute('data-url');
+            url += (url.includes('?') ? '' : '?') + name + '=' + encodeURIComponent(value);
+            window.location.href = url;
+        });
+    });
+
+    document.querySelectorAll('select.reload-page-select-list').forEach((elem) => {
+        elem.addEventListener('change', () =>  {
+            const name = elem.getAttribute('name');
+            const value = elem.value;
+            let url = window.location.href;
+            url += (url.includes('?') ? '' : '?') + name + '=' + encodeURIComponent(value);
+            window.location.href = url;
+        });
+    });
 });

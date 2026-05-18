@@ -11,6 +11,7 @@ use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\SkillFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -283,5 +284,108 @@ class AntiSkill extends Model
         return $this->setConnection('dictionary_db')->belongsTo(
             Category::class, 'dictionary_category_id'
         );
+    }
+
+    /**
+     * Returns the collection of anti-skills for the owner.
+     *
+     * @param $ownerId
+     * @return Collection
+     */
+    public static function ownerSkills($ownerId): Collection
+    {
+        return AntiSkill::query()->where('owner_id', $ownerId)->get();
+    }
+
+    /**
+     * Returns an array of the user's portfolio.job_anti_skills that are found in the application description column.
+     * By default, it only returns the anti-skills that are found. To return all the job anti-skills in the array, set
+     * the $includeAll parameter to true.
+     *
+     * If no $adminId is specified then the owner_id of the application will be used.
+     *
+     * @param array $skills
+     * @param string $description
+     * @return array
+     */
+    public static function parseSkills(array $skills, string $description): array
+    {
+        if (empty($skills) || empty($description)) {
+            return [ [], '' ];
+        }
+
+        $foundSkills = [];
+        foreach ($skills as $slug=>$skill) {
+
+            $skill = trim($skill);
+
+            $found = false;
+
+            if (stripos($description, $skill) !== false) {
+                $found = true;
+                $description = str_ireplace($skill, '<strong class="has-text-danger">' . $skill . '</strong>', $description);
+            }
+
+            /*
+            if (rtrim($skill, '0...9') !==  $skill) {
+                $skillNames[] = rtrim($skill, '0...9');
+            }
+            if (str_contains($skill, '.')) {
+                if ($leftOfDot = strtok($skill, '.')) {
+                    $skills[] = $leftOfDot;
+                }
+            }
+            if (str_contains($skill, ' ')) {
+                $skillNames[] = strtok($skill, ' ');
+            }
+
+            if ($skill === 'postgresql') {
+                $skillNames[] = 'postgres';
+            }
+            if ($skill === 'aws') {
+                $skillNames[] = 'amazon web services';
+            }
+            if ($skill === 'amazon web services') {
+                $skillNames[] = 'aws';
+            }
+
+            if (stripos($description, $skill) !== false) {
+                $foundSkills[] = $skill;
+                str_ireplace()re
+            } else {
+
+            }
+
+            // account for slight variations of terms
+            $skillNames = [ $skillName ];
+            if (rtrim($skillName, '0...9') !==  $skillName) $skillNames[] = rtrim($skillName, '0...9');
+            if (str_contains($skillName, '.')) {
+                $skillNames[] = strtok($skillName, '.');
+            }
+            if (str_contains($skillName, ' ')) {
+                $skillNames[] = strtok($skillName, ' ');
+            }
+
+            if ($skillName === 'postgresql') $skillNames[] = 'postgres';
+            if ($skillName === 'aws') $skillNames[] = 'amazon web services';
+            if ($skillName === 'amazon web services') $skillNames[] = 'aws';
+
+            foreach ($skillNames as $skillName) {
+                if (str_contains($textOrHTML, $skillName)) {
+                    $skills[$slug]['found'] = 1;
+                    break;
+                }
+            }
+            */
+
+            if ($found) {
+                $foundSkills[] = $skill;
+            }
+        }
+
+        return [
+            $foundSkills,
+            $description,
+        ];
     }
 }

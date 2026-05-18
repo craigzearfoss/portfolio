@@ -162,7 +162,6 @@
                                     'checked' => $application->active
                                 ])
 
-
                                 @include('admin.components.show-row', [
                                     'name'  => 'compensation',
                                     'value' => formatCompensation([

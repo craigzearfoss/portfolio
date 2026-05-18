@@ -11,6 +11,7 @@ use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\SkillFactory;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -283,5 +284,100 @@ class Skill extends Model
         return $this->setConnection('dictionary_db')->belongsTo(
             Category::class, 'dictionary_category_id'
         );
+    }
+
+    /**
+     * Returns the collection of skills for the owner.
+     *
+     * @param $ownerId
+     * @return Collection
+     */
+    public static function ownerSkills($ownerId): Collection
+    {
+        return Skill::query()->where('owner_id', $ownerId)->get();
+    }
+
+    /**
+     * Returns an array of the user's portfolio.job_skills that are found in the application description column.
+     * By default, it only returns the skills that are found. To return all the job skills in the array, set the
+     * $includeAll parameter to true.
+     *
+     * If no $adminId is specified then the owner_id of the application will be used.
+     *
+     * @param array $skills
+     * @param string $description
+     * @return array
+     */
+    public static function parseSkills(array $skills, string $description): array
+    {
+        if (empty($skills) || empty($description)) {
+            return [ [], '' ];
+        }
+
+        $foundSkills = [];
+        foreach ($skills as $skill) {
+
+            $skill = trim($skill);
+
+            $found = false;
+
+            if (stripos($description, $skill) !== false) {
+                $found = true;
+                $description = str_ireplace($skill, '<strong class="has-text-success">' . $skill . '</strong>', $description);
+            }
+
+            $baseSkill = rtrim($skill, '0...9');
+            if (!empty($baseSkill) && ($baseSkill !== $skill) && (strtolower($baseSkill) !== 's')) {
+                $found = true;
+                $description = str_ireplace($baseSkill, '<strong class="has-text-success">' . rtrim($baseSkill, '0...9') . '</strong>', $description);
+            }
+            if (str_contains($skill, '.')) {
+                if ($leftOfDot = strtok($skill, '.')) {
+                    $found = true;
+                    $description = str_ireplace($leftOfDot, '<strong class="has-text-success">' . $leftOfDot . '</strong>', $description);
+                }
+            }
+            if (str_contains($skill, ' ')) {
+                $baseSkill = strtok($skill, ' ');
+                if (!empty($baseSkill) && (!in_array(strtolower($baseSkill), ['google']))){
+                    $found = true;
+                    $description = str_ireplace($baseSkill, '<strong class="has-text-success">' . strtok($baseSkill, ' ') . '</strong>', $description);
+                }
+            }
+
+            if ((strtolower($skill) === 'postgresql') && (stripos($description, 'postgres') !== false)) {
+                $found = true;
+                $description = str_ireplace('postgres', '<strong class="has-text-success">postgres</strong>', $description);
+            }
+            if ((strtolower($skill) === 'aws') && (stripos($description, 'amazon web services') !== false)) {
+                $found = true;
+                $description = str_ireplace('amazon web services', '<strong class="has-text-success">amazon web services</strong>', $description);
+            }
+            if ((strtolower($skill) === 'amazon web services') && (stripos($description, 'aws') !== false)) {
+                $found = true;
+                $description = str_ireplace('aws', '<strong class="has-text-success">aws</strong>', $description);
+            }
+            if ((strtolower($skill) === 'ruby on rails') && (stripos($description, 'ruby') !== false)) {
+                $found = true;
+                $description = str_ireplace('rubyL', '<strong class="has-text-success">RubyL</strong>', $description);
+            }
+            if ((strtolower($skill) === 'microsoft server') && (stripos($description, 'MSSQL') !== false)) {
+                $found = true;
+                $description = str_ireplace('MSSQL', '<strong class="has-text-success">MSSQL</strong>', $description);
+            }
+            if ((strtolower($skill) === 'google cloud platform') && (stripos($description, 'gcp') !== false)) {
+                $found = true;
+                $description = str_ireplace('gcp', '<strong class="has-text-success">GCP</strong>', $description);
+            }
+
+            if ($found) {
+                $foundSkills[] = $skill;
+            }
+        }
+
+        return [
+            $foundSkills,
+            $description,
+        ];
     }
 }

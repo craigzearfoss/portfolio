@@ -2,7 +2,7 @@
 
 namespace App\Models\Career;
 
-use App\Models\Portfolio\Skill;
+use App\Models\Portfolio\AntiSkill;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -19,7 +19,7 @@ use Str;
 /**
  *
  */
-class ApplicationSkill extends Model
+class ApplicationAntiSkill extends Model
 {
     use SearchableModelTrait;
 
@@ -31,7 +31,7 @@ class ApplicationSkill extends Model
     /**
      * @var string
      */
-    protected $table = 'application_skills';
+    protected $table = 'application_anti_skills';
 
     /**
      * @var bool
@@ -201,7 +201,7 @@ class ApplicationSkill extends Model
     }
 
     /**
-     * Get the system owner of the application skill.
+     * Get the system owner of the application anti-skill.
      */
     public function owner(): BelongsTo
     {
@@ -209,7 +209,7 @@ class ApplicationSkill extends Model
     }
 
     /**
-     * Get the career application of the application skill.
+     * Get the career application of the application anti-skill.
      */
     public function application(): BelongsTo
     {
@@ -218,11 +218,10 @@ class ApplicationSkill extends Model
 
     public static function jobSkills($ownerId): Collection
     {
-        return Skill::query()->where('owner_id', $ownerId)->get();
+        return AntiSkill::query()->where('owner_id', $ownerId)->get();
     }
-
     /**
-     * Adds an application skill into the database. If the skill already exists in the database then it
+     * Adds an application anti-skill into the database. If the anti-skill already exists in the database then it
      * will remain unchanged.
      *
      * @param Application $application
@@ -231,29 +230,29 @@ class ApplicationSkill extends Model
      */
     public function addSkill(Application $application, array $skill): bool
     {
-        if (!$skillName = $skill['name'] ?? null) {
+        if (!$antiSkillName = $skill['name'] ?? null) {
             return false;
         }
 
-        // verify that the skill isn't already associated with the application
-        if (ApplicationSkill::query()
+        // verify that the anti-skill isn't already associated with the application
+        if (ApplicationAntiSkill::query()
             ->where('application_id', $application['id'])
             ->where('owner_id', $application['owner_id'])
-            ->where('name', $skillName)->first()
+            ->where('name', $antiSkillName)->first()
         ) {
             return true;
         }
 
-        // add the skill to the database
-        $applicationSkill = new ApplicationSkill();
-        $applicationSkill['owner_id']               = $application['owner_id'];
-        $applicationSkill['application_id']         = $application['id'];
-        $applicationSkill['name']                   = $skillName;
-        $applicationSkill['level']                  = $application['level'] ?? -1;
-        $applicationSkill['dictionary_category_id'] = $application['dictionary_category_id'] ?? null;
-        $applicationSkill['dictionary_term_id']     = $application['dictionary_term_id'] ?? null;
+        // add the anti-skill to the database
+        $applicationAntiSkill = new ApplicationAntiSkill();
+        $applicationAntiSkill['owner_id']               = $application['owner_id'];
+        $applicationAntiSkill['application_id']         = $application['id'];
+        $applicationAntiSkill['name']                   = $antiSkillName;
+        $applicationAntiSkill['level']                  = $application['level'] ?? -1;
+        $applicationAntiSkill['dictionary_category_id'] = $application['dictionary_category_id'] ?? null;
+        $applicationAntiSkill['dictionary_term_id']     = $application['dictionary_term_id'] ?? null;
 
-        if (!$applicationSkill->save()) {
+        if (!$applicationAntiSkill->save()) {
             return false;
         }
 
@@ -261,7 +260,7 @@ class ApplicationSkill extends Model
     }
 
     /**
-     * Adds an array of application skills into the database. If they already exist in the database they
+     * Adds an array of application anti-skills into the database. If they already exist in the database they
      * will remain unchanged.
      *
      * @param Application $application
@@ -271,8 +270,8 @@ class ApplicationSkill extends Model
     public function addSkills(Application $application, array $skills): bool
     {
         $retVal = true;
-        foreach ($skills as $skill) {
-            if (!$this->addSkill($application, $skill)) {
+        foreach ($skills as $antiSkill) {
+            if (!$this->addSkill($application, $antiSkill)) {
                 $retVal = false;
             }
         }

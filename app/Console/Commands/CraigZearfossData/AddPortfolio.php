@@ -152,6 +152,7 @@ class AddPortfolio extends Command
         $this->insertPortfolioProjects();
         $this->insertPortfolioPublications();
         $this->insertPortfolioSkills();
+        $this->insertPortfolioAntiSkills();
         $this->insertPortfolioVideos();
         $this->addOwnerlessTables();
         $this->addParentIds();
@@ -3069,7 +3070,83 @@ EOD,
             [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'is_public' => 1 ],
             [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'is_public' => 1 ],
             [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 4,  'years' => 1,   'start_year' => null, 'end_year' => null, 'is_public' => 1 ],
+
+            [ 'name' => 'LEMP',              'slug' => 'lemp',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 5,  'years' => 3,   'start_year' => 2014, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'LAMP',              'slug' => 'lamp',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 5,  'years' => 5,   'start_year' => 2014, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Composer',          'slug' => 'composer',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 8,  'years' => null, 'start_year' => 2010, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MVC',               'slug' => 'mvc',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 3,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Eloquent ORM',      'slug' => 'eloquent-orm',      'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Blade',             'slug' => 'blade',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 28,  'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'API',               'slug' => 'api',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'SQL injection',     'slug' => 'sql-injection',     'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'CSRF',              'slug' => 'csrf',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'JS frameworks',     'slug' => 'js-frameworks',     'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+
             //[ 'name' => '',                  'slug' => '',                  'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 1 ],
+        ];
+
+        if (!empty($data)) {
+            DB::connection(self::DB_TAG)->table('skills')->insert(
+                $this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo])
+            );
+        }
+        $this->insertSystemAdminResource($this->adminId, 'skills', [ 'is_public' => !empty($data) ]);
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function insertPortfolioAntiSkills(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\AntiSkill ...\n";
+
+        $data = [
+            [ 'name' => 'Java',                  'slug' => 'java',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => '.net',                  'slug' => 'net',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'TypeScript',            'slug' => 'typescript',        'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Golang',                'slug' => 'golang',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Python',                'slug' => 'python',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Angular',               'slug' => 'angular',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Ruby on Rails',         'slug' => 'ruby-on-rail',      'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'DevOp',                 'slug' => 'devop',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Azure',                 'slug' => 'azure',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Google Cloud Platform', 'slug' => 'google-cloud-platform',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Magento',               'slug' => 'magneto',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'WordPress',             'slug' => 'wordpress',         'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'SalesForce',            'slug' => 'salesforce',        'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Tailwind',              'slug' => 'tailwind',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Alpine',                'slug' => 'alpine',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Livewire',              'slug' => 'livewire',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Oracle',                'slug' => 'oracle',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Microsoft Server',      'slug' => 'microsoft-server',  'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'MongoDB',               'slug' => 'mongodb',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Elasticsearch',         'slug' => 'elasticsearch',     'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'NoSQL',                 'slug' => 'nosql',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Lambda',                'slug' => 'lambda',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'CloudFront',            'slug' => 'cloudfront',        'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'RedShift',              'slug' => 'redshift',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'WebSocket',             'slug' => 'websocket',         'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Node.js',               'slug' => 'node-js',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Webpack',               'slug' => 'webpack',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Babel',                 'slug' => 'babel',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Terraform',             'slug' => 'terraform',         'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Kubernetes',            'slug' => 'kubernetes',        'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'RabbitMQ',              'slug' => 'rabbitmq',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'GraphQL',               'slug' => 'graphql',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Django',                'slug' => 'django',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'DynamoDB',              'slug' => 'dynamodb',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Datadog',               'slug' => 'datadog',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'C#',                    'slug' => 'csharp',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Drupal',                'slug' => 'drupal',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'SOAP',                  'slug' => 'soap',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'Datadog',               'slug' => 'datadog',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'NextJS',                'slug' => 'nextjs',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'OAuth',                 'slug' => 'oauth',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'RDS',                   'slug' => 'rds',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'S3',                    'slug' => 's3',                'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+
+            //[ 'name' => '',                  'slug' => '',                  'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 0,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
         ];
 
         if (!empty($data)) {

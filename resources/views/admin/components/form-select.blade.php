@@ -1,9 +1,10 @@
 @php
-    $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
-    $name  = $name ?? null;
-    $label = $label ?? $name ?? null;
-    $title = $title ?? null;
-    $value = $value ?? '';
+    $id         = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $name       = $name ?? null;
+    $label      = $label ?? $name ?? null;
+    $title      = $title ?? null;
+    $value      = $value ?? '';
+    $attributes = $attributes ?? [];
 
     $list = $list ?? [];
 
@@ -55,6 +56,7 @@
             'form'                 => $form ?? null,
             'hasIcon'              => $hasIcon ?? false,
             'multiple'             => $multiple ?? false,
+            'attributes'           => $attributes,
             'onchange'             => $onchange ?? null,
             'required'             => $required ?? false,
             'size'                 => $size ?? null,

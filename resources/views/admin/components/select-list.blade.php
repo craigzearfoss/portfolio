@@ -1,7 +1,8 @@
 @php
-    $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
-    $name  = $name ?? null;
-    $value = $value ?? '';
+    $id         = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $name       = $name ?? null;
+    $value      = $value ?? '';
+    $attributes = $attributes ?? [];
 
     $list = $list ?? [];
 
@@ -59,6 +60,9 @@
     @if (!empty($multiple))
         multiple
     @endif
+    @foreach ($attributes as $attrName=>$attrValue)
+        {{ $attrName }}="{{ $attrValue }}";
+    @endforeach
     @if (!empty($onchange))
         onchange="{!! $onchange !!}"
     @endif
