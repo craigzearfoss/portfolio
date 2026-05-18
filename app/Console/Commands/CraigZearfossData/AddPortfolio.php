@@ -3073,7 +3073,7 @@ EOD,
 
             [ 'name' => 'LEMP',              'slug' => 'lemp',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 5,  'years' => 3,   'start_year' => 2014, 'end_year' => null, 'is_public' => 1 ],
             [ 'name' => 'LAMP',              'slug' => 'lamp',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 30,  'featured' => 0, 'level' => 5,  'years' => 5,   'start_year' => 2014, 'end_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Composer',          'slug' => 'composer',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 8,  'years' => null, 'start_year' => 2010, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Composer',          'slug' => 'composer',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 38,  'featured' => 0, 'level' => 8,  'years' => null, 'start_year' => 2010, 'end_year' => null, 'is_public' => 1 ],
             [ 'name' => 'MVC',               'slug' => 'mvc',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 3,   'featured' => 0, 'level' => 10, 'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
             [ 'name' => 'Eloquent ORM',      'slug' => 'eloquent-orm',      'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 9,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
             [ 'name' => 'Blade',             'slug' => 'blade',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 28,  'featured' => 0, 'level' => 10, 'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
@@ -3143,6 +3143,7 @@ EOD,
             [ 'name' => 'RDS',                   'slug' => 'rds',                   'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
             [ 'name' => 'S3',                    'slug' => 's3',                    'version' => null, 'type_id' => 1, 'dictionary_category_id' => 27,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
             [ 'name' => 'DigitalOcean',          'slug' => 'digitalocean',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'NPM',                   'slug' => 'npm',                   'version' => null, 'type_id' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
 
             //[ 'name' => '',                  'slug' => '',                  'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 0,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
         ];

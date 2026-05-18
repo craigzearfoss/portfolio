@@ -373,6 +373,8 @@ class AntiSkill extends Model
             }
         }
 
+        asort($foundSkills);
+
         return [
             $foundSkills,
             $description,

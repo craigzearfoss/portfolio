@@ -102,7 +102,8 @@ return new class extends Migration
             [ 'id' => 34, 'full_name' => 'tool',                      'name' => 'tool',                      'slug' => 'tool',                      'abbreviation' => null, 'definition' => 'A program that is employed in the development, repair, or enhancement of other programs or of hardware.' ],
             [ 'id' => 35, 'full_name' => 'vulnerability',             'name' => 'vulnerability',             'slug' => 'vulnerability',             'abbreviation' => null, 'definition' => 'A security flaw, bug, or weakness in code, design, or architecture that can be exploited by threat actors to compromise a system\'s confidentiality, integrity, or availability. ' ],
             [ 'id' => 36, 'full_name' => 'other',                     'name' => 'other',                     'slug' => 'other',                     'abbreviation' => null, 'definition' => '' ],
-            [ 'id' => 37, 'full_name' => 'Content Management System', 'name' => 'Content Management System', 'slug' => 'content-management-system', 'abbreviation' => 'CMS', 'definition' => 'A computer software used to manage the creation and modification of digital content.' ],
+            [ 'id' => 37, 'full_name' => 'content management system', 'name' => 'content management system', 'slug' => 'content-management-system', 'abbreviation' => 'CMS', 'definition' => 'A computer software used to manage the creation and modification of digital content.' ],
+            [ 'id' => 38, 'full_name' => 'package manager',           'name' => 'package manager',           'slug' => 'package-manager',           'abbreviation' => null,  'definition' => 'Software that supports installing, upgrading, configuring, and removing software.' ],
         ];
 
         // add timestamps

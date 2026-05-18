@@ -373,6 +373,8 @@ class Skill extends Model
             }
         }
 
+        asort($foundSkills);
+
         return [
             $foundSkills,
             $description,
