@@ -295,7 +295,7 @@ class AntiSkill extends Model
      */
     public static function ownerSkills($ownerId, string $sortColumn = 'name'): Collection
     {
-        return AntiSkill::query()->where('owner_id', $ownerId)->orderBy($sortColumn, 'asc') ->get();
+        return AntiSkill::query()->where('owner_id', $ownerId)->orderBy($sortColumn) ->get();
     }
 
     /**

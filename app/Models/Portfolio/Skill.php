@@ -295,7 +295,7 @@ class Skill extends Model
      */
     public static function ownerSkills($ownerId, string $sortColumn = 'name'): Collection
     {
-        return Skill::query()->where('owner_id', $ownerId)->orderBy($sortColumn, 'asc')->get();
+        return Skill::query()->where('owner_id', $ownerId)->orderBy($sortColumn)->get();
     }
 
     /**
