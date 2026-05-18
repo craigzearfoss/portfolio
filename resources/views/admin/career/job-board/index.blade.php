@@ -78,6 +78,7 @@
                             ])
                         </th>
                         <th class="has-text-centered">primary</th>
+                        <th>summary</th>
                         <th>coverage area</th>
                         <th>actions</th>
                     </tr>
@@ -100,6 +101,9 @@
                         </td>
                         <td data-field="primary" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
+                        </td>
+                        <td data-field="summary">
+                            {{ $jobBoard->summary }}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
