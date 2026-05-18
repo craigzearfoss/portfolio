@@ -290,11 +290,12 @@ class Skill extends Model
      * Returns the collection of skills for the owner.
      *
      * @param $ownerId
+     * @param string $sortColumn
      * @return Collection
      */
-    public static function ownerSkills($ownerId): Collection
+    public static function ownerSkills($ownerId, string $sortColumn = 'name'): Collection
     {
-        return Skill::query()->where('owner_id', $ownerId)->get();
+        return Skill::query()->where('owner_id', $ownerId)->orderBy($sortColumn, 'asc')->get();
     }
 
     /**

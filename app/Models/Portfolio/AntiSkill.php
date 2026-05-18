@@ -290,11 +290,12 @@ class AntiSkill extends Model
      * Returns the collection of anti-skills for the owner.
      *
      * @param $ownerId
+     * @param string $sortColumn
      * @return Collection
      */
-    public static function ownerSkills($ownerId): Collection
+    public static function ownerSkills($ownerId, string $sortColumn = 'name'): Collection
     {
-        return AntiSkill::query()->where('owner_id', $ownerId)->get();
+        return AntiSkill::query()->where('owner_id', $ownerId)->orderBy($sortColumn, 'asc') ->get();
     }
 
     /**
