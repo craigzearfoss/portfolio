@@ -177,7 +177,7 @@
                 'is_root'     => old('is_root')     ?? $antiSkill->root,
                 'is_disabled' => old('is_disabled') ?? $antiSkill->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $antiSkill->is_demo,
-                'sequence'    => old('sequence')    ?? $skill->sequence,
+                'sequence'    => old('sequence')    ?? $antiSkill->sequence,
                 'message'     => $message           ?? '',
             ])
 
