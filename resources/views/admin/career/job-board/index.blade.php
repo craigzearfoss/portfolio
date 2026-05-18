@@ -92,20 +92,20 @@
 
                     <tr data-id="{{ $jobBoard->id }}">
                         @if ($isRootAdmin)
-                            <td data-field="id">
+                            <td data-field="id" style="width: 1rem;">
                                 {{ $jobBoard->id }}
                             </td>
                         @endif
-                        <td data-field="name" style="white-space: nowrap;">
+                        <td data-field="name" style="white-space: nowrap; width: 7rem;">
                             {{ $jobBoard->name }}
                         </td>
-                        <td data-field="primary" class="has-text-centered">
+                        <td data-field="primary" class="has-text-centered" style="width: 4rem;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
                         </td>
-                        <td data-field="summary">
+                        <td data-field="summary" style="min-width: 30rem;">
                             {{ $jobBoard->summary }}
                         </td>
-                        <td data-field="international|national|regional|local" style="white-space: nowrap;">
+                        <td data-field="international|national|regional|local" style="white-space: nowrap; width: 6rem;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
