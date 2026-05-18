@@ -298,11 +298,9 @@ class AntiSkill extends Model
     }
 
     /**
-     * Returns an array of the user's portfolio.job_anti_skills that are found in the application description column.
-     * By default, it only returns the anti-skills that are found. To return all the job anti-skills in the array, set
-     * the $includeAll parameter to true.
-     *
-     * If no $adminId is specified then the owner_id of the application will be used.
+     * Returns an array that contains:
+     *    - Number skills that are found in the description
+     *    - The description test with the matches wrapping in <span class="has-text-success">MATCH</span>
      *
      * @param array $skills
      * @param string $description
@@ -315,7 +313,7 @@ class AntiSkill extends Model
         }
 
         $foundSkills = [];
-        foreach ($skills as $slug=>$skill) {
+        foreach ($skills as $skill) {
 
             $skill = trim($skill);
 
@@ -326,57 +324,49 @@ class AntiSkill extends Model
                 $description = str_ireplace($skill, '<strong class="has-text-danger">' . $skill . '</strong>', $description);
             }
 
-            /*
-            if (rtrim($skill, '0...9') !==  $skill) {
-                $skillNames[] = rtrim($skill, '0...9');
+            $baseSkill = rtrim($skill, '0...9');
+            if (!empty($baseSkill) && ($baseSkill !== $skill) && (strtolower($baseSkill) !== 's')) {
+                $found = true;
+                $description = str_ireplace($baseSkill, '<strong class="has-text-danger">' . rtrim($baseSkill, '0...9') . '</strong>', $description);
             }
-            if (str_contains($skill, '.')) {
+            if (str_contains($skill, '.') && (stripos($baseSkill, '.') !== 0)) {
                 if ($leftOfDot = strtok($skill, '.')) {
-                    $skills[] = $leftOfDot;
+                    $found = true;
+                    $description = str_ireplace($leftOfDot, '<strong class="has-text-danger">' . $leftOfDot . '</strong>', $description);
                 }
             }
             if (str_contains($skill, ' ')) {
-                $skillNames[] = strtok($skill, ' ');
-            }
-
-            if ($skill === 'postgresql') {
-                $skillNames[] = 'postgres';
-            }
-            if ($skill === 'aws') {
-                $skillNames[] = 'amazon web services';
-            }
-            if ($skill === 'amazon web services') {
-                $skillNames[] = 'aws';
-            }
-
-            if (stripos($description, $skill) !== false) {
-                $foundSkills[] = $skill;
-                str_ireplace()re
-            } else {
-
-            }
-
-            // account for slight variations of terms
-            $skillNames = [ $skillName ];
-            if (rtrim($skillName, '0...9') !==  $skillName) $skillNames[] = rtrim($skillName, '0...9');
-            if (str_contains($skillName, '.')) {
-                $skillNames[] = strtok($skillName, '.');
-            }
-            if (str_contains($skillName, ' ')) {
-                $skillNames[] = strtok($skillName, ' ');
-            }
-
-            if ($skillName === 'postgresql') $skillNames[] = 'postgres';
-            if ($skillName === 'aws') $skillNames[] = 'amazon web services';
-            if ($skillName === 'amazon web services') $skillNames[] = 'aws';
-
-            foreach ($skillNames as $skillName) {
-                if (str_contains($textOrHTML, $skillName)) {
-                    $skills[$slug]['found'] = 1;
-                    break;
+                $baseSkill = strtok($skill, ' ');
+                if (!empty($baseSkill) && (!in_array(strtolower($baseSkill), ['google']))){
+                    $found = true;
+                    $description = str_ireplace($baseSkill, '<strong class="has-text-danger">' . strtok($baseSkill, ' ') . '</strong>', $description);
                 }
             }
-            */
+
+            if ((strtolower($skill) === 'postgresql') && (stripos($description, 'postgres') !== false)) {
+                $found = true;
+                $description = str_ireplace('postgres', '<strong class="has-text-danger">postgres</strong>', $description);
+            }
+            if ((strtolower($skill) === 'aws') && (stripos($description, 'amazon web services') !== false)) {
+                $found = true;
+                $description = str_ireplace('amazon web services', '<strong class="has-text-danger">amazon web services</strong>', $description);
+            }
+            if ((strtolower($skill) === 'amazon web services') && (stripos($description, 'aws') !== false)) {
+                $found = true;
+                $description = str_ireplace('aws', '<strong class="has-text-danger">aws</strong>', $description);
+            }
+            if ((strtolower($skill) === 'ruby on rails') && (stripos($description, 'ruby') !== false)) {
+                $found = true;
+                $description = str_ireplace('rubyL', '<strong class="has-text-danger">RubyL</strong>', $description);
+            }
+            if ((strtolower($skill) === 'microsoft server') && (stripos($description, 'MSSQL') !== false)) {
+                $found = true;
+                $description = str_ireplace('MSSQL', '<strong class="has-text-danger">MSSQL</strong>', $description);
+            }
+            if ((strtolower($skill) === 'google cloud platform') && (stripos($description, 'gcp') !== false)) {
+                $found = true;
+                $description = str_ireplace('gcp', '<strong class="has-text-danger">GCP</strong>', $description);
+            }
 
             if ($found) {
                 $foundSkills[] = $skill;

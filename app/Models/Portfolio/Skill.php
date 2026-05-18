@@ -298,11 +298,9 @@ class Skill extends Model
     }
 
     /**
-     * Returns an array of the user's portfolio.job_skills that are found in the application description column.
-     * By default, it only returns the skills that are found. To return all the job skills in the array, set the
-     * $includeAll parameter to true.
-     *
-     * If no $adminId is specified then the owner_id of the application will be used.
+     * Returns an array that contains:
+     *    - Number skills that are found in the description
+     *    - The description test with the matches wrapping in <span class="has-text-success">MATCH</span>
      *
      * @param array $skills
      * @param string $description
