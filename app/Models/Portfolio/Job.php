@@ -443,6 +443,6 @@ class Job extends Model
      */
     public function tasks(): HasMany
     {
-        return $this->hasMany(JobTask::class, 'job_id');
+        return $this->hasMany(JobTask::class, 'job_id')->orderBy('sequence');
     }
 }
