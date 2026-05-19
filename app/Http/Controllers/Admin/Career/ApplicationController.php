@@ -167,6 +167,12 @@ class ApplicationController extends BaseAdminController
         }
         $applicationSkills = $application->allSkills();
 
+        $skills     = Skill::ownerSkills($application->id)->pluck('name')->toArray();
+        $antiSkills = AntiSkill::ownerSkills($application->id)->pluck('name')->toArray();
+
+        list($matchedSkills, $parsedDescription)     = Skill::parseSkills($skills, $application->description);
+        list($matchedAntiSkills, $parsedDescription) = AntiSkill::parseSkills($antiSkills, $parsedDescription);
+
         list($prev, $next) = $application->prevAndNextPages(
             $application['id'],
             'admin.career.application.show',
@@ -175,7 +181,8 @@ class ApplicationController extends BaseAdminController
         );
 
         return view('admin.career.application.show',
-            compact('application', 'applicationSkills', 'prev', 'next'));
+            compact('application', 'applicationSkills', 'skills', 'antiSkills',
+                'matchedSkills', 'matchedAntiSkills', 'parsedDescription', 'prev', 'next'));
     }
 
     /**

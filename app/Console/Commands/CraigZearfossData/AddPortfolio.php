@@ -3205,6 +3205,7 @@ EOD,
             [ 'name' => 'S3',                    'slug' => 's3',                    'version' => null, 'type_id' => 1, 'dictionary_category_id' => 27,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
             [ 'name' => 'DigitalOcean',          'slug' => 'digitalocean',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
             [ 'name' => 'NPM',                   'slug' => 'npm',                   'version' => null, 'type_id' => 1, 'dictionary_category_id' => 38,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
+            [ 'name' => 'GCP',                   'slug' => 'gcp',                   'version' => null, 'type_id' => 1, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 0,  'years' => 0,   'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
 
             //[ 'name' => '',                  'slug' => '',                  'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 0,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 0 ],
         ];

@@ -349,6 +349,9 @@
                             @include('admin.career.application.application-skill.panel', [
                                 'application'       => $application ?? null,
                                 'applicationSkills' => $applicationSkills ?? [],
+                                'matchedSkills'     => $matchedSkills ?? [],
+                                'matchedAntiSkills' => $matchedAntiSkills ?? [],
+                                'parsedDescription' => $parsedDescription ?? ''
                             ])
                         </div>
 
