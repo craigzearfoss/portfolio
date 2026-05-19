@@ -18,7 +18,7 @@
         <p>
             This project was created by <strong>Craig Zearfoss</strong> who can be found on LinkedIn at
             <strong><a href="https://www.linkedin.com/in/craig-zearfoss/" target="_blank">https://www.linkedin.com/in/craig-zearfoss/</a></strong>
-            or on his personal page at <strong><a href="https://zearfoss.com" target="_blank">https://zearfoss.com</a></strong>
+            or on his personal page at <strong><a href="https://craigzearfoss.com" target="_blank">https://craigzearfoss.com</a></strong>
         </p>
         <p>
             Feel free to contact Craig about this project or if you have potential employment opportunities for him.
