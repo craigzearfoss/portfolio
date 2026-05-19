@@ -330,7 +330,7 @@ class Skill extends Model
                 $found = true;
                 $description = str_ireplace($baseSkill, '<strong class="has-text-success">' . rtrim($baseSkill, '0...9') . '</strong>', $description);
             }
-            if (str_contains($skill, '.')) {
+            if (str_contains($skill, '.') && (stripos($baseSkill, '.') !== 0)) {
                 if ($leftOfDot = strtok($skill, '.')) {
                     $found = true;
                     $description = str_ireplace($leftOfDot, '<strong class="has-text-success">' . $leftOfDot . '</strong>', $description);
@@ -338,7 +338,7 @@ class Skill extends Model
             }
             if (str_contains($skill, ' ')) {
                 $baseSkill = strtok($skill, ' ');
-                if (!empty($baseSkill) && (!in_array(strtolower($baseSkill), ['google', 'js']))){
+                if (!empty($baseSkill) && (!in_array(strtolower($baseSkill), ['google', 'js', 'microsoft']))){
                     $found = true;
                     $description = str_ireplace($baseSkill, '<strong class="has-text-success">' . strtok($baseSkill, ' ') . '</strong>', $description);
                 }

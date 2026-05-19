@@ -771,50 +771,29 @@ class Application extends Model
         $skills = [];
         foreach (Skill::ownerSkills($adminId) as $jobSkill) {
 
-            $slug = Str::slug($jobSkill->name);
-
             $skill = [
                 'id'                     => null,
                 'owner_id'               => $application['owner_id'],
                 'application_id'         => $application['id'],
                 'name'                   => $jobSkill->name,
-                'slug'                   => $slug,
+                'slug'                   => Str::slug($jobSkill->name),
                 'type_id'                => null,
                 'level'                  => -1,
                 'dictionary_category_id' => $jobSkill->dictionary_category_id,
                 'found'                  => false,
             ];
 
-            $skills[$slug] = $skill;
+            $skills[$jobSkill->name] = $skill;
         }
 
         // string html tags from text and convert to lowercase
         $textOrHTML = strtolower(strip_tags($textOrHTML));
 
-        foreach ($skills as $slug=>$skill) {
+        // determine matched skills
+        list($matchedSkills, $parsedDescription) = Skill::parseSkills(array_keys($skills), $textOrHTML);
 
-            $skillName = strtolower($skill['name']);
-
-            // account for slight variations of terms
-            $skillNames = [ $skillName ];
-            if (rtrim($skillName, '0...9') !==  $skillName) $skillNames[] = rtrim($skillName, '0...9');
-            if (str_contains($skillName, '.')) {
-                $skillNames[] = strtok($skillName, '.');
-            }
-            if (str_contains($skillName, ' ')) {
-                $skillNames[] = strtok($skillName, ' ');
-            }
-
-            if ($skillName === 'postgresql') $skillNames[] = 'postgres';
-            if ($skillName === 'aws') $skillNames[] = 'amazon web services';
-            if ($skillName === 'amazon web services') $skillNames[] = 'aws';
-
-            foreach ($skillNames as $skillName) {
-                if (str_contains($textOrHTML, $skillName)) {
-                    $skills[$slug]['found'] = 1;
-                    break;
-                }
-            }
+        foreach ($matchedSkills as $skill) {
+            $skills[$skill]['found'] = true;
         }
 
         if (!$includeAll) {
