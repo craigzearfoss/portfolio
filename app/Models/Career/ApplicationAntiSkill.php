@@ -225,12 +225,12 @@ class ApplicationAntiSkill extends Model
      * will remain unchanged.
      *
      * @param Application $application
-     * @param array $skill
+     * @param array $antiSkill
      * @return bool
      */
-    public function addSkill(Application $application, array $skill): bool
+    public function addSkill(Application $application, array $antiSkill): bool
     {
-        if (!$antiSkillName = $skill['name'] ?? null) {
+        if (!$antiSkillName = $antiSkill['name'] ?? null) {
             return false;
         }
 
@@ -264,13 +264,13 @@ class ApplicationAntiSkill extends Model
      * will remain unchanged.
      *
      * @param Application $application
-     * @param array $skills
+     * @param array $antiSkills
      * @return bool
      */
-    public function addSkills(Application $application, array $skills): bool
+    public function addSkills(Application $application, array $antiSkills): bool
     {
         $retVal = true;
-        foreach ($skills as $antiSkill) {
+        foreach ($antiSkills as $antiSkill) {
             if (!$this->addSkill($application, $antiSkill)) {
                 $retVal = false;
             }

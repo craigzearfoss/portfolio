@@ -15,13 +15,10 @@ use App\Models\Career\Resume;
 use App\Models\Portfolio\AntiSkill;
 use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\Skill;
-use Doctrine\Inflector\Rules\English\Rules;
 use Exception;
-use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -136,6 +133,7 @@ class ApplicationController extends BaseAdminController
 
         // add the portfolio.job_skills found in the description to the application skills
         if (!empty($application['description'])) {
+
             foreach (Application::parseSkills($application) as $skill) {
                 $applicationSkill = new ApplicationSkill();
                 $applicationSkill['owner_id']               = $application['owner_id'];
@@ -145,6 +143,17 @@ class ApplicationController extends BaseAdminController
                 $applicationSkill['dictionary_category_id'] = null;
                 $applicationSkill['dictionary_term_id']     = null;
                 $applicationSkill->save();
+            }
+
+            foreach (Application::parseAntiSkills($application) as $antiSkill) {
+                $applicationAntiSkill = new ApplicationAntiSkill();
+                $applicationAntiSkill['owner_id']               = $application['owner_id'];
+                $applicationAntiSkill['application_id']         = $application['id'];
+                $applicationAntiSkill['name']                   = $antiSkill['name'];
+                $applicationAntiSkill['level']                  = -1;
+                $applicationAntiSkill['dictionary_category_id'] = null;
+                $applicationAntiSkill['dictionary_term_id']     = null;
+                $applicationAntiSkill->save();
             }
         }
 
@@ -165,10 +174,9 @@ class ApplicationController extends BaseAdminController
         if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
-        $applicationSkills = $application->allSkills();
 
-        $skills     = Skill::ownerSkills($application->id)->pluck('name')->toArray();
-        $antiSkills = AntiSkill::ownerSkills($application->id)->pluck('name')->toArray();
+        $skills     = Skill::ownerSkills($application['owner_id'])->pluck('name')->toArray();
+        $antiSkills = AntiSkill::ownerSkills($application['owner_id'])->pluck('name')->toArray();
 
         list($matchedSkills, $parsedDescription)     = Skill::parseSkills($skills, $application->description);
         list($matchedAntiSkills, $parsedDescription) = AntiSkill::parseSkills($antiSkills, $parsedDescription);
@@ -181,8 +189,8 @@ class ApplicationController extends BaseAdminController
         );
 
         return view('admin.career.application.show',
-            compact('application', 'applicationSkills', 'skills', 'antiSkills',
-                'matchedSkills', 'matchedAntiSkills', 'parsedDescription', 'prev', 'next'));
+            compact('application', 'skills', 'antiSkills', 'matchedSkills', 'matchedAntiSkills',
+            'parsedDescription', 'prev', 'next'));
     }
 
     /**
@@ -214,7 +222,17 @@ class ApplicationController extends BaseAdminController
 
         // if the description has changed then update the application skills
         if ($request->input('description_changed') ?? false) {
+
+            $skillUpdateOK = true;
             if (!new ApplicationSkill()->addSkills($application, Application::parseSkills($application))) {
+                $skillUpdateOK = false;
+            }
+
+            if (!new ApplicationAntiSkill()->addSkills($application, Application::parseAntiSkills($application))) {
+                $skillUpdateOK = false;
+            }
+
+            if (!$skillUpdateOK) {
                 if ($referer = $request->input('referer')) {
                     return redirect($referer)->withErrors(['GLOBAL' => 'Application updated but there was a problem updating the skills.']);
                 } else {

@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use App\Enums\EnvTypes;
+use App\Models\Portfolio\AntiSkill;
 use App\Models\Portfolio\Skill;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
@@ -769,21 +770,80 @@ class Application extends Model
 
         // get the skills from the portfolio skills table
         $skills = [];
-        foreach (Skill::ownerSkills($adminId) as $jobSkill) {
+        foreach (Skill::ownerSkills($adminId) as $thisSkill) {
 
             $skill = [
                 'id'                     => null,
                 'owner_id'               => $application['owner_id'],
                 'application_id'         => $application['id'],
-                'name'                   => $jobSkill->name,
-                'slug'                   => Str::slug($jobSkill->name),
+                'name'                   => $thisSkill->name,
+                'slug'                   => Str::slug($thisSkill->name),
                 'type_id'                => null,
                 'level'                  => -1,
-                'dictionary_category_id' => $jobSkill->dictionary_category_id,
+                'dictionary_category_id' => $thisSkill->dictionary_category_id,
                 'found'                  => false,
             ];
 
-            $skills[$jobSkill->name] = $skill;
+            $skills[$thisSkill->name] = $skill;
+        }
+
+        // string html tags from text and convert to lowercase
+        $textOrHTML = strtolower(strip_tags($textOrHTML));
+
+        // determine matched skills
+        list($matchedSkills, $parsedDescription) = Skill::parseSkills(array_keys($skills), $textOrHTML);
+
+        foreach ($matchedSkills as $skill) {
+            $skills[$skill]['found'] = true;
+        }
+
+        if (!$includeAll) {
+            $skills = array_filter($skills, function ($skill) {
+                return $skill['found'];
+            });
+        }
+
+        return array_values($skills);
+    }
+
+    /**
+     * Returns an array of the user's portfolio.job_skills that are found in the application description column.
+     * By default, it only returns the skills that are found. To return all the job skills in the array, set the
+     * $includeAll parameter to true.
+     *
+     * If no $adminId is specified then the owner_id of the application will be used.
+     *
+     * @param Application $application
+     * @param bool $includeAll
+     * @param int|null $adminId
+     * @return array
+     */
+    public static function parseAntiSkills(Application $application, bool $includeAll = false, int|null $adminId = null): array
+    {
+        if (!$textOrHTML = $application['description']) {
+            return [];
+        }
+
+        // get the id of the admin/owner
+        $adminId = !empty($adminId) ? $adminId : $application['owner_id'];
+
+        // get the skills from the portfolio skills table
+        $skills = [];
+        foreach (AntiSkill::ownerSkills($adminId) as $thisAntiSkill) {
+
+            $skill = [
+                'id'                     => null,
+                'owner_id'               => $application['owner_id'],
+                'application_id'         => $application['id'],
+                'name'                   => $thisAntiSkill->name,
+                'slug'                   => Str::slug($thisAntiSkill->name),
+                'type_id'                => null,
+                'level'                  => -1,
+                'dictionary_category_id' => $thisAntiSkill->dictionary_category_id,
+                'found'                  => false,
+            ];
+
+            $skills[$thisAntiSkill->name] = $skill;
         }
 
         // string html tags from text and convert to lowercase
