@@ -338,7 +338,7 @@ class AntiSkill extends Model
             }
             if (str_contains($skill, ' ')) {
                 $baseSkill = strtok($skill, ' ');
-                if (!empty($baseSkill) && (!in_array(strtolower($baseSkill), ['google', 'js', 'microsoft']))){
+                if (!empty($baseSkill) && (!in_array(strtolower($baseSkill), ['google', 'js', 'microsoft', 'sql', 'twitter']))){
                     $found = true;
                     $description = str_ireplace($baseSkill, '<strong class="has-text-danger">' . strtok($baseSkill, ' ') . '</strong>', $description);
                 }
