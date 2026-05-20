@@ -1,14 +1,20 @@
 @php
-if (empty($alt)) {
-    $phoneId        = 'inputPhone';
-    $phoneName      = 'phone';
-    $phoneLabelId   = 'inputPhone_label';
-    $phoneLabelName = 'phone_label';
+if ($alt = isset($alt)) {
+    $phoneId          = 'inputAlt_phone';
+    $phoneName        = 'alt_phone';
+    $phoneLabel       = 'alt phone';
+    $phoneLabelId     = 'inputAlt_phone_label';
+    $phoneLabelName   = 'alt_phone_label';
+    $placeholder      = 'alt phone';
+    $labelPlaceholder = 'alt phone label';
 } else {
-    $phoneId        = 'inputAlt_phone';
-    $phoneName      = 'alt_phone';
-    $phoneLabelId   = 'inputAlt_phone_label';
-    $phoneLabelName = 'alt_phone_label';
+    $phoneId          = 'inputPhone';
+    $phoneName        = 'phone';
+    $phoneLabel       = 'phone';
+    $phoneLabelId     = 'inputPhone_label';
+    $phoneLabelName   = 'phone_label';
+    $placeholder      = 'phone';
+    $labelPlaceholder = 'phone label';
 }
 
 $class   = !empty($class) ? $class : '';
@@ -20,7 +26,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label" for="{{ $phoneId }}">{!! empty($alt) ? 'phone' : 'alt phone' !!}</label>
+        <label class="label" for="{{ $phoneId }}">{{ $phoneLabel }}</label>
     </div>
     <div class="field-body">
         <div class="content mb-0 mr-2">
@@ -31,12 +37,13 @@ if (!empty($style)) {
                        name="{!! $phoneName !!}"
                        value="{!! $phone !!}"
                        maxlength="20"
+                       placeholder="{{ $placeholder }}"
                 >
                 <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
             </div>
 
             @error($phoneName ?? 'name')
-                <p class="help is-danger">{!! $message !!}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
@@ -48,11 +55,11 @@ if (!empty($style)) {
                         <div class="control">
                             <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                                    type="text"
-                                   id="{!! $phoneLabelId !!}"
-                                   name="{!! $phoneLabelName !!}"
-                                   placeholder="label"
-                                   value="{!! $label !!}"
+                                   id="{{ $phoneLabelId }}"
+                                   name="{{ $phoneLabelName }}"
+                                   value="{{ $label }}"
                                    maxlength="100"
+                                   placeholder="{{ $labelPlaceholder }}"
                             >
                         </div>
                     </div>

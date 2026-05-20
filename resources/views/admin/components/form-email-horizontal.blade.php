@@ -1,14 +1,20 @@
 @php
-if (empty($alt)) {
-    $emailId        = 'inputPhone';
-    $emailName      = 'email';
-    $emailLabelId   = 'inputPhone_label';
-    $emailLabelName = 'email_label';
+if ($alt = isset($alt)) {
+    $emailId          = 'inputAlt_email';
+    $emailName        = 'alt_email';
+    $emailLabel       = 'alt email';
+    $emailLabelId     = 'inputAlt_email_label';
+    $emailLabelName   = 'alt_email_label';
+    $placeholder      = 'alt email';
+    $labelPlaceholder = 'alt email label';
 } else {
-    $emailId        = 'inputAlt_email';
-    $emailName      = 'alt_email';
-    $emailLabelId   = 'inputAlt_email_label';
-    $emailLabelName = 'alt_email_label';
+    $emailId          = 'inputEmail';
+    $emailName        = 'email';
+    $emailLabel       = 'email';
+    $emailLabelId     = 'inputEmail_label';
+    $emailLabelName   = 'email_label';
+    $placeholder      = 'email';
+    $labelPlaceholder = 'email label';
 }
 
 $class   = !empty($class) ? $class : '';
@@ -20,7 +26,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label" for="{{ $emailId }}">{!! empty($alt) ? 'email' : 'alt email' !!}</label>
+        <label class="label" for="{{ $emailId }}">{{ $emailLabel }}</label>
     </div>
     <div class="field-body">
         <div class="content mb-0 mr-2">
@@ -31,6 +37,7 @@ if (!empty($style)) {
                        name="{!! $emailName !!}"
                        value="{!! $email !!}"
                        maxlength="255"
+                       placeholder="{{ $placeholder }}"
                 >
                 <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
             </div>
@@ -48,11 +55,11 @@ if (!empty($style)) {
                         <div class="control">
                             <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                                    type="text"
-                                   id="{!! $emailLabelId !!}"
-                                   name="{!! $emailLabelName !!}"
-                                   placeholder="label"
-                                   value="{!! $label !!}"
+                                   id="{{ $emailLabelId }}"
+                                   name="{{ $emailLabelName }}"
+                                   value="{{ $label }}"
                                    maxlength="100"
+                                   placeholder="{{ $labelPlaceholder }}"
                             >
                         </div>
                     </div>

@@ -116,66 +116,30 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone',
-                'value'     => old('phone') ?? '',
-                'maxlength' => 20,
-                'message'   => $message ?? '',
+            @include('admin.components.form-phone-horizontal', [
+                'phone' => old('phone') ?? '',
+                'label' => old('phone_label') ?? '',
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone_label',
-                'label'     => 'phone label',
-                'value'     => old('phone_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
+            @include('admin.components.form-phone-horizontal', [
+                'phone'   => old('alt_phone') ?? '',
+                'label'   => old('alt_phone_label') ?? '',
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone',
-                'label'     => 'alt phone',
-                'value'     => old('alt_phone') ?? '',
-                'maxlength' => 20,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('email') ?? '',
+                'label'   => old('email_label') ?? '',
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone_label',
-                'label'     => 'alt phone label',
-                'value'     => old('alt_phone_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email',
-                'value'     => old('email') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email_label',
-                'label'     => 'email label',
-                'value'     => old('email_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email',
-                'label'     => 'alt email',
-                'value'     => old('alt_email') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email_label',
-                'label'     => 'alt email label',
-                'value'     => old('alt_email_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('alt_email') ?? '',
+                'label'   => old('alt_email_table') ?? '',
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

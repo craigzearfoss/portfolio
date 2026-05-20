@@ -13,7 +13,7 @@ if (!empty($style)) {
     <div class="field-body">
 
         <div class="content mb-0 mr-2">
-            <div class="control">
+            <div class="control has-icons-left">
                 <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="text"
                        id="inputLink"
@@ -22,6 +22,7 @@ if (!empty($style)) {
                        placeholder="url"
                        maxlength="255"
                 >
+                <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
             </div>
 
             @error('link')
