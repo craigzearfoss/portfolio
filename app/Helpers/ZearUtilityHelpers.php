@@ -1408,3 +1408,67 @@ if (! function_exists('getPageTitle')) {
         return $title;
     }
 }
+
+if (! function_exists('wageRateFormat')) {
+    /**
+     * Returns a formatted wage rate where the rate is per hour..
+     *
+     * @param float|null $wageRate
+     * @param int $precision
+     * @param string $currency
+     * @return string|null
+     */
+    function wageRateFormat(float|null $wageRate, int $precision = 2, string $currency = 'USD'): string|null
+    {
+        if (is_null($wageRate)) {
+            return '';
+        }
+
+        return number_format($wageRate, $precision, '.', ',') . ' / hr';
+        // Note: Using the Number::currency() method requires the intl PHP extension.
+        //return Number::currency($wageRate, $currency, precision: $precision) . ' / hr';
+    }
+}
+
+if (! function_exists('formatJobDuration')) {
+    /**
+     * Returns a formatted duration. For example. Temporary (4 weeks) or Permanent
+     *
+     * @param string|null $jobDuration
+     * @param int|null $jobDurationLength
+     * @param string|null $jobDurationUnit
+     * @return string|null
+     */
+    function formatJobDuration(
+        string|null $jobDuration = null,
+        int|null $jobDurationLength = null,
+        string|null $jobDurationUnit = null): string|null
+    {
+        $parts = [];
+        if (!empty($jobDuration)) {
+            $parts[] = $jobDuration;
+        }
+
+        if (!empty($jobDurationLength) || !empty($jobDurationUnit)) {
+
+            $parts[] = !empty($parts) ? ' (' : '(';
+
+            if (!empty($jobDurationLength)) {
+                $parts[] = $jobDurationLength;
+            }
+
+            if (!empty($jobDurationUnit)) {
+                if ($jobDurationLength !== 1) {
+                    $jobDurationUnit = $jobDurationUnit . 's';
+                }
+                $parts[] = !empty($jobDurationLength)
+                    ? ' '. $jobDurationUnit
+                    : $jobDurationUnit;
+            }
+
+            $parts[] = ')';
+        }
+
+        return implode('', $parts);
+    }
+}

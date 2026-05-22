@@ -52,6 +52,7 @@ class Application extends Model
         'owner_id',
         'company_id',
         'role',
+        'reference_id',
         'job_board_id',
         'resume_id',
         'rating',
@@ -65,6 +66,8 @@ class Application extends Model
         'estimated_hours',
         'wage_rate',
         'job_duration_type_id',
+        'job_duration_length',
+        'job_duration_unit_id',
         'job_location_type_id',
         'job_employment_type_id',
         'street',
@@ -116,13 +119,14 @@ class Application extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating',
-        'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
-        'compensation_unit_id', 'estimated_hours', 'wage_rate', 'job_duration_type_id', 'job_location_type_id',
-        'job_employment_type_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2',
-        'relocation', 'benefits', 'vacation', 'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
-        'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'reference_id', 'job_board_id', 'resume_id',
+        'rating', 'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
+        'compensation_unit_id', 'estimated_hours', 'wage_rate', 'job_duration_type_id', 'job_duration_length',
+        'job_duration_unit_id', 'job_location_type_id', 'job_employment_type_id', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation', 'health', 'phone',
+        'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -406,6 +410,12 @@ class Application extends Model
             ->when(!empty($filters['job_duration_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.job_duration_type_id', '=', intval($filters['job_duration_type_id']));
             })
+            ->when(!empty($filters['job_duration_length']), function ($query) use ($filters) {
+                $query->where($this->table . '.job_duration_length', '=', intval($filters['job_duration_length']));
+            })
+            ->when(!empty($filters['job_duration_unit_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.job_duration_unit_id', '=', intval($filters['job_duration_unit_id']));
+            })
             ->when(!empty($filters['job_employment_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.job_employment_type_id', '=', intval($filters['job_employment_type_id']));
             })
@@ -432,6 +442,9 @@ class Application extends Model
             })
             ->when(!empty($filters['min_rating']), function ($query) use ($filters) {
                 $query->where($this->table . '.rating', '>=', intval($filters['min_rating']));
+            })
+            ->when(!empty($filters['reference_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.reference_id', '=', true);
             })
             ->when(!empty($filters['relocation']), function ($query) use ($filters) {
                 $query->where($this->table . '.relocation', '=', true);
@@ -476,12 +489,14 @@ class Application extends Model
             ->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id')
             ->leftJoin('job_boards', 'job_boards.id', '=', 'applications.job_board_id')
             ->leftJoin('job_duration_types', 'job_duration_types.id', '=', 'applications.job_duration_type_id')
+            ->leftJoin('job_duration_units', 'job_duration_units.id', '=', 'applications.job_duration_unit_id')
             ->leftJoin('job_location_types', 'job_location_types.id', '=', 'applications.job_location_type_id')
             ->leftJoin('job_employment_types', 'job_employment_types.id', '=', 'applications.job_employment_type_id')
             ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'applications.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'applications.country_id');
 
-        $query->with('owner', 'company', 'jobBoard', 'resume', 'coverLetter', 'durationType', 'employmentType', 'locationType', 'compensationUnit', 'state', 'country');
+        $query->with('owner', 'company', 'jobBoard', 'resume', 'coverLetter', 'durationType',
+            'durationUnit', 'employmentType', 'locationType', 'compensationUnit', 'state', 'country');
 
         $query->select([
             DB::raw($this->table . '.*'),
@@ -492,6 +507,7 @@ class Application extends Model
             DB::raw('resumes.name as resume_name'),
             DB::raw('job_boards.name as job_board'),
             DB::raw('job_duration_types.name as duration_type'),
+            DB::raw('job_duration_units.name as duration_unit'),
             DB::raw('job_location_types.name as location_type'),
             DB::raw('job_employment_types.name as duration_type'),
             DB::raw('states.name as state'),
@@ -589,6 +605,14 @@ class Application extends Model
     public function durationType(): BelongsTo
     {
         return $this->belongsTo(JobDurationType::class, 'job_duration_type_id');
+    }
+
+    /**
+     * Get the career job duration unit that owns the application.
+     */
+    public function durationUnit(): BelongsTo
+    {
+        return $this->belongsTo(JobDurationUnit::class, 'job_duration_unit_id');
     }
 
     /**

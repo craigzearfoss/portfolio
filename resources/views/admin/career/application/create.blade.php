@@ -141,6 +141,14 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'reference_id',
+                    'label'       => 'reference id',
+                    'value'       => old('reference_id') ?? '',
+                    'maxlength'   => 100,
+                    'message'     => $message ?? '',
+                ])
+
                 @include('admin.components.form-hidden', [
                     'name'     => 'resume_id',
                     'value'    => old('resume_id') ?? $resumeId ?? '',
@@ -227,13 +235,10 @@
                     'message' => $message ?? '',
                 ])
 
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'job_duration_type_id',
-                    'label'    => 'duration type',
-                    'value'    => old('job_duration_type_id') ?? '',
-                    'required' => true,
-                    'list'     => new JobDurationType()->listOptions([], 'id', 'name', true),
-                    'message'  => $message ?? '',
+                @include('admin.components.form-job-duration-horizontal', [
+                    'job_duration_type_id' => $application->job_duration_type_id ?? null,
+                    'job_duration_length'  => $application->job_duration_length ?? '',
+                    'job_duration_unit_id' => $application->job_duration_unit_id ?? null,
                 ])
 
                 @include('admin.components.form-select-horizontal', [

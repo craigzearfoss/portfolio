@@ -119,6 +119,11 @@
                                     'value' => $application->role
                                 ])
 
+                                @include('admin.components.show-row', [
+                                    'name'  => 'reference id',
+                                    'value' => $application->reference_id
+                                ])
+
                                 <div class="container card p-2 mb-4" style="display: inline-block; flex-grow: 0;">
 
                                     <div class="p-2 m-0" style="display: inline-block; flex-grow: 0;">
@@ -178,7 +183,11 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'duration type',
-                                    'value' => $application->durationType['name'] ?? ''
+                                    'value' => formatJobDuration(
+                                        $application->durationType['name'] ?? null,
+                                        $application->job_duration_length,
+                                        $application->durationUnit['name'] ?? null,
+                                    )
                                 ])
 
                                 @include('admin.components.show-row', [

@@ -3,7 +3,6 @@
     use App\Models\Career\CompensationUnit;
     use App\Models\Career\JobEmploymentType;
     use App\Models\Career\JobBoard;
-    use App\Models\Career\JobDurationType;
     use App\Models\Career\JobLocationType;
     use App\Models\Career\Resume;
     use App\Models\System\Country;
@@ -79,6 +78,14 @@
                 'value'       => old('role') ?? $application->role,
                 'required'    => true,
                 'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'reference_id',
+                'label'       => 'reference id',
+                'value'       => old('reference_id') ?? $application->reference_id,
+                'maxlength'   => 100,
                 'message'     => $message ?? '',
             ])
 
@@ -173,6 +180,13 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-job-duration-horizontal', [
+                'job_duration_type_id' => $application->job_duration_type_id,
+                'job_duration_length'  => $application->job_duration_length,
+                'job_duration_unit_id' => $application->job_duration_unit_id,
+            ])
+
+            <?php /*
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'job_duration_type_id',
                 'label'    => 'duration type',
@@ -181,6 +195,26 @@
                 'list'     => new JobDurationType()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'job_duration_length',
+                'label'   => 'duration length',
+                'value'   => old('job_duration_length') ?? $application->job_duration_length,
+                'min'     => 0,
+                'style'   => [ 'width: 5rem;' ],
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'job_duration_unit_id',
+                'label'    => 'duration unit',
+                'value'    => old('job_duration_unit_id') ?? $application->job_duration_unit_id,
+                'list'     => new JobDurationUnit()->listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
+            ])
+            */ ?>
+
 
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'job_employment_type_id',

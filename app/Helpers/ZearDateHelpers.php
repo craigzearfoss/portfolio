@@ -203,24 +203,3 @@ if (! function_exists('months')) {
         return $m;
     }
 }
-
-if (! function_exists('wageRateFormat')) {
-    /**
-     * Returns a formatted wage rate where the rate is per hour..
-     *
-     * @param float|null $wageRate
-     * @param int $precision
-     * @param string $currency
-     * @return string|null
-     */
-    function wageRateFormat(float|null $wageRate, int $precision = 2, string $currency = 'USD'): string|null
-    {
-        if (is_null($wageRate)) {
-            return '';
-        }
-
-        return number_format($wageRate, $precision, '.', ',') . ' / hr';
-        // Note: Using the Number::currency() method requires the intl PHP extension.
-        //return Number::currency($wageRate, $currency, precision: $precision) . ' / hr';
-    }
-}
