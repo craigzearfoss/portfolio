@@ -248,7 +248,7 @@
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => 'source',
+                                    'name'  => 'job board',
                                     'value' => view('admin.components.link', [
                                         'name' => $application->jobBoard['name'] ?? '',
                                         'href' => !empty($application->jobBoard)
