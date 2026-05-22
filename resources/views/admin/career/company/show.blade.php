@@ -55,6 +55,9 @@
                             <li data-target="contacts">
                                 <a>Contacts</a>
                             </li>
+                            <li data-target="applications">
+                                <a>Applications</a>
+                            </li>
                         </ul>
 
                     </div>
@@ -191,6 +194,15 @@
 
                             @include('admin.career.company.contact.panel', [
                                 'contacts' => $company->contacts ?? [],
+                                'company'  => $company
+                            ])
+
+                        </div>
+
+                        <div id="applications" class="is-hidden">
+
+                            @include('admin.career.company.application.panel', [
+                                'contacts' => $company->applcations ?? [],
                                 'company'  => $company
                             ])
 

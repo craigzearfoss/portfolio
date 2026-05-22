@@ -1,0 +1,85 @@
+@php
+    $applications = $applications ?? [];
+@endphp
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
+    <thead>
+    <tr>
+        <th>role</th>
+        <th>company</th>
+        <th>phone</th>
+        <th>posted</th>
+        <th>applied</th>
+        <th>closed</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach ($applications as $application)
+
+        <tr data-id="{{ $application->id }}">
+            <td>
+                {{ $application->role }}
+            </td>
+            <td>
+                {{ $application->company['name'] ?? '' }}
+            </td>
+            <td>
+                {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
+            </td>
+            <td>
+                {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
+            </td>
+            <td>
+                {{ !empty($application->close_date) ? date('M j', strtotime($application->close_date)) : '' }}
+            </td>
+            <td class="is-1">
+
+                <div class="action-button-panel">
+
+                    @if (canRead($application, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'show',
+                            'href'  => route('admin.career.application.show', [
+                                                   $application,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-list'
+                        ])
+                    @endif
+
+                    @if (canUpdate($application, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'edit',
+                            'href'  => route('admin.career.application.edit', [
+                                                   $application,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-pen-to-square'
+                        ])
+                    @endif
+
+                    <?php /*
+                    @if (canDelete($application, $admin))
+                        <form class="delete-resource"
+                              action="{!! route('admin.career.application.destroy', $application) !!}"
+                              method="POST">
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        </form>
+                    @endif
+                    */ ?>
+
+                </div>
+
+            </td>
+        </tr>
+
+    @endforeach
+
+    </tbody>
+</table>
