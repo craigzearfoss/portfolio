@@ -30,28 +30,28 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
-                'name'         => 'day',
-                'abbreviation' => 'day',
+                'name'         => 'days',
+                'abbreviation' => 'days',
             ],
             [
                 'id'           => 2,
-                'name'         => 'week',
-                'abbreviation' => 'wk',
+                'name'         => 'weeks',
+                'abbreviation' => 'wks',
             ],
             [
                 'id'           => 3,
-                'name'         => 'month',
-                'abbreviation' => 'mo',
+                'name'         => 'months',
+                'abbreviation' => 'mos',
             ],
             [
                 'id'           => 4,
-                'name'         => 'year',
-                'abbreviation' => 'yr',
+                'name'         => 'years',
+                'abbreviation' => 'yrs',
             ],
             [
                 'id'           => 5,
-                'name'         => 'project',
-                'abbreviation' => 'proj',
+                'name'         => 'projects',
+                'abbreviation' => 'projs',
             ],
         ];
 
