@@ -30,12 +30,6 @@ return new class extends Migration
                 ->constrained(dbName($this->database_tag) . '.' . 'job_duration_units', 'id')
                 ->onDelete('cascade');
         });
-
-        Schema::table('career_applications', function (Blueprint $table) {
-            $table->dropColumn('job_duration_unit_id');
-            $table->dropColumn('job_duration_length');
-            $table->dropColumn('reference_id');
-        });
     }
 
     /**
@@ -43,8 +37,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('career_applications', function (Blueprint $table) {
-            //
+        Schema::table(dbName($this->database_tag) . '.' . $this->table_name, function (Blueprint $table) {
+            $table->dropForeign(dbName('career_db') . '_applications_job_duration_unit_id_foreign');
+            $table->dropColumn('job_duration_unit_id');
         });
     }
 };
