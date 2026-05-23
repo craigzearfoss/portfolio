@@ -5,6 +5,7 @@
     <thead>
     <tr>
         <th>role</th>
+        <th>active</th>
         <th>posted</th>
         <th>applied</th>
         <th>closed</th>
@@ -18,6 +19,9 @@
         <tr data-id="{{ $application->id }}">
             <td style="white-space: nowrap;">
                 {{ $application->role }}
+            </td>
+            <td>
+                @include('admin.components.checkmark', [ 'checked' => $application->active ])
             </td>
             <td style="white-space: nowrap;">
                 {{ !empty($application->post_date) ? date('M j, Y', strtotime($application->post_date)) : '' }}
