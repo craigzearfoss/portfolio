@@ -202,8 +202,8 @@
                         <div id="applications" class="is-hidden">
 
                             @include('admin.career.company.application.panel', [
-                                'contacts' => $company->applcations ?? [],
-                                'company'  => $company
+                                'applications' => $company->applications ?? [],
+                                'company'      => $company
                             ])
 
                         </div>

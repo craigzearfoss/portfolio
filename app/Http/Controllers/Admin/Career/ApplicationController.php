@@ -178,7 +178,7 @@ class ApplicationController extends BaseAdminController
         $skills     = Skill::ownerSkills($application['owner_id'])->pluck('name')->toArray();
         $antiSkills = AntiSkill::ownerSkills($application['owner_id'])->pluck('name')->toArray();
 
-        list($matchedSkills, $parsedDescription)     = Skill::parseSkills($skills, $application->description);
+        list($matchedSkills, $parsedDescription)     = Skill::parseSkills($skills, $application->description ?? '');
         list($matchedAntiSkills, $parsedDescription) = AntiSkill::parseSkills($antiSkills, $parsedDescription);
 
         list($prev, $next) = $application->prevAndNextPages(

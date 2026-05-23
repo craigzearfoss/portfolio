@@ -5,11 +5,10 @@
     <thead>
     <tr>
         <th>role</th>
-        <th>company</th>
-        <th>phone</th>
         <th>posted</th>
         <th>applied</th>
         <th>closed</th>
+        <th>actions</th>
     </tr>
     </thead>
     <tbody>
@@ -17,20 +16,17 @@
     @foreach ($applications as $application)
 
         <tr data-id="{{ $application->id }}">
-            <td>
+            <td style="white-space: nowrap;">
                 {{ $application->role }}
             </td>
-            <td>
-                {{ $application->company['name'] ?? '' }}
+            <td style="white-space: nowrap;">
+                {{ !empty($application->post_date) ? date('M j, Y', strtotime($application->post_date)) : '' }}
             </td>
-            <td>
-                {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
+            <td style="white-space: nowrap;">
+                {{ !empty($application->apply_date) ? date('M j, Y', strtotime($application->apply_date)) : '' }}
             </td>
-            <td>
-                {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
-            </td>
-            <td>
-                {{ !empty($application->close_date) ? date('M j', strtotime($application->close_date)) : '' }}
+            <td style="white-space: nowrap;">
+                {{ !empty($application->close_date) ? date('M j, Y', strtotime($application->close_date)) : '' }}
             </td>
             <td class="is-1">
 
