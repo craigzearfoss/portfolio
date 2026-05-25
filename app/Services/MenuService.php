@@ -207,6 +207,16 @@ class MenuService
 
         $menu = $this->getDatabaseResourceMenu();
 
+        if (($this->envType == EnvTypes::GUEST)) {
+
+            $menu[] = $this->menuItem([
+                'tag'     => 'job-analyzer',
+                'title'   => view('guest.components.nav-left-featured-menu-item', [ 'name' => 'Job Analyzer' ])->render(),
+                'route'   => 'analyze-job',
+                'icon'    => 'fa-dashboard',
+            ]);
+        }
+
         if (($this->hasAdmins) && ($this->isRootAdmin)) {
             $menu[] = $this->menuItem([
                 'tag'   => 'settings',
@@ -300,11 +310,11 @@ class MenuService
             } else {
                 if (!$this->singleAdminMode) {
                     $menu[] = $this->menuItem([
-                        'tag' => 'admin_login',
-                        'name' => 'admin-login',
+                        'tag'   => 'admin_login',
+                        'name'  => 'admin-login',
                         'title' => 'Admin Login',
                         'route' => 'admin.login',
-                        'icon' => 'fa-sign-in'
+                        'icon'  => 'fa-sign-in'
                     ]);
                 }
             }
@@ -350,14 +360,24 @@ class MenuService
 
         $menu = $this->getDatabaseResourceMenu();
 
-        if (($this->envType == EnvTypes::GUEST) && !$this->singleAdminMode) {
-            /// only show candidates menu option if there are more than one public, non-disabled admins
+        if (($this->envType == EnvTypes::GUEST)) {
+
             $menu[] = $this->menuItem([
-                'tag'   => 'candidates',
-                'title' => 'Candidates',
-                'route' => 'guest.admin.index',
-                'icon'  => 'fa-dashboard'
+                'tag'     => 'job-analyzer',
+                'title'   => view('guest.components.nav-top-featured-menu-item', [ 'name' => 'Job Analyzer' ])->render(),
+                'route'   => 'analyze-job',
+                'icon'    => 'fa-dashboard',
             ]);
+
+            if (!$this->singleAdminMode) {
+                /// only show candidates menu option if there are more than one public, non-disabled admins
+                $menu[] = $this->menuItem([
+                    'tag'   => 'candidates',
+                    'title' => 'Candidates',
+                    'route' => 'guest.admin.index',
+                    'icon'  => 'fa-dashboard'
+                ]);
+            }
         }
 
         if ($this->hasUsers && empty($this->admin)) {
@@ -498,7 +518,6 @@ class MenuService
             if ($resume = $this->getResumeMenuItem()) {
                 array_unshift($menu, $resume);
             }
-
         }
 
         return $menu;

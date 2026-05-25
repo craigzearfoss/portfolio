@@ -444,6 +444,27 @@ nav.pagination span.pagination-next {
 .nav-button i {
     margin-right: 8px;
 }
+.featured-left-menu-item {
+    background-color: rgb(0, 209, 178);
+    color: rgb(0, 56, 48);
+    font-weight: 700;
+    padding: 4px;
+}
+.featured-left-menu-item:hover {
+    background-color: rgb(209, 255, 248);
+}
+
+.featured-top-menu-item {
+    background-color: rgb(209, 255, 248);
+    color: rgb(0, 56, 48);
+    font-weight: 700;
+    width: 100%;
+    padding: 12px 8px;
+    height: 52px;
+}
+.featured-top-menu-item:hover {
+    background-color: #ffffff;
+}
 
 .export-buttons-container {
     position: absolute;
