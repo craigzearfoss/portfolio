@@ -168,6 +168,9 @@ div.field.is-horizontal div.field-label label.label {
     margin-right: 8px !important; /* Adds space between checkbox and label */
     flex: none !important;
 }
+div.ck.ck-sticky-panel__content {
+    display: none;
+}
 
 .resume-container {
     max-width: 50em !important;
@@ -874,4 +877,57 @@ iframe.application-resume-preview {
 
 input#inputFile_filepath {
     width: 20rem !important;
+}
+
+.analyze-job-container button.skill-modal-trigger,
+.analyze-job-container button.anti-skill-modal-trigger,
+.job-analyzer-skill-list .card-header button.select-all-skills {
+    font-size: .75rem;
+    color: #202020;
+    background-color: #e0e0e0;
+    border-color: #363636;
+    border-radius: 3px ;
+    border-width: 1px;
+    height: 2em;
+    padding: 0 4px;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+.job-analyzer-skill-list .card-header button.select-all-skills {
+    float: right;
+}
+.analyze-job-skill-div {
+    display: inline-block;
+    white-space: nowrap;
+    width: 10rem;
+}
+.analyze-job-skill-div div {
+    display: inline-block;
+}
+div.card.job-analyzer-skill-list div.card-header {
+    padding: 4px 4px 4px 8px;
+}
+div.card.job-analyzer-skill-list div.card-header label {
+    font-weight: 700;
+}
+div.card.job-analyzer-skill-list div.card-body {
+    min-height: 2rem;
+    padding: 4px 4px 4px 8px;
+}
+.analyze-job-skill-div .remove-skill {
+    color: #808080;
+    font-size: 0.5rem;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+.analyze-job-skill-div .remove-skill:hover {
+    color: red;
+}
+#analyzed-job-description {
+    background-color: #ffffff;
+    padding: 1rem;
+    border: solid 1px #c0c0c0;
+    margin-top: 9px;
 }

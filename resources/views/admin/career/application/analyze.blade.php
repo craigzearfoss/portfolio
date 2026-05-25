@@ -62,16 +62,14 @@
                             <span style="position: absolute; right: 4px;">
 
                                 <button type="button"
-                                        id="select-all-skills"
-                                        class="button is-small skill-select-all-button"
+                                        class="select-all-skills button is-small skill-select-all-button"
                                         @if ($isPost)
                                             style="display: none;"
                                         @endif
                                 >Select All</button>
 
                                 <button type="button"
-                                        id="unselect-all-skills"
-                                        class="button is-small skill-select-all-button"
+                                        class="unselect-all-skills button is-small skill-select-all-button"
                                         @if ($isPost)
                                             style="display: none;"
                                         @endif
@@ -91,9 +89,9 @@
                                         @if ($isPost)
 
                                             @if (in_array($skill, $matchedSkills))
-                                                <i class="application-skill-checkbox-icon fa fa-check ml-2"></i>
+                                                <i class="skill-checkbox-icon fa fa-check ml-2"></i>
                                             @else
-                                                <i class="application-skill-checkbox-icon fa fa-square-o ml-2"></i>
+                                                <i class="skill-checkbox-icon fa fa-square-o ml-2"></i>
                                             @endif
 
                                         @endif
@@ -107,7 +105,7 @@
                                                @else
                                                     style="display: none;"
                                                @endif
-                                               class="application-skill-checkbox form-check-input"
+                                               class="skill-checkbox form-check-input"
                                                 {{ !$isPost || in_array($skill, $selectedSkills) ? 'checked' : '' }}
                                         >
 
@@ -136,16 +134,14 @@
                             <span style="position: absolute; right: 4px;">
 
                                 <button type="button"
-                                        id="select-all-anti-skills"
-                                        class="button is-small skill-select-all-button"
+                                        class="select-all-anti-skills button is-small skill-select-all-button"
                                         @if ($isPost)
                                             style="display: none;"
                                         @endif
                                 >Select All</button>
 
                                 <button type="button"
-                                        id="unselect-all-anti-skills"
-                                        class="button is-small skill-select-all-button"
+                                        class="unselect-all-anti-skills button is-small skill-select-all-button"
                                         @if ($isPost)
                                             style="display: none;"
                                         @endif
@@ -165,9 +161,9 @@
                                         @if ($isPost)
 
                                             @if (in_array($antiSkill, $matchedAntiSkills))
-                                                <i class="application-anti-skill-checkbox-icon fa fa-check ml-2"></i>
+                                                <i class="anti-skill-checkbox-icon fa fa-check ml-2"></i>
                                             @else
-                                                <i class="application-anti-skill-checkbox-icon fa fa-square-o ml-2"></i>
+                                                <i class="anti-skill-checkbox-icon fa fa-square-o ml-2"></i>
                                             @endif
 
                                         @endif
@@ -181,7 +177,7 @@
                                                @else
                                                    style="display: none;"
                                                @endif
-                                               class="application-anti-skill-checkbox form-check-input"
+                                               class="anti-skill-checkbox form-check-input"
                                                 {{ !$isPost || in_array($antiSkill, $selectedAntiSkills) ? 'checked' : '' }}
                                         >
                                     </div>
@@ -207,36 +203,33 @@
                         </span>
                         @if ($isPost)
                             <span class="has-text-right mr-2" style="float: right;">
-                                <a href="{{ route('admin.career.application.analyze') }}"
-                                   id="resetAnalyzeApplication"
-                                   class="button is-small is-dark"
-                                >
+                                <button type="button" class="reset-analyze-job-description button is-small is-dark">
                                    <i class="fa fa-arrow-left"></i>
                                    Reset
-                                </a>
+                                </button>
                             </span>
                         @endif
                         <span class="has-text-right mr-2" style="float: right;">
-                            <button type="button" id="clearAnalyzeApplicationDescription" class="button is-small is-dark">
-                               <i class="fa fa-eraser"></i>
+                            <button type="button" class="clear-job-description button is-small is-dark">
+                                <i class="fa fa-eraser"></i>
                                 Clear
                             </button>
                         </span>
 
                     </div>
 
-                    <div id="parsed-application-description" class="box mt-4" {!! empty($parsedDescription) ? 'style="display: none;"' : '' !!}>
+                    <div class="parsed-job-description box mt-4" {!! empty($parsedDescription) ? 'style="display: none;"' : '' !!}>
                         {!! $parsedDescription ?? '' !!}
                     </div>
 
-                    <div id="source-application-description" {!! !empty($parsedDescription) ? 'style="display: none;"' : '' !!}>
+                    <div class="source-job-description" {!! !empty($parsedDescription) ? 'style="display: none;"' : '' !!}>
                         @include('admin.components.form-textarea', [
                             'name'  => 'description',
                             'id'    => 'inputEditor',
                             'label' => '',
                             'value' => $description,
                             'rows'  => 10,
-                            'class' => 'analyze-application-description',
+                            'class' => 'analyze-job-description',
                         ])
                     </div>
 

@@ -24,9 +24,9 @@
                 <div style="display: inline-block;">
 
                     @if (in_array($skill, $matchedSkills))
-                        <i class="application-skill-checkbox-icon fa fa-check ml-2"></i>
+                        <i class="skill-checkbox-icon fa fa-check ml-2"></i>
                     @else
-                        <i class="application-skill-checkbox-icon fa fa-square-o ml-2"></i>
+                        <i class="skill-checkbox-icon fa fa-square-o ml-2"></i>
                     @endif
 
                 </div>
@@ -60,9 +60,9 @@
                 <div style="display: inline-block;">
 
                     @if (in_array($antiSkill, $matchedAntiSkills))
-                        <i class="application-anti-skill-checkbox-icon fa fa-check ml-2"></i>
+                        <i class="anti-skill-checkbox-icon fa fa-check ml-2"></i>
                     @else
-                        <i class="application-anti-skill-checkbox-icon fa fa-square-o ml-2"></i>
+                        <i class="anti-skill-checkbox-icon fa fa-square-o ml-2"></i>
                     @endif
 
                 </div>

@@ -11,6 +11,86 @@ function toggleHamburgerMenu() {
     }
 }
 
+function showSkillCheckBoxes(skillType = 'skill')
+{
+    document.querySelectorAll(`.${skillType}-checkbox`).forEach((elem) => {
+        elem.style.display = 'block';
+    });
+    document.querySelectorAll(`.${skillType}-checkbox-icon`).forEach((elem) => {
+        elem.style.display = 'none';
+    });
+}
+
+function resetSkillCheckBoxes()
+{
+    (document.querySelectorAll(`input[type="checkbox"].${skillType}-checkbox`) || []).forEach((elem) => {
+        elem.checked = true;
+    })
+    showSkillCheckBoxes('skill');
+    showSkillCheckBoxes('anti-skill');
+}
+
+function clearJobDescription()
+{
+    document.querySelectorAll('.parsed-job-description').forEach((elem) => {
+        elem.style.display = 'none';
+    });
+    document.querySelectorAll('.source-job-description').forEach((elem) => {
+        elem.style.display = 'block';
+    });
+    document.querySelectorAll('.analyze-job-description').forEach(() => {
+        window.editor.setData('');
+    });
+    document.querySelectorAll('button.skill-select-all-button').forEach((elem) => {
+        elem.style.display = 'inline-flex';
+    })
+}
+
+function resetJobDescription()
+{
+    document.querySelectorAll('.parsed-application-description').forEach((elem) => {
+        elem.style.display = 'none';
+    });
+    document.querySelectorAll('.source-application-description').forEach((elem) => {
+        elem.style.display = 'block';
+    });
+    document.querySelectorAll('.analyze-job-description').forEach(() => {
+        window.editor.setData('');
+    });
+    document.querySelectorAll('button.skill-select-all-button').forEach((elem) => {
+        elem.style.display = 'inline-flex';
+    })
+}
+
+function  checkAllSkills() {
+    (document.querySelectorAll('.skill-checkbox') || []).forEach((elem) => {
+        elem.checked = true;
+    });
+}
+
+function  uncheckAllSkills() {
+    (document.querySelectorAll('.skill-checkbox') || []).forEach((elem) => {
+        elem.checked = false;
+    });
+}
+
+function  checkAllAntiSkills() {
+    (document.querySelectorAll('.anti-skill-checkbox') || []).forEach((elem) => {
+        elem.checked = true;
+    });
+}
+
+function  uncheckAllAntiSkills() {
+    (document.querySelectorAll('.anti-skill-checkbox') || []).forEach((elem) => {
+        elem.checked = false;
+    });
+}
+
+function clearJobAnalyzer()
+{
+
+}
+
 async function postDataToUrl(url = '', data = {}) {
     const response = await fetch(url, {
         method: 'POST',
@@ -287,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const applicationSkillCheckboxes= document.querySelectorAll('.application-skill-checkbox');
+    const applicationSkillCheckboxes= document.querySelectorAll('.skill-checkbox');
     applicationSkillCheckboxes.forEach((elem) => {
         elem.addEventListener('click', function(event) {
             let checkbox = event.target;
@@ -348,53 +428,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const clearAnalyzeApplicationDescription = document.getElementById('clearAnalyzeApplicationDescription');
-    if (clearAnalyzeApplicationDescription) {
-        document.getElementById('clearAnalyzeApplicationDescription').addEventListener('click', () => {
-            document.querySelectorAll('.application-skill-checkbox').forEach((elem) => {
-                elem.style.display = 'block';
-            });
-            document.querySelectorAll('.application-skill-checkbox-icon').forEach((elem) => {
-                elem.style.display = 'none';
-            });
-            document.querySelectorAll('.application-anti-skill-checkbox').forEach((elem) => {
-                elem.style.display = 'block';
-            });
-            document.querySelectorAll('.application-anti-skill-checkbox-icon').forEach((elem) => {
-                elem.style.display = 'none';
-            });
-            document.getElementById('parsed-application-description').style.display = 'none';
-            document.getElementById('source-application-description').style.display = 'block';
-            document.querySelectorAll('.analyze-application-description').forEach(() => {
-                window.editor.setData('');
-            });
+    (document.querySelectorAll('.clear-job-description') || []).forEach((elem) => {
+        elem.addEventListener('click', () => {
+            showSkillCheckBoxes('skill');
+            showSkillCheckBoxes('anti-skill');
+            clearJobDescription();
+        })
+    });
 
-            document.querySelectorAll('button.skill-select-all-button').forEach((elem) => {
-                elem.style.display = 'inline-flex';
-            })
-        });
+    (document.querySelectorAll('.reset-job-description') || []).forEach((elem) => {
+        elem.addEventListener('click', () => {
+            resetSkillCheckBoxes('skill');
+            resetSkillCheckBoxes('anti-skill');
+            resetJobDescription();
+        })
+    });
 
-        document.getElementById('select-all-skills').addEventListener('click', () => {
-            document.querySelectorAll('.application-skill-checkbox').forEach((elem) => {
-                elem.checked = true;
-            });
-        });
-        document.getElementById('unselect-all-skills').addEventListener('click', () => {
-            document.querySelectorAll('.application-skill-checkbox').forEach((elem) => {
-                elem.checked = false;
-            });
-        });
-        document.getElementById('select-all-anti-skills').addEventListener('click', () => {
-            document.querySelectorAll('.application-anti-skill-checkbox').forEach((elem) => {
-                elem.checked = true;
-            });
-        });
-        document.getElementById('unselect-all-anti-skills').addEventListener('click', () => {
-            document.querySelectorAll('.application-anti-skill-checkbox').forEach((elem) => {
-                elem.checked = false;
-            });
-        });
-    }
+    (document.querySelectorAll('.select-all-skills') || []).forEach(($trigger) => {
+        $trigger.addEventListener('click', () => {
+            checkAllSkills();
+        })
+    });
+
+    (document.querySelectorAll('.unselect-all-skills') || []).forEach(($trigger) => {
+        $trigger.addEventListener('click', () => {
+            uncheckAllSkills();
+        })
+    });
+
+    (document.querySelectorAll('.select-all-anti-skills') || []).forEach(($trigger) => {
+        $trigger.addEventListener('click', () => {
+            checkAllAntiSkills();
+        })
+    });
+
+    (document.querySelectorAll('.unselect-all-anti-skills') || []).forEach(($trigger) => {
+        $trigger.addEventListener('click', () => {
+            uncheckAllAntiSkills();
+        })
+    });
 
     document.querySelectorAll('select.load-page-select-list').forEach((elem) => {
         elem.addEventListener('change', () =>  {
