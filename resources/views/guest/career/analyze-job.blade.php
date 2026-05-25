@@ -4,7 +4,7 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = 'Analyze Job';
+    $title    = 'Job Analyzer';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -27,6 +27,9 @@
         <div class="modal-content">
             <div class="box">
                 <h2 class="subtitle mb-0">Add Skill(s)</h2>
+                <p>
+                    Add a comma-separated list of skills that you want to match.
+                </p>
                 @include('admin.components.input', [
                     'id'    => 'skills-list',
                     'name'  => 'skills_list',
@@ -62,6 +65,9 @@
         <div class="modal-content">
             <div class="box">
                 <h2 class="subtitle mb-0">Add Anti-Skill(s)</h2>
+                <p>
+                    Add a comma-separated list of skills that you do NOT want to match.
+                </p>
                 @include('admin.components.input', [
                     'name'  => 'anti_skills_list',
                     'id'    => 'anti-skills-list',
@@ -97,6 +103,17 @@
 
             <div class="p-4">
 
+                <p>
+                    This page allows to examine a job description by searching for matching skills. It is not a
+                    comprehensive way to analyze a job, but it can quickly give an idea if there
+                    is enough of a match for you to investigate the job farther.
+                </p>
+                <p>
+                    To used this page, just add skills that you want to match and "anti-skills" which are skills
+                    that you don't want to match because you do not have them.
+                    Then copy the job description into the text area and click on the "Analyze" button.
+                </p>
+
                 <form action="{{ route('admin.career.application.analyze-post') }}" method="post">
                     @csrf
 
@@ -106,6 +123,7 @@
                                 <label for="add-skills-button">
                                     Skills
                                 </label>
+                                <i id="skillMatchCountMsg"></i>
                                 <button type="button"
                                         id="add-skills-button"
                                         class="skill-modal-trigger hide-when-analyzed"
@@ -131,6 +149,7 @@
                                 <label for="add_anti_skills_button">
                                     Anti-Skills
                                 </label>
+                                <i id="antiSkillMatchCountMsg"></i>
                                 <button type="button"
                                         id="add-anti-skills-button"
                                         class="anti-skill-modal-trigger hide-when-analyzed"
@@ -151,7 +170,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <span>Paste the job description in the text box and click on the "Submit" button.</span>
+                        <span>Paste the job description in the text box below and click on the "Analyze" button.</span>
                         <span class="has-text-right" style="float: right;">
                             <button type="button" id="submitAnalyze" class="button is-small is-dark">
                                 <i class="fa fa-floppy-disk"></i>
@@ -159,9 +178,9 @@
                             </button>
                         </span>
                         <span class="has-text-right mr-2" style="float: right;">
-                            <button id="clearJobAnalyzer" type="button" class="button show-when-analyzed is-small is-dark" style="display: none;">
+                            <button id="clearJobDescription" type="button" class="button hide-when-analyzed is-small is-dark">
                                 <i class="fa fa-eraser"></i>
-                                Clear
+                                Clear Description
                             </button>
                         </span>
                         <span class="has-text-right mr-2" style="float: right;">
@@ -199,6 +218,9 @@
 
             let allSkills = {};
             let allAntiSkills = {};
+
+            let skillMatchCount = 0;
+            let antiSkillMatchCount = 0;
 
             function getSkillSlug(skill)
             {
@@ -285,7 +307,7 @@
                     localStorage.setItem('allSkills', JSON.stringify(allSkills));
                 }
 
-                addSkillCheckbox('skill', skill, value)
+                addSkillCheckbox(type, skill, value)
             }
 
             function addSkills(type, skills)
@@ -309,16 +331,6 @@
                     localStorage.setItem('allSkills', JSON.stringify(allSkills));
                 }
                 removeSkillCheckbox(type, skill)
-            }
-
-            function addSkillCheckmark(checkmarkElem)
-            {
-                checkmarkElem.classList.add('fa-check');
-            }
-
-            function removeSkillCheckmark(checkmarkElem)
-            {
-                checkmarkElem.classList.remove('fa-check');
             }
 
             function checkboxClicked(checkboxElem)
@@ -345,6 +357,8 @@
 
                 let checkmarkElem = document.createElement('i');
                 checkmarkElem.className = `skill-checkbox-icon ${type}-checkmark show-when-analyzed fa ml-2`;
+                checkmarkElem.setAttribute('data-type', type);
+                checkmarkElem.setAttribute('data-skill', skill);
                 checkmarkElem.style.width = '20px';
                 checkmarkElem.style.display = 'none';
 
@@ -380,18 +394,18 @@
                 rowElem.appendChild(inputDivElem);
                 rowElem.appendChild(labelElem)
 
-                let closeIcon = document.createElement('i');
-                closeIcon.className = 'fa fa-close remove-skill';
-                closeIcon.setAttribute('data-type', type)
-                closeIcon.setAttribute('data-skill', skill)
-                closeIcon.addEventListener('click', (event) => {
+                let removeSkillIcon = document.createElement('i');
+                removeSkillIcon.className = 'fa fa-close hide-when-analyzed remove-skill';
+                removeSkillIcon.setAttribute('data-type', type)
+                removeSkillIcon.setAttribute('data-skill', skill)
+                removeSkillIcon.addEventListener('click', (event) => {
                     const elem = event.target;
                     const type = elem.getAttribute('data-type');
                     const skill = elem.getAttribute('data-skill');
                     removeSkill(type, skill);
                 });
 
-                rowElem.appendChild(closeIcon)
+                rowElem.appendChild(removeSkillIcon)
 
                 document.getElementById(`${type}-list`).appendChild(rowElem);
             }
@@ -457,17 +471,17 @@
                 }
             });
 
-            document.getElementById('cancel-add-skills-modal-button').addEventListener('click', (event) => {
+            document.getElementById('cancel-add-skills-modal-button').addEventListener('click', () => {
                  document.getElementById('skills-list').value = '';
                  closeModal(document.getElementById('modal-add-skills'));
             });
 
-            document.getElementById('cancel-add-anti-skills-modal-button').addEventListener('click', (event) => {
+            document.getElementById('cancel-add-anti-skills-modal-button').addEventListener('click', () => {
                 document.getElementById('anti-skills-list').value = '';
                 closeModal(document.getElementById('modal-add-anti-skills'));
             });
 
-            document.getElementById('submit-add-skills-modal-button').addEventListener('click', (event) => {
+            document.getElementById('submit-add-skills-modal-button').addEventListener('click', () => {
                 let skillsStr = document.getElementById('skills-list').value.trim();
                 if (skillsStr) {
                     let skills = skillsStr.split(',').map((skill) => {
@@ -479,7 +493,7 @@
                 closeModal(document.getElementById('modal-add-skills'));
             });
 
-            document.getElementById('submit-add-anti-skills-modal-button').addEventListener('click', (event) => {
+            document.getElementById('submit-add-anti-skills-modal-button').addEventListener('click', () => {
                 let antiSkillsStr = document.getElementById('anti-skills-list').value.trim();
                 if (antiSkillsStr) {
                     let antiSkills = antiSkillsStr.split(',').map((antiSkill) => {
@@ -515,40 +529,38 @@
                 });
             })
 
-            document.getElementById('clearJobAnalyzer').addEventListener('click', () => {
+            document.getElementById('clearJobDescription').addEventListener('click', () => {
+
+                document.getElementById('skillMatchCountMsg').innerHTML = '';
+                document.getElementById('antiSkillMatchCountMsg').innerHTML = '';
 
                 window.editor.setData('');
                 document.getElementById('source-job-description').style.display = 'block';
                 document.getElementById('analyzed-job-description').innerHTML = '';
                 document.getElementById('analyzed-job-description').style.display = 'none';
-
-                document.querySelectorAll('.hide-when-analyzed').forEach((elem) => {
-                    elem.style.display = 'inline-block'
-                });
-                document.querySelectorAll('.show-when-analyzed').forEach((elem) => {
-                    elem.style.display = 'none'
-                });
-                document.getElementById('submitAnalyze').removeAttribute('disabled');
             });
 
             document.getElementById('resetJobAnalyzer').addEventListener('click', () => {
 
-                window.editor.setData('');
-                document.getElementById('source-job-description').style.display = 'block';
-                document.getElementById('analyzed-job-description').innerHTML = '';
-                document.getElementById('analyzed-job-description').style.display = 'none';
+                skillMatchCount = 0;
+                antiSkillMatchCount = 0;
 
                 document.querySelectorAll('.hide-when-analyzed').forEach((elem) => {
                     elem.style.display = 'inline-block'
                 });
+
                 document.querySelectorAll('.show-when-analyzed').forEach((elem) => {
                     elem.style.display = 'none'
                 });
+
                 document.getElementById('submitAnalyze').removeAttribute('disabled');
 
-                document.querySelectorAll('.skill-checkbox').forEach((checkboxElem) => {
-                    checkSkill(checkboxElem);
+                (document.querySelectorAll('.skill-checkbox-icon') || []).forEach((elem) => {
+                    elem.classList.remove('fa-check');
                 });
+
+                document.getElementById('skillMatchCountMsg').innerHTML = '';
+                document.getElementById('antiSkillMatchCountMsg').innerHTML = '';
             });
 
             document.getElementById('submitAnalyze').addEventListener('click', (event) => {
@@ -561,8 +573,62 @@
 
                     let elem = event.target;
 
+                    let skillMatchCount = 0;
+                    let antiSkillMatchCount = 0;
+
                     document.getElementById('source-job-description').style.display = 'none';
-                    document.getElementById('analyzed-job-description').innerHTML = window.editor.getData();
+
+                    let description = window.editor.getData();
+                    let descriptionWithHtmlStripped = new DOMParser().parseFromString(description, 'text/html');
+                    descriptionWithHtmlStripped = descriptionWithHtmlStripped.body.textContent || '';
+
+                    // search for skill matches
+                    Object.entries(allSkills).forEach(([skill, value]) => {
+                        if ((value)) {
+                            let regex = new RegExp(skill, 'i');
+
+                            if (regex.test(descriptionWithHtmlStripped)) {
+                                skillMatchCount++;
+
+                                // display the check icon for the skill
+                                const skillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="skill"][data-skill="${skill}"]`);
+                                if (skillCheckmark) {
+                                    skillCheckmark.classList.add('fa-check');
+                                }
+
+                                // mark the matches in the description
+                                let regex = new RegExp(skill, 'gi');
+                                description = description.replace(regex, `<strong class="has-text-success">${skill}</strong>`)
+                            }
+                        }
+                    });
+
+                    // search for anti-skill matches
+                    Object.entries(allAntiSkills).forEach(([antiSkill, value]) => {
+                        if ((value)) {
+                            let regex = new RegExp(antiSkill, 'i');
+                            if (regex.test(descriptionWithHtmlStripped)) {
+
+                                // display the check icon for the anti-skill
+                                antiSkillMatchCount++;
+                                const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="anti-skill"][data-skill="${antiSkill}"]`);
+                                if (antiSkillCheckmark) {
+                                    antiSkillCheckmark.classList.add('fa-check');
+                                }
+
+                                // mark the matches in the description
+                                let regex = new RegExp(antiSkill, 'gi');
+                                description = description.replace(regex, `<strong class="has-text-danger">${antiSkill}</strong>`)
+                            }
+                        }
+                    });
+
+                    document.getElementById('skillMatchCountMsg').innerHTML = ' - ' + skillMatchCount
+                        + ((skillMatchCount === 1) ? ' skill matched.' : ' skills matched.');
+                    document.getElementById('antiSkillMatchCountMsg').innerHTML = ' - ' + antiSkillMatchCount
+                        + ((antiSkillMatchCount === 1) ? ' anti-skill matched.' : ' anti-skills matched.');
+
+                    document.getElementById('analyzed-job-description').innerHTML = description;
                     document.getElementById('analyzed-job-description').style.display = 'block';
 
                     document.querySelectorAll('.skill-checkbox').forEach((checkboxElem) => {

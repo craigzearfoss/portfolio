@@ -411,7 +411,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.editor) {
         window.editor.model.document.on('change:data', () => {
-            console.log('The document has changed!');
             if (document.getElementById('inputDescriptionChanged')) {
                 document.getElementById('inputDescriptionChanged').value = 1;
             }
