@@ -27,6 +27,7 @@ use App\Http\Controllers\System\BackupController as SystemBackupController;
 use App\Http\Controllers\System\EnvironmentController as SystemEnvironmentController;
 use App\Http\Controllers\System\IndexController as SystemIndexController;
 
+use App\Http\Controllers\Guest\Career\JobBoardController as GuestCareerJobBoardController;
 use App\Http\Controllers\Guest\IndexController as GuestIndexController;
 use App\Http\Controllers\Guest\System\AdminController as GuestSystemAdminController;
 use App\Http\Controllers\Guest\System\UserController as GuestSystemUserController;
@@ -49,6 +50,7 @@ use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStac
 use App\Http\Controllers\Guest\Career\IndexController as GuestCareerIndexController;
 
 Route::get('analyze-job/', [GuestCareerIndexController::class, 'analyzeJob'])->name('analyze-job');
+Route::get('job-board', [GuestCareerJobBoardController::class, 'index'])->name('guest.career.job-board.index');
 
 // ---------------------------------------------------------------------------------------------------------------------
 // base routes
