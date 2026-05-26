@@ -103,16 +103,26 @@
 
             <div class="p-4">
 
-                <p>
+                <p class="mb-2">
                     This page allows to examine a job description by searching for matching skills. It is not a
                     comprehensive way to analyze a job, but it can quickly give an idea if there
                     is enough of a match for you to investigate the job farther.
                 </p>
-                <p>
-                    To used this page, just add skills that you want to match and "anti-skills" which are skills
-                    that you don't want to match because you do not have them.
-                    Then copy the job description into the text area and click on the "Analyze" button.
+                <p class="mb-0">
+                    To use this page:
                 </p>
+                <ol class="ml-4 mb-4 pl-4">
+                    <li>
+                        Add the skills that you want to match and "anti-skills" which are skills
+                        that you don't want to match because you do not have them.
+                    </li>
+                    <li>
+                        Check the skill and anti-skills that you want to use in the search.
+                    </li>
+                    <li>
+                        Then copy the job description into the text area and click on the "Analyze" button.
+                    </li>
+                </ol>
 
                 <form action="{{ route('admin.career.application.analyze-post') }}" method="post">
                     @csrf
@@ -579,15 +589,16 @@
                     document.getElementById('source-job-description').style.display = 'none';
 
                     let description = window.editor.getData();
-                    let descriptionWithHtmlStripped = new DOMParser().parseFromString(description, 'text/html');
-                    descriptionWithHtmlStripped = descriptionWithHtmlStripped.body.textContent || '';
 
                     // search for skill matches
                     Object.entries(allSkills).forEach(([skill, value]) => {
                         if ((value)) {
-                            let regex = new RegExp(skill, 'i');
 
-                            if (regex.test(descriptionWithHtmlStripped)) {
+                            let regex = new RegExp('[^\ba-zA-Z0-9]' + skill + '[^\ba-zA-Z0-9]', 'gi');
+
+                            const skillMatches = Array.from(description.matchAll(regex));
+                            if (skillMatches.length) {
+
                                 skillMatchCount++;
 
                                 // display the check icon for the skill
@@ -596,9 +607,30 @@
                                     skillCheckmark.classList.add('fa-check');
                                 }
 
-                                // mark the matches in the description
-                                let regex = new RegExp(skill, 'gi');
-                                description = description.replace(regex, `<strong class="has-text-success">${skill}</strong>`)
+                                // mark the matches in the description (note that we iterate through the array in reverse)
+                                for (let i = skillMatches.length - 1; i >= 0; i--) {
+                                    let offset = skillMatches[i][0].toLowerCase().indexOf(skill.toLowerCase());
+                                    let startPos = skillMatches[i].index + offset;
+                                    let endPos = startPos + skill.length - 1;
+                                    let replaceStr = skillMatches[i][0].substring(offset, skill.length + offset);
+
+                                    /*
+                                    console.log('skill: "' + skill + '"' +"\n"
+                                        + 'match: "' + skillMatches[i][0] + '"' + "\n"
+                                        + 'index: "' + skillMatches[i].index + '"' + "\n"
+                                        + 'offset: "' + offset + '"' + "\n"
+                                        + 'startPos: ' + startPos + "\n"
+                                        + 'endPos: ' + endPos + "\n"
+                                        + 'replaceStr: "' + replaceStr + '"' + "\n"
+                                        + 'start: "' + skillMatches[i].index + "\n"
+                                        + 'end: "' + endPos
+                                    );
+                                    */
+
+                                    description = description.slice(0, startPos)
+                                        + `<strong class="has-text-success">${replaceStr}</strong>`
+                                        + description.slice(endPos + 1)
+                                }
                             }
                         }
                     });
@@ -606,19 +638,44 @@
                     // search for anti-skill matches
                     Object.entries(allAntiSkills).forEach(([antiSkill, value]) => {
                         if ((value)) {
-                            let regex = new RegExp(antiSkill, 'i');
-                            if (regex.test(descriptionWithHtmlStripped)) {
 
-                                // display the check icon for the anti-skill
+                            let regex = new RegExp('[^\ba-zA-Z0-9]' + antiSkill + '[^\ba-zA-Z0-9]', 'gi');
+
+                            const antiSkillMatches = Array.from(description.matchAll(regex));
+                            if (antiSkillMatches.length) {
+
                                 antiSkillMatchCount++;
+
+                                // display the check icon for the antiSkill
                                 const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="anti-skill"][data-skill="${antiSkill}"]`);
                                 if (antiSkillCheckmark) {
                                     antiSkillCheckmark.classList.add('fa-check');
                                 }
 
-                                // mark the matches in the description
-                                let regex = new RegExp(antiSkill, 'gi');
-                                description = description.replace(regex, `<strong class="has-text-danger">${antiSkill}</strong>`)
+                                // mark the matches in the description (note that we iterate through the array in reverse)
+                                for (let i = antiSkillMatches.length - 1; i >= 0; i--) {
+                                    let offset = antiSkillMatches[i][0].toLowerCase().indexOf(antiSkill.toLowerCase());
+                                    let startPos = antiSkillMatches[i].index + offset;
+                                    let endPos = startPos + antiSkill.length - 1;
+                                    let replaceStr = antiSkillMatches[i][0].substring(offset, antiSkill.length + offset);
+
+                                    /*
+                                    console.log('antiSkill: "' + antiSkill + '"' +"\n"
+                                        + 'match: "' + antiSkillMatches[i][0] + '"' + "\n"
+                                        + 'index: "' + antiSkillMatches[i].index + '"' + "\n"
+                                        + 'offset: "' + offset + '"' + "\n"
+                                        + 'startPos: ' + startPos + "\n"
+                                        + 'endPos: ' + endPos + "\n"
+                                        + 'replaceStr: "' + replaceStr + '"' + "\n"
+                                        + 'start: "' + antiSkillMatches[i].index + "\n"
+                                        + 'end: "' + endPos
+                                    );
+                                    */
+
+                                    description = description.slice(0, startPos)
+                                        + `<strong class="has-text-success">${replaceStr}</strong>`
+                                        + description.slice(endPos + 1)
+                                }
                             }
                         }
                     });
