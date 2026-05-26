@@ -38,6 +38,8 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($photos->total()) }} {{ ($photos->total() === 1) ? 'photo' : 'photos' }} found.</i></p>
+
             @if (!empty($pagination_top))
                 {!! $photos->links('vendor.pagination.bulma') !!}
             @endif

@@ -45,7 +45,7 @@
                 'filename' => 'contacts_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($contacts->total()) }} records found.</i></p>
+            <p><i>{{ number_format($contacts->total()) }} {{ ($contacts->total() === 1) ? 'contact' : 'contacts' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $contacts->links('vendor.pagination.bulma') !!}

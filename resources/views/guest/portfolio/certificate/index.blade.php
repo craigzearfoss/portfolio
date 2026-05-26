@@ -38,6 +38,8 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($certificates->total()) }} {{ ($certificates->total() === 1) ? 'certificate' : 'certificates' }} found.</i></p>
+
             @if (!empty($pagination_top))
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif

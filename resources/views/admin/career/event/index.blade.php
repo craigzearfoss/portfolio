@@ -48,7 +48,7 @@
                 'filename' => 'events_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($events->total()) }} records found.</i></p>
+            <p><i>{{ number_format($events->total()) }} {{ ($events->total() === 1) ? 'event' : 'events' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $events->links('vendor.pagination.bulma') !!}

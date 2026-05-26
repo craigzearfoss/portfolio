@@ -32,6 +32,12 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($users->total()) }} {{ ($users->total() === 1) ? 'user' : 'users' }} found.</i></p>
+
+            @if (!empty($users) && $pagination_top)
+                {!! $users->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
                 <thead>
                 <tr>
@@ -98,7 +104,9 @@
 
             </table>
 
-            {!! $users->links('vendor.pagination.bulma') !!}
+            @if (!empty($users) && $pagination_bottom)
+                {!! $users->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
 

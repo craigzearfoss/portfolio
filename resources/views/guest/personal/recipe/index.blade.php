@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            <p><i>{{ number_format($recipes->total()) }} {{ ($recipes->total() === 1) ? 'record' : 'records' }} found.</i></p>
+            <p><i>{{ number_format($recipes->total()) }} {{ ($recipes->total() === 1) ? 'recipe' : 'recipes' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $recipes->links('vendor.pagination.bulma') !!}

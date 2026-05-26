@@ -38,6 +38,8 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($videos->total()) }} {{ ($videos->total() === 1) ? 'video' : 'videos' }} found.</i></p>
+
             @if (!empty($pagination_top))
                 {!! $videos->links('vendor.pagination.bulma') !!}
             @endif

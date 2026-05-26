@@ -38,6 +38,8 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($publications->total()) }} {{ ($pubications->total() === 1) ? 'publication' : 'publications' }} found.</i></p>
+
             @if (!empty($pagination_top))
                 {!! $publications->links('vendor.pagination.bulma') !!}
             @endif

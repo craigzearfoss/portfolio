@@ -46,7 +46,7 @@
                 'filename' => 'cover_letters_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($coverLetters->total()) }} records found.</i></p>
+            <p><i>{{ number_format($coverLetters->total()) }} {{ ($coverLetters->total() === 1) ? 'cover letter' : 'cover letters' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $coverLetters->links('vendor.pagination.bulma') !!}

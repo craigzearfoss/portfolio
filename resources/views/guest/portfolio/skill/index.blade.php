@@ -38,6 +38,12 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($skills->total()) }} {{ ($skills->total() === 1) ? 'skill' : 'skills' }} found.</i></p>
+
+            @if (!empty($pagination_top))
+                {!! $publications->skills('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
                 @php
@@ -122,7 +128,9 @@
 
             </table>
 
-            {!! $skills->links('vendor.pagination.bulma') !!}
+            @if (!empty($pagination_bottom))
+                {!! $publications->skills('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
 

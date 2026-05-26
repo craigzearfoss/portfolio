@@ -47,7 +47,7 @@
                 'filename' => 'notes_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($notes->total()) }} records found.</i></p>
+            <p><i>{{ number_format($notes->total()) }} {{ ($notes->total() === 1) ? 'note' : 'notes' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $notes->links('vendor.pagination.bulma') !!}

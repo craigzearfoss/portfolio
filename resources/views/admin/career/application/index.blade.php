@@ -54,7 +54,7 @@
                 'filename' => 'applications_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($applications->total()) }} records found.</i></p>
+            <p><i>{{ number_format($applications->total()) }} {{ ($applications->total() === 1) ? 'application' : 'applications' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $applications->links('vendor.pagination.bulma') !!}

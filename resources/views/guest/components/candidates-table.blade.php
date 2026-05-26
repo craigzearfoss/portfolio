@@ -1,5 +1,7 @@
 <div class="card p-4">
 
+    <p><i>{{ number_format($candidates->total()) }} {{ ($candidates->total() === 1) ? 'candidate' : 'candidates' }} found.</i></p>
+
     @if (!empty($candidates) && $pagination_top)
         {!! $candidates->links('vendor.pagination.bulma') !!}
     @endif
