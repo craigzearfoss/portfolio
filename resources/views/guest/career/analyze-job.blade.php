@@ -478,6 +478,18 @@
                     case 'ruby on rails':
                         skillNames.push('ruby');
                         break;
+                    case 'ui':
+                        skillNames.push('ux');
+                        skillNames.push('ux/ui');
+                        break;
+                    case 'ux':
+                        skillNames.push('ui');
+                        skillNames.push('ux/ui');
+                        break;
+                    case 'ux/ui':
+                        skillNames.push('ui');
+                        skillNames.push('ux');
+                        break;
                 }
 
                 // if the skill ends in a number then include the skill with a number
