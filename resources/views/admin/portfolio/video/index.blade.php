@@ -45,7 +45,7 @@
                 'filename' => 'videos_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($videos->total()) }} records found.</i></p>
+            <p><i>{{ number_format($videos->total()) }} {{ ($videos->total() === 1) ? 'video' : 'videos' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $videos->links('vendor.pagination.bulma') !!}

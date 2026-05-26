@@ -47,7 +47,7 @@
                 'filename' => 'admin_teams_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($adminTeams->total()) }} records found.</i></p>
+            <p><i>{{ number_format($adminTeams->total()) }} {{ $isRootAdmin ? 'admin ' : '' }}{{ ($adminTeams->total() === 1) ? 'team' : 'teams' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $adminTeams->links('vendor.pagination.bulma') !!}

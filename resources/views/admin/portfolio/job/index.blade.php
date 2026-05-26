@@ -46,7 +46,7 @@
                 'filename' => 'jobs_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($jobs->total()) }} records found.</i></p>
+            <p><i>{{ number_format($jobs->total()) }} {{ ($jobs->total() === 1) ? 'job' : 'jobs' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $jobs->links('vendor.pagination.bulma') !!}

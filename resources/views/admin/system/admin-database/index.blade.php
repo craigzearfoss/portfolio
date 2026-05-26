@@ -35,7 +35,7 @@
                 'filename' => 'admin_databases_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($adminDatabases->total()) }} records found.</i></p>
+            <p><i>{{ number_format($adminDatabases->total()) }} {{ ($adminDatabases->total() === 1) ? 'database' : 'databases' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $adminDatabases->links('vendor.pagination.bulma') !!}

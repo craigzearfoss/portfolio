@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            <p><i>{{ number_format($arts->total()) }} art found.</i></p>
+            <p><i>{{ number_format($arts->total()) }} {{ ($arts->total() === 1) ? 'art' : 'arts' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $arts->links('vendor.pagination.bulma') !!}

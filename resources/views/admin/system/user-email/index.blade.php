@@ -43,7 +43,7 @@
                 'filename' => 'user_emails_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($userEmails->total()) }} records found.</i></p>
+            <p><i>{{ number_format($userEmails->total()) }} {{ $isRootAdmin ? 'user ' : '' }}{{ ($allUsers->total() === 1) ? 'email' : 'emails' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}

@@ -36,7 +36,7 @@
                 'filename' => 'sessions_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($sessions->total()) }} records found.</i></p>
+            <p><i>{{ number_format($sessions->total()) }} {{ ($sessions->total() === 1) ? 'session' : 'sessions' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $sessions->links('vendor.pagination.bulma') !!}

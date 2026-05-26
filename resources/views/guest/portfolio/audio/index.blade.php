@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            <p><i>{{ number_format($audios->total()) }} audio found.</i></p>
+            <p><i>{{ number_format($audios->total()) }} {{ ($audios->total() === 1) ? 'audio' : 'audios' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $audios->links('vendor.pagination.bulma') !!}

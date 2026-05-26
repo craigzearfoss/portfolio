@@ -45,7 +45,7 @@
                 'filename' => 'musics_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($musics->total()) }} records found.</i></p>
+            <p><i>{{ number_format($musics->total()) }} {{ ($musics->total() === 1) ? 'music' : 'musics' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $musics->links('vendor.pagination.bulma') !!}

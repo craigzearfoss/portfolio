@@ -45,7 +45,7 @@
                 'filename' => 'anti_skills_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($antiSkills->total()) }} records found.</i></p>
+            <p><i>{{ number_format($antiSkills->total()) }} {{ ($antiSkills->total() === 1) ? 'anti-skill' : 'anti-skills' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $antiSkills->links('vendor.pagination.bulma') !!}

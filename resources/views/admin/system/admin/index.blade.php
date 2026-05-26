@@ -56,7 +56,7 @@
                 'filename' => 'admins_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($allAdmins->total()) }} records found.</i></p>
+            <p><i>{{ number_format($allAdmins->total()) }} {{ ($allAdmins->total() === 1) ? 'admin' : 'admins' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $allAdmins->links('vendor.pagination.bulma') !!}

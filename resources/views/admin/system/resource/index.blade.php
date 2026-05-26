@@ -35,7 +35,7 @@
                 'filename' => 'resources_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($resources->total()) }} records found.</i></p>
+            <p><i>{{ number_format($resources->total()) }} {{ ($resources->total() === 1) ? 'resource' : 'resources' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $resources->links('vendor.pagination.bulma') !!}
