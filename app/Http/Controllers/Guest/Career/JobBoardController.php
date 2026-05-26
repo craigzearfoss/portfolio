@@ -31,7 +31,7 @@ class JobBoardController extends BaseGuestController
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', JobBoard::SEARCH_ORDER_BY),
             $this->owner ?? null
-        )
+        )->where('job_boards.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Job Boards';

@@ -461,6 +461,7 @@ nav.pagination span.pagination-next {
     width: 100%;
     padding: 12px 8px;
     height: 52px;
+    margin: 0;
 }
 .featured-top-menu-item:hover {
     background-color: #ffffff;

@@ -215,6 +215,13 @@ class MenuService
                 'route'   => 'analyze-job',
                 'icon'    => 'fa-dashboard',
             ]);
+
+            $menu[] = $this->menuItem([
+                'tag'     => 'job-board',
+                'title'   => view('guest.components.nav-left-featured-menu-item', [ 'name' => 'Job Boards' ])->render(),
+                'route'   => 'guest.career.job-board.index',
+                'icon'    => 'fa-dashboard',
+            ]);
         }
 
         if (($this->hasAdmins) && ($this->isRootAdmin)) {
@@ -366,6 +373,13 @@ class MenuService
                 'tag'     => 'job-analyzer',
                 'title'   => view('guest.components.nav-top-featured-menu-item', [ 'name' => 'Job Analyzer' ])->render(),
                 'route'   => 'analyze-job',
+                'icon'    => 'fa-dashboard',
+            ]);
+
+            $menu[] = $this->menuItem([
+                'tag'     => 'job-board',
+                'title'   => view('guest.components.nav-top-featured-menu-item', [ 'name' => 'Job Boards' ])->render(),
+                'route'   => 'guest.career.job-board.index',
                 'icon'    => 'fa-dashboard',
             ]);
 
