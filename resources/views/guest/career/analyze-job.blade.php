@@ -731,7 +731,7 @@
                                         */
 
                                         description = description.slice(0, startPos)
-                                            + `<strong class="has-text-success">${replaceStr}</strong>`
+                                            + `<strong class="has-text-danger">${replaceStr}</strong>`
                                             + description.slice(endPos + 1)
                                     }
                                 }
