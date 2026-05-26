@@ -445,6 +445,9 @@
                     case 'angularjs':
                         skillNames.push('angular');
                         break;
+                    case 'claude':
+                        skillNames.push('claude code');
+                        break;
                     case 'claude code':
                         skillNames.push('claude');
                         break;
