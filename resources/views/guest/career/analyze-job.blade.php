@@ -451,6 +451,9 @@
                     case 'apis':
                         skillNames.push('api');
                         break;
+                    case 'claude':
+                        skillNames.push('claude code');
+                        break;
                     case 'claude code':
                         skillNames.push('claude');
                         break;
