@@ -445,6 +445,12 @@
                     case 'devops':
                         skillNames.push('devop');
                         break;
+                    case 'git':
+                        skillNames.push('github');
+                        break;
+                    case 'github':
+                        skillNames.push('git');
+                        break;
                     case 'postgresql':
                         skillNames.push('postgres');
                         break;
