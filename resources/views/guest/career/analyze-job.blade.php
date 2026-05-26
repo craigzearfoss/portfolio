@@ -445,6 +445,12 @@
                     case 'angularjs':
                         skillNames.push('angular');
                         break;
+                    case 'api':
+                        skillNames.push('apis');
+                        break;
+                    case 'apis':
+                        skillNames.push('api');
+                        break;
                     case 'claude code':
                         skillNames.push('claude');
                         break;
