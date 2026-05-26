@@ -452,7 +452,7 @@
                         skillNames.push('api');
                         break;
                     case 'claude':
-                        skillNames.push('claude code');
+                        skillNames.unshift('claude code');
                         break;
                     case 'claude code':
                         skillNames.push('claude');
@@ -476,7 +476,7 @@
                         skillNames.push('llm');
                         break;
                     case 'node':
-                        skillNames.push('node.js');
+                        skillNames.unshift('node.js');
                         break;
                     case 'oidc':
                         skillNames.push('openid');
@@ -504,11 +504,11 @@
                         break;
                     case 'ui':
                         skillNames.push('ux');
-                        skillNames.push('ux/ui');
+                        skillNames.unshift('ux/ui');
                         break;
                     case 'ux':
                         skillNames.push('ui');
-                        skillNames.push('ux/ui');
+                        skillNames.unshift('ux/ui');
                         break;
                     case 'ux/ui':
                         skillNames.push('ui');
