@@ -445,14 +445,19 @@
                     case 'angularjs':
                         skillNames.push('angular');
                         break;
+                    case 'api':
+                    case 'devop':
+                    case 'mcp':
+                        skillNames.push(skill + 's');
+                        break;
+                    case 'apis':
+                        skillNames.push('api');
+                        break;
                     case 'claude':
                         skillNames.unshift('claude code');
                         break;
                     case 'claude code':
                         skillNames.push('claude');
-                        break;
-                    case 'devop':
-                        skillNames.push('devops');
                         break;
                     case 'devops':
                         skillNames.push('devop');
@@ -469,8 +474,26 @@
                     case 'llms':
                         skillNames.push('llm');
                         break;
+                    case 'node':
+                        skillNames.unshift('node.js');
+                        break;
+                    case 'oidc':
+                        skillNames.push('openid');
+                        skillNames.unshift('openid connect');
+                        break;
+                    case 'openid':
+                        skillNames.unshift('openid connect');
+                        skillNames.push('oidc');
+                        break;
+                    case 'openid connect':
+                        skillNames.push('openid');
+                        skillNames.push('oidc');
+                        break;
                     case 'postgresql':
                         skillNames.push('postgres');
+                        break;
+                    case 'postgres':
+                        skillNames.unshift('postgresql');
                         break;
                     case 'rest':
                         skillNames.push('restful');
@@ -478,16 +501,19 @@
                     case 'restful':
                         skillNames.push('rest');
                         break;
+                    case 'ruby':
+                        skillNames.unshift('ruby on rails');
+                        break;
                     case 'ruby on rails':
                         skillNames.push('ruby');
                         break;
                     case 'ui':
                         skillNames.push('ux');
-                        skillNames.push('ux/ui');
+                        skillNames.unshift('ux/ui');
                         break;
                     case 'ux':
                         skillNames.push('ui');
-                        skillNames.push('ux/ui');
+                        skillNames.unshift('ux/ui');
                         break;
                     case 'ux/ui':
                         skillNames.push('ui');
