@@ -480,10 +480,10 @@
                         break;
                     case 'oidc':
                         skillNames.push('openid');
-                        skillNames.push('openid connect');
+                        skillNames.unshift('openid connect');
                         break;
                     case 'openid':
-                        skillNames.push('openid connect');
+                        skillNames.unshift('openid connect');
                         skillNames.push('oidc');
                         break;
                     case 'openid connect':
