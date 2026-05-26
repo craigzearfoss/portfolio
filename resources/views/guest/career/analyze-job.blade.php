@@ -758,9 +758,11 @@
                         }
                     });
 
-                    document.getElementById('skillMatchCountMsg').innerHTML = ' - ' + skillMatchCount
+                    document.getElementById('skillMatchCountMsg').innerHTML = ' - '
+                        + skillMatchCount + ' of ' + allSkills.length
                         + ((skillMatchCount === 1) ? ' skill matched.' : ' skills matched.');
-                    document.getElementById('antiSkillMatchCountMsg').innerHTML = ' - ' + antiSkillMatchCount
+                    document.getElementById('antiSkillMatchCountMsg').innerHTML = ' - '
+                        + antiSkillMatchCount + ' of ' + allAntiSkills.length
                         + ((antiSkillMatchCount === 1) ? ' anti-skill matched.' : ' anti-skills matched.');
 
                     document.getElementById('analyzed-job-description').innerHTML = description;
