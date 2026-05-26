@@ -475,6 +475,9 @@
                     case 'llms':
                         skillNames.push('llm');
                         break;
+                    case 'node':
+                        skillNames.push('node.js');
+                        break;
                     case 'oidc':
                         skillNames.push('openid');
                         skillNames.push('openid connect');
