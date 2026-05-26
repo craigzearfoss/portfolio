@@ -705,7 +705,7 @@
                                     antiSkillMatchFound = true;
 
                                     // display the check icon for the anti-skill
-                                    const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="skill"][data-skill="${antiSkill}"]`);
+                                    const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="anti-skill"][data-skill="${antiSkill}"]`);
                                     if (antiSkillCheckmark) {
                                         antiSkillCheckmark.classList.add('fa-check');
                                     }
