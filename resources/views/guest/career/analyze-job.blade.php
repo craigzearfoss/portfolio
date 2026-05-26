@@ -460,7 +460,7 @@
                 }
 
                 // if the skill ends in a number then include the skill with a number
-                if (skill.includes('.')) {
+                if (skill.includes('.') && skill.split('.')[0].trimEnd().length > 1) {
                     skillNames.push(skill.split('.')[0].trimEnd());
                 } else if (/\d$/.test(skill)) {
                     if (![ 'ec2', 's3', ].includes(skill.toLowerCase())) {
