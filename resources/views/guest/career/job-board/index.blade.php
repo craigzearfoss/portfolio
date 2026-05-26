@@ -27,6 +27,8 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($jobBoards->total()) }} {{ ($jobBoards->total() === 1) ? 'record' : 'records' }} found.</i></p>
+
             @if (!empty($pagination_top))
                 {!! $jobBoards->links('vendor.pagination.bulma') !!}
             @endif

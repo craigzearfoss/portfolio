@@ -38,6 +38,12 @@
 
         <div class="show-container card floating-div">
 
+            <p><i>{{ number_format($recipes->total()) }} {{ ($recipes->total() === 1) ? 'record' : 'records' }} found.</i></p>
+
+            @if (!empty($pagination_top))
+                {!! $recipes->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
                 @php
