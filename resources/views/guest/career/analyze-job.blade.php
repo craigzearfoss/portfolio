@@ -446,7 +446,7 @@
                         skillNames.push('angular');
                         break;
                     case 'claude':
-                        skillNames.push('claude code');
+                        skillNames.unshift('claude code');
                         break;
                     case 'claude code':
                         skillNames.push('claude');
