@@ -460,6 +460,12 @@
                     case 'github':
                         skillNames.push('git');
                         break;
+                    case 'llm':
+                        skillNames.push('llms');
+                        break;
+                    case 'llms':
+                        skillNames.push('llm');
+                        break;
                     case 'postgresql':
                         skillNames.push('postgres');
                         break;
