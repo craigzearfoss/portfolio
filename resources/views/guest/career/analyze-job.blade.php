@@ -433,11 +433,20 @@
             {
                 let skillNames = [ skill ];
                 switch (skill.toLowerCase()) {
+                    case '401(k)':
+                        skillNames.push('401k');
+                        break;
+                    case '401k':
+                        skillNames.push('401(k)');
+                        break;
                     case 'angular':
                         skillNames.push('angularjs');
                         break;
                     case 'angularjs':
                         skillNames.push('angular');
+                        break;
+                    case 'claude code':
+                        skillNames.push('claude');
                         break;
                     case 'devop':
                         skillNames.push('devops');
