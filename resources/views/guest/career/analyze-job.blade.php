@@ -429,6 +429,49 @@
                 }
             }
 
+            function getMatchingSkillNames(skill)
+            {
+                let skillNames = [ skill ];
+                switch (skill.toLowerCase()) {
+                    case 'angular':
+                        skillNames.push('angularjs');
+                        break;
+                    case 'angularjs':
+                        skillNames.push('angular');
+                        break;
+                    case 'devop':
+                        skillNames.push('devops');
+                        break;
+                    case 'devops':
+                        skillNames.push('devop');
+                        break;
+                    case 'postgresql':
+                        skillNames.push('postgres');
+                        break;
+                    case 'rest':
+                        skillNames.push('restful');
+                        break;
+                    case 'restful':
+                        skillNames.push('rest');
+                        break;
+                    case 'ruby on rails':
+                        skillNames.push('ruby');
+                        break;
+                }
+
+                // if the skill ends in a number then include the skill with a number
+                if (skill.includes('.')) {
+                    skillNames.push(skill.split('.')[0].trimEnd());
+                } else if (/\d$/.test(skill)) {
+                    if (![ 'ec2', 's3', ].includes(skill.toLowerCase())) {
+                        let skillWithoutVersion = skill.replace(/\d+$/, '');
+                        skillNames.push(skillWithoutVersion.trimEnd());
+                    }
+               }
+
+                return skillNames;
+            }
+
             // Functions to open and close a modal
             function openModal($el) {
                 $el.classList.add('is-active');
@@ -594,43 +637,53 @@
                     Object.entries(allSkills).forEach(([skill, value]) => {
                         if ((value)) {
 
-                            let regex = new RegExp('[^\ba-zA-Z0-9]' + skill + '[^\ba-zA-Z0-9]', 'gi');
+                            let skillMatchFound = false;
 
-                            const skillMatches = Array.from(description.matchAll(regex));
-                            if (skillMatches.length) {
+                            const skillNames = getMatchingSkillNames(skill);
+                            for (let i=0; i<skillNames.length; i++) {
 
+                                let regex = new RegExp('[^\ba-zA-Z0-9]' + skillNames[i] + '[^\ba-zA-Z0-9]', 'gi');
+
+                                const skillMatches = Array.from(description.matchAll(regex));
+                                if (skillMatches.length) {
+
+                                    skillMatchFound = true;
+
+                                    // display the check icon for the skill
+                                    const skillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="skill"][data-skill="${skill}"]`);
+                                    if (skillCheckmark) {
+                                        skillCheckmark.classList.add('fa-check');
+                                    }
+
+                                    // mark the matches in the description (note that we iterate through the array in reverse)
+                                    for (let j = skillMatches.length - 1; j >= 0; j--) {
+                                        let offset = skillMatches[j][0].toLowerCase().indexOf(skillNames[i].toLowerCase());
+                                        let startPos = skillMatches[j].index + offset;
+                                        let endPos = startPos + skillNames[i].length - 1;
+                                        let replaceStr = skillMatches[j][0].substring(offset, skillNames[i].length + offset);
+
+                                        /*
+                                        console.log('skill: "' + skill + '"' +"\n"
+                                            + 'match: "' + skillMatches[j][0] + '"' + "\n"
+                                            + 'index: "' + skillMatches[j].index + '"' + "\n"
+                                            + 'offset: "' + offset + '"' + "\n"
+                                            + 'startPos: ' + startPos + "\n"
+                                            + 'endPos: ' + endPos + "\n"
+                                            + 'replaceStr: "' + replaceStr + '"' + "\n"
+                                            + 'start: "' + skillMatches[j].index + "\n"
+                                            + 'end: "' + endPos
+                                        );
+                                        */
+
+                                        description = description.slice(0, startPos)
+                                            + `<strong class="has-text-success">${replaceStr}</strong>`
+                                            + description.slice(endPos + 1)
+                                    }
+                                }
+                            }
+
+                            if (skillMatchFound) {
                                 skillMatchCount++;
-
-                                // display the check icon for the skill
-                                const skillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="skill"][data-skill="${skill}"]`);
-                                if (skillCheckmark) {
-                                    skillCheckmark.classList.add('fa-check');
-                                }
-
-                                // mark the matches in the description (note that we iterate through the array in reverse)
-                                for (let i = skillMatches.length - 1; i >= 0; i--) {
-                                    let offset = skillMatches[i][0].toLowerCase().indexOf(skill.toLowerCase());
-                                    let startPos = skillMatches[i].index + offset;
-                                    let endPos = startPos + skill.length - 1;
-                                    let replaceStr = skillMatches[i][0].substring(offset, skill.length + offset);
-
-                                    /*
-                                    console.log('skill: "' + skill + '"' +"\n"
-                                        + 'match: "' + skillMatches[i][0] + '"' + "\n"
-                                        + 'index: "' + skillMatches[i].index + '"' + "\n"
-                                        + 'offset: "' + offset + '"' + "\n"
-                                        + 'startPos: ' + startPos + "\n"
-                                        + 'endPos: ' + endPos + "\n"
-                                        + 'replaceStr: "' + replaceStr + '"' + "\n"
-                                        + 'start: "' + skillMatches[i].index + "\n"
-                                        + 'end: "' + endPos
-                                    );
-                                    */
-
-                                    description = description.slice(0, startPos)
-                                        + `<strong class="has-text-success">${replaceStr}</strong>`
-                                        + description.slice(endPos + 1)
-                                }
                             }
                         }
                     });
@@ -639,43 +692,53 @@
                     Object.entries(allAntiSkills).forEach(([antiSkill, value]) => {
                         if ((value)) {
 
-                            let regex = new RegExp('[^\ba-zA-Z0-9]' + antiSkill + '[^\ba-zA-Z0-9]', 'gi');
+                            let antiSkillMatchFound = false;
 
-                            const antiSkillMatches = Array.from(description.matchAll(regex));
-                            if (antiSkillMatches.length) {
+                            const antiSkillNames = getMatchingSkillNames(antiSkill);
+                            for (let i=0; i<antiSkillNames.length; i++) {
 
+                                let regex = new RegExp('[^\ba-zA-Z0-9]' + antiSkillNames[i] + '[^\ba-zA-Z0-9]', 'gi');
+
+                                const antiSkillMatches = Array.from(description.matchAll(regex));
+                                if (antiSkillMatches.length) {
+
+                                    antiSkillMatchFound = true;
+
+                                    // display the check icon for the anti-skill
+                                    const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="skill"][data-skill="${antiSkill}"]`);
+                                    if (antiSkillCheckmark) {
+                                        antiSkillCheckmark.classList.add('fa-check');
+                                    }
+
+                                    // mark the matches in the description (note that we iterate through the array in reverse)
+                                    for (let j = antiSkillMatches.length - 1; j >= 0; j--) {
+                                        let offset = antiSkillMatches[j][0].toLowerCase().indexOf(antiSkillNames[i].toLowerCase());
+                                        let startPos = antiSkillMatches[j].index + offset;
+                                        let endPos = startPos + antiSkillNames[i].length - 1;
+                                        let replaceStr = antiSkillMatches[j][0].substring(offset, antiSkillNames[i].length + offset);
+
+                                        /*
+                                        console.log('anti-skill: "' + antiSkill + '"' +"\n"
+                                            + 'match: "' + antiSkillMatches[j][0] + '"' + "\n"
+                                            + 'index: "' + antiSkillMatches[j].index + '"' + "\n"
+                                            + 'offset: "' + offset + '"' + "\n"
+                                            + 'startPos: ' + startPos + "\n"
+                                            + 'endPos: ' + endPos + "\n"
+                                            + 'replaceStr: "' + replaceStr + '"' + "\n"
+                                            + 'start: "' + antiSkillMatches[j].index + "\n"
+                                            + 'end: "' + endPos
+                                        );
+                                        */
+
+                                        description = description.slice(0, startPos)
+                                            + `<strong class="has-text-success">${replaceStr}</strong>`
+                                            + description.slice(endPos + 1)
+                                    }
+                                }
+                            }
+
+                            if (antiSkillMatchFound) {
                                 antiSkillMatchCount++;
-
-                                // display the check icon for the antiSkill
-                                const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="anti-skill"][data-skill="${antiSkill}"]`);
-                                if (antiSkillCheckmark) {
-                                    antiSkillCheckmark.classList.add('fa-check');
-                                }
-
-                                // mark the matches in the description (note that we iterate through the array in reverse)
-                                for (let i = antiSkillMatches.length - 1; i >= 0; i--) {
-                                    let offset = antiSkillMatches[i][0].toLowerCase().indexOf(antiSkill.toLowerCase());
-                                    let startPos = antiSkillMatches[i].index + offset;
-                                    let endPos = startPos + antiSkill.length - 1;
-                                    let replaceStr = antiSkillMatches[i][0].substring(offset, antiSkill.length + offset);
-
-                                    /*
-                                    console.log('antiSkill: "' + antiSkill + '"' +"\n"
-                                        + 'match: "' + antiSkillMatches[i][0] + '"' + "\n"
-                                        + 'index: "' + antiSkillMatches[i].index + '"' + "\n"
-                                        + 'offset: "' + offset + '"' + "\n"
-                                        + 'startPos: ' + startPos + "\n"
-                                        + 'endPos: ' + endPos + "\n"
-                                        + 'replaceStr: "' + replaceStr + '"' + "\n"
-                                        + 'start: "' + antiSkillMatches[i].index + "\n"
-                                        + 'end: "' + endPos
-                                    );
-                                    */
-
-                                    description = description.slice(0, startPos)
-                                        + `<strong class="has-text-success">${replaceStr}</strong>`
-                                        + description.slice(endPos + 1)
-                                }
                             }
                         }
                     });
