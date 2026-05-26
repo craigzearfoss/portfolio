@@ -446,7 +446,9 @@
                         skillNames.push('angular');
                         break;
                     case 'api':
-                        skillNames.push('apis');
+                    case 'devop':
+                    case 'mcp':
+                        skillNames.push(skill + 's');
                         break;
                     case 'apis':
                         skillNames.push('api');
@@ -456,9 +458,6 @@
                         break;
                     case 'claude code':
                         skillNames.push('claude');
-                        break;
-                    case 'devop':
-                        skillNames.push('devops');
                         break;
                     case 'devops':
                         skillNames.push('devop');
@@ -493,11 +492,17 @@
                     case 'postgresql':
                         skillNames.push('postgres');
                         break;
+                    case 'postgres':
+                        skillNames.unshift('postgresql');
+                        break;
                     case 'rest':
                         skillNames.push('restful');
                         break;
                     case 'restful':
                         skillNames.push('rest');
+                        break;
+                    case 'ruby':
+                        skillNames.unshift('ruby on rails');
                         break;
                     case 'ruby on rails':
                         skillNames.push('ruby');
