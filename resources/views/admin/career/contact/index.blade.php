@@ -137,8 +137,8 @@
                                         return '<a href="' . route('admin.career.company.show', $company) . '">' . $company->name . '</a>';
                                     }
                                 );
+                                echo $companyLinks->implode(', ');
                             @endphp
-                            {!! $companyLinks->implode(', ') !!}
                         </td>
                         <td data-field="phone" style="white-space: nowrap;">
                             {{ $contact->phone }}
