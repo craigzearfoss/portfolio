@@ -478,6 +478,18 @@
                     case 'microservices':
                         skillNames.push('microservice');
                         break;
+                    case 'microsoft sql server':
+                        skillNames.unshift('ms sql');
+                        skillNames.push('mssql');
+                        break;
+                    case 'ms sql':
+                        skillNames.push('mssql');
+                        skillNames.unshift('microsoft sql server');
+                        break;
+                    case 'mssql':
+                        skillNames.unshift('ms sql');
+                        skillNames.unshift('microsoft sql server');
+                        break;
                     case 'node':
                         skillNames.unshift('node.js');
                         break;
