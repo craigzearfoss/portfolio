@@ -366,7 +366,7 @@
                 const skillSlug = getSkillSlug(skill);
 
                 let checkmarkElem = document.createElement('i');
-                checkmarkElem.className = `skill-checkbox-icon ${type}-checkmark show-when-analyzed fa ml-2`;
+                checkmarkElem.className = `ajax-skill-checkbox-icon ${type}-checkmark show-when-analyzed fa ml-2`;
                 checkmarkElem.setAttribute('data-type', type);
                 checkmarkElem.setAttribute('data-skill', skill);
                 checkmarkElem.style.width = '20px';
@@ -380,7 +380,7 @@
                 if (isChecked) {
                     checkboxElem.setAttribute('checked', 'checked');
                 }
-                checkboxElem.className = `${type}-checkbox hide-when-analyzed form-check-input`;
+                checkboxElem.className = `ajax-${type}-checkbox hide-when-analyzed form-check-input`;
                 checkboxElem.setAttribute('data-type', type);
                 checkboxElem.addEventListener('click', (event) => {
                     checkboxClicked(event.target);
@@ -448,6 +448,7 @@
                     case 'api':
                     case 'devop':
                     case 'mcp':
+                    case 'microservice':
                         skillNames.push(skill + 's');
                         break;
                     case 'apis':
@@ -473,6 +474,9 @@
                         break;
                     case 'llms':
                         skillNames.push('llm');
+                        break;
+                    case 'microservices':
+                        skillNames.push('microservice');
                         break;
                     case 'node':
                         skillNames.unshift('node.js');
@@ -621,25 +625,25 @@
             });
 
             document.getElementById('unselect-all-skills-button').addEventListener('click', () => {
-                (document.querySelectorAll('input[type="checkbox"].skill-checkbox') || []).forEach(checkboxElem => {
+                (document.querySelectorAll('input[type="checkbox"].ajax-skill-checkbox') || []).forEach(checkboxElem => {
                     uncheckSkill(checkboxElem);
                 });
             });
 
             document.getElementById('select-all-skills-button').addEventListener('click', () => {
-                (document.querySelectorAll('input[type="checkbox"].skill-checkbox') || []).forEach(checkboxElem => {
+                (document.querySelectorAll('input[type="checkbox"].ajax-skill-checkbox') || []).forEach(checkboxElem => {
                     checkSkill(checkboxElem);
                 });
             });
 
             document.getElementById('unselect-all-anti-skills-button').addEventListener('click', () => {
-                (document.querySelectorAll('input[type="checkbox"].anti-skill-checkbox') || []).forEach(checkboxElem => {
+                (document.querySelectorAll('input[type="checkbox"].ajax-anti-skill-checkbox') || []).forEach(checkboxElem => {
                     uncheckSkill(checkboxElem);
                 });
             });
 
             document.getElementById('select-all-anti-skills-button').addEventListener('click', () => {
-                (document.querySelectorAll('input[type="checkbox"].anti-skill-checkbox') || []).forEach(checkboxElem => {
+                (document.querySelectorAll('input[type="checkbox"].ajax-anti-skill-checkbox') || []).forEach(checkboxElem => {
                     checkSkill(checkboxElem);
                 });
             })
@@ -670,7 +674,7 @@
 
                 document.getElementById('submitAnalyze').removeAttribute('disabled');
 
-                (document.querySelectorAll('.skill-checkbox-icon') || []).forEach((elem) => {
+                (document.querySelectorAll('.ajax-skill-checkbox-icon') || []).forEach((elem) => {
                     elem.classList.remove('fa-check');
                 });
 
@@ -712,7 +716,7 @@
                                     skillMatchFound = true;
 
                                     // display the check icon for the skill
-                                    const skillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="skill"][data-skill="${skill}"]`);
+                                    const skillCheckmark = document.querySelector(`i.ajax-skill-checkbox-icon[data-type="skill"][data-skill="${skill}"]`);
                                     if (skillCheckmark) {
                                         skillCheckmark.classList.add('fa-check');
                                     }
@@ -767,7 +771,7 @@
                                     antiSkillMatchFound = true;
 
                                     // display the check icon for the anti-skill
-                                    const antiSkillCheckmark = document.querySelector(`i.skill-checkbox-icon[data-type="anti-skill"][data-skill="${antiSkill}"]`);
+                                    const antiSkillCheckmark = document.querySelector(`i.ajax-skill-checkbox-icon[data-type="anti-skill"][data-skill="${antiSkill}"]`);
                                     if (antiSkillCheckmark) {
                                         antiSkillCheckmark.classList.add('fa-check');
                                     }
@@ -805,29 +809,32 @@
                         }
                     });
 
+                    const checkedSkillCount = Object.entries(allSkills).filter(([key, value]) => value).map(([key, value]) => key).length;
+                    const checkedAntiSkillCount = Object.entries(allAntiSkills).filter(([key, value]) => value).map(([key, value]) => key).length;
+
                     document.getElementById('skillMatchCountMsg').innerHTML = ' - '
-                        + skillMatchCount + ' of ' + allSkills.length
-                        + ((skillMatchCount === 1) ? ' skill matched.' : ' skills matched.');
+                        + skillMatchCount + ' of ' + checkedSkillCount
+                        + ((checkedSkillCount === 1) ? ' skill matched.' : ' skills matched.');
                     document.getElementById('antiSkillMatchCountMsg').innerHTML = ' - '
-                        + antiSkillMatchCount + ' of ' + allAntiSkills.length
-                        + ((antiSkillMatchCount === 1) ? ' anti-skill matched.' : ' anti-skills matched.');
+                        + antiSkillMatchCount + ' of ' + checkedAntiSkillCount
+                        + ((checkedAntiSkillCount === 1) ? ' anti-skill matched.' : ' anti-skills matched.');
 
                     document.getElementById('analyzed-job-description').innerHTML = description;
                     document.getElementById('analyzed-job-description').style.display = 'block';
 
-                    document.querySelectorAll('.skill-checkbox').forEach((checkboxElem) => {
+                    document.querySelectorAll('.ajax-skill-checkbox').forEach((checkboxElem) => {
                         checkboxElem.style.display = 'none'
                     });
 
-                    document.querySelectorAll('.skill-checkmark').forEach((checkmarkElem) => {
+                    document.querySelectorAll('.ajax-skill-checkmark').forEach((checkmarkElem) => {
                         checkmarkElem.style.display = 'inline-block'
                     });
 
-                    document.querySelectorAll('.anti-skill-checkbox').forEach((checkboxElem) => {
+                    document.querySelectorAll('.ajax-anti-skill-checkbox').forEach((checkboxElem) => {
                         checkboxElem.style.display = 'none'
                     });
 
-                    document.querySelectorAll('.anti-skill-checkmark').forEach((checkmarkElem) => {
+                    document.querySelectorAll('.ajax-anti-skill-checkmark').forEach((checkmarkElem) => {
                         checkmarkElem.style.display = 'inline-block'
                     });
 
