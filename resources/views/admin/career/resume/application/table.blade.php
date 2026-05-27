@@ -1,6 +1,10 @@
 @php
 $notes = $notes ?? [];
 @endphp
+
+
+<p><i>{{ number_format(count($applications)) }} {{ (count($applications) === 1) ? 'application' : 'applications' }} found.</i></p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -17,13 +21,13 @@ $notes = $notes ?? [];
     @foreach ($applications as $application)
 
         <tr data-id="{{ $application->id }}">
-            <td>
+            <td style="white-space: nowrap;">
                 @include('admin.components.link', [
                     'name' => $application->company->name,
                     'href' => route('admin.career.company.show', $application->company)
                 ])
             </td>
-            <td>
+            <td style="white-space: nowrap;">
                 @include('admin.components.link', [
                     'name' => $application->role,
                     'href' => route('admin.career.application.show', $application)
