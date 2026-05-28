@@ -45,6 +45,10 @@
                     <{{ $labelElem }}>
                     <tr>
                         <th>name</th>
+                        <th>free</th>
+                        <th>premium*</th>
+                        <th>staffing**</th>
+                        <th>freelance***</th>
                         <th>description</th>
                     </tr>
                     </{{ $labelElem }}>
@@ -67,6 +71,18 @@
                                 <span style="font-weight: 700;">{{ $jobBoard->name }}</span>
                             @endif
                         </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $jobBoard->free ])
+                        </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $jobBoard->premium ])
+                        </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $jobBoard->staffing ])
+                        </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $jobBoard->freelance ])
+                        </td>
                         <td style="white-space: nowrap;">
                             {!! $jobBoard->summary !!}
                         </td>
@@ -75,7 +91,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3">No job boards found.</td>
+                        <td colspan="7">No job boards found.</td>
                     </tr>
 
                 @endforelse
@@ -83,6 +99,8 @@
                 </tbody>
 
             </table>
+
+            <p class="is-size-7"><i>* offers a premium or subscription-based service, ** offers staffing services, *** has a marketplace for freelance workers</i></p>
 
             @if (!empty($pagination_bottom))
                 {!! $jobBoards->links('vendor.pagination.bulma') !!}

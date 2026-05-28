@@ -62,6 +62,10 @@
             'value' => $jobBoard->summary
         ])
 
+        @include('admin.components.show-row-job-board-types', [
+            'resource' => $jobBoard,
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'coverage area',
             'value' => implode(', ', $jobBoard->coverageAreas ?? [])

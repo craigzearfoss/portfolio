@@ -50,6 +50,10 @@ class JobBoard extends Model
         'slug',
         'primary',
         'summary',
+        'free',
+        'premium',
+        'staffing',
+        'freelance',
         'local',
         'regional',
         'national',
@@ -94,10 +98,11 @@ class JobBoard extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'local', 'regional', 'national', 'international',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'latitude', 'longitude', 'phone', 'phone_label',
-        'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'notes','link',
-        'link_name', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'free', 'premium', 'staffing', 'freelance',
+        'local', 'regional', 'national', 'international', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id',
+        'latitude', 'longitude', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
+        'alt_email', 'alt_email_label', 'notes','link', 'link_name', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo'
     ];
 
     /**
@@ -111,9 +116,13 @@ class JobBoard extends Model
     const array SORT_OPTIONS = [
         'created_at|desc' => 'date created',
         'updated_at|desc' => 'date updated',
+        'free|desc'       => 'free',
+        'freelance'       => 'freelance',
         'id|asc'          => 'id',
         'name|asc'        => 'name',
+        'premium'         => 'premium',
         'sequence|asc'    => 'sequence',
+        'staffing'        => 'staffing',
     ];
 
     /**
@@ -171,6 +180,12 @@ class JobBoard extends Model
                         . ' Valid coverage areas are "' . implode('", "', self::COVERAGE_AREAS) . '".');
                 }
             })
+            ->when(!empty($filters['free']), function ($query) use ($filters) {
+                $query->where($this->table . '.free', '=', true);
+            })
+            ->when(!empty($filters['freelance']), function ($query) use ($filters) {
+                $query->where($this->table . '.freelance', '=', true);
+            })
             ->when(!empty($filters['international']), function ($query) use ($filters) {
                 $query->where($this->table . '.international', '=', true);
             })
@@ -188,6 +203,9 @@ class JobBoard extends Model
             })
             ->when(!empty($filters['regional']), function ($query) use ($filters) {
                 $query->where($this->table . '.regional', '=', true);
+            })
+            ->when(!empty($filters['staffing']), function ($query) use ($filters) {
+                $query->where($this->table . '.staffing', '=', true);
             });
 
         // add additional filters

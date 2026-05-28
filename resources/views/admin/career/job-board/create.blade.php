@@ -63,6 +63,14 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-job-board-types-horizontal', [
+                'free'      => old('free')        ?? '',
+                'premium'   => old('premium')     ?? '',
+                'staffing'  => old('staffing')    ?? '',
+                'freelance' => old('freelance')   ?? '',
+                'message'   => $message           ?? '',
+            ])
+
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>

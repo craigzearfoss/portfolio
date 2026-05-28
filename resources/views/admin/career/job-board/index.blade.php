@@ -79,7 +79,37 @@
                         </th>
                         <th class="has-text-centered">primary</th>
                         <th>summary</th>
-                        <th>coverage area</th>
+                        <th style="white-space: nowrap;">coverage area</th>
+                        <th style="white-space: nowrap;">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'free',
+                                'sort'  => 'free|desc',
+                            ])
+                        </th>
+                        <th style="white-space: nowrap;">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'premium',
+                                'sort'  => 'premium|desc',
+                            ])
+                        </th>
+                        <th style="white-space: nowrap;">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'staffing',
+                                'sort'  => 'staffing|desc',
+                            ])
+                        </th>
+                        <th style="white-space: nowrap;">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'freelance',
+                                'sort'  => 'freelance|desc',
+                            ])
+                        </th>
+                        <th style="display: none;">public</th>
+                        <th style="display: none;">disabled</th>
                         <th>actions</th>
                     </tr>
                     </{{ $labelElem }}>
@@ -107,6 +137,18 @@
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap; width: 6rem;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
+                        </td>
+                        <td data-field="free" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $jobBoard->free ])
+                        </td>
+                        <td data-field="premium" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $jobBoard->premium ])
+                        </td>
+                        <td data-field="staffing" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $jobBoard->staffing ])
+                        </td>
+                        <td data-field="freelance" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $jobBoard->freelance ])
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->is_public ])
@@ -169,7 +211,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No job boards found.</td>
+                        <td colspan="{{ $isRootAdmin ? '12' : '11' }}">No job boards found.</td>
                     </tr>
 
                 @endforelse
