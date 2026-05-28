@@ -16,13 +16,13 @@
 
         <tr data-id="{{ $contact->id }}">
             <td>
-                {!! $contact->name !!}
+                {!! htmlspecialchars($contact->name) !!}
             </td>
             <td>
-                {{ $contact->phone }}
+                {!! htmlspecialchars($contact->phone) !!}
             </td>
             <td>
-                {{ $contact->email }}
+                {!! htmlspecialchars($contact->email) !!}
             </td>
             <td class="is-1">
 

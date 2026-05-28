@@ -134,7 +134,7 @@
                         <td data-field="application_id" style="white-space: nowrap;">
                             @if (!empty($event->application))
                                 @include('admin.components.link', [
-                                    'name' => $event->application->name ,
+                                    'name' => htmlspecialchars($event->application->name),
                                     'href' => route('admin.career.application.show',
                                                     Application::find($event->application->id)
                                               )
@@ -142,7 +142,7 @@
                             @endif
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $event->name }}
+                            {!! htmlspecialchars($event->name) !!}
                         </td>
                         <td data-field="event_datetime" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDateTime($event->event_datetime) }}
@@ -154,10 +154,10 @@
                             }}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
-                            {{ $event->location }}
+                            {!! htmlspecialchars($event->location) !!}
                         </td>
                         <td data-field="attendees" style="white-space: nowrap;">
-                            {{ $event->attendees }}
+                            {!! htmlspecialchars($event->attendees) !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $event->is_public ])

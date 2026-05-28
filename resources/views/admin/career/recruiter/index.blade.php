@@ -96,7 +96,7 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $recruiter->name }}
+                            {!! htmlspecialchars($recruiter->name) !!}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap;">
                             {{ implode(', ', $recruiter->coverageAreas ?? []) }}
@@ -104,7 +104,7 @@
                         <td data-field="location">
                             {{
                                 formatLocation([
-                                    'city'    => $recruiter->city,
+                                    'city'    => htmlspecialchars($recruiter->city),
                                     'state'   => $recruiter->state->code ?? '',
                                 ])
                             }}

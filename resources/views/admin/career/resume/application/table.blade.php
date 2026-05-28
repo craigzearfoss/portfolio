@@ -23,7 +23,7 @@ $notes = $notes ?? [];
         <tr data-id="{{ $application->id }}">
             <td style="white-space: nowrap;">
                 @include('admin.components.link', [
-                    'name' => $application->company->name,
+                    'name' => htmlspecialchars($application->company->name ?? ''),
                     'href' => route('admin.career.company.show', $application->company)
                 ])
             </td>

@@ -18,16 +18,16 @@
 
         <tr data-id="{{ $communication->id }}">
             <td style="white-space: nowrap;">
-                {!! $communication->communicationType->name ?? '' !!}
+                {!! htmlspecialchars($communication->communicationType->name ?? '') !!}
             </td>
             <td style="white-space: nowrap;">
-                {!! $communication->subject !!}
+                {!! htmlspecialchars($communication->subject) !!}
             </td>
             <td style="white-space: nowrap;">
-                {!! $communication->to !!}
+                {!! htmlspecialchars($communication->to) !!}
             </td>
             <td style="white-space: nowrap;">
-                {!! $communication->from !!}
+                {!! htmlspecialchars($communication->from) !!}
             </td>
             <td class="has-text-centered">
                 <span style="white-space: nowrap">

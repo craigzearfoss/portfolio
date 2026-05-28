@@ -115,15 +115,15 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $company->name }}
+                            {!! htmlspecialchars($company->name) !!}
                         </td>
                         <td data-field="industry.name" style="white-space: nowrap;">
-                            {{ $company->industry->name ?? '' }}
+                            {!! htmlspecialchars($company->industry->name ?? '') !!}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {{
                                 formatLocation([
-                                    'city'    => $company->city,
+                                    'city'    => htmlspecialchars($company->city),
                                     'state'   => $company->state->code ?? '',
                                 ])
                             }}

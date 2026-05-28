@@ -123,7 +123,7 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $resume->name }}
+                            {!! htmlspecialchars($resume->name) !!}
                         </td>
                         <td data-field="resume_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDate($resume->resume_date) }}
@@ -162,7 +162,7 @@
 
                                 @if (!empty($resume->link))
                                     @include('admin.components.link-icon', [
-                                        'title'  => !empty($resume->link_name) ? $resume->link_name : 'link',
+                                        'title'  => !empty($resume->link_name) ? htmlspecialchars($resume->link_name) : 'link',
                                         'href'   => $resume->link,
                                         'icon'   => 'fa-external-link',
                                         'target' => '_blank'

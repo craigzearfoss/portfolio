@@ -67,7 +67,7 @@
 
                 </div>
                 <label for="checkBoxAntiSkill_{{ Str::slug($antiSkill) }}">
-                    {{ $antiSkill }}
+                    {!! htmlspecialchars($antiSkill) !!}
                 </label>
 
             </div>

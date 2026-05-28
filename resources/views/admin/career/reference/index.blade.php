@@ -125,21 +125,21 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $reference->name }}
+                            {!! htmlspecialchars($reference->name) !!}
                         </td>
                         <td data-field="relation" style="white-space: nowrap;">
                             {{ $reference->relation }}
                         </td>
                         <td data-field="phone" style="white-space: nowrap;">
-                            {{ $reference->phone }}
+                            {!! htmlspecialchars($reference->phone) !!}
                         </td>
                         <td data-field="email" style="white-space: nowrap;">
-                            {!! $reference->email !!}
+                            {!! htmlspecialchars($reference->email) !!}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {{
                                 formatLocation([
-                                    'city'    => $reference->city,
+                                    'city'    => htmlspecialchars($reference->city),
                                     'state'   => $reference->state->code ?? '',
                                 ])
                             }}

@@ -19,7 +19,7 @@
 
         <tr data-id="{{ $event->id }}">
             <td>
-                {!! $event->name !!}
+                {!! htmlspecialchars($event->name) !!}
             </td>
             <td class="has-text-centered">
                 {{ shortDate($event->event_datetime) }}
@@ -31,7 +31,7 @@
                 }}
             </td>
             <td>
-                {!! $event->location !!}
+                {!! htmlspecialchars($event->location) !!}
             </td>
             <td class="is-1">
 

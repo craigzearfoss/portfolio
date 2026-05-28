@@ -44,7 +44,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $industry->name
+            'value' => htmlspecialchars($industry->name)
         ])
 
         @include('admin.components.show-row', [
@@ -54,7 +54,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $industry->abbreviation
+            'value' => htmlspecialchars($industry->abbreviation)
         ])
 
     </div>

@@ -99,10 +99,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $industry->name }}
+                            {!! htmlspecialchars($industry->name) !!}
                         </td>
                         <td data-field="abbreviation">
-                            {{ $industry->abbreviation }}
+                            {!! htmlspecialchars($industry->abbreviation) !!}
                         </td>
                         <td class="is-1">
 
@@ -126,7 +126,7 @@
 
                                 @if (!empty($industry->link))
                                     @include('admin.components.link-icon', [
-                                        'title'  => !empty($industry->link_name) ? $industry->link_name : 'link',
+                                        'title'  => !empty($industry->link_name) ? htmlspecialchars($industry->link_name) : 'link',
                                         'href'   => $industry->link,
                                         'icon'   => 'fa-external-link',
                                         'target' => '_blank'

@@ -46,13 +46,6 @@
             ])
         @endif
 
-        @if ($isRootAdmin)
-            @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $jobSearchLog->owner->username
-            ])
-        @endif
-
         @include('admin.components.show-row', [
             'name'  => 'id',
             'value' => $jobSearchLog->time_logged
@@ -60,52 +53,52 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $jobSearchLog->message
+            'value' => htmlspecialchars($jobSearchLog->message)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'application',
-            'value' => $jobSearchLog->application->name
+            'value' => htmlspecialchars($jobSearchLog->application->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'cover letter',
-            'value' => $jobSearchLog->coverLetter->name
+            'value' => htmlspecialchars($jobSearchLog->coverLetter->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'resume',
-            'value' => $jobSearchLog->resume->name
+            'value' => htmlspecialchars($jobSearchLog->resume->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => $jobSearchLog->company->name
+            'value' => htmlspecialchars($jobSearchLog->company->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'contact',
-            'value' => $jobSearchLog->contact->name
+            'value' => htmlspecialchars($jobSearchLog->contact->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'communication',
-            'value' => $jobSearchLog->communication->subject
+            'value' => htmlspecialchars($jobSearchLog->communication->subject ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'event',
-            'value' => $jobSearchLog->event->name
+            'value' => htmlspecialchars($jobSearchLog->event->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'note',
-            'value' => $jobSearchLog->note->subject
+            'value' => htmlspecialchars($jobSearchLog->note->subject ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'recruiter',
-            'value' => $jobSearchLog->recruiter->name
+            'value' => htmlspecialchars($jobSearchLog->recruiter->name ?? '')
         ])
 
     </div>

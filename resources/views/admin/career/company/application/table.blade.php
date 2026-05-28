@@ -18,7 +18,7 @@
 
         <tr data-id="{{ $application->id }}">
             <td style="white-space: nowrap;">
-                {{ $application->role }}
+                {!! htmlspecialchars($application->role) !!}
             </td>
             <td>
                 @include('admin.components.checkmark', [ 'checked' => $application->active ])

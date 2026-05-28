@@ -119,7 +119,7 @@
                             {{ $jobSearchLog->time_logged }}
                         </td>
                         <td data-field="message">
-                            {{ $jobSearchLog->message }}
+                            {!! htmlspecialchars($jobSearchLog->message) !!}
                         </td>
                         <td class="is-1">
 

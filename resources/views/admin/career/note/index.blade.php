@@ -119,7 +119,7 @@
                         <td data-field="application_id" style="white-space: nowrap;">
                             @if (!empty($note->application))
                                 @include('admin.components.link', [
-                                    'name' => $note->application->name ,
+                                    'name' => htmlspecialchars($note->application->name ?? ''),
                                     'href' => route('admin.career.application.show',
                                                     Application::find($note->application->id)
                                               )
@@ -127,7 +127,7 @@
                             @endif
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
-                            {{ $note->subject }}
+                            {!! htmlspecialchars($note->subject) !!}
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">
                             {{ shortDateTime($note->created_at) }}

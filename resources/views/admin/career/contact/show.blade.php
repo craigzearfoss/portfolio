@@ -80,7 +80,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'name',
-                                    'value' => $contact->name
+                                    'value' => htmlspecialchars($contact->name)
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -90,12 +90,12 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'salutation',
-                                    'value' => $contact->salutation
+                                    'value' => htmlspecialchars($contact->salutation)
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'title',
-                                    'value' => $contact->title
+                                    'value' => htmlspecialchars($contact->title)
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -116,23 +116,23 @@
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->phone_label) ? $contact->phone_label : 'phone',
-                                    'value' => $contact->phone
+                                    'name'  => !empty($contact->phone_label) ? htmlspecialchars($contact->phone_label) : 'phone',
+                                    'value' => htmlspecialchars($contact->phone)
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone',
-                                    'value' => $contact->alt_phone
+                                    'name'  => !empty($contact->alt_phone_label) ? htmlspecialchars($contact->alt_phone_label) : 'alt phone',
+                                    'value' => htmlspecialchars($contact->alt_phone)
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->email_label) ? $contact->email_label : 'email',
-                                    'value' => $contact->email
+                                    'name'  => !empty($contact->email_label) ? htmlspecialchars($contact->email_label) : 'email',
+                                    'value' => htmlspecialchars($contact->email)
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email',
-                                    'value' => $contact->alt_email
+                                    'name'  => !empty($contact->alt_email_label) ? htmlspecialchars($contact->alt_email_label) : 'alt email',
+                                    'value' => htmlspecialchars($contact->alt_email)
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -149,7 +149,7 @@
                                 @include('admin.components.show-row', [
                                     'name'   => 'link name',
                                     'label'  => 'link_name',
-                                    'value'  => $contact->link_name,
+                                    'value'  => htmlspecialchars($contact->link_name),
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -173,7 +173,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => $contact->notes
+                                    'value' => htmlspecialchars($contact->notes)
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

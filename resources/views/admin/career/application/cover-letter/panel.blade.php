@@ -82,7 +82,7 @@
                 ])
 
                 @include('admin.components.show-row-link', [
-                    'name'   => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
+                    'name'   => !empty($coverLetter->link_name) ? htmlspecialchars($coverLetter->link_name) : 'link',
                     'href'   => $coverLetter->link,
                     'target' => '_blank'
                 ])

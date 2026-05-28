@@ -127,13 +127,13 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; width: 7rem;">
-                            {{ $jobBoard->name }}
+                            {!! htmlspecialchars($jobBoard->name) !!}
                         </td>
                         <td data-field="primary" class="has-text-centered" style="width: 4rem;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
                         </td>
                         <td data-field="summary" style="min-width: 30rem;">
-                            {{ $jobBoard->summary }}
+                            {!! htmlspecialchars($jobBoard->summary) !!}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap; width: 6rem;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}

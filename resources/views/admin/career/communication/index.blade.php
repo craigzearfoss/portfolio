@@ -139,7 +139,7 @@
                         <td data-field="application_id" style="white-space: nowrap;">
                             @if (!empty($communication->application))
                                 @include('admin.components.link', [
-                                    'name' => $communication->application->name ,
+                                    'name' => htmlspecialchars($communication->application->name),
                                     'href' => route('admin.career.application.show',
                                                     Application::find($communication->application->id)
                                               )
@@ -147,16 +147,16 @@
                             @endif
                         </td>
                         <td data-field="communication_type_id" style="white-space: nowrap;">
-                            {{ $communication->communicationType->name ?? '' }}
+                            {{ htmlspecialchars($communication->communicationType->name ?? '') }}
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
-                            {{ $communication->subject }}
+                            {{ htmlspecialchars($communication->subject) }}
                         </td>
                         <td data-field="to">
-                            {{ $communication->to }}
+                            {{ htmlspecialchars($communication->to) }}
                         </td>
                         <td data-field="from">
-                            {{ $communication->from }}
+                            {{ htmlspecialchars($communication->from) }}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
                             {{ shortDateTime($communication->communication_datetime) }}

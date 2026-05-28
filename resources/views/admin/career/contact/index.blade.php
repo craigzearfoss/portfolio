@@ -128,23 +128,23 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $contact->name }}
+                            {!! htmlspecialchars($contact->name) !!}
                         </td>
                         <td data-field="contact.company.names" style="white-space: nowrap;">
                             @php
                                 $companyLinks = $contact->companies->map(
                                     function ($company) {
-                                        return '<a href="' . route('admin.career.company.show', $company) . '">' . $company->name . '</a>';
+                                        return '<a href="' . route('admin.career.company.show', $company) . '">' . htmlspecialchars($company->name) . '</a>';
                                     }
                                 );
                                 echo $companyLinks->implode(', ');
                             @endphp
                         </td>
                         <td data-field="phone" style="white-space: nowrap;">
-                            {{ $contact->phone }}
+                            {!! htmlspecialchars($contact->phone) !!}
                         </td>
                         <td data-field="email" style="white-space: nowrap;">
-                            {{ $contact->email }}
+                            {!! htmlspecialchars($contact->email) !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $contact->is_public ])

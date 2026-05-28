@@ -19,7 +19,7 @@ $companies = $companies ?? [];
         <tr data-id="{{ $company->id }}">
             <td>
                 @include('admin.components.link', [
-                    'name' => $company->name,
+                    'name' => htmlspecialchars($company->name),
                     'href' => route('admin.career.company.show', $company)
                 ])
             </td>
@@ -29,7 +29,7 @@ $companies = $companies ?? [];
             <td data-field="location" style="white-space: nowrap;">
                 {!!
                     formatLocation([
-                        'city'    => $company->city ?? null,
+                        'city'    => htmlspecialchars($company->city),
                         'state'   => $company->state['code'] ?? null,
                     ])
                 !!}

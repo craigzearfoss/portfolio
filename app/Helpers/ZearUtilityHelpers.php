@@ -1356,18 +1356,20 @@ if (! function_exists('getPageTitle')) {
 
             // determine the resource name (or title, or id, etc.)
             $resourceName = match ($class) {
-                'App\\Models\\Career\\Communication', 'App\\Models\\Career\\Note' => $resource->id . ' - ' . $resource->subject,
-                'App\\Models\\Career\\Event' => $resource->id . ' - ' . $resource->name,
+                'App\\Models\\Career\\Communication', 'App\\Models\\Career\\Note' => $resource->id . ' - ' . htmlspecialchars($resource->subject),
+                'App\\Models\\Career\\Event' => $resource->id . ' - ' .htmlspecialchars( $resource->name),
                 'App\\Models\\Career\\Resume' => $resource->name . ' - ' . shortDate($resource->resume_date),
-                'App\\Models\\Personal\\Reading' => $resource->title . (!empty($resource->author) ? ' by ' . $resource->author : ''),
-                'App\\Models\\Personal\\RecipeIngredient' => $resource->ingredient['name'] . ' for ' . $resource->recipe['name'],
-                'App\\Models\\Personal\\RecipeStep' => 'step ' . $resource->step . ' for ' . $resource->recipe['name'],
-                'App\\Models\\Portfolio\\Art', 'App\\Models\\Portfolio\\Music' => $resource->name . (!empty($resource->artist) ? ' - ' . $resource->artist : ''),
-                'App\\Models\\Portfolio\\Education' => $resource->degreeType->name . ' ' . $resource->major,
+                'App\\Models\\Personal\\Reading' => htmlspecialchars($resource->title) . (!empty($resource->author) ? ' by ' . htmlspecialchars($resource->author) : ''),
+                'App\\Models\\Personal\\RecipeIngredient' => htmlspecialchars($resource->ingredient['name']) . ' for ' . htmlspecialchars($resource->recipe['name']),
+                'App\\Models\\Personal\\RecipeStep' => 'step ' . $resource->step . ' for ' . htmlspecialchars($resource->recipe['name']),
+                'App\\Models\\Portfolio\\Art', 'App\\Models\\Portfolio\\Music' => htmlspecialchars($resource->name) . (!empty($resource->artist) ? ' - ' . htmlspecialchars($resource->artist) : ''),
+                'App\\Models\\Portfolio\\Education' => htmlspecialchars($resource->degreeType->name . ' ' . $resource->major),
                 'App\\Models\\Portfolio\\JobTask' => 'task ' . $resource->id,
-                'App\\Models\\System\\AdminEmail', 'App\\Models\\System\\UserEmail' => $resource->email,
-                'App\\Models\\System\\AdminPhone', 'App\\Models\\System\\UserPhone' => $resource->phone,
-                default => $resource->name ?? $resource->title ?? $resource->subject ?? $resource->id,
+                'App\\Models\\System\\AdminEmail', 'App\\Models\\System\\UserEmail' => htmlspecialchars($resource->email),
+                'App\\Models\\System\\AdminPhone', 'App\\Models\\System\\UserPhone' => htmlspecialchars($resource->phone),
+                default => !empty($resource->name)
+                    ? htmlspecialchars($resource->name)
+                    : (!empty($resource->title) ? htmlspecialchars($resource->title) : htmlspecialchars($resource->subject) ?? $resource->id),
             };
 
             $title = $includeOwnerLink

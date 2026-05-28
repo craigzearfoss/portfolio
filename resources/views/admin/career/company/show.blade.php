@@ -87,7 +87,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'name',
-                                    'value' => $company->name
+                                    'value' => htmlspecialchars($company->name)
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -97,17 +97,17 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'industry',
-                                    'value' => $company->industry['name'] ?? ''
+                                    'value' => htmlspecialchars($company->industry['name'] ?? '')
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'location',
                                     'value' => formatLocation([
-                                        'street'          => $company->street,
-                                        'street2'         => $company->street2,
-                                        'city'            => $company->city,
+                                        'street'          => htmlspecialchars($company->street),
+                                        'street2'         => htmlspecialchars($company->street2),
+                                        'city'            => htmlspecialchars($company->city),
                                         'state'           => $company->state->code ?? '',
-                                        'zip'             => $company->zip,
+                                        'zip'             => htmlspecialchars($company->zip),
                                         'country'         => $company->country->iso_alpha3 ?? '',
                                         'streetSeparator' => '<br>',
                                     ])
@@ -118,23 +118,23 @@
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($company->phone_label) ? $company->phone_label : 'phone',
-                                    'value' => $company->phone
+                                    'name'  => !empty($company->phone_label) ? htmlspecialchars($company->phone_label) : 'phone',
+                                    'value' => htmlspecialchars($company->phone)
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => $company->alt_phone_label ?? 'alt phone',
-                                    'value' => $company->alt_phone
+                                    'name'  => !empty($company->alt_phone_label) ?  htmlspecialchars($company->alt_phone_label) : 'alt phone',
+                                    'value' => htmlspecialchars($company->alt_phone)
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($company->email_label) ? $company->email_label : 'email',
-                                    'value' => $company->email
+                                    'name'  => !empty($company->email_label) ?  htmlspecialchars($company->email_label) : 'email',
+                                    'value' =>  htmlspecialchars($company->email)
                                 ])
 
                                 @include('admin.components.show-row', [
-                                    'name'  => !empty($company->alt_email_label) ? $company->alt_email_label : 'alt email',
-                                    'value' => $company->alt_email
+                                    'name'  => !empty($company->alt_email_label) ?  htmlspecialchars($company->alt_email_label) : 'alt email',
+                                    'value' =>  htmlspecialchars($company->alt_email)
                                 ])
 
                                 @include('admin.components.show-row-link', [
@@ -146,7 +146,7 @@
                                 @include('admin.components.show-row', [
                                     'name'   => 'link name',
                                     'label'  => 'link_name',
-                                    'value'  => $company->link_name,
+                                    'value'  =>  htmlspecialchars($company->link_name),
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -170,7 +170,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => $company->notes
+                                    'value' =>  htmlspecialchars($company->notes)
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

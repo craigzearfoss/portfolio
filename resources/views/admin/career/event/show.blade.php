@@ -63,14 +63,14 @@
         @include('admin.components.show-row-link', [
             'name'  => 'application',
             'label' => !empty($application)
-                ? ($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']'
+                ? (htmlspecialchars($application->company['name'] ?? '')) . ' - ' . htmlspecialchars($application->role) . ' [' . ($application->apply_date) . ']'
                 : '',
             'href' => route('admin.career.application.show', $application)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $event->name
+            'value' => htmlspecialchars($event->name)
         ])
 
         @include('admin.components.show-row', [
@@ -87,12 +87,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => $event->location
+            'value' => htmlspecialchars($event->location)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'attendees',
-            'value' => $event->attendees
+            'value' => htmlspecialchars($event->attendees)
         ])
 
         @include('admin.components.show-row-link', [
@@ -104,7 +104,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $event->link_name,
+            'value'  => htmlspecialchars($event->link_name),
         ])
 
         @include('admin.components.show-row-link', [
@@ -116,7 +116,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $event->link_name,
+            'value'  => htmlspecialchars($event->link_name),
         ])
 
         @include('admin.components.show-row', [
@@ -133,7 +133,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $event->notes
+            'value' => htmlspecialchars($event->notes)
         ])
 
         @include('admin.components.show-row-visibility', [

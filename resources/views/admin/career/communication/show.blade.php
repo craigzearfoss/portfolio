@@ -79,12 +79,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'to',
-            'value' => $communication->to
+            'value' => htmlspecialchars($communication->to)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'from',
-            'value' => $communication->from
+            'value' => htmlspecialchars($communication->from)
         ])
 
         @include('admin.components.show-row', [

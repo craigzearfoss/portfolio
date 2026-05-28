@@ -250,18 +250,18 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; display: none;">
-                            {{ $application->name }}
+                            {!! htmlspecialchars($application->name) !!}
                         </td>
                         <td data-field="company.name" style="white-space: nowrap;">
                             @if (!empty($application->company))
                                 @include('admin.components.link', [
-                                    'name' => $application->company->name ?? '',
+                                    'name' => htmlspecialchars($application->company->name ?? ''),
                                     'href' => route('admin.career.company.show', $application->company)
                                 ])
                             @endif
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
-                            {{ $application->role }}
+                            {!! htmlspecialchars($application->role) !!}
                         </td>
                         <td data-field="active" class="has-text-centered hide-at-1400">
                             @include('admin.components.checkmark', [ 'checked' => $application->active ])
@@ -301,7 +301,7 @@
                         <td data-field="location" class="hide-at-1400">
                             {{
                                 formatLocation([
-                                    'city'    => $application->city,
+                                    'city'    => htmlspecialchars($application->city),
                                     'state'   => $application->state->code ?? '',
                                 ])
                             }}
@@ -322,7 +322,7 @@
                             @include('admin.components.checkmark', [ 'checked' => $application->health ])
                         </td>
                         <td data-field="job_board_id" style="display: none;">
-                            {{ $application->jobBoard->name ?? '' }}
+                            {!! htmlspecialchars($application->jobBoard->name ?? '') !!}
                         </td>
                         <td class="is-1">
 

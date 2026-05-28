@@ -125,10 +125,10 @@
                             </td>
                         @endif
                         <td data-field="company.name" style="white-space: nowrap;">
-                            {{ $coverLetter->application->company->name ?? '' }}
+                            {!! htmlspecialchars($coverLetter->application->company->name ?? '') !!}
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
-                            {{ $coverLetter->application->role ?? '' }}
+                            {!! htmlspecialchars($coverLetter->application->role ?? '') !!}
                         </td>
                         <td data-field="post_date" style="white-space: nowrap;">
                             {{ shortDate($coverLetter->application['apply_date'] ?? null) }}

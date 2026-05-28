@@ -44,7 +44,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $recruiter->name
+            'value' => htmlspecialchars($recruiter->name)
         ])
 
         @include('admin.components.show-row', [
@@ -59,7 +59,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $recruiter->summary
+            'value' => htmlspecialchars($recruiter->summary)
         ])
 
         @include('admin.components.show-row', [
@@ -112,23 +112,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->phone_label) ? $recruiter->phone_label : 'phone',
-            'value' => $recruiter->phone
+            'name'  => !empty($recruiter->phone_label) ? htmlspecialchars($recruiter->phone_label) : 'phone',
+            'value' => htmlspecialchars($recruiter->phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->alt_phone_label) ? $recruiter->alt_phone_label : 'alt phone',
-            'value' => $recruiter->alt_phone
+            'name'  => !empty($recruiter->alt_phone_label) ? htmlspecialchars($recruiter->alt_phone_label) : 'alt phone',
+            'value' => htmlspecialchars($recruiter->alt_phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->email_label) ? $recruiter->email_label : 'email',
-            'value' => $recruiter->email
+            'name'  => !empty($recruiter->email_label) ? htmlspecialchars($recruiter->email_label) : 'email',
+            'value' => htmlspecialchars($recruiter->email)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->alt_email_label) ? $recruiter->alt_email_label : 'alt email',
-            'value' => $recruiter->alt_email
+            'name'  => !empty($recruiter->alt_email_label) ? htmlspecialchars($recruiter->alt_email_label) : 'alt email',
+            'value' => htmlspecialchars($recruiter->alt_email)
         ])
 
         @include('admin.components.show-row-link', [
@@ -140,7 +140,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $recruiter->link_name,
+            'value'  => htmlspecialchars($recruiter->link_name),
         ])
 
         @include('admin.components.show-row', [
@@ -157,7 +157,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $recruiter->notes
+            'value' => htmlspecialchars($recruiter->notes)
         ])
 
         @include('admin.components.show-row-visibility', [

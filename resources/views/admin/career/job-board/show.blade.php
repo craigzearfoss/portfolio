@@ -44,7 +44,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $jobBoard->name
+            'value' => htmlspecialchars($jobBoard->name)
         ])
 
         @include('admin.components.show-row', [
@@ -59,7 +59,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $jobBoard->summary
+            'value' => htmlspecialchars($jobBoard->summary)
         ])
 
         @include('admin.components.show-row-job-board-types', [
@@ -105,23 +105,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->phone_label) ? $jobBoard->phone_label : 'phone',
-            'value' => $jobBoard->phone
+            'name'  => !empty($jobBoard->phone_label) ? htmlspecialchars($jobBoard->phone_label) : 'phone',
+            'value' => htmlspecialchars($jobBoard->phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => $jobBoard->alt_phone_label ?? 'alt phone',
-            'value' => $jobBoard->alt_phone
+            'name'  => !empty($jobBoard->alt_phone_label) ? htmlspecialchars($jobBoard->alt_phone_label) : 'phone',
+            'value' => htmlspecialchars($jobBoard->alt_phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->email_label) ? $jobBoard->email_label : 'email',
-            'value' => $jobBoard->email
+            'name'  => !empty($jobBoard->email_label) ? htmlspecialchars($jobBoard->email_label) : 'email',
+            'value' => htmlspecialchars($jobBoard->email)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->alt_email_label) ? $jobBoard->alt_email_label : 'alt email',
-            'value' => $jobBoard->alt_email
+            'name'  => !empty($jobBoard->alt_email_label) ? htmlspecialchars($jobBoard->alt_email_label) : 'alt email',
+            'value' => htmlspecialchars($jobBoard->alt_email)
         ])
 
         @include('admin.components.show-row', [

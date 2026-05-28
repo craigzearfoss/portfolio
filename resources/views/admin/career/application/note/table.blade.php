@@ -16,11 +16,11 @@
 
         <tr data-id="{{ $note->id }}">
             <td>
-                {!! $note->subject !!}
+                {!! htmlspecialchars($note->subject) !!}
             </td>
             <?php /*
             <td>
-                {!! $note->body !!}
+                {!! htmlspecialchars($note->body) !!}
             </td>
             */ ?>
             <td>

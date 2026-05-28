@@ -62,19 +62,19 @@
         @include('admin.components.show-row-link', [
             'name'  => 'application',
             'label' => $application
-                ? ($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']'
+                ? (htmlspecialchars($application->company['name'] ?? '')) . ' - ' . htmlspecialchars($application->role) . ' [' . ($application->apply_date) . ']'
                 : '',
             'href' => route('admin.career.application.show', $application)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => $note->subject
+            'value' => htmlspecialchars($note->subject)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => $note->body
+            'value' => htmlspecialchars($note->body)
         ])
 
         @include('admin.components.show-row-link', [
@@ -86,7 +86,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $note->link_name,
+            'value'  => htmlspecialchars($note->link_name),
         ])
 
         @include('admin.components.show-row', [
@@ -103,7 +103,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $note->notes
+            'value' => htmlspecialchars($note->notes)
         ])
 
         @include('admin.components.show-row-visibility', [

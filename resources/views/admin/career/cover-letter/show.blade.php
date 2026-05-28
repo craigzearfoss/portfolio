@@ -72,7 +72,7 @@
                                 @include('admin.components.show-row', [
                                     'name'    => 'application',
                                     'value'   => view('admin.components.link', [
-                                                     'name' => $coverLetter->name,
+                                                     'name' => htmlspecialchars($coverLetter->name),
                                                      'href' => route('admin.career.application.show', $coverLetter->application),
                                                  ]),
                                 ])
@@ -132,7 +132,7 @@
                                 @include('admin.components.show-row', [
                                     'name'    => 'application',
                                     'value'   => view('admin.components.link', [
-                                                     'name' => $coverLetter->name,
+                                                     'name' => htmlspecialchars($coverLetter->name),
                                                      'href' => route('admin.career.application.show', $coverLetter->application),
                                                  ]),
                                     'message' => $message ?? '',
@@ -140,7 +140,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'name',
-                                    'value' => $coverLetter->name
+                                    'value' => htmlspecialchars($coverLetter->name)
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -164,7 +164,7 @@
                                 @include('admin.components.show-row', [
                                     'name'   => 'link name',
                                     'label'  => 'link_name',
-                                    'value'  => $coverLetter->link_name,
+                                    'value'  => htmlspecialchars($coverLetter->link_name),
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -188,7 +188,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => $coverLetter->notes
+                                    'value' => htmlspecialchars($coverLetter->notes)
                                 ])
 
                                 @include('admin.components.show-row-visibility', [
