@@ -118,7 +118,7 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $recipe->name }}{!! !empty($recipe->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {!! htmlspecialchars($recipe->name) !!}{!! !empty($recipe->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="types" style="white-space: nowrap;">
                             {{ implode(', ', $recipe->types()) }}
@@ -127,7 +127,7 @@
                             {{ implode(', ', $recipe->meals()) }}
                         </td>
                         <td data-field="author" class="hide-at-750" style="white-space: nowrap;">
-                            {{ $recipe->author }}
+                            {!! htmlspecialchars($recipe->author) !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $recipe->is_public ])

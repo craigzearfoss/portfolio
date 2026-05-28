@@ -125,18 +125,18 @@
                             </td>
                         @endif
                         <td data-field="ingredient.name" style="white-space: nowrap;">
-                            {{ $recipeIngredient->ingredient->name ?? '' }}
+                            {!! htmlspecialchars($recipeIngredient->ingredient->name ?? '') !!}
                         </td>
                         <td data-field="recipe.name" style="white-space: nowrap;">
                             @if (!empty($recipeIngredient->recipe))
                                 @include('admin.components.link', [
-                                    'name' => $recipeIngredient->recipe->name,
+                                    'name' => htmlspecialchars($recipeIngredient->recipe->name),
                                     'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
                                 ])
                             @endif
                         </td>
                         <td data-field="amount" class="has-text-centered">
-                            {{ $recipeIngredient->amount }}
+                            {!! htmlspecialchars($recipeIngredient->amount) !!}
                         </td>
                         <td data-field="unit.name">
                             {!! $recipeIngredient->unit->name ?? '' !!}

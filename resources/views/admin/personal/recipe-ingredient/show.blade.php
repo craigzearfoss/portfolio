@@ -55,12 +55,12 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'recipe',
-                'value' => $recipeIngredient->recipe['name'] ?? ''
+                'value' => htmlspecialchars($recipeIngredient->recipe['name'] ?? '')
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'ingredient',
-                'value' => $recipeIngredient->ingredient['name'] ?? ''
+                'value' => htmlspecialchars($recipeIngredient->ingredient['name'] ?? '')
             ])
 
             @include('admin.components.show-row', [
@@ -75,7 +75,7 @@
 
             @include('admin.components.show-row', [
                 'name'   => 'qualifier',
-                'value'  => $recipeIngredient->qualifier,
+                'value'  => htmlspecialchars($recipeIngredient->qualifier),
             ])
 
             @include('admin.components.show-row', [

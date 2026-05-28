@@ -48,12 +48,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $server->full_name
+            'value' => htmlspecialchars($server->full_name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $server->name
+            'value' => htmlspecialchars($server->name)
         ])
 
         @include('admin.components.show-row', [
@@ -68,7 +68,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $server->definition
+            'value' => htmlspecialchars($server->definition)
         ])
 
         @include('admin.components.show-row-checkmark', [
@@ -99,7 +99,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $server->link,
+            'href'   => htmlspecialchars($server->link),
             'target' => '_blank'
         ])
 

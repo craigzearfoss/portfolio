@@ -48,12 +48,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $operatingSystem->full_name
+            'value' => htmlspecialchars($operatingSystem->full_name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $operatingSystem->name
+            'value' => htmlspecialchars($operatingSystem->name)
         ])
 
         @include('admin.components.show-row', [
@@ -63,12 +63,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $operatingSystem->abbreviation
+            'value' => htmlspecialchars($operatingSystem->abbreviation)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $operatingSystem->definition
+            'value' => htmlspecialchars($operatingSystem->definition)
         ])
 
         @include('admin.components.show-row-checkmark', [
@@ -106,7 +106,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $operatingSystem->link_name,
+            'value'  => htmlspecialchars($operatingSystem->link_name),
         ])
 
         @include('admin.components.show-row', [

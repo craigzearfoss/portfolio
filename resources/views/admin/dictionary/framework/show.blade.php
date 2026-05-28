@@ -48,12 +48,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $framework->full_name
+            'value' => htmlspecialchars($framework->full_name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $framework->name
+            'value' => htmlspecialchars($framework->name)
         ])
 
         @include('admin.components.show-row', [
@@ -63,12 +63,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $framework->abbreviation
+            'value' => htmlspecialchars($framework->abbreviation)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $framework->definition
+            'value' => htmlspecialchars($framework->definition)
         ])
 
         @include('admin.components.show-row-checkmark', [
@@ -106,7 +106,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $framework->link_name,
+            'value'  => htmlspecialchars($framework->link_name),
         ])
 
         @include('admin.components.show-row', [

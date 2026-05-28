@@ -143,7 +143,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => $resume->notes
+                                    'value' => htmlspecialchars($resume->notes)
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

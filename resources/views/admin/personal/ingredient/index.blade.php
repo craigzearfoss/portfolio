@@ -94,7 +94,7 @@
                             {{ $ingredient->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap">
-                            {{ $ingredient->name }}
+                            {!! htmlspecialchars($ingredient->name) !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $ingredient->is_public ])

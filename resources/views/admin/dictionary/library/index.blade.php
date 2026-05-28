@@ -85,10 +85,10 @@
                             </td>
                         @endif
                         <td data-field="name">
-                            {{ $library->name }}
+                            {!! htmlspecialchars($library->name) !!}
                         </td>
                         <td data-field="abbreviation">
-                            {{ $library->abbreviation }}
+                            {!! htmlspecialchars($library->abbreviation) !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $library->is_public ])

@@ -56,7 +56,7 @@
             @include('admin.components.show-row', [
                 'name'  => 'recipe',
                 'value' => view('admin.components.link', [
-                    'name' => $recipeStep->recipe['name'] ?? '',
+                    'name' => htmlspecialchars($recipeStep->recipe['name'] ?? ''),
                     'href' => route('admin.personal.recipe.show', $recipeStep->recipe['id'])
                 ])
             ])

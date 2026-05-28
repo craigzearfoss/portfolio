@@ -123,7 +123,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $communication->notes
+            'value' => htmlspecialchars($communication->notes)
         ])
 
         @include('admin.components.show-row-visibility', [

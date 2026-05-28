@@ -55,12 +55,12 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'title',
-                'value' => $reading->title
+                'value' => htmlspecialchars($reading->title)
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'author',
-                'value' => $reading->author
+                'value' => htmlspecialchars($reading->author)
             ])
 
             @include('admin.components.show-row', [
@@ -75,7 +75,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'summary',
-                'value' => $reading->summary
+                'value' => htmlspecialchars($reading->summary)
             ])
 
             @include('admin.components.show-row', [
@@ -117,7 +117,7 @@
             @include('admin.components.show-row', [
                 'name'   => 'link name',
                 'label'  => 'link_name',
-                'value'  => $reading->link_name,
+                'value'  => htmlspecialchars($reading->link_name),
             ])
 
             @include('admin.components.show-row', [
@@ -141,7 +141,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'notes',
-                'value' => $reading->notes
+                'value' => htmlspecialchars($reading->notes)
             ])
 
             @include('admin.components.show-row-visibility', [

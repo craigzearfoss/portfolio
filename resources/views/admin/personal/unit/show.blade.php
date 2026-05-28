@@ -45,12 +45,12 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'name',
-                'value' => $unit->name
+                'value' => htmlspecialchars($unit->name)
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'abbreviation',
-                'value' => $unit->abbreviation
+                'value' => htmlspecialchars($unit->abbreviation)
             ])
 
             @include('admin.components.show-row', [
@@ -64,16 +64,10 @@
                 'target' => '_blank'
             ])
 
-            @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $unit->link,
-                'target' => '_blank'
-            ])
-
             @include('admin.components.show-row', [
                 'name'   => 'link name',
                 'label'  => 'link_name',
-                'value'  => $unit->link_name,
+                'value'  => htmlspecialchars($unit->link_name),
             ])
 
             @include('admin.components.show-row', [

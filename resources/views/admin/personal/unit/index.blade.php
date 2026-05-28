@@ -99,10 +99,10 @@
                             </td>
                         @endif
                         <td data-field="name">
-                            {{ $unit->name }}
+                            {!! htmlspecialchars($unit->name) !!}
                         </td>
                         <td data-field="abbreviation">
-                            {{ $unit->abbreviation }}
+                            {!! htmlspecialchars($unit->abbreviation) !!}
                         </td>
                         <td data-field="system">
                             {{ $unit->system }}

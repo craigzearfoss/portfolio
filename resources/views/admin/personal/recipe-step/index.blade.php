@@ -125,7 +125,7 @@
                             <td data-field="recipe.name" style="white-space: nowrap;">
                                 @if (!empty($recipeStep->recipe))
                                     @include('admin.components.link', [
-                                        'name' => $recipeStep->recipe->name ?? '',
+                                        'name' => htmlspecialchars($recipeStep->recipe->name ?? ''),
                                         'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
                                     ])
                                 @endif

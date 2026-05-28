@@ -126,10 +126,10 @@
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
-                            {{ $reading->title }}{!! !empty($reading->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            {!! htmlspecialchars($reading->title) !!}{!! !empty($reading->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="author" style="white-space: nowrap;">
-                            {{ $reading->author }}
+                            {!! htmlspecialchars($reading->author) !!}
                         </td>
                         <td data-field="fiction|nonfiction">
                             {{

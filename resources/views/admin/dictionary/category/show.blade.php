@@ -48,12 +48,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $category->full_name
+            'value' => htmlspecialchars($category->full_name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $category->name
+            'value' => htmlspecialchars($category->name)
         ])
 
         @include('admin.components.show-row', [
@@ -63,12 +63,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $category->abbreviation
+            'value' => htmlspecialchars($category->abbreviation)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $category->definition
+            'value' => htmlspecialchars($category->definition)
         ])
 
         @include('admin.components.show-row-checkmark', [
@@ -106,7 +106,7 @@
         @include('admin.components.show-row', [
             'name'   => 'link name',
             'label'  => 'link_name',
-            'value'  => $category->link_name,
+            'value'  => htmlspecialchars($category->link_name),
         ])
 
         @include('admin.components.show-row', [
