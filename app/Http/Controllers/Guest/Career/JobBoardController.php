@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Guest\Career;
 
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Career\JobBoard;
-use App\Models\Personal\Reading;
 use App\Models\System\Admin;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

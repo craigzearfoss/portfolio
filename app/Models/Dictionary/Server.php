@@ -7,7 +7,6 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

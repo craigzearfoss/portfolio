@@ -6,7 +6,6 @@ use App\Exports\System\ResourcesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
-use App\Models\System\AdminResource;
 use App\Models\System\Resource;
 use Exception;
 use Illuminate\Http\RedirectResponse;

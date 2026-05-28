@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\Career\ApplicationController as AdminCareerApplicationController;
-use App\Http\Controllers\Admin\Career\ApplicationSkillController as AdminCareerApplicationSkillController;
 use App\Http\Controllers\Admin\Career\CommunicationController as AdminCareerCommunicationController;
 use App\Http\Controllers\Admin\Career\CompanyController as AdminCareerCompanyController;
 use App\Http\Controllers\Admin\Career\ContactController as AdminCareerContactController;

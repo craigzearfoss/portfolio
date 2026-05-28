@@ -3,16 +3,9 @@
 namespace App\Console\Commands\CraigZearfossData;
 
 use App\Models\Career\Application;
-use App\Models\Career\ApplicationSkill;
-use App\Models\Career\Communication;
 use App\Models\Career\Company;
-use App\Models\Career\CompanyContact;
 use App\Models\Career\CompensationUnit;
 use App\Models\Career\Contact;
-use App\Models\Career\CoverLetter;
-use App\Models\Career\Event;
-use App\Models\Career\Note;
-use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;

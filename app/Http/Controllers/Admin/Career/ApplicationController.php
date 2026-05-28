@@ -13,18 +13,14 @@ use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
 use App\Models\Portfolio\AntiSkill;
-use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\Skill;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use Str;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**

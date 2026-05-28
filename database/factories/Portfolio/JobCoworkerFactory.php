@@ -6,7 +6,6 @@ use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory<JobCoworker>

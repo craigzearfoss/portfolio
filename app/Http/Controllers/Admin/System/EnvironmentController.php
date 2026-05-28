@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\System;
 use App\Http\Controllers\Admin\BaseAdminController;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use function PHPUnit\Framework\stringContains;
 
 class EnvironmentController extends BaseAdminController
 {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\System;
 
-use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Services\PermissionService;
 

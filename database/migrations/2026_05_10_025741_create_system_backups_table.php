@@ -1,11 +1,5 @@
 <?php
 
-use App\Models\Scopes\AdminPublicScope;
-use App\Models\System\Admin;
-use App\Models\System\AdminDatabase;
-use App\Models\System\AdminResource;
-use App\Models\System\Database;
-use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

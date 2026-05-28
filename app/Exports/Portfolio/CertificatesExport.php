@@ -2,7 +2,6 @@
 
 namespace App\Exports\Portfolio;
 
-use App\Models\Career\Application;
 use App\Models\Portfolio\Certificate;
 use Exception;
 use Illuminate\Support\Collection;

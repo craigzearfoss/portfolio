@@ -4,14 +4,10 @@ namespace App\Console\Commands;
 
 use App\Models\System\Backup;
 use App\Models\System\Database;
-use Doctrine\Inflector\Rules\French\Rules;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use JetBrains\PhpStorm\NoReturn;
-use PHPUnit\Event\Runtime\PHP;
 use Process;
-use function Laravel\Prompts\text;
 
 class BackupDatabases extends Command
 {

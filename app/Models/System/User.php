@@ -2,7 +2,6 @@
 
 namespace App\Models\System;
 
-use App\Models\System\User as UserModel;
 use App\Observers\System\UserObserver;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\System\UserFactory;
@@ -15,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 
 /**
  *

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Exports\Portfolio\CertificatesExport;
 use App\Exports\Portfolio\CertificationsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCertificationsRequest;

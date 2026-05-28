@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Personal;
 
 use App\Http\Requests\StoreAppBaseRequest;
-use App\Models\Personal\Reading;
 use App\Models\System\Admin;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;

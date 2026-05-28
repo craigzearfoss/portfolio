@@ -618,7 +618,7 @@ class AdminResource extends Model
     /**
      * Add the "owner" property to an admin resource from a query result.
      *
-     * @param AdminResource $adminResource
+     * @param AdminResource    $adminResource
      * @param EnvTypes|null    $envType
      * @param Admin|Owner|null $owner
      * @return void

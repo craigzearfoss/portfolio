@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\System;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\System\BaseSystemController;
-
 use Illuminate\View\View;
 
 /**

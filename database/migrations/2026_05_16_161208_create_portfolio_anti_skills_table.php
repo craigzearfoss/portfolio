@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\System\Admin;
-use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;

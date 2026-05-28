@@ -4,7 +4,6 @@ namespace App\Http\Requests\System;
 
 use App\Http\Requests\StoreAppBaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
 
 /**
  *

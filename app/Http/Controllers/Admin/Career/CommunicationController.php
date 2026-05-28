@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Exports\Career\CommunicationsExport;
-use App\Exports\Career\CompaniesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;

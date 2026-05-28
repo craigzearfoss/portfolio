@@ -2,23 +2,8 @@
 
 namespace App\Console\Commands\CraigZearfossData;
 
-use App\Models\Portfolio\Art;
-use App\Models\Portfolio\Audio;
-use App\Models\Portfolio\Award;
-use App\Models\Portfolio\Certificate;
-use App\Models\Portfolio\Course;
-use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
-use App\Models\Portfolio\JobCoworker;
-use App\Models\Portfolio\JobSkill;
-use App\Models\Portfolio\JobTask;
-use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
-use App\Models\Portfolio\Photography;
-use App\Models\Portfolio\Project;
-use App\Models\Portfolio\Publication;
-use App\Models\Portfolio\Skill;
-use App\Models\Portfolio\Video;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;

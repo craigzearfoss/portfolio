@@ -2,10 +2,7 @@
 
 namespace App\Console\Commands\CraigZearfossData;
 
-use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
-use App\Models\Personal\RecipeIngredient;
-use App\Models\Personal\RecipeStep;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
