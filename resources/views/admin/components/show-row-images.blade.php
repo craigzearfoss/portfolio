@@ -1,7 +1,7 @@
 @php
     // @TODO: The logic of this page is quite circuitous and should probably cleaned up at some point.
 
-    $upload   = $upload ?? false;
+    use Illuminate\Support\Str;$upload   = $upload ?? false;
     $download = $download ?? false;
     $external = $external ?? false;
     $editPage = $editPage ?? false;
@@ -42,7 +42,7 @@
      @endif
      @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
-     @endif
+    @endif
 >
     <div class="{{ $editPage ? 'field-label' : 'column is-2 label' }}">
         <strong>images</strong>
@@ -164,7 +164,7 @@
                                             'title'    => $imageTitle,
                                             'src'      => $src,
                                             'filename' => $filename,
-                                            'alt'      => $downloadType,
+                                            'alt'      => htmlspecialchars($downloadType),
                                             'width'    => $width,
                                             'download' => false, // download link is created above the image
                                             'external' => false, // external link is created above the image
@@ -180,7 +180,9 @@
                                                     <label for="inputImage_credit" class="label">credit:</label>
                                                 </div>
                                                 <div style="display: inline-block;">
-                                                    <input type="text" id="inputImage_credit" name="image_credit" class="input" value="{{ $resource->image_credit ?? '' }}" style="width: 100%;">
+                                                    <input type="text" id="inputImage_credit" name="image_credit"
+                                                           class="input" value="{{ $resource->image_credit ?? '' }}"
+                                                           style="width: 100%;">
                                                 </div>
                                             </div>
                                             <div>
@@ -188,7 +190,9 @@
                                                     <label for="inputImage_credit" class="label">source:</label>
                                                 </div>
                                                 <div style="display: inline-block;">
-                                                    <input type="text" id="inputImage_credit" name="image_credit" class="input" value="{{ $resource->image_source ?? '' }}" style="width: 100%;">
+                                                    <input type="text" id="inputImage_credit" name="image_credit"
+                                                           class="input" value="{{ $resource->image_source ?? '' }}"
+                                                           style="width: 100%;">
                                                 </div>
                                             </div>
 

@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('jobs', $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('jobs', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Job' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -49,7 +49,7 @@
                     <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
                         @include($envType->value . '.components.image', [
                             'src'   => $job->logo_small,
-                            'alt'   => (!empty($job->company) ?$job->company : 'company') . ' logo',
+                            'alt'   => (!empty($job->company) ? htmlspecialchars($job->company) : 'company') . ' logo',
                             'width' => '48px',
                         ])
                     </div>
@@ -59,7 +59,7 @@
                         <div style="display: inline-block; width: 100%;">
 
                             <div class="list-item-title" style="display: inline-block; float: left;">
-                                <strong>{!! $job->role !!}</strong>
+                                <strong>{!! htmlspecialchars($job->role) !!}</strong>
                             </div>
 
                             <div class="list-item-description gray" style="display: inline-block; float: right;">
@@ -76,19 +76,19 @@
                         <div style="display: inline-block; width: 100%;">
 
                             <div class="list-item-description p-0" style="display: inline-block; float: left;">
-                                <i style="font-weight: 600;">{!! $job->company !!}</i> · {!! $job->employmentType->name ?? '' !!}
+                                <i style="font-weight: 600;">{!! htmlspecialchars($job->company) !!}</i> · {!! htmlspecialchars($job->employmentType->name ?? '') !!}
                             </div>
 
                             <div class="list-item-description gray" style="display: inline-block; float: right;">
                                 <div>
                                     {!!
                                         formatLocation([
-                                            'city'  => $job->city,
+                                            'city'  => htmlspecialchars($job->city),
                                             'state' => $job->state->code ?? ''
                                         ])
                                     !!}
                                     <div class="tag is-rounded">
-                                        {!! $job->locationType->name !!}
+                                        {!! htmlspecialchars($job->locationType->name) !!}
                                     </div>
                                 </div>
                             </div>
@@ -96,14 +96,14 @@
                         </div>
 
                         <div class="list-item-description pt-0">
-                            {!! $job->summary !!}
+                            {!! htmlspecialchars($job->summary) !!}
                         </div>
 
                         <div class="list-item-description pt-1">
                             @if (!empty($job->tasks))
                                 <ul class="job-tasks">
                                     @foreach ($job->tasks as $task)
-                                        <li>• {!! $task->summary !!}</li>
+                                        <li>• {!! htmlspecialchars($task->summary) !!}</li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -113,7 +113,7 @@
 
                             <div class="list-item-description pt-2">
                                 <strong>Skills:</strong>
-                                {!! implode(' · ', array_column($job->skills->toArray(), 'name')) !!}
+                                {!! htmlspecialchars(implode(' · ', array_column($job->skills->toArray(), 'name'))) !!}
                             </div>
 
                         @endif

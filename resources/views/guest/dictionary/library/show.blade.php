@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $library = $library ?? null;
 
-    $title    = 'Dictionary: ' . $library->name;
+    $title    = 'Dictionary: ' . htmlspecialchars($library->name);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Libraries',  'href' => route('guest.dictionary.library.index') ],
-        [ 'name' => $library->name ],
+        [ 'name' => htmlspecialchars($library->name) ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => $library->full_name
+            'value' => htmlspecialchars($library->full_name)
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $library->name
+            'value' => htmlspecialchars($library->name)
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $library->abbreviation
+            'value' => htmlspecialchars($library->abbreviation)
         ])
 
         @include('guest.components.show-row', [
@@ -67,7 +67,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => !empty($library->link_name) ? $library->link_name : 'link',
+            'name'   => !empty($library->link_name) ? htmlspecialchars($library->link_name) : 'link',
             'href'   => $library->link,
             'target' => '_blank'
         ])
@@ -82,13 +82,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $library->image,
-                'alt'          => $library->name,
+                'alt'          => htmlspecialchars($library->name),
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($library),
-                'image_credit' => $library->image_credit,
-                'image_source' => $library->image_source,
+                'image_credit' => htmlspecialchars($library->image_credit),
+                'image_source' => htmlspecialchars($library->image_source),
             ])
 
         @endif

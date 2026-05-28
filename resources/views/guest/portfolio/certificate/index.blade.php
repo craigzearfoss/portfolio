@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('certificates', $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('certificates', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Certificate' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -109,24 +109,24 @@
                     <tr>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => $certificate->name,
+                                'name'  => htmlspecialchars($certificate->name),
                                 'href'  => route('guest.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
                                 'class' => $certificate->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
                         <td style="white-space: nowrap;">
                             @if (!empty($certificate->academy->link))
-                                {{ $certificate->academy->name }}
+                                {!! htmlspecialchars($certificate->academy->name) !!}
                             @else
                                 @include('guest.components.link', [
-                                    'name'   => $certificate->academy->name ?? '',
+                                    'name'   => htmlspecialchars($certificate->academy->name ?? ''),
                                     'href'   => $certificate->academy->link ?? '',
                                     'target' => '_blank',
                                 ])
                             @endif
                         </td>
                         <td class="hide-at-900" style="white-space: nowrap;">
-                            {!! $certificate->organization !!}
+                            {!! htmlspecialchars($certificate->organization) !!}
                         </td>
                         <td class="has-text-centered hide-at-600">
                             {!! $certificate->certificate_year !!}

@@ -111,7 +111,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $operatingSystem->description
+            'value' => nl2br($operatingSystem->description)
         ])
 
         @include('admin.components.show-row-images', [

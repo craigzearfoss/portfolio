@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('awards', $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('awards', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Award' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -102,7 +102,7 @@
                     <tr>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => $award->name,
+                                'name'  => htmlspecialchars($award->name),
                                 'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
                                 'class' => $award->featured ? 'has-text-weight-bold' : ''
                             ])
@@ -110,20 +110,20 @@
                         <td style="white-space: nowrap;">
                             @if (!empty($award->category))
                                 @include('guest.components.link', [
-                                    'name'  => $award->category,
+                                    'name'  => ($award->category),
                                     'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
                                     'class' => $award->featured ? 'has-text-weight-bold' : ''
                                 ])
                             @endif
                         </td>
                         <td style="white-space: nowrap;">
-                            {!! $award->nominated_work !!}
+                            {!! htmlspecialchars($award->nominated_work) !!}
                         </td>
                         <td class="has-text-centered">
                             {!! $award->award_year !!}
                         </td>
                         <td class="hide-at-1300" style="white-space: nowrap;">
-                            {!! $award->organization !!}
+                            {!! htmlspecialchars($award->organization) !!}
                         </td>
                     </tr>
 

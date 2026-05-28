@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $stack = $stack ?? null;
 
-    $title    = 'Dictionary: ' . $stack->name;
+    $title    = 'Dictionary: ' . htmlspecialchars($stack->name);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Stacks',     'href' => route('guest.dictionary.stack.index') ],
-        [ 'name' => $stack->name ],
+        [ 'name' => htmlspecialchars($stack->name) ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => $stack->full_name
+            'value' => htmlspecialchars($stack->full_name)
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $stack->name
+            'value' => htmlspecialchars($stack->name)
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $stack->abbreviation
+            'value' => htmlspecialchars($stack->abbreviation)
         ])
 
         @include('guest.components.show-row', [
@@ -67,7 +67,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => !empty($stack->link_name) ? $stack->link_name : 'link',
+            'name'   => !empty($stack->link_name) ? htmlspecialchars($stack->link_name) : 'link',
             'href'   => $stack->link,
             'target' => '_blank'
         ])
@@ -82,13 +82,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $stack->image,
-                'alt'          => $stack->name,
+                'alt'          => htmlspecialchars($stack->name),
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($stack),
-                'image_credit' => $stack->image_credit,
-                'image_source' => $stack->image_source,
+                'image_credit' => htmlspecialchars($stack->image_credit),
+                'image_source' => htmlspecialchars($stack->image_source),
             ])
 
         @endif

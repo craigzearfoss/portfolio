@@ -78,7 +78,7 @@
 
                 @include('admin.components.show-row', [
                     'name'  => 'notes',
-                    'value' => htmlspecialchars($coverLetter->notes)
+                    'value' => nl2br(htmlspecialchars($coverLetter->notes))
                 ])
 
                 @include('admin.components.show-row-link', [
@@ -97,7 +97,7 @@
                 @include('admin.components.show-row', [
                     'name'  => 'disclaimer',
                     'value' => view('admin.components.disclaimer', [
-                                    'value' => $coverLetter->disclaimer
+                                    'value' => htmlspecialchars($coverLetter->disclaimer)
                                ])
                 ])
 

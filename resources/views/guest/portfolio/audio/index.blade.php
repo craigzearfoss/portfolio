@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('audio', $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('audio', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Audio' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -84,7 +84,7 @@
                     <tr data-id="{{ $audio->id }}">
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => $audio->name,
+                                'name'  => htmlspecialchars($audio->name),
                                 'href'  => route('guest.portfolio.audio.show', [$owner, $audio->slug]),
                                 'class' => $audio->featured ? 'has-text-weight-bold' : ''
                             ])

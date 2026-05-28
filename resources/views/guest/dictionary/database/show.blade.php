@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $database = $database ?? null;
 
-    $title    = 'Dictionary: ' . $database->name;
+    $title    = 'Dictionary: ' . htmlspecialchars($database->name);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Databases',  'href' => route('guest.dictionary.database.index') ],
-        [ 'name' => $database->name ],
+        [ 'name' => htmlspecialchars($database->name) ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => $database->full_name
+            'value' => htmlspecialchars($database->full_name)
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $database->name
+            'value' => htmlspecialchars($database->name)
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $database->abbreviation
+            'value' => htmlspecialchars($database->abbreviation)
         ])
 
         @include('guest.components.show-row', [
@@ -67,7 +67,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => !empty($database->link_name) ? $database->link_name : 'link',
+            'name'   => !empty($database->link_name) ? htmlspecialchars($database->link_name) : 'link',
             'href'   => $database->link,
             'target' => '_blank'
         ])
@@ -82,13 +82,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $database->image,
-                'alt'          => $database->name,
+                'alt'          => htmlspecialchars($database->name),
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($database),
-                'image_credit' => $database->image_credit,
-                'image_source' => $database->image_source,
+                'image_credit' => htmlspecialchars($database->image_credit),
+                'image_source' => htmlspecialchars($database->image_source),
             ])
 
         @endif

@@ -157,7 +157,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => htmlspecialchars($recruiter->notes)
+            'value' => nl2br(htmlspecialchars($recruiter->notes))
         ])
 
         @include('admin.components.show-row-visibility', [

@@ -6,17 +6,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('readings', $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('readings', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Personal',                     'href' => route('guest.personal.index', $owner) ],
             [ 'name' => 'Readings' ],
           ];
 
@@ -30,7 +30,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -102,7 +102,7 @@
                     <tr>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => $reading->title,
+                                'name'  => htmlspecialchars($reading->title),
                                 'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
                                 'class' => $reading->featured ? 'has-text-weight-bold' : ''
                             ])

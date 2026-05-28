@@ -105,7 +105,7 @@
             @include('admin.components.show-row', [
                 'name'  => 'disclaimer',
                 'value' => view('admin.components.disclaimer', [
-                                'value' => $jobSkill->disclaimer
+                                'value' => htmlspecialchars($jobSkill->disclaimer)
                            ])
             ])
 
@@ -118,7 +118,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'notes',
-                'value' => $jobSkill->notes
+                'value' => nl2br(htmlspecialchars($jobSkill->notes))
             ])
 
             @include('admin.components.show-row-visibility', [

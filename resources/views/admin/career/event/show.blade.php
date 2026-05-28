@@ -127,13 +127,13 @@
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => $event->disclaimer
+                            'value' => htmlspecialchars($event->disclaimer)
                        ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => htmlspecialchars($event->notes)
+            'value' => nl2br(htmlspecialchars($event->notes))
         ])
 
         @include('admin.components.show-row-visibility', [

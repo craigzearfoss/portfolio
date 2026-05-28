@@ -68,7 +68,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'notes',
-                'value' => $adminPhone->notes
+                'value' => nl2br(htmlspecialchars($adminPhone->notes))
             ])
 
             @include('admin.components.show-row-visibility', [

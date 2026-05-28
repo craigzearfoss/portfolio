@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('courses', $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('courses', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Courses' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -95,24 +95,24 @@
                     <tr>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => $course->name,
+                                'name'  => htmlspecialchars($course->name),
                                 'href'  => route('guest.portfolio.course.show', [$owner, $course->slug]),
                                 'class' => $course->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
                         <td style="white-space: nowrap;">
                             @if (!empty($course->academy->link))
-                                {!! $course->academy->name !!}
+                                {!! htmlspecialchars($course->academy->name) !!}
                             @else
                                 @include('guest.components.link', [
-                                    'name'   => $course->academy->name] ?? ''),
+                                    'name'   => htmlspecialchars($course->academy->name ?? ''),
                                     'href'   => $course->academy->link ?? '',
                                     'target' => '_blank',
                                 ])
                             @endif
                         </td>
                         <td class="hide-at-480" style="white-space: nowrap;">
-                            {!! $course->instructor !!}
+                            {!! htmlspecialchars($course->instructor) !!}
                         </td>
                         <td style="white-space: nowrap;">
                             {!! longDate($course->completion_date) !!}

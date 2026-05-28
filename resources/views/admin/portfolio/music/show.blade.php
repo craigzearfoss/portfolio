@@ -172,7 +172,7 @@
             @include('admin.components.show-row', [
                 'name'  => 'disclaimer',
                 'value' => view('admin.components.disclaimer', [
-                                'value' => $music->disclaimer
+                                'value' => htmlspecialchars($music->disclaimer)
                            ])
             ])
 
@@ -185,7 +185,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'notes',
-                'value' => $music->notes
+                'value' => nl2br(htmlspecialchars($music->notes))
             ])
 
             @include('admin.components.show-row-visibility', [

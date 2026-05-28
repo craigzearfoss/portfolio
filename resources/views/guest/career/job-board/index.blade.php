@@ -63,12 +63,12 @@
                         <td style="white-space: nowrap;{{ $jobBoard->primary ? ' font-weight: 700;' : '' }}">
                             @if (!empty($jobBoard->link))
                                 @include('guest.components.link', [
-                                    'name'   => $jobBoard->name,
+                                    'name'   => htmlspecialchars($jobBoard->name)),
                                     'href'   => $jobBoard->link,
                                     'target' => '_blank'
                                 ])
                             @else
-                                <span style="font-weight: 700;">{{ $jobBoard->name }}</span>
+                                <span style="font-weight: 700;">{!! htmlspecialchars($jobBoard->name) !!}</span>
                             @endif
                         </td>
                         <td class="has-text-centered">
@@ -84,7 +84,7 @@
                             @include('guest.components.checkmark', [ 'checked' => $jobBoard->freelance ])
                         </td>
                         <td style="white-space: nowrap;">
-                            {!! $jobBoard->summary !!}
+                            {!! htmlspecialchars($jobBoard->summary) !!}
                         </td>
                     </tr>
 

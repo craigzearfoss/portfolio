@@ -96,11 +96,6 @@
                 'value' => $academy->alt_email
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $academy->notes
-            ])
-
             @include('admin.components.show-row-link', [
                 'name'   => 'link',
                 'href'   => $academy->link,
@@ -127,7 +122,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'notes',
-                'value' => $academy->notes
+                'value' => nl2br(htmlspecialchars($academy->notes))
             ])
 
             @include('admin.components.show-row-visibility', [

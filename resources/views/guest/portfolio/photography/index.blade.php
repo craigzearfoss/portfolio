@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title   = $pageTitle ?? filteredPageTitle('photography', $owner->name);
+    $title   = $pageTitle ?? filteredPageTitle('photography', htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Photography' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
 
@@ -88,13 +88,13 @@
                     <tr>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => $photo->name,
+                                'name'  => htmlspecialchars($photo->name),
                                 'href'  => route('guest.portfolio.photography.show', [$owner, $photo->slug]),
                                 'class' => $photo->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
                         <td class="hide-at-480" style="white-space: nowrap;">
-                            {!! $photo->credit !!}
+                            {!! htmlspecialchars($photo->credit) !!}
                         </td>
                         <td class="has-text-centered hide-at-750">
                             {!! $photo->photo_year !!}

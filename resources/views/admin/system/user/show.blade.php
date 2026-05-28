@@ -167,7 +167,7 @@
             @include('admin.components.show-row', [
                 'name'  => 'disclaimer',
                 'value' => view('admin.components.disclaimer', [
-                                'value' => $thisUser->disclaimer
+                                'value' => htmlspecialchars($thisUser->disclaimer)
                            ])
             ])
 

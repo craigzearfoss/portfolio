@@ -4,19 +4,19 @@
     $recipe           = $recipe ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Recipe: ' . $recipe->name, $owner->name);
+    $title    = $pageTitle ?? filteredPageTitle('Recipe: ' . htmlspecialchars($recipe->name), htmlspecialchars($owner->name));
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
-            [ 'name' => 'Recipes',    'href' => route('guest.personal.recipe.index', $owner) ],
-            [ 'name' => $recipe->name ],
+            [ 'name' => 'Home',                         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
+            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Personal',                     'href' => route('guest.personal.index', $owner) ],
+            [ 'name' => 'Recipes',                      'href' => route('guest.personal.recipe.index', $owner) ],
+            [ 'name' => htmlspecialchars($recipe->name) ],
           ];
 
     // set navigation buttons
@@ -29,7 +29,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $recipe->disclaimer ])
+    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($recipe->disclaimer) ])
 
     <div class="floating-div-container" style="display: inline-block;">
 
@@ -41,28 +41,28 @@
                 @if (!empty($recipe->name))
                     <tr>
                         <th>name:</th>
-                        <td>{{ $recipe->name }}</td>
+                        <td>{!! htmlspecialchars($recipe->name) !!}</td>
                     </tr>
                 @endif
 
                 @if (!empty($recipe->summary))
                     <tr>
                         <th>summary:</th>
-                        <td>{!! $recipe->summary !!}</td>
+                        <td>{!! htmlspecialchars($recipe->summary) !!}</td>
                     </tr>
                @endif
 
                 @if (!empty($recipe->source))
                     <tr>
                         <th>source:</th>
-                        <td>{{ $recipe->source }}</td>
+                        <td>{!! htmlspecialchars($recipe->source) !!}</td>
                     </tr>
                @endif
 
                 @if (!empty($recipe->author))
                     <tr>
                         <th>author:</th>
-                        <td>{{ $recipe->author }}</td>
+                        <td>{!! htmlspecialchars($recipe->author) !!}</td>
                     </tr>
                @endif
 
@@ -106,7 +106,7 @@
                         <th>{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}:</th>
                         <td>
                             @include('guest.components.link', [
-                                'name'   => !empty($recipe->link_name) ? $recipe->link_name : 'link',
+                                'name'   => !empty($recipe->link_name) ? htmlspecialchars($recipe->link_name) : 'link',
                                 'href'   => $recipe->link,
                                 'target' => '_blank'
                             ])
@@ -127,13 +127,13 @@
                             @include('guest.components.image-credited', [
                                 'name'         => 'image',
                                 'src'          => $recipe->image,
-                                'alt'          => $recipe->name,
+                                'alt'          => htmlspecialchars($recipe->name),
                                 'width'        => '300px',
                                 'download'     => true,
                                 'external'     => true,
                                 'filename'     => generateDownloadFilename($recipe),
-                                'image_credit' => $recipe->image_credit,
-                                'image_source' => $recipe->image_source,
+                                'image_credit' => htmlspecialchars($recipe->image_credit),
+                                'image_source' => htmlspecialchars($recipe->image_source),
                             ])
                         </td>
                     </tr>
@@ -159,7 +159,7 @@
                         {!! \App\Models\Personal\Unit::find($ingredient->unit_id)->name !!}
                         {!! \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name !!}
                         @if (!empty($ingredient->qualifier))
-                            - {!! $ingredient->qualifier !!}
+                            - {!! htmlspecialchars($ingredient->qualifier) !!}
                         @endif
                     </li>
 

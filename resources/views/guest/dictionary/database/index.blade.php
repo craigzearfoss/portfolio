@@ -50,7 +50,7 @@
 
                     <li>
                         @include('guest.components.dictionary-definition', [
-                            'word'  => $database,
+                            'word'  => htmlspecialchars($database),
                             'route' => route('guest.dictionary.database.show', $database->slug),
                         ])
                     </li>

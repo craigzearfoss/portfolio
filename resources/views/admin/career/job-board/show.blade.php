@@ -124,11 +124,6 @@
             'value' => htmlspecialchars($jobBoard->alt_email)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $jobBoard->notes
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $jobBoard->link,
@@ -155,7 +150,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $jobBoard->notes
+            'value' => nl2br(htmlspecialchars($jobBoard->notes))
         ])
 
         @include('admin.components.show-row-visibility', [

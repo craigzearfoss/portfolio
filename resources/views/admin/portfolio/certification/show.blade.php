@@ -94,7 +94,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'notes',
-                'value' => $certification->notes
+                'value' => nl2br(htmlspecialchars($certification->notes))
             ])
 
             @include('admin.components.show-row-visibility', [

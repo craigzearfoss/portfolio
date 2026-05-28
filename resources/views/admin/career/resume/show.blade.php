@@ -130,7 +130,7 @@
                                 @include('admin.components.show-row', [
                                     'name'  => 'disclaimer',
                                     'value' => view('admin.components.disclaimer', [
-                                                    'value' => $resume->disclaimer
+                                                    'value' => htmlspecialchars($resume->disclaimer)
                                                ])
                                 ])
 
@@ -143,7 +143,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => htmlspecialchars($resume->notes)
+                                    'value' => nl2br(htmlspecialchars($resume->notes))
                                 ])
 
                                 @include('admin.components.show-row-visibility', [

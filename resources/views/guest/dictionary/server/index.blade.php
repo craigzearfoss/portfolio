@@ -50,7 +50,7 @@
 
                     <li>
                         @include('guest.components.dictionary-definition', [
-                            'word'  => $server,
+                            'word'  => htmlspecialchars($server),
                             'route' => route('guest.dictionary.server.show', $server->slug)
                         ])
                     </li>
