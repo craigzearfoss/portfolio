@@ -60,7 +60,7 @@
                 @forelse ($jobBoards as $jobBoard)
 
                     <tr>
-                        <td style="white-space: nowrap; font-weight: 700;">
+                        <td style="white-space: nowrap;{{ $jobBoard->primary ? ' font-weight: 700;' : '' }}">
                             @if (!empty($jobBoard->link))
                                 @include('guest.components.link', [
                                     'name'   => $jobBoard->name,
