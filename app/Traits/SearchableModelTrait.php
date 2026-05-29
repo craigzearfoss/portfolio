@@ -645,10 +645,14 @@ trait SearchableModelTrait
             $query->orderBy($column, self::SEARCH_ORDER_BY[1]);
         } else {
             $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
-            $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
+            $orderByDir = strtolower(explode('|', $sort)[1] ?? 'asc');
 
-            if (!empty($orderByCol) && !empty($orderByDir)) {
-                $query->orderBy($orderByCol, $orderByDir);
+            if (!empty($orderByCol)) {
+                if (!empty($orderByDir)) {
+                    $query->orderBy($orderByCol, $orderByDir);
+                } else {
+                    $query->orderBy($orderByCol);
+                }
             }
         }
 
