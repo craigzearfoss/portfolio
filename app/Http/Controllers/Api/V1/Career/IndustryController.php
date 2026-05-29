@@ -33,10 +33,10 @@ class IndustryController extends Controller
         if (!empty($page)) {
             $industries = $query->paginate($perPage)->appends(request()->except('page'));
         } else {
-            $industrys = $query->get();
+            $industries = $query->get();
         }
 
-        return response()->json($industrys)->setStatusCode(Response::HTTP_OK);
+        return response()->json($industries)->setStatusCode(Response::HTTP_OK);
     }
 
     /**
