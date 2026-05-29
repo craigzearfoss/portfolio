@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Career\IndustryController as CareerIndustryController;
 use App\Http\Controllers\Api\V1\Career\JobBoardController as CareerJobBoardController;
 use App\Http\Controllers\Api\V1\Career\RecruiterController as CareerRecruiterController;
 use App\Http\Controllers\Api\V1\Personal\IndexController as PersonalIndexController;
@@ -26,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->name('api.v1.')->group(function () {
 
+    Route::get('career/industries', [CareerIndustryController::class, 'index'])->name('career.job-industry.index');
+    Route::get('career/industries/{id}', [CareerIndustryController::class, 'show'])->name('career.industry.show');
     Route::get('career/job-boards', [CareerJobBoardController::class, 'index'])->name('career.job-board.index');
     Route::get('career/job-boards/{id}', [CareerJobBoardController::class, 'show'])->name('career.job-board.show');
     Route::get('career/recruiters', [CareerRecruiterController::class, 'index'])->name('career.recruiter.index');
