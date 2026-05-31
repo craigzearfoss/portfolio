@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin\Career;
 
 use App\Exports\Career\ReferencesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Requests\Career\StoreCompanyReferencesRequest;
 use App\Http\Requests\Career\StoreReferencesRequest;
 use App\Http\Requests\Career\UpdateReferencesRequest;
+use App\Models\Career\Company;
+use App\Models\Career\CompanyReference;
 use App\Models\Career\Reference;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -54,7 +57,10 @@ class ReferenceController extends BaseAdminController
     {
         createGate(Reference::class, $this->admin);
 
-        return view('admin.career.reference.create');
+        $company_id = request()->query('company_id', null);
+        $reference_id = request()->query('reference_id', null);
+
+        return view('admin.career.reference.create', compact('company_id', 'reference_id'));
     }
 
     /**
@@ -67,13 +73,37 @@ class ReferenceController extends BaseAdminController
     {
         createGate(Reference::class, $this->admin);
 
-        $reference = Reference::query()->create($request->validated());
+        $reference = null;
+        $error = null;
+
+        if ($companyId = $request->input('company_id')) {
+            if (!$companyId = Company::query()->find($companyId)) {
+                $error = 'Company ' . $companyId . ' not found';
+            }
+        }
+
+        if (empty($error)) {
+
+            // create the reference
+            $reference = Reference::query()->create($request->validated());
+
+            // attach the reference to the company (if one was specified)
+            if (!empty($companyId)) {
+                CompanyReference::query()->insert([
+                    'owner_id'   => $reference->owner_id,
+                    'contact_id' => $reference->id,
+                    'company_id' => $companyId,
+                    'active'     => true,
+                ]);
+            }
+
+        }
 
         if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $reference['name'] . ' successfully added.');
-        } else {
+        } elseif (!empty($referenceId)) {
             return redirect()->route('admin.career.reference.show', $reference)
-                ->with('success', $reference['name'] . ' successfully added.');
+                ->with('success', $reference->name . ' successfully added.');
         }
     }
 
@@ -87,6 +117,10 @@ class ReferenceController extends BaseAdminController
     {
         readGate($reference, $this->admin);
 
+        $companies = new CompanyReference()->newQuery()->where('reference_id', $reference->id)
+            ->leftJoin(dbName('career_db' ) . '.companies', 'companies.id', '=', 'company_reference.company_id')
+            ->get();
+
         list($prev, $next) = $reference->prevAndNextPages(
             $reference['id'],
             'admin.career.reference.show',
@@ -94,7 +128,7 @@ class ReferenceController extends BaseAdminController
             [ 'name', 'asc' ]
         );
 
-        return view('admin.career.reference.show', compact('reference', 'prev', 'next'));
+        return view('admin.career.reference.show', compact('reference', 'companies', 'prev', 'next'));
     }
 
     /**
@@ -145,6 +179,74 @@ class ReferenceController extends BaseAdminController
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference['name'] . ' deleted successfully.');
+    }
+
+    /**
+     * Show the page to add a company to the reference.
+     *
+     * @param Reference $reference
+     * @return View
+     */
+    public function addCompany(Reference $reference): View
+    {
+        updateGate($reference, $this->admin);
+
+        return view('admin.career.reference.company.add', compact('reference'));
+    }
+
+    /**
+     * Attach a company to the reference.
+     *
+     * @param int $referenceId
+     * @param StoreCompanyReferencesRequest $request
+     * @return RedirectResponse
+     */
+    public function attachCompany(int $referenceId, StoreCompanyReferencesRequest $request): RedirectResponse
+    {
+        $reference = Reference::query()->find($referenceId);
+
+        updateGate($reference, $this->admin);
+
+        $data = $request->validated();
+
+        if (!empty($data['company_id'])) {
+
+            // Attach an existing reference.
+            if (!$company = Company::query()->find($data['company_id'])) {
+                return redirect(route('admin.career.reference.company.add', $referenceId))
+                    ->with('error', 'Company ' . $data['company_id'] . ' not found.');
+            }
+            $reference->companies()->attach($data['company_id']);
+
+        } else {
+
+            // Create a new company and attach it.
+            $company = new Company();
+            $company->fill($data);
+            $company->save();
+
+            $reference->companies()->attach($company->id);
+        }
+
+        return redirect(referer('admin.career.reference.index'))
+            ->with('success', $reference->name . ' successfully added to ' . $reference->name . '.');
+    }
+
+    /**
+     * Detach the specified company from the reference.
+     *
+     * @param Reference $reference
+     * @param Company $company
+     * @return RedirectResponse
+     */
+    public function detachCompany(Reference $reference, Company $company): RedirectResponse
+    {
+        updateGate($reference, $this->admin);
+
+        $reference->companies()->detach($company->id);
+
+        return redirect(referer('admin.career.reference.index'))
+            ->with('success', $company->name . ' deleted successfully removed from ' . $reference->name . '.');
     }
 
     /**

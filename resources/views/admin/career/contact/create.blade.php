@@ -1,6 +1,7 @@
 @php
     use App\Models\Career\Company;
     use App\Models\Career\Contact;
+    use App\Models\Career\Recruiter;
     use App\Models\System\Country;
     use App\Models\System\Owner;
     use App\Models\System\State;
@@ -11,7 +12,7 @@
     $isRootAdmin   = $isRootAdmin ?? false;
     $contact       = $contact ?? null;
 
-    $title    = $pageTitle ?? 'Add New Contact';
+    $title    = $pageTitle ?? (!empty($recruiter_id) ? 'Add New Recruiting Contact' : 'Add New Contact');
     $subtitle = $title;
 
     // set breadcrumbs
@@ -50,7 +51,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
+                    'value'    => old('owner_id') ?? $admin->id,
                     'required' => true,
                     'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
@@ -61,6 +62,17 @@
                     'value' => $admin->id ?? null,
                 ])
             @endif
+
+            @if (!empty($recruiter_id))
+                @include('admin.components.form-select-horizontal', [
+                    'name'     => 'recruiter_id',
+                    'label'    => 'recruiting firm',
+                    'value'    => old('recruiter_id') ?? '',
+                    'required' => true,
+                    'list'     => new Recruiter()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
+                    'message'  => $message ?? '',
+                ])
+            @endif;
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',

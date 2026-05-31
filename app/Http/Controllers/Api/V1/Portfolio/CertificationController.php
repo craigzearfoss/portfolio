@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Portfolio;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Portfolio\CertificationCollection;
+use App\Http\Resources\Portfolio\CertificationResource;
 use App\Models\Portfolio\Certification;
-use App\Models\System\Owner;
 use App\Traits\GuestControllerTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -36,22 +36,17 @@ class CertificationController extends Controller
             $certifications = $query->get();
         }
 
-        return response()->json($certifications)->setStatusCode(Response::HTTP_OK);
+        return new CertificationCollection($certifications)->response();
     }
 
     /**
      * Display the specified portfolio certification.
      *
-     * @param string $id
+     * @param Certification $certification
      * @return JsonResponse
      */
-    public function show(string $id): JsonResponse
+    public function show(Certification $certification): JsonResponse
     {
-        if (!new Owner()->newQuery()->find($id)) {
-            return response()->json([ 'message' => "Certification `{$id}` not found." ])->setStatusCode(Response::HTTP_NO_CONTENT);
-        } else {
-            $certification = Certification::query()->where('id', '=', $id)->get();
-            return response()->json($certification)->setStatusCode(Response::HTTP_OK);
-        }
+        return new CertificationResource($certification)->response();
     }
 }

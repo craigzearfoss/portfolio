@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CompanyContact extends Model
 {
-    /** @use HasFactory<CompanyContactFactory> */
+    /** @use HasFactoryCompanyContactFactory> */
     use HasFactory;
 
     /**

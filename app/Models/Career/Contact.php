@@ -102,7 +102,7 @@ class Contact extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email', 'company_name'
+        'owner_name', 'owner_username', 'owner_email', 'company_name', 'recruiter_name'
     ];
 
     /**
@@ -124,14 +124,14 @@ class Contact extends Model
      */
     const array SORT_OPTIONS = [
         //'application_id|asc' => 'application id',
+        'city|asc'           => 'city',
         'company_name|asc'   => 'company',
         'created_at|desc'    => 'datetime created',
+        'email|asc'          => 'email',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
         'is_disabled|desc'   => 'disabled',
         'id|asc'             => 'id',
-        'city|asc'           => 'city',
-        'email|asc'          => 'email',
         'name|asc'           => 'name',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
@@ -149,8 +149,8 @@ class Contact extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'company_name', 'email', 'name', 'state_id', ],
-        'guest' => [ 'city', 'company_name', 'email', 'name', 'state_id', ],
+        'admin' => [ 'city', 'company_name', 'email', 'name', 'phone', 'state_id', ],
+        'guest' => [ 'city', 'company_name', 'email', 'name', 'phone', 'state_id', ],
     ];
 
     /**
@@ -212,7 +212,7 @@ class Contact extends Model
                 $query->where($this->table . '.birthday', '=', $filters['birthday']);
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
-                $query->where('companies.id', 'like', '%' . intval($filters['company_id']));
+                $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
             })
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
@@ -245,22 +245,29 @@ class Contact extends Model
 
 
         // add joins
-        $query->leftJoin( dbName('career_db') . '.company_contact', 'company_contact.contact_id', '=', $this->table . '.id')
-            ->leftJoin( dbName('career_db') . '.companies', 'companies.id', '=', 'company_contact.company_id')
+        $query->leftJoin(dbName('career_db') . '.company_contact', 'company_contact.contact_id', '=', $this->table . '.id')
+            ->leftJoin(dbName('career_db') . '.companies', 'companies.id', '=', 'company_contact.company_id')
             ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'contacts.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'contacts.country_id');
 
         $query->with('owner', 'companies', 'state', 'country');
 
         $query->addSelect(
-                DB::raw(dbName($this->connection) . '.companies.id AS company_id'),
-                DB::raw(dbName($this->connection) . '.companies.name AS company_name'),
-                DB::raw('states.name as state_name'),
-                DB::raw('states.code as state_code'),
-                DB::raw('countries.name as country_name'),
-                DB::raw('countries.m49 as country_m49'),
-                DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
-            );
+            DB::raw(dbName($this->connection) . '.companies.id AS company_id'),
+            DB::raw(dbName($this->connection) . '.companies.name AS company_name'),
+            DB::raw('states.name as state_name'),
+            DB::raw('states.code as state_code'),
+            DB::raw('countries.name as country_name'),
+            DB::raw('countries.m49 as country_m49'),
+            DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
+        );
+
+        // add additional filters
+        $query = $this->appendAddressFilters($query, $filters);
+        $query = $this->appendPhoneFilters($query, $filters);
+        $query = $this->appendEmailFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
         // add order by clause
         return $this->addOrderBy($query, $sort);
@@ -298,6 +305,15 @@ class Contact extends Model
     {
         return $this->hasMany(JobSearchLog::class, 'application_id')
             ->orderBy('time_logged', 'desc');
+    }
+
+    /**
+     * Get the career recruiters for the contact.
+     */
+    public function recruiters(): BelongsToMany
+    {
+        return $this->belongsToMany(Recruiter::class)->withPivot('active')
+            ->orderBy('name');
     }
 
     /**

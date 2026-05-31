@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Career;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Career\RecruiterCollection;
+use App\Http\Resources\Career\RecruiterResource;
 use App\Models\Career\Recruiter;
-use App\Models\System\Owner;
 use App\Traits\GuestControllerTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -36,22 +36,17 @@ class RecruiterController extends Controller
             $recruiters = $query->get();
         }
 
-        return response()->json($recruiters)->setStatusCode(Response::HTTP_OK);
+        return new RecruiterCollection($recruiters)->response();
     }
 
     /**
      * Display the specified career recruiter.
      *
-     * @param string $id
+     * @param Recruiter $recruiter
      * @return JsonResponse
      */
-    public function show(string $id): JsonResponse
+    public function show(Recruiter $recruiter): JsonResponse
     {
-        if (!new Owner()->newQuery()->find($id)) {
-            return response()->json([ 'message' => "Recruiter `{$id}` not found." ])->setStatusCode(Response::HTTP_NO_CONTENT);
-        } else {
-            $recruiter = Recruiter::query()->where('id', '=', $id)->get();
-            return response()->json($recruiter)->setStatusCode(Response::HTTP_OK);
-        }
+        return new RecruiterResource($recruiter)->response();
     }
 }

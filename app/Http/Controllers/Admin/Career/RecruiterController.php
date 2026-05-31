@@ -6,7 +6,9 @@ use App\Exports\Career\RecruitersExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreRecruitersRequest;
 use App\Http\Requests\Career\UpdateRecruitersRequest;
+use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
+use App\Models\Career\RecruiterContact;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,9 +41,19 @@ class RecruiterController extends BaseAdminController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
+        $contacts = new Contact()->searchQuery(
+            request()->except('recruiter_id', 'sort'),
+            request()->input('sort') ?? implode('|', Contact::SEARCH_ORDER_BY),
+            !$this->isRootAdmin ? $this->admin : null
+        )
+        ->leftJoin(dbName('career_db') . '.recruiter_contact', 'contacts.id', '=', 'recruiter_contact.contact_id')
+        ->whereNotNull('recruiter_contact.recruiter_id')
+        ->where('recruiter_contact.recruiter_id', '<>', '')
+        ->paginate($perPage)->appends(request()->except('page'));
+
         $pageTitle = 'Recruiters';
 
-        return view('admin.career.recruiter.index', compact('recruiters', 'pageTitle'))
+        return view('admin.career.recruiter.index', compact('recruiters', 'contacts', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

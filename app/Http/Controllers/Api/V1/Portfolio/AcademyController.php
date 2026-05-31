@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Portfolio;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Portfolio\AcademyCollection;
+use App\Http\Resources\Portfolio\AcademyResource;
 use App\Models\Portfolio\Academy;
-use App\Models\System\Owner;
 use App\Traits\GuestControllerTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -36,22 +36,17 @@ class AcademyController extends Controller
             $academies = $query->get();
         }
 
-        return response()->json($academies)->setStatusCode(Response::HTTP_OK);
+        return new AcademyCollection($academies)->response();
     }
 
     /**
      * Display the specified portfolio academy.
      *
-     * @param string $id
+     * @param Academy $academy
      * @return JsonResponse
      */
-    public function show(string $id): JsonResponse
+    public function show(Academy $academy): JsonResponse
     {
-        if (!new Owner()->newQuery()->find($id)) {
-            return response()->json([ 'message' => "Academy `{$id}` not found." ])->setStatusCode(Response::HTTP_NO_CONTENT);
-        } else {
-            $academy = Academy::query()->where('id', '=', $id)->get();
-            return response()->json($academy)->setStatusCode(Response::HTTP_OK);
-        }
+        return new AcademyResource($academy)->response();
     }
 }

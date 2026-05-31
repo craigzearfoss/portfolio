@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Career;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Career\JobBoardCollection;
+use App\Http\Resources\Career\JobBoardResource;
 use App\Models\Career\JobBoard;
-use App\Models\System\Owner;
 use App\Traits\GuestControllerTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -36,22 +36,17 @@ class JobBoardController extends Controller
             $jobBoards = $query->get();
         }
 
-        return response()->json($jobBoards)->setStatusCode(Response::HTTP_OK);
+        return new JobBoardCollection($jobBoards)->response();
     }
 
     /**
      * Display the specified career job board.
      *
-     * @param string $id
+     * @param JobBoard $jobBoard
      * @return JsonResponse
      */
-    public function show(string $id): JsonResponse
+    public function show(JobBoard $jobBoard): JsonResponse
     {
-        if (!new Owner()->newQuery()->find($id)) {
-            return response()->json([ 'message' => "Job board `{$id}` not found." ])->setStatusCode(Response::HTTP_NO_CONTENT);
-        } else {
-            $jobBoard = JobBoard::query()->where('id', '=', $id)->get();
-            return response()->json($jobBoard)->setStatusCode(Response::HTTP_OK);
-        }
+        return new JobBoardResource($jobBoard)->response();
     }
 }

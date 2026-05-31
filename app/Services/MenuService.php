@@ -187,6 +187,56 @@ class MenuService
     }
 
     /**
+     * Return the menu array (or json).
+     *
+     * @param string $menuType
+     * @param bool $returnJson
+     * @return array|string
+     * @throws Exception
+     */
+    public function getMenu(string $menuType = 'left', bool $returnJson = false): array|string
+    {
+        if (!in_array($menuType, ['left', 'top'])) {
+            throw new Exception("Invalid menu type `{$menuType}` specified.");
+        }
+
+        $menu = ($menuType == 'left') ? $this->leftMenu() : $this->topMenu();
+
+        if (!$returnJson) {
+
+            return $menu;
+
+        } else {
+
+            $array = [];
+            foreach ($menu as $i=>$menuItem) {
+                if (get_class($menuItem) == 'stdClass') {
+
+                    $array[] = (array)$menuItem;
+
+                } else {
+
+                    $attributes = $menuItem->getAttributes();
+                    if (array_key_exists('owner', $attributes)) unset($attributes['owner']);
+                    if (array_key_exists('resources', $attributes)) unset($attributes['resources']);
+
+                    if (array_key_exists('children', $attributes)) {
+                        $attributes['children'] = $attributes['children']->toArray();
+                        for ($j = 0; $j < count($attributes['children']); $j++) {
+                            if (array_key_exists('owner', $attributes['children'][$j])) unset($attributes['children'][$j]['owner']);
+                            if (array_key_exists('database', $attributes['children'][$j])) unset($attributes['children'][$j]['database']);
+                        }
+                    }
+
+                    $array[] = $attributes;
+                }
+            }
+
+            return json_encode($array);
+        }
+    }
+
+    /**
      * Returns the array of items for the left nav menu.
      *
      * @param bool $hasAdmins

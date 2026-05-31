@@ -80,11 +80,6 @@ class BaseController extends Controller
     protected ?CookieManagerService $cookieManager = null;
 
     /**
-     * @var int
-     */
-    protected int $PAGINATION_PER_PAGE = 20;
-
-    /**
      * @param PermissionService $permissionService
      * @param EnvTypes $envType
      * @throws Exception
@@ -137,24 +132,6 @@ class BaseController extends Controller
         view()->share('pagination_top', config('app.pagination_top'));
         view()->share('top_column_headings', config('app.top_column_headings'));
         view()->share('bottom_column_headings', config('app.bottom_column_headings'));
-    }
-
-    /**
-     * Returns the number of items per page for pagination. First it checks the
-     * PAGINATION_PER_PAGE variable in the .env file. If it is not set then it
-     * get the value of the PAGINATION_PER_PAGE class  variable in the controller.
-     *
-     * @return int
-     */
-    public function perPage(): int
-    {
-        $perPage = config('app.pagination_per_page');
-
-        if (empty($perPage)) {
-            $perPage = $this->PAGINATION_PER_PAGE;
-        }
-
-        return $perPage;
     }
 
     /**

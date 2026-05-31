@@ -5,12 +5,15 @@ namespace App\Http\Controllers\User;
 use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Services\PermissionService;
+use App\Traits\UserControllerTrait;
 
 /**
  *
  */
 class BaseUserController extends BaseController
 {
+    use UserControllerTrait;
+
     public function __construct(PermissionService $permissionService)
     {
         parent::__construct($permissionService, EnvTypes::USER);

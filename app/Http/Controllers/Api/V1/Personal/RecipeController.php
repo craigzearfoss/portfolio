@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Personal;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Personal\RecipeCollection;
+use App\Http\Resources\Personal\RecipeResource;
 use App\Models\Personal\Recipe;
 use App\Traits\GuestControllerTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -17,28 +18,14 @@ class RecipeController extends Controller
     use GuestControllerTrait;
 
     /**
-     * Display the personal recipes for the specified admin.
+     * Display the specified personal recipe.
      *
-     * @param string $owner_id
+     * @param Recipe $recipe
      * @return JsonResponse
      * @throws Exception
      */
-    public function show(string $owner_id): JsonResponse
+    public function show(Recipe $recipe): JsonResponse
     {
-        $perPage = request()->query('per_page', $this->perPage());
-        $page    = request()->query('page');
-
-        $query = new Recipe()->searchQuery(
-            request()->except('id'),
-            request()->input('sort') ?? implode('|', Recipe::SEARCH_ORDER_BY))
-        ->where('recipes.owner_id', $owner_id);
-
-        if (!empty($page)) {
-            $recipes = $query->paginate($perPage)->appends(request()->except('page'));
-        } else {
-            $recipes = $query->get();
-        }
-
-        return response()->json($recipes)->setStatusCode(Response::HTTP_OK);
+        return new RecipeResource($recipe)->response();
     }
 }

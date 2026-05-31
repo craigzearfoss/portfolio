@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -25,7 +27,7 @@ use Illuminate\Support\Facades\DB;
 class Reference extends Model
 {
     /** @use HasFactory<ReferenceFactory> */
-    use SearchableModelTrait, HasFactory;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * @var string
@@ -46,6 +48,7 @@ class Reference extends Model
         'owner_id',
         'name',
         'slug',
+        'salutation',
         'title',
         'friend',
         'family',
@@ -93,15 +96,15 @@ class Reference extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email'
+        'owner_name', 'owner_username', 'owner_email', 'company_name'
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'title', 'friend', 'family', 'coworker', 'supervisor',
-        'subordinate', 'professional', 'other', 'company_id', 'street', 'street2', 'city', 'state_id', 'zip',
-        'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'salutation', 'title', 'friend', 'family', 'coworker',
+        'supervisor', 'subordinate', 'professional', 'other', 'company_id', 'street', 'street2', 'city', 'state_id',
+        'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
         'alt_email_label', 'birthday', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' , 'created_at',
         'updated_at'
     ];
@@ -119,10 +122,10 @@ class Reference extends Model
         'city|asc'           => 'city',
         'company_name|asc'   => 'company',
         'created_at|desc'    => 'datetime created',
+        'email|asc'          => 'email',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
         'is_disabled|desc'   => 'disabled',
-        'email|asc'          => 'email',
         'id|asc'             => 'id',
         'name|asc'           => 'name',
         'owner_id|asc'       => 'owner id',
@@ -141,8 +144,8 @@ class Reference extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', /*'company_name',*/ 'email', 'name', 'phone', 'state_id', ],
-        'guest' => [ 'city', /*'company_name',*/ 'email', 'name', 'phone', 'state_id', ],
+        'admin' => [ 'city', 'company_name', 'email', 'name', 'phone', 'state_id', ],
+        'guest' => [ 'city', 'company_name', 'email', 'name', 'phone', 'state_id', ],
     ];
 
     /**
@@ -161,6 +164,23 @@ class Reference extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function salutationListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::SALUTATIONS as $title) {
+            $options[$title] = $title;
+        }
+
+        return $options;
     }
 
     /**
@@ -189,11 +209,14 @@ class Reference extends Model
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
             })
+            ->when(!empty($filters['company_name']), function ($query) use ($filters) {
+                $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
+            })
             ->when(!empty($filters['coworker']), function ($query) use ($filters) {
                 $query->where($this->table . '.coworker', '=', true);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
@@ -224,6 +247,9 @@ class Reference extends Model
                         . ' Valid relations are "coworker", "family", "friend", "professional", "subordinate", "supervisor", and "other".');
                 }
             })
+            ->when(!empty($filters['salutation']), function ($query) use ($filters) {
+                $query->where($this->table . '.salutation', 'like', '%' . $filters['salutation'] . '%');
+            })
             ->when(!empty($filters['subordinate']), function ($query) use ($filters) {
                 $query->where($this->table . '.subordinate', '=', true);
             })
@@ -234,13 +260,25 @@ class Reference extends Model
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
+        // add additional filters
+        $query = $this->appendAddressFilters($query, $filters);
+        $query = $this->appendPhoneFilters($query, $filters);
+        $query = $this->appendEmailFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
+
+
         // add joins
-        $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
+        $query->leftJoin(dbName('career_db') . '.company_reference', 'company_reference.reference_id', '=', $this->table . '.id')
+            ->leftJoin(dbName('career_db') . '.companies', 'companies.id', '=', 'company_reference.company_id')
+            ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'references.country_id');
 
         $query->with('owner', 'state', 'country');
 
         $query->addSelect(
+            DB::raw(dbName($this->connection) . '.companies.id AS company_id'),
+            DB::raw(dbName($this->connection) . '.companies.name AS company_name'),
             DB::raw('states.name as state_name'),
             DB::raw('states.code as state_code'),
             DB::raw('countries.name as country_name'),

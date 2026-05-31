@@ -60,6 +60,17 @@
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
+@php dd($recruiters); @endphp
+            @if (!empty($recruiter_id))
+                @include('admin.components.form-select-horizontal', [
+                    'name'     => 'recruiter_id',
+                    'label'    => 'recruiting firm',
+                    'value'    => old('recruiter_id') ?? $contact->recruiter['id'] ?? '',
+                    'required' => true,
+                    'list'     => new Recruiter()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
+                    'message'  => $message ?? '',
+                ])
+            @endif;
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'salutation',

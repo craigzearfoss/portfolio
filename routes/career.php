@@ -57,10 +57,16 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::get('contact/{contact}/company/add', [AdminCareerContactController::class, 'addCompany'])->name('contact.company.add');
     Route::post('contact/{contact}/company/attach', [AdminCareerContactController::class, 'attachCompany'])->name('contact.company.attach');
     Route::delete('contact/{contact}/company/detach/{company}', [AdminCareerContactController::class, 'detachCompany'])->name('contact.company.detach');
+    Route::get('contact/{contact}/recruiter/add', [AdminCareerContactController::class, 'addCompany'])->name('contact.recruiter.add');
+    Route::post('contact/{contact}/recruiter/attach', [AdminCareerRecruiterController::class, 'attachCompany'])->name('contact.recruiter.attach');
+    Route::delete('contact/{contact}/recruiter/detach/{recruiter}', [AdminCareerRecruiterController::class, 'detachCompany'])->name('contact.recruiter.detach');
     Route::resource('cover-letter', AdminCareerCoverLetterController::class)->parameter('cover-letter', 'cover_letter');
     Route::resource('event', AdminCareerEventController::class);
     Route::resource('job-search-log', AdminCareerJobSearchLogController::class);
     Route::resource('note', AdminCareerNoteController::class);
+    Route::get('recruiter/{recruiter}/contact/add', [AdminCareerRecruiterController::class, 'addContact'])->name('recruiter.contact.add');
+    Route::post('recruiter/{recruiter}/contact/attach', [AdminCareerRecruiterController::class, 'attachContact'])->name('recruiter.contact.attach');
+    Route::delete('recruiter/{recruiter}/contact/detach/{contact}', [AdminCareerRecruiterController::class, 'detachContact'])->name('recruiter.contact.detach');
     Route::resource('reference', AdminCareerReferenceController::class);
     Route::resource('resume', AdminCareerResumeController::class);
     //Route::get('resume/preview/{admin}', [AdminCareerResumeController::class, 'preview'])->name('resume.preview');
