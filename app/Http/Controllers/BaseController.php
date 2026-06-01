@@ -86,6 +86,10 @@ class BaseController extends Controller
      */
     public function __construct(PermissionService $permissionService, EnvTypes $envType = EnvTypes::GUEST)
     {
+        if ($comingSoonTemplate = config('app.coming_soon_template')) {
+            $this->getComingSoonTemplate($comingSoonTemplate);
+        }
+
         $this->permissionService = $permissionService;
 
         $this->cookieManager = new CookieManagerService();
@@ -318,5 +322,23 @@ class BaseController extends Controller
         }
 
         return $resourceType;
+    }
+
+    /**
+     * Display the "coming soon" page.
+     *
+     * @param string $template
+     * @return void
+     */
+    #[NoReturn] protected function getComingSoonTemplate(string $template): void
+    {
+        $appName     = config('app.name');
+        $appSlogan   = config('app.slogan');
+        $copyright   = config('app.copyright') ?? date("Y");
+        $mailingList = config('app.mailing_list');
+
+         echo View('_templates.coming-soon.' . $template,
+             compact('appName', 'appSlogan', 'copyright', 'mailingList'));
+        die;
     }
 }
