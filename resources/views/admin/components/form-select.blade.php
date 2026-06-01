@@ -49,7 +49,7 @@
             'name'                 => $name,
             'value'                => $value,
             'list'                 => $list,
-            'class='               => $class,
+            'class'                => $class,
             'style'                => $style,
             'autofocus'            => $autofocus ?? false,
             'readonly'             => $readonly ?? false,

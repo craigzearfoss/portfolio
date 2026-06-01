@@ -52,7 +52,7 @@ if (!empty($style)) {
             </div>
 
             @error('street2')
-            <p class="help is-danger">{!! $message ?? '' !!}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
@@ -80,28 +80,14 @@ if (!empty($style)) {
                 <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
-       </div>
-
-        <div class="mb-0 mr-2 mb-2">
-            <div class="select">
-                <select
-                    id="inputState_id"
-                    name="state_id"
-                    class="form-select {!! $class ?? '' !!}"
-                >
-                    @foreach ($states as $stateValue=>$stateName)
-                        <option value="{!! $stateValue !!}" @if ($stateValue == $state_id)selected @endif >
-                            {!! $stateName !!}
-                        </option>
-                    @endforeach
-                </select>
-
-                @error('state_id')
-                    <p class="help is-danger">{!! $message ?? '' !!}</p>
-                @enderror
-
-            </div>
         </div>
+
+        @include('admin.components.select-list-with-typeahead', [
+            'name'        => 'state_id',
+            'list'        => $states,
+            'value'       => $state_id ?? null,
+            'placeholder' => 'state',
+        ])
 
         <div class="field mb-0 mr-0 mb-2">
             <div class="control">
@@ -130,27 +116,13 @@ if (!empty($style)) {
     </div>
     <div class="field-body">
 
-        <div class="field mb-0">
-            <div class="select">
-                <select
-                    id="inputCountry_id"
-                    name="country_id"
-                    class="form-select {!! $class ?? '' !!}"
-                >
-                    @foreach ($countries as $countryValue=>$countryName)
-                        <option value="{!! $countryValue !!}" @if ($countryValue == $country_id)selected @endif >
-                            {!! $countryName !!}
-                        </option>
-                    @endforeach
-                </select>
+        @include('admin.components.select-list-with-typeahead', [
+            'name'        => 'country_id',
+            'list'        => $countries,
+            'value'       => $country_id ?? null,
+            'placeholder' => 'country',
+        ])
 
-                @error('country_id')
-                    <p class="help is-danger">{!! $message ?? '' !!}</p>
-                @enderror
-
-            </div>
-
-        </div>
     </div>
 
 </div>
