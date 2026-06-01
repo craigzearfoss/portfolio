@@ -1,9 +1,10 @@
 @php
-    $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
-    $name  = $name ?? null;
-    $label = $label ?? $name ?? null;
-    $title = $title ?? null;
-    $value = $value ?? '';
+    $id         = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $name       = $name ?? null;
+    $label      = $label ?? $name ?? null;
+    $title      = $title ?? null;
+    $value      = $value ?? '';
+    $attributes = $attributes ?? [];
 
     $list = $list ?? [];
 
@@ -36,15 +37,19 @@
 <div class="field is-horizontal">
     <div class="field-label">
 
-        <label
-            @if ($id)
-                for="{{ $id }}"
-            @endif
-            class="{{ implode(' ', $labelClass) }}"
-            @if ($title)
-                title="{{ $title }}"
-            @endif
-        >{!! $label !!}</label>
+        @if (isset($label) && ($label !== ''))
+
+            <label
+                @if (!empty($id))
+                    for="{{ $id }}"
+                @endif
+                class="{{ implode(' ', $labelClass) }}"
+                @if (!empty($title))
+                    title="{{ $title }}"
+                @endif
+            >{!! $label !!}</label>
+
+        @endif
 
     </div>
     <div class="field-body">
@@ -55,12 +60,16 @@
                 @include('admin.components.select-list', [
                     'id'                   => $id,
                     'name'                 => $name,
-                    'class='               => $class,
+                    'value'                => $value,
+                    'list'                 => $list,
+                    'class'                => $class,
                     'style'                => $style,
                     'autofocus'            => $autofocus ?? false,
                     'readonly'             => $readonly ?? false,
                     'form'                 => $form ?? null,
+                    'hasIcon'              => $hasIcon ?? false,
                     'multiple'             => $multiple ?? false,
+                    'attributes'           => $attributes,
                     'required'             => $required ?? false,
                     'size'                 => $size ?? null,
                     'onchange'             => $onchange ?? null,
