@@ -10,6 +10,8 @@ use App\Http\Requests\Career\UpdateContactsRequest;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
+use App\Models\Career\Recruiter;
+use App\Models\Career\RecruiterContact;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -57,7 +59,10 @@ class ContactController extends BaseAdminController
     {
         createGate(Contact::class, $this->admin);
 
-        return view('admin.career.contact.create');
+        $company_id = request()->query('company_id', null);
+        $recruiter_id = request()->query('recruiter_id', null);
+
+        return view('admin.career.contact.create', compact('company_id', 'recruiter_id'));
     }
 
     /**
@@ -74,8 +79,14 @@ class ContactController extends BaseAdminController
         $error = null;
 
         if ($companyId = $request->input('company_id')) {
-            if (!Company::query()->find($companyId)) {
+            if (!$companyId = Company::query()->find($companyId)) {
                 $error = 'Company ' . $companyId . ' not found';
+            }
+        }
+
+        if ($recruiterId = $request->input('recruiter_id')) {
+            if (!$recruiter = Recruiter::query()->find($recruiterId)) {
+                $error = 'Recruiter ' . $recruiterId . ' not found';
             }
         }
 
@@ -84,7 +95,7 @@ class ContactController extends BaseAdminController
             // create the contact
             $contact = Contact::query()->create($request->validated());
 
-            // attach the contact to the company
+            // attach the contact to the company (if one was specified)
             if (!empty($companyId)) {
                 CompanyContact::query()->insert([
                     'owner_id'   => $contact->owner_id,
@@ -93,10 +104,26 @@ class ContactController extends BaseAdminController
                     'active'     => true,
                 ]);
             }
+
+            // attach the contact to the recruiter (if one was specified)
+            if (!empty($recruiterId)) {
+                RecruiterContact::query()->insert([
+                    'owner_id'   => $contact->owner_id,
+                    'contact_id' => $contact->id,
+                    'recruiter_id' => $recruiterId,
+                    'active'     => true,
+                ]);
+            }
         }
 
         if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $contact['name'] . ' successfully added.');
+        } elseif (!empty($recruiterId)) {
+            return redirect()->route('admin.career.recruiter.show', $recruiter)
+                ->with('success', $contact->name . ' successfully added.');
+        } elseif (!empty($contactId)) {
+            return redirect()->route('admin.career.contact.show', $contact)
+                ->with('success', $contact->name . ' successfully added.');
         } else {
             return redirect()->route('admin.career.contact.show', $contact)
                 ->with('success', $contact->name . ' successfully added.');
@@ -113,6 +140,14 @@ class ContactController extends BaseAdminController
     {
         readGate($contact, $this->admin);
 
+        $companies = new CompanyContact()->newQuery()->where('contact_id', $contact->id)
+            ->leftJoin(dbName('career_db' ) . '.companies', 'companies.id', '=', 'company_contact.company_id')
+            ->get();
+
+        $recruiters = new RecruiterContact()->newQuery()->where('contact_id', $contact->id)
+            ->leftJoin(dbName('career_db' ) . '.recruiters', 'recruiters.id', '=', 'recruiter_contact.recruiter_id')
+            ->get();
+
         list($prev, $next) = $contact->prevAndNextPages(
             $contact['id'],
             'admin.career.contact.show',
@@ -120,7 +155,7 @@ class ContactController extends BaseAdminController
             [ 'name', 'asc' ]
         );
 
-        return view('admin.career.contact.show', compact('contact', 'prev', 'next'));
+        return view('admin.career.contact.show', compact('contact', 'companies', 'recruiters', 'prev', 'next'));
     }
 
     /**

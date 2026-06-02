@@ -71,6 +71,10 @@
             'width'         => $width ?? false,
         ])
 
+        @if ($name == 'password')
+            <i class="fa fa-eye" id="togglePassword"></i>
+        @endif
+
         @if ($name === 'username')
             <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
         @endif

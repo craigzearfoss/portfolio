@@ -17,7 +17,7 @@ $companies = $companies ?? [];
     @foreach ($companies as $company)
 
         <tr data-id="{{ $company->id }}">
-            <td>
+            <td data-field="name">
                 @include('admin.components.link', [
                     'name' => htmlspecialchars($company->name),
                     'href' => route('admin.career.company.show', $company)
@@ -34,7 +34,7 @@ $companies = $companies ?? [];
                     ])
                 !!}
             </td>
-            <td>
+            <td data-field="phone">
                 {{ $company->phone ?? '' }}
             </td>
             <td class="is-1" style="white-space: nowrap;">

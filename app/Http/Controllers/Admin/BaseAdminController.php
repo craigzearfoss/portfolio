@@ -7,12 +7,15 @@ use App\Http\Controllers\BaseController;
 use App\Models\System\Resource;
 use App\Services\PermissionService;
 use Illuminate\Support\Facades\Route;
+use App\Traits\AdminControllerTrait;
 
 /**
  *
  */
 class BaseAdminController extends BaseController
 {
+    use AdminControllerTrait;
+
     public function __construct(PermissionService $permissionService)
     {
         parent::__construct($permissionService, EnvTypes::ADMIN);

@@ -7,7 +7,7 @@ trait AdminControllerTrait
     /**
      * @var int
      */
-    protected int $PAGINATION_PER_PAGE = 3;
+    protected int $PAGINATION_PER_PAGE = 20;
 
     /**
      * Returns the number of items per page for pagination. First it checks the

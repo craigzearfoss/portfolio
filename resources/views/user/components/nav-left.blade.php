@@ -1,7 +1,5 @@
 @php
-    use App\Models\System\Admin;
-
-    $adminModel = new Admin();
+    use App\Models\System\Owner;
 
     $admin = $admin ?? null;
     $user  = $user ?? null;

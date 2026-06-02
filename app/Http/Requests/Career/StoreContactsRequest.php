@@ -67,6 +67,16 @@ class StoreContactsRequest extends StoreAppBaseRequest
             ],
             'salutation'      => ['string', 'max:20', 'nullable'],
             'title'           => ['string', 'max:100', 'nullable'],
+            'company_id'      => [
+                'integer',
+                'exists:career_db.companies,id',
+                'nullable'
+            ],
+            'recruiter_id'    => [
+                'integer',
+                'exists:career_db.recruiters,id',
+                'nullable'
+            ],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

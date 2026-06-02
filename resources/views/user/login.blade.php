@@ -54,7 +54,7 @@
                     'value' => referer('guest.index')
                 ])
 
-                @include('user.components.form-input', [
+                @include('user.components.form-input-with-icon', [
                     'name'        => 'username',
                     'label'       => 'User Name',
                     'value'       => $username ?? '',
@@ -64,7 +64,7 @@
                     'message'     => $message ?? '',
                 ])
 
-                @include('user.components.form-input', [
+                @include('user.components.form-input-with-icon', [
                     'type'        => 'password',
                     'name'        => 'password',
                     'label'       => 'Password',
