@@ -98,6 +98,7 @@ class School extends Model
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
         'is_disabled|desc'   => 'disabled',
+        'founded|asc'        => 'founded',
         'featured|desc'      => 'featured',
         'id|asc'             => 'id',
         'name|asc'           => 'name',

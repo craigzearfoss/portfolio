@@ -35,6 +35,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('industries', 'id')
                 ->onDelete('cascade');
+            $table->integer('founded')->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable()->index('city_idx');
