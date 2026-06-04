@@ -49,6 +49,7 @@ class Company extends Model
         'name',
         'slug',
         'industry_id',
+        'founded',
         'street',
         'street2',
         'city',
@@ -95,8 +96,8 @@ class Company extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id',
-        'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'founded', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
         'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
@@ -117,6 +118,7 @@ class Company extends Model
         'is_demo|desc'       => 'demo',
         'is_disabled|desc'   => 'disabled',
         'email|asc'          => 'email',
+        'founded|asc'        => 'founded',
         'id|asc'             => 'id',
         'industry_name|asc'  => 'industry',
         'name|asc'           => 'name',
@@ -183,6 +185,9 @@ class Company extends Model
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['founded']), function ($query) use ($filters) {
+                $query->where($this->table . '.founded', '=', intval($filters['founded']));
             })
             ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.industry_id', '=', intval($filters['industry_id']));

@@ -101,6 +101,11 @@
                                 ])
 
                                 @include('admin.components.show-row', [
+                                    'name'  => 'founded',
+                                    'value' => $company->founded
+                                ])
+
+                                @include('admin.components.show-row', [
                                     'name'  => 'location',
                                     'value' => formatLocation([
                                         'street'          => htmlspecialchars($company->street),

@@ -78,6 +78,15 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'founded',
+                'value'       => old('founded') ?? '',
+                'min'         => 0,
+                'message'     => $message ?? '',
+                'style'       => [ 'width: 6rem' ]
+            ])
+
             @include('admin.components.form-location-horizontal', [
                 'street'     => old('street') ?? '',
                 'street2'    => old('street2') ?? '',

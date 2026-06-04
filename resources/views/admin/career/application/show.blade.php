@@ -124,6 +124,32 @@
                                     'value' => $application->reference_id
                                 ])
 
+                                @php
+                                    $jobBoardLinks = [];
+                                    if (!empty($application->jobBoard)) {
+                                        $jobBoardLinks[] = view('admin.components.link', [
+                                            'name' => htmlspecialchars($application->jobBoard['name'] ?? ''),
+                                            'href' => !empty($application->jobBoard)
+                                                ? route('admin.career.job-board.show', $application->jobBoard['id'])
+                                                : '',
+                                        ]);
+                                    }
+
+                                    if (!empty($application->jobBoard2)) {
+                                        $jobBoardLinks[] = view('admin.components.link', [
+                                            'name' => htmlspecialchars($application->jobBoard2['name'] ?? ''),
+                                            'href' => !empty($application->jobBoard2)
+                                                ? route('admin.career.job-board.show', $application->jobBoard2['id'])
+                                                : '',
+                                        ]);
+                                    }
+                                @endphp
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'job board(s)',
+                                    'value' => implode(', ', $jobBoardLinks)
+                                ])
+
                                 <div class="container card p-2 mb-4" style="display: inline-block; flex-grow: 0;">
 
                                     <div class="p-2 m-0" style="display: inline-block; flex-grow: 0;">
@@ -245,16 +271,6 @@
                                 @include('admin.components.show-row-checkmark', [
                                     'name'    => 'health',
                                     'checked' => $application->health
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'  => 'job board',
-                                    'value' => view('admin.components.link', [
-                                        'name' => htmlspecialchars($application->jobBoard['name'] ?? ''),
-                                        'href' => !empty($application->jobBoard)
-                                            ? route('admin.career.job-board.show', $application->jobBoard['id'])
-                                            : '',
-                                    ])
                                 ])
 
                                 @include('admin.components.show-row', [

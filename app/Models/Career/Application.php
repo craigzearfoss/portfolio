@@ -54,6 +54,7 @@ class Application extends Model
         'role',
         'reference_id',
         'job_board_id',
+        'job_board_id2',
         'resume_id',
         'rating',
         'active',
@@ -119,14 +120,14 @@ class Application extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'reference_id', 'job_board_id', 'resume_id',
-        'rating', 'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
-        'compensation_unit_id', 'estimated_hours', 'wage_rate', 'job_duration_type_id', 'job_duration_length',
-        'job_duration_unit_id', 'job_location_type_id', 'job_employment_type_id', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation', 'health', 'phone',
-        'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'reference_id', 'job_board_id',
+        'job_board_id2', 'resume_id', 'rating', 'active', 'post_date', 'apply_date', 'close_date', 'compensation_min',
+        'compensation_max', 'compensation_unit_id', 'estimated_hours', 'wage_rate', 'job_duration_type_id',
+        'job_duration_length', 'job_duration_unit_id', 'job_location_type_id', 'job_employment_type_id', 'street',
+        'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
+        'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
+        'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -405,7 +406,10 @@ class Application extends Model
                 $query->where($this->table . '.health', '=', true);
             })
             ->when(!empty($filters['job_board_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.job_board_id', '=', intval($filters['job_board_id']));
+                $query->where(function ($query) use($filters) {
+                    $query->where($this->table . '.job_board_id', '=', intval($filters['job_board_id']))
+                        ->orWhere($this->table . '.job_board_id2', '=', intval($filters['job_board_id']));
+                });
             })
             ->when(!empty($filters['job_duration_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.job_duration_type_id', '=', intval($filters['job_duration_type_id']));
@@ -488,6 +492,7 @@ class Application extends Model
         $query->leftJoin('companies', 'companies.id', '=', 'applications.company_id')
             ->leftJoin('resumes', 'resumes.id', '=', 'applications.resume_id')
             ->leftJoin('job_boards', 'job_boards.id', '=', 'applications.job_board_id')
+            ->leftJoin('job_boards as job_boards2', 'job_boards.id', '=', 'applications.job_board_id2')
             ->leftJoin('job_duration_types', 'job_duration_types.id', '=', 'applications.job_duration_type_id')
             ->leftJoin('job_duration_units', 'job_duration_units.id', '=', 'applications.job_duration_unit_id')
             ->leftJoin('job_location_types', 'job_location_types.id', '=', 'applications.job_location_type_id')
@@ -506,6 +511,7 @@ class Application extends Model
             DB::raw('companies.name as company_name'),
             DB::raw('resumes.name as resume_name'),
             DB::raw('job_boards.name as job_board'),
+            DB::raw('job_boards2.name as job_board2'),
             DB::raw('job_duration_types.name as duration_type'),
             DB::raw('job_duration_units.name as duration_unit'),
             DB::raw('job_location_types.name as location_type'),
@@ -638,6 +644,15 @@ class Application extends Model
     public function jobBoard(): BelongsTo
     {
         return $this->belongsTo(JobBoard::class, 'job_board_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the career job board 2 that owns the application.
+     */
+    public function jobBoard2(): BelongsTo
+    {
+        return $this->belongsTo(JobBoard::class, 'job_board_id2')
             ->orderBy('name');
     }
 

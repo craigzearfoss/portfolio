@@ -64,7 +64,7 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'founded',
+                'type'        => 'number',
                 'name'        => 'founded',
                 'value'       => old('founded') ?? '',
                 'min'         => 0,
