@@ -42,7 +42,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.application.update', array_merge([$application], request()->all())) }}"
+        <div action="{{ route('admin.career.application.update', array_merge([$application], request()->all())) }}"
               method="POST">
             @csrf
             @method('PUT')
@@ -73,20 +73,38 @@
                 'message'  => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'role',
-                'value'       => old('role') ?? $application->role,
-                'required'    => true,
-                'maxlength'   => 255,
-                'message'     => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <label for="inputRole" class="label label-required" title="{{ $application->role ?? '' }}">
+                        role
+                    </label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        @include('admin.components.input', [
+                            'name'        => 'role',
+                            'value'       => old('role') ?? $application->role,
+                            'maxlength'   => 255,
+                            'message'     => $message ?? '',
+                        ])
+                    </div>
+                    <div class="field">
+                        @include('admin.components.input', [
+                            'name'        => 'reference_id',
+                            'value'       => old('reference_id') ?? $application->reference_id,
+                            'maxlength'   => 100,
+                            'placeholder' => 'reference id',
+                            'style'       => [ 'width: 10rem' ],
+                            'message'     => $message ?? '',
+                        ])
+                    </div>
+                </div>
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'reference_id',
-                'label'       => 'reference id',
-                'value'       => old('reference_id') ?? $application->reference_id,
-                'maxlength'   => 100,
-                'message'     => $message ?? '',
+            @include('admin.components.form-job-boards-horizontal', [
+                'job_board_id'  => old('job_board_id') ?? $application->job_board_id ?? null,
+                'job_board_id2' => old('job_board_id2') ?? $application->job_board_id2 ?? null,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-text-horizontal', [
@@ -312,14 +330,6 @@
                     </div>
                 </div>
             </div>
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_board_id',
-                'label'   => 'job board',
-                'value'   => old('job_board_id') ?? $application->job_board_id,
-                'list'    => new JobBoard()->listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
 
             @include('admin.components.form-phone-horizontal', [
                 'phone' => old('phone') ?? $application->phone,

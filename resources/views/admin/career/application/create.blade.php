@@ -149,6 +149,12 @@
                     'message'     => $message ?? '',
                 ])
 
+                @include('admin.components.form-job-boards-horizontal', [
+                    'job_board_id'  => old('job_board_id') ?? null,
+                    'job_board_id2' => old('job_board_id2') ?? null,
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-hidden', [
                     'name'     => 'resume_id',
                     'value'    => old('resume_id') ?? $resumeId ?? '',
@@ -157,14 +163,6 @@
                 @include('admin.components.form-hidden', [
                     'name'     => 'cover_letter_id',
                     'value'    => old('cover_letter_id') ?? $coverLetterId ?? '',
-                ])
-
-                @include('admin.components.form-select-horizontal', [
-                    'name'    => 'job_board_id',
-                    'label'   => 'job board',
-                    'value'   => old('job_board_id') ?? '',
-                    'list'    => new JobBoard()->listOptions([], 'id', 'name', true),
-                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-input-horizontal', [
