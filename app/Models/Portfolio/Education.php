@@ -49,7 +49,6 @@ class Education extends Model
         'graduated',
         'graduation_date',
         'currently_enrolled',
-        'summary',
         'notes',
         'link',
         'link_name',
@@ -81,10 +80,10 @@ class Education extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id',
-        'featured', 'summary', 'enrollment_date', 'graduated', 'graduation_date', 'currently_enrolled', 'summary',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id', 'featured',
+        'summary', 'enrollment_date', 'graduated', 'graduation_date', 'currently_enrolled', 'summary', 'notes',
+        'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -99,11 +98,15 @@ class Education extends Model
         'created_at|desc'       => 'datetime created',
         'updated_at|desc'       => 'datetime updated',
         'degree_type_name|asc'  => 'degree',
+        //'description|asc'       => 'description',
         'enrollment_date|desc'  => 'enrollment date',
         'graduation_date|desc'  => 'graduation date',
         'id|asc'                => 'id',
+        'link|asc'              => 'link',
+        'link_name|asc'         => 'link name',
         'major|asc'             => 'major',
         'minor|asc'             => 'minor',
+        //'notes|asc'             => 'notes',
         'school_name|asc'       => 'school',
         'sequence|asc'          => 'sequence',
     ];
@@ -187,6 +190,12 @@ class Education extends Model
             })
             ->when(!empty($filters['graduation_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.graduation_date', '<=', $filters['graduation_date']);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['major']), function ($query) use ($filters) {
                 $query->where($this->table . '.major', 'like', '%' . $filters['major'] . '%');

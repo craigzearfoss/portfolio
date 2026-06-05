@@ -971,3 +971,7 @@ div.card.job-analyzer-skill-list div.card-body {
     max-height: 200px;
     overflow-y: auto;
 }
+
+.visibility-checkboxes-container .card {
+    background-color: inherit;
+}

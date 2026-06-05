@@ -82,8 +82,8 @@ class CoverLetter extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'cover_letter_datetime', 'filepath',
-        'content', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo', 'created_at', 'updated_at'
+        'content', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -104,9 +104,13 @@ class CoverLetter extends Model
         'created_at|desc'             => 'datetime created',
         'updated_at|desc'             => 'datetime updated',
         'is_demo|desc'                => 'demo',
+        //'description|asc'             => 'description',
         'is_disabled|desc'            => 'disabled',
         'id|asc'                      => 'id',
+        'link|asc'                    => 'link',
+        'link_name|asc'               => 'name',
         'name|asc'                    => 'name',
+        //'notes|asc'                   => 'notes',
         'owner_id|asc'                => 'owner id',
         'owner_name|asc'              => 'owner name',
         'owner_username|asc'          => 'owner username',
@@ -243,6 +247,12 @@ class CoverLetter extends Model
             })
             ->when(!empty($filters['filepath']), function ($query) use ($filters) {
                 $query->where($this->table . '.filepath', 'like', '%' . $filters['filepath'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

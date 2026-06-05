@@ -85,8 +85,8 @@ class Academy extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id', 'latitude', 'longitude', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
-        'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'description', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'description',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -98,9 +98,13 @@ class Academy extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'id|asc'       => 'id',
-        'name|asc'     => 'name',
-        'sequence|asc' => 'sequence',
+        'description|asc' => 'description',
+        'id|asc'          => 'id',
+        'link|asc'        => 'link',
+        'link_name|asc'   => 'link name',
+        'name|asc'        => 'name',
+        'notes|asc'       => 'notes',
+        'sequence|asc'    => 'sequence',
     ];
 
     /**

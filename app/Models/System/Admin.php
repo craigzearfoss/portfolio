@@ -157,8 +157,9 @@ class Admin extends Authenticatable
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'username', 'admin_team_id', 'username', 'name', 'label', 'salutation',
         'title', 'role', 'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip',
-        'country_id', 'phone', 'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin',
-        'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'country_id', 'phone', 'email', 'birthday', 'bio', 'notes', 'link', 'link_name', 'description', 'disclaimer',
+        'requires_relogin', 'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
+        'updated_at'
     ];
 
     /**
@@ -170,15 +171,20 @@ class Admin extends Authenticatable
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
+        //'bio|asc'          => 'bio',
         'created_at|desc'  => 'datetime created',
         'updated_at|desc'  => 'datetime updated',
         'is_demo|desc '    => 'demo',
+        //'description|asc'  => 'description',
         'is_disabled|desc' => 'disabled',
         'email|asc'        => 'email',
         'employer|asc'     => 'employer',
         'id|asc'           => 'id',
         'label|asc'        => 'label',
+        'link|asc'         => 'link',
+        'link_name|asc'    => 'link name',
         'name|asc'         => 'name',
+        //'notes|asc'        => 'notes',
         'role|asc'         => 'role',
         'is_root|desc'     => 'root',
         'sequence|asc'     => 'sequence',
@@ -248,6 +254,12 @@ class Admin extends Authenticatable
             })
             ->when(!empty($filters['label']), function ($query) use ($filters) {
                 $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

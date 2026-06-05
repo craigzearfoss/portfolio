@@ -67,7 +67,8 @@ class Certification extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'abbreviation', 'certification_type_id', 'organization',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'notes', 'link', 'link_name', 'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -82,8 +83,12 @@ class Certification extends Model
         'abbreviation|asc'            => 'abbreviation',
         'created_at|desc'             => 'datetime created',
         'updated_at|desc'             => 'datetime updated',
+        //'description|asc'             => 'description',
         'id|asc'                      => 'id',
+        'link|asc'                    => 'link',
+        'link_name|asc'               => 'link name',
         'name|asc'                    => 'name',
+        //'notes|asc'                   => 'notes',
         'sequence|asc'                => 'sequence',
         'certification_type_name|asc' => 'type',
     ];
@@ -136,6 +141,12 @@ class Certification extends Model
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

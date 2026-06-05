@@ -1,7 +1,9 @@
 @php
     // @TODO: The logic of this page is quite circuitous and should probably cleaned up at some point.
 
-    use Illuminate\Support\Str;$upload   = $upload ?? false;
+    use Illuminate\Support\Str;
+
+    $upload   = $upload ?? false;
     $download = $download ?? false;
     $external = $external ?? false;
     $editPage = $editPage ?? false;
@@ -42,7 +44,7 @@
      @endif
      @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"
-    @endif
+     @endif
 >
     <div class="{{ $editPage ? 'field-label' : 'column is-2 label' }}">
         <strong>images</strong>
@@ -138,6 +140,17 @@
                                 <div style="display: inline-block; float: right;">
 
                                     @if ($upload)
+
+                                        @if ($resource->{$imageName})
+                                            @include('admin.components.button-remove-image', [
+                                                'label'         => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
+                                                'resource_type' => 'Career\Application',
+                                                'resource'      => $resource,
+                                                'column'        => $imageName,
+                                                'target_data'   => 'resource-' . $imageName,
+                                            ])
+                                        @endif
+
                                         @if (config('app.upload_enabled'))
                                             @include('admin.components.button-upload-image', [
                                                 'label'       => empty($resource->{$imageName}) ? 'Upload' : 'Replace',

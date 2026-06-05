@@ -84,8 +84,8 @@ class Course extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'course_year', 'completed',
         'completion_date', 'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'certificate_url',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'.
-        'created_at', 'updated_at'
+        'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -102,11 +102,15 @@ class Course extends Model
         'created_at|desc'      => 'datetime created',
         'updated_at|desc'      => 'datetime updated',
         'is_demo|desc'         => 'demo',
+        //'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
         'instructor|asc'       => 'instructor',
+        'link|asc'             => 'link',
+        'link_name|asc'        => 'link_name',
         'name|asc'             => 'name',
+        //'notes|asc'            => 'notes',
         'owner_id|asc'         => 'owner id',
         'owner_name|asc'       => 'owner name',
         'owner_username|asc'   => 'owner username',
@@ -175,9 +179,6 @@ class Course extends Model
             ->when(!empty($filters['completion_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.completion_date', '=', $filters['completion_date']);
             })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
@@ -192,6 +193,15 @@ class Course extends Model
             })
             ->when(!empty($filters['instructor']), function ($query) use ($filters) {
                 $query->where($this->table . '.instructor', 'like', '%' . $filters['instructor'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

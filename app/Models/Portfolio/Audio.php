@@ -94,7 +94,7 @@ class Audio extends Model
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'owner_name', 'owner_username', 'name', 'slug',
         'featured', 'summary', 'full_episode', 'clip', 'podcast', 'source_recording', 'audio_date', 'audio_year',
         'company', 'credit', 'show', 'location', 'audio_url', 'review_link1', 'review_link1_name', 'review_link2',
-        'review_link2_name', 'review_link3', 'review_link3_name', 'notes', 'link', ';link_name', 'description',
+        'review_link2_name', 'review_link3', 'review_link3_name', 'notes', 'link', 'link_name', 'description',
         'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'created_at', 'updated_at'
     ];
 
@@ -110,10 +110,14 @@ class Audio extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'    => 'description',
         'featured|desc'      => 'featured',
         'is_disabled|desc'   => 'disabled',
         'id|asc'             => 'id',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
         'name|asc'           => 'name',
+        //'notes|asc'          => 'notes',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
         'owner_username|asc' => 'owner username',
@@ -214,6 +218,12 @@ class Audio extends Model
             })
             ->when(!empty($filters['full_episode']), function ($query) use ($filters) {
                 $query->where($this->table . '.full_episode', '=', true);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where($this->table . '.location', 'like', '%' . $filters['location'] . '%');

@@ -52,8 +52,8 @@ class AdminPhone extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -68,7 +68,9 @@ class AdminPhone extends Model
         'id|asc'             => 'id',
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
+        //'description|asc'    => 'description',
         'label|asc'          => 'label',
+        //'notes|asc'          => 'notes',
         'owner_username|asc' => 'owner',
         'owner_id|asc'       => 'owner id',
         'phone|asc'          => 'phone',

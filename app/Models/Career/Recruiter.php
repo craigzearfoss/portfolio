@@ -70,6 +70,7 @@ class Recruiter extends Model
         'email_label',
         'alt_email',
         'alt_email_label',
+        'notes',
         'link',
         'link_name',
         'description',
@@ -97,8 +98,9 @@ class Recruiter extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary','postings_url', 'local', 'regional', 'national',
         'international', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'phone_label',
-        'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'created_at', 'updated_at'
+        'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'link',
+        'link_name', 'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -114,10 +116,14 @@ class Recruiter extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'    => 'description',
         'is_disabled|desc'   => 'disabled',
         'email|asc'          => 'email',
         'id|asc'             => 'id',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
         'name|asc'           => 'name',
+        //'notes|asc'          => 'notes',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
         'owner_username|asc' => 'owner username',
@@ -190,8 +196,17 @@ class Recruiter extends Model
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
             })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
+            })
             ->when(!empty($filters['international']), function ($query) use ($filters) {
                 $query->where($this->table . '.international', '=', true);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['local']), function ($query) use ($filters) {
                 $query->where($this->table . '.local', '=', true);
@@ -201,6 +216,9 @@ class Recruiter extends Model
             })
             ->when(!empty($filters['national']), function ($query) use ($filters) {
                 $query->where($this->table . '.national', '=', true);
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['regional']), function ($query) use ($filters) {
                 $query->where($this->table . '.regional', '=', true);

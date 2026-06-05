@@ -67,9 +67,11 @@ class UserEmail extends Model
     const array SORT_OPTIONS = [
         'created_at|desc'   => 'datetime created',
         'updated_at|desc'   => 'datetime updated',
+        //'description|asc'   => 'description',
         'email|asc'         => 'email',
         'id|asc'            => 'id',
         'label|asc'         => 'label',
+        //'notes|asc'         => 'notes',
         'sequence|asc'      => 'sequence',
         'user_username|asc' => 'username',
         'user_id|asc'       => 'user id',

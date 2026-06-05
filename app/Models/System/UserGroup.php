@@ -82,6 +82,7 @@ class UserGroup extends Model
         'abbreviation|asc'   => 'abbreviation',
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
+        //'description|asc'    => 'description',
         'id|asc'             => 'id',
         'name|asc'           => 'name',
         'sequence|asc'       => 'sequence',

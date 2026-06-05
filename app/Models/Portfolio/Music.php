@@ -83,8 +83,9 @@ class Music extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'name', 'artist', 'featured', 'summary', 'collection',
-        'track', 'label', 'catalog_number', 'music_year', 'release_date', 'audio_url', 'notes', 'description',
-        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'track', 'label', 'catalog_number', 'music_year', 'release_date', 'audio_url', 'notes', 'link', 'link_name',
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
+        'updated_at'
     ];
 
     /**
@@ -101,11 +102,15 @@ class Music extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'    => 'description',
         'is_disabled|desc'   => 'disabled',
         'featured|desc'      => 'featured',
         'id|asc'             => 'id',
         'label|asc'          => 'label',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
         'name|asc'           => 'name',
+        //'notes|asc'          => 'notes',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
         'owner_username|asc' => 'owner username',
@@ -184,8 +189,11 @@ class Music extends Model
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })
-            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
-                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
@@ -198,6 +206,9 @@ class Music extends Model
             })
             ->when(!empty($filters['release_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.release_date', '=', ['release_date']);
+            })
+            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
+                $query->where($this->table . '.label', 'like', '%' . $filters['search_label'] . '%');
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');

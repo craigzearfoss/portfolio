@@ -67,9 +67,11 @@ class UserPhone extends Model
     const array SORT_OPTIONS = [
         'created_at|desc'   => 'datetime created',
         'updated_at|desc'   => 'datetime updated',
-        'phone|asc'         => 'phone',
+        //'description|asc'   => 'description',
         'id|asc'            => 'id',
         'label|asc'         => 'label',
+        //'notes|asc'         => 'notes',
+        'phone|asc'         => 'phone',
         'sequence|asc'      => 'sequence',
         'user_username|asc' => 'username',
         'user_id|asc'       => 'user id',

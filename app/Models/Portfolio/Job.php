@@ -101,8 +101,8 @@ class Job extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company', 'role', 'featured', 'summary', 'start_date',
         'end_date', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2', 'city', 'state_id',
-        'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'zip', 'country_id', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -120,9 +120,13 @@ class Job extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'    => 'description',
         'is_disabled|desc'   => 'disabled',
         'featured|desc'      => 'featured',
         'id|asc'             => 'id',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
+        //'notes|asc'          => 'notes',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
         'owner_username|asc' => 'owner username',
@@ -312,6 +316,12 @@ class Job extends Model
             })
             ->when(!empty($filters['job_location_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.job_location_type_id', '=', intval($filters['job_location_type_id']));
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

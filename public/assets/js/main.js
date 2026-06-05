@@ -486,4 +486,19 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = url;
         });
     });
+
+    (document.querySelectorAll('.remove-image-button') || []).forEach((elem) => {
+        elem.addEventListener('click', (event) => {
+            const elem = event.target;
+            let url = '/admin/remove-image/?'
+                + 'resource_type=' + encodeURIComponent(elem.getAttribute('data-resource_type') || '')
+                + '&resource_id=' + encodeURIComponent(elem.getAttribute('data-resource_id') || '')
+                + '&column=' + encodeURIComponent(elem.getAttribute('data-column') || '')
+                + '&target=' + encodeURIComponent(elem.getAttribute('data-target') || '')
+            if (confirm('Are you sure you want to remove the image?')) {
+                window.location.href = url;
+            }
+        });
+    })
+
 });

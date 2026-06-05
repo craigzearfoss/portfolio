@@ -77,8 +77,8 @@ class Reading extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'author', 'featured', 'summary', 'publication_year',
-        'fiction', 'nonfiction', 'paper', 'audio', 'wishlist', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'fiction', 'nonfiction', 'paper', 'audio', 'wishlist', 'notes', 'link', 'link_name',  'description',
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -95,9 +95,13 @@ class Reading extends Model
         'created_at|desc'      => 'datetime created',
         'updated_at|desc'      => 'datetime updated',
         'is_demo|desc'         => 'demo',
+        'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
+        'link|asc'             => 'link',
+        'link_name|asc'        => 'link name',
+        'notes|asc'            => 'notes',
         'owner_id|asc'         => 'owner id',
         'owner_name|asc'       => 'owner name',
         'owner_username|asc'   => 'owner username',
@@ -175,6 +179,12 @@ class Reading extends Model
             })
             ->when(!empty($filters['fiction']), function ($query) use ($filters) {
                 $query->where($this->table . '.fiction', '=', true);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['nonfiction']), function ($query) use ($filters) {
                 $query->where($this->table . '.nonfiction', '=', true);

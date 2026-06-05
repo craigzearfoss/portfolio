@@ -43,10 +43,10 @@
     <div class="column is-2 label">
         <strong>visibility</strong>:
     </div>
-    <div class="column left-align is-10 value">
+    <div class="column left-align is-10 value pr-4 mb-3 mr-4">
         <div>
 
-            <div class="floating-div-container settings">
+            <div class="floating-div-container visibility-checkboxes-container settings">
 
                 @foreach ($columns as $column=>$label)
 

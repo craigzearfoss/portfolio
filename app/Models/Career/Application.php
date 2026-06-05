@@ -95,6 +95,9 @@ class Application extends Model
         'alt_email_label',
         'notes',
         'link',
+        'link_name',
+        'link2',
+        'link2_name',
         'description',
         'disclaimer',
         'image',
@@ -126,8 +129,8 @@ class Application extends Model
         'job_duration_length', 'job_duration_unit_id', 'job_location_type_id', 'job_employment_type_id', 'street',
         'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
         'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
-        'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo', 'created_at', 'updated_at'
+        'alt_email_label', 'notes', 'link', 'link_name', 'link2', 'link2_name', 'description', 'disclaimer',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -150,8 +153,12 @@ class Application extends Model
         'created_at|desc'           => 'datetime created',
         'updated_at|desc'           => 'datetime updated',
         'is_demo|desc'              => 'demo',
+        //'description|asc'           => 'description',
         'is_disabled|desc'          => 'disabled',
         'id|asc'                    => 'id',
+        'link|asc'                  => 'link',
+        'link_name|asc'             => 'link name',
+        //'notes|asc'                 => 'notes',
         'job_location_type_name'    => 'location',
         'owner_id|asc'              => 'owner id',
         'owner_name|asc'            => 'owner name',
@@ -425,6 +432,18 @@ class Application extends Model
             })
             ->when(!empty($filters['job_location_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.job_location_type_id', '=', intval($filters['job_location_type_id']));
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where(function ($query) use($filters) {
+                    $query->where($this->table . '.link', 'like',  '%' . $filters['link'] . '%')
+                        ->orWhere($this->table . '.link2', 'like',  '%' . $filters['link'] . '%');
+                });
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where(function ($query) use($filters) {
+                    $query->where($this->table . '.link_name', 'like',  '%' . $filters['link_name'] . '%')
+                        ->orWhere($this->table . '.link2_name', 'like',  '%' . $filters['link_name'] . '%');
+                });
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
