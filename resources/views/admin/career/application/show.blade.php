@@ -210,7 +210,12 @@
                                             'checked' => $application->health
                                         ])
 
-                                        @if (!empty($application->bonus))
+                                        @include('admin.components.show-row-checkmark', [
+                                            'name'    => '401(k)',
+                                            'checked' => $application->fouroonek
+                                        ])
+
+                                         @if (!empty($application->bonus))
                                             @include('admin.components.show-row', [
                                                 'name'  => 'bonus',
                                                 'value' => htmlspecialchars($application->bonus)

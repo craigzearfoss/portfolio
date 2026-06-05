@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Str;
+use Illuminate\Support\Str;
 
 /**
  *
@@ -85,6 +85,7 @@ class Application extends Model
         'benefits',
         'vacation',
         'health',
+        'fouroonek',
         'phone',
         'phone_label',
         'alt_phone',
@@ -128,9 +129,9 @@ class Application extends Model
         'compensation_max', 'compensation_unit_id', 'estimated_hours', 'wage_rate', 'job_duration_type_id',
         'job_duration_length', 'job_duration_unit_id', 'job_location_type_id', 'job_employment_type_id', 'street',
         'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
-        'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
-        'alt_email_label', 'notes', 'link', 'link_name', 'link2', 'link2_name', 'description', 'disclaimer',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'health', 'fouroonek', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
+        'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'link2', 'link2_name', 'description',
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -408,6 +409,9 @@ class Application extends Model
             })
             ->when(!empty($filters['estimated_hours']), function ($query) use ($filters) {
                 $query->where($this->table . '.estimated_hours', '<=', intval($filters['estimated_hours']));
+            })
+            ->when(!empty($filters['fouroonek']), function ($query) use ($filters) {
+                $query->where($this->table . '.fouroonek', '=', true);
             })
             ->when(!empty($filters['health']), function ($query) use ($filters) {
                 $query->where($this->table . '.health', '=', true);

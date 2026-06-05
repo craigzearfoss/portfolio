@@ -321,6 +321,15 @@
                             'message'         => $message ?? '',
                         ])
 
+                        @include('admin.components.form-checkbox', [
+                            'name'            => 'fouroonek',
+                            'label'           => '401(k)',
+                            'value'           => 1,
+                            'unchecked_value' => 0,
+                            'checked'         => old('fouroonek') ?? 0,
+                            'message'         => $message ?? '',
+                        ])
+
                     </div>
                     <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
 

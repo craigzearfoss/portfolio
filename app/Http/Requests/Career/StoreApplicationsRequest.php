@@ -81,6 +81,7 @@ class StoreApplicationsRequest extends StoreAppBaseRequest
             'benefits'               => ['integer', 'between:0,1'],
             'vacation'               => ['integer', 'between:0,1'],
             'health'                 => ['integer', 'between:0,1'],
+            'fouroonek'              => ['integer', 'between:0,1'],
             'phone'                  => ['string', 'max:20', 'nullable'],
             'phone_label'            => ['string', 'max:100', 'nullable'],
             'alt_phone'              => ['string', 'max:20', 'nullable'],
