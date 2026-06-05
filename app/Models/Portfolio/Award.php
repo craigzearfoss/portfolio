@@ -92,11 +92,15 @@ class Award extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'    => 'description',
         'is_disabled|desc'   => 'disabled',
         'featured|desc'      => 'featured',
         'id|asc'             => 'id',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
         'name|asc'           => 'name',
         'nominated_work|asc' => 'nominated_work',
+        //'notes|asc'          => 'notes',
         'organization|asc'   => 'organization',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
@@ -166,6 +170,12 @@ class Award extends Model
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

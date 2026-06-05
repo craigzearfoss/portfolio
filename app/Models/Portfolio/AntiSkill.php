@@ -83,8 +83,8 @@ class AntiSkill extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'featured', 'summary', 'type_id', 'level',
-        'dictionary_category_id', 'start_year', 'end_year', 'years', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'dictionary_category_id', 'start_year', 'end_year', 'years', 'notes', 'link', 'link_name', 'description',
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -100,11 +100,15 @@ class AntiSkill extends Model
         'created_at|desc'              => 'datetime created',
         'updated_at|desc'              => 'datetime updated',
         'is_demo|desc'                 => 'demo',
+        //'description|asc'              => 'description',
         'is_disabled|desc'             => 'disabled',
         'featured|desc'                => 'featured',
         'id|asc'                       => 'id',
         'level|desc'                   => 'level',
+        'link|asc'                     => 'link',
+        'link_name|asc'                => 'link name',
         'name|asc'                     => 'name',
+        //'notes|asc'                    => 'notes',
         'owner_id|asc'                 => 'owner id',
         'owner_name|asc'               => 'owner name',
         'owner_username|asc'           => 'owner username',
@@ -220,6 +224,12 @@ class AntiSkill extends Model
             ->when(!empty($filters['level']), function ($query) use ($filters) {
                 $query->where($this->table . '.level', '=', intval($filters['level']));
             })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
+            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
@@ -234,6 +244,9 @@ class AntiSkill extends Model
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['start_year']), function ($query) use ($filters) {
                 $query->where($this->table . '.start_year', '=', intval($filters['start_year']));

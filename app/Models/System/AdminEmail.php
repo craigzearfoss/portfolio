@@ -67,9 +67,11 @@ class AdminEmail extends Model
     const array SORT_OPTIONS = [
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
+        //'description|asc'    => 'description',
         'email|asc'          => 'email',
         'id|asc'             => 'id',
         'label|asc'          => 'label',
+        //'notes|asc'          => 'notes',
         'owner_username|asc' => 'owner',
         'owner_id|asc'       => 'owner id',
         'sequence|asc'       => 'sequence',
@@ -117,6 +119,9 @@ class AdminEmail extends Model
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['search_label']), function ($query) use ($filters) {
                 $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');

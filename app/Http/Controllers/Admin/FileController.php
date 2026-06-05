@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\ResourceFileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use ReflectionException;
 
 class FileController extends Controller
@@ -66,5 +68,64 @@ class FileController extends Controller
 
         return back()->with('success', 'File uploaded successfully!')
             ->with('file', $fileService->getFilename());
+    }
+
+    /**
+     * @return RedirectResponse|Redirector|void
+     */
+    public function removeImage()
+    {
+        $errors = [];
+
+        if (!$resourceType = request()->input('resource_type')) {
+            $errors[] = 'No `resource_type` specified.';
+        }
+        if (!$resourceId = request()->input('resource_id')) {
+            $errors[] = 'No `resource_id` specified.';
+        }
+        if (!$column = request()->input('column')) {
+            $errors[] = 'No `column` specified.';
+        }
+        if (!$target = request()->input('target')) {
+            $target = route('admin.dashboard');
+        }
+
+        if (empty($errors)) {
+
+            $resourceClassName = 'App\\Models\\' . trim($resourceType, '\\');
+
+            $admin = Auth::guard('admin')->user();
+
+            try {
+                $object = new $resourceClassName;
+                if (!$resourceObj = $object->find($resourceId)) {
+
+                    $errors[] = $resourceType . ' ' . $resourceId . ' not found.';
+
+                } else {
+
+                    if (!canUpdate($resourceObj, $admin)) {
+
+                        $errors[] = 'You do not have permission to update ' . $resourceType . ' ' . $resourceId . '.';
+
+                    } else {
+
+                        $resourceObj->{$column} = null;
+                        $resourceObj->update();
+
+                        return redirect($target)->with('success', ucfirst($column) . ' removed for ' . $resourceType . ' ' . $resourceId . '.');
+                    }
+                }
+
+            } catch (\Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        if (!empty($errors)) {
+            return redirect($target)->withErrors([
+                'GLOBAL' => 'Image could not be removed. ' . implode(' ', $errors)
+            ]);
+        }
     }
 }

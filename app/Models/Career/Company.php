@@ -98,8 +98,8 @@ class Company extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'founded', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
-        'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -116,12 +116,16 @@ class Company extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'    => 'description',
         'is_disabled|desc'   => 'disabled',
         'email|asc'          => 'email',
         'founded|asc'        => 'founded',
         'id|asc'             => 'id',
         'industry_name|asc'  => 'industry',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
         'name|asc'           => 'name',
+        //'notes|asc'          => 'notes',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
         'owner_username|asc' => 'owner username',
@@ -191,6 +195,12 @@ class Company extends Model
             })
             ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.industry_id', '=', intval($filters['industry_id']));
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

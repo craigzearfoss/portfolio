@@ -105,8 +105,8 @@ class Recipe extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'source',  'author', 'prep_time',
         'total_time', 'main', 'side', 'dessert', 'appetizer', 'beverage', 'breakfast', 'lunch', 'dinner', 'snack',
-        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'created_at', 'updated_at'
+        'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -122,10 +122,15 @@ class Recipe extends Model
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
+        //'description|asc'          => 'description',
+        'dessert|asc'        => 'dessert',
         'is_disabled|desc'   => 'disabled',
         'featured|desc'      => 'featured',
         'id|asc'             => 'id',
+        'link|asc'           => 'link',
+        'link_name|asc'      => 'link name',
         'name|asc'           => 'name',
+        //'notes|asc'          => 'notes',
         'owner_id|asc'       => 'owner id',
         'owner_name|asc'     => 'owner name',
         'owner_username|asc' => 'owner username',
@@ -208,6 +213,12 @@ class Recipe extends Model
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['lunch']), function ($query) use ($filters) {
                 $query->where($this->table . '.lunch', '=', true);

@@ -1,6 +1,8 @@
 @php
     // @TODO: The logic of this page is quite circuitous and should probably cleaned up at some point.
 
+    use Illuminate\Support\Str;
+
     $upload   = $upload ?? false;
     $download = $download ?? false;
     $external = $external ?? false;
@@ -138,6 +140,17 @@
                                 <div style="display: inline-block; float: right;">
 
                                     @if ($upload)
+
+                                        @if ($resource->{$imageName})
+                                            @include('user.components.button-remove-image', [
+                                                'label'         => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
+                                                'resource_type' => 'Career\Application',
+                                                'resource'      => $resource,
+                                                'column'        => $imageName,
+                                                'target_data'   => 'resource-' . $imageName,
+                                            ])
+                                        @endif
+
                                         @if (config('app.upload_enabled'))
                                             @include('user.components.button-upload-image', [
                                                 'label'       => empty($resource->{$imageName}) ? 'Upload' : 'Replace',
@@ -164,7 +177,7 @@
                                             'title'    => $imageTitle,
                                             'src'      => $src,
                                             'filename' => $filename,
-                                            'alt'      => $downloadType,
+                                            'alt'      => htmlspecialchars($downloadType),
                                             'width'    => $width,
                                             'download' => false, // download link is created above the image
                                             'external' => false, // external link is created above the image
@@ -180,7 +193,9 @@
                                                     <label for="inputImage_credit" class="label">credit:</label>
                                                 </div>
                                                 <div style="display: inline-block;">
-                                                    <input type="text" id="inputImage_credit" name="image_credit" class="input" value="{{ $resource->image_credit ?? '' }}" style="width: 100%;">
+                                                    <input type="text" id="inputImage_credit" name="image_credit"
+                                                           class="input" value="{{ $resource->image_credit ?? '' }}"
+                                                           style="width: 100%;">
                                                 </div>
                                             </div>
                                             <div>
@@ -188,7 +203,9 @@
                                                     <label for="inputImage_credit" class="label">source:</label>
                                                 </div>
                                                 <div style="display: inline-block;">
-                                                    <input type="text" id="inputImage_credit" name="image_credit" class="input" value="{{ $resource->image_source ?? '' }}" style="width: 100%;">
+                                                    <input type="text" id="inputImage_credit" name="image_credit"
+                                                           class="input" value="{{ $resource->image_source ?? '' }}"
+                                                           style="width: 100%;">
                                                 </div>
                                             </div>
 

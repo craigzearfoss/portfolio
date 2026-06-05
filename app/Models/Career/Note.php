@@ -95,8 +95,12 @@ class Note extends Model
         'application_close_date|desc' => 'date closed',
         'application_post_date|desc'  => 'date posted',
         'is_demo|desc'                => 'demo',
+        //'description|asc'             => 'description',
         'is_disabled|desc'            => 'disabled',
         'id|asc'                      => 'id',
+        'link|asc'                    => 'link',
+        'link_name|asc'               => 'name',
+        //'notes|asc'                   => 'notes',
         'owner_id|asc'                => 'owner id',
         'owner_name|asc'              => 'owner name',
         'owner_username|asc'          => 'owner username',
@@ -192,6 +196,18 @@ class Note extends Model
             })
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['subject']), function ($query) use ($filters) {
                 $query->where($this->table . '.subject', 'like', '%' . $filters['subject'] . '%');

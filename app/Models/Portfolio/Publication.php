@@ -102,9 +102,9 @@ class Publication extends Model
      */
     const array SEARCH_COLUMNS = [ 'parent_id', 'id', 'owner_id', 'title', 'featured', 'publication_name', 'publisher',
         'publication_date', 'publication_year', 'credit', 'fiction', 'nonfiction', 'technical', 'research', 'freelance',
-        'online', 'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'poetry', 'notes',
-        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
-        'updated_at'
+        'online', 'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'poetry', 'notes', 'link',
+        'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -119,9 +119,13 @@ class Publication extends Model
         'created_at|desc'      => 'datetime created',
         'updated_at|desc'      => 'datetime updated',
         'is_demo|desc'         => 'demo',
+        //'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
+        'link|asc'             => 'link',
+        'link_name|asc'        => 'link name',
+        //'notes|asc'            => 'notes',
         'owner_id|asc'         => 'owner id',
         'owner_name|asc'       => 'owner name',
         'owner_username|asc'   => 'owner username',
@@ -205,6 +209,12 @@ class Publication extends Model
             })
             ->when(!empty($filters['freelance']), function ($query) use ($filters) {
                 $query->where($this->table . '.freelance', '=', true);
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['nonfiction']), function ($query) use ($filters) {
                 $query->where($this->table . '.nonfiction', '=', true);

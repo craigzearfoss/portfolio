@@ -73,126 +73,160 @@
                                 <hr class="navbar-divider">
                                 <div style="height: 12px; margin: 0; padding: 0;"></div>
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'id',
-                                    'value' => $company->id,
-                                    'hide'  => !$isRootAdmin,
-                                ])
+                                <div class="floating-div-container">
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'owner',
-                                    'value' => $company->owner->username,
-                                    'hide'  => !$isRootAdmin,
-                                ])
+                                    <div class="floating-div card has-background-white-ter p-4 m-2">
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'name',
-                                    'value' => htmlspecialchars($company->name)
-                                ])
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'id',
+                                            'value' => $company->id,
+                                            'hide'  => !$isRootAdmin,
+                                        ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'slug',
-                                    'value' => $company->slug
-                                ])
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'owner',
+                                            'value' => $company->owner->username,
+                                            'hide'  => !$isRootAdmin,
+                                        ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'industry',
-                                    'value' => htmlspecialchars($company->industry['name'] ?? '')
-                                ])
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => htmlspecialchars($company->name)
+                                        ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'founded',
-                                    'value' => $company->founded
-                                ])
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'slug',
+                                            'value' => $company->slug
+                                        ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'location',
-                                    'value' => formatLocation([
-                                        'street'          => htmlspecialchars($company->street),
-                                        'street2'         => htmlspecialchars($company->street2),
-                                        'city'            => htmlspecialchars($company->city),
-                                        'state'           => $company->state->code ?? '',
-                                        'zip'             => htmlspecialchars($company->zip),
-                                        'country'         => $company->country->iso_alpha3 ?? '',
-                                        'streetSeparator' => '<br>',
-                                    ])
-                                ])
+                                    </div>
+                                    <div class="floating-div card has-background-white-ter p-4 m-2">
 
-                                @include('admin.components.show-row-coordinates', [
-                                    'resource' => $company
-                                ])
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'industry',
+                                            'value' => htmlspecialchars($company->industry['name'] ?? '')
+                                        ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($company->phone_label) ? htmlspecialchars($company->phone_label) : 'phone',
-                                    'value' => htmlspecialchars($company->phone)
-                                ])
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'founded',
+                                            'value' => $company->founded
+                                        ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($company->alt_phone_label) ?  htmlspecialchars($company->alt_phone_label) : 'alt phone',
-                                    'value' => htmlspecialchars($company->alt_phone)
-                                ])
+                                    </div>
+                                </div>
+                                <div class="floating-div-container">
 
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($company->email_label) ?  htmlspecialchars($company->email_label) : 'email',
-                                    'value' =>  htmlspecialchars($company->email)
-                                ])
+                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="display: inline-block;">
 
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($company->alt_email_label) ?  htmlspecialchars($company->alt_email_label) : 'alt email',
-                                    'value' =>  htmlspecialchars($company->alt_email)
-                                ])
+                                        <div class="mr-4" style="display: inline-block; min-width: 20rem; vertical-align: top;">
 
-                                @include('admin.components.show-row-link', [
-                                    'name'   => 'link',
-                                    'href'   => $company->link,
-                                    'target' => '_blank'
-                                ])
+                                            @include('admin.components.show-row', [
+                                                'name'  => 'location',
+                                                'value' => formatLocation([
+                                                    'street'          => htmlspecialchars($company->street),
+                                                    'street2'         => htmlspecialchars($company->street2),
+                                                    'city'            => htmlspecialchars($company->city),
+                                                    'state'           => $company->state->code ?? '',
+                                                    'zip'             => htmlspecialchars($company->zip),
+                                                    'country'         => $company->country->iso_alpha3 ?? '',
+                                                    'streetSeparator' => '<br>',
+                                                ])
+                                            ])
 
-                                @include('admin.components.show-row', [
-                                    'name'   => 'link name',
-                                    'label'  => 'link_name',
-                                    'value'  =>  htmlspecialchars($company->link_name),
-                                ])
+                                            @include('admin.components.show-row-coordinates', [
+                                                'resource' => $company
+                                            ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'description',
-                                    'value' => $company->description
-                                ])
+                                        </div>
+                                        <div class="mr-4" style="display: inline-block; min-width: 15rem; vertical-align: top;">
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'disclaimer',
-                                    'value' => view('admin.components.disclaimer', [
-                                                    'value' => htmlspecialchars($company->disclaimer)
-                                               ])
-                                ])
+                                            @include('admin.components.show-row', [
+                                                'name'  => !empty($company->phone_label) ? htmlspecialchars($company->phone_label) : 'phone',
+                                                'value' => htmlspecialchars($company->phone)
+                                            ])
 
-                                @include('admin.components.show-row-images', [
-                                    'resource' => $company,
-                                    'upload'   => true,
-                                    'download' => true,
-                                    'external' => true,
-                                ])
+                                            @include('admin.components.show-row', [
+                                                'name'  => !empty($company->alt_phone_label) ?  htmlspecialchars($company->alt_phone_label) : 'alt phone',
+                                                'value' => htmlspecialchars($company->alt_phone)
+                                            ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'notes',
-                                    'value' =>  nl2br(htmlspecialchars($company->notes))
-                                ])
+                                            @include('admin.components.show-row', [
+                                                'name'  => !empty($company->email_label) ?  htmlspecialchars($company->email_label) : 'email',
+                                                'value' =>  htmlspecialchars($company->email)
+                                            ])
 
-                                @include('admin.components.show-row-visibility', [
-                                    'resource' => $company,
-                                ])
+                                            @include('admin.components.show-row', [
+                                                'name'  => !empty($company->alt_email_label) ?  htmlspecialchars($company->alt_email_label) : 'alt email',
+                                                'value' =>  htmlspecialchars($company->alt_email)
+                                            ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'created at',
-                                    'value' => longDateTime($company->created_at)
-                                ])
+                                        </div>
 
-                                @include('admin.components.show-row', [
-                                    'name'  => 'updated at',
-                                    'value' => longDateTime($company->updated_at)
-                                ])
+                                    </div>
+                                </div>
+                                <div class="floating-div-container">
+
+                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'link',
+                                            'href'   => $company->link,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'   => 'link name',
+                                            'label'  => 'link_name',
+                                            'value'  =>  htmlspecialchars($company->link_name),
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'description',
+                                            'value' => $company->description
+                                        ])
+
+                                    </div>
+                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'disclaimer',
+                                            'value' => view('admin.components.disclaimer', [
+                                                            'value' => htmlspecialchars($company->disclaimer)
+                                                       ])
+                                        ])
+
+                                        @include('admin.components.show-row-images', [
+                                            'resource' => $company,
+                                            'upload'   => true,
+                                            'download' => true,
+                                            'external' => true,
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'notes',
+                                            'value' =>  nl2br(htmlspecialchars($company->notes))
+                                        ])
+
+                                        @include('admin.components.show-row-visibility', [
+                                            'resource' => $company,
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($company->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($company->updated_at)
+                                        ])
+
+                                    </div>
+
+                                </div>
 
                             </div>
+
                         </div>
 
                         <div id="contacts" class="is-hidden">

@@ -1,10 +1,14 @@
 @php
-$class   = !empty($class) ? $class : '';
-if (!empty($style)) {
-    $style = is_array($style) ? implode('; ', $style) . ';' : $style;
-} else {
-    $style = '';
-}
+    $name      = $name ?? 'link';
+    $link      = $link ?? '';
+    $link_name = $link_name ?? '';
+
+    $class  = !empty($class)
+        ? (is_array($class) ? $class : explode(' ', $class))
+        : [];
+    $style = !empty($style)
+        ? (is_array($style) ? $style : explode(';', $style))
+        : [];
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
@@ -14,13 +18,16 @@ if (!empty($style)) {
 
         <div class="content mb-0 mr-2">
             <div class="control has-icons-left">
-                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
+                <input class="input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
                        type="text"
-                       id="inputLink"
-                       name="link"
+                       id="{{ 'input' . ucfirst($name) }}"
+                       name="{{ $name }}"
                        value="{!! $link !!}"
                        placeholder="url"
                        maxlength="255"
+                       @if (!empty($style))
+                           {!! implode('; ', $style) !!}
+                       @endif
                 >
                 <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
             </div>
@@ -33,13 +40,16 @@ if (!empty($style)) {
 
         <div class="content mb-0 ">
             <div class="control">
-                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
+                <input class="input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
                        type="text"
-                       id="inputLink_name"
-                       name="link_name"
-                       value="{!! $name !!}"
+                       id="{{ 'input' . ucfirst($name) . '_name' }}"
+                       name="{{ $name . '_name' }}"
+                       value="{!! $link_name !!}"
                        placeholder="name"
                        maxlength="255"
+                       @if (!empty($style))
+                           {!! implode('; ', $style) !!}
+                       @endif
                 >
             </div>
 

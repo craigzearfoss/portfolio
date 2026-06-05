@@ -101,9 +101,13 @@ class Communication extends Model
         'updated_at|desc'             => 'datetime updated',
         'communication_datetime|desc' => 'datetime',
         'is_demo|desc'                => 'demo',
+        //'description|asc'             => 'description',
         'is_disabled|desc'            => 'disabled',
         'from|asc'                    => 'from',
         'id|asc'                      => 'id',
+        'link|asc'                    => 'link',
+        'link_name|asc'               => 'link name',
+        //'notes|asc'                   => 'notes',
         'owner_id|asc'                => 'owner id',
         'owner_name|asc'              => 'owner name',
         'owner_username|asc'          => 'owner username',
@@ -216,6 +220,12 @@ class Communication extends Model
             })
             ->when(!empty($filters['from']), function ($query) use ($filters) {
                 $query->where($this->table . '.from', 'like', '%' . $filters['from'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

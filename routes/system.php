@@ -137,6 +137,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('profile/change-password', [AdminProfileController::class, 'change_password_submit'])->name('profile.change-password-submit');
         Route::get('profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
         Route::put('profile/update/{admin}', [AdminProfileController::class, 'update'])->name('profile.update');
+        Route::get('remove-image', [FileController::class, 'removeImage'])->name('file.remove-image');
 
         Route::name('system.')->group(function () {
 
