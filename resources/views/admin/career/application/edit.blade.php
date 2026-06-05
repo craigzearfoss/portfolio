@@ -391,17 +391,19 @@
                 <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
 
                     @include('admin.components.form-link-horizontal', [
-                        'label'   => 'link',
-                        'link'    => old('link') ?? $application->link,
-                        'name'    => old('link_name') ?? $application->link_name,
-                        'message' => $message ?? '',
+                        'name'      => 'link',
+                        'label'     => 'link',
+                        'link'      => old('link') ?? $application->link,
+                        'link_name' => old('link_name') ?? $application->link_name,
+                        'message'   => $message ?? '',
                     ])
 
                     @include('admin.components.form-link-horizontal', [
-                        'label'   => 'link 2',
-                        'link'    => old('link2') ?? $application->link2,
-                        'name'    => old('link2_name') ?? $application->link2_name,
-                        'message' => $message ?? '',
+                        'name'      => 'link2',
+                        'label'     => 'link 2',
+                        'link'      => old('link2') ?? $application->link2,
+                        'link_name' => old('link2_name') ?? $application->link2_name,
+                        'message'   => $message ?? '',
                     ])
 
                     @include('admin.components.form-textarea-horizontal', [

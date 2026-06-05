@@ -122,7 +122,7 @@ div.field.is-horizontal div.field-label label.label {
 .edit-container input[name="phone"], .edit-container input[name="phone_label"],
 .edit-container input[name="alt_phone"], .edit-container input[name="alt_phone_label"],
 .edit-container input[name="work_phone"], .edit-container input[name="personal_phone"],
-.edit-container input[name="link_name"], .edit-container input[name="image_credit"] {
+.edit-container input[name="link_name"], .edit-container input[name="link2_name"], .edit-container input[name="image_credit"] {
     width: 20em;
 }
 
@@ -137,7 +137,7 @@ div.field.is-horizontal div.field-label label.label {
     width: 12em;
 }
 
-.edit-container input[name="link"], .edit-container input[name="image_source"] {
+.edit-container input[name="link"], .edit-container input[name="link2"], .edit-container input[name="image_source"] {
     width: 40em;
 }
 
