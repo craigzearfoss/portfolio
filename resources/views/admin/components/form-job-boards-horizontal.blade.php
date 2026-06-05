@@ -5,6 +5,8 @@
     $job_board_id  = $job_board_id ?? null;
     $job_board_id2 = $job_board_id2 ?? null;
 
+    $horizontal = $horizontal ?? true;
+
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
         $style = is_array($style) ? implode('; ', $style) . ';' : $style;
@@ -18,9 +20,9 @@
     <div class="field-label">
         <label class="label" for="inputStreet">{!! $label ?? 'job board(s)' !!}</label>
     </div>
-    <div class="field-body">
+    <div class="field-body{{ !$horizontal ? ' not-horizontal' : '' }}" >
 
-        <div class="mr-2">
+        <div class="mr-2{{ !$horizontal ? ' mb-1' : '' }}">
             <div class="select">
                 @include('admin.components.select-list', [
                     'name'    => 'job_board_id',

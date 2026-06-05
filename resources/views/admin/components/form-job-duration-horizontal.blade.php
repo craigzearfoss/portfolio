@@ -35,7 +35,7 @@
 
     <div class="field-label">
         <label for="inputJob_duration_type_id" class="label">
-            duration length
+            duration
         </label>
     </div>
 

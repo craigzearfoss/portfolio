@@ -113,6 +113,11 @@
                                         ])
                                         */ ?>
 
+                                        @include('admin.components.show-row-checkmark', [
+                                            'name'    => 'active',
+                                            'checked' => $application->active
+                                        ])
+
                                         @include('admin.components.show-row', [
                                             'name'  => 'company',
                                             'value' =>  view('admin.components.link', [
@@ -136,11 +141,6 @@
                                         @include('admin.components.show-row-rating', [
                                             'name'  => 'rating',
                                             'value' => $application->rating
-                                        ])
-
-                                        @include('admin.components.show-row-checkmark', [
-                                            'name'    => 'active',
-                                            'checked' => $application->active
                                         ])
 
                                     </div>
@@ -249,18 +249,14 @@
                                             if (!empty($application->jobBoard)) {
                                                 $jobBoardLinks[] = view('admin.components.link', [
                                                     'name' => htmlspecialchars($application->jobBoard['name'] ?? ''),
-                                                    'href' => $application->jobBoard
-                                                        ? route('admin.career.job-board.show', $application->jobBoard['id'])
-                                                        : '',
+                                                    'href' => route('admin.career.job-board.show', $application->jobBoard['id']),
                                                 ]);
                                             }
 
                                             if (!empty($application->jobBoard2)) {
                                                 $jobBoardLinks[] = view('admin.components.link', [
                                                     'name' => htmlspecialchars($application->jobBoard2['name'] ?? ''),
-                                                    'href' => $application->jobBoard2
-                                                        ? route('admin.career.job-board.show', $application->jobBoard2['id'])
-                                                        : '',
+                                                    'href' => route('admin.career.job-board.show', $application->jobBoard2['id']),
                                                 ]);
                                             }
                                         @endphp
@@ -277,7 +273,7 @@
 
                                     <div class="floating-div card has-background-white-ter p-4 m-2" style="display: inline-block;">
 
-                                        <div class="mr-4" style="display: inline-block; min-width: 15rem; vertical-align: top;">
+                                        <div class="mr-4" style="display: inline-block; min-width: 20rem; vertical-align: top;">
 
                                             @include('admin.components.show-row', [
                                                 'name'  => 'location',

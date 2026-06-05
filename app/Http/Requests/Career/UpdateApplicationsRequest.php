@@ -93,6 +93,8 @@ class UpdateApplicationsRequest extends UpdateAppBaseRequest
             'notes'                  => ['nullable'],
             'link'                   => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'              => ['string', 'max:255', 'nullable'],
+            'link2'                  => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link2_name'             => ['string', 'max:255', 'nullable'],
             'description'            => ['nullable'],
             'disclaimer'             => ['string', 'max:500', 'nullable'],
             'image'                  => ['string', 'max:500', 'nullable'],

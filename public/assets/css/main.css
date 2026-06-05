@@ -972,6 +972,14 @@ div.card.job-analyzer-skill-list div.card-body {
     overflow-y: auto;
 }
 
-.visibility-checkboxes-container .card {
+.visibility-checkboxes-container.card,
+.visibility-checkboxes-container .card{
     background-color: inherit;
+    border: 0;
+}
+
+@media screen and (min-width: 769px), print {
+    .field-body.not-horizontal {
+        display: block;
+    }
 }

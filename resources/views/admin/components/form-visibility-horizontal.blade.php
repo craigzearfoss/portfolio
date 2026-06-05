@@ -19,7 +19,7 @@
     <div class="field-body">
         <div class="field" style="flex-grow: 0;">
 
-            <div class="checkbox-container card form-container p-4">
+            <div class="checkbox-container visibility-checkboxes-container card form-container p-4">
 
                 @include('admin.components.form-checkbox', [
                     'name'            => 'is_public',
