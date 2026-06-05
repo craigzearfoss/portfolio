@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ResourceFileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use ReflectionException;
 
@@ -69,6 +70,9 @@ class FileController extends Controller
             ->with('file', $fileService->getFilename());
     }
 
+    /**
+     * @return RedirectResponse|Redirector|void
+     */
     public function removeImage()
     {
         $errors = [];
@@ -90,8 +94,6 @@ class FileController extends Controller
 
             $resourceClassName = 'App\\Models\\' . trim($resourceType, '\\');
 
-
-
             $admin = Auth::guard('admin')->user();
 
             try {
@@ -111,7 +113,7 @@ class FileController extends Controller
                         $resourceObj->{$column} = null;
                         $resourceObj->update();
 
-                        return redirect($target)->with('success', "`{$column}` removed for ' . $resourceType . ' ' . $resourceId . '.'");
+                        return redirect($target)->with('success', ucfirst($column) . ' removed for ' . $resourceType . ' ' . $resourceId . '.');
                     }
                 }
 
@@ -125,6 +127,5 @@ class FileController extends Controller
                 'GLOBAL' => 'Image could not be removed. ' . implode(' ', $errors)
             ]);
         }
-
     }
 }
