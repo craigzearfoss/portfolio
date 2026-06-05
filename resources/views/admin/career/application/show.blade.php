@@ -380,15 +380,17 @@
                         <div id="job-description" class="is-hidden">
                             @include('admin.career.application.job-description.panel', [
                                 'application'       => $application ?? null,
+                                'parsedDescription' => $parsedDescription ?? ''
                             ])
                         </div>
 
                         <div id="application-skill" class="is-hidden">
                             @include('admin.career.application.application-skill.panel', [
                                 'application'       => $application ?? null,
+                                'skills'            => $skills ?? [],
+                                'antiSkills'        => $antiSkills ?? [],
                                 'matchedSkills'     => $matchedSkills ?? [],
                                 'matchedAntiSkills' => $matchedAntiSkills ?? [],
-                                'parsedDescription' => $parsedDescription ?? ''
                             ])
                         </div>
 

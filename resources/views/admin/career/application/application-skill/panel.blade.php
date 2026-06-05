@@ -1,6 +1,9 @@
 @php
     $application       = $application ?? null;
-    $applicationSkills = $applicationSkills ?? [];
+    $skills            = $skills ?? [];
+    $antiSkills        = $antiSkills ?? [];
+    $matchedSkills     = $matchedSkills ?? [];
+    $matchedAntiSkills = $matchedAntiSkills ?? [];
 @endphp
 <div class="card p-4">
 
@@ -13,8 +16,11 @@
     <hr class="navbar-divider">
 
     @include('admin.career.application.application-skill.table', [
-        'applicationId'     => $application['id'],
-        'applicationSkills' => $applicationSkills
+        'application'       => $application,
+        'skills'            => $skills ?? [],
+        'antiSkills'        => $antiSkills ?? [],
+        'matchedSkills'     => $matchedSkills ?? [],
+        'matchedAntiSkills' => $matchedAntiSkills ?? [],
     ])
 
 </div>

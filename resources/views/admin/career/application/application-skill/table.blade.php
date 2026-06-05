@@ -2,7 +2,8 @@
     $application       = $application ?? null;
     $skills            = $skills ?? [];
     $antiSkills        = $antiSkills ?? [];
-    $parsedDescription = $parsedDescription ?? '';
+    $matchedSkills     = $matchedSkills ?? [];
+    $matchedAntiSkills = $matchedAntiSkills ?? [];
 @endphp
 
 
@@ -74,20 +75,6 @@
 
         @endforeach
 
-    </div>
-
-</div>
-
-<div class="card ml-0 mb-4">
-
-    <div class="card-header p-2">
-        <span class="has-text-weight-semibold">
-            Job Description
-        </span>
-    </div>
-
-    <div class="card-body p-2">
-        {!! $parsedDescription !!}
     </div>
 
 </div>

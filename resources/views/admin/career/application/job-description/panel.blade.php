@@ -1,3 +1,9 @@
+@php
+    $application       = $application ?? null;
+    $skills            = $skills ?? [];
+    $antiSkills        = $antiSkills ?? [];
+    $parsedDescription = $parsedDescription ?? '';
+@endphp
 <div class="card p-4">
 
     <h3 class="is-size-5 title mb-3">
@@ -33,7 +39,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'description',
-                'value' => $application->description
+                'value' => $parsedDescription
             ])
 
         </div>
