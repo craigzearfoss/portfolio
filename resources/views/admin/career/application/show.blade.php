@@ -224,7 +224,7 @@
 
                                     </div>
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="float: right">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="float: right; width: 14rem;">
 
                                         @include('admin.components.show-row', [
                                             'name'         => 'post date',
