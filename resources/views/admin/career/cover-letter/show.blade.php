@@ -156,15 +156,10 @@
                                 */ ?>
 
                                 @include('admin.components.show-row-link', [
-                                    'name'   => 'link',
-                                    'href'   => $coverLetter->link,
-                                    'target' => '_blank'
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'   => 'link name',
-                                    'label'  => 'link_name',
-                                    'value'  => htmlspecialchars($coverLetter->link_name),
+                                    'link_name' => htmlspecialchars($coverLetter->link_name ?? 'link'),
+                                    'name'      => $coverLetter->link,
+                                    'href'      => $coverLetter->link,
+                                    'target'    => '_blank',
                                 ])
 
                                 @include('admin.components.show-row', [

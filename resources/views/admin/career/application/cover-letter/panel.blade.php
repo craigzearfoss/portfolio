@@ -60,60 +60,72 @@
 
             <div style="flex: 1; padding: 5px;">
 
-                @include('admin.components.show-row-link', [
-                    'name'  => 'date',
-                    'value' => longDate($coverLetter->cover_letter_datetime),
-                ])
+                <div class="floating-div-container">
 
-                @include('admin.components.show-row-document', [
-                    'resource'        => $coverLetter,
-                    'label'           => 'file',
-                    'filename'        => $coverLetter->name,
-                    'column'          => 'filepath',
-                    'datetime_column' => 'cover_letter_datetime',
-                    'upload'          => false,
-                    'download'        => true,
-                    'external'        => true,
-                ])
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
-                @include('admin.components.show-row', [
-                    'name'  => 'notes',
-                    'value' => nl2br(htmlspecialchars($coverLetter->notes))
-                ])
+                        @include('admin.components.show-row', [
+                            'name'  => 'date',
+                            'value' => longDate($coverLetter->cover_letter_datetime),
+                        ])
 
-                @include('admin.components.show-row-link', [
-                    'name'   => !empty($coverLetter->link_name) ? htmlspecialchars($coverLetter->link_name) : 'link',
-                    'href'   => $coverLetter->link,
-                    'target' => '_blank'
-                ])
+                        @include('admin.components.show-row-document', [
+                            'resource'        => $coverLetter,
+                            'label'           => 'file',
+                            'filename'        => $coverLetter->name,
+                            'column'          => 'filepath',
+                            'datetime_column' => 'cover_letter_datetime',
+                            'upload'          => false,
+                            'download'        => true,
+                            'external'        => true,
+                        ])
 
-                @if (!empty($coverLetter->description))
-                    @include('admin.components.show-row', [
-                        'name'  => 'description',
-                        'value' => $coverLetter->description
-                    ])
-                @endif
+                    </div>
+                    <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
 
-                @include('admin.components.show-row', [
-                    'name'  => 'disclaimer',
-                    'value' => view('admin.components.disclaimer', [
-                                    'value' => htmlspecialchars($coverLetter->disclaimer)
-                               ])
-                ])
+                        @include('admin.components.show-row', [
+                            'name'  => 'notes',
+                            'value' => nl2br(htmlspecialchars($coverLetter->notes))
+                        ])
 
-                @include('admin.components.show-row-visibility', [
-                    'resource' => $coverLetter,
-                ])
+                        @include('admin.components.show-row-link', [
+                            'link_name' => htmlspecialchars($coverLetter->link_name ?? 'link'),
+                            'name'      => $coverLetter->link,
+                            'href'      => $coverLetter->link,
+                            'target'    => '_blank',
+                        ])
 
-                @include('admin.components.show-row', [
-                    'name'  => 'created at',
-                    'value' => longDateTime($coverLetter->created_at)
-                ])
+                        @if (!empty($coverLetter->description))
+                            @include('admin.components.show-row', [
+                                'name'  => 'description',
+                                'value' => $coverLetter->description
+                            ])
+                        @endif
 
-                @include('admin.components.show-row', [
-                    'name'  => 'updated at',
-                    'value' => longDateTime($coverLetter->updated_at)
-                ])
+                        @include('admin.components.show-row', [
+                            'name'  => 'disclaimer',
+                            'value' => view('admin.components.disclaimer', [
+                                            'value' => htmlspecialchars($coverLetter->disclaimer)
+                                       ])
+                        ])
+
+                        @include('admin.components.show-row-visibility', [
+                            'resource' => $coverLetter,
+                        ])
+
+                        @include('admin.components.show-row', [
+                            'name'  => 'created at',
+                            'value' => longDateTime($coverLetter->created_at)
+                        ])
+
+                        @include('admin.components.show-row', [
+                            'name'  => 'updated at',
+                            'value' => longDateTime($coverLetter->updated_at)
+                        ])
+
+                    </div>
+
+                </div>
 
             </div>
 

@@ -87,9 +87,10 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'repository',
-            'href'    => $project->repository_url,
-            'target' => '_blank'
+            'link_name' => 'repository',
+            'name'      => $project->repository_url,
+            'href'      => $project->repository_url,
+            'target'    => '_blank',
         ])
 
         @include('admin.components.show-row', [
@@ -98,15 +99,10 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $project->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'label'  => 'link_name',
-            'value'  => $project->link_name,
+            'link_name' => htmlspecialchars($project->link_name ?? 'link'),
+            'name'      => $project->link,
+            'href'      => $project->link,
+            'target'    => '_blank',
         ])
 
         @include('admin.components.show-row', [

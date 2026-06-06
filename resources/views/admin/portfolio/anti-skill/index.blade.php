@@ -126,7 +126,10 @@
                                 {{ $antiSkill->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $antiSkill->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $antiSkill->owner->username,
+                                    'href' => route('admin.system.admin.show', $antiSkill->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">

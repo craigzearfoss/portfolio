@@ -100,15 +100,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $award->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $award->link_name,
+                'link_name' => htmlspecialchars($award->link_name ?? 'link'),
+                'name'      => $award->link,
+                'href'      => $award->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

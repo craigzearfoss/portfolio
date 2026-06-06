@@ -121,7 +121,10 @@
                                 {{ $recipeIngredient->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $recipeIngredient->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $recipeIngredient->owner->username,
+                                    'href' => route('admin.system.admin.show', $recipeIngredient->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="ingredient.name" style="white-space: nowrap;">

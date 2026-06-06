@@ -1,11 +1,19 @@
 @php
+    $name = $name ?? '';
+    $href = $href ?? '';
+
     $class      = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
     $style      = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
     $icon       = $icon ?? null;
-    $href       = $href ?? null;
-    $target     = $target ?? null;
+    $href       = $href ?? '';
+    $target     = $target ?? '';
+    $title      = $title ?? '';
     $download   = isset($download) && boolval($download);
-    $attributes = $attributes ?? []
+    $attributes = $attributes ?? [];
+    if ($disabled ?? false) {
+        $style[] = 'cursor: default';
+        $style[] = 'opacity: 0.5';
+    }
 @endphp
 @if (!empty($href) || !empty($name))
 
@@ -14,6 +22,9 @@
        @endif
        @if (!empty($target))
            target="{!! $target !!}"
+       @endif
+       @if (!empty($title))
+           title="{{ $title }}"
        @endif
        @if (!empty($class))
            class="{{ implode(' ' , $class) }}"
@@ -33,7 +44,7 @@
         @if (!empty($icon))
             <i class="fa {{ $icon }}"></i>
         @endif
-        {!! $name ?? $href ?? '' !!}
+        {!! $name !!}
     </a>
 
     @if ($download && !empty($href))

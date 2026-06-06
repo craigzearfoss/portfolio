@@ -118,7 +118,10 @@
                                 {{ $recipeStep->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $recipeStep->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $recipeStep->owner->username,
+                                    'href' => route('admin.system.admin.show', $recipeStep->owner)
+                                ])
                             </td>
                         @endif
                         @if (empty($recipeId))

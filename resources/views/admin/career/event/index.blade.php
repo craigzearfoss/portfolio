@@ -128,7 +128,10 @@
                                 {{ $event->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $event->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $event->owner->username,
+                                    'href' => route('admin.system.admin.show', $event->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">

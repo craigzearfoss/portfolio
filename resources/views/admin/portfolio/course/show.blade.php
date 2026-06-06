@@ -118,15 +118,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $course->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $course->link_name,
+                'link_name' => htmlspecialchars($course->link_name ?? 'link'),
+                'name'      => $course->link,
+                'href'      => $course->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

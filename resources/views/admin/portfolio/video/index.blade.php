@@ -126,7 +126,10 @@
                                 {{ $video->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $video->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $video->owner->username,
+                                    'href' => route('admin.system.admin.show', $video->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">

@@ -61,15 +61,17 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => 'wikipedia',
-            'href'   => $category->wikipedia,
-            'target' => '_blank'
+            'link_name' => 'wikipedia',
+            'name'      => $category->wikipedia,
+            'href'      => $category->wikipedia,
+            'target'    => '_blank'
         ])
 
-        @include('guest.components.show-row-link', [
-            'name'   => !empty($category->link_name) ? htmlspecialchars($category->link_name) : 'link',
-            'href'   => $category->link,
-            'target' => '_blank'
+        @include('admin.components.show-row-link', [
+            'link_name' => !empty($category->link_name) ? htmlspecialchars($category->link_name) : 'link',
+            'name'      => $category->link,
+            'href'      => $category->link,
+            'target'    => '_blank',
         ])
 
         @include('guest.components.show-row', [

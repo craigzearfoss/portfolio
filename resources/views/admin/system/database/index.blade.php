@@ -162,14 +162,10 @@
                             {{ $database->id }}
                         </td>
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            @if (!empty($database->owner))
-                                @include('admin.components.link', [
-                                    'name' => $database->owner->username,
-                                    'href' => route('admin.system.admin.show', $database->owner)
-                                ])
-                            @else
-                                ?
-                            @endif
+                            @include('admin.components.link', [
+                                'name' => $database->$userTeam->username,
+                                'href' => route('admin.system.admin.show', $database->owner)
+                            ])
                         </td>
                         <td data-field="name">
                             {{ $database->name }}

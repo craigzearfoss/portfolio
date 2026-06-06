@@ -141,15 +141,10 @@
                                 ])
 
                                 @include('admin.components.show-row-link', [
-                                    'name'   => 'link',
-                                    'href'   => $contact->link,
-                                    'target' => '_blank'
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'   => 'link name',
-                                    'label'  => 'link_name',
-                                    'value'  => htmlspecialchars($contact->link_name),
+                                    'link_name' => htmlspecialchars($contact->link_name ?? 'link'),
+                                    'name'      => $contact->link,
+                                    'href'      => $contact->link,
+                                    'target'    => '_blank',
                                 ])
 
                                 @include('admin.components.show-row', [

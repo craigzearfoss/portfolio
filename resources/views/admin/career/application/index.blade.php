@@ -246,7 +246,10 @@
                                 {{ $application->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $application->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $application->owner->username,
+                                    'href' => route('admin.system.admin.show', $application->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; display: none;">

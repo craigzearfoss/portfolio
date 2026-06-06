@@ -167,21 +167,18 @@
                 'checked' => $publication->pamphlet
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'publication url',
-                'value' => $publication->publication_url,
+            @include('admin.components.show-row-link', [
+                'link_name' => 'publication url',
+                'name'      => $publication->publication_url,
+                'href'      => $publication->publication_url,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $publication->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $publication->link_name,
+                'link_name' => htmlspecialchars($publication->link_name ?? 'link'),
+                'name'      => $publication->link,
+                'href'      => $publication->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

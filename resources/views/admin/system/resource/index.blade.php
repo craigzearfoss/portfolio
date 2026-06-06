@@ -174,14 +174,10 @@
                                 {{ $resource->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if (!empty($resource->owner))
-                                    @include('admin.components.link', [
-                                        'name' => $resource->owner->username,
-                                        'href' => route('admin.system.admin.show', $resource->owner)
-                                    ])
-                                @else
-                                    ?
-                                @endif
+                                @include('admin.components.link', [
+                                    'name' => $resource->$userTeam->username,
+                                    'href' => route('admin.system.admin.show', $resource->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="database.database" style="white-space: nowrap;">

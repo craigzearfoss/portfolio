@@ -124,15 +124,10 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $reference->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'label'  => 'link_name',
-            'value'  => htmlspecialchars($reference->link_name),
+            'link_name' => htmlspecialchars($reference->link_name ?? 'link'),
+            'name'      => $reference->link,
+            'href'      => $reference->link,
+            'target'    => '_blank',
         ])
 
         @include('admin.components.show-row', [

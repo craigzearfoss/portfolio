@@ -87,7 +87,7 @@
                 'error'         => $error,
             ])
 
-            <div class="container m-0">
+            <div class="container m-0" style="width: 100%;">
                 @yield('content')
             </div>
 

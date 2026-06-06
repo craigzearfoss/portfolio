@@ -47,9 +47,9 @@
 
             @if (!empty($userTeam->owner))
                 @include('admin.components.show-row-link', [
-                    'name' => 'owner',
-                    'label' => $userTeam->owner->username,
-                    'href' => route('admin.system.user.show', $userTeam->owner)
+                    'link_name' => 'owner',
+                    'name'      => $userTeam->owner->username,
+                    'href'      => route('admin.system.user.show', $userTeam->owner)
                 ])
             @else
                 @include('admin.components.show-row', [

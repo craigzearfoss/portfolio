@@ -166,9 +166,10 @@
                                 ])
 
                                 @include('admin.components.show-row-link', [
-                                    'name'   => 'link',
-                                    'href'   => $recipe->link,
-                                    'target' => '_blank'
+                                    'link_name' => htmlspecialchars($recipe->link_name ?? 'link'),
+                                    'name'      => $recipe->link,
+                                    'href'      => $recipe->link,
+                                    'target'    => '_blank',
                                 ])
 
                                 @include('admin.components.show-row', [

@@ -42,103 +42,113 @@
 
     <div class="show-container card p-4">
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $communication->id,
-            'hide'  => !$isRootAdmin,
-        ])
+        <div class="floating-div-container" style="max-width: 60rem;">
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $communication->owner->username,
-            'hide'  => !$isRootAdmin,
-        ])
+            <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
-        @php
-            $application = !empty($communication->application_id)
-                ? Application::find($communication->application_id)
-                : null;
-        @endphp
-        @include('admin.components.show-row-link', [
-            'name'  => 'application',
-            'label' => !empty($application)
-                ? (($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']')
-                : '',
-            'href' => route('admin.career.application.show', $application)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'id',
+                    'value' => $communication->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'type',
-            'value' => $communication->communicationType->name
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $communication->owner->username,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'subject',
-            'value' => $communication->subject
-        ])
+                @php
+                    $application = !empty($communication->application_id)
+                        ? Application::find($communication->application_id)
+                        : null;
+                @endphp
 
-        @include('admin.components.show-row', [
-            'name'  => 'to',
-            'value' => htmlspecialchars($communication->to)
-        ])
+                @include('admin.components.show-row-link', [
+                    'link_name' => 'application',
+                    'name'      => !empty($application)
+                                       ? (($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']')
+                                       : '',
+                    'href'      => route('admin.career.application.show', $application)
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'from',
-            'value' => htmlspecialchars($communication->from)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'type',
+                    'value' => $communication->communicationType->name
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'datetime',
-            'value' => longDateTime($communication->communication_datetime)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'subject',
+                    'value' => $communication->subject
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'body',
-            'value' => $communication->body
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'to',
+                    'value' => htmlspecialchars($communication->to)
+                ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $communication->link,
-            'target' => '_blank'
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'from',
+                    'value' => htmlspecialchars($communication->from)
+                ])
 
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'label'  => 'link_name',
-            'value'  => $communication->link_name,
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'datetime',
+                    'value' => longDateTime($communication->communication_datetime)
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $communication->description
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'body',
+                    'value' => $communication->body
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($communication->disclaimer)
-                       ])
-        ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($communication->notes))
-        ])
+        </div>
+        <div class="floating-div-container">
 
-        @include('admin.components.show-row-visibility', [
-            'resource' => $communication,
-        ])
+            <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($communication->created_at)
-        ])
+                @include('admin.components.show-row-link', [
+                    'link_name' => htmlspecialchars($communication->link_name ?? 'link'),
+                    'name'      => $communication->link,
+                    'href'      => $communication->link,
+                    'target'    => '_blank',
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($communication->updated_at)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'description',
+                    'value' => $communication->description
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'disclaimer',
+                    'value' => view('admin.components.disclaimer', [
+                                    'value' => htmlspecialchars($communication->disclaimer)
+                               ])
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'notes',
+                    'value' => nl2br(htmlspecialchars($communication->notes))
+                ])
+
+                @include('admin.components.show-row-visibility', [
+                    'resource' => $communication,
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'created at',
+                    'value' => longDateTime($communication->created_at)
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'updated at',
+                    'value' => longDateTime($communication->updated_at)
+                ])
+
+            </div>
+        </div>
 
     </div>
 

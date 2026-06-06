@@ -122,15 +122,10 @@
                                 {{ $adminGroup->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if (!empty($adminGroup->owner))
-                                    @include('admin.components.link', [
-                                        'name' => 'owner',
-                                        'label' => $adminGroup->owner->username,
-                                        'href' => route('admin.system.admin.show', $adminGroup->owner)
-                                    ])
-                                @else
-                                    ?
-                                @endif
+                                @include('admin.components.link', [
+                                    'name' => $adminGroup->$userTeam->username,
+                                    'href' => route('admin.system.admin.show', $adminGroup->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">

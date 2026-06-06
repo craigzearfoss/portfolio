@@ -47,9 +47,9 @@
 
             @if (!empty($userEmail->user))
                 @include('admin.components.show-row-link', [
-                    'name' => 'user',
-                    'label' => $userEmail->user->username,
-                    'href' => route('admin.system.user.show', $userEmail->user)
+                    'link_name' => 'user',
+                    'name'      => $userEmail->user->username,
+                    'href'      => route('admin.system.user.show', $userEmail->user)
                 ])
             @else
                 @include('admin.components.show-row', [

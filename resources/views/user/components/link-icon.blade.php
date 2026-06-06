@@ -1,18 +1,42 @@
 @php
-    $class = !empty($class)
-        ? $class . ' button is-small px-1 py-0'
-        : 'button is-small px-1 py-0';
+    $href = $href ?? '';
+    $class      = !empty($class) 
+                      ? array_merge((!is_array($class) ? explode(' ', $class) : $class), [ 'button', 'is-small', 'px-1', 'py-0' ]) 
+		      : [ 'button', 'is-small', 'px-1', 'py-0' ];
+    $style      = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $icon       = $icon ?? null;
+    $href       = $href ?? '';
+    $target     = $target ?? '';
+    $title      = $title ?? '';
+    $attributes = $attributes ?? [];
+    if ($disabled ?? false) {
+        $style[] = 'cursor: default';
+        $style[] = 'opacity: 0.5';
+    }
 @endphp
-<a @if (!empty($title))title="{{ $title }}" @endif
-   class="button is-small px-1 py-0"
-   @if (!empty($class))class="{{ is_array($class) ? implode('; ', $class) . ';' : $class }}" @endif
-   @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
-   @if (!empty($disabled))style="cursor: default; opacity: 0.5;" @endif
-   @if (!empty($target))target="{{ $target }}" @endif
-   @if (!empty($href))href="{{ $href }}" @endif
-   @if (!empty($onclick))
-       onclick="{{ $onclick }}"
-  @endif
+<a @if (!empty($href))
+       href="{!! $href !!}"
+   @endif
+   @if (!empty($target))
+       target="{!! $target !!}"
+   @endif
+   @if (!empty($title))
+       title="{{ $title }}"
+   @endif
+   @if (!empty($class))
+       class="{{ implode(' ' , $class) }}"
+   @endif
+   @if (!empty($style))
+       style="{!! implode('; ', $style) !!}"
+   @endif
+    @if (!empty($onclick))
+       onclick="{!! $onclick !!}"
+   @endif
+   @if (!empty($attributes))
+       @foreach ($attributes as $key=>$value)
+           {{ $key }}="{!! $value !!}"
+       @endforeach
+   @endif
 >
     <i class="fa {{ !empty($icon) ? $icon : 'fa-circle' }}"></i>
 </a>

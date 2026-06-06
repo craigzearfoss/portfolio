@@ -137,21 +137,18 @@
                 'value'  => $video->embed,
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'video url',
-                'value' => $video->video_url,
+            @include('admin.components.show-row-link', [
+                'link_name' => 'video url',
+                'name'      => $music->video_url,
+                'href'      => $music->video_url,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $video->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $video->link_name,
+                'link_name' => htmlspecialchars($video->link_name ?? 'link'),
+                'name'      => $video->link,
+                'href'      => $video->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

@@ -68,10 +68,10 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'postings url',
-            'label'  => $recruiter->postings_url,
-            'href'   => $recruiter->postings_url,
-            'target' => '_blank'
+            'link_name' => 'postings url',
+            'name'      => $recruiter->postings_url,
+            'href'      => $recruiter->postings_url,
+            'target'    => '_blank'
         ])
 
         @include('admin.components.show-row-checkmark', [
@@ -132,15 +132,10 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $recruiter->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'label'  => 'link_name',
-            'value'  => htmlspecialchars($recruiter->link_name),
+            'link_name' => htmlspecialchars($recruiter->link_name ?? 'link'),
+            'name'      => $recruiter->link,
+            'href'      => $recruiter->link,
+            'target'    => '_blank',
         ])
 
         @include('admin.components.show-row', [

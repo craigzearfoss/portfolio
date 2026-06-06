@@ -1,3 +1,8 @@
+@media screen and (min-width: 1408px) {
+    .container:not(.is-max-desktop):not(.is-max-widescreen) {
+        max-width: 100%;
+    }
+}
 p {
     margin-bottom: 1em !important;
 }
@@ -568,6 +573,17 @@ table.table.admin-table.skill-table { max-width: 20rem; }
 
 table.table.admin-table.task-table { max-width: 40rem; }
 
+table.table.admin-table.communications-table tbody td[data-field="application_id"],
+table.table.admin-table.communications-table tbody td[data-field="subject"] {
+    white-space: nowrap;
+    overflow: hidden;;
+    max-width: 20rem;
+}
+table.table.admin-table.communications-table tbody td[data-field="to"],
+table.table.admin-table.communications-table tbody td[data-field="from"] {
+    max-width: 15rem;
+}
+
 span.featured-splat {
     font-weight: 800;
 }
@@ -579,7 +595,7 @@ table.table.guest-table {
 }
 
 div.floating-div-container {
-    max-width: 80rem !important;
+    /*max-width: 80rem !important;*/
 }
 div.floating-div-container div.floating-div {
     display: inline-block;
@@ -589,6 +605,10 @@ div.floating-div-container div.floating-div {
 div.floating-div-container div.floating-div.card {
     padding: 1rem !important;
     margin-bottom: .5rem !important;
+    overflow-y: auto;
+}
+div.floating-div-container div.floating-div.card.no-x-scroll {
+    overflow: hidden;
 }
 div.floating-div-container.settings div.floating-div {
     max-width: 8rem;

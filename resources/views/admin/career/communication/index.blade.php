@@ -54,7 +54,7 @@
 
             <?php /* <p class="admin-table-caption"></p> */ ?>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table communications-table {{ $adminTableClasses ?? '' }}">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -133,10 +133,13 @@
                                 {{ $communication->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $communication->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $communication->owner->username,
+                                    'href' => route('admin.system.admin.show', $communication->owner)
+                                ])
                             </td>
                         @endif
-                        <td data-field="application_id" style="white-space: nowrap;">
+                        <td data-field="application_id">
                             @if (!empty($communication->application))
                                 @include('admin.components.link', [
                                     'name' => htmlspecialchars($communication->application->name),
@@ -146,17 +149,17 @@
                                 ])
                             @endif
                         </td>
-                        <td data-field="communication_type_id" style="white-space: nowrap;">
+                        <td data-field="communication_type_id">
                             {{ htmlspecialchars($communication->communicationType->name ?? '') }}
                         </td>
-                        <td data-field="subject" style="white-space: nowrap;">
+                        <td data-field="subject">
                             {{ htmlspecialchars($communication->subject) }}
                         </td>
                         <td data-field="to">
-                            {{ htmlspecialchars($communication->to) }}
+                            {!! htmlspecialchars($communication->to) !!}
                         </td>
                         <td data-field="from">
-                            {{ htmlspecialchars($communication->from) }}
+                            {!! htmlspecialchars($communication->from) !!}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
                             {{ shortDateTime($communication->communication_datetime) }}

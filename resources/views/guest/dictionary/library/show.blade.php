@@ -61,15 +61,17 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => 'wikipedia',
-            'href'   => $library->wikipedia,
-            'target' => '_blank'
+            'link_name' => 'wikipedia',
+            'name'      => $library->wikipedia,
+            'href'      => $library->wikipedia,
+            'target'    => '_blank'
         ])
 
-        @include('guest.components.show-row-link', [
-            'name'   => !empty($library->link_name) ? htmlspecialchars($library->link_name) : 'link',
-            'href'   => $library->link,
-            'target' => '_blank'
+        @include('admin.components.show-row-link', [
+            'link_name' => !empty($library->link_name) ? htmlspecialchars($library->link_name) : 'link',
+            'name'      => $library->link,
+            'href'      => $library->link,
+            'target'    => '_blank',
         ])
 
         @include('guest.components.show-row', [

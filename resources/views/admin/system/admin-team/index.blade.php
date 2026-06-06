@@ -114,14 +114,10 @@
                                 {{ $adminTeam->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if (!empty($adminTeam->owner))
-                                    @include('admin.components.link', [
-                                        'name' => $adminTeam->owner->username,
-                                        'href' => route('admin.system.admin.show', $adminTeam->owner)
-                                    ])
-                                @else
-                                    ?
-                                @endif
+                                @include('admin.components.link', [
+                                    'name' => $adminTeam->$userTeam->username,
+                                    'href' => route('admin.system.admin.show', $adminTeam->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">

@@ -59,9 +59,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $ingredient->link,
-                'target' => '_blank'
+                'link_name' => htmlspecialchars($ingredient->link_name ?? 'link'),
+                'name'      => $ingredient->link,
+                'href'      => $ingredient->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

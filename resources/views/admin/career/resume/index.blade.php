@@ -119,7 +119,10 @@
                                 {{ $resume->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $resume->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $resume->owner->username,
+                                    'href' => route('admin.system.admin.show', $resume->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">

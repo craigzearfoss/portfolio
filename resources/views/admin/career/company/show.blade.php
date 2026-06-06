@@ -169,15 +169,10 @@
                                     <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
 
                                         @include('admin.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'href'   => $company->link,
-                                            'target' => '_blank'
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'   => 'link name',
-                                            'label'  => 'link_name',
-                                            'value'  =>  htmlspecialchars($company->link_name),
+                                            'link_name' => htmlspecialchars($company->link_name ?? 'link'),
+                                            'name'      => $company->link,
+                                            'href'      => $company->link,
+                                            'target'    => '_blank',
                                         ])
 
                                         @include('admin.components.show-row', [

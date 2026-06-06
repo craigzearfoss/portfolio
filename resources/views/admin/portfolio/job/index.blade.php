@@ -128,7 +128,10 @@
                                 {{ $job->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $job->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $job->owner->username,
+                                    'href' => route('admin.system.admin.show', $job->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="company" style="white-space: nowrap;">

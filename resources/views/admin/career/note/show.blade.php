@@ -42,83 +42,93 @@
 
     <div class="show-container card p-4">
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $note->id,
-            'hide'  => !$isRootAdmin,
-        ])
+        <div class="floating-div-container" style="max-width: 60rem;">
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $note->owner->username,
-            'hide'  => !$isRootAdmin,
-        ])
+            <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
-        @php
-            $application = !empty($note->application_id)
-                ? Application::find($note->application_id)
-                : null;
-        @endphp
-        @include('admin.components.show-row-link', [
-            'name'  => 'application',
-            'label' => $application
-                ? (htmlspecialchars($application->company['name'] ?? '')) . ' - ' . htmlspecialchars($application->role) . ' [' . ($application->apply_date) . ']'
-                : '',
-            'href' => route('admin.career.application.show', $application)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'id',
+                    'value' => $note->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'subject',
-            'value' => htmlspecialchars($note->subject)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $note->owner->username,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'body',
-            'value' => htmlspecialchars($note->body)
-        ])
+                @php
+                    $application = !empty($note->application_id)
+                        ? Application::find($note->application_id)
+                        : null;
+                @endphp
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $note->link,
-            'target' => '_blank'
-        ])
+                @include('admin.components.show-row-link', [
+                    'link_name' => 'application',
+                    'name'      => $application
+                                       ? (htmlspecialchars($application->company['name'] ?? '')) . ' - ' . htmlspecialchars($application->role) . ' [' . ($application->apply_date) . ']'
+                                       : '',
+                    'href' => route('admin.career.application.show', $application)
+                ])
 
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'label'  => 'link_name',
-            'value'  => htmlspecialchars($note->link_name),
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'subject',
+                    'value' => htmlspecialchars($note->subject)
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $note->description
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'body',
+                    'value' => htmlspecialchars($note->body)
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($note->disclaimer)
-                       ])
-        ])
+            </div>
+            <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($note->notes))
-        ])
+                @include('admin.components.show-row-link', [
+                    'link_name' => htmlspecialchars($note->link_name ?? 'link'),
+                    'name'      => $note->link,
+                    'href'      => $note->link,
+                    'target'    => '_blank',
+                ])
 
-        @include('admin.components.show-row-visibility', [
-            'resource' => $note,
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'description',
+                    'value' => $note->description
+                ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($note->created_at)
-        ])
+            </div>
+            <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($note->updated_at)
-        ])
+                @include('admin.components.show-row', [
+                    'name'  => 'disclaimer',
+                    'value' => view('admin.components.disclaimer', [
+                                    'value' => htmlspecialchars($note->disclaimer)
+                               ])
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'notes',
+                    'value' => nl2br(htmlspecialchars($note->notes))
+                ])
+
+                @include('admin.components.show-row-visibility', [
+                    'resource' => $note,
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'created at',
+                    'value' => longDateTime($note->created_at)
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'updated at',
+                    'value' => longDateTime($note->updated_at)
+                ])
+
+            </div>
+
+        </div>
 
     </div>
 

@@ -147,21 +147,17 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'audio url',
-                'href'   => $music->audio_url,
-                'target' => '_blank'
+                'link_name' => 'audio url',
+                'name'      => $music->audio_url,
+                'href'      => $music->audio_url,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $music->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $music->link_name,
+                'link_name' => htmlspecialchars($music->link_name ?? 'link'),
+                'name'      => $music->link,
+                'href'      => $music->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

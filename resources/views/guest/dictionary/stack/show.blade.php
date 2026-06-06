@@ -61,15 +61,17 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => 'wikipedia',
-            'href'   => $stack->wikipedia,
-            'target' => '_blank'
+            'link_name' => 'wikipedia',
+            'name'      => $stack->wikipedia,
+            'href'      => $stack->wikipedia,
+            'target'    => '_blank'
         ])
 
-        @include('guest.components.show-row-link', [
-            'name'   => !empty($stack->link_name) ? htmlspecialchars($stack->link_name) : 'link',
-            'href'   => $stack->link,
-            'target' => '_blank'
+        @include('admin.components.show-row-link', [
+            'link_name' => !empty($stack->link_name) ? htmlspecialchars($stack->link_name) : 'link',
+            'name'      => $stack->link,
+            'href'      => $stack->link,
+            'target'    => '_blank',
         ])
 
         @include('guest.components.show-row', [

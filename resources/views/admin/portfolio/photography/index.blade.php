@@ -119,7 +119,10 @@
                                 {{ $photo->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $photo->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $photo->owner->username,
+                                    'href' => route('admin.system.admin.show', $photo->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;" style="white-space: nowrap;">

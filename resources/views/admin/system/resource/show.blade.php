@@ -64,9 +64,9 @@
 
             @if (!empty($resource->parent))
                 @include('admin.components.show-row-link', [
-                    'name'   => 'parent',
-                    'label'  => $resource->parent->name,
-                    'href'   => route('admin.system.resource.show', $resource->parent->id)
+                    'link_name' => 'parent',
+                    'name'      => $resource->parent->name,
+                    'href'      => route('admin.system.resource.show', $resource->parent->id)
                 ])
             @else
                 @include('admin.components.show-row', [

@@ -128,7 +128,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($contact->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $contact->owner->username,
+                                'href' => route('admin.system.admin.show', $contact->owner)
+                            ])
                         </td>
                         <td data-field="contact.company.names" style="white-space: nowrap;">
                             @php

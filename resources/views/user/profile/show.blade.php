@@ -64,10 +64,12 @@
                                         ])
 
                                         @include('user.components.show-row-link', [
-                                            'name'   => 'website',
-                                            'href'   => $user->website,
-                                            'target' => '_blank'
+                                            'link_name' => 'website',
+                                            'name'      => $user->website,
+                                            'href'      => $user->website,
+                                            'target'    => '_blank',
                                         ])
+
 
                                         <?php /*
                                         @include('user.components.show-row', [

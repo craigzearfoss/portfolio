@@ -143,15 +143,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $audio->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $audio->link_name,
+                'link_name' => htmlspecialchars($audio->link_name ?? 'link'),
+                'name'      => $audio->link,
+                'href'      => $audio->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

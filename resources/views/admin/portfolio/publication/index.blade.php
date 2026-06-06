@@ -126,7 +126,10 @@
                                 {{ $publication->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $publication->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $publication->owner->username,
+                                    'href' => route('admin.system.admin.show', $publication->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">

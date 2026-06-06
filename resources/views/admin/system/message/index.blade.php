@@ -117,7 +117,10 @@
                             {{ $thisMessage->id }}
                         </td>
                         <td data-field="name">
-                            {{ $thisMessage->owner->username ?? '-' }}
+                            @include('admin.components.link', [
+                                'name' => $thisMessage->$userTeam->username,
+                                'href' => route('admin.system.admin.show', $thisMessage->owner)
+                            ])
                         </td>
                         <td class="has-text-centered" data-field="from_admin">
                             @include('admin.components.checkmark', [ 'checked' => $thisMessage->from_admin ])

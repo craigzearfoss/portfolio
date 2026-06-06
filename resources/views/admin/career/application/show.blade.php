@@ -44,7 +44,7 @@
 
     <section class="section">
 
-        <div class="container show-container">
+        <div class="container show-container" style="width: 100%;">
             <div class="columns is-12 is-variable">
                 <div class="column is-12-tablet">
 
@@ -92,7 +92,7 @@
 
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'id',
@@ -145,10 +145,10 @@
 
                                     </div>
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'compensation',
+                                            'name'  => 'comp.',
                                             'value' => formatCompensation([
                                                 'min'   => $application->compensation_min,
                                                 'max'   => $application->compensation_max,
@@ -183,7 +183,7 @@
 
                                     </div>
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                                         @include('admin.components.show-row-checkmark', [
                                             'name'    => 'w2',
@@ -224,7 +224,7 @@
 
                                     </div>
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="float: right; width: 14rem;">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="float: right; min-width: 14rem;">
 
                                         @include('admin.components.show-row', [
                                             'name'         => 'post date',
@@ -276,7 +276,7 @@
                                 </div>
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="display: inline-block;">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="display: inline-block;">
 
                                         <div class="mr-4" style="display: inline-block; min-width: 20rem; vertical-align: top;">
 
@@ -325,7 +325,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="display: inline-block;">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="display: inline-block;">
 
                                         @include('admin.components.show-row-images', [
                                             'resource' => $application,
@@ -340,7 +340,7 @@
 
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 100%;">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'disclaimer',

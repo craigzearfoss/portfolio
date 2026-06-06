@@ -73,15 +73,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $jobTask->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $jobTask->link_name,
+                'link_name' => htmlspecialchars($jobTask->link_name ?? 'link'),
+                'name'      => $jobTask->link,
+                'href'      => $jobTask->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

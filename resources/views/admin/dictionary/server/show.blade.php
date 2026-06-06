@@ -92,21 +92,17 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'wikipedia',
-            'href'   => $server->wikipedia,
-            'target' => '_blank'
+            'link_name' => 'wikipedia',
+            'name'      => $server->wikipedia,
+            'href'      => $server->wikipedia,
+            'target'    => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => htmlspecialchars($server->link),
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'label'  => 'link_name',
-            'value'  => $server->link_name,
+            'link_name' => htmlspecialchars($server->link_name ?? 'link'),
+            'name'      => $server->link,
+            'href'      => $server->link,
+            'target'    => '_blank',
         ])
 
         @include('admin.components.show-row', [

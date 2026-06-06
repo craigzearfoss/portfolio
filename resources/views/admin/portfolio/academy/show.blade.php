@@ -97,15 +97,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $academy->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $academy->link_name,
+                'link_name' => htmlspecialchars($academy->link_name ?? 'link'),
+                'name'      => $academy->link,
+                'href'      => $academy->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

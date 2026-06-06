@@ -109,9 +109,10 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $reading->link,
-                'target' => '_blank'
+                'link_name' => htmlspecialchars($reading->link_name ?? 'link'),
+                'name'      => $reading->link,
+                'href'      => $reading->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

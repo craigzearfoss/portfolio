@@ -1,4 +1,8 @@
 @php
+    $link_name = $link_name ?? 'link';
+    $href      = $href ?? '';
+    $name      = $name ?? $href ?? '';
+
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
@@ -33,14 +37,12 @@
      @endif
 >
     <div class="column is-2 label">
-        @if (!empty($name))
-            <strong>{!! $name !!}</strong>:
-        @endif
+        <strong>{!! $link_name !!}</strong>:
     </div>
-    <div class="column is-10 value">
+    <div class="column is-10 value" style="white-space: nowrap;">
         @include('guest.components.link', [
-            'href'     => $href ?? '',
-            'name'     => $label ?? ($href ?? ''),
+            'name'     => $name,
+            'href'     => $href,
             'target'   => $target ?? '',
             'download' => isset($download) ? boolval($download) : false,
         ])

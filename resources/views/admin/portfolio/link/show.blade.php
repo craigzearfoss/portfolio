@@ -72,21 +72,17 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'url',
-                'href'    => $link->url,
-                'target' => '_blank'
+                'link_name' => 'url',
+                'name'      => $link->url,
+                'href'      => $link->url,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
-                'href'   => $link->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => $link->link_name,
+                'link_name' => htmlspecialchars($link->link_name ?? 'link'),
+                'name'      => $link->link,
+                'href'      => $link->link,
+                'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [

@@ -110,7 +110,10 @@
                                 {{ $userEmail->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $userEmail->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $userEmail->$userTeam->username,
+                                    'href' => route('admin.system.admin.show', $userEmail->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="email" style="white-space: nowrap;">

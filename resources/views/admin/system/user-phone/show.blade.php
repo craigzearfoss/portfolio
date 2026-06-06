@@ -47,9 +47,9 @@
 
             @if (!empty($userPhone->user))
                 @include('admin.components.show-row-link', [
-                    'name' => 'user',
-                    'label' => $userPhone->user->username,
-                    'href' => route('admin.system.user.show', $userPhone->user)
+                    'link_name' => 'user',
+                    'name'      => $userPhone->user->username,
+                    'href'      => route('admin.system.user.show', $userPhone->user)
                 ])
             @else
                 @include('admin.components.show-row', [
