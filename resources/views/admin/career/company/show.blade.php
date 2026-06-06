@@ -75,7 +75,7 @@
 
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'id',
@@ -100,7 +100,7 @@
                                         ])
 
                                     </div>
-                                    <div class="floating-div card has-background-white-ter p-4 m-2">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'industry',
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="display: inline-block;">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                                         <div class="mr-4" style="display: inline-block; min-width: 20rem; vertical-align: top;">
 
@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 100%;">
 
                                         @include('admin.components.show-row-link', [
                                             'link_name' => htmlspecialchars($company->link_name ?? 'link'),
@@ -181,7 +181,7 @@
                                         ])
 
                                     </div>
-                                    <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 100%;">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'disclaimer',

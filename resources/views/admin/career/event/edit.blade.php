@@ -56,103 +56,132 @@
                     'value' => request()->query('referer') ?? referer('admin.career.event.index')
                 ])
 
-                @include('admin.components.form-text-horizontal', [
-                    'name'  => 'id',
-                    'value' => $event->id,
-                    'hide'  => !$isRootAdmin,
-                ])
+                <div class="floating-div-container">
 
-                <?php /* note that you CANNOT change the owner of an event */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $event->owner_id
-                ])
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
-                <?php /* note you CANNOT change the application for an event */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'application_id',
-                    'value' => $event->application_id,
-                ])
+                        @include('admin.components.form-text-horizontal', [
+                            'name'  => 'id',
+                            'value' => $event->id,
+                            'hide'  => !$isRootAdmin,
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'      => 'name',
-                    'value'     => old('name') ?? $event->name,
-                    'required'  => true,
-                    'maxlength' => 255,
-                    'message'   => $message ?? '',
-                ])
+                        <?php /* note that you CANNOT change the owner of an event */ ?>
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $event->owner_id
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'type'    => 'date',
-                    'name'    => 'event_datetime',
-                    'label'   => 'event datetime',
-                    'value'   => old('event_datetime') ?? $event->event_datetime,
-                    'message' => $message ?? '',
-                    'style'   => 'width: 15rem;',
-                ])
+                        <?php /* note you CANNOT change the application for an event */ ?>
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'application_id',
+                            'value' => $event->application_id,
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'      => 'location',
-                    'value'     => old('location') ?? $event->location,
-                    'required'  => true,
-                    'maxlength' => 255,
-                    'message'   => $message ?? '',
-                ])
+                        @include('admin.components.form-input-horizontal', [
+                            'name'      => 'name',
+                            'value'     => old('name') ?? $event->name,
+                            'required'  => true,
+                            'maxlength' => 255,
+                            'message'   => $message ?? '',
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'      => 'attendees',
-                    'value'     => old('attendees') ?? $event->attendees,
-                    'maxlength' => 500,
-                    'message'   => $message ?? '',
-                ])
+                        @include('admin.components.form-input-horizontal', [
+                            'type'    => 'date',
+                            'name'    => 'event_datetime',
+                            'label'   => 'event datetime',
+                            'value'   => old('event_datetime') ?? $event->event_datetime,
+                            'message' => $message ?? '',
+                            'style'   => 'width: 15rem;',
+                        ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'text',
-                    'id'      => 'inputEditor',
-                    'value'   => old('text') ?? $event->text,
-                    'message' => $message ?? '',
-                ])
+                        @include('admin.components.form-input-horizontal', [
+                            'name'      => 'location',
+                            'value'     => old('location') ?? $event->location,
+                            'required'  => true,
+                            'maxlength' => 255,
+                            'message'   => $message ?? '',
+                        ])
 
-                @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $event->link,
-                    'name' => old('link_name') ?? $event->link_name,
-                    'message'   => $message ?? '',
-                ])
+                        @include('admin.components.form-input-horizontal', [
+                            'name'      => 'attendees',
+                            'value'     => old('attendees') ?? $event->attendees,
+                            'maxlength' => 500,
+                            'message'   => $message ?? '',
+                        ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'description',
-                    'id'      => 'inputEditor',
-                    'value'   => old('description') ?? $event->description,
-                    'message' => $message ?? '',
-                ])
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'text',
+                            'id'      => 'inputEditor',
+                            'value'   => old('text') ?? $event->text,
+                            'message' => $message ?? '',
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'        => 'disclaimer',
-                    'value'       => old('disclaimer') ?? $event->disclaimer,
-                    'maxlength'   => 500,
-                    'message'     => $message ?? '',
-                ])
+                    </div>
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'notes',
-                    'value'   => old('notes') ?? $event->notes,
-                    'message' => $message ?? '',
-                ])
+                </div>
+                <div class="floating-div-container">
 
-                @include('admin.components.form-visibility-horizontal', [
-                    'is_public'   => old('is_public')   ?? $event->is_public,
-                    'is_readonly' => old('is_readonly') ?? $event->is_readonly,
-                    'is_root'     => old('is_root')     ?? $event->root,
-                    'is_disabled' => old('is_disabled') ?? $event->is_disabled,
-                    'is_demo'     => old('is_demo')     ?? $event->is_demo,
-                    'sequence'    => old('sequence')    ?? $event->sequence,
-                    'message'     => $message           ?? '',
-                ])
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
 
-                @include('admin.components.form-button-submit-horizontal', [
-                    'label'      => 'Save',
-                    'cancel_url' => referer('admin.career.event.index')
-                ])
+                        @include('admin.components.form-link-horizontal', [
+                            'link' => old('link') ?? $event->link,
+                            'name' => old('link_name') ?? $event->link_name,
+                            'message'   => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'description',
+                            'id'      => 'inputEditor',
+                            'value'   => old('description') ?? $event->description,
+                            'message' => $message ?? '',
+                        ])
+
+                    </div>
+
+                </div>
+                <div class="floating-div-container">
+
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
+
+                        @include('admin.components.form-input-horizontal', [
+                            'name'        => 'disclaimer',
+                            'value'       => old('disclaimer') ?? $event->disclaimer,
+                            'maxlength'   => 500,
+                            'message'     => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'notes',
+                            'value'   => old('notes') ?? $event->notes,
+                            'message' => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-visibility-horizontal', [
+                            'is_public'   => old('is_public')   ?? $event->is_public,
+                            'is_readonly' => old('is_readonly') ?? $event->is_readonly,
+                            'is_root'     => old('is_root')     ?? $event->root,
+                            'is_disabled' => old('is_disabled') ?? $event->is_disabled,
+                            'is_demo'     => old('is_demo')     ?? $event->is_demo,
+                            'sequence'    => old('sequence')    ?? $event->sequence,
+                            'message'     => $message           ?? '',
+                        ])
+
+                    </div>
+
+                </div>
+                <div class="floating-div-container">
+
+                    <div class="floating-div has-text-right m-2" style="width: 60rem;">
+
+                        @include('admin.components.form-button-submit-horizontal', [
+                            'label'      => 'Save',
+                            'cancel_url' => referer('admin.career.event.index')
+                        ])
+
+                    </div>
+
+                </div>
 
             </form>
 

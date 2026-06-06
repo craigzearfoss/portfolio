@@ -56,79 +56,108 @@
                     'value' => referer('admin.career.note.index')
                 ])
 
-                @include('admin.components.form-text-horizontal', [
-                    'name'  => 'id',
-                    'value' => $note->id,
-                    'hide'  => !$isRootAdmin,
-                ])
+                <div class="floating-div-container">
 
-                <?php /* note that you CANNOT change the owner of a note */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $note->owner_id
-                ])
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
-                <?php /* note you CANNOT change the application for a note */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'    => 'application_id',
-                    'value'   => $note->application_id,
-                ])
+                        @include('admin.components.form-text-horizontal', [
+                            'name'  => 'id',
+                            'value' => $note->id,
+                            'hide'  => !$isRootAdmin,
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'      => 'subject',
-                    'value'     => old('subject') ?? $note->subject,
-                    'required'  => true,
-                    'maxlength' => 255,
-                    'message'   => $message ?? '',
-                ])
+                        <?php /* note that you CANNOT change the owner of a note */ ?>
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $note->owner_id
+                        ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'body',
-                    'id'      => 'inputEditor',
-                    'value'   => old('body') ?? $note->body,
-                    'message' => $message ?? '',
-                ])
+                        <?php /* note you CANNOT change the application for a note */ ?>
+                        @include('admin.components.form-hidden', [
+                            'name'    => 'application_id',
+                            'value'   => $note->application_id,
+                        ])
 
-                @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $note->link,
-                    'link_name' => old('link_name') ?? $note->link_name,
-                    'message'   => $message ?? '',
-                ])
+                        @include('admin.components.form-input-horizontal', [
+                            'name'      => 'subject',
+                            'value'     => old('subject') ?? $note->subject,
+                            'required'  => true,
+                            'maxlength' => 255,
+                            'message'   => $message ?? '',
+                        ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'description',
-                    'id'      => 'inputEditor',
-                    'value'   => old('description') ?? $note->description,
-                    'message' => $message ?? '',
-                ])
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'body',
+                            'id'      => 'inputEditor',
+                            'value'   => old('body') ?? $note->body,
+                            'message' => $message ?? '',
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'        => 'disclaimer',
-                    'value'       => old('disclaimer') ?? $note->disclaimer,
-                    'maxlength'   => 500,
-                    'message'     => $message ?? '',
-                ])
+                    </div>
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'notes',
-                    'value'   => old('notes') ?? $note->notes,
-                    'message' => $message ?? '',
-                ])
+                </div>
+                <div class="floating-div-container">
 
-                @include('admin.components.form-visibility-horizontal', [
-                    'is_public'   => old('is_public')   ?? $note->is_public,
-                    'is_readonly' => old('is_readonly') ?? $note->is_readonly,
-                    'is_root'     => old('is_root')     ?? $note->is_root,
-                    'is_disabled' => old('is_disabled') ?? $note->is_disabled,
-                    'is_demo'     => old('is_demo')     ?? $note->is_demo,
-                    'sequence'    => old('sequence')    ?? $note->sequence,
-                    'message'     => $message           ?? '',
-                ])
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
 
-                @include('admin.components.form-button-submit-horizontal', [
-                    'label'      => 'Save',
-                    'cancel_url' => referer('admin.career.resume.index')
-                ])
+                        @include('admin.components.form-link-horizontal', [
+                            'link' => old('link') ?? $note->link,
+                            'link_name' => old('link_name') ?? $note->link_name,
+                            'message'   => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'description',
+                            'id'      => 'inputEditor',
+                            'value'   => old('description') ?? $note->description,
+                            'message' => $message ?? '',
+                        ])
+
+                    </div>
+
+                </div>
+                <div class="floating-div-container">
+
+                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
+
+                        @include('admin.components.form-input-horizontal', [
+                            'name'        => 'disclaimer',
+                            'value'       => old('disclaimer') ?? $note->disclaimer,
+                            'maxlength'   => 500,
+                            'message'     => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'notes',
+                            'value'   => old('notes') ?? $note->notes,
+                            'message' => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-visibility-horizontal', [
+                            'is_public'   => old('is_public')   ?? $note->is_public,
+                            'is_readonly' => old('is_readonly') ?? $note->is_readonly,
+                            'is_root'     => old('is_root')     ?? $note->is_root,
+                            'is_disabled' => old('is_disabled') ?? $note->is_disabled,
+                            'is_demo'     => old('is_demo')     ?? $note->is_demo,
+                            'sequence'    => old('sequence')    ?? $note->sequence,
+                            'message'     => $message           ?? '',
+                        ])
+
+                    </div>
+
+                </div>
+                <div class="floating-div-container">
+
+                    <div class="floating-div has-text-right m-2" style="width: 60rem;">
+
+                        @include('admin.components.form-button-submit-horizontal', [
+                            'label'      => 'Save',
+                            'cancel_url' => referer('admin.career.resume.index')
+                        ])
+
+                    </div>
+
+                </div>
 
             </form>
 

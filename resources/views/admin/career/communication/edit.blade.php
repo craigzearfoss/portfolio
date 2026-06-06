@@ -148,7 +148,7 @@
 
                 </div>
                 <div class="floating-div-container">
-ddddddddddd
+
                     <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
 
                         @include('admin.components.form-link-horizontal', [
