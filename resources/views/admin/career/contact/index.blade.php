@@ -124,20 +124,26 @@
                                 {{ $contact->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $contact->owner->username ?? '' }}
+                                @include('admin.components.link', [
+                                    'name' => $contact->owner->username,
+                                    'href' => route('admin.system.admin.show', $contact->owner)
+                                ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $contact->owner->username,
-                                'href' => route('admin.system.admin.show', $contact->owner)
+                                'name' => $contact->name,
+                                'href' => route('admin.career.contact.show', $contact)
                             ])
                         </td>
                         <td data-field="contact.company.names" style="white-space: nowrap;">
                             @php
                                 $companyLinks = $contact->companies->map(
                                     function ($company) {
-                                        return '<a href="' . route('admin.career.company.show', $company) . '">' . htmlspecialchars($company->name) . '</a>';
+                                        return view('admin.components.link', [
+                                            'name' => $company->name,
+                                            'href' => route('admin.career.company.show', $company)
+                                        ])->render();
                                     }
                                 );
                                 echo $companyLinks->implode(', ');

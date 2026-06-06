@@ -133,7 +133,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $video->name }}{!! !empty($video->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $video->name . (!empty($video->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.video.show', $video)
+                            ])
                         </td>
                         <td data-field="video_year" style="white-space: nowrap;">
                             {{ $video->video_year }}

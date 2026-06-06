@@ -133,7 +133,12 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $antiSkill->name . (!empty($antiSkill->version) ? ' ' . $antiSkill->version : '') ?? '' }}{!! !empty($antiSkill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $antiSkill->name
+                                            . (!empty($antiSkill->version) ? ' ' . $antiSkill->version : '')
+                                            . (!empty($antiSkill->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.anti-skill.show', $antiSkill)
+                            ])
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">
                              @if (!empty($antiSkill->category->name))

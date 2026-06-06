@@ -78,7 +78,6 @@
                             ])
                         </th>
                         <th class="has-text-centered">primary</th>
-                        <th>summary</th>
                         <th style="white-space: nowrap;">coverage area</th>
                         <th style="white-space: nowrap;">
                             @include('guest.components.column-heading', [
@@ -127,13 +126,13 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; width: 7rem;">
-                            {!! htmlspecialchars($jobBoard->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $jobBoard->name,
+                                'href' => route('admin.career.job-board.show', $jobBoard)
+                            ])
                         </td>
                         <td data-field="primary" class="has-text-centered" style="width: 4rem;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
-                        </td>
-                        <td data-field="summary" style="min-width: 30rem;">
-                            {!! htmlspecialchars($jobBoard->summary) !!}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap; width: 6rem;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}

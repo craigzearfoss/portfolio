@@ -135,7 +135,10 @@
                             </td>
                         @endif
                         <td data-field="company" style="white-space: nowrap;">
-                            {{ $job->company }}{!! !empty($job->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $job->company . (!empty($job->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.job.show', $job)
+                            ])
                         </td>
                         <td data-field="logo_small" class="has-text-centered">
                             @include('admin.components.image', [

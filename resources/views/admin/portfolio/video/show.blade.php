@@ -139,8 +139,8 @@
 
             @include('admin.components.show-row-link', [
                 'link_name' => 'video url',
-                'name'      => $music->video_url,
-                'href'      => $music->video_url,
+                'name'      => $video->video_url,
+                'href'      => $video->video_url,
                 'target'    => '_blank',
             ])
 

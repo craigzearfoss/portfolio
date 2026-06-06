@@ -118,10 +118,16 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($company->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $company->name,
+                                'href' => route('admin.career.company.show', $company)
+                            ])
                         </td>
                         <td data-field="industry.name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($company->industry->name ?? '') !!}
+                            @include('admin.components.link', [
+                                'name' => $company->industry->name,
+                                'href' => route('admin.career.industry.show', $company->industry)
+                            ])
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {{

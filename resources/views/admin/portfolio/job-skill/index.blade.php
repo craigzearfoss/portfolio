@@ -130,9 +130,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            @if ($jobSkill->job)
-                                {{ $jobSkill->name ?? '' }}{!! !empty($jobSkill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
-                            @endif
+                            @include('admin.components.link', [
+                                'name' => $jobSkill->name . (!empty($jobSkill->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.job-skill.show', $jobSkill)
+                            ])
                         </td>
                         <td data-field="job.company" style="white-space: nowrap;">
                             @if ($jobSkill->job)

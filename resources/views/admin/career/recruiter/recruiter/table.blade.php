@@ -67,7 +67,10 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {!! htmlspecialchars($recruiter->name) !!}
+                        @include('admin.components.link', [
+                            'name' => $recruiter->name . (!empty($recruiter->featured) ? '<span class="featured-splat">*</span>' : ''),
+                            'href' => route('admin.career.recruiter.show', $recruiter)
+                        ])
                     </td>
                     <td data-field="international|national|regional|local" style="white-space: nowrap;">
                         {{ implode(', ', $recruiter->coverageAreas ?? []) }}

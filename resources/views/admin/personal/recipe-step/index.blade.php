@@ -126,16 +126,17 @@
                         @endif
                         @if (empty($recipeId))
                             <td data-field="recipe.name" style="white-space: nowrap;">
-                                @if (!empty($recipeStep->recipe))
-                                    @include('admin.components.link', [
-                                        'name' => htmlspecialchars($recipeStep->recipe->name ?? ''),
-                                        'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
-                                    ])
-                                @endif
+                                @include('admin.components.link', [
+                                   'name' => $recipeStep->recipe->name . (!empty($recipeStep->recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                   'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
+                               ])
                             </td>
                         @endif
                         <td data-field="step" class="has-text-centered">
-                            {{ $recipeStep->step }}
+                            @include('admin.components.link', [
+                               'name' => $recipeStep->step,
+                               'href' => route('admin.personal.recipe-step.show', $recipeStep)
+                           ])
                         </td>
                         <td data-field="description">
                             {!! $recipeStep->description !!}

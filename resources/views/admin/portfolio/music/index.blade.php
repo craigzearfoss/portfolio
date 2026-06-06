@@ -140,7 +140,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $music->name }}{!! !empty($music->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $music->name . (!empty($music->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.music.show', $music)
+                            ])
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">
                             {{ $music->artist }}

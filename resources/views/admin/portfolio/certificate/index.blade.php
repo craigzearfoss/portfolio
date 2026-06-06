@@ -155,7 +155,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $certificate->name }}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $certificate->name . (!empty($certificate->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.certificate.show', $certificate)
+                            ])
                         </td>
                         <td data-field="academy.name">
                             @if (!empty($certificate->academy))

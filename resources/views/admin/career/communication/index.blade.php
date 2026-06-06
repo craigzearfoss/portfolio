@@ -153,7 +153,10 @@
                             {{ htmlspecialchars($communication->communicationType->name ?? '') }}
                         </td>
                         <td data-field="subject">
-                            {{ htmlspecialchars($communication->subject) }}
+                            @include('admin.components.link', [
+                                'name' => $communication->subject,
+                                'href' => route('admin.career.communication.show', $communication)
+                            ])
                         </td>
                         <td data-field="to">
                             {!! htmlspecialchars($communication->to) !!}

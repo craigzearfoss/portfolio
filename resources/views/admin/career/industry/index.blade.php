@@ -99,7 +99,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($industry->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $industry->name . (!empty($industry->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.career.industry.show', $industry)
+                            ])
                         </td>
                         <td data-field="abbreviation">
                             {!! htmlspecialchars($industry->abbreviation) !!}

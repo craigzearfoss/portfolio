@@ -100,7 +100,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $school->name }}
+                            @include('admin.components.link', [
+                                'name' => $school->name,
+                                'href' => route('admin.portfolio.school.show', $school)
+                            ])
                         </td>
                         <td data-field="logo_small" style="display: none;">
                             @include('admin.components.image', [

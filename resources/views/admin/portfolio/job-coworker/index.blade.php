@@ -124,7 +124,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $jobCoworker->name }}{!! !empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $jobCoworker->name . (!empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.job-coworker.show', $jobCoworker)
+                            ])
                         </td>
                         <td data-field="level">
                             {{ $jobCoworker->level }}

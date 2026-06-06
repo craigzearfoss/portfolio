@@ -128,10 +128,16 @@
                             </td>
                         @endif
                         <td data-field="company.name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($coverLetter->application->company->name ?? '') !!}
+                            @include('admin.components.link', [
+                                'name' => $coverLetter->application->company->name,
+                                'href' => route('admin.career.company.show', $coverLetter->application->company)
+                            ])
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
-                            {!! htmlspecialchars($coverLetter->application->role ?? '') !!}
+                            @include('admin.components.link', [
+                                'name' => $coverLetter->application->role,
+                                'href' => route('admin.career.application.show', $coverLetter->application)
+                            ])
                         </td>
                         <td data-field="post_date" style="white-space: nowrap;">
                             {{ shortDate($coverLetter->application['apply_date'] ?? null) }}

@@ -126,7 +126,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;" style="white-space: nowrap;">
-                            {{ $photo->name }}{!! !empty($photo->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $photo->name . (!empty($photo->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.photo.show', $photo)
+                            ])
                         </td>
                         <td data-field="credit" style="white-space: nowrap;">
                             {{ $photo->credit }}

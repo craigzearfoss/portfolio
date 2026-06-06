@@ -128,15 +128,16 @@
                             </td>
                         @endif
                         <td data-field="ingredient.name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($recipeIngredient->ingredient->name ?? '') !!}
+                            @include('admin.components.link', [
+                                'name' => $recipeIngredient->ingredient->name,
+                                'href' => route('admin.personal.ingredient.show', $recipeIngredient->ingredient)
+                            ])
                         </td>
                         <td data-field="recipe.name" style="white-space: nowrap;">
-                            @if (!empty($recipeIngredient->recipe))
-                                @include('admin.components.link', [
-                                    'name' => htmlspecialchars($recipeIngredient->recipe->name),
-                                    'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
-                                ])
-                            @endif
+                            @include('admin.components.link', [
+                                'name' => $recipeIngredient->recipe->name . (!empty($recipeIngredient->recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
+                            ])
                         </td>
                         <td data-field="amount" class="has-text-centered">
                             {!! htmlspecialchars($recipeIngredient->amount) !!}

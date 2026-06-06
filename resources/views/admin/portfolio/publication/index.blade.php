@@ -133,7 +133,10 @@
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
-                            {{ $publication->title }}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $publication->title . (!empty($publication->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.publication.show', $publication)
+                            ])
                         </td>
                         <td data-field="publication_name" style="white-space: nowrap;">
                             {{ $publication->publication_name }}

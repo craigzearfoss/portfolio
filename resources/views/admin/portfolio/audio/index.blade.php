@@ -120,7 +120,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $audio->name }}{!! !empty($audio->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $audio->name . (!empty($audio->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.audio.show', $audio)
+                            ])
                         </td>
                         <td data-field="clip|podcast">
                             @php

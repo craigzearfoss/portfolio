@@ -94,7 +94,10 @@
                             </td>
                         @endif
                         <td data-field="name">
-                            {{ $academy->name }}
+                            @include('admin.components.link', [
+                                'name' => $academy->name,
+                                'href' => route('admin.portfolio.academy.show', $academy)
+                            ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $academy->is_public ])

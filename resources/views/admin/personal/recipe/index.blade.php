@@ -121,7 +121,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($recipe->name) !!}{!! !empty($recipe->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $recipe->name . (!empty($recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.personal.recipe.show', $recipe)
+                            ])
                         </td>
                         <td data-field="types" style="white-space: nowrap;">
                             {{ implode(', ', $recipe->types()) }}

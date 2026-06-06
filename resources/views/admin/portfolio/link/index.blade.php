@@ -120,7 +120,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {{ $link->name }}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $link->name . (!empty($link->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.portfolio.link.show', $link)
+                            ])
                         </td>
                         <td style="white-space: nowrap;">
                             @include('admin.components.link', [

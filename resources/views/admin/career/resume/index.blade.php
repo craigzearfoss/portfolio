@@ -126,7 +126,10 @@
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($resume->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $resume->name . (!empty($resume->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.career.resume.show', $resume)
+                            ])
                         </td>
                         <td data-field="resume_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDate($resume->resume_date) }}

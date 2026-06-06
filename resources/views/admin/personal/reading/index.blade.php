@@ -129,7 +129,10 @@
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
-                            {!! htmlspecialchars($reading->title) !!}{!! !empty($reading->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link', [
+                                'name' => $reading->title . (!empty($reading->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href' => route('admin.personal.reading.show', $reading)
+                            ])
                         </td>
                         <td data-field="author" style="white-space: nowrap;">
                             {!! htmlspecialchars($reading->author) !!}

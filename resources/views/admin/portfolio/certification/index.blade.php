@@ -109,13 +109,16 @@
                                 {{ $certification->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {{ $certification->name }}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $certification->name,
+                                'href' => route('admin.portfolio.certification.show', $certification)
+                            ])
                         </td>
-                        <td data-field="abbreviation">
+                        <td data-field="abbreviation" style="white-space: nowrap;">
                             {{ $certification->abbreviation }}
                         </td>
-                        <td data-field="abbreviation">
+                        <td data-field="type" style="white-space: nowrap;">
                             {{ $certification->certificationType->name ?? '' }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

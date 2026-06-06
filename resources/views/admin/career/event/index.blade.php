@@ -145,7 +145,10 @@
                             @endif
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($event->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $event->name,
+                                'href' => route('admin.career.event.show', $event)
+                            ])
                         </td>
                         <td data-field="event_datetime" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDateTime($event->event_datetime) }}

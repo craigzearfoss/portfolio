@@ -94,7 +94,10 @@
                             {{ $ingredient->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap">
-                            {!! htmlspecialchars($ingredient->name) !!}
+                            @include('admin.components.link', [
+                                'name' => $ingredient->name,
+                                'href' => route('admin.personal.ingredient.show', $ingredient)
+                            ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $ingredient->is_public ])

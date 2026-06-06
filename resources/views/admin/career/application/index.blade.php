@@ -256,15 +256,16 @@
                             {!! htmlspecialchars($application->name) !!}
                         </td>
                         <td data-field="company.name" style="white-space: nowrap;">
-                            @if (!empty($application->company))
-                                @include('admin.components.link', [
-                                    'name' => htmlspecialchars($application->company->name ?? ''),
-                                    'href' => route('admin.career.company.show', $application->company)
-                                ])
-                            @endif
+                            @include('admin.components.link', [
+                                'name' => htmlspecialchars($application->company->name ?? ''),
+                                'href' => route('admin.career.company.show', $application->company)
+                            ])
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
-                            {!! htmlspecialchars($application->role) !!}
+                            @include('admin.components.link', [
+                                'name' => htmlspecialchars($application->role ?? ''),
+                                'href' => route('admin.career.application.show', $application)
+                            ])
                         </td>
                         <td data-field="active" class="has-text-centered hide-at-1400">
                             @include('admin.components.checkmark', [ 'checked' => $application->active ])

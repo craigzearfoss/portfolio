@@ -130,7 +130,10 @@
                             @endif
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
-                            {!! htmlspecialchars($note->subject) !!}
+                            @include('admin.components.link', [
+                                'name' => $note->subject,
+                                'href' => route('admin.career.note.show', $note)
+                            ])
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">
                             {{ shortDateTime($note->created_at) }}
