@@ -42,8 +42,25 @@ class School extends Model
         'name',
         'slug',
         'summary',
+        'active',
+        'public',
+        'private',
+        'male',
+        'female',
         'enrollment',
         'founded',
+        'closed',
+        'community_college',
+        'technical',
+        'hbcu',
+        'religious',
+        'religious_affiliation',
+        'seminary',
+        'medical',
+        'former_names',
+        'nickname',
+        'mascot',
+        'colors',
         'street',
         'street2',
         'city',
@@ -55,6 +72,7 @@ class School extends Model
         'notes',
         'link',
         'link_name',
+        'wikipedia',
         'description',
         'image',
         'image_credit',
@@ -80,9 +98,12 @@ class School extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'summary', 'enrollment', 'founded', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'summary', 'active', 'public', 'private', 'male', 'female',
+        'enrollment', 'founded', 'street', 'street2', 'city', 'closed', 'community_college', 'technical', 'hbcu',
+        'religious', 'religious_affiliation', 'seminary', 'medical', 'former_names', 'nickname', 'mascot', 'colors',
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'notes', 'link', 'link_name', 'wikipedia',
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
+        'updated_at'
     ];
 
     /**
@@ -94,6 +115,7 @@ class School extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
+        'closed|asc'         => 'closed',
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
         'is_demo|desc'       => 'demo',
@@ -153,8 +175,23 @@ class School extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = $this->getSearchQuery($filters, false)
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            ->when(!empty($filters['active']), function ($query) use ($filters) {
+                $query->where($this->table . '.active', '=', true);
+            })
+            ->when(!empty($filters['closed']), function ($query) use ($filters) {
+                $query->where($this->table . '.closed', '=', intval($filters['closed']));
+            })
+            ->when(!empty($filters['coed']), function ($query) use ($filters) {
+                $query->where(function ($query) use($filters) {
+                    $query->where($this->table . '.female', '=', true)
+                        ->orWhere($this->table . '.male', '=', true);
+                });
+            })
+            ->when(!empty($filters['community_college']), function ($query) use ($filters) {
+                $query->where($this->table . '.community_college', '=', true);
+            })
+            ->when(!empty($filters['colors']), function ($query) use ($filters) {
+                $query->where($this->table . '.colors', 'like', '%' . $filters['colors'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
@@ -165,8 +202,17 @@ class School extends Model
             ->when(!empty($filters['enrollment']), function ($query) use ($filters) {
                 $query->where($this->table . '.enrollment', '=', intval($filters['enrollment']));
             })
+            ->when(!empty($filters['female']), function ($query) use ($filters) {
+                $query->where($this->table . '.female', '=', true);
+            })
+            ->when(!empty($filters['former_names']), function ($query) use ($filters) {
+                $query->where($this->table . '.former_names', 'like', '%' . $filters['former_names'] . '%');
+            })
             ->when(!empty($filters['founded']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '=', intval($filters['founded']));
+            })
+            ->when(!empty($filters['hbcu']), function ($query) use ($filters) {
+                $query->where($this->table . '.hbcu', '=', true);
             })
             ->when(!empty($filters['link']), function ($query) use ($filters) {
                 $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
@@ -174,14 +220,41 @@ class School extends Model
             ->when(!empty($filters['link_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
             })
+            ->when(!empty($filters['male']), function ($query) use ($filters) {
+                $query->where($this->table . '.male', '=', true);
+            })
+            ->when(!empty($filters['mascot']), function ($query) use ($filters) {
+                $query->where($this->table . '.mascot', 'like', '%' . $filters['mascot'] . '%');
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['nickname']), function ($query) use ($filters) {
+                $query->where($this->table . '.nickname', 'like', '%' . $filters['nickname'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
+            ->when(!empty($filters['private']), function ($query) use ($filters) {
+                $query->where($this->table . '.private', '=', true);
+            })
+            ->when(!empty($filters['public']), function ($query) use ($filters) {
+                $query->where($this->table . '.public', '=', true);
+            })
+            ->when(!empty($filters['religious']), function ($query) use ($filters) {
+                $query->where($this->table . '.religious', '=', true);
+            })
+            ->when(!empty($filters['seminary']), function ($query) use ($filters) {
+                $query->where($this->table . '.seminary', '=', true);
+            })
             ->when(!empty($filters['state_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['technical']), function ($query) use ($filters) {
+                $query->where($this->table . '.technical', '=', true);
+            })
+            ->when(!empty($filters['wikipedia']), function ($query) use ($filters) {
+                $query->where($this->table . '.wikipedia', 'like', '%' . $filters['wikipedia'] . '%');
             });
 
         // join to states table

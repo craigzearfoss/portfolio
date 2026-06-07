@@ -439,14 +439,14 @@ class Application extends Model
             })
             ->when(!empty($filters['link']), function ($query) use ($filters) {
                 $query->where(function ($query) use($filters) {
-                    $query->where($this->table . '.link', 'like',  '%' . $filters['link'] . '%')
-                        ->orWhere($this->table . '.link2', 'like',  '%' . $filters['link'] . '%');
+                    $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%')
+                        ->orWhere($this->table . '.link2', 'like', '%' . $filters['link'] . '%');
                 });
             })
             ->when(!empty($filters['link_name']), function ($query) use ($filters) {
                 $query->where(function ($query) use($filters) {
-                    $query->where($this->table . '.link_name', 'like',  '%' . $filters['link_name'] . '%')
-                        ->orWhere($this->table . '.link2_name', 'like',  '%' . $filters['link_name'] . '%');
+                    $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%')
+                        ->orWhere($this->table . '.link2_name', 'like', '%' . $filters['link_name'] . '%');
                 });
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {

@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table(dbName('career_db') . '.applications', function (Blueprint $table) {
             $table->dropColumn('link');
-            $table->dropColumn('link_nane');
+            $table->dropColumn('link_name');
         });
     }
 };

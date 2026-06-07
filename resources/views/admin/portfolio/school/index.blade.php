@@ -79,6 +79,13 @@
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
+                                'name'  => 'city',
+                                'sort'  => 'city|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
                                 'name'  => 'state',
                                 'sort'  => 'state_name|asc',
                             ])
@@ -111,6 +118,9 @@
                                 'alt'   => $school->name,
                                 'width' => '48px',
                             ])
+                        </td>
+                        <td data-field="city" style="white-space: nowrap;">
+                            {{ $school->city }}
                         </td>
                         <td data-field="state" style="white-space: nowrap;">
                             {{ $school->state_name }}
@@ -170,7 +180,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No schools found.</td>
+                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No schools found.</td>
                     </tr>
 
                 @endforelse

@@ -58,14 +58,111 @@
                 'value' => $school->summary
             ])
 
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'active',
+                'checked' => $school->active
+            ])
+
             @include('admin.components.show-row', [
                 'name'  => 'enrollment',
-                'value' => $school->enrollment
+                'value' => !empty($school->enrollment) ? number_format($school->enrollment): ''
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'founded',
                 'value' => $school->founded
+            ])
+
+            @if (!empty($school->closed))
+                @include('admin.components.show-row', [
+                    'name'  => 'closed',
+                    'value' => $school->closed
+                ])
+            @endif
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'public',
+                'checked' => $school->public
+            ])
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'private',
+                'checked' => $school->private
+            ])
+
+            @if ($school->female && $school->male)
+                @include('admin.components.show-row-checkmark', [
+                    'name'    => 'coed',
+                    'checked' => true
+                ])
+            @else
+                @include('admin.components.show-row-checkmark', [
+                    'name'    => 'male',
+                    'checked' => $school->male
+                ])
+                @include('admin.components.show-row-checkmark', [
+                    'name'    => 'female',
+                    'checked' => $school->female
+                ])
+            @endif
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'community college',
+                'checked' => $school->community_college
+            ])
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'technical',
+                'checked' => $school->technical
+            ])
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'hbcu',
+                'checked' => $school->hbcu
+            ])
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'religious',
+                'checked' => $school->religious
+            ])
+
+            @if (!empty($school->religious_affiliation))
+                @include('admin.components.show-row', [
+                    'name'  => 'religious affiliation',
+                    'value' => $school->religious_affiliation
+                ])
+            @endif
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'seminary',
+                'checked' => $school->seminary
+            ])
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'medical',
+                'checked' => $school->medical
+            ])
+
+            @if (!empty($school->former_names))
+                @include('admin.components.show-row', [
+                    'name'  => 'former names',
+                    'value' => $school->former_names
+                ])
+            @endif
+
+            @include('admin.components.show-row', [
+                'name'  => 'nickname',
+                'value' => str_replace('|', ', ', $school->nickname)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'mascot',
+                'value' => str_replace('|', ', ', $school->mascot)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'colors',
+                'value' => str_replace('|', ', ', $school->colors)
             ])
 
             @include('admin.components.show-row', [
@@ -89,6 +186,13 @@
                 'link_name' => htmlspecialchars($school->link_name ?? 'link'),
                 'name'      => $school->link,
                 'href'      => $school->link,
+                'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row-link', [
+                'link_name' => 'wikipedia',
+                'name'      => $school->wikipedia,
+                'href'      => $school->wikipedia,
                 'target'    => '_blank',
             ])
 

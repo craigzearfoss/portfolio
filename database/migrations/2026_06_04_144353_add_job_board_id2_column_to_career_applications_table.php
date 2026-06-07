@@ -26,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table(dbName('career_db') . '.applications', function (Blueprint $table) {
-            $table->dropColumn('job_board_id2');
+            //$table->dropColumn('job_board_id2');
         });
     }
 };
