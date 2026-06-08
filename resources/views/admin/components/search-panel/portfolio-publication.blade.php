@@ -85,6 +85,7 @@
                                 'label'   => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -98,6 +99,7 @@
                                 'label'   => 'publication',
                                 'value'   => $publication_name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -110,6 +112,7 @@
                                 'name'    => 'publisher',
                                 'value'   => $publisher,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>

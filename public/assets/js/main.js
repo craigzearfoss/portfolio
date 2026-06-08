@@ -487,6 +487,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    if (document.getElementById('performSearch')) {
+        (document.querySelectorAll('.submit-search-on-enter-key') || []).forEach((elem) => {
+            elem.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    document.getElementById('performSearch').click();
+                }
+            })
+        });
+    }
+
     (document.querySelectorAll('.remove-image-button') || []).forEach((elem) => {
         elem.addEventListener('click', (event) => {
             const elem = event.target;
@@ -500,5 +510,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     })
-
 });

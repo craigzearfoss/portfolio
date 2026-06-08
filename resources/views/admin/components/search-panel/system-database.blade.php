@@ -68,6 +68,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -77,6 +78,7 @@
                                 'name'    => 'database',
                                 'value'   => $database,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -89,6 +91,7 @@
                                 'name'    => 'tag',
                                 'value'   => $tag,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -98,6 +101,7 @@
                                 'name'    => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>

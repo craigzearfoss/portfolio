@@ -83,6 +83,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
@@ -100,6 +101,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
+                                        'class'   => [ 'submit-search-on-enter-key' ],
                                     ])
                                 </div>
                             @else
@@ -118,6 +120,7 @@
                                 'value'   => $subject,
                                 'message' => $message ?? '',
                                 'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -126,6 +129,7 @@
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>

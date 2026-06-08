@@ -66,6 +66,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 15rem;',
                             ])
                         </div>
@@ -75,6 +76,7 @@
                                 'name'    => 'abbreviation',
                                 'value'   => $abbreviation,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 15rem;',
                             ])
                         </div>

@@ -72,6 +72,7 @@
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 15rem;',
                             ])
                         </div>
@@ -81,6 +82,7 @@
                                 'name'    => 'label',
                                 'value'   => $search_label,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 15rem;',
                             ])
                         </div>

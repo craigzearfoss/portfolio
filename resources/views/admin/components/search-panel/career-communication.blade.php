@@ -88,6 +88,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
@@ -104,6 +105,7 @@
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
+                                        'class'   => [ 'submit-search-on-enter-key' ],
                                         'message' => $message ?? '',
                                     ])
                                 </div>
@@ -121,6 +123,7 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'from',
                                 'value'   => $from,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -129,6 +132,7 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'to',
                                 'value'   => $to,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -140,6 +144,7 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'subject',
                                 'value'   => $subject,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -148,6 +153,7 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'body',
                                 'value'   => $body,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>

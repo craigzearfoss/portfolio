@@ -99,6 +99,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem' ],
                                 ])
                             </div>
@@ -117,6 +118,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
+                                        'class'   => [ 'submit-search-on-enter-key' ],
                                         'style'   => [ 'width: 12rem'],
                                     ])
                                 </div>
@@ -137,6 +139,7 @@
                                 'label'   => 'role',
                                 'value'   => $application_role,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -145,6 +148,7 @@
                                 'name'    => 'content',
                                 'value'   => $content,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -156,6 +160,7 @@
                                 'name'    => 'description',
                                 'value'   => $description,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -164,6 +169,7 @@
                                 'name'    => 'notes',
                                 'value'   => $notes,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                             ])
                         </div>
 

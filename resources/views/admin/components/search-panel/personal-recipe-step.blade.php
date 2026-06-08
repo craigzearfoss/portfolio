@@ -68,6 +68,7 @@
                                 'label'   => 'recipe',
                                 'value'   => $recipe_name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -81,6 +82,7 @@
                                 'label'   => 'summary',
                                 'value'   => $summary,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>

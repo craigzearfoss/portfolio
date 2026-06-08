@@ -94,6 +94,7 @@
                                 'label'   => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>

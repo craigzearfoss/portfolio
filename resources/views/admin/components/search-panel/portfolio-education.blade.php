@@ -77,6 +77,7 @@
                                 'label'   => 'school',
                                 'value'   => $school_name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -96,6 +97,7 @@
                                 'name'    => 'major',
                                 'value'   => $major,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -105,6 +107,7 @@
                                 'name'    => 'minor',
                                 'value'   => $minor,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>

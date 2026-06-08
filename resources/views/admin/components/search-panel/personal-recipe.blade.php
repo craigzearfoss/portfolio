@@ -68,6 +68,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -80,6 +81,7 @@
                                 'name'    => 'author',
                                 'value'   => $author,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -105,6 +107,7 @@
                                 'value'       => $prep_time_max,
                                 'placeholder' => '(minutes)',
                                 'message'     => $message ?? '',
+                                'class'        => [ 'submit-search-on-enter-key' ],
                                 'style'       => 'width: 5rem;',
                                 'title'       => 'Maximum prep time in minutes.',
                             ])
@@ -118,6 +121,7 @@
                                 'placeholder' => '(minutes)',
                                 'message'     => $message ?? '',
                                 'style'       => 'width: 5rem;',
+                                'class'       => [ 'submit-search-on-enter-key' ],
                                 'title'       => 'Maximum total time in minutes.',
                             ])
                         </div>
