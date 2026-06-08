@@ -97,7 +97,7 @@
                                 </strong>
                             @else
                                 {!! htmlspecialchars($education->major) !!}
-                                @if (!empty($education->minor)) {
+                                @if (!empty($education->minor))
                                     ({!! htmlspecialchars($education->minor) !!} minor)
                                 @endif
                             @endif
