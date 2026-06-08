@@ -391,8 +391,8 @@
 
                         @include('admin.components.form-link-horizontal', [
                             'label'   => 'link 2',
-                            'link'    => old('link') ?? '',
-                            'name'     => old('link_name') ?? '',
+                            'link'    => old('link2') ?? '',
+                            'name'     => old('link2_name') ?? '',
                             'message'  => $message ?? '',
                         ])
 
