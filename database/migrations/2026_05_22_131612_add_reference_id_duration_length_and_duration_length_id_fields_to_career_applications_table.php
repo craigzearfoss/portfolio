@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreignId('job_duration_unit_id')
                 ->nullable()
                 ->after('job_duration_length')
-                ->constrained(dbName($this->database_tag) . '.' . 'job_duration_units', 'id')
+                ->constrained(dbName($this->database_tag) . '.' . 'job_duration_units', 'id', 'career_job_duration_foreign')
                 ->onDelete('cascade');
         });
     }
