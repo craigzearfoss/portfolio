@@ -1,10 +1,10 @@
 @php
-$class   = !empty($class) ? $class : '';
-if (!empty($style)) {
-    $style = is_array($style) ? implode('; ', $style) . ';' : $style;
-} else {
-    $style = '';
-}
+    $class   = !empty($class)
+        ? $class = is_array($class) ? $class : explode('; ', $class)
+        : [];
+    $style = !empty($style)
+        ? is_array($style) ? $style : explode('; ', $style)
+        : [];
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
@@ -13,17 +13,14 @@ if (!empty($style)) {
     <div class="field-body">
 
         <div class="field">
-            <div class="control">
-                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
-                       type="text"
-                       id="inputStreet"
-                       name="street"
-                       value="{!! $street !!}"
-                       placeholder="street"
-                       maxlength="255"
-                >
-            </div>
-
+            @include('user.components.input', [
+                'name'        => 'street',
+                'id'          => 'inputStreet',
+                'value'       => $street,
+                'placeholder' => 'street',
+                'maxlength'   => 255,
+                'class'       => array_merge([ 'input' ], $class)
+            ])
             @error('street')
                 <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
@@ -40,17 +37,14 @@ if (!empty($style)) {
     <div class="field-body">
 
        <div class="field">
-            <div class="control">
-                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
-                       type="text"
-                       id="inputStreet2"
-                       name="street2"
-                       value="{!! $street2 !!}"
-                       placeholder="street2"
-                       maxlength="255"
-                >
-            </div>
-
+            @include('user.components.input', [
+                'name'        => 'street2',
+                'id'          => 'inputStreet2',
+                'value'       => $street2,
+                'placeholder' => 'street2',
+                'maxlength'   => 255,
+                'class'       => array_merge([ 'input' ], $class)
+            ])
             @error('street2')
                 <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
@@ -67,15 +61,14 @@ if (!empty($style)) {
     <div class="field-body has-text-left">
 
         <div class="mr-2 mb-2">
-            <input class="input {!! $class !!} @error('role') is-invalid @enderror"
-                   type="text"
-                   id="inputCity"
-                   name="city"
-                   value="{!! $city !!}"
-                   placeholder="city"
-                   maxlength="255"
-            >
-
+            @include('user.components.input', [
+                'name'        => 'city',
+                'id'          => 'inputCity',
+                'value'       => $city,
+                'placeholder' => 'city',
+                'maxlength'   => 255,
+                'class'       => array_merge([ 'input' ], $class)
+            ])
             @error('city')
                 <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
@@ -89,18 +82,14 @@ if (!empty($style)) {
             'placeholder' => 'state',
         ])
 
-        <div class="field mb-0 mr-0 mb-2">
-            <div class="control">
-                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
-                       type="text"
-                       id="inputZip"
-                       name="zip"
-                       value="{!! $zip !!}"
-                       placeholder="zip"
-                       maxlength="20"
-                >
-            </div>
-
+        <div class="field mr-0 mb-2">
+            @include('user.components.input', [
+                'name'        => 'zip',
+                'id'          => 'inputZip',
+                'value'       => $zip,
+                'placeholder' => 'zip',
+                'maxlength'   => 20
+            ])
             @error('zip')
                 <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
@@ -121,6 +110,7 @@ if (!empty($style)) {
             'list'        => $countries,
             'value'       => $country_id ?? null,
             'placeholder' => 'country',
+            'style'       => [ 'width: 20rem' ],
         ])
 
     </div>

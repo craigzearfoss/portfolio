@@ -238,6 +238,7 @@
                         'required' => true,
                         'list'     => new JobEmploymentType()->listOptions([], 'id', 'name', true),
                         'message'  => $message ?? '',
+                        'style'    => [ 'width: 10rem' ],
                     ])
 
                     @include('admin.components.form-select-horizontal', [
@@ -247,6 +248,7 @@
                         'required' => true,
                         'list'     => new JobLocationType()->listOptions([], 'id', 'name', true),
                         'message'  => $message ?? '',
+                        'style'    => [ 'width: 7rem' ],
                     ])
 
                 </div>
@@ -272,10 +274,11 @@
 
                     @include('admin.components.form-select-horizontal', [
                         'name'    => 'compensation_unit_id',
-                        'label'   => 'compensation unit',
+                        'label'   => 'comp. unit',
                         'value'   => old('compensation_unit') ?? $application->compensation_unit_id,
                         'list'    => new CompensationUnit()->listOptions([], 'id', 'name', true),
                         'message' => $message ?? '',
+                        'style'   => [ 'width: 6rem' ],
                     ])
 
                     @include('admin.components.form-input-horizontal', [
