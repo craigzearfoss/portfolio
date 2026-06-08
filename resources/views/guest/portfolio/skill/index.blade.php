@@ -16,7 +16,7 @@
             [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
             [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Skills' ],
-          ];
+        ];
 
     // set navigation buttons
     $navButtons = [];
@@ -41,7 +41,7 @@
             <p><i>{{ number_format($skills->total()) }} {{ ($skills->total() === 1) ? 'skill' : 'skills' }} found.</i></p>
 
             @if (!empty($pagination_top))
-                {!! $publications->skills('vendor.pagination.bulma') !!}
+                {!! $skills->links('vendor.pagination.bulma') !!}
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
@@ -129,7 +129,7 @@
             </table>
 
             @if (!empty($pagination_bottom))
-                {!! $publications->skills('vendor.pagination.bulma') !!}
+                {!! $skills->links('vendor.pagination.bulma') !!}
             @endif
 
         </div>

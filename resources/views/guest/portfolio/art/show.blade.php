@@ -29,7 +29,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($audio->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($art->disclaimer) ])
 
     <div class="show-container p-4">
 

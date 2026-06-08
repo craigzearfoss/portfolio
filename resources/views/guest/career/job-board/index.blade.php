@@ -63,7 +63,7 @@
                         <td style="white-space: nowrap;{{ $jobBoard->primary ? ' font-weight: 700;' : '' }}">
                             @if (!empty($jobBoard->link))
                                 @include('guest.components.link', [
-                                    'name'   => htmlspecialchars($jobBoard->name)),
+                                    'name'   => htmlspecialchars($jobBoard->name),
                                     'href'   => $jobBoard->link,
                                     'target' => '_blank'
                                 ])
