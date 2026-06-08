@@ -23,7 +23,9 @@
     $required = $required ?? false;
 
     $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
-    if (!in_array('form-select', $class)) $class[] = 'form-select';
+    foreach ([ 'form-select', 'input', 'typeahead-input' ] as $thisClass) {
+        if (!in_array($thisClass, $class)) $class[] = $thisClass;
+    }
 
     $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
 
@@ -43,14 +45,20 @@
     @endphp
 @enderror
 
-<div class="typeahead-container field mb-0 mr-2 mb-2">
+<div class="typeahead-container field mb-0 mr-2">
 
     <input type="text"
            id="typeahead-input_{{ $name }}"
-           class="input typeahead-input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
+           class="{!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
+           @if (!empty($style))
+               style="{!! implode('; ', $style) !!}"
+           @endif
            value="{{ $selectedOptionLabel }}"
            @if (!empty($placeholder))
                placeholder="{{ $placeholder }}"
+           @endif
+           @if (!empty($onchange))
+               onchange="{!! $onchange !!}"
            @endif
            autocomplete="off"
            @if (!empty($attributes))

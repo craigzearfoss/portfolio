@@ -355,7 +355,7 @@ ul.menu-list li {
     list-style: none;
 }
 ul.menu-list a {
-    color: white;
+    color: white;p.menu-label
 }
 ul.menu-list a:hover {
     background-color: #ddd;
@@ -1002,4 +1002,42 @@ div.card.job-analyzer-skill-list div.card-body {
     .field-body.not-horizontal {
         display: block;
     }
+}
+
+.candidate-left-nav-container.card {
+    padding: .2rem !important;
+}
+.candidate-left-nav-container.card .card-header {
+    padding-left: .2rem;
+}
+.candidate-left-nav-container.card .select-container {
+    padding: 0 0.2rem;
+}
+.candidate-left-nav-container.card .select-container select {
+    height: 1.8rem;
+    line-height: 1.2;
+    padding: 0 .2rem;
+    margin: 0 .1rem !important;
+}
+.candidate-left-nav-container,
+.candidate-left-nav-container .has-text-light,
+.candidate-left-nav-container .has-text-white,
+.candidate-left-nav-container ul.menu-list a {
+    background-color: rgb(209, 255, 248);
+    color: rgb(0, 56, 48) !important;
+}
+.candidate-left-nav-container ul.menu-list li a:hover,
+.candidate-left-nav-container .has-text-white.a:hover {
+    color: rgb(0, 209, 178) !important;
+}
+.candidate-left-nav-container ul.menu. {
+    margin-bottom: 0;
+
+}
+.candidate-left-nav-container ul.menu p.menu-label {
+    padding: .1rem .2rem;
+    margin: .1rem 0 .1rem .2rem;
+}
+.candidate-left-nav-container ul.menu p.menu-label a.has-text-white:hover {
+    color: rgb(0, 209, 178) !important;
 }

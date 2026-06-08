@@ -94,6 +94,11 @@ class MenuService
      */
     protected bool $showAll = false;
 
+    protected array $adminMenu = [];
+    protected array $candidateMenu = [];
+    protected array $resourceMenu = [];
+    protected array $toolMenu = [];
+
     /**
      * @var string|null
      */
@@ -393,7 +398,17 @@ class MenuService
 
         }
 
+        $this->generateSubMenus($menu);
+
         return $menu;
+    }
+
+    private function generateSubMenus($menu)
+    {
+        // @TODO: generate submenus
+        foreach($menu as $menuItem) {
+
+        }
     }
 
     /**
@@ -414,7 +429,13 @@ class MenuService
             $this->{$property} = $value;
         }
 
-        $menu = $this->getDatabaseResourceMenu();
+        // remove all owner-related menu items
+        $menu = [];//dd($this->getDatabaseResourceMenu());
+        foreach ($this->getDatabaseResourceMenu() as $menuItem) {
+            if (empty($this->owner) || !in_array($menuItem->tag, [ 'personal_db', 'portfolio_db' ])) {
+                $menu[] =$menuItem;
+            }
+        };
 
         if (($this->envType == EnvTypes::GUEST)) {
 
@@ -577,11 +598,14 @@ class MenuService
             }
         }
 
+        // don't add resumes to the top menu
+        /*
         if (!empty($this->owner)) {
             if ($resume = $this->getResumeMenuItem()) {
                 array_unshift($menu, $resume);
             }
         }
+        */
 
         return $menu;
     }

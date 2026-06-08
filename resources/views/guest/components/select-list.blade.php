@@ -1,7 +1,8 @@
 @php
-    $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
-    $name  = $name ?? null;
-    $value = $value ?? '';
+    $id         = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $name       = $name ?? null;
+    $value      = $value ?? '';
+    $attributes = $attributes ?? [];
 
     $list = $list ?? [];
 
@@ -14,7 +15,9 @@
     $required = $required ?? false;
 
     $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
-    if (!in_array('form-select', $class)) $class[] = 'form-select';
+    foreach ([ 'form-select', 'input' ] as $thisClass) {
+        if (!in_array($thisClass, $class)) $class[] = $thisClass;
+    }
 
     $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
 
@@ -59,6 +62,9 @@
     @if (!empty($multiple))
         multiple
     @endif
+    @foreach ($attributes as $attrName=>$attrValue)
+        {{ $attrName }}="{{ $attrValue }}"
+    @endforeach
     @if (!empty($onchange))
         onchange="{!! $onchange !!}"
     @endif
