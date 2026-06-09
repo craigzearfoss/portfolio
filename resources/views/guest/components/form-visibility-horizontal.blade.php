@@ -1,10 +1,10 @@
 @php
-    $is_public ?? false;
-    $is_readonly ?? false;
-    $is_root ?? false;
-    $is_disabled ?? false;
-    $is_demo ?? false;
-    $sequence ?? 0;
+    $is_public   = $is_public?? false;
+    $is_readonly = $is_readonly ?? false;
+    $is_root     = $is_root?? false;
+    $is_disabled = $is_disabled ?? false;
+    $is_demo     = $is_demo ?? false;
+    $sequence    = $sequence?? 0;
 
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {

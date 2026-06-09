@@ -1041,3 +1041,34 @@ div.card.job-analyzer-skill-list div.card-body {
 .candidate-left-nav-container ul.menu p.menu-label a.has-text-white:hover {
     color: rgb(0, 209, 178) !important;
 }
+div.dictionary-button {
+    padding: 0 .8rem .2rem .2rem;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 800;
+}
+div.dictionary-button a {
+    display: block;
+    margin: .4rem;
+    background-color:  #fffacd;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+}
+
+.resources-left-nav-container.card,
+.tools-left-nav-container.card {
+    background-color: #606060;
+    color: #fff;
+    font-weight: 700;
+}
+.resources-left-nav-container.card .menu .menu-label,
+.tools-left-nav-container.card .menu .menu-label {
+    width: 100%;
+    height: 2.2em;
+}
+.resources-left-nav-container.card .menu .menu-label a.nav-button,
+.tools-left-nav-container.card .menu .menu-label a.nav-button {
+    color: #fff;
+    font-weight: 700;
+}

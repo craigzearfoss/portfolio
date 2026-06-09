@@ -9,6 +9,7 @@ function toggleHamburgerMenu() {
     } else {
         x.style.display = 'block';
     }
+    window.scrollTo(0, 0)
 }
 
 function showSkillCheckBoxes(skillType = 'skill')

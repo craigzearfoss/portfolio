@@ -24,7 +24,7 @@
         : null;
 
     $resumes = $resumeModel->searchQuery([ 'owner_id' => $application->owner_id ])->get();
-//    dd($resumes);
+    //dd($resumes);
 @endphp
 <div class="card p-4">
 
@@ -38,6 +38,75 @@
     <div class="has-text-centered" style="max-width: 80rem;">
 
         <div class="edit-container">
+
+            <div class="field is-horizontal">
+                <div class="field-label" style="min-width: 6rem;">
+                    <strong></strong>
+                </div>
+                <div class="field-body">
+                    <div class="card p-2 border-1">
+
+                        <div class="mr-4" style="display: inline-block;">
+                            @include('guest.components.form-checkbox', [
+                                'id'              => 'active-resumes',
+                                'name'            => 'active',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => 1,
+                                'class'           => 'resume-filter-checkbox',
+                                'attributes'      => [ 'filterType' => 'data-active' ],
+                            ])
+                        </div>
+                        <div class="mr-4" style="display: inline-block;">
+                            @include('guest.components.form-checkbox', [
+                                'id'              => 'primary-resumes',
+                                'name'            => 'primary',
+                                'label'           => 'primary',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => 0,
+                                'class'           => 'resume-filter-checkbox',
+                                'attributes'      => [ 'filterType' => 'data-primary' ],
+                            ])
+                        </div>
+                        <div style="display: inline-block;">
+                            @include('guest.components.form-checkbox', [
+                                'id'              => 'public-resumes',
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => 0,
+                                'class'           => 'resume-filter-checkbox',
+                                'attributes'      => [ 'filterType' => 'data-public' ],
+                            ])
+                        </div>
+                        <div style="display: inline-block;">
+                            @include('guest.components.form-checkbox', [
+                                'id'              => 'word-resumes',
+                                'name'            => 'word',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => 1,
+                                'class'           => 'resume-filter-checkbox',
+                                'attributes'      => [ 'filterType' => 'data-word' ],
+                            ])
+                        </div>
+                        <div style="display: inline-block;">
+                            @include('guest.components.form-checkbox', [
+                                'id'              => 'pdf-resumes',
+                                'name'            => 'pdf',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => 1,
+                                'class'           => 'resume-filter-checkbox',
+                                'attributes'      => [ 'filterType' => 'data-pdf' ],
+                            ])
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
 
             <div class="field is-horizontal">
                 <div class="field-label" style="min-width: 6rem;">
@@ -65,11 +134,15 @@
                                     @foreach ([ 'pdf' => 'pdf_filepath', 'doc' => 'doc_filepath' ] as $fileType=>$column)
 
                                         @if (!empty($resume->{$column}))
-                                            <option data-active   ="{{ $resume['active'] ? '1' : '0' }}"
-                                                    value         = "{{ $resume['id'] }}|{{ $fileType }}"
+                                            <option value         = "{{ $resume['id'] }}|{{ $fileType }}"
                                                     data-id       = "{{ $resume['id'] }}"
                                                     data-href     = "{{ imageUrl($resume->{$column}) }}"
+                                                    data-active   = "{{ $resume['active'] ? '1' : '0' }}"
+                                                    data-primary  = "{{ $resume['primary'] ? '1' : '0' }}"
+                                                    data-public   = "{{ $resume['public'] ? '1' : '0' }}"
                                                     data-filetype = "{{ $fileType }}"
+                                                    data-word     = "{{ ($fileType == 'word') ? '1' : '0' }}"
+                                                    data-pdfd     = "{{ ($fileType == 'pdf') ? '1' : '0' }}"
                                                     data-current  = "{{ $resume['id'] == $resumeId ? '1' : '0' }}"
                                                     @if ($resume['active'])
                                                         style="color: rgb(0, 209, 178); font-weight: 700;"
@@ -101,7 +174,7 @@
                         </form>
 
                         <div style="display: inline-block; font-size: 0.8rem;">
-                            <div style="display: inline-block; background-color: rgb(0, 209, 178); width: 12px; height: 12px;"></div> Indicates a primary resume.
+                        <div style="display: inline-block; background-color: rgb(0, 209, 178); width: 12px; height: 12px;"></div> Indicates a primary resume.
                             An asterisk `*` indicates an active resume.
                         </div>
 
@@ -139,3 +212,33 @@
     </div>
 
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.resume-filter-checkbox') || []).forEach((elem) => {
+            elem.addEventListener('click', (event) => {
+                const elem = event.target;
+                const filterType = elem.getAttribute('filterType');
+
+                if (event.target.checked) {
+                    console.log('checked', `select.application-select-resume option[${filterType}="1"]`);
+                    const a = document.querySelectorAll(`select.application-select-resume option[${filterType}="1"]`);
+                    console.log(a);
+                    (document.querySelectorAll(`select#application-select-resume option[${filterType}="1"]`) || []).forEach((elem) => {
+                        elem.style.display = 'block';
+                    });
+                } else {
+                    console.log('checked', `select.application-select-resume option[${filterType}="0"]`);
+                    const a = document.querySelectorAll(`select.application-select-resume option[${filterType}="0"]`);
+                    console.log(a);
+                    (document.querySelectorAll(`select#application-select-resume option[${filterType}="0"]`) || []).forEach((elem) => {
+                        elem.style.display = 'none';
+                    });
+                }
+
+            })
+        });
+
+    });
+</script>

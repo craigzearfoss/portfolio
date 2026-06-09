@@ -1,10 +1,10 @@
 @php
-    $is_public ?? false;
-    $is_readonly ?? false;
-    $is_root ?? false;
-    $is_disabled ?? false;
-    $is_demo ?? false;
-    $sequence ?? 0;
+    $is_public   = $is_public?? false;
+    $is_readonly = $is_readonly ?? false;
+    $is_root     = $is_root?? false;
+    $is_disabled = $is_disabled ?? false;
+    $is_demo     = $is_demo ?? false;
+    $sequence    = $sequence?? 0;
 
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
@@ -19,9 +19,9 @@
     <div class="field-body">
         <div class="field" style="flex-grow: 0;">
 
-            <div class="checkbox-container visibility-checkboxes-container card form-container p-4">
+            <div class="checkbox-container card form-container p-4">
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'is_public',
                     'label'           => 'public',
                     'value'           => 1,
@@ -30,7 +30,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'is_readonly',
                     'label'           => 'read-only',
                     'value'           => 1,
@@ -40,7 +40,7 @@
                 ])
 
                 @if (isRootAdmin())
-                    @include('admin.components.form-checkbox', [
+                    @include('guest.components.form-checkbox', [
                         'name'            => 'is_root',
                         'label'           => 'root',
                         'value'           => 1,
@@ -51,7 +51,7 @@
                     ])
                 @endif
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'is_disabled',
                     'label'           => 'disabled',
                     'value'           => 1,
@@ -60,7 +60,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'is_demo',
                     'label'           => 'demo',
                     'value'           => 1,

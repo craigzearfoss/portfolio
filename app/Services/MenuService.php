@@ -42,6 +42,11 @@ class MenuService
     /**
      * @var bool
      */
+    protected bool $menusLoaded = false;
+
+    /**
+     * @var bool
+     */
     protected bool $hasAdmins = true;
 
     /**
@@ -94,9 +99,12 @@ class MenuService
      */
     protected bool $showAll = false;
 
+    protected array $menu = [];
     protected array $adminMenu = [];
     protected array $candidateMenu = [];
     protected array $resourceMenu = [];
+
+    protected array $dictionaryMenu = [];
     protected array $toolMenu = [];
 
     /**
@@ -252,163 +260,237 @@ class MenuService
      */
     public function leftMenu(bool $hasAdmins = true, bool $hasUsers = true, array $properties = []): array
     {
-        $this->hasAdmins = $hasAdmins;
-        $this->hasUsers = $hasUsers;
+        if (!$this->menusLoaded) {
 
-        foreach ($properties as $property => $value) {
-            $this->{$property} = $value;
-        }
+            $this->hasAdmins = $hasAdmins;
+            $this->hasUsers = $hasUsers;
 
-        $menu = $this->getDatabaseResourceMenu();
+            foreach ($properties as $property => $value) {
+                $this->{$property} = $value;
+            }
 
-        if (($this->envType == EnvTypes::GUEST)) {
+            $menu = $this->getDatabaseResourceMenu();
 
-            $menu[] = $this->menuItem([
-                'tag'     => 'job-analyzer',
-                'title'   => view('guest.components.nav-left-featured-menu-item', [ 'name' => 'Job Analyzer' ])->render(),
-                'route'   => 'analyze-job',
-                'icon'    => 'fa-dashboard',
-            ]);
+            // append global menu items
+            if (($this->envType == EnvTypes::GUEST)) {
+                $menu = $this->appendResourceItems($menu);
+                $menu = $this->appendToolItems($menu);
+            }
 
-            $menu[] = $this->menuItem([
-                'tag'     => 'job-board',
-                'title'   => view('guest.components.nav-left-featured-menu-item', [ 'name' => 'Job Boards' ])->render(),
-                'route'   => 'guest.career.job-board.index',
-                'icon'    => 'fa-dashboard',
-            ]);
-        }
-
-        if (($this->hasAdmins) && ($this->isRootAdmin)) {
-            $menu[] = $this->menuItem([
-                'tag'   => 'settings',
-                'title' => 'Settings',
-                'route' => 'admin.system.settings.show',
-            ]);
-        }
-
-        // add user menu items
-        if ($this->hasUsers && config('app.users_enabled')) {
-            if (!empty($this->user)) {
+            if (($this->hasAdmins) && ($this->isRootAdmin)) {
                 $menu[] = $this->menuItem([
-                    'tag'   => 'user_dashboard',
-                    'title' => 'User Dashboard',
-                    'route' => 'user.dashboard',
-                ]);
-                $menu[] = $this->menuItem([
-                    'tag'   => 'my_user_profile',
-                    'title' => 'My User Profile',
-                    'route' => 'user.profile.show',
-                ]);
-//                $menu[] = $this->menuItem([
-//                    'tag'   => 'change_user_password',
-//                    'title' => 'Change User Password',
-//                    'route' => 'admin.profile.change-password'
-//                ]);
-                $menu[] = $this->menuItem([
-                    'tag'   => 'user_logout',
-                    'title' => 'User Logout',
-                    'route' => 'user.logout',
-                    'icon'  => 'fa-sign-out',
-                ]);
-            } else {
-                $menu[] = $this->menuItem([
-                    'tag'   => 'user_login',
-                    'title' => 'User Login',
-                    'route' => 'user.login',
-                    'icon'  => 'fa-sign-in',
-                    'name'  => 'user-login'
+                    'tag' => 'settings',
+                    'title' => 'Settings',
+                    'route' => 'admin.system.settings.show',
                 ]);
             }
-        }
 
-        // add admin menu items
-        if ($this->hasAdmins) {
-
-            if (!empty($this->admin)) {
-                $menu[] = $this->menuItem([
-                    'tag'   => 'admin_dashboard',
-                    'title' => 'Admin Dashboard',
-                    'route' => 'admin.dashboard'
-                ]);
-                $menu[] = $this->menuItem([
-                    'tag'   => 'my_admin_profile',
-                    'title' => 'My Admin Profile',
-                    'route' => 'admin.profile.show'
-                ]);
-//                $menu[] = $this->menuItem([
-//                    'tag'   => 'change_password',
-//                    'title' => 'Change Password',
-//                    'route' => 'admin.profile.change-password'
-//                ]);
-                $menu[] = $this->menuItem([
-                    'tag'   => 'admin_logout',
-                    'title' => 'Admin Logout',
-                    'route' => 'admin.logout',
-                    'icon'  => 'fa-sign-out'
-                ]);
-
-                if ($this->isRootAdmin) {
-                    foreach ($menu as $i => $menuItem) {
-                        if (!empty($menuItem)
-                            && method_exists($menuItem, 'getAttributes')
-                            && array_key_exists('tag', $menuItem->getAttributes())
-                            && ($menuItem->tag === 'db')
-                        ) {
-                            $menuItem[$i]->children[] = $this->menuItem([
-                                'tag'   => 'databases',
-                                'title' => 'Databases',
-                                'route' => 'admin.system.database.index',
-                                'icon'  => 'fa-database'
-                            ], 2);
-                            $menuItem[$i]->children[] = $this->menuItem([
-                                'tag'   => 'resources',
-                                'title' => 'Resources',
-                                'route' => 'admin.system.resource.index',
-                                'icon'  =>'fa-table' ], 2);
-                        }
-                    }
-                }
-            } else {
-                if (!$this->singleAdminMode) {
+            // add user menu items
+            if ($this->hasUsers && config('app.users_enabled')) {
+                if (!empty($this->user)) {
                     $menu[] = $this->menuItem([
-                        'tag'   => 'admin_login',
-                        'name'  => 'admin-login',
-                        'title' => 'Admin Login',
-                        'route' => 'admin.login',
-                        'icon'  => 'fa-sign-in'
+                        'tag' => 'user_dashboard',
+                        'title' => 'User Dashboard',
+                        'route' => 'user.dashboard',
+                    ]);
+                    $menu[] = $this->menuItem([
+                        'tag' => 'my_user_profile',
+                        'title' => 'My User Profile',
+                        'route' => 'user.profile.show',
+                    ]);
+                    //                $menu[] = $this->menuItem([
+                    //                    'tag'   => 'change_user_password',
+                    //                    'title' => 'Change User Password',
+                    //                    'route' => 'admin.profile.change-password'
+                    //                ]);
+                    $menu[] = $this->menuItem([
+                        'tag' => 'user_logout',
+                        'title' => 'User Logout',
+                        'route' => 'user.logout',
+                        'icon' => 'fa-sign-out',
+                    ]);
+                } else {
+                    $menu[] = $this->menuItem([
+                        'tag' => 'user_login',
+                        'title' => 'User Login',
+                        'route' => 'user.login',
+                        'icon' => 'fa-sign-in',
+                        'name' => 'user-login'
                     ]);
                 }
             }
-        }
 
-        // create the contact menu item
-        $contactRoute = $this->envType == EnvTypes::ADMIN ? 'admin.contact' : 'guest.contact';
-        $menu[] = $this->createMenuItem(
-            null,
-            'Contact',
-            route($contactRoute),
-            $contactRoute,
-            EnvTypes::GUEST,
-        );
+            // add admin menu items
+            if ($this->hasAdmins) {
 
-        if (!empty($this->owner)) {
-            if ($resume = $this->getResumeMenuItem()) {
-                array_unshift($menu, $resume);
+                if (!empty($this->admin)) {
+                    $menu[] = $this->menuItem([
+                        'tag' => 'admin_dashboard',
+                        'title' => 'Admin Dashboard',
+                        'route' => 'admin.dashboard'
+                    ]);
+                    $menu[] = $this->menuItem([
+                        'tag' => 'my_admin_profile',
+                        'title' => 'My Admin Profile',
+                        'route' => 'admin.profile.show'
+                    ]);
+                    //                $menu[] = $this->menuItem([
+                    //                    'tag'   => 'change_password',
+                    //                    'title' => 'Change Password',
+                    //                    'route' => 'admin.profile.change-password'
+                    //                ]);
+                    $menu[] = $this->menuItem([
+                        'tag' => 'admin_logout',
+                        'title' => 'Admin Logout',
+                        'route' => 'admin.logout',
+                        'icon' => 'fa-sign-out'
+                    ]);
+
+                    if ($this->isRootAdmin) {
+                        foreach ($menu as $i => $menuItem) {
+                            if (!empty($menuItem)
+                                && method_exists($menuItem, 'getAttributes')
+                                && array_key_exists('tag', $menuItem->getAttributes())
+                                && ($menuItem->tag === 'db')
+                            ) {
+                                $menuItem[$i]->children[] = $this->menuItem([
+                                    'tag' => 'databases',
+                                    'title' => 'Databases',
+                                    'route' => 'admin.system.database.index',
+                                    'icon' => 'fa-database'
+                                ], 2);
+                                $menuItem[$i]->children[] = $this->menuItem([
+                                    'tag' => 'resources',
+                                    'title' => 'Resources',
+                                    'route' => 'admin.system.resource.index',
+                                    'icon' => 'fa-table'], 2);
+                            }
+                        }
+                    }
+                } else {
+                    if (!$this->singleAdminMode) {
+                        $menu[] = $this->menuItem([
+                            'tag' => 'admin_login',
+                            'name' => 'admin-login',
+                            'title' => 'Admin Login',
+                            'route' => 'admin.login',
+                            'icon' => 'fa-sign-in'
+                        ]);
+                    }
+                }
             }
 
+            // create the contact menu item
+            $contactRoute = $this->envType == EnvTypes::ADMIN ? 'admin.contact' : 'guest.contact';
+            $menu[] = $this->createMenuItem(
+                null,
+                'Contact',
+                route($contactRoute),
+                $contactRoute,
+                EnvTypes::GUEST,
+            );
+
+            if (!empty($this->owner)) {
+                if ($resume = $this->getResumeMenuItem()) {
+                    array_unshift($menu, $resume);
+                }
+
+            }
+
+            $this->generateSubMenus($menu);
+
+            $this->menu = $menu;
+
+            $this->menusLoaded = true;
         }
 
-        $this->generateSubMenus($menu);
-
-        return $menu;
+        if ($this->envType == EnvTypes::ADMIN) {
+            return $this->menu;
+        } else {
+            return [
+                'candidate' => $this->candidateMenu,
+                'resources' => $this->resourceMenu,
+                'tools' => $this->toolMenu,
+                'dictionary' => $this->dictionaryMenu,
+                'system' => $this->adminMenu,
+            ];
+        }
     }
 
-    private function generateSubMenus($menu)
+    private function appendResourceItems($menu): array
     {
-        // @TODO: generate submenus
-        foreach($menu as $menuItem) {
+        return array_merge(
+            $menu,
+            [
+                $this->menuItem([
+                    'tag'     => 'job-board',
+                    'title'   => 'Job Boards',
+                    'route'   => 'guest.career.job-board.index',
+                    'icon'    => 'fa-dashboard',
+                ]),
+                $this->menuItem([
+                    'tag'     => 'recruiter',
+                    'title'   => 'Recruiters',
+                    'route'   => 'guest.career.recruiter.index',
+                    'icon'    => 'fa-dashboard',
+                ]),
+                $this->menuItem([
+                    'tag'     => 'school',
+                    'title'   => 'Schools',
+                    'route'   => 'guest.portfolio.school.index',
+                    'icon'    => 'fa-dashboard',
+                ]),
+                $this->menuItem([
+                    'tag'     => 'academy',
+                    'title'   => 'Online Learning',
+                    'route'   => 'guest.portfolio.academy.index',
+                    'icon'    => 'fa-dashboard',
+                ])
+            ]
+        );
+    }
 
+    private function appendToolItems($menu): array
+    {
+        return array_merge(
+            $menu,
+            [
+                $this->menuItem([
+                    'tag'     => 'job-analyzer',
+                    'title'   => 'Job Analyzer',
+                    'route'   => 'analyze-job',
+                    'icon'    => 'fa-dashboard',
+                ])
+            ]
+        );
+    }
+
+    /**
+     * Generate the submenus. Submenus are only used in the guest area.
+     *
+     * @param $menu
+     * @return void
+     */
+    private function generateSubMenus($menu): void
+    {
+        foreach ($menu as $menuItem) {
+            if (
+                (property_exists($menuItem, 'owner_id') && !empty($this->owner) && ($menuItem->owner_id == $this->owner['id']))
+                || (property_exists($menuItem, 'table') && in_array($menuItem->tag, [ 'personal_db', 'portfolio_db' ]))
+            ) {
+                $this->candidateMenu[] = $menuItem;
+            } elseif (property_exists($menuItem, 'table') && ($menuItem->tag == 'dictionary_db')) {
+                $this->dictionaryMenu[] = $menuItem;
+            } elseif (property_exists($menuItem, 'tag') && in_array($menuItem->tag, [ 'job-board', 'recruiter', 'school' ])) {
+                $this->resourceMenu[] = $menuItem;
+            } elseif (property_exists($menuItem, 'tag') && $menuItem->tag == 'job-analyzer') {
+                $this->toolMenu[] = $menuItem;
+            } else {
+                $this->adminMenu[] =$menuItem;
+            }
         }
+
+        $this->menusLoaded = true;
     }
 
     /**
@@ -439,19 +521,11 @@ class MenuService
 
         if (($this->envType == EnvTypes::GUEST)) {
 
-            $menu[] = $this->menuItem([
-                'tag'     => 'job-analyzer',
-                'title'   => view('guest.components.nav-top-featured-menu-item', [ 'name' => 'Job Analyzer' ])->render(),
-                'route'   => 'analyze-job',
-                'icon'    => 'fa-dashboard',
-            ]);
-
-            $menu[] = $this->menuItem([
-                'tag'     => 'job-board',
-                'title'   => view('guest.components.nav-top-featured-menu-item', [ 'name' => 'Job Boards' ])->render(),
-                'route'   => 'guest.career.job-board.index',
-                'icon'    => 'fa-dashboard',
-            ]);
+            // append global menu items
+            if (($this->envType == EnvTypes::GUEST)) {
+                $menu = $this->appendResourceItems($menu);
+                $menu = $this->appendToolItems($menu);
+            }
 
             if (!$this->singleAdminMode) {
                 /// only show candidates menu option if there are more than one public, non-disabled admins

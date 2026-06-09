@@ -1,5 +1,7 @@
 @php
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+
+    $properties = $properties ?? [];
 @endphp
 <div class="field mb-0">
     <div class="control">
@@ -15,12 +17,29 @@
                 @if (!empty($checked))checked @endif
                 class="form-check-input {!! $class ?? '' !!}"
                 @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
-                @if (!empty($autofocus))autofocus @endif
-                @if (!empty($disabled) || !empty($readonly))disabled @endif
-                @if (!empty($form))form="{!! $form !!}" @endif
-                @if (!empty($readonly))readonly @endif
-                @if (!empty($required))required @endif
-                @if (!empty($onclick))onchange="{!! $onclick !!}" @endif
+                @if (!empty($autofocus))
+                    autofocus
+                @endif
+                @if (!empty($disabled) || !empty($readonly))
+                    disabled
+                @endif
+                @if (!empty($form))
+                    form="{!! $form !!}"
+                @endif
+                @if (!empty($readonly))
+                    readonly
+                @endif
+                @if (!empty($required))
+                    required
+                @endif
+                @if (!empty($onclick))
+                    onclick="{!! $onclick !!}"
+                @endif
+                @if (!empty($attributes))
+                    @foreach ($attributes as $attrKey=>$attrVal)
+                        {{ $attrKey }}="{!! $attrVal !!}"
+                    @endforeach
+                @endif
             >
             {!! $label ?? $name ?? '' !!}
         </label>

@@ -27,7 +27,10 @@ use App\Http\Controllers\System\BackupController as SystemBackupController;
 use App\Http\Controllers\System\EnvironmentController as SystemEnvironmentController;
 use App\Http\Controllers\System\IndexController as SystemIndexController;
 
+use App\Http\Controllers\Guest\Career\RecruiterController as GuestPortfolioRecruiterController;
 use App\Http\Controllers\Guest\Career\JobBoardController as GuestCareerJobBoardController;
+use App\Http\Controllers\Guest\Portfolio\AcademyController as GuestPortfolioAcademyController;
+use App\Http\Controllers\Guest\Portfolio\SchoolController as GuestPortfolioSchoolController;
 use App\Http\Controllers\Guest\IndexController as GuestIndexController;
 use App\Http\Controllers\Guest\System\AdminController as GuestSystemAdminController;
 use App\Http\Controllers\Guest\System\UserController as GuestSystemUserController;
@@ -51,6 +54,9 @@ use App\Http\Controllers\Guest\Career\IndexController as GuestCareerIndexControl
 
 Route::get('analyze-job/', [GuestCareerIndexController::class, 'analyzeJob'])->name('analyze-job');
 Route::get('job-board', [GuestCareerJobBoardController::class, 'index'])->name('guest.career.job-board.index');
+Route::get('recruiter', [GuestPortfolioRecruiterController::class, 'index'])->name('guest.career.recruiter.index');
+Route::get('academy', [GuestPortfolioAcademyController::class, 'index'])->name('guest.portfolio.academy.index');
+Route::get('school', [GuestPortfolioSchoolController::class, 'index'])->name('guest.portfolio.school.index');
 
 // ---------------------------------------------------------------------------------------------------------------------
 // base routes

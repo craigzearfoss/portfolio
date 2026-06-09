@@ -45,10 +45,10 @@
                     <{{ $labelElem }}>
                     <tr>
                         <th>name</th>
-                        <th>free</th>
-                        <th>premium*</th>
-                        <th>staffing**</th>
-                        <th>freelance***</th>
+                        <th class="has-text-centered">free</th>
+                        <th class="has-text-centered">premium*</th>
+                        <th class="has-text-centered">staffing**</th>
+                        <th class="has-text-centered">freelance***</th>
                         <th>description</th>
                     </tr>
                     </{{ $labelElem }}>

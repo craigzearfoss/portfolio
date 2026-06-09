@@ -1,51 +1,47 @@
 @php
-    use App\Models\System\Owner;
-
-    $admin = $admin ?? null;
-    $user  = $user ?? null;
-    $owner = $owner ?? null;
-
-    $menuItems = $menuService->leftMenu()
+    $systemItems = $systemItems ?? [];
+    $owner       = $ownerr ?? null;
 @endphp
-<div class="control ml-2 mt-2">
 
-    @if (!config('app.single_admin_mode'))
+@for ($i = 0; $i < count($systemItems); $i++)
 
-        <div class="has-text-light">candidates</div>
+    <ul class="menu is-menu-main mb-2" style="font-size: 1rem;">
 
-        @include('user.components.select-list', [
-            'value'    => !empty($owner->label) ? $owner->label : '',
-            'list'     => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
-            'style'    => 'font-size: 1.1rem; font-weight: 700',
-            'onchange' => 'loadSelectedAdmin(this.value, \'/#adminId#\')'
-        ])
+        @if ((get_class($systemItems[$i]) === 'stdClass') && $systemItems[$i]->name === 'Resume')
 
-    @endif
+            <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
+                @include('guest.components.nav-link-left', [
+                    'level'  => 1,
+                    'name'   => $systemItems[$i]->title,
+                    'href'   => !empty($systemItems[$i]->url) ? $systemItems[$i]->url: false,
+                    'active' => $systemItems[$i]->active,
+                    'class'  => 'button is-primary p-0 mt-1',
+                    'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                ])
+            </p>
 
-</div>
+        @else
 
-@for ($i = 0; $i < count($menuItems); $i++)
+            <p class="menu-label menu-label-left">
+                @include('guest.components.nav-link-left', [
+                    'level'  => 1,
+                    'name'   => $systemItems[$i]->title,
+                    'href'   => !empty($systemItems[$i]->url) ? $systemItems[$i]->url: false,
+                    'active' => $systemItems[$i]->active,
+                    'class'  => 'has-text-white'
+                ])
+            </p>
 
-    <ul class="menu is-menu-main" style="font-size: 1rem;">
+        @endif
 
-        <p class="menu-label menu-label-left">
-            @include('user.components.nav-link-left', [
-                'level'  => 1,
-                'name'   => $menuItems[$i]->title,
-                'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
-                'active' => $menuItems[$i]->active,
-                'class'  => 'has-text-white'
-            ])
-        </p>
-
-        @if (!empty($menuItems[$i]->children))
+        @if (!empty($systemItems[$i]->children))
 
             <ul class="menu-list pl-2" style="margin-left: 1em;">
 
-                @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
+                @foreach ($systemItems[$i]['children'] as $l2=>$menu2Item)
                     <li>
                         @include('guest.components.nav-link-left', [
-                            'level'user=> 2,
+                            'level'  => 2,
                             'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                             'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
                             'active' => $menu2Item->active,
@@ -53,12 +49,13 @@
                         ])
 
                         @if (!empty($menu2Item->children))
+                            @php dd($menu2Item->children) @endphp
                             @php //@TODO: This isn't working @endphp
                             <ul class="menu-list pl-2" style="margin-left: 1em;">
 
                                 @foreach ($menu2Item->children as $menu3Item)
                                     <li>
-                                        @include('user.components.nav-link-left', [
+                                        @include('guest.components.nav-link-left', [
                                             'level'  => 3,
                                             'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                             'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
