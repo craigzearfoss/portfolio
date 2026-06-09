@@ -5,7 +5,7 @@
     $user  = $user ?? null;
     $owner = $owner ?? null;
 
-    $menuItems = $menuService->leftMenu()
+    $menuItems = !empty($menuService) ? $menuService->leftMenu() : [];
 @endphp
 <div class="control ml-2 mt-2">
 
@@ -45,7 +45,7 @@
                 @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
                     <li>
                         @include('guest.components.nav-link-left', [
-                            'level'user=> 2,
+                            'level'  => 2,
                             'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                             'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
                             'active' => $menu2Item->active,
