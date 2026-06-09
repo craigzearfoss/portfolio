@@ -1,6 +1,6 @@
 @php
     $subMenu = $subMenu ?? [];
-    $owner   = $owner ?? 'null'
+    $owner   = $owner ?? null;
 @endphp
 @if (!empty($subMenu))
 
@@ -15,14 +15,17 @@
                 'href' => route('guest.admin.index')
             ])
         </div>
-        <div class="select-container">
-            @include('guest.components.select-list', [
-                'value'       => !empty($owner->label) ? $owner->label : '',
-                'list'        => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
-                'placeholder' => 'type name',
-                'onchange'    => 'loadSelectedAdmin(this.value, \'/#adminId#\')'
-            ])
-        </div>
+
+        @if (!empty($owner))
+            <div class="select-container">
+                @include('guest.components.select-list', [
+                    'value'       => !empty($owner->label) ? $owner->label : '',
+                    'list'        => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
+                    'placeholder' => 'type name',
+                    'onchange'    => 'loadSelectedAdmin(this.value, \'/#adminId#\')'
+                ])
+            </div>
+        @endif
 
     @endif
 

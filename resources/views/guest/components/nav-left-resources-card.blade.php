@@ -1,30 +1,9 @@
 @php
     $resourceItems = $resourceItems ?? [];
-    $owner         = $owner ?? 'null';
 @endphp
 @if (!empty($resourceItems))
 
-    <div class="resources-left-nav-container card m-2 p-0">
-
-        @if (!config('app.single_admin_mode'))
-
-            <div class="card-header">
-                @include('guest.components.link', [
-                    'name' => 'candidates',
-                    'href' => route('guest.admin.index')
-                ])
-            </div>
-
-            <div class="select-container">
-                @include('guest.components.select-list', [
-                    'value'       => !empty($owner->label) ? $owner->label : '',
-                    'list'        => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
-                    'placeholder' => 'type name',
-                    'onchange'    => 'loadSelectedAdmin(this.value, \'/#adminId#\')'
-                ])
-            </div>
-
-        @endif
+    <div class="resources-left-nav-container card m-2 pb-3">
 
         @if (!empty($resourceItems))
 

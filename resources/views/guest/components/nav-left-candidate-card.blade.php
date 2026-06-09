@@ -1,21 +1,23 @@
 @php
+    use App\Models\System\Owner;
+
     $candidateItems = $candidateItems ?? [];
-    $owner          = $owner ?? 'null'
+    $owner          = $owner ?? null;
 @endphp
 <div class="candidate-left-nav-container card m-2 p-0 has-background-light-35 has-text-primary-dark">
 
     @if (!config('app.single_admin_mode'))
 
-        <div class="card-header">
+        <div class="card-header select-candidate-header">
             @include('guest.components.link', [
-                'name' => 'candidates',
+                'name' => 'Candidate',
                 'href' => route('guest.admin.index')
             ])
         </div>
 
-        <div class="select-container">
+        <div class="select-container select-candidate-dropdown">
             @include('guest.components.select-list', [
-                'value'       => !empty($owner->label) ? $owner->label : '',
+                'value'       => !empty($owner) ? (!empty($owner->label) ? $owner->label : '') : '',
                 'list'        => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
                 'placeholder' => 'type name',
                 'onchange'    => 'loadSelectedAdmin(this.value, \'/#adminId#\')'

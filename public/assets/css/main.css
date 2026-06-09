@@ -342,15 +342,24 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
 .is-menu-main {
     font-size: 1rem;
 }
-ul.menu p.menu-label.menu-label-left {
+ul.menu p.menu-label.menu-label-left,
+ul.menu.menu-hamburger-left-nav-system-container p.menu-label.menu-label-left {
+    width: 100%;
     margin-top: 6px;
     margin-bottom: 0 !important;
 }
+.hamburger-nav p.menu-label.menu-label-left a:hover {
+    background-color: rgb(209, 255, 248);
+}
 ul.menu p.menu-label a,
 ul.menu p.menu-label span {
+    display: block;
+    width: 100%;
     font-size: 15px;
 }
-
+ul.menu p.menu-label a:hover {
+    /* background-color: #404040; */
+}
 ul.menu-list li {
     list-style: none;
 }
@@ -824,7 +833,7 @@ a.hamburger-icon i.fa {
 
 .hamburger-nav a {
     color: white;
-    padding: 03rem;
+    padding: .3rem;
     text-decoration: none;
     font-size: 16px;
     display: block;
@@ -1072,3 +1081,58 @@ div.dictionary-button a {
     color: #fff;
     font-weight: 700;
 }
+.resources-left-nav-container.card .menu .menu-label a.nav-button:hover,
+.tools-left-nav-container.card .menu .menu-label a.nav-button:hover {
+    background-color: #808080;
+}
+.select-candidate-header a, .hamburger-nav .select-candidate-header a {
+    width: 100%;
+    background-color: rgb(209, 255, 248);
+    color: #485fc7;
+    font-size: .9rem;
+    font-weight: 700;
+}
+.hamburger-nav .select-candidate-header a:hover {
+    color: #000000;
+}
+.hamburger-nav .dictionary-button a {
+    width: 100%;
+    background-color: #fffacd;
+    color: #485fc7;
+    font-weight: 700;
+}
+.hamburger-nav .dictionary-button a:hover {
+    color: #000000;
+}
+ul.menu.hamburger-left-nav-system-container a  {
+    width: 100%;
+    background-color: rgb(46, 50, 58);
+}
+ul.menu.hamburger-left-nav-system-container a:hover  {
+    background-color: #404040;
+}
+
+
+/*
+.hamburger-nav a {
+    color: white;
+    padding: .3rem;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+}
+
+.hamburger-nav a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.hamburger-nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+ */

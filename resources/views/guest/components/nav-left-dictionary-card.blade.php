@@ -1,6 +1,5 @@
 @php
     $dictionaryItems = $dictionaryItems ?? [];
-    $owner      = $owner ?? 'null'
     // @TODO: need to add logic to loop thru dictionary sub-items
 @endphp
 <div class="dictionary-button has-text-centered">

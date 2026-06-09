@@ -5,7 +5,7 @@
 
 @for ($i = 0; $i < count($systemItems); $i++)
 
-    <ul class="menu is-menu-main mb-2" style="font-size: 1rem;">
+    <ul class="menu hamburger-left-nav-system-container is-menu-main mb-2" style="font-size: 1rem;">
 
         @if ((get_class($systemItems[$i]) === 'stdClass') && $systemItems[$i]->name === 'Resume')
 
