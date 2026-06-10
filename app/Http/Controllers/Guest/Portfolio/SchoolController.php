@@ -30,7 +30,7 @@ class SchoolController extends BaseGuestController
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', School::SEARCH_ORDER_BY),
             $this->owner ?? null
-        )->where('Schools.name', '!=', 'other')
+        )->where('schools.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Schools';
