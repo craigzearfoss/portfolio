@@ -3,13 +3,13 @@
 @endphp
 @if (!empty($resourceItems))
 
-    <div class="resources-left-nav-container card m-2 pb-3">
+    <div class="resources-left-nav-container card">
 
         @if (!empty($resourceItems))
 
             @for ($i = 0; $i < count($resourceItems); $i++)
 
-                <ul class="menu is-menu-main" style="font-size: 1rem;">
+                <ul class="menu is-menu-main">
 
                     @if ((get_class($resourceItems[$i]) === 'stdClass') && $resourceItems[$i]->name === 'Resume')
 

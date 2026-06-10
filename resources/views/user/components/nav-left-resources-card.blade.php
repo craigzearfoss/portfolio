@@ -3,7 +3,7 @@
 @endphp
 @if (!empty($resourceItems))
 
-    <div class="resources-left-nav-container card m-2 p-0">
+    <div class="resources-left-nav-container card m-2 p-4">
 
         @if (!empty($resourceItems))
 

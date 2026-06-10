@@ -8,7 +8,6 @@
     $styles = !empty($style)
         ? is_array($style) ? $style : explode(';', $style)
         : [];
-    if (!empty($level)) $styles[] = 'padding: 0.3rem';
 @endphp
 @if (empty($href))
     <span

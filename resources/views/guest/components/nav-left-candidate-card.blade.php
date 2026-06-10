@@ -4,7 +4,7 @@
     $candidateItems = $candidateItems ?? [];
     $owner          = $owner ?? null;
 @endphp
-<div class="candidate-left-nav-container card m-2 p-0 has-background-light-35 has-text-primary-dark">
+<div class="candidate-left-nav-container card">
 
     @if (!config('app.single_admin_mode'))
 
@@ -40,8 +40,7 @@
                             'name'   => $candidateItems[$i]->title,
                             'href'   => !empty($candidateItems[$i]->url) ? $candidateItems[$i]->url: false,
                             'active' => $candidateItems[$i]->active,
-                            'class'  => 'button is-primary',
-                            'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                            'class'  => 'button resume-button',
                         ])
                     </p>
 
@@ -53,7 +52,6 @@
                             'name'   => $candidateItems[$i]->title,
                             'href'   => !empty($candidateItems[$i]->url) ? $candidateItems[$i]->url: false,
                             'active' => $candidateItems[$i]->active,
-                            'class'  => 'has-text-white'
                         ])
                     </p>
 

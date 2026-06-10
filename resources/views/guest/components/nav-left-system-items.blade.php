@@ -5,7 +5,7 @@
 
 @for ($i = 0; $i < count($systemItems); $i++)
 
-    <ul class="menu hamburger-left-nav-system-container is-menu-main mb-2" style="font-size: 1rem;">
+    <ul class="menu hamburger-left-nav-system-container is-menu-main" style="font-size: 1rem;">
 
         @if ((get_class($systemItems[$i]) === 'stdClass') && $systemItems[$i]->name === 'Resume')
 
@@ -15,8 +15,7 @@
                     'name'   => $systemItems[$i]->title,
                     'href'   => !empty($systemItems[$i]->url) ? $systemItems[$i]->url: false,
                     'active' => $systemItems[$i]->active,
-                    'class'  => 'button is-primary p-0 mt-1',
-                    'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                    'class'  => 'button',
                 ])
             </p>
 
