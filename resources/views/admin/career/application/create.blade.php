@@ -155,9 +155,10 @@
 
                         @include('admin.components.form-input-horizontal', [
                             'name'        => 'reference_id',
-                            'label'       => 'reference id',
                             'value'       => old('reference_id') ?? '',
                             'maxlength'   => 100,
+                            'placeholder' => 'reference id',
+                            'style'       => [ 'width: 10rem' ],
                             'message'     => $message ?? '',
                         ])
 
@@ -230,6 +231,7 @@
                             'required' => true,
                             'list'     => new JobEmploymentType()->listOptions([], 'id', 'name', true),
                             'message'  => $message ?? '',
+                            'style'    => [ 'width: 10rem' ],
                         ])
 
                         @include('admin.components.form-select-horizontal', [
@@ -239,6 +241,7 @@
                             'required' => true,
                             'list'     => new JobLocationType()->listOptions([], 'id', 'name', true),
                             'message'  => $message ?? '',
+                            'style'    => [ 'width: 7rem' ],
                         ])
 
                     </div>
@@ -268,6 +271,7 @@
                             'value'   => old('compensation_unit_id') ?? '',
                             'list'    => new CompensationUnit()->listOptions([], 'id', 'name', true),
                             'message' => $message ?? '',
+                            'style'   => [ 'width: 6rem' ],
                         ])
 
                         @include('admin.components.form-input-horizontal', [
@@ -384,16 +388,19 @@
                     <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
 
                         @include('admin.components.form-link-horizontal', [
-                            'link'    => old('link') ?? '',
-                            'name'    => old('link_name') ?? '',
-                            'message' => $message ?? '',
+                            'name'      => 'link',
+                            'label'     => 'link',
+                            'link'      => old('link') ?? '',
+                            'link_name' => old('link_name') ?? '',
+                            'message'   => $message ?? '',
                         ])
 
                         @include('admin.components.form-link-horizontal', [
-                            'label'   => 'link 2',
-                            'link'    => old('link2') ?? '',
-                            'name'     => old('link2_name') ?? '',
-                            'message'  => $message ?? '',
+                            'name'      => 'link2',
+                            'label'     => 'link 2',
+                            'link'      => old('link2') ?? '',
+                            'link_name' => old('link2_name') ?? '',
+                            'message'    => $message ?? '',
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [
