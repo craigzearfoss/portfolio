@@ -30,7 +30,7 @@ class RecruiterController extends BaseGuestController
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Recruiter::SEARCH_ORDER_BY),
             $this->owner ?? null
-        )->where('Recruiters.name', '!=', 'other')
+        )->where('recruiters.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' recruiters';
