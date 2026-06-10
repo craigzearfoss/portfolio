@@ -93,14 +93,14 @@
                 @forelse ($skills as $skill)
 
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             @if ($skill->featured)
                                 <strong>{!! htmlspecialchars($skill->name) !!}</strong>
                             @else
                                 {!! htmlspecialchars($skill->name) !!}
                             @endif
                         </td>
-                        <td class="hide-at-600">
+                        <td class="hide-at-600" style="white-space: nowrap;">
                             {!! htmlspecialchars($skill->category->name ?? '') !!}
                         </td>
                         <td data-field="level" style="white-space: nowrap;" class="font-size-12px-at-480 font-size-14px-at-600">
