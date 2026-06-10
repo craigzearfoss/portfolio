@@ -1,6 +1,4 @@
 @php
-    use App\Models\System\Owner;
-
     $subMenu = $subMenu ?? [];
     $owner   = $owner ?? null;
 @endphp
@@ -12,15 +10,15 @@
     @if (!config('app.single_admin_mode'))
 
         <div class="card-header">
-            @include('guest.components.link', [
+            @include('user.components.link', [
                 'name' => 'candidates',
-                'href' => route('guest.admin.index')
+                'href' => route('user.admin.index')
             ])
         </div>
 
         @if (!empty($owner))
             <div class="select-container">
-                @include('guest.components.select-list', [
+                @include('user.components.select-list', [
                     'value'       => !empty($owner->label) ? $owner->label : '',
                     'list'        => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
                     'placeholder' => 'type name',
@@ -40,7 +38,7 @@
                 @if ((get_class($candidateItems[$i]) === 'stdClass') && $candidateItems[$i]->name === 'Resume')
 
                     <p class="menu-label menu-label-left">
-                        @include('guest.components.nav-link-left', [
+                        @include('user.components.nav-link-left', [
                             'level'  => 1,
                             'name'   => $candidateItems[$i]->title,
                             'href'   => !empty($candidateItems[$i]->url) ? $candidateItems[$i]->url: false,
@@ -53,7 +51,7 @@
                 @else
 
                     <p class="menu-label menu-label-left">
-                        @include('guest.components.nav-link-left', [
+                        @include('user.components.nav-link-left', [
                             'level'  => 1,
                             'name'   => $candidateItems[$i]->title,
                             'href'   => !empty($candidateItems[$i]->url) ? $candidateItems[$i]->url: false,
@@ -70,7 +68,7 @@
 
                         @foreach ($candidateItems[$i]['children'] as $l2=>$menu2Item)
                             <li>
-                                @include('guest.components.nav-link-left', [
+                                @include('user.components.nav-link-left', [
                                     'level'  => 2,
                                     'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                                     'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
@@ -85,7 +83,7 @@
 
                                         @foreach ($menu2Item->children as $menu3Item)
                                             <li>
-                                                @include('guest.components.nav-link-left', [
+                                                @include('user.components.nav-link-left', [
                                                     'level'  => 3,
                                                     'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                                     'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,

@@ -5,25 +5,24 @@
 
 @for ($i = 0; $i < count($systemItems); $i++)
 
-    <ul class="menu is-menu-main mb-2" style="font-size: 1rem;">
+    <ul class="menu hamburger-left-nav-system-container is-menu-main" style="font-size: 1rem;">
 
         @if ((get_class($systemItems[$i]) === 'stdClass') && $systemItems[$i]->name === 'Resume')
 
             <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
-                @include('guest.components.nav-link-left', [
+                @include('admin.components.nav-link-left', [
                     'level'  => 1,
                     'name'   => $systemItems[$i]->title,
                     'href'   => !empty($systemItems[$i]->url) ? $systemItems[$i]->url: false,
                     'active' => $systemItems[$i]->active,
-                    'class'  => 'button is-primary p-0 mt-1',
-                    'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                    'class'  => 'button',
                 ])
             </p>
 
         @else
 
             <p class="menu-label menu-label-left">
-                @include('guest.components.nav-link-left', [
+                @include('admin.components.nav-link-left', [
                     'level'  => 1,
                     'name'   => $systemItems[$i]->title,
                     'href'   => !empty($systemItems[$i]->url) ? $systemItems[$i]->url: false,
@@ -40,7 +39,7 @@
 
                 @foreach ($systemItems[$i]['children'] as $l2=>$menu2Item)
                     <li>
-                        @include('guest.components.nav-link-left', [
+                        @include('admin.components.nav-link-left', [
                             'level'  => 2,
                             'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                             'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
@@ -55,7 +54,7 @@
 
                                 @foreach ($menu2Item->children as $menu3Item)
                                     <li>
-                                        @include('guest.components.nav-link-left', [
+                                        @include('admin.components.nav-link-left', [
                                             'level'  => 3,
                                             'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                             'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,

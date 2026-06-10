@@ -4,19 +4,19 @@
     $candidateItems = $candidateItems ?? [];
     $owner          = $owner ?? null;
 @endphp
-<div class="candidate-left-nav-container card m-2 p-0 has-background-light-35 has-text-primary-dark">
+<div class="candidate-left-nav-container card">
 
     @if (!config('app.single_admin_mode'))
 
         <div class="card-header select-candidate-header">
-            @include('guest.components.link', [
-                'name' => 'candidates',
-                'href' => route('guest.admin.index')
+            @include('admin.components.link', [
+                'name' => 'Candidate',
+                'href' => route('admin.admin.index')
             ])
         </div>
 
         <div class="select-container select-candidate-dropdown">
-            @include('guest.components.select-list', [
+            @include('admin.components.select-list', [
                 'value'       => !empty($owner) ? (!empty($owner->label) ? $owner->label : '') : '',
                 'list'        => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
                 'placeholder' => 'type name',
@@ -35,25 +35,23 @@
                 @if ((get_class($candidateItems[$i]) === 'stdClass') && $candidateItems[$i]->name === 'Resume')
 
                     <p class="menu-label menu-label-left">
-                        @include('guest.components.nav-link-left', [
+                        @include('admin.components.nav-link-left', [
                             'level'  => 1,
                             'name'   => $candidateItems[$i]->title,
                             'href'   => !empty($candidateItems[$i]->url) ? $candidateItems[$i]->url: false,
                             'active' => $candidateItems[$i]->active,
-                            'class'  => 'button is-primary',
-                            'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                            'class'  => 'button resume-button',
                         ])
                     </p>
 
                 @else
 
                     <p class="menu-label menu-label-left">
-                        @include('guest.components.nav-link-left', [
+                        @include('admin.components.nav-link-left', [
                             'level'  => 1,
                             'name'   => $candidateItems[$i]->title,
                             'href'   => !empty($candidateItems[$i]->url) ? $candidateItems[$i]->url: false,
                             'active' => $candidateItems[$i]->active,
-                            'class'  => 'has-text-white'
                         ])
                     </p>
 
@@ -65,7 +63,7 @@
 
                         @foreach ($candidateItems[$i]['children'] as $l2=>$menu2Item)
                             <li>
-                                @include('guest.components.nav-link-left', [
+                                @include('admin.components.nav-link-left', [
                                     'level'  => 2,
                                     'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                                     'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
@@ -80,7 +78,7 @@
 
                                         @foreach ($menu2Item->children as $menu3Item)
                                             <li>
-                                                @include('guest.components.nav-link-left', [
+                                                @include('admin.components.nav-link-left', [
                                                     'level'  => 3,
                                                     'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                                     'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,

@@ -10,28 +10,7 @@
     $candidateItems = [];
     $resourceItems  = [];
 
-    if ($menuService ?? null) {
-        $menuItems = $menuService->leftMenu();
-    }
-//dd($menuItems);
-/*
-//dd($menuItems);
-    if (empty($owner)) {
-        $adminItems = $menuItems;
-    } else {
-        foreach ($menuItems as $menuItem) {
-            if (
-                (property_exists($menuItem, 'owner_id') && ($menuItem->owner_id == $owner->id))
-                || (property_exists($menuItem, 'table') && in_array($menuItem->tag, [ 'personal_db', 'portfolio_db' ]))
-            ) {
-                $candidateItems[] = $menuItem;
-            } else {//dd($menuItem, property_exists($menuItem, 'table'), in_array($menuItem->tag, [ 'personal_db', 'portfolio_db' ]));
-                $adminItems[] =$menuItem;
-            }
-        }
-    }
-*/
-//dd($menuItems);
+    $menuItems = !empty( $menuService) ? $menuService->leftMenu() : [];
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
@@ -40,13 +19,13 @@
 
             @include('user.components.button-home', [
                 'name'     => 'Home',
-                'href'     => route('user.index'),
+                'href'     => route('guest.index'),
                 'selected' => true,
             ])
 
-            @if (Auth::guard('admin')->check() || !config('app.single_admin_mode'))
+            @if (Auth::guard('user')->check() || !config('app.single_admin_mode'))
                 <span class="home-admin-button-separator"></span>
-                @include('user.components.button-home', [
+                @include('guest.components.button-home', [
                     'name'     => 'Admin',
                     'href'     => route('admin.dashboard'),
                     'selected' => false,

@@ -4,7 +4,7 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = 'Job Boards';
+    $title    = 'Recruiters & Staffing Firms';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -12,7 +12,7 @@
         ? []
         : [
             [ 'name' => 'Home', 'href' => route('guest.index') ],
-            [ 'name' => 'Job Boards' ],
+            [ 'name' => 'Recruiters & Staffing Firms' ],
           ];
 
     // set navigation buttons

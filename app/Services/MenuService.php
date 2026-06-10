@@ -522,10 +522,9 @@ class MenuService
         if (($this->envType == EnvTypes::GUEST)) {
 
             // append global menu items
-            if (($this->envType == EnvTypes::GUEST)) {
-                $menu = $this->appendResourceItems($menu);
-                $menu = $this->appendToolItems($menu);
-            }
+            // we only add global items to the left menu
+//            $menu = $this->appendResourceItems($menu);
+//            $menu = $this->appendToolItems($menu);
 
             if (!$this->singleAdminMode) {
                 /// only show candidates menu option if there are more than one public, non-disabled admins

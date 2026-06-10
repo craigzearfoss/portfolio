@@ -3,18 +3,18 @@
 @endphp
 @if (!empty($resourceItems))
 
-    <div class="resources-left-nav-container card m-2 p-4">
+    <div class="resources-left-nav-container card">
 
         @if (!empty($resourceItems))
 
             @for ($i = 0; $i < count($resourceItems); $i++)
 
-                <ul class="menu is-menu-main" style="font-size: 1rem;">
+                <ul class="menu is-menu-main">
 
                     @if ((get_class($resourceItems[$i]) === 'stdClass') && $resourceItems[$i]->name === 'Resume')
 
                         <p class="menu-label menu-label-left">
-                            @include('guest.components.nav-link-left', [
+                            @include('user.components.nav-link-left', [
                                 'level'  => 1,
                                 'name'   => $resourceItems[$i]->title,
                                 'href'   => !empty($resourceItems[$i]->url) ? $resourceItems[$i]->url: false,
@@ -26,7 +26,7 @@
                     @else
 
                         <p class="menu-label menu-label-left">
-                            @include('guest.components.nav-link-left', [
+                            @include('user.components.nav-link-left', [
                                 'level'  => 1,
                                 'name'   => $resourceItems[$i]->title,
                                 'href'   => !empty($resourceItems[$i]->url) ? $resourceItems[$i]->url: false,
@@ -42,7 +42,7 @@
 
                             @foreach ($resourceItems[$i]['children'] as $l2=>$menu2Item)
                                 <li>
-                                    @include('guest.components.nav-link-left', [
+                                    @include('user.components.nav-link-left', [
                                         'level'  => 2,
                                         'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                                         'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
@@ -57,7 +57,7 @@
 
                                             @foreach ($menu2Item->children as $menu3Item)
                                                 <li>
-                                                    @include('guest.components.nav-link-left', [
+                                                    @include('user.components.nav-link-left', [
                                                         'level'  => 3,
                                                         'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                                         'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
