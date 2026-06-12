@@ -37,6 +37,7 @@ class JobBoardController extends BaseAdminController
             request()->input('sort') ?? implode('|', JobBoard::SEARCH_ORDER_BY),
             !$this->isRootAdmin ? $this->admin : null
         )
+        ->whereNotIn('name', [ 'COMPANY WEBSITE', 'INQUIRY' ])
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Job Boards';

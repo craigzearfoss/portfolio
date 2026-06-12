@@ -88,6 +88,7 @@
                                 @include('admin.components.input', [
                                     'name'        => 'role',
                                     'value'       => old('role') ?? $application->role,
+                                    'required'  => true,
                                     'maxlength'   => 255,
                                     'message'     => $message ?? '',
                                 ])
@@ -289,6 +290,7 @@
                     ])
 
                 </div>
+
                 <div class="floating-div card has-background-white-ter p-4 m-2">
 
                     @include('admin.components.form-checkbox', [
