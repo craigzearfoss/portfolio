@@ -24,7 +24,7 @@ return new class extends Migration
     {
         if (empty(config('app.' . $this->database_tag))) {
             abort(500, 'app.'.$this->database_tag.' not defined in config\app.php file '
-                . ' or system_db_DATABASE not defined in .env file.');
+                . ' or SYSTEM_DB_DATABASE not defined in .env file.');
         }
 
         Schema::connection($this->database_tag)->create($this->table_name, function (Blueprint $table) {
