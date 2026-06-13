@@ -1,10 +1,10 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $owner            = $owner ?? null;
-    $academy            = $academy ?? null;
+    $academy          = $academy ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Academy: ' . htmlspecialchars($academy->name) . (!empty($academy->academy_year) ? ' - ' . htmlspecialchars($academy->academy_year) : ''), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? 'Academy: ' . htmlspecialchars($academy->name);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -15,7 +15,7 @@
             [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
             [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
             [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Academy',                        'href' => route('guest.portfolio.academy.index', $owner) ],
+            [ 'name' => 'Academies',                    'href' => route('guest.portfolio.academy.index', $owner) ],
             [ 'name' => htmlspecialchars($academy->name) ],
           ];
 

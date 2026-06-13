@@ -35,7 +35,7 @@ class JobBoardController extends BaseGuestController
         ->whereNotIn('name', [ 'COMPANY WEBSITE', 'INQUIRY' ])
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Job Boards';
+        $pageTitle = 'Job Boards';
 
         return view(themedTemplate('guest.career.job-board.index'), compact('jobBoards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -4,7 +4,7 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('academies', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? 'Academies';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -15,7 +15,7 @@
             [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
             [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
             [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Academy' ],
+            [ 'name' => 'Academies' ],
           ];
 
     // set navigation buttons
@@ -26,11 +26,13 @@
 
 @section('content')
 
+    <?php /*
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
         @endif
     @endif
+    */ ?>
 
     @include('guest.components.search-panel.portfolio-academy', [ 'owner_id' => $owner->id ?? null ])
 

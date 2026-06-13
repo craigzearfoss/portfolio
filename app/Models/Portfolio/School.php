@@ -54,13 +54,13 @@ class School extends Model
         'technical',
         'hbcu',
         'religious',
-        'religious_affiliation',
         'seminary',
         'medical',
         'former_names',
         'nickname',
         'mascot',
         'colors',
+        'religious_affiliation',
         'street',
         'street2',
         'city',
@@ -100,7 +100,7 @@ class School extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'name', 'summary', 'active', 'public', 'private', 'male', 'female',
         'enrollment', 'founded', 'street', 'street2', 'city', 'closed', 'community_college', 'technical', 'hbcu',
-        'religious', 'religious_affiliation', 'seminary', 'medical', 'former_names', 'nickname', 'mascot', 'colors',
+        'religious', 'seminary', 'medical', 'former_names', 'nickname', 'mascot', 'colors', 'religious_affiliation',
         'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'notes', 'link', 'link_name', 'wikipedia',
         'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
         'updated_at'

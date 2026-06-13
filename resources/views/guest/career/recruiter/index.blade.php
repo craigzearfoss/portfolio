@@ -4,7 +4,7 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = 'Recruiters & Staffing Firms';
+    $title    = $pageTitle ?? 'Recruiters & Staffing Firms';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -22,6 +22,14 @@
 @extends('guest.layouts.default')
 
 @section('content')
+
+    <?php /*
+    @if ($owner->is_demo)
+        @if ($disclaimerMessage = config('app.demo_disclaimer'))
+            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+        @endif
+    @endif
+    */ ?>
 
     <div class="floating-div-container">
 

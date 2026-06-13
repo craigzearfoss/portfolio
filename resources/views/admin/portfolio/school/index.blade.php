@@ -90,6 +90,9 @@
                                 'sort'  => 'state_name|asc',
                             ])
                         </th>
+                        <th>
+                            public/private
+                        </th>
                         <th>actions</th>
                     </tr>
                     </{{ $labelElem }}>
@@ -124,6 +127,9 @@
                         </td>
                         <td data-field="state" style="white-space: nowrap;">
                             {{ $school->state_name }}
+                        </td>
+                        <td data-field="public|private" style="white-space: nowrap;">
+                            {{ $school->public ? 'public' : ($school->private ? 'private' : '') }}
                         </td>
                         <td class="is-1">
 
@@ -180,7 +186,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No schools found.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No schools found.</td>
                     </tr>
 
                 @endforelse

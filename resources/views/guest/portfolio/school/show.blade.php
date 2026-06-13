@@ -4,7 +4,7 @@
     $school            = $school ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('School: ' . htmlspecialchars($school->name) . (!empty($school->school_year) ? ' - ' . htmlspecialchars($school->school_year) : ''), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('School: ' . htmlspecialchars($school->name));
     $subtitle = $title;
 
     // set breadcrumbs
@@ -43,20 +43,6 @@
                 </tr>
             @endif
 
-            @if (!empty($school->category))
-                <tr>
-                    <th>category:</th>
-                    <td>{!! htmlspecialchars($school->category) !!}</td>
-                </tr>
-            @endif
-
-            @if (!empty($school->nominated_work))
-                <tr>
-                    <th>nominated work:</th>
-                    <td>{!! htmlspecialchars($school->nominated_work) !!}</td>
-                </tr>
-            @endif
-
             @if (!empty($school->summary))
                 <tr>
                     <th>summary:</th>
@@ -64,24 +50,79 @@
                 </tr>
             @endif
 
-            @if (!empty($school->school_year))
+            <tr>
+                <th>details:</th>
+                <td>{!! view('admin.components.school-details', [ 'school' => $school ]) !!}</td>
+            </tr>
+
+            @if (!empty($school->former_names))
                 <tr>
-                    <th>year:</th>
-                    <td>{{ $school->school_year }}</td>
+                    <th style="white-space: nowrap;">former names:</th>
+                    <td>{!! str_replace(',', '<br>', htmlspecialchars($school->former_names)) !!}</td>
                 </tr>
             @endif
 
-            @if (!empty($school->received))
+            @if (!empty($school->nickname))
                 <tr>
-                    <th>date received:</th>
-                    <td>{{ $school->received }}</td>
+                    <th>nickname:</th>
+                    <td>{{ str_replace('|', ', ', $school->nickname) }}</td>
                 </tr>
             @endif
 
-            @if (!empty($school->organization))
+            @if (!empty($school->mascot))
                 <tr>
-                    <th>organization:</th>
-                    <td>{!! htmlspecialchars($school->organization) !!}</td>
+                    <th>mascot:</th>
+                    <td>{{ str_replace('|', ', ', $school->mascot) }}</td>
+                </tr>
+            @endif
+
+            @if (!empty($school->colors))
+                <tr>
+                    <th>colors:</th>
+                    <td>{!! str_replace('|', ', ', htmlspecialchars($school->colors)) !!}</td>
+                </tr>
+            @endif
+
+            <tr>
+                <th>location:</th>
+                <td>
+                    {!!
+                        formatLocation([
+                           'street'          => $school->street,
+                           'street2'         => $school->street2,
+                           'city'            => $school->city,
+                           'state'           => $school->state->code ?? '',
+                           'zip'             => $school->zip,
+                           'country'         => $school->country->iso_alpha3 ?? '',
+                           'streetSeparator' => ', ',
+                       ])
+                    !!}
+                </td>
+            </tr>
+
+            @if (!empty($school->link))
+                <tr>
+                    <th>link:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $school->link,
+                            'href'   => $school->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
+
+            @if (!empty($school->wikipedia))
+                <tr>
+                    <th>wikipedia:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $school->wikipedia,
+                            'href'   => $school->wikipedia,
+                            'target' => '_blank'
+                        ])
+                    </td>
                 </tr>
             @endif
 

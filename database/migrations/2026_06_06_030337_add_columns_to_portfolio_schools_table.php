@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('technical')->default(false)->after('community_college');
             $table->boolean('hbcu')->default(false)->after('technical');
             $table->boolean('religious')->default(false)->after('hbcu');
-            $table->string('religious_affiliation', 100)->nullable()->after('religious');
+            $table->string('religious_affiliation', 200)->nullable()->after('religious');
             $table->boolean('seminary')->default(false)->after('religious');
             $table->boolean('medical')->default(false)->after('seminary');
             $table->string('former_names', 500)->nullable()->after('medical');

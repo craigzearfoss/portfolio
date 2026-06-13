@@ -33,7 +33,7 @@ class SchoolController extends BaseGuestController
         )->where('schools.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Schools';
+        $pageTitle = 'Schools';
 
         return view(themedTemplate('guest.portfolio.school.index'), compact('schools', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -42,15 +42,12 @@ class SchoolController extends BaseGuestController
     /**
      * Display the specified reading.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$school = School::query()->where('owner_id', '=', $admin['id'])
-            ->where('slug', '=', $slug)->first()
-        ) {
+        if (!$school = School::query()->where('slug', '=', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

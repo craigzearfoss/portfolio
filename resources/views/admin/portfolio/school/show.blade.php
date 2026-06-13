@@ -28,6 +28,7 @@
                                                                 ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.portfolio.school.index') ])->render();
+
 @endphp
 
 @extends('admin.layouts.default')
@@ -64,106 +65,37 @@
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'enrollment',
-                'value' => !empty($school->enrollment) ? number_format($school->enrollment): ''
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'founded',
-                'value' => $school->founded
-            ])
-
-            @if (!empty($school->closed))
-                @include('admin.components.show-row', [
-                    'name'  => 'closed',
-                    'value' => $school->closed
-                ])
-            @endif
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'public',
-                'checked' => $school->public
-            ])
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'private',
-                'checked' => $school->private
-            ])
-
-            @if ($school->female && $school->male)
-                @include('admin.components.show-row-checkmark', [
-                    'name'    => 'coed',
-                    'checked' => true
-                ])
-            @else
-                @include('admin.components.show-row-checkmark', [
-                    'name'    => 'male',
-                    'checked' => $school->male
-                ])
-                @include('admin.components.show-row-checkmark', [
-                    'name'    => 'female',
-                    'checked' => $school->female
-                ])
-            @endif
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'community college',
-                'checked' => $school->community_college
-            ])
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'technical',
-                'checked' => $school->technical
-            ])
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'hbcu',
-                'checked' => $school->hbcu
-            ])
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'religious',
-                'checked' => $school->religious
-            ])
-
-            @if (!empty($school->religious_affiliation))
-                @include('admin.components.show-row', [
-                    'name'  => 'religious affiliation',
-                    'value' => $school->religious_affiliation
-                ])
-            @endif
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'seminary',
-                'checked' => $school->seminary
-            ])
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'medical',
-                'checked' => $school->medical
+                'name'  => 'details',
+                'value' => view('admin.components.school-details', [ 'school' => $school ])
             ])
 
             @if (!empty($school->former_names))
                 @include('admin.components.show-row', [
                     'name'  => 'former names',
-                    'value' => $school->former_names
+                    'value' => str_replace(',', '<br>', $school->former_names)
                 ])
             @endif
 
-            @include('admin.components.show-row', [
-                'name'  => 'nickname',
-                'value' => str_replace('|', ', ', $school->nickname)
-            ])
+            @if (!empty($school->nickname))
+                @include('admin.components.show-row', [
+                    'name'  => 'nickname',
+                    'value' => str_replace('|', ', ', $school->nickname)
+                ])
+            @endif
 
-            @include('admin.components.show-row', [
-                'name'  => 'mascot',
-                'value' => str_replace('|', ', ', $school->mascot)
-            ])
+            @if (!empty($school->mascot))
+                @include('admin.components.show-row', [
+                    'name'  => 'mascot',
+                    'value' => str_replace('|', ', ', $school->mascot)
+                ])
+            @endif
 
-            @include('admin.components.show-row', [
-                'name'  => 'colors',
-                'value' => str_replace('|', ', ', $school->colors)
-            ])
+            @if (!empty($school->colors))
+                @include('admin.components.show-row', [
+                    'name'  => 'colors',
+                    'value' => str_replace('|', ', ', $school->colors)
+                ])
+            @endif
 
             @include('admin.components.show-row', [
                 'name'  => 'location',
@@ -174,7 +106,8 @@
                                'state'           => $school->state->code ?? '',
                                'zip'             => $school->zip,
                                'country'         => $school->country->iso_alpha3 ?? '',
-                               'streetSeparator' => '<br>',
+                               'separator'       => ', ',
+                               'streetSeparator' => ', ',
                            ])
             ])
 
