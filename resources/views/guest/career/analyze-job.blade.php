@@ -103,115 +103,155 @@
 
             <div class="p-4">
 
-                <p class="mb-2">
-                    This page allows to examine a job description by searching for matching skills. It is not a
-                    comprehensive way to analyze a job, but it can quickly give an idea if there
-                    is enough of a match for you to investigate the job farther.
-                </p>
-                <p class="mb-0">
-                    To use this page:
-                </p>
-                <ol class="ml-4 mb-4 pl-4">
-                    <li>
-                        Add the skills that you want to match and "anti-skills" which are skills
-                        that you don't want to match because you do not have them.
-                    </li>
-                    <li>
-                        Check the skill and anti-skills that you want to use in the search.
-                    </li>
-                    <li>
-                        Then copy the job description into the text area and click on the "Analyze" button.
-                    </li>
-                </ol>
-
                 <form action="{{ route('admin.career.application.analyze-post') }}" method="post">
                     @csrf
 
-                    <div class="card job-analyzer-skill-list">
-                        <div class="card-header">
-                            <div style="width: 100%;">
-                                <label for="add-skills-button">
-                                    Skills
-                                </label>
-                                <i id="skillMatchCountMsg"></i>
-                                <button type="button"
-                                        id="add-skills-button"
-                                        class="skill-modal-trigger hide-when-analyzed"
-                                        data-target="modal-add-skills"
-                                >Add Skill(s)</button>
-                                <button type="button"
-                                        id="unselect-all-skills-button"
-                                        class="select-all-skills hide-when-analyzed"
-                                >Unselect All</button>
-                                <button type="button"
-                                        id="select-all-skills-button"
-                                        class="select-all-skills hide-when-analyzed"
-                                >Select All</button>
+                    <!-- tabbed content -->
+                    <div class="tabs is-boxed mb-0">
+                        <ul style="border-bottom-width: 0 !important;">
+                            <li id="initial-selected-tab"  class="is-active" data-target="instructions">
+                                <a style="width: 8rem;">Instructions</a>
+                            </li>
+                            <li data-target="skills">
+                                <a style="width: 8rem;">Skills</a>
+                            </li>
+                            <li data-target="anti-skills">
+                                <a style="width: 8rem;">Anti-Skills</a>
+                            </li>
+                            <li data-target="job-description">
+                                <a style="width: 8rem;">Job Description</a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="px-2" id="tab-content">
+
+                        <div id="instructions">
+
+                            <div class="card p-4">
+
+                                <p class="mb-2">
+                                    This page allows to examine a job description by searching for matching skills. It is not a
+                                    comprehensive way to analyze a job, but it can quickly give an idea if there
+                                    is enough of a match for you to investigate the job farther.
+                                </p>
+                                <p class="mb-0">
+                                    To use this page:
+                                </p>
+                                <ol class="ml-4 mb-4 pl-4">
+                                    <li>
+                                        Add the skills that you want to match and "anti-skills" which are skills
+                                        that you don't want to match because you do not have them.
+                                    </li>
+                                    <li>
+                                        Check the skill and anti-skills that you want to use in the search.
+                                    </li>
+                                    <li>
+                                        Then copy the job description into the text area and click on the "Analyze" button.
+                                    </li>
+                                </ol>
+
                             </div>
-                        </div>
-                        <div id="skill-list" class="card-body p-2">
-                        </div>
-                    </div>
 
-                    <div class="card job-analyzer-skill-list">
-                        <div class="card-header">
-                            <div style="width: 100%;">
-                                <label for="add_anti_skills_button">
-                                    Anti-Skills
-                                </label>
-                                <i id="antiSkillMatchCountMsg"></i>
-                                <button type="button"
-                                        id="add-anti-skills-button"
-                                        class="anti-skill-modal-trigger hide-when-analyzed"
-                                        data-target="modal-add-anti-skills"
-                                >Add Anti-Skill(s)</button>
-                                <button type="button"
-                                        id="unselect-all-anti-skills-button"
-                                        class="select-all-skills hide-when-analyzed"
-                                >Unselect All</button>
-                                <button type="button"
-                                        id="select-all-anti-skills-button"
-                                        class="select-all-skills hide-when-analyzed"
-                                >Select All</button>
+                        </div>
+                        <div id="skills">
+
+                            <div class="card job-analyzer-skill-list">
+
+                                <div class="card-header">
+                                    <div style="width: 100%;">
+                                        <i id="skillMatchCountMsg"></i>
+                                        <button type="button"
+                                                id="add-skills-button"
+                                                class="skill-modal-trigger hide-when-analyzed"
+                                                data-target="modal-add-skills"
+                                        >Add Skill(s)</button>
+                                        <button type="button"
+                                                id="unselect-all-skills-button"
+                                                class="select-all-skills hide-when-analyzed"
+                                        >Unselect All</button>
+                                        <button type="button"
+                                                id="select-all-skills-button"
+                                                class="select-all-skills hide-when-analyzed"
+                                        >Select All</button>
+                                    </div>
+                                </div>
+                                <div id="skill-list" class="card-body p-2">
+                                </div>
+
                             </div>
-                        </div>
-                        <div id="anti-skill-list" class="card-body p-2">
-                        </div>
-                    </div>
 
-                    <div class="mt-4">
-                        <span>Paste the job description in the text box below and click on the "Analyze" button.</span>
-                        <span class="has-text-right" style="float: right;">
-                            <button type="button" id="submitAnalyze" class="button is-small is-dark">
-                                <i class="fa fa-floppy-disk"></i>
-                                Analyze
-                            </button>
-                        </span>
-                        <span class="has-text-right mr-2" style="float: right;">
-                            <button id="clearJobDescription" type="button" class="button hide-when-analyzed is-small is-dark">
-                                <i class="fa fa-eraser"></i>
-                                Clear Description
-                            </button>
-                        </span>
-                        <span class="has-text-right mr-2" style="float: right;">
-                            <button id="resetJobAnalyzer" type="button" class="button show-when-analyzed is-small is-dark" style="display: none;">
-                                <i class="fa fa-eraser"></i>
-                                Reset
-                            </button>
-                        </span>
-                    </div>
+                        </div>
+                        <div id="anti-skills">
 
-                    <div id="source-job-description">
-                        @include('guest.components.form-textarea', [
-                            'name'  => 'description',
-                            'id'    => 'inputEditor',
-                            'label' => '',
-                            'value' => '',
-                            'rows'  => 10,
-                            'class' => 'analyze-job-description',
-                        ])
-                    </div>
-                    <div id="analyzed-job-description" style="display: none;">
+                            <div class="card job-analyzer-skill-list">
+
+                                <div class="card-header">
+                                    <div style="width: 100%;">
+                                        <i id="antiSkillMatchCountMsg"></i>
+                                        <button type="button"
+                                                id="add-anti-skills-button"
+                                                class="anti-skill-modal-trigger hide-when-analyzed"
+                                                data-target="modal-add-anti-skills"
+                                        >Add Anti-Skill(s)</button>
+                                        <button type="button"
+                                                id="unselect-all-anti-skills-button"
+                                                class="select-all-skills hide-when-analyzed"
+                                        >Unselect All</button>
+                                        <button type="button"
+                                                id="select-all-anti-skills-button"
+                                                class="select-all-skills hide-when-analyzed"
+                                        >Select All</button>
+                                    </div>
+                                </div>
+                                <div id="anti-skill-list" class="card-body p-2">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div id="job-description">
+
+                            <div class="card p-4">
+
+                                <span>Paste the job description in the text box below and click on the "Analyze" button.</span>
+                                <span class="has-text-right" style="float: right;">
+                                    <button type="button" id="submitAnalyze" class="button is-small is-dark">
+                                        <i class="fa fa-floppy-disk"></i>
+                                        Analyze
+                                    </button>
+                                </span>
+                                <span class="has-text-right mr-2" style="float: right;">
+                                    <button id="clearJobDescription" type="button" class="button hide-when-analyzed is-small is-dark">
+                                        <i class="fa fa-eraser"></i>
+                                        Clear Description
+                                    </button>
+                                </span>
+                                <span class="has-text-right mr-2" style="float: right;">
+                                    <button id="resetJobAnalyzer" type="button" class="button show-when-analyzed is-small is-dark" style="display: none;">
+                                        <i class="fa fa-eraser"></i>
+                                        Reset
+                                    </button>
+                                </span>
+
+                                <div id="source-job-description">
+                                    @include('guest.components.form-textarea', [
+                                        'name'  => 'description',
+                                        'id'    => 'inputEditor',
+                                        'label' => '',
+                                        'value' => '',
+                                        'rows'  => 10,
+                                        'class' => 'analyze-job-description',
+                                    ])
+                                </div>
+                                <div id="analyzed-job-description" style="display: none;">
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </form>
