@@ -63,8 +63,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //@TODD: Display help messages for bad configuration or if database doesn't exist.
-        $dbName = config('app.' . $this->database_tag);
+        $dbName = dbName($this->database_tag);
 
         if (empty($dbName)) {
             throw new Exception('app.'.$this->database_tag.' not defined in config\app.php file '

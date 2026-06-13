@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $dbName = config('app.' . $this->database_tag);
+        $dbName = dbName($this->database_tag);
 
         if (empty($dbName)) {
             abort(500, 'app.'.$this->database_tag.' not defined in config\app.php file '
