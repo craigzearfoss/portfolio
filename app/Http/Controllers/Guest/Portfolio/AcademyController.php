@@ -30,7 +30,7 @@ class AcademyController extends BaseGuestController
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', Academy::SEARCH_ORDER_BY),
             $this->owner ?? null
-        )->where('Academies.name', '!=', 'other')
+        )->where('academies.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Online Learning';
