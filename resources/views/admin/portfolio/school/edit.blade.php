@@ -1,4 +1,5 @@
 @php
+    use App\Models\Portfolio\School;
     use App\Models\System\Country;
     use App\Models\System\State;
 
@@ -62,6 +63,22 @@
                 'value'     => old('summary') ?? $school->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'type',
+                'value'   => old('type') ?? $school->type,
+                'list'    => new School()->typeListOptions(true),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 4rem' ],
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'gender',
+                'value'   => old('gender') ?? $school->gender,
+                'list'    => new School()->genderListOptions(),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 4rem' ],
             ])
 
             @include('admin.components.form-input-horizontal', [

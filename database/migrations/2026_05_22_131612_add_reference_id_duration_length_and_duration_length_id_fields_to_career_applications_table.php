@@ -38,7 +38,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table(dbName($this->database_tag) . '.' . $this->table_name, function (Blueprint $table) {
-            $table->dropForeign(dbName('career_db') . '_applications_job_duration_unit_id_foreign');
+            $table->dropForeign('career_job_duration_foreign');
             $table->dropColumn('job_duration_unit_id');
         });
     }

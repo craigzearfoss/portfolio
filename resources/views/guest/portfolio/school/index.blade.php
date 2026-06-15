@@ -38,13 +38,15 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div" style="max-width: 50rem;">
+        <div class="show-container card floating-div">
 
             <p><i>{{ number_format($schools->total()) }} {{ ($schools->total() === 1) ? 'school' : 'schools' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $schools->links('vendor.pagination.bulma') !!}
             @endif
+
+            <p class="is-size-7 mb-0"><i>cc - community college, hbcu -, tech - technical, med - medical, rel - religious, sem - seminary</i></p>
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
@@ -60,7 +62,9 @@
                         <th style="white-space: nowrap;">name</th>
                         <th style="white-space: nowrap;">city</th>
                         <th style="white-space: nowrap;">state</th>
-                        <th style="white-space: nowrap;">public/private</th>
+                        <th class="has-text-centered" style="white-space: nowrap;">founded</th>
+                        <th class="has-text-centered" style="white-space: nowrap;">type</th>
+                        <th>details</th>
                     </tr>
                     </{{ $labelElem }}>
 
@@ -92,8 +96,14 @@
                         <td data-field="state" style="white-space: nowrap;">
                             {{ $school->state['name'] }}
                         </td>
-                        <td data-field="public|private" class="has-text-centered" style="white-space: nowrap;">
-                            {{ $school->public ? 'public' : ($school->private ? 'private' : '') }}
+                        <td data-field="founded" class="has-text-centered">
+                            {{ $school->founded }}
+                        </td>
+                        <td data-field="type" class="has-text-centered" style="white-space: nowrap;">
+                            {{ $school->type }}
+                        </td>
+                        <td data-field="details" style="min-width: 20rem;">
+                            @include('admin.components.partials.school-details-abbreviated', [ 'school' => $school ])
                         </td>
                     </tr>
 
@@ -108,6 +118,8 @@
                 </tbody>
 
             </table>
+
+            <p class="is-size-7"><i>cc - community college, hbcu -, tech - technical, med - medical, rel - religious, sem - seminary</i></p>
 
             @if (!empty($pagination_bottom))
                 {!! $schools->links('vendor.pagination.bulma') !!}

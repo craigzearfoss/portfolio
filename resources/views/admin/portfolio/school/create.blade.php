@@ -48,6 +48,22 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'type',
+                'value'   => old('type') ?? null,
+                'list'    => new School()->typeListOptions(true),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 4rem' ],
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'gender',
+                'value'   => old('gender') ?? null,
+                'list'    => new School()->genderListOptions(),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 4rem' ],
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? '',

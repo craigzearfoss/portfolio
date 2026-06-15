@@ -93,7 +93,7 @@
                                 {{ $academy->id }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
                                 'name' => $academy->name,
                                 'href' => route('admin.portfolio.academy.show', $academy)

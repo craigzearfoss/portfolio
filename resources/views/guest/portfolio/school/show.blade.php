@@ -52,7 +52,7 @@
 
             <tr>
                 <th>details:</th>
-                <td>{!! view('admin.components.school-details', [ 'school' => $school ]) !!}</td>
+                <td>{!! view('admin.components.partials.school-details', [ 'school' => $school ]) !!}</td>
             </tr>
 
             @if (!empty($school->former_names))

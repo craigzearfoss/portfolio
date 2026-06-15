@@ -1,25 +1,19 @@
 @php
+    $separator = $separator ?? ' • ';
+
     $schoolDetails = [];;
 
     if (!empty($school)) {
+
+        if (!empty($school->type)) $schoolDetails[] = "<strong>{$school->type}</strong>";
+        if (!empty($school->gender)) $schoolDetails[] = "<strong>{$school->gender}</strong>";
 
         $histories = [];
         if (!empty($school->founded)) $histories[] = '<strong>founded:</strong> ' . $school->founded;
         if (!empty($school->closed)) $histories[] = '<strong>closed:</strong> ' . $school->closed;
         if (!empty($school->enrollment)) $histories[] = '<strong>enrollment:</strong> ' . number_format($school->enrollment);
         if (!empty($histories)) {
-            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode(' • ', $histories) . '</div>';
-        }
-
-        $types = [];
-        $types[] = $school->public ? '<strong>public</strong>' : '<strong>private</strong>';
-        if ($school->male || $school->female) {
-            $types[] = ($school->female && $school->male)
-                            ? '<strong>coed</strong>'
-                            : ($school->male ? '<strong>male</strong>' : '<strong>female</strong>');
-        }
-        if (!empty($types)) {
-            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode(' • ', $types) . '</div>';
+            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode($separator, $histories) . '</div>';
         }
 
         $areasOfStudy = [];
@@ -29,7 +23,7 @@
         if ($school->medical) $areasOfStudy[] = '<strong>medical</strong>';
         if ($school->seminary) $areasOfStudy[] = '<strong>seminary</strong>';
         if (!empty($areasOfStudy)) {
-            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode(' • ', $areasOfStudy) . '</div>';
+            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode($separator, $areasOfStudy) . '</div>';
         }
 
         $religion = null;

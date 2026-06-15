@@ -58,6 +58,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -70,6 +71,7 @@
                                 'name'    => 'show',
                                 'value'   => $show,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -82,6 +84,7 @@
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>

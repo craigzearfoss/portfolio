@@ -64,9 +64,14 @@
                 'checked' => $school->active
             ])
 
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'type',
+                'checked' => $school->type
+            ])
+
             @include('admin.components.show-row', [
                 'name'  => 'details',
-                'value' => view('admin.components.school-details', [ 'school' => $school ])
+                'value' => view('admin.components.partials.school-details', [ 'school' => $school ])
             ])
 
             @if (!empty($school->former_names))

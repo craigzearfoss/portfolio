@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::table(dbName('portfolio_db') . '.schools', function (Blueprint $table) {
             $table->boolean('active')->default(false)->after('summary');
-            $table->boolean('public')->default(false)->after('active');
-            $table->boolean('private')->default(false)->after('public');
-            $table->boolean('male')->default(false)->after('private');
-            $table->boolean('female')->default(false)->after('male');
+            $table->string('type', 10)->nullable()->after('active');
+            $table->string('gender', 10)->nullable()->after('type');
             $table->integer('closed')->nullable()->after('founded');
             $table->boolean('community_college')->default(false)->after('closed');
             $table->boolean('technical')->default(false)->after('community_college');

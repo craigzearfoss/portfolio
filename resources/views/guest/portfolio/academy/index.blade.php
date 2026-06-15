@@ -4,7 +4,7 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? 'Academies';
+    $title    = $pageTitle ?? 'Online Learning';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -15,7 +15,7 @@
             [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
             [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
             [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Academies' ],
+            [ 'name' => 'Online Learning' ],
           ];
 
     // set navigation buttons
@@ -34,11 +34,13 @@
     @endif
     */ ?>
 
+    <?php /*
     @include('guest.components.search-panel.portfolio-academy', [ 'owner_id' => $owner->id ?? null ])
+    */ ?>
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="width: 20rem;">
 
             <p><i>{{ number_format($academies->total()) }} {{ ($academies->total() === 1) ? 'academy' : 'academies' }} found.</i></p>
 
@@ -64,34 +66,6 @@
                                 'sort'  => 'name|asc',
                             ])
                         </th>
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'category',
-                                'sort'  => 'category|asc',
-                            ])
-                        </th>
-                        <th>
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'nominated work',
-                                'sort'  => 'nominated_work|asc',
-                            ])
-                        </th>
-                        <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'year',
-                                'sort'  => 'academy_year|asc',
-                            ])
-                        </th>
-                        <th class="hide-at-1300">
-                            @include('guest.components.column-heading', [
-                                'class' => $className,
-                                'name'  => 'organization',
-                                'sort'  => 'organization|asc',
-                            ])
-                        </th>
                     </tr>
                     </{{ $labelElem }}>
 
@@ -103,29 +77,18 @@
 
                     <tr>
                         <td style="white-space: nowrap;">
-                            @include('guest.components.link', [
-                                'name'  => htmlspecialchars($academy->name),
-                                'href'  => route('guest.portfolio.academy.show', [$owner, $academy->slug]),
-                                'class' => $academy->featured ? 'has-text-weight-bold' : ''
-                            ])
-                        </td>
-                        <td style="white-space: nowrap;">
-                            @if (!empty($academy->category))
-                                @include('guest.components.link', [
-                                    'name'  => ($academy->category),
-                                    'href'  => route('guest.portfolio.academy.show', [$owner, $academy->slug]),
-                                    'class' => $academy->featured ? 'has-text-weight-bold' : ''
+                            <span {!! $academy->featured ? 'class="has-text-weight-bold"' : '' !!}>
+                                {{ $academy->name }}
+                            </span>
+                            @if (!empty($academy->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'open link in new window',
+                                    'href'   => $academy->link,
+                                    'icon'   => 'fa-external-link',
+                                    'border' => false,
+                                    'target' => '_blank'
                                 ])
                             @endif
-                        </td>
-                        <td style="white-space: nowrap;">
-                            {!! htmlspecialchars($academy->nominated_work) !!}
-                        </td>
-                        <td class="has-text-centered">
-                            {!! $academy->academy_year !!}
-                        </td>
-                        <td class="hide-at-1300" style="white-space: nowrap;">
-                            {!! htmlspecialchars($academy->organization) !!}
                         </td>
                     </tr>
 

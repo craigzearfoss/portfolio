@@ -1,4 +1,6 @@
 @php
+    $separator = $separator ?? ' • ';
+
     $schoolDetails = [];;
 
     if (!empty($school)) {
@@ -8,7 +10,7 @@
         if (!empty($school->closed)) $histories[] = '<strong>closed:</strong> ' . $school->closed;
         if (!empty($school->enrollment)) $histories[] = '<strong>enrollment:</strong> ' . number_format($school->enrollment);
         if (!empty($histories)) {
-            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode(' • ', $histories) . '</div>';
+            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode($separator, $histories) . '</div>';
         }
 
         $types = [];
@@ -19,7 +21,7 @@
                             : ($school->male ? '<strong>male</strong>' : '<strong>female</strong>');
         }
         if (!empty($types)) {
-            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode(' • ', $types) . '</div>';
+            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode($separator, $types) . '</div>';
         }
 
         $areasOfStudy = [];
@@ -29,7 +31,7 @@
         if ($school->medical) $areasOfStudy[] = '<strong>medical</strong>';
         if ($school->seminary) $areasOfStudy[] = '<strong>seminary</strong>';
         if (!empty($areasOfStudy)) {
-            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode(' • ', $areasOfStudy) . '</div>';
+            $schoolDetails[] = '<div class="mb-2" style="display: inline-block;">' . implode($separator, $areasOfStudy) . '</div>';
         }
 
         $religion = null;

@@ -481,7 +481,7 @@ class MenuService
                 $this->candidateMenu[] = $menuItem;
             } elseif (property_exists($menuItem, 'table') && ($menuItem->tag == 'dictionary_db')) {
                 $this->dictionaryMenu[] = $menuItem;
-            } elseif (property_exists($menuItem, 'tag') && in_array($menuItem->tag, [ 'job-board', 'recruiter', 'school' ])) {
+            } elseif (property_exists($menuItem, 'tag') && in_array($menuItem->tag, [ 'job-board', 'recruiter', 'school', 'academy' ])) {
                 $this->resourceMenu[] = $menuItem;
             } elseif (property_exists($menuItem, 'tag') && $menuItem->tag == 'job-analyzer') {
                 $this->toolMenu[] = $menuItem;

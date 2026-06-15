@@ -33,9 +33,9 @@ class AcademyController extends BaseGuestController
         )->where('Academies.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' Academies';
+        $pageTitle = 'Online Learning';
 
-        return view(themedTemplate('guest.career.academy.index'), compact('academies', 'pageTitle'))
+        return view(themedTemplate('guest.portfolio.academy.index'), compact('academies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -54,6 +54,6 @@ class AcademyController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.career.academy.show'), compact('academy'));
+        return view(themedTemplate('guest.portfolio.academy.show'), compact('academy'));
     }
 }

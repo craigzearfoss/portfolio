@@ -69,14 +69,17 @@
 
                     <tr>
                         <td style="white-space: nowrap;{{ $jobBoard->primary ? ' font-weight: 700;' : '' }}">
+                            <span {!! $jobBoard->featured ? 'class="has-text-weight-bold"' : '' !!}>
+                                {{ $jobBoard->name }}
+                            </span>
                             @if (!empty($jobBoard->link))
-                                @include('guest.components.link', [
-                                    'name'   => htmlspecialchars($jobBoard->name),
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'open link in new window',
                                     'href'   => $jobBoard->link,
+                                    'icon'   => 'fa-external-link',
+                                    'border' => false,
                                     'target' => '_blank'
                                 ])
-                            @else
-                                <span style="font-weight: 700;">{!! htmlspecialchars($jobBoard->name) !!}</span>
                             @endif
                         </td>
                         <td class="has-text-centered">

@@ -47,7 +47,7 @@
                 {!! $schools->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="is-size-7 mb-0"><i>cc - community college, hbcu -, tech - technical, med - medical, rel - religious, sem - seminary</i></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -91,7 +91,17 @@
                             ])
                         </th>
                         <th>
-                            public/private
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'founded',
+                                'sort'  => 'founded|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            type
+                        </th>
+                        <th>
+                            details
                         </th>
                         <th>actions</th>
                     </tr>
@@ -126,10 +136,16 @@
                             {{ $school->city }}
                         </td>
                         <td data-field="state" style="white-space: nowrap;">
-                            {{ $school->state_name }}
+                            {{ $school->state['code'] ?? '' }}
                         </td>
-                        <td data-field="public|private" style="white-space: nowrap;">
-                            {{ $school->public ? 'public' : ($school->private ? 'private' : '') }}
+                        <td data-field="founded" class="has-text-centered">
+                            {{ $school->founded }}
+                        </td>
+                        <td data-field="type" class="has-text-centered" style="white-space: nowrap;">
+                            {{ $school->type }}
+                        </td>
+                        <td data-field="details" style="min-width: 20rem;">
+                            @include('admin.components.partials.school-details-abbreviated', [ 'school' => $school ])
                         </td>
                         <td class="is-1">
 
@@ -194,6 +210,8 @@
                 </tbody>
 
             </table>
+
+            <p class="is-size-7"><i>cc - community college, hbcu -, tech - technical, med - medical, rel - religious, sem - seminary</i></p>
 
             @if (!empty($pagination_bottom))
                 {!! $schools->links('vendor.pagination.bulma') !!}

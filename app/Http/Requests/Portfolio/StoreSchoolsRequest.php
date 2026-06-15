@@ -40,10 +40,8 @@ class StoreSchoolsRequest extends StoreAppBaseRequest
             'slug'                  => ['required', 'string', 'max:255', 'unique:' . School::class],
             'summary'               => ['string', 'max:500', 'nullable'],
             'active'                => ['integer', 'between:0,1'],
-            'public'                => ['integer', 'between:0,1'],
-            'private'               => ['integer', 'between:0,1'],
-            'male'                  => ['integer', 'between:0,1'],
-            'female'                => ['integer', 'between:0,1'],
+            'type'                  => [Rule::in(['private', 'public']), 'nullable'],
+            'gender'                => [Rule::in(['coed', 'female', 'male']), 'nullable'],
             'enrollment'            => ['integer', 'min:0', 'nullable'],
             'founded'               => ['integer', 'min:0', 'nullable'],
             'closed'                => ['integer', 'min:0', 'nullable'],
@@ -93,10 +91,12 @@ class StoreSchoolsRequest extends StoreAppBaseRequest
     public function messages(): array
     {
         return [
+            'country_id.exists'     => 'The specified country does not exist.',
+            'gender.in'             => 'The gender must be `coed`, `female`, or `male`.',
             'owner_id.filled'       => 'Please select an owner for the education.',
             'owner_id.exists'       => 'The specified owner does not exist.',
             'state_id.exists'       => 'The specified state does not exist.',
-            'country_id.exists'     => 'The specified country does not exist.',
+            'type.in'               => 'The type must be `private` or `public`.',
         ];
     }
 

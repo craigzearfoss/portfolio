@@ -89,6 +89,23 @@ class School extends Model
     ];
 
     /**
+     *
+     */
+    const array TYPES = [
+        'public',
+        'private',
+    ];
+
+    /**
+     *
+     */
+    const array GENDERS = [
+        'coed',
+        'female',
+        'male'
+    ];
+
+    /**
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
@@ -98,12 +115,11 @@ class School extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'summary', 'active', 'public', 'private', 'male', 'female',
-        'enrollment', 'founded', 'street', 'street2', 'city', 'closed', 'community_college', 'technical', 'hbcu',
-        'religious', 'seminary', 'medical', 'former_names', 'nickname', 'mascot', 'colors', 'religious_affiliation',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'notes', 'link', 'link_name', 'wikipedia',
-        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
-        'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'summary', 'active', 'type', 'gender','enrollment', 'founded',
+        'street', 'street2', 'city', 'closed', 'community_college', 'technical', 'hbcu', 'religious', 'seminary',
+        'medical', 'former_names', 'nickname', 'mascot', 'colors', 'religious_affiliation', 'street', 'street2',
+        'city', 'state_id', 'zip', 'country_id', 'notes', 'link', 'link_name', 'wikipedia', 'description', 'disclaimer',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -123,6 +139,7 @@ class School extends Model
         'is_disabled|desc'   => 'disabled',
         'founded|asc'        => 'founded',
         'featured|desc'      => 'featured',
+        'gender|asc'         => 'gender',
         'id|asc'             => 'id',
         'link|asc'           => 'link',
         'link_name|asc'      => 'link name',
@@ -136,6 +153,7 @@ class School extends Model
         'is_root|desc'       => 'root',
         'sequence|asc'       => 'sequence',
         'state_name|asc'     => 'state',
+        'type|asc'           => 'type',
     ];
 
     /**
@@ -143,8 +161,8 @@ class School extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'name', 'state_name', ],
-        'guest' => [ 'name', 'state_name' ],
+        'admin' => [ 'founded', 'name', 'state_name', ],
+        'guest' => [ 'founded', 'name', 'state_name' ],
     ];
 
     /**
@@ -153,6 +171,40 @@ class School extends Model
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * Returns an array of options for a select list for types, i.e. public or private.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function typeListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::TYPES as $type) {
+            $options[$type] = $type;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for genders, i.e. coed, female, male.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function genderListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::GENDERS as $gender) {
+            $options[$gender] = $gender;
+        }
+
+        return $options;
     }
 
     /**
@@ -187,9 +239,6 @@ class School extends Model
                         ->orWhere($this->table . '.male', '=', true);
                 });
             })
-            ->when(!empty($filters['community_college']), function ($query) use ($filters) {
-                $query->where($this->table . '.community_college', '=', true);
-            })
             ->when(!empty($filters['colors']), function ($query) use ($filters) {
                 $query->where($this->table . '.colors', 'like', '%' . $filters['colors'] . '%');
             })
@@ -202,26 +251,20 @@ class School extends Model
             ->when(!empty($filters['enrollment']), function ($query) use ($filters) {
                 $query->where($this->table . '.enrollment', '=', intval($filters['enrollment']));
             })
-            ->when(!empty($filters['female']), function ($query) use ($filters) {
-                $query->where($this->table . '.female', '=', true);
-            })
             ->when(!empty($filters['former_names']), function ($query) use ($filters) {
                 $query->where($this->table . '.former_names', 'like', '%' . $filters['former_names'] . '%');
             })
             ->when(!empty($filters['founded']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '=', intval($filters['founded']));
             })
-            ->when(!empty($filters['hbcu']), function ($query) use ($filters) {
-                $query->where($this->table . '.hbcu', '=', true);
+            ->when(!empty($filters['gender']), function ($query) use ($filters) {
+                $query->where($this->table . '.gender', '=', strtolower($filters['gender']));
             })
             ->when(!empty($filters['link']), function ($query) use ($filters) {
                 $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
             })
             ->when(!empty($filters['link_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
-            })
-            ->when(!empty($filters['male']), function ($query) use ($filters) {
-                $query->where($this->table . '.male', '=', true);
             })
             ->when(!empty($filters['mascot']), function ($query) use ($filters) {
                 $query->where($this->table . '.mascot', 'like', '%' . $filters['mascot'] . '%');
@@ -235,27 +278,33 @@ class School extends Model
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['private']), function ($query) use ($filters) {
-                $query->where($this->table . '.private', '=', true);
-            })
-            ->when(!empty($filters['public']), function ($query) use ($filters) {
-                $query->where($this->table . '.public', '=', true);
-            })
-            ->when(!empty($filters['religious']), function ($query) use ($filters) {
-                $query->where($this->table . '.religious', '=', true);
-            })
             ->when(!empty($filters['seminary']), function ($query) use ($filters) {
                 $query->where($this->table . '.seminary', '=', true);
             })
             ->when(!empty($filters['state_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             })
-            ->when(!empty($filters['technical']), function ($query) use ($filters) {
-                $query->where($this->table . '.technical', '=', true);
+            ->when(!empty($filters['type']), function ($query) use ($filters) {
+                $query->where($this->table . '.type', '=', strtolower($filters['type']));
             })
             ->when(!empty($filters['wikipedia']), function ($query) use ($filters) {
                 $query->where($this->table . '.wikipedia', 'like', '%' . $filters['wikipedia'] . '%');
             });
+
+        $community_college = boolval($filters['community_college'] ?? false);
+        $hbcu              = boolval($filters['hbcu'] ?? false);
+        $medical           = boolval($filters['medical'] ?? false);
+        $religious         = boolval($filters['religious'] ?? false);
+        $technical         = boolval($filters['technical'] ?? false);
+        if ($community_college || $hbcu || $medical || $religious || $technical) {
+            $query->where(function ($query) use ($community_college, $hbcu, $medical, $religious, $technical) {
+                if ($community_college) $query->orWhere($this->table . '.community_college', '=', true);
+                if ($hbcu) $query->orWhere($this->table . '.hbcu', '=', true);
+                if ($medical) $query->orWhere($this->table . '.medical', '=', true);
+                if ($religious) $query->orWhere($this->table . '.religious', '=', true);
+                if ($technical) $query->orWhere($this->table . '.technical', '=', true);
+            });
+        }
 
         // join to states table
         $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id')

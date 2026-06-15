@@ -66,13 +66,18 @@
 
                     <tr>
                         <td data-field="name" style="white-space: nowrap;">
-                            <?php /*
-                            @include('admin.components.link', [
-                                'name' => $recruiter->name . (!empty($recruiter->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('guest.career.recruiter.show', $recruiter)
-                            ])
-                            */ ?>
-                            {!! $recruiter->name . (!empty($recruiter->featured) ? '<span class="featured-splat">*</span>' : '') !!}
+                            <span {!! $recruiter->featured ? 'class="has-text-weight-bold"' : '' !!}>
+                                {!! $recruiter->name !!}
+                            </span>
+                            @if (!empty($recruiter->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'open link in new window',
+                                    'href'   => $recruiter->link,
+                                    'icon'   => 'fa-external-link',
+                                    'border' => false,
+                                    'target' => '_blank'
+                                ])
+                            @endif
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap;">
                             {{ implode(', ', $recruiter->coverageAreas ?? []) }}
