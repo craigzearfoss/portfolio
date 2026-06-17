@@ -33,7 +33,7 @@ class RecruiterController extends BaseGuestController
         )->where('recruiters.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = 'Recruiters & Staffing Firms';
+        $pageTitle = 'Staffing & Recruiting Firms';
 
         return view(themedTemplate('guest.career.recruiter.index'), compact('recruiters', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -430,7 +430,7 @@ class MenuService
                 ]),
                 $this->menuItem([
                     'tag'     => 'recruiter',
-                    'title'   => 'Recruiters',
+                    'title'   => 'Staffing Firms',
                     'route'   => 'guest.career.recruiter.index',
                     'icon'    => 'fa-dashboard',
                 ]),
