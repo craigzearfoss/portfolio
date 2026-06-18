@@ -48,8 +48,7 @@ class RecruiterController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$recruiter = Recruiter::query()->where('owner_id', '=', $admin['id'])
-            ->where('slug', '=', $slug)->first()
+        if (!$recruiter = Recruiter::query()->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();
         }

@@ -54,7 +54,8 @@ use App\Http\Controllers\Guest\Career\IndexController as GuestCareerIndexControl
 
 Route::get('analyze-job/', [GuestCareerIndexController::class, 'analyzeJob'])->name('analyze-job');
 Route::get('job-board', [GuestCareerJobBoardController::class, 'index'])->name('guest.career.job-board.index');
-Route::get('recruiter', [GuestPortfolioRecruiterController::class, 'index'])->name('guest.career.recruiter.index');
+Route::get('staffing-firms', [GuestPortfolioRecruiterController::class, 'index'])->name('guest.career.recruiter.index');
+Route::get('staffing-firms/{recruiter}', [GuestPortfolioRecruiterController::class, 'show'])->name('guest.career.recruiter.show');
 Route::get('academy', [GuestPortfolioAcademyController::class, 'index'])->name('guest.portfolio.academy.index');
 Route::get('school', [GuestPortfolioSchoolController::class, 'index'])->name('guest.portfolio.school.index');
 Route::get('school/{school}', [GuestPortfolioSchoolController::class, 'show'])->name('guest.portfolio.school.show');

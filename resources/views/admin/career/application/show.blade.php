@@ -180,7 +180,6 @@
                                             'value' => $application->locationType['name'] ?? ''
                                         ])
 
-
                                     </div>
 
                                     <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">

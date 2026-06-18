@@ -55,6 +55,7 @@
                         <th>name</th>
                         <th style="white-space: nowrap;">coverage area</th>
                         <th>location</th>
+                        <th class="has-text-centered" style="white-space: nowrap;">job openings</th>
                     </tr>
                     </{{ $labelElem }}>
 
@@ -66,8 +67,11 @@
 
                     <tr>
                         <td data-field="name" style="white-space: nowrap;">
-                            <span {!! $recruiter->featured ? 'class="has-text-weight-bold"' : '' !!}>
-                                {!! $recruiter->name !!}
+                            <span {!! $recruiter->primary ? 'class="has-text-weight-bold"' : '' !!}>
+                                @include('admin.components.link', [
+                                    'name' => $recruiter->name,
+                                    'href' => route('guest.career.recruiter.show', $recruiter->slug)
+                                ])
                             </span>
                             @if (!empty($recruiter->link))
                                 @include('admin.components.link-icon', [
@@ -90,12 +94,23 @@
                                 ])
                             }}
                         </td>
+                        <td class="has-text-centered">
+                            @if (!empty($recruiter->jobs_url))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'open link in new window',
+                                    'href'   => $recruiter->jobs_url,
+                                    'icon'   => 'fa-briefcase',
+                                    'border' => false,
+                                    'target' => '_blank'
+                                ])
+                            @endif
+                        </td>
                     </tr>
 
                 @empty
 
                     <tr>
-                        <td colspan="7">No job boards found.</td>
+                        <td colspan="4">No staffing firms found.</td>
                     </tr>
 
                 @endforelse
