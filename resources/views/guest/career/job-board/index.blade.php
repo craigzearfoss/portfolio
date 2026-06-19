@@ -57,7 +57,6 @@
                         <th class="has-text-centered" style="width: 2rem;">premium*</th>
                         <th class="has-text-centered" style="width: 2rem;">staffing**</th>
                         <th class="has-text-centered">freelance***</th>
-                        <th class="has-text-centered" style="white-space: nowrap;">job openings</th>
                     </tr>
                     </{{ $labelElem }}>
 
@@ -72,10 +71,10 @@
                             <span {!! $jobBoard->featured ? 'class="has-text-weight-bold"' : '' !!}>
                                 {{ $jobBoard->name }}
                             </span>
-                            @if (!empty($jobBoard->link))
+                            @if (!empty($jobBoard->jobs_url) || !empty($jobBoard->link))
                                 @include('admin.components.link-icon', [
                                     'title'  => 'open link in new window',
-                                    'href'   => $jobBoard->link,
+                                    'href'   => !empty($jobBoard->jobs_url) ? $jobBoard->jobs_url : $jobBoard->link,
                                     'icon'   => 'fa-external-link',
                                     'border' => false,
                                     'target' => '_blank'
@@ -93,17 +92,6 @@
                         </td>
                         <td class="has-text-centered">
                             @include('guest.components.checkmark', [ 'checked' => $jobBoard->freelance ])
-                        </td>
-                        <td class="has-text-centered">
-                            @if (!empty($jobBoard->jobs_url))
-                                @include('admin.components.link-icon', [
-                                    'title'  => 'open link in new window',
-                                    'href'   => $jobBoard->jobs_url,
-                                    'icon'   => 'fa-briefcase',
-                                    'border' => false,
-                                    'target' => '_blank'
-                                ])
-                            @endif
                         </td>
                     </tr>
 
