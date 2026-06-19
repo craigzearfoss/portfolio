@@ -98,7 +98,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="7">No job boards found.</td>
+                        <td colspan="5">No job boards found.</td>
                     </tr>
 
                 @endforelse
