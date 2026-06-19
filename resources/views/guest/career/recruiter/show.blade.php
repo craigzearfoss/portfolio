@@ -54,6 +54,27 @@
                 </tr>
            @endif
 
+            @if (!empty($recruiter->founded))
+                <tr>
+                    <th>founded</th>
+                    <td>{{ $recruiter->founded }}</td>
+                </tr>
+            @endif
+
+            @if (!empty($recruiter->recruiter_industry_id))
+                <tr>
+                    <th>industry</th>
+                    <td>{{ $recruiter->recruiterIndustry['name'] ?? '' }}</td>
+                </tr>
+            @endif
+
+            @if (!empty($recruiter->specialties))
+                <tr>
+                    <th>specialties</th>
+                    <td>{{ str_replace('|', ', ', $recruiter->specialties) }}</td>
+                </tr>
+            @endif
+
             <tr>
                 <th>coverage area</th>
                 <td>{{ $region }}</td>

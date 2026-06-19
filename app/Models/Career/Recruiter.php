@@ -309,4 +309,12 @@ class Recruiter extends Model
         return $this->hasMany(JobSearchLog::class, 'application_id')
             ->orderBy('time_logged', 'desc');
     }
+
+    /**
+     * Get the career recruiter industry that owns the recruiter.
+     */
+    public function recruiterIndustry(): BelongsTo
+    {
+        return $this->belongsTo(RecruiterIndustry::class, 'recruiter_industry_id');
+    }
 }
