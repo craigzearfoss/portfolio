@@ -50,6 +50,9 @@ class JobBoard extends Model
         'slug',
         'primary',
         'summary',
+        'recruiter_id',
+        'recruiter_industry_id',
+        'specialties',
         'free',
         'premium',
         'staffing',
@@ -58,6 +61,9 @@ class JobBoard extends Model
         'regional',
         'national',
         'international',
+        'founded',
+        'linkedin_url',
+        'jobs_url',
         'street',
         'street2',
         'city',
@@ -98,8 +104,9 @@ class JobBoard extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'free', 'premium', 'staffing', 'freelance',
-        'local', 'regional', 'national', 'international', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id',
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'recruiter_id', 'recruiter_industry_id',
+        'specialties', 'free', 'premium', 'staffing', 'freelance', 'local', 'regional', 'national', 'international',
+        'founded', 'linkedin_url', 'jobs_url', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id',
         'latitude', 'longitude', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'notes','link', 'link_name', 'is_public', 'is_readonly', 'is_root',
         'is_disabled', 'is_demo'
@@ -116,9 +123,11 @@ class JobBoard extends Model
     const array SORT_OPTIONS = [
         'created_at|desc' => 'date created',
         'updated_at|desc' => 'date updated',
+        'founded|asc'     => 'founded',
         'free|desc'       => 'free',
         'freelance'       => 'freelance',
         'id|asc'          => 'id',
+        'industry|asc'    => 'industry',
         'name|asc'        => 'name',
         'premium'         => 'premium',
         'sequence|asc'    => 'sequence',
@@ -130,8 +139,8 @@ class JobBoard extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'name', ],
-        'guest' => [ 'name', ],
+        'admin' => [ 'city', 'industry', 'founded', 'name', 'state_id' ],
+        'guest' => [ 'city', 'industry', 'founded', 'name', 'state_id' ],
     ];
 
     /**
@@ -180,6 +189,15 @@ class JobBoard extends Model
                         . ' Valid coverage areas are "' . implode('", "', self::COVERAGE_AREAS) . '".');
                 }
             })
+            ->when(!empty($filters['founded']), function ($query) use ($filters) {
+                $query->where($this->table . '.founded', '=', intval($filters['founded']));
+            })
+            ->when(!empty($filters['founded-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.founded', '>=', $filters['founded-min']);
+            })
+            ->when(!empty($filters['founded-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.founded', '<=', $filters['founded-max']);
+            })
             ->when(!empty($filters['free']), function ($query) use ($filters) {
                 $query->where($this->table . '.free', '=', true);
             })
@@ -188,6 +206,18 @@ class JobBoard extends Model
             })
             ->when(!empty($filters['international']), function ($query) use ($filters) {
                 $query->where($this->table . '.international', '=', true);
+            })
+            ->when(!empty($filters['jobs_url']), function ($query) use ($filters) {
+                $query->where($this->table . '.jobs_url', 'like', '%' . $filters['jobs_url'] . '%');
+            })
+            ->when(!empty($filters['link']), function ($query) use ($filters) {
+                $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
+            })
+            ->when(!empty($filters['link_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
+            })
+            ->when(!empty($filters['linkedin_url']), function ($query) use ($filters) {
+                $query->where($this->table . '.linkedin_url', 'like', '%' . $filters['linkedin_url'] . '%');
             })
             ->when(!empty($filters['local']), function ($query) use ($filters) {
                 $query->where($this->table . '.local', '=', true);
@@ -201,11 +231,23 @@ class JobBoard extends Model
             ->when(!empty($filters['primary']), function ($query) use ($filters) {
                 $query->where($this->table . '.primary', '=', true);
             })
+            ->when(!empty($filters['recruiter_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.recruiter_id', '=', intval($filters['recruiter_id']));
+            })
+            ->when(!empty($filters['recruiter_industry_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.recruiter_industry_id', '=', intval($filters['recruiter_industry_id']));
+            })
             ->when(!empty($filters['regional']), function ($query) use ($filters) {
                 $query->where($this->table . '.regional', '=', true);
             })
+            ->when(!empty($filters['specialties']), function ($query) use ($filters) {
+                $query->where($this->table . '.specialties', 'like', '%' . $filters['specialties'] . '%');
+            })
             ->when(!empty($filters['staffing']), function ($query) use ($filters) {
                 $query->where($this->table . '.staffing', '=', true);
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
         // add additional filters

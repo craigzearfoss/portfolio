@@ -143,10 +143,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($thisUser->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $thisUser->link,
                 'href'      => $thisUser->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $thisUser->link_name,
             ])
 
             @include('admin.components.show-row', [

@@ -110,10 +110,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($certificate->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $certificate->link,
                 'href'      => $certificate->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $certificate->link_name,
             ])
 
             @include('admin.components.show-row', [

@@ -99,10 +99,15 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'link_name' => htmlspecialchars($framework->link_name ?? 'link'),
+            'link_name' => 'link',
             'name'      => $framework->link,
             'href'      => $framework->link,
             'target'    => '_blank',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $framework->link_name,
         ])
 
         @include('admin.components.show-row', [

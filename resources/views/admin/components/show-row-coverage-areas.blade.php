@@ -26,11 +26,10 @@
     }
 
     $columns = [
-        'is_public'   => 'public',
-        'is_readonly' => 'read-only',
-        'is_root'     => 'root',
-        'is_disabled' => 'disabled',
-        'is_demo'     => 'demo',
+        'local'         => 'local',
+        'regional'      => 'regional',
+        'national'      => 'national',
+        'international' => 'international',
     ];
 @endphp
 <div @if (!empty($classes))
@@ -41,7 +40,9 @@
      @endif
 >
     <div class="column is-2 label">
-        <strong>visibility</strong>:
+        <strong>coverage area</strong>:
+        <br>
+        <span class="pl-4" style="font-weight: 400;">(loc, reg, nat, intl)</span>
     </div>
     <div class="column left-align is-10 value pr-4 mb-3 mr-4">
         <div>
@@ -52,7 +53,7 @@
 
                     @if ($resource->hasAttribute($column))
 
-                        <div class="show-container card floating-div">
+                        <div class="show-container card floating-div" style="max-width: 9rem; width: 9rem;">
                             <span>
                                 @include('admin.components.checkmark', [ 'checked' => !empty($resource->{$column}) ])
                             </span>
@@ -62,15 +63,6 @@
                     @endif
 
                 @endforeach
-
-                @if ($resource->hasAttribute('sequence'))
-
-                    <div class="item show-container card floating-div">
-                        <span><strong>sequence:</strong></span>
-                        <span>{{ $resource->sequence ?? '0' }}</span>
-                    </div>
-
-                @endif
 
             </div>
 

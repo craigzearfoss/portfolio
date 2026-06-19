@@ -24,10 +24,15 @@ class RecruitersExport implements FromCollection, WithHeadings
         )->select([
             DB::raw('recruiters.id as id'),
             DB::raw('recruiters.name as name'),
+            DB::raw('recruiters.primary as founded'),
+            DB::raw('recruiters.recruiter_industry_id as recruiter_industry_id'),
             DB::raw('recruiters.local as local'),
             DB::raw('recruiters.regional as regional'),
             DB::raw('recruiters.national as national'),
             DB::raw('recruiters.international as international'),
+            DB::raw('recruiters.founded as founded'),
+            DB::raw('recruiters.linkedin_url as linkedin_url'),
+            DB::raw('recruiters.jobs_url as jobs_url'),
             DB::raw('recruiters.street as street'),
             DB::raw('recruiters.street2 as street2'),
             DB::raw('recruiters.city AS city'),
@@ -42,7 +47,6 @@ class RecruitersExport implements FromCollection, WithHeadings
             DB::raw('recruiters.email as email'),
             DB::raw('recruiters.alt_email as alt_email'),
             DB::raw('recruiters.link as link'),
-            DB::raw('recruiters.postings_url as postings_url'),
         ]);
 
         return $query->get();

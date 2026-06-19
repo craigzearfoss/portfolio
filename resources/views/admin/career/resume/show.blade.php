@@ -111,10 +111,15 @@
                                 */ ?>
 
                                 @include('admin.components.show-row-link', [
-                                    'link_name' => htmlspecialchars($resume->link_name ?? 'link'),
+                                    'link_name' => 'link',
                                     'name'      => $resume->link,
                                     'href'      => $resume->link,
                                     'target'    => '_blank',
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'link name',
+                                    'value' => $resume->link_name,
                                 ])
 
                                 @include('admin.components.show-row', [

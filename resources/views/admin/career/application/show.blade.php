@@ -275,55 +275,10 @@
                                 </div>
                                 <div class="floating-div-container">
 
-                                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="display: inline-block;">
+                                    @include('admin.components.show-contact-card', [
+                                        'resource' => $application
+                                    ])
 
-                                        <div class="mr-4" style="display: inline-block; min-width: 20rem; vertical-align: top;">
-
-                                            @include('admin.components.show-row', [
-                                                'name'  => 'location',
-                                                'value' => formatLocation([
-                                                   'street'          => htmlspecialchars($application->street),
-                                                   'street2'         => htmlspecialchars($application->street2),
-                                                   'city'            => htmlspecialchars($application->city),
-                                                   'state'           => $application->state->code ?? '',
-                                                   'zip'             => htmlspecialchars($application->zip),
-                                                   'country'         => $application->country->iso_alpha3 ?? '',
-                                                   'streetSeparator' => '<br>',
-                                               ])
-                                            ])
-
-                                            @if (!empty($application->latitude) || !empty($application->longitude))
-                                                @include('admin.components.show-row-coordinates', [
-                                                    'resource' => $application
-                                                ])
-                                            @endif
-
-                                        </div>
-                                        <div class="mr-4" style="display: inline-block; min-width: 15rem; vertical-align: top;">
-
-                                            @include('admin.components.show-row', [
-                                                'name'  => !empty($application->phone_label) ? htmlspecialchars($application->phone_label) : 'phone',
-                                                'value' => htmlspecialchars($application->phone)
-                                            ])
-
-                                            @include('admin.components.show-row', [
-                                                'name'  => !empty($application->alt_phone_label) ?  htmlspecialchars($application->alt_phone_label) : 'alt phone',
-                                                'value' => htmlspecialchars($application->alt_phone)
-                                            ])
-
-                                            @include('admin.components.show-row', [
-                                                'name'  => !empty($application->email_label) ?  htmlspecialchars($application->email_label) : 'email',
-                                                'value' =>  htmlspecialchars($application->email)
-                                            ])
-
-                                            @include('admin.components.show-row', [
-                                                'name'  => !empty($application->alt_email_label) ?  htmlspecialchars($application->alt_email_label) : 'alt email',
-                                                'value' =>  htmlspecialchars($application->alt_email)
-                                            ])
-
-                                        </div>
-
-                                    </div>
                                     <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="display: inline-block;">
 
                                         @include('admin.components.show-row-images', [

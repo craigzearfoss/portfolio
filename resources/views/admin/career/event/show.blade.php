@@ -104,10 +104,15 @@
             <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
                 @include('admin.components.show-row-link', [
-                    'link_name' => htmlspecialchars($event->link_name ?? 'link'),
+                    'link_name' => 'link',
                     'name'      => $event->link,
                     'href'      => $event->link,
                     'target'    => '_blank',
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'link name',
+                    'value' => $event->link_name,
                 ])
 
                 @include('admin.components.show-row', [

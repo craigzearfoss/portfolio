@@ -59,16 +59,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($unit->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $unit->link,
                 'href'      => $unit->link,
                 'target'    => '_blank',
             ])
 
             @include('admin.components.show-row', [
-                'name'   => 'link name',
-                'label'  => 'link_name',
-                'value'  => htmlspecialchars($unit->link_name),
+                'name'  => 'link name',
+                'value' => $unit->link_name,
             ])
 
             @include('admin.components.show-row', [

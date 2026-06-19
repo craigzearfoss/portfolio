@@ -34,7 +34,7 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="show-container card p-4" style="max-width: 60rem;">
 
         @include('admin.components.show-row', [
             'name'  => 'id',
@@ -63,8 +63,18 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'coverage area',
-            'value' => implode(', ', $recruiter->coverageAreas ?? [])
+            'name'  => 'industry',
+            'value' => $recruiter->recruiterIndustry['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'specialties',
+            'value' => str_replace('|', ', ', $recruiter->specialties)
+        ])
+
+        <!-- coverage areas includes local, regional, national, international -->
+        @include('admin.components.show-row-coverage-areas', [
+            'resource' => $recruiter
         ])
 
         @include('admin.components.show-row-link', [
@@ -74,6 +84,8 @@
             'target'    => '_blank'
         ])
 
+        <?php /*
+        // these are displayed in the coverage are row
         @include('admin.components.show-row-checkmark', [
             'name'    => 'local',
             'checked' => $recruiter->local
@@ -93,6 +105,26 @@
             'name'    => 'international',
             'checked' => $recruiter->international
         ])
+        */ ?>
+
+        @include('admin.components.show-row', [
+            'name'  => 'founded',
+            'value' => $recruiter->founded
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => $recruiter->linkedin_url,
+            'label'  => 'linkedin url',
+            'href'   => $recruiter->linkedin_url,
+            'target' => '_blank',
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => $recruiter->jobs_url,
+            'label'  => 'jobs url',
+            'href'   => $recruiter->jobs_url,
+            'target' => '_blank',
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
@@ -111,31 +143,20 @@
             'resource' => $recruiter
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->phone_label) ? htmlspecialchars($recruiter->phone_label) : 'phone',
-            'value' => htmlspecialchars($recruiter->phone)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->alt_phone_label) ? htmlspecialchars($recruiter->alt_phone_label) : 'alt phone',
-            'value' => htmlspecialchars($recruiter->alt_phone)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->email_label) ? htmlspecialchars($recruiter->email_label) : 'email',
-            'value' => htmlspecialchars($recruiter->email)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->alt_email_label) ? htmlspecialchars($recruiter->alt_email_label) : 'alt email',
-            'value' => htmlspecialchars($recruiter->alt_email)
+        @include('admin.components.show-row-contact-info', [
+            'resource' => $recruiter
         ])
 
         @include('admin.components.show-row-link', [
-            'link_name' => htmlspecialchars($recruiter->link_name ?? 'link'),
+            'link_name' => 'link',
             'name'      => $recruiter->link,
             'href'      => $recruiter->link,
             'target'    => '_blank',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $recruiter->link_name,
         ])
 
         @include('admin.components.show-row', [

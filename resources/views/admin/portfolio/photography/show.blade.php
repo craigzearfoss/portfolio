@@ -88,10 +88,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($photo->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $photo->link,
                 'href'      => $photo->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $photo->link_name,
             ])
 
             @include('admin.components.show-row', [

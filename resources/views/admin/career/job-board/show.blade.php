@@ -34,7 +34,7 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="show-container card p-4" style="max-width: 60rem;">
 
         @include('admin.components.show-row', [
             'name'  => 'id',
@@ -62,33 +62,37 @@
             'value' => htmlspecialchars($jobBoard->summary)
         ])
 
-        @include('admin.components.show-row-job-board-types', [
-            'resource' => $jobBoard,
+        @include('admin.components.show-row', [
+            'name'  => 'industry',
+            'value' => $jobBoard->recruiterIndustry['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'coverage area',
-            'value' => implode(', ', $jobBoard->coverageAreas ?? [])
+            'name'  => 'specialties',
+            'value' => str_replace('|', ', ', $jobBoard->specialties)
         ])
 
-        @include('admin.components.show-row-checkmark', [
-            'name'    => 'local',
-            'checked' => $jobBoard->local
+        @include('admin.components.show-row-job-types', [
+            'resource' => $jobBoard,
         ])
 
-        @include('admin.components.show-row-checkmark', [
-            'name'    => 'regional',
-            'checked' => $jobBoard->regional
+        <!-- coverage areas includes local, regional, national, international -->
+        @include('admin.components.show-row-coverage-areas', [
+            'resource' => $jobBoard
         ])
 
-        @include('admin.components.show-row-checkmark', [
-            'name'    => 'national',
-            'checked' => $jobBoard->national
+        @include('admin.components.show-row-link', [
+            'name'   => $jobBoard->linkedin_url,
+            'label'  => 'linkedin url',
+            'href'   => $jobBoard->linkedin_url,
+            'target' => '_blank',
         ])
 
-        @include('admin.components.show-row-checkmark', [
-            'name'    => 'international',
-            'checked' => $jobBoard->international
+        @include('admin.components.show-row-link', [
+            'name'   => $jobBoard->jobs_url,
+            'label'  => 'jobs url',
+            'href'   => $jobBoard->jobs_url,
+            'target' => '_blank',
         ])
 
         @include('admin.components.show-row', [
@@ -104,31 +108,20 @@
             ])
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->phone_label) ? htmlspecialchars($jobBoard->phone_label) : 'phone',
-            'value' => htmlspecialchars($jobBoard->phone)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->alt_phone_label) ? htmlspecialchars($jobBoard->alt_phone_label) : 'phone',
-            'value' => htmlspecialchars($jobBoard->alt_phone)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->email_label) ? htmlspecialchars($jobBoard->email_label) : 'email',
-            'value' => htmlspecialchars($jobBoard->email)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($jobBoard->alt_email_label) ? htmlspecialchars($jobBoard->alt_email_label) : 'alt email',
-            'value' => htmlspecialchars($jobBoard->alt_email)
+        @include('admin.components.show-row-contact-info', [
+            'resource' => $jobBoard
         ])
 
         @include('admin.components.show-row-link', [
-            'link_name' => htmlspecialchars($jobBoard->link_name ?? 'link'),
+            'link_name' => 'link',
             'name'      => $jobBoard->link,
             'href'      => $jobBoard->link,
             'target'    => '_blank',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $jobBoard->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -148,7 +141,7 @@
             'value' => nl2br(htmlspecialchars($jobBoard->notes))
         ])
 
-        @include('admin.components.show-row-visibility', [
+        @include('admin.components.show-row-job-types', [
             'resource' => $jobBoard,
         ])
 

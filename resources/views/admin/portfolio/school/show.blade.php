@@ -121,10 +121,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($school->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $school->link,
                 'href'      => $school->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $school->link_name,
             ])
 
             @include('admin.components.show-row-link', [

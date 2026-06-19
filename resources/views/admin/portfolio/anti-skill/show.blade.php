@@ -105,10 +105,15 @@
             @endif
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($antiSkill->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $antiSkill->link,
                 'href'      => $antiSkill->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $antiSkill->link_name,
             ])
 
             @include('admin.components.show-row', [

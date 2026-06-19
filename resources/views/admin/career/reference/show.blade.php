@@ -81,6 +81,11 @@
             'value' => htmlspecialchars($reference->company['name'] ?? '')
         ])
 
+        @include('admin.components.show-row-contact-info', [
+            'resource' => $reference
+        ])
+
+
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
@@ -98,24 +103,8 @@
             'resource' => $reference
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($reference->phone_label) ? htmlspecialchars($reference->phone_label) : 'phone',
-            'value' => htmlspecialchars($reference->phone)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($reference->alt_phone_label) ? htmlspecialchars($reference->alt_phone_label) : 'alt phone',
-            'value' => htmlspecialchars($reference->alt_phone)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($reference->email_label) ? htmlspecialchars($reference->email_label) : 'email',
-            'value' => htmlspecialchars($reference->email)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => !empty($reference->alt_email_label) ? htmlspecialchars($reference->alt_email_label) : 'alt email',
-            'value' => htmlspecialchars($reference->alt_email)
+        @include('admin.components.show-row-contact-info', [
+            'resource' => $reference
         ])
 
         @include('admin.components.show-row', [
@@ -124,10 +113,15 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'link_name' => htmlspecialchars($reference->link_name ?? 'link'),
+            'link_name' => 'link',
             'name'      => $reference->link,
             'href'      => $reference->link,
             'target'    => '_blank',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $reference->link_name,
         ])
 
         @include('admin.components.show-row', [

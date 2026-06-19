@@ -175,10 +175,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($publication->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $publication->link,
                 'href'      => $publication->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $publication->link_name,
             ])
 
             @include('admin.components.show-row', [

@@ -85,10 +85,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($art->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $art->link,
                 'href'      => $art->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $art->link_name,
             ])
 
             @include('admin.components.show-row', [

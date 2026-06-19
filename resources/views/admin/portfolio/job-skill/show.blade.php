@@ -86,10 +86,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($jobSkill->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $jobSkill->link,
                 'href'      => $jobSkill->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $jobSkill->link_name,
             ])
 
             @include('admin.components.show-row', [

@@ -99,10 +99,15 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'link_name' => htmlspecialchars($category->link_name ?? 'link'),
+            'link_name' => 'link',
             'name'      => $category->link,
             'href'      => $category->link,
             'target'    => '_blank',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $category->link_name,
         ])
 
         @include('admin.components.show-row', [

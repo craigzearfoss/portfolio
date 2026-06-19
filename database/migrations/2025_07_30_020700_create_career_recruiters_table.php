@@ -29,12 +29,12 @@ return new class extends Migration
             $table->string('name', 100)->unique('name_unique');
             $table->string('slug', 100)->unique('slug_unique');
             $table->boolean('primary')->default(false);
-            $table->string('summary', 500)->nullable();
-            $table->string('postings_url')->nullable();
+            $table->string('jobs_url')->nullable();
             $table->boolean('local')->default(false);
             $table->boolean('regional')->default(false);
             $table->boolean('national')->default(false);
             $table->boolean('international')->default(false);
+            $table->string('summary', 500)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable()->index('city_idx');
@@ -80,7 +80,7 @@ return new class extends Migration
                 'id'            => 1,
                 'name'          => 'Trova',
                 'slug'          => '',
-                'postings_url'  => 'https://www.trovasearch.com/job-postings/',
+                'jobs_url'      => 'https://www.trovasearch.com/job-postings/',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -100,7 +100,7 @@ return new class extends Migration
                 'id'            => 2,
                 'name'          => 'CSS Staffing',
                 'slug'          => 'css-staffing',
-                'postings_url'  => 'https://cssstaffing.com/search-open-positions/',
+                'jobs_url'      => 'https://cssstaffing.com/search-open-positions/',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -120,7 +120,7 @@ return new class extends Migration
                 'id'            => 3,
                 'name'          => 'TalentFish',
                 'slug'          => 'talentfish',
-                'postings_url'  => 'https://talentfish.com/opportunities/',
+                'jobs_url'      => 'https://talentfish.com/opportunities/',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -140,7 +140,7 @@ return new class extends Migration
                 'id'            => 4,
                 'name'          => 'Robert Half',
                 'slug'          => 'robert-half',
-                'postings_url'  => 'https://www.roberthalf.com/us/en/jobs',
+                'jobs_url'      => 'https://www.roberthalf.com/us/en/jobs',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -160,7 +160,7 @@ return new class extends Migration
                 'id'            => 5,
                 'name'          => 'Horizontal Talent',
                 'slug'          => 'horizontal-talent',
-                'postings_url'  => 'https://www.horizontaltalent.com/job-board',
+                'jobs_url'      => 'https://www.horizontaltalent.com/job-board',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -180,7 +180,7 @@ return new class extends Migration
                 'id'            => 6,
                 'name'          => 'Ranstad USA',
                 'slug'          => 'ranstad-usa',
-                'postings_url'  => 'https://www.randstadusa.com/jobs/',
+                'jobs_url'      => 'https://www.randstadusa.com/jobs/',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -200,7 +200,7 @@ return new class extends Migration
                 'id'            => 7,
                 'name'          => 'CyberCoders',
                 'slug'          => 'cybercoders',
-                'postings_url'  => 'https://www.cybercoders.com/search',
+                'jobs_url'      => 'https://www.cybercoders.com/search',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -220,7 +220,7 @@ return new class extends Migration
                 'id'            => 8,
                 'name'          => 'Crossing Hurdles',
                 'slug'          => 'crossing-hurdles',
-                'postings_url'  => 'https://www.linkedin.com/company/crossinghurdles/jobs/',
+                'jobs_url'      => 'https://www.linkedin.com/company/crossinghurdles/jobs/',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,
@@ -238,10 +238,10 @@ return new class extends Migration
             ],
             /*
             [
-                'id'           => 8,
-                'name'         => '',
-                'slug'         => '',
-                'postings_url' => '',
+                'id'            => 8,
+                'name'          => '',
+                'slug'          => '',
+                'jobs_url'      => '',
                 'local'         => 0,
                 'regional'      => 0,
                 'national'      => 1,

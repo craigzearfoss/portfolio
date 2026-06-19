@@ -145,10 +145,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($video->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $video->link,
                 'href'      => $video->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $video->link_name,
             ])
 
             @include('admin.components.show-row', [

@@ -99,10 +99,15 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'link_name' => htmlspecialchars($operatingSystem->link_name ?? 'link'),
+            'link_name' => 'link',
             'name'      => $operatingSystem->link,
             'href'      => $operatingSystem->link,
             'target'    => '_blank',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $operatingSystem->link_name,
         ])
 
         @include('admin.components.show-row', [

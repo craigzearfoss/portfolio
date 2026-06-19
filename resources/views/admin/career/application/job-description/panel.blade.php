@@ -19,20 +19,28 @@
             <div class="floating-div has-background-white-ter card p-4 m-2 no-x-scroll">
 
                 @include('admin.components.show-row-link', [
-                    'link_name' => htmlspecialchars($application->link_name ?? 'link'),
+                    'link_name' => 'link',
                     'name'      => $application->link,
                     'href'      => $application->link,
                     'target'    => '_blank',
                 ])
 
-                @if (!empty($application->link2))
-                    @include('admin.components.show-row-link', [
-                        'link_name' => htmlspecialchars($application->link2_name ?? 'link 2'),
-                        'name'      => $application->link2,
-                        'href'      => $application->link2,
-                        'target'    => '_blank',
-                    ])
-                @endif
+                @include('admin.components.show-row', [
+                    'name'  => 'link name',
+                    'value' => $application->link_name,
+                ])
+
+                @include('admin.components.show-row-link', [
+                    'link_name' => 'link2',
+                    'name'      => $application->link2,
+                    'href'      => $application->link2,
+                    'target'    => '_blank',
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'link2 name',
+                    'value' => $application->link2_name,
+                ])
 
             </div>
 

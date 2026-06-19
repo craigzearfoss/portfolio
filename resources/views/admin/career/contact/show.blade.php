@@ -115,24 +115,8 @@
                                     'resource' => $contact
                                 ])
 
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->phone_label) ? htmlspecialchars($contact->phone_label) : 'phone',
-                                    'value' => htmlspecialchars($contact->phone)
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->alt_phone_label) ? htmlspecialchars($contact->alt_phone_label) : 'alt phone',
-                                    'value' => htmlspecialchars($contact->alt_phone)
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->email_label) ? htmlspecialchars($contact->email_label) : 'email',
-                                    'value' => htmlspecialchars($contact->email)
-                                ])
-
-                                @include('admin.components.show-row', [
-                                    'name'  => !empty($contact->alt_email_label) ? htmlspecialchars($contact->alt_email_label) : 'alt email',
-                                    'value' => htmlspecialchars($contact->alt_email)
+                                @include('admin.components.show-row-contact-info', [
+                                    'resource' => $contact
                                 ])
 
                                 @include('admin.components.show-row', [
@@ -141,10 +125,15 @@
                                 ])
 
                                 @include('admin.components.show-row-link', [
-                                    'link_name' => htmlspecialchars($contact->link_name ?? 'link'),
+                                    'link_name' => 'link',
                                     'name'      => $contact->link,
                                     'href'      => $contact->link,
                                     'target'    => '_blank',
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'link name',
+                                    'value' => $contact->link_name,
                                 ])
 
                                 @include('admin.components.show-row', [

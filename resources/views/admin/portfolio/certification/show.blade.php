@@ -69,10 +69,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($certification->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $certification->link,
                 'href'      => $certification->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $certification->link_name,
             ])
 
             @include('admin.components.show-row', [

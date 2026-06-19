@@ -76,31 +76,20 @@
                 ])
             ])
 
-            @include('admin.components.show-row', [
-                'name'  => !empty($academy->phone_label) ? $academy->phone_label : 'phone',
-                'value' => $academy->phone
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => $academy->alt_phone_label ?? 'alt phone',
-                'value' => $academy->alt_phone
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => !empty($academy->email_label) ? $academy->email_label : 'email',
-                'value' => $academy->email
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => !empty($academy->alt_email_label) ? $academy->alt_email_label : 'alt email',
-                'value' => $academy->alt_email
+            @include('admin.components.show-row-contact-info', [
+                'resource' => $academy
             ])
 
             @include('admin.components.show-row-link', [
-                'link_name' => htmlspecialchars($academy->link_name ?? 'link'),
+                'link_name' => 'link',
                 'name'      => $academy->link,
                 'href'      => $academy->link,
                 'target'    => '_blank',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $academy->link_name,
             ])
 
             @include('admin.components.show-row', [
