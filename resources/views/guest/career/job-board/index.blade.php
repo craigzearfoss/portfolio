@@ -31,7 +31,7 @@
     @endif
     */ ?>
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 50rem !important;">
 
         <div class="show-container card floating-div">
 
@@ -53,11 +53,11 @@
                     <{{ $labelElem }}>
                     <tr>
                         <th>name</th>
-                        <th class="has-text-centered">free</th>
-                        <th class="has-text-centered">premium*</th>
-                        <th class="has-text-centered">staffing**</th>
+                        <th class="has-text-centered" style="width: 2rem;">free</th>
+                        <th class="has-text-centered" style="width: 2rem;">premium*</th>
+                        <th class="has-text-centered" style="width: 2rem;">staffing**</th>
                         <th class="has-text-centered">freelance***</th>
-                        <th>description</th>
+                        <th class="has-text-centered" style="white-space: nowrap;">job openings</th>
                     </tr>
                     </{{ $labelElem }}>
 
@@ -94,8 +94,16 @@
                         <td class="has-text-centered">
                             @include('guest.components.checkmark', [ 'checked' => $jobBoard->freelance ])
                         </td>
-                        <td style="white-space: nowrap;">
-                            {!! htmlspecialchars($jobBoard->summary) !!}
+                        <td class="has-text-centered">
+                            @if (!empty($jobBoard->jobs_url))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'open link in new window',
+                                    'href'   => $jobBoard->jobs_url,
+                                    'icon'   => 'fa-briefcase',
+                                    'border' => false,
+                                    'target' => '_blank'
+                                ])
+                            @endif
                         </td>
                     </tr>
 
