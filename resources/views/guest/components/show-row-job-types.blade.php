@@ -1,8 +1,4 @@
 @php
-    $link_name = $link_name ?? $label ??  'link';
-    $href      = $href ?? '';
-    $name      = $name ?? $href ?? '';
-
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
@@ -28,6 +24,13 @@
     if (!empty($styleArray)) {
         $styles = array_merge($styles, $styleArray);
     }
+
+    $columns = [
+        'free'      => 'free',
+        'premium'   => 'premium',
+        'staffing'  => 'staffing',
+        'freelance' => 'freelance',
+    ];
 @endphp
 <div @if (!empty($classes))
          class="{!! implode(' ', $classes) !!}"
@@ -37,14 +40,31 @@
      @endif
 >
     <div class="column is-2 label">
-        <strong>{!! $link_name !!}</strong>:
+        <strong>type(s)</strong>:
     </div>
-    <div class="column is-10 value" style="white-space: nowrap;">
-        @include('guest.components.link', [
-            'name'     => $name,
-            'href'     => $href,
-            'target'   => $target ?? '',
-            'download' => isset($download) ? boolval($download) : false,
-        ])
+    <div class="column left-align is-10 value pr-4 mb-3 mr-4">
+        <div>
+
+            <div class="floating-div-container visibility-checkboxes-container settings">
+
+                @foreach ($columns as $column=>$label)
+
+                    @if ($resource->hasAttribute($column))
+
+                        <div class="show-container card floating-div" style="max-width: 9rem; width: 9rem;">
+                            <span>
+                                @include('guest.components.checkmark', [ 'checked' => !empty($resource->{$column}) ])
+                            </span>
+                            <span><strong>{{ $label }}</strong></span>
+                        </div>
+
+                    @endif
+
+                @endforeach
+
+            </div>
+
+        </div>
+
     </div>
 </div>

@@ -88,6 +88,7 @@
                 'value'     => old('summary') ?? $job->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+                'style'     => [ 'max-width: 40rem !important' ]
             ])
 
             @include('admin.components.form-input-horizontal', [

@@ -36,14 +36,15 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
+
         @if (isset($label) && ($label !== ''))
 
             <label
-                @if ($id)
+                @if (!empty($id))
                     for="{{ $id }}"
                 @endif
                 class="{{ implode(' ', $labelClass) }}"
-                @if ($title)
+                @if (!empty($title))
                     title="{{ $title }}"
                 @endif
             >{!! $label !!}</label>
@@ -77,5 +78,6 @@
 
             </div>
         </div>
+
     </div>
 </div>

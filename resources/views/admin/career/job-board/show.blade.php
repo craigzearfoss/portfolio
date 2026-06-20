@@ -81,6 +81,11 @@
             'resource' => $jobBoard
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'founded',
+            'value' => $jobBoard->founded
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => $jobBoard->linkedin_url,
             'label'  => 'linkedin url',

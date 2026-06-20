@@ -140,6 +140,7 @@
                 'value'     => old('summary') ?? $education->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+                'style'     => [ 'max-width: 40rem !important' ]
             ])
 
             @include('admin.components.form-link-horizontal', [

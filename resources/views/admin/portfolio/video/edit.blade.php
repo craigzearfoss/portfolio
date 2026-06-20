@@ -86,6 +86,7 @@
                 'value'     => old('summary') ?? $video->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+                'style'     => [ 'max-width: 40rem !important' ]
             ])
 
             <div class="field is-horizontal">

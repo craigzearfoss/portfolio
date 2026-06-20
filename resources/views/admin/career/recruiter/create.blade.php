@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\RecruiterIndustry;
     use App\Models\System\Country;
     use App\Models\System\State;
 
@@ -61,61 +62,57 @@
                 'value'     => old('summary') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+                'style'     => [ 'max-width: 40rem !important' ]
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'postings_url',
-                'label'     => 'postings url',
-                'value'     => old('postings_url') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'recruiter_industry_id',
+                'label'    => 'industry',
+                'value'    => old('recruiter_industry_id') ??'',
+                'list'     => new RecruiterIndustry()->listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
+                    <strong>coverage areas</strong>
                 </div>
                 <div class="field-body">
                     <div class="field" style="flex-grow: 0;">
 
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'local',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('local') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'regional',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('regional') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'national',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('national') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'international',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('international') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
+                        @include('admin.components.form-coverage-areas', [
+                            'resource' => $recruiter
+                        ])
 
                     </div>
                 </div>
             </div>
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'founded',
+                'value'   => old('founded') ?? '',
+                'min'     => 1800,
+                'max'     => date("Y"),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ]
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'name'               => 'linkedin_url',
+                'label'              => 'linkedin url',
+                'link'               => old('linkedin_url') ?? '',
+                'include_name_field' => false,
+                'message'            => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'name'               => 'jobs_url',
+                'label'              => 'jobs url',
+                'link'               => old('jobs_url') ?? '',
+                'include_name_field' => false,
+                'message'            => $message ?? '',
+            ])
 
             @include('admin.components.form-location-horizontal', [
                 'street'     => old('street') ?? '',
@@ -135,66 +132,30 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone',
-                'value'     => old('phone') ?? '',
-                'maxlength' => 20,
-                'message'   => $message ?? '',
+            @include('admin.components.form-phone-horizontal', [
+                'phone' => old('phone') ?? '',
+                'label' => old('phone_label') ?? '',
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone_label',
-                'label'     => 'phone label',
-                'value'     => old('phone_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
+            @include('admin.components.form-phone-horizontal', [
+                'phone'   => old('alt_phone') ?? '',
+                'label'   => old('alt_phone_label') ?? '',
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone',
-                'label'     => 'alt phone',
-                'value'     => old('alt_phone') ?? '',
-                'maxlength' => 20,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('email') ?? '',
+                'label'   => old('email_label') ?? '',
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone_label',
-                'label'     => 'alt phone label',
-                'value'     => old('alt_phone_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email',
-                'value'     => old('email') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email_label',
-                'label'     => 'email label',
-                'value'     => old('email_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email',
-                'label'     => 'alt email',
-                'value'     => old('alt_email') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email_label',
-                'label'     => 'alt email label',
-                'value'     => old('alt_email_label') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('alt_email') ?? '',
+                'label'   => old('alt_email_table') ?? '',
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-link-horizontal', [

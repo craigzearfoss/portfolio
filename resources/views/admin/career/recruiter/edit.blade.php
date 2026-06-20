@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\RecruiterIndustry;
     use App\Models\System\Country;
     use App\Models\System\State;
 
@@ -70,61 +71,57 @@
                 'value'     => old('summary') ?? $recruiter->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+                'style'     => [ 'max-width: 40rem !important' ]
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'postings_url',
-                'label'     => 'postings url',
-                'value'     => old('postings_url') ?? $recruiter->postings_url,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'recruiter_industry_id',
+                'label'    => 'industry',
+                'value'    => old('recruiter_industry_id') ?? $recruiter->recruiter_industry_id,
+                'list'     => new RecruiterIndustry()->listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
+                    <strong>coverage areas</strong>
                 </div>
                 <div class="field-body">
                     <div class="field" style="flex-grow: 0;">
 
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'local',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('local') ?? $recruiter->local,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'regional',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('regional') ?? $recruiter->regional,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'national',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('national') ?? $recruiter->national,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'international',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('international') ?? $recruiter->international,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
+                        @include('admin.components.form-coverage-areas', [
+                            'resource' => $recruiter
+                        ])
 
                     </div>
                 </div>
             </div>
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'founded',
+                'value'   => old('founded') ?? $recruiter->founded,
+                'min'     => 1800,
+                'max'     => date("Y"),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ]
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'name'               => 'linkedin_url',
+                'label'              => 'linkedin url',
+                'link'               => old('linkedin_url') ?? $recruiter->linkedin_url,
+                'include_name_field' => false,
+                'message'            => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'name'               => 'jobs_url',
+                'label'              => 'jobs url',
+                'link'               => old('jobs_url') ?? $recruiter->jobs_url,
+                'include_name_field' => false,
+                'message'            => $message ?? '',
+            ])
 
             @include('admin.components.form-location-horizontal', [
                 'street'     => old('street') ?? $recruiter->street,

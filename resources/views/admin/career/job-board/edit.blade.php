@@ -1,4 +1,6 @@
 @php
+    use App\Models\Career\Recruiter;
+    use App\Models\Career\RecruiterIndustry;
     use App\Models\System\Country;
     use App\Models\System\State;
 
@@ -33,7 +35,8 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.job-board.update', array_merge([$jobBoard], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.career.job-board.update', array_merge([$jobBoard], request()->all())) }}"
+              method="POST">
             @csrf
             @method('PUT')
 
@@ -69,6 +72,23 @@
                 'value'     => old('summary') ?? $jobBoard->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+                'style'     => [ 'max-width: 40rem !important' ]
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'recruiter_industry_id',
+                'label'    => 'industry',
+                'value'    => old('recruiter_industry_id') ?? $jobBoard->recruiter_industry_id,
+                'list'     => new RecruiterIndustry()->listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'recruiter_id',
+                'label'    => 'recruiting firm',
+                'value'    => old('recruiter_id') ?? $jobBoard->recruiter_id,
+                'list'     => new Recruiter()->listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-job-board-types-horizontal', [
@@ -81,49 +101,44 @@
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
+                    <strong>coverage areas</strong>
                 </div>
                 <div class="field-body">
                     <div class="field" style="flex-grow: 0;">
 
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'local',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('local') ?? $jobBoard->local,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'regional',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('regional') ?? $jobBoard->regional,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'national',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('national') ?? $jobBoard->national,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'international',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('international') ?? $jobBoard->international,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
+                        @include('admin.components.form-coverage-areas', [
+                            'resource' => $jobBoard
+                        ])
 
                     </div>
                 </div>
             </div>
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'founded',
+                'value'   => old('founded') ?? $jobBoard->founded,
+                'min'     => 1800,
+                'max'     => date("Y"),
+                'message' => $message ?? '',
+                'style'   => [ 'width: 6rem' ]
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'name'               => 'linkedin_url',
+                'label'              => 'linkedin url',
+                'link'               => old('linkedin_url') ?? $jobBoard->linkedin_url,
+                'include_name_field' => false,
+                'message'            => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'name'               => 'jobs_url',
+                'label'              => 'jobs url',
+                'link'               => old('jobs_url') ?? $jobBoard->jobs_url,
+                'include_name_field' => false,
+                'message'            => $message ?? '',
+            ])
 
             @include('admin.components.form-location-horizontal', [
                 'street'     => old('street') ?? $jobBoard->street,
@@ -169,12 +184,6 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $jobBoard->notes,
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-link-horizontal', [
                 'link' => old('link') ?? $jobBoard->link,
                 'name' => old('link_name') ?? $jobBoard->link_name,
@@ -194,6 +203,12 @@
                 'download' => true,
                 'external' => true,
                 'editPage' => true,
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $jobBoard->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

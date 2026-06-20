@@ -1,7 +1,8 @@
 @php
-    $name      = $name ?? 'link';
-    $link      = $link ?? '';
-    $link_name = $link_name ?? '';
+    $name               = $name ?? 'link';
+    $link               = $link ?? '';
+    $link_name          = $link_name ?? '';
+    $include_name_field = $include_name_field ?? true;
 
     $class  = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
@@ -38,26 +39,30 @@
 
         </div>
 
-        <div class="content mb-0 ">
-            <div class="control">
-                <input class="input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
-                       type="text"
-                       id="{{ 'input' . ucfirst($name) . '_name' }}"
-                       name="{{ $name . '_name' }}"
-                       value="{!! $link_name !!}"
-                       placeholder="name"
-                       maxlength="255"
-                       @if (!empty($style))
-                           {!! implode('; ', $style) !!}
-                       @endif
-                >
+        @if ($include_name_field)
+
+            <div class="content mb-0 ">
+                <div class="control">
+                    <input class="input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
+                           type="text"
+                           id="{{ 'input' . ucfirst($name) . '_name' }}"
+                           name="{{ $name . '_name' }}"
+                           value="{!! $link_name !!}"
+                           placeholder="name"
+                           maxlength="255"
+                           @if (!empty($style))
+                               {!! implode('; ', $style) !!}
+                           @endif
+                    >
+                </div>
+
+                @error('link_name')
+                    <p class="help is-danger">{!! $message ?? '' !!}</p>
+                @enderror
+
             </div>
 
-            @error('link_name')
-                <p class="help is-danger">{!! $message ?? '' !!}</p>
-            @enderror
-
-        </div>
+        @endif
 
     </div>
 </div>

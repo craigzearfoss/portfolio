@@ -77,13 +77,6 @@
             'resource' => $recruiter
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'postings url',
-            'name'      => $recruiter->postings_url,
-            'href'      => $recruiter->postings_url,
-            'target'    => '_blank'
-        ])
-
         <?php /*
         // these are displayed in the coverage are row
         @include('admin.components.show-row-checkmark', [

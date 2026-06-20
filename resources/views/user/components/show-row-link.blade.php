@@ -1,5 +1,5 @@
 @php
-    $link_name = $link_name ?? 'link';
+    $link_name = $link_name ?? $label ??  'link';
     $href      = $href ?? '';
     $name      = $name ?? $href ?? '';
 

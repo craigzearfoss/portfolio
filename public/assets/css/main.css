@@ -142,7 +142,15 @@ div.field.is-horizontal div.field-label label.label {
     width: 12em;
 }
 
-.edit-container input[name="link"], .edit-container input[name="link2"], .edit-container input[name="image_source"] {
+.edit-container input[name="link"],
+.edit-container input[name="link2"],
+.edit-container input[name="image_source"],
+.edit-container input[name="linkedin_url"],
+.edit-container input[name="jobs_url"],
+.edit-container input[name="audio_url"],
+.edit-container input[name="video_url"]
+
+{
     width: 40em;
 }
 

@@ -7,10 +7,14 @@
 
     $required = $required ?? false;
 
-    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    $class = !empty($class)
+        ? (is_array($class) ? $class : explode(' ', $class))
+        : [];
     if (!in_array('input', $class)) $class[] = 'input';
 
-    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $style = !empty($style)
+        ? (is_array($style) ? $style : explode(';', $style))
+        : [];
 
     $hasIcon = in_array($name, [
         'username',
