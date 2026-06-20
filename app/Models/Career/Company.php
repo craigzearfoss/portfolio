@@ -50,6 +50,7 @@ class Company extends Model
         'slug',
         'industry_id',
         'founded',
+        'linkedin_url',
         'street',
         'street2',
         'city',
@@ -96,10 +97,10 @@ class Company extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'founded', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
-        'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'founded', 'linkedin_url', 'street',
+        'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
+        'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'description',
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
     ];
 
     /**
@@ -142,8 +143,8 @@ class Company extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'company_name', 'industry_name', 'name', 'state_id', ],
-        'guest' => [ 'city', 'company_name', 'industry_name', 'name', 'state_id', ],
+        'admin' => [ 'city', 'founded', 'industry_name', 'name', 'state_name', ],
+        'guest' => [ 'city', 'founded', 'industry_name', 'name', 'state_name', ],
     ];
 
     /**
@@ -193,6 +194,12 @@ class Company extends Model
             ->when(!empty($filters['founded']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '=', intval($filters['founded']));
             })
+            ->when(!empty($filters['founded-min']), function ($query) use ($filters) {
+                $query->where($this->table . '.founded', '>=', $filters['founded-min']);
+            })
+            ->when(!empty($filters['founded-max']), function ($query) use ($filters) {
+                $query->where($this->table . '.founded', '<=', $filters['founded-max']);
+            })
             ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.industry_id', '=', intval($filters['industry_id']));
             })
@@ -201,6 +208,9 @@ class Company extends Model
             })
             ->when(!empty($filters['link_name']), function ($query) use ($filters) {
                 $query->where($this->table . '.link_name', 'like', '%' . $filters['link_name'] . '%');
+            })
+            ->when(!empty($filters['link_url']), function ($query) use ($filters) {
+                $query->where($this->table . '.link_url', 'like', '%' . $filters['link_url'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');

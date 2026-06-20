@@ -139,14 +139,32 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'audio url',
-                'value' => $audio->audio_url,
+                'value' => $audio->audio_url
+                           . (!empty($audio->audio_url)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $audio->laudio_urlink,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'link',
-                'name'      => $audio->link,
-                'href'      => $audio->link,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $audio->link
+                           . (!empty($audio->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $audio->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
             @include('admin.components.show-row', [

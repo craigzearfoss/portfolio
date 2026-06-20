@@ -146,8 +146,8 @@ class Recruiter extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'industry', 'founded', 'name', 'state_id', ],
-        'guest' => [ 'city', 'industry', 'founded', 'name', 'state_id',  ],
+        'admin' => [ 'city', 'industry', 'founded', 'name', 'state_name', ],
+        'guest' => [ 'city', 'industry', 'founded', 'name', 'state_name',  ],
     ];
 
     /**

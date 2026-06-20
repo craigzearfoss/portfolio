@@ -85,11 +85,19 @@
                 'value' => $jobSkill->summary
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'link',
-                'name'      => $jobSkill->link,
-                'href'      => $jobSkill->link,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $jobSkill->link
+                           . (!empty($jobSkill->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $jobSkill->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
             @include('admin.components.show-row', [

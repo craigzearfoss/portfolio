@@ -109,11 +109,19 @@
                 'external' => true,
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'link',
-                'name'      => $certificate->link,
-                'href'      => $certificate->link,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $certificate->link
+                           . (!empty($certificate->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $certificate->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
             @include('admin.components.show-row', [

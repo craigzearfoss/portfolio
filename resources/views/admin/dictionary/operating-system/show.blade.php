@@ -41,12 +41,6 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $operatingSystem->owner->username,
-            'hide'  => !$isRootAdmin,
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'full name',
             'value' => htmlspecialchars($operatingSystem->full_name)
         ])
@@ -91,18 +85,34 @@
             'value' => $operatingSystem->owner
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'wikipedia',
-            'name'      => $operatingSystem->wikipedia,
-            'href'      => $operatingSystem->wikipedia,
-            'target'    => '_blank'
+        @include('admin.components.show-row', [
+            'name'  => 'wikipedia',
+            'value' => $operatingSystem->wikipedia
+                       . (!empty($operatingSystem->wikipedia)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $operatingSystem->wikipedia,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'link',
-            'name'      => $operatingSystem->link,
-            'href'      => $operatingSystem->link,
-            'target'    => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $operatingSystem->link
+                       . (!empty($operatingSystem->link)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $operatingSystem->link,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [

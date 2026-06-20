@@ -86,11 +86,19 @@
             'value' => $project->language_version
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'repository',
-            'name'      => $project->repository_url,
-            'href'      => $project->repository_url,
-            'target'    => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'repository url',
+            'value' => $project->repository_url
+                       . (!empty($project->repository_url)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $project->repository_url,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [
@@ -98,11 +106,19 @@
             'value' => $project->repository_name,
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'link',
-            'name'      => $project->link,
-            'href'      => $project->link,
-            'target'    => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $project->link
+                       . (!empty($project->link)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $project->link,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [

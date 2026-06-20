@@ -104,11 +104,19 @@
                 'value' => $education->summary ?? ''
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'link',
-                'name'      => $education->link,
-                'href'      => $education->link,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $education->link
+                           . (!empty($education->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $education->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
             @include('admin.components.show-row', [

@@ -124,11 +124,19 @@
                                     'value' => longDate($contact->birthday),
                                 ])
 
-                                @include('admin.components.show-row-link', [
-                                    'link_name' => 'link',
-                                    'name'      => $contact->link,
-                                    'href'      => $contact->link,
-                                    'target'    => '_blank',
+                                @include('admin.components.show-row', [
+                                    'name'  => 'link',
+                                    'value' => $contact->link
+                                               . (!empty($contact->link)
+                                                    ? view('admin.components.link-icon', [
+                                                          'title'  => 'open link in new window',
+                                                          'href'   => $contact->link,
+                                                          'icon'   => 'fa-external-link',
+                                                          'border' => false,
+                                                          'target' => '_blank',
+                                                          'style'  => [ 'margin-top: -4px' ]
+                                                      ])
+                                                   : '')
                                 ])
 
                                 @include('admin.components.show-row', [

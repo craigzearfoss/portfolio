@@ -86,18 +86,34 @@
             'value' => $jobBoard->founded
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => $jobBoard->linkedin_url,
-            'label'  => 'linkedin url',
-            'href'   => $jobBoard->linkedin_url,
-            'target' => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'linkedin url',
+            'value' => $jobBoard->linkedin_url
+                       . (!empty($jobBoard->linkedin_url)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $jobBoard->linkedin_url,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => $jobBoard->jobs_url,
-            'label'  => 'jobs url',
-            'href'   => $jobBoard->jobs_url,
-            'target' => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'jobs url',
+            'value' => $jobBoard->jobs_url
+                       . (!empty($jobBoard->jobs_url)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $jobBoard->jobs_url,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [
@@ -117,11 +133,19 @@
             'resource' => $jobBoard
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'link',
-            'name'      => $jobBoard->link,
-            'href'      => $jobBoard->link,
-            'target'    => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $jobBoard->link
+                       . (!empty($jobBoard->link)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $jobBoard->link,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [

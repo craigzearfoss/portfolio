@@ -69,6 +69,7 @@ class UpdateCompaniesRequest extends UpdateAppBaseRequest
             ],
             'industry_id'     => ['filled', 'integer', 'exists:career_db.industries,id'],
             'founded'         => ['integer', 'min:0', 'nullable'],
+            'linkedin_url'    => ['string', 'url:http,https', 'max:500', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

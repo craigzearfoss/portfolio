@@ -103,11 +103,19 @@
             </div>
             <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
 
-                @include('admin.components.show-row-link', [
-                    'link_name' => 'link',
-                    'name'      => $event->link,
-                    'href'      => $event->link,
-                    'target'    => '_blank',
+                @include('admin.components.show-row', [
+                    'name'  => 'link',
+                    'value' => $event->link
+                               . (!empty($event->link)
+                                    ? view('admin.components.link-icon', [
+                                          'title'  => 'open link in new window',
+                                          'href'   => $event->link,
+                                          'icon'   => 'fa-external-link',
+                                          'border' => false,
+                                          'target' => '_blank',
+                                          'style'  => [ 'margin-top: -4px' ]
+                                      ])
+                                   : '')
                 ])
 
                 @include('admin.components.show-row', [

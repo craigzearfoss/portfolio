@@ -105,18 +105,34 @@
             'value' => $recruiter->founded
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => $recruiter->linkedin_url,
-            'label'  => 'linkedin url',
-            'href'   => $recruiter->linkedin_url,
-            'target' => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'linkedin url',
+            'value' => $recruiter->linkedin_url
+                       . (!empty($recruiter->linkedin_url)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $recruiter->linkedin_url,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => $recruiter->jobs_url,
-            'label'  => 'jobs url',
-            'href'   => $recruiter->jobs_url,
-            'target' => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'jobs url',
+            'value' => $recruiter->jobs_url
+                       . (!empty($recruiter->jobs_url)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $recruiter->jobs_url,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [
@@ -140,11 +156,19 @@
             'resource' => $recruiter
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'link',
-            'name'      => $recruiter->link,
-            'href'      => $recruiter->link,
-            'target'    => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $recruiter->link
+                       . (!empty($recruiter->link)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $recruiter->link,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [

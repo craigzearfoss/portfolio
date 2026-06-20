@@ -167,18 +167,34 @@
                 'checked' => $publication->pamphlet
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'publication url',
-                'name'      => $publication->publication_url,
-                'href'      => $publication->publication_url,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'publication url',
+                'value' => $project->publication_url
+                           . (!empty($project->publication_url)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $project->publication_url,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'link',
-                'name'      => $publication->link,
-                'href'      => $publication->link,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $publication->link
+                           . (!empty($publication->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $publication->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
             @include('admin.components.show-row', [

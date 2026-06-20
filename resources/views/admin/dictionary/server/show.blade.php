@@ -41,12 +41,6 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $server->owner->username,
-            'hide'  => !$isRootAdmin,
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'full name',
             'value' => htmlspecialchars($server->full_name)
         ])
@@ -91,18 +85,34 @@
             'value' => $server->owner
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'wikipedia',
-            'name'      => $server->wikipedia,
-            'href'      => $server->wikipedia,
-            'target'    => '_blank'
+        @include('admin.components.show-row', [
+            'name'  => 'wikipedia',
+            'value' => $server->wikipedia
+                       . (!empty($server->wikipedia)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $server->wikipedia,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
-        @include('admin.components.show-row-link', [
-            'link_name' => 'link',
-            'name'      => $server->link,
-            'href'      => $server->link,
-            'target'    => '_blank',
+        @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $server->link
+                       . (!empty($server->link)
+                            ? view('admin.components.link-icon', [
+                                  'title'  => 'open link in new window',
+                                  'href'   => $server->link,
+                                  'icon'   => 'fa-external-link',
+                                  'border' => false,
+                                  'target' => '_blank',
+                                  'style'  => [ 'margin-top: -4px' ]
+                              ])
+                           : '')
         ])
 
         @include('admin.components.show-row', [

@@ -165,6 +165,14 @@
                         'message'   => $message ?? '',
                     ])
 
+                    @include('admin.components.form-link-horizontal', [
+                        'name'               => 'linkedin_url',
+                        'label'              => 'linkedin url',
+                        'link'               => old('linkedin_url') ?? '',
+                        'include_name_field' => false,
+                        'message'            => $message ?? '',
+                    ])
+
                     @include('admin.components.form-textarea-horizontal', [
                         'name'    => 'description',
                         'id'      => 'inputEditor',

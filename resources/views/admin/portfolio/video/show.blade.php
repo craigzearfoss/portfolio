@@ -137,18 +137,34 @@
                 'value'  => $video->embed,
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'video url',
-                'name'      => $video->video_url,
-                'href'      => $video->video_url,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'video url',
+                'value' => $video->video_url
+                           . (!empty($video->video_url)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $video->video_url,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
-            @include('admin.components.show-row-link', [
-                'link_name' => 'link',
-                'name'      => $video->link,
-                'href'      => $video->link,
-                'target'    => '_blank',
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $video->link
+                           . (!empty($video->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $video->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
             ])
 
             @include('admin.components.show-row', [

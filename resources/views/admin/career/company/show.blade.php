@@ -125,16 +125,39 @@
 
                                     <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 100%;">
 
-                                        @include('admin.components.show-row-link', [
-                                            'link_name' => 'link',
-                                            'name'      => $company->link,
-                                            'href'      => $company->link,
-                                            'target'    => '_blank',
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'link',
+                                            'value' => $company->link
+                                                       . (!empty($company->link)
+                                                            ? view('admin.components.link-icon', [
+                                                                  'title'  => 'open link in new window',
+                                                                  'href'   => $company->link,
+                                                                  'icon'   => 'fa-external-link',
+                                                                  'border' => false,
+                                                                  'target' => '_blank',
+                                                                  'style'  => [ 'margin-top: -4px' ]
+                                                              ])
+                                                           : '')
                                         ])
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'link name',
                                             'value' => $company->link_name,
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'linkedin url',
+                                            'value' => $company->linkedin_url
+                                                       . (!empty($company->linkedin_url)
+                                                            ? view('admin.components.link-icon', [
+                                                                  'title'  => 'open link in new window',
+                                                                  'href'   => $company->linkedin_url,
+                                                                  'icon'   => 'fa-external-link',
+                                                                  'border' => false,
+                                                                  'target' => '_blank',
+                                                                  'style'  => [ 'margin-top: -4px' ]
+                                                              ])
+                                                           : '')
                                         ])
 
                                         @include('admin.components.show-row', [
