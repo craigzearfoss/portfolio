@@ -308,4 +308,12 @@ class JobBoard extends Model
     {
         return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
+
+    /**
+     * Get the career recruiter industry that owns the job board.
+     */
+    public function recruiterIndustry(): BelongsTo
+    {
+        return $this->belongsTo(RecruiterIndustry::class, 'recruiter_industry_id');
+    }
 }
