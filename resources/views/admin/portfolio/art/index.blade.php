@@ -51,7 +51,7 @@
                 {!! $arts->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates featured art.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured art. <span class="sample-color-box-light-gray"></span> indicates the art is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -113,22 +113,24 @@
 
                 @forelse ($arts as $art)
 
-                    <tr data-id="{{ $art->id }}">
+                    <tr data-id="{{ $art->id }}" {!! $art->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $art->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $art->owner->username,
-                                    'href' => route('admin.system.admin.show', $art->owner)
+                                    'name'  => $art->owner->username,
+                                    'href'  => route('admin.system.admin.show', $art->owner),
+                                    'class' => $art->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $art->name . (!empty($art->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.art.show', $art)
+                                'name'  => $art->name . (!empty($art->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.art.show', $art),
+                                'class' => $art->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">

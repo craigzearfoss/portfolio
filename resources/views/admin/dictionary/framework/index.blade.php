@@ -37,6 +37,8 @@
                 {!! $frameworks->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the framework is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -78,7 +80,7 @@
                         if ($framework->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $framework->id }}">
+                    <tr data-id="{{ $framework->id }}" {!! $framework->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $framework->id }}

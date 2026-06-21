@@ -106,12 +106,12 @@
 
                 @forelse ($certificates as $certificate)
 
-                    <tr>
+                    <tr {!! $certificate->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($certificate->name),
                                 'href'  => route('guest.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
-                                'class' => $certificate->featured ? 'has-text-weight-bold' : ''
+                                'class' => $certificate->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td style="white-space: nowrap;">

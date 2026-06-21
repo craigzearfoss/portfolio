@@ -51,7 +51,7 @@
                 {!! $contacts->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the contact is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -118,31 +118,34 @@
 
                 @forelse ($contacts as $contact)
 
-                    <tr data-id="{{ $contact->id }}">
+                    <tr data-id="{{ $contact->id }}" {!! $contact->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $contact->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $contact->owner->username,
-                                    'href' => route('admin.system.admin.show', $contact->owner)
+                                    'name'  => $contact->owner->username,
+                                    'href'  => route('admin.system.admin.show', $contact->owner),
+                                    'class' => $contact->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $contact->name,
-                                'href' => route('admin.career.contact.show', $contact)
+                                'name'  => $contact->name,
+                                'href'  => route('admin.career.contact.show', $contact),
+                                'class' => $contact->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="contact.company.names" style="white-space: nowrap;">
                             @php
                                 $companyLinks = $contact->companies->map(
-                                    function ($company) {
+                                    function ($company) use ($contact) {
                                         return view('admin.components.link', [
-                                            'name' => $company->name,
-                                            'href' => route('admin.career.company.show', $company)
+                                            'name'  => $company->name,
+                                            'href'  => route('admin.career.company.show', $company),
+                                            'class' => $contact->is_disabled ? [ 'disabled-text' ] : []
                                         ])->render();
                                     }
                                 );

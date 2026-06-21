@@ -41,7 +41,7 @@
                 {!! $resources->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the resource is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -168,7 +168,7 @@
 
                 @forelse ($resources as $resource)
 
-                    <tr data-id="{{ $resource->id }}">
+                    <tr data-id="{{ $resource->id }}" {!! $resource->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $resource->id }}

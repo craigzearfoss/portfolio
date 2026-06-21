@@ -51,7 +51,7 @@
                 {!! $musics->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured music.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured music. <span class="sample-color-box-light-gray"></span> indicates the music is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -127,22 +127,24 @@
 
                 @forelse ($musics as $music)
 
-                    <tr data-id="{{ $music->id }}">
+                    <tr data-id="{{ $music->id }}" {!! $music->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $music->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $music->owner->username,
-                                    'href' => route('admin.system.admin.show', $music->owner)
+                                    'name'  => $music->owner->username,
+                                    'href'  => route('admin.system.admin.show', $music->owner),
+                                    'class' => $music->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $music->name . (!empty($music->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.music.show', $music)
+                                'name'  => $music->name . (!empty($music->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.music.show', $music),
+                                'class' => $music->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">

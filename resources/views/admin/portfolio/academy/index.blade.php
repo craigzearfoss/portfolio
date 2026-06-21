@@ -46,7 +46,7 @@
                 {!! $academies->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption">* An asterisk indicates a primary academy. <span class="sample-color-box-light-gray"></span> indicates the academy is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -87,7 +87,7 @@
 
                 @forelse ($academies as $academy)
 
-                    <tr data-id="{{ $academy->id }}">
+                    <tr data-id="{{ $academy->id }}" {!! $academy->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $academy->id }}
@@ -95,8 +95,9 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $academy->name,
-                                'href' => route('admin.portfolio.academy.show', $academy)
+                                'name'  => $academy->name,
+                                'href'  => route('admin.portfolio.academy.show', $academy),
+                                'class' => $academy->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">

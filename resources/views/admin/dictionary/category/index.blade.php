@@ -37,6 +37,8 @@
                 {!! $categories->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the category is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -78,7 +80,7 @@
                         if ($category->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $category->id }}">
+                    <tr data-id="{{ $category->id }}" {!! $category->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $category->id }}

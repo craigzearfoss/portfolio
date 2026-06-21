@@ -37,6 +37,8 @@
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the database is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -78,7 +80,7 @@
                         if ($database->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $database->id }}">
+                    <tr data-id="{{ $database->id }}" {!! $database->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $database->id }}

@@ -52,7 +52,7 @@
                 {!! $recipeSteps->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the recipe step is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -112,30 +112,33 @@
 
                 @forelse ($recipeSteps as $recipeStep)
 
-                    <tr data-id="{{ $recipeStep->id }}">
+                    <tr data-id="{{ $recipeStep->id }}" {!! $recipeStep->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $recipeStep->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $recipeStep->owner->username,
-                                    'href' => route('admin.system.admin.show', $recipeStep->owner)
+                                    'name'  => $recipeStep->owner->username,
+                                    'href'  => route('admin.system.admin.show', $recipeStep->owner),
+                                    'class' => $recipeStep->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         @if (empty($recipeId))
                             <td data-field="recipe.name" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                   'name' => $recipeStep->recipe->name . (!empty($recipeStep->recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                   'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
+                                    'name'  => $recipeStep->recipe->name . (!empty($recipeStep->recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                    'href'  => route('admin.personal.recipe.show', $recipeStep->recipe),
+                                    'class' => $recipeStep->is_disabled ? [ 'disabled-text' ] : []
                                ])
                             </td>
                         @endif
                         <td data-field="step" class="has-text-centered">
                             @include('admin.components.link', [
-                               'name' => $recipeStep->step,
-                               'href' => route('admin.personal.recipe-step.show', $recipeStep)
+                                'name'  => $recipeStep->step,
+                                'href'  => route('admin.personal.recipe-step.show', $recipeStep),
+                                'class' => $recipeStep->is_disabled ? [ 'disabled-text' ] : []
                            ])
                         </td>
                         <td data-field="description">

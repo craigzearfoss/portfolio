@@ -52,7 +52,7 @@
                 {!! $links->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured link.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured link. <span class="sample-color-box-light-gray"></span> indicates the link is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -107,22 +107,24 @@
 
                 @forelse ($links as $link)
 
-                    <tr data-id="{{ $link->id }}">
+                    <tr data-id="{{ $link->id }}" {!! $link->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $link->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $link->owner->username,
-                                    'href' => route('admin.system.admin.show', $link->owner)
+                                    'name'  => $link->owner->username,
+                                    'href'  => route('admin.system.admin.show', $link->owner),
+                                    'class' => $link->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $link->name . (!empty($link->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.link.show', $link)
+                                'name'  => $link->name . (!empty($link->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.link.show', $link),
+                                'class' => $link->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td style="white-space: nowrap;">
@@ -130,6 +132,7 @@
                                 'name'   => $link->url,
                                 'href'   => $link->url,
                                 'target' => '_blank',
+                                'class'  => $link->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">

@@ -51,7 +51,7 @@
                 {!! $awards->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured award.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured award. <span class="sample-color-box-light-gray"></span> indicates the award is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -120,22 +120,24 @@
 
                 @forelse ($awards as $award)
 
-                    <tr data-id="{{ $award->id }}">
+                    <tr data-id="{{ $award->id }}" {!! $award->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $award->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $award->owner->username,
-                                    'href' => route('admin.system.admin.show', $award->owner)
+                                    'name'  => $award->owner->username,
+                                    'href'  => route('admin.system.admin.show', $award->owner),
+                                    'class' => $award->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $award->name . (!empty($award->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.award.show', $award)
+                                'name'  => $award->name . (!empty($award->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.award.show', $award),
+                                'class' => $award->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                             <td data-field="category">

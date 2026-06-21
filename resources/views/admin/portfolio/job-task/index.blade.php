@@ -55,7 +55,7 @@
                 {!! $jobTasks->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured job task.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured job task. <span class="sample-color-box-light-gray"></span> indicates the job task is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -110,15 +110,16 @@
 
                 @forelse ($jobTasks as $jobTask)
 
-                    <tr data-id="{{ $jobTask->id }}">
+                    <tr data-id="{{ $jobTask->id }}" {!! $jobTask->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $jobTask->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $jobTask->owner->username,
-                                    'href' => route('admin.system.admin.show', $jobTask->owner)
+                                    'name'  => $jobTask->owner->username,
+                                    'href'  => route('admin.system.admin.show', $jobTask->owner),
+                                    'class' => $jobTask->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif

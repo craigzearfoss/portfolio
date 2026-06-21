@@ -51,7 +51,7 @@
                 {!! $videos->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured award.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured video. <span class="sample-color-box-light-gray"></span> indicates the video is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -120,22 +120,24 @@
 
                 @forelse ($videos as $video)
 
-                    <tr data-id="{{ $video->id }}">
+                    <tr data-id="{{ $video->id }}" {!! $video->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $video->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $video->owner->username,
-                                    'href' => route('admin.system.admin.show', $video->owner)
+                                    'name'  => $video->owner->username,
+                                    'href'  => route('admin.system.admin.show', $video->owner),
+                                    'class' => $video->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $video->name . (!empty($video->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.video.show', $video)
+                                'name'  => $video->name . (!empty($video->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.video.show', $video),
+                                'class' => $video->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="video_year" style="white-space: nowrap;">

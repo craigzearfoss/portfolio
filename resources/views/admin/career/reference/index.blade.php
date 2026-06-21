@@ -51,7 +51,7 @@
                 {!! $references->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the reference is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -115,15 +115,16 @@
 
                 @forelse ($references as $reference)
 
-                    <tr data-id="{{ $reference->id }}">
+                    <tr data-id="{{ $reference->id }}" {!! $reference->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $reference->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $reference->owner->username,
-                                    'href' => route('admin.system.admin.show', $reference->owner)
+                                    'name'  => $reference->owner->username,
+                                    'href'  => route('admin.system.admin.show', $reference->owner),
+                                    'class' => $reference->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif

@@ -99,12 +99,12 @@
 
                 @forelse ($readings as $reading)
 
-                    <tr>
+                    <tr {!! $reading->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($reading->title),
                                 'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
-                                'class' => $reading->featured ? 'has-text-weight-bold' : ''
+                                'class' => $reading->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td style="white-space: nowrap;">

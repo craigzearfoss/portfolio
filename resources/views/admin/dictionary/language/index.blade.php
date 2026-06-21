@@ -37,6 +37,8 @@
                 {!! $languages->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the language is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -78,7 +80,7 @@
                         if ($language->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $language->id }}">
+                    <tr data-id="{{ $language->id }}" {!! $language->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $language->id }}

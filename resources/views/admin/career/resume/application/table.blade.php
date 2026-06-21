@@ -2,8 +2,9 @@
 $notes = $notes ?? [];
 @endphp
 
-
 <p><i>{{ number_format(count($applications)) }} {{ (count($applications) === 1) ? 'application' : 'applications' }} found.</i></p>
+
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the application is disabled.</p>
 
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
@@ -20,17 +21,19 @@ $notes = $notes ?? [];
 
     @foreach ($applications as $application)
 
-        <tr data-id="{{ $application->id }}">
+        <tr data-id="{{ $application->id }}" {!! $application->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td style="white-space: nowrap;">
                 @include('admin.components.link', [
-                    'name' => htmlspecialchars($application->company->name ?? ''),
-                    'href' => route('admin.career.company.show', $application->company)
+                    'name'  => htmlspecialchars($application->company->name ?? ''),
+                    'href'  => route('admin.career.company.show', $application->company),
+                    'class' => $application->is_disabled ? [ 'disabled-text' ] : []
                 ])
             </td>
             <td style="white-space: nowrap;">
                 @include('admin.components.link', [
-                    'name' => $application->role,
-                    'href' => route('admin.career.application.show', $application)
+                    'name'  => $application->role,
+                    'href'  => route('admin.career.application.show', $application),
+                    'class' => $application->is_disabled ? [ 'disabled-text' ] : []
                 ])
             </td>
             <td>

@@ -53,7 +53,7 @@
                 {!! $courses->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured course.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured course. <span class="sample-color-box-light-gray"></span> indicates the course is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -122,29 +122,32 @@
 
                 @forelse ($courses as $course)
 
-                    <tr data-id="{{ $course->id }}">
+                    <tr data-id="{{ $course->id }}" {!! $course->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $course->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $course->owner->username,
-                                    'href' => route('admin.system.admin.show', $course->owner)
+                                    'name'  => $course->owner->username,
+                                    'href'  => route('admin.system.admin.show', $course->owner),
+                                    'class' => $course->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $course->name . (!empty($course->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.course.show', $course)
+                                'name'  => $course->name . (!empty($course->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.course.show', $course),
+                                'class' => $course->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="academy_id">
                             @if (!empty($course->academy))
                                 @include('admin.components.link', [
-                                    'name'   => $course->academy->name ?? '',
-                                    'href'   => route('admin.portfolio.academy.show', $course->academy),
+                                    'name'  => $course->academy->name ?? '',
+                                    'href'  => route('admin.portfolio.academy.show', $course->academy),
+                                    'class' => $course->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
                         </td>

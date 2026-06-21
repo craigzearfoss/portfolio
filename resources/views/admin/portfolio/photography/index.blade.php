@@ -53,6 +53,8 @@
                 {!! $photos->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption">* An asterisk indicates a featured photo. <span class="sample-color-box-light-gray"></span> indicates the photo is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @php
@@ -113,22 +115,24 @@
 
                 @forelse ($photos as $photo)
 
-                    <tr data-id="{{ $photo->id }}">
+                    <tr data-id="{{ $photo->id }}" {!! $photo->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $photo->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $photo->owner->username,
-                                    'href' => route('admin.system.admin.show', $photo->owner)
+                                    'name'  => $photo->owner->username,
+                                    'href'  => route('admin.system.admin.show', $photo->owner),
+                                    'class' => $photo->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $photo->name . (!empty($photo->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.photo.show', $photo)
+                                'name'  => $photo->name . (!empty($photo->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.photography.show', $photo),
+                                'class' => $photo->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="credit" style="white-space: nowrap;">

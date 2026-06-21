@@ -21,8 +21,9 @@
         <tr>
             <td data-field="id" style="white-space: nowrap;">
                 @include('admin.components.link', [
-                    'name' => $coworker->name,
-                    'href' => route('admin.portfolio.job-coworker.show', $coworker)
+                    'name'  => $coworker->name,
+                    'href'  => route('admin.portfolio.job-coworker.show', $coworker),
+                    'class' => $coworker->is_disabled ? [ 'disabled-text' ] : []
                 ])
             </td>
             <td data-field="title" style="white-space: nowrap;">

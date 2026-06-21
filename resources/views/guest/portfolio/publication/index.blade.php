@@ -92,12 +92,12 @@
 
                 @forelse ($publications as $publication)
 
-                    <tr data-id="{{ $publication->id }}">
+                    <tr data-id="{{ $publication->id }}" {!! $publication->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="title" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($publication->title),
                                 'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
-                                'class' => $publication->featured ? 'has-text-weight-bold' : ''
+                                'class' => $publication->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td data-field="publication_name" class="hide-at-480" style="white-space: nowrap;">

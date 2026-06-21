@@ -51,7 +51,7 @@
                 {!! $readings->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured reading.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured reading. <span class="sample-color-box-light-gray"></span> indicates the reading is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -116,22 +116,24 @@
 
                 @forelse ($readings as $reading)
 
-                    <tr data-id="{{ $reading->id }}">
+                    <tr data-id="{{ $reading->id }}" {!! $reading->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $reading->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $reading->owner->username,
-                                    'href' => route('admin.system.admin.show', $reading->owner)
+                                    'name'  => $reading->owner->username,
+                                    'href'  => route('admin.system.admin.show', $reading->owner),
+                                    'class' => $reading->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $reading->title . (!empty($reading->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.personal.reading.show', $reading)
+                                'name'  => $reading->title . (!empty($reading->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.personal.reading.show', $reading),
+                                'class' => $reading->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="author" style="white-space: nowrap;">

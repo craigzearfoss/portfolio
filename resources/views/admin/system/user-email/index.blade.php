@@ -49,7 +49,7 @@
                 {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the user email is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -104,7 +104,7 @@
 
                 @forelse ($userEmails as $userEmail)
 
-                    <tr data-id="{{ $userEmail->id }}">
+                    <tr data-id="{{ $userEmail->id }}" {!! $userEmail->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $userEmail->id }}

@@ -32,7 +32,8 @@ class JobBoardController extends BaseGuestController
             $this->owner ?? null
         )
         ->where('job_boards.name', '!=', 'other')
-        ->whereNotIn('name', [ 'COMPANY WEBSITE', 'INQUIRY' ])
+        ->where('job_boards.name', '!=', 'COMPANY WEBSITE')
+        ->where('job_boards.name', '!=',  'INQUIRY')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Job Boards';

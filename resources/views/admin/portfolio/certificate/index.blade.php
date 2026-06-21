@@ -51,7 +51,7 @@
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured certificate.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured certificate. <span class="sample-color-box-light-gray"></span> indicates the certificate is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -142,29 +142,32 @@
 
                     @forelse ($certificates as $certificate)
 
-                    <tr data-id="{{ $certificate->id }}">
+                    <tr data-id="{{ $certificate->id }}" {!! $certificate->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $certificate->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $certificate->owner->username,
-                                    'href' => route('admin.system.admin.show', $certificate->owner)
+                                    'name'  => $certificate->owner->username,
+                                    'href'  => route('admin.system.admin.show', $certificate->owner),
+                                    'class' => $certificate->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $certificate->name . (!empty($certificate->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.certificate.show', $certificate)
+                                'name'  => $certificate->name . (!empty($certificate->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.certificate.show', $certificate),
+                                'class' => $certificate->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="academy.name">
                             @if (!empty($certificate->academy))
                                 @include('admin.components.link', [
-                                    'name'   => $certificate->academy->name,
-                                    'href'   => route('admin.portfolio.academy.show', $certificate->academy),
+                                    'name'  => $certificate->academy->name,
+                                    'href'  => route('admin.portfolio.academy.show', $certificate->academy),
+                                    'class' => $certificate->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
                         </td>

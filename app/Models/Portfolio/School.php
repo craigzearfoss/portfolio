@@ -109,7 +109,10 @@ class School extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'state_code', 'state_name',
+        'country_iso_alpha3',
+        'country_name',
+        'state_code',
+        'state_name',
     ];
 
     /**
@@ -131,6 +134,7 @@ class School extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
+        'city|asc'           => 'city',
         'closed|asc'         => 'closed',
         'created_at|desc'    => 'datetime created',
         'updated_at|desc'    => 'datetime updated',
@@ -161,8 +165,8 @@ class School extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'founded', 'name', 'state_name', ],
-        'guest' => [ 'founded', 'name', 'state_name' ],
+        'admin' => [ 'city', 'founded', 'name', 'state_name', ],
+        'guest' => [ 'city', 'founded', 'name', 'state_name' ],
     ];
 
     /**
@@ -308,8 +312,15 @@ class School extends Model
 
         // join to states table
         $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id')
-            ->addSelect(DB::Raw('states.code as state_code'))
-            ->addSelect(DB::Raw('states.name as state_name'));
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', $this->table . '.country_id');
+
+        $query->select([
+            DB::raw('schools.*'),
+            DB::raw('states.code as state_code'),
+            DB::raw('states.name as state_name'),
+            DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
+            DB::raw('countries.name as country_name'),
+        ] );
 
         $query->with('state', 'country');
 

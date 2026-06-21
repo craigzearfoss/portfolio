@@ -37,6 +37,8 @@
                 {!! $operatingSystems->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the operating system is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -78,7 +80,7 @@
                         if ($operatingSystem->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $operatingSystem->id }}">
+                    <tr data-id="{{ $operatingSystem->id }}" {!! $operatingSystem->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $operatingSystem->id }}

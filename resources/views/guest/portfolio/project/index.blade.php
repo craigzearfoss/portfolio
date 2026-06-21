@@ -92,12 +92,12 @@
 
                 @forelse ($projects as $project)
 
-                    <tr data-id="{{ $project->id }}">
+                    <tr data-id="{{ $project->id }}" {!! $project->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($project->name),
                                 'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
-                                'class' => $project->featured ? 'has-text-weight-bold' : ''
+                                'class' => $project->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td data-field="language" style="white-space: nowrap;">

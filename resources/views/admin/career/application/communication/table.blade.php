@@ -1,6 +1,8 @@
 @php
     $communications = $communications ?? [];
 @endphp
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the communication is disabled.</p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -16,7 +18,7 @@
 
     @foreach ($communications as $communication)
 
-        <tr data-id="{{ $communication->id }}">
+        <tr data-id="{{ $communication->id }}" {!! $communication->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td style="white-space: nowrap;">
                 {!! htmlspecialchars($communication->communicationType->name ?? '') !!}
             </td>

@@ -52,7 +52,7 @@
                 {!! $jobs->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured job.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured job. <span class="sample-color-box-light-gray"></span> indicates the job is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -122,22 +122,24 @@
 
                 @forelse ($jobs as $job)
 
-                    <tr data-id="{{ $job->id }}">
+                    <tr data-id="{{ $job->id }}" {!! $job->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $job->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $job->owner->username,
-                                    'href' => route('admin.system.admin.show', $job->owner)
+                                    'name'  => $job->owner->username,
+                                    'href'  => route('admin.system.admin.show', $job->owner),
+                                    'class' => $job->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="company" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $job->company . (!empty($job->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.job.show', $job)
+                                'name'  => $job->company . (!empty($job->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.job.show', $job),
+                                'class' => $job->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="logo_small" class="has-text-centered">

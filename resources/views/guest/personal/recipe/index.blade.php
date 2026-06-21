@@ -84,12 +84,12 @@
 
                 @forelse ($recipes as $recipe)
 
-                    <tr>
+                    <tr {!! $recipe->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($recipe->name),
                                 'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
-                                'class' => $recipe->featured ? 'has-text-weight-bold' : ''
+                                'class' => $recipe->featured ? [ 'has-text-weight-bold' ] : [],
                             ])
                         </td>
                         <td data-field="types" style="white-space: nowrap;">

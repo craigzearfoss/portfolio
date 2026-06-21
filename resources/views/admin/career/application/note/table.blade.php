@@ -1,6 +1,8 @@
 @php
     $notes = $notes ?? [];
 @endphp
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the note is disabled.</p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -14,7 +16,7 @@
 
     @foreach ($notes as $note)
 
-        <tr data-id="{{ $note->id }}">
+        <tr data-id="{{ $note->id }}" {!! $note->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td>
                 {!! htmlspecialchars($note->subject) !!}
             </td>

@@ -48,7 +48,7 @@
                 {!! $certifictaions->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the certification is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -103,7 +103,7 @@
 
                 @forelse ($certifications as $certification)
 
-                    <tr data-id="{{ $certification->id }}">
+                    <tr data-id="{{ $certification->id }}" {!! $certification->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $certification->id }}
@@ -111,8 +111,9 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $certification->name,
-                                'href' => route('admin.portfolio.certification.show', $certification)
+                                'name'  => $certification->name,
+                                'href'  => route('admin.portfolio.certification.show', $certification),
+                                'class' => $certification->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="abbreviation" style="white-space: nowrap;">

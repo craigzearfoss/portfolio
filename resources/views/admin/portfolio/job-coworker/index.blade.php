@@ -55,7 +55,7 @@
                 {!! $jobCoworkers->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured coworker.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured coworker. <span class="sample-color-box-light-gray"></span> indicates the coworker is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -111,22 +111,24 @@
 
                 @forelse ($jobCoworkers as $jobCoworker)
 
-                    <tr data-id="{{ $jobCoworker->id }}">
+                    <tr data-id="{{ $jobCoworker->id }}" {!! $jobCoworker->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $jobCoworker->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $jobCoworker->owner->username,
-                                    'href' => route('admin.system.admin.show', $jobCoworker->owner)
+                                    'name'  => $jobCoworker->owner->username,
+                                    'href'  => route('admin.system.admin.show', $jobCoworker->owner),
+                                    'class' => $jobCoworker->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $jobCoworker->name . (!empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.job-coworker.show', $jobCoworker)
+                                'name'  => $jobCoworker->name . (!empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.job-coworker.show', $jobCoworker),
+                                'class' => $jobCoworker->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="level">

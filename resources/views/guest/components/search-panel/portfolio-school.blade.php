@@ -11,6 +11,9 @@
     $community_college = $community_college ?? request()->query('community_college');
     $created_at_max    = $created_at_max ?? request()->query('created_at-max');
     $created_at_min    = $created_at_min ?? request()->query('created_at-min');
+    $founded           = $founded ?? request()->query('$founded');
+    $founded_max       = $founded_max ?? request()->query('founded-max');
+    $founded_min       = $founded_min ?? request()->query('founded-min');
     $gender            = $gender ?? request()->query('gender');
     $hbcu              = $hbcu ?? request()->query('hbcu');
     $medical           = $medical ?? request()->query('medical');
@@ -110,6 +113,16 @@
                     </div>
                     <div class="floating-div">
 
+                        <div>
+                            @include('guest.components.search-panel.controls.career-recruiter-founded', [
+                                'founded_min' => $founded_min,
+                                'founded_max' => $founded_max,
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
                         @include('guest.components.form-checkbox', [
                             'name'      => 'community_college',
                             'label'     => 'community college',
@@ -148,7 +161,8 @@
 
                     </div>
 
-                @if ($isRootAdmin)
+                    <?php /*
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('guest.components.search-panel.controls.timestamp-created-at', [
@@ -163,6 +177,7 @@
 
                         </div>
                     @endif
+                    */ ?>
 
                 </div>
 

@@ -81,12 +81,12 @@
 
                 @forelse ($audios as $audio)
 
-                    <tr data-id="{{ $audio->id }}">
+                    <tr data-id="{{ $audio->id }}" {!! $audio->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($audio->name),
                                 'href'  => route('guest.portfolio.audio.show', [$owner, $audio->slug]),
-                                'class' => $audio->featured ? 'has-text-weight-bold' : ''
+                                'class' => $audio->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td data-field="clip|podcast" class="hide-at-600" style="white-space: nowrap;">

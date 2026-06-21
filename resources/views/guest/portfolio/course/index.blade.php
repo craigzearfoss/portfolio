@@ -92,12 +92,12 @@
 
                 @forelse ($courses as $course)
 
-                    <tr>
+                    <tr {!! $course->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($course->name),
                                 'href'  => route('guest.portfolio.course.show', [$owner, $course->slug]),
-                                'class' => $course->featured ? 'has-text-weight-bold' : ''
+                                'class' => $course->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td style="white-space: nowrap;">

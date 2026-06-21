@@ -52,9 +52,7 @@
                 {!! $coverLetters->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
-
-            <p class="admin-table-caption"></p>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the cover letter is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -115,28 +113,31 @@
 
                 @forelse ($coverLetters as $coverLetter)
 
-                    <tr data-id="{{ $coverLetter->id }}">
+                    <tr data-id="{{ $coverLetter->id }}" {!! $coverLetter->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $coverLetter->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $coverLetter->owner->username,
-                                    'href' => route('admin.system.admin.show', $coverLetter->owner)
+                                    'name'  => $coverLetter->owner->username,
+                                    'href'  => route('admin.system.admin.show', $coverLetter->owner),
+                                    'class' => $coverLetter->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="company.name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $coverLetter->application->company->name,
-                                'href' => route('admin.career.company.show', $coverLetter->application->company)
+                                'name'  => $coverLetter->application->company->name,
+                                'href'  => route('admin.career.company.show', $coverLetter->application->company),
+                                'class' => $coverLetter->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $coverLetter->application->role,
-                                'href' => route('admin.career.application.show', $coverLetter->application)
+                                'name'  => $coverLetter->application->role,
+                                'href'  => route('admin.career.application.show', $coverLetter->application),
+                                'class' => $coverLetter->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="post_date" style="white-space: nowrap;">

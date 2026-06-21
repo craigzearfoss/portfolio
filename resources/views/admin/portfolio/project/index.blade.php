@@ -51,7 +51,7 @@
                 {!! $projects->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured project.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured project. <span class="sample-color-box-light-gray"></span> indicates the project is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -114,22 +114,24 @@
                 <tbody>
 
                 @forelse ($projects as $project)
-                    <tr data-id="{{ $project->id }}">
+                    <tr data-id="{{ $project->id }}" {!! $project->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $project->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $project->owner->username,
-                                    'href' => route('admin.system.admin.show', $project->owner)
+                                    'name'  => $project->owner->username,
+                                    'href'  => route('admin.system.admin.show', $project->owner),
+                                    'class' => $project->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $project->name . (!empty($project->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.project.show', $project)
+                                'name'  => $project->name . (!empty($project->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.project.show', $project),
+                                'class' => $project->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="language" style="white-space: nowrap;">
@@ -146,7 +148,8 @@
                                 @include('admin.components.link', [
                                     'name'   => $project->repository_name ?? '',
                                     'href'   => $project->repository_url,
-                                    'target' => '_blank'
+                                    'target' => '_blank',
+                                    'class'  => $project->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
                         </td>

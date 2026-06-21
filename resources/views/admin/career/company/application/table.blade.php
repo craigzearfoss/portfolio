@@ -1,6 +1,8 @@
 @php
     $applications = $applications ?? [];
 @endphp
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the application is disabled.</p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -16,7 +18,7 @@
 
     @foreach ($applications as $application)
 
-        <tr data-id="{{ $application->id }}">
+        <tr data-id="{{ $application->id }}" {!! $application->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td style="white-space: nowrap;">
                 {!! htmlspecialchars($application->role) !!}
             </td>

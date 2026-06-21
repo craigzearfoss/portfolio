@@ -52,7 +52,7 @@
                 {!! $communications->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the communication is disabled.</p>
 
             <table class="table admin-table communications-table {{ $adminTableClasses ?? '' }}">
 
@@ -127,25 +127,27 @@
 
                 @forelse ($communications as $communication)
 
-                    <tr data-id="{{ $communication->id }}">
+                    <tr data-id="{{ $communication->id }}" {!! $communication->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $communication->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $communication->owner->username,
-                                    'href' => route('admin.system.admin.show', $communication->owner)
+                                    'name'  => $communication->owner->username,
+                                    'href'  => route('admin.system.admin.show', $communication->owner),
+                                    'class' => $communication->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="application_id">
                             @if (!empty($communication->application))
                                 @include('admin.components.link', [
-                                    'name' => htmlspecialchars($communication->application->name),
-                                    'href' => route('admin.career.application.show',
+                                    'name'  => htmlspecialchars($communication->application->name),
+                                    'href'  => route('admin.career.application.show',
                                                     Application::find($communication->application->id)
-                                              )
+                                               ),
+                                    'class' => $communication->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
                         </td>
@@ -154,8 +156,9 @@
                         </td>
                         <td data-field="subject">
                             @include('admin.components.link', [
-                                'name' => $communication->subject,
-                                'href' => route('admin.career.communication.show', $communication)
+                                'name'  => $communication->subject,
+                                'href'  => route('admin.career.communication.show', $communication),
+                                'class' => $communication->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="to">

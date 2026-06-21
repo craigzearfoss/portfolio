@@ -1,6 +1,8 @@
 @php
     $contacts = $contacts ?? [];
 @endphp
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the contact is disabled.</p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -14,7 +16,7 @@
 
     @foreach ($contacts as $contact)
 
-        <tr data-id="{{ $contact->id }}">
+        <tr data-id="{{ $contact->id }}" {!! $contact->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td>
                 {!! htmlspecialchars($contact->name) !!}
             </td>

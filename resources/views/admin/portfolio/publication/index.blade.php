@@ -51,7 +51,7 @@
                 {!! $publications->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured publication.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured publication. <span class="sample-color-box-light-gray"></span> indicates the publication is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -120,22 +120,24 @@
 
                 @forelse ($publications as $publication)
 
-                    <tr data-id="{{ $publication->id }}">
+                    <tr data-id="{{ $publication->id }}" {!! $publication->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $publication->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $publication->owner->username,
-                                    'href' => route('admin.system.admin.show', $publication->owner)
+                                    'name'  => $publication->owner->username,
+                                    'href'  => route('admin.system.admin.show', $publication->owner),
+                                    'class' => $publication->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="title" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $publication->title . (!empty($publication->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.publication.show', $publication)
+                                'name'  => $publication->title . (!empty($publication->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.publication.show', $publication),
+                                'class' => $publication->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="publication_name" style="white-space: nowrap;">

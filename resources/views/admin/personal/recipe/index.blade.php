@@ -51,7 +51,7 @@
                 {!! $recipes->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured recipe.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured recipe. <span class="sample-color-box-light-gray"></span> indicates the recipe is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -108,22 +108,24 @@
 
                 @forelse ($recipes as $recipe)
 
-                    <tr data-id="{{ $recipe->id }}">
+                    <tr data-id="{{ $recipe->id }}" {!! $recipe->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $recipe->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $recipe->owner->username,
-                                    'href' => route('admin.system.admin.show', $recipe->owner)
+                                    'name'  => $recipe->owner->username,
+                                    'href'  => route('admin.system.admin.show', $recipe->owner),
+                                    'class' => $recipe->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $recipe->name . (!empty($recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.personal.recipe.show', $recipe)
+                                'name'  => $recipe->name . (!empty($recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.personal.recipe.show', $recipe),
+                                'class' => $recipe->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="types" style="white-space: nowrap;">

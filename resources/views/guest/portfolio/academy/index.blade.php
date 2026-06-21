@@ -75,7 +75,7 @@
 
                 @forelse ($academies as $academy)
 
-                    <tr>
+                    <tr {!! $academy->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             <span {!! $academy->featured ? 'class="has-text-weight-bold"' : '' !!}>
                                 {{ $academy->name }}

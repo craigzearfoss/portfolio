@@ -99,12 +99,12 @@
 
                 @forelse ($awards as $award)
 
-                    <tr>
+                    <tr {!! $award->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($award->name),
                                 'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
-                                'class' => $award->featured ? 'has-text-weight-bold' : ''
+                                'class' => $award->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td style="white-space: nowrap;">

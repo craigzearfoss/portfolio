@@ -51,7 +51,7 @@
                 {!! $audios->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured audio.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured audio. <span class="sample-color-box-light-gray"></span> indicates the audio is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -107,22 +107,24 @@
 
                 @forelse ($audios as $audio)
 
-                    <tr data-id="{{ $audio->id }}">
+                    <tr data-id="{{ $audio->id }}" {!! $audio->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $audio->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $audio->owner->username,
-                                    'href' => route('admin.system.admin.show', $audio->owner)
+                                    'name'  => $audio->owner->username,
+                                    'href'  => route('admin.system.admin.show', $audio->owner),
+                                    'class' => $audio->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $audio->name . (!empty($audio->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.audio.show', $audio)
+                                'name'  => $audio->name . (!empty($audio->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.audio.show', $audio),
+                                'class' => $audio->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="clip|podcast">

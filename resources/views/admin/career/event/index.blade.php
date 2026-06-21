@@ -54,7 +54,7 @@
                 {!! $events->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the event is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -122,32 +122,35 @@
 
                 @forelse ($events as $event)
 
-                    <tr data-id="{{ $event->id }}">
+                    <tr data-id="{{ $event->id }}" {!! $event->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $event->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $event->owner->username,
-                                    'href' => route('admin.system.admin.show', $event->owner)
+                                    'name'  => $event->owner->username,
+                                    'href'  => route('admin.system.admin.show', $event->owner),
+                                    'class' => $event->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="application_id" style="white-space: nowrap;">
                             @if (!empty($event->application))
                                 @include('admin.components.link', [
-                                    'name' => htmlspecialchars($event->application->name),
-                                    'href' => route('admin.career.application.show',
+                                    'name'  => htmlspecialchars($event->application->name),
+                                    'href'  => route('admin.career.application.show',
                                                     Application::find($event->application->id)
-                                              )
+                                               ),
+                                    'class' => $event->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $event->name,
-                                'href' => route('admin.career.event.show', $event)
+                                'name'  => $event->name,
+                                'href'  => route('admin.career.event.show', $event),
+                                'class' => $event->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="event_datetime" class="has-text-centered" style="white-space: nowrap;">

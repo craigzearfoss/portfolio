@@ -86,7 +86,7 @@
 
                 @forelse ($educations as $education)
 
-                    <tr>
+                    <tr {!! $education->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="major" style="white-space: nowrap;">
                             @if ($education->featured)
                                 <strong>

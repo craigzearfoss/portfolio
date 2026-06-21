@@ -92,7 +92,7 @@
 
                 @forelse ($skills as $skill)
 
-                    <tr>
+                    <tr {!! $skill->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @if ($skill->featured)
                                 <strong>{!! htmlspecialchars($skill->name) !!}</strong>

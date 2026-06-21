@@ -47,7 +47,7 @@
                 {!! $allMessages->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the message is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -112,7 +112,7 @@
 
                 @forelse ($allMessages as $thisMessage)
 
-                    <tr data-id="{{ $thisMessage->id }}">
+                    <tr data-id="{{ $thisMessage->id }}" {!! $thisMessage->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="id">
                             {{ $thisMessage->id }}
                         </td>

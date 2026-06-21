@@ -11,19 +11,20 @@ use App\Traits\SearchableModelTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
  */
 class JobBoard extends Model
 {
-    use SearchableModelTrait;
-
-    use SoftDeletes;
+    use SearchableModelTrait, Notifiable, SoftDeletes;
 
     /**
      * @var string
@@ -34,11 +35,6 @@ class JobBoard extends Model
      * @var string
      */
     protected $table = 'job_boards';
-
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -99,7 +95,13 @@ class JobBoard extends Model
     /**
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
-    const array PREDEFINED_SEARCH_COLUMNS = [];
+    const array PREDEFINED_SEARCH_COLUMNS = [
+        'country_iso_alpha3',
+        'country_name',
+        'industry_name',
+        'state_code',
+        'state_name',
+    ];
 
     /**
      * SearchableModelTrait variables.
@@ -121,17 +123,31 @@ class JobBoard extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc' => 'date created',
-        'updated_at|desc' => 'date updated',
-        'founded|asc'     => 'founded',
-        'free|desc'       => 'free',
-        'freelance'       => 'freelance',
-        'id|asc'          => 'id',
-        'industry|asc'    => 'industry',
-        'name|asc'        => 'name',
-        'premium'         => 'premium',
-        'sequence|asc'    => 'sequence',
-        'staffing'        => 'staffing',
+        'city|asc'          => 'city',
+        'country_name|asc'  => 'country',
+        'created_at|desc'   => 'datetime created',
+        'updated_at|desc'   => 'datetime updated',
+        'is_demo|desc'      => 'demo',
+        //'description|asc'   => 'description',
+        'is_disabled|desc'  => 'disabled',
+        'email|asc'         => 'email',
+        'founded|asc'       => 'founded',
+        'free|desc'         => 'free',
+        'freelance'         => 'freelance',
+        'id|asc'            => 'id',
+        'industry_name|asc' => 'industry',
+        'link|asc'          => 'link',
+        'link_name|asc'     => 'link name',
+        'name|asc'          => 'name',
+        //'notes|asc'         => 'notes',
+        'phone|asc'         => 'phone',
+        'premium|desc'      => 'premium',
+        'is_public|desc'    => 'public',
+        'is_readonly|desc'  => 'read-only',
+        'is_root|desc'      => 'root',
+        'sequence|asc'      => 'sequence',
+        'staffing|desc'     => 'staffing',
+        'state_name|asc'    => 'state',
     ];
 
     /**
@@ -139,8 +155,9 @@ class JobBoard extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'industry', 'founded', 'name', 'state_name' ],
-        'guest' => [ 'city', 'industry', 'founded', 'name', 'state_name' ],
+        'admin' => [ 'city', 'country_name', 'founded', 'id', 'industry_name', 'name', 'state_name' ],
+        'guest' => [ 'city', 'country_name', 'founded', 'free', 'freelance', 'industry_name', 'name',
+            'premium', 'staffing', 'state_name' ],
     ];
 
     /**
@@ -181,6 +198,9 @@ class JobBoard extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = $this->getSearchQuery($filters, false)
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
+            })
             ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
@@ -188,6 +208,12 @@ class JobBoard extends Model
                     throw new Exception('Invalid coverage_area "' . $filters['coverage_area'] . '" specified.'
                         . ' Valid coverage areas are "' . implode('", "', self::COVERAGE_AREAS) . '".');
                 }
+            })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['founded']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '=', intval($filters['founded']));
@@ -198,14 +224,11 @@ class JobBoard extends Model
             ->when(!empty($filters['founded-max']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '<=', $filters['founded-max']);
             })
-            ->when(!empty($filters['free']), function ($query) use ($filters) {
-                $query->where($this->table . '.free', '=', true);
+            ->when(!empty($filters['is_active']), function ($query) use ($filters) {
+                $query->where($this->table . '.is_disabled', '=', false);
             })
-            ->when(!empty($filters['freelance']), function ($query) use ($filters) {
-                $query->where($this->table . '.freelance', '=', true);
-            })
-            ->when(!empty($filters['international']), function ($query) use ($filters) {
-                $query->where($this->table . '.international', '=', true);
+            ->when(!empty($filters['is_disabled']), function ($query) use ($filters) {
+                $query->where($this->table . '.is_disabled', '=', true);
             })
             ->when(!empty($filters['jobs_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.jobs_url', 'like', '%' . $filters['jobs_url'] . '%');
@@ -219,14 +242,11 @@ class JobBoard extends Model
             ->when(!empty($filters['linkedin_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.linkedin_url', 'like', '%' . $filters['linkedin_url'] . '%');
             })
-            ->when(!empty($filters['local']), function ($query) use ($filters) {
-                $query->where($this->table . '.local', '=', true);
-            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
-            ->when(!empty($filters['national']), function ($query) use ($filters) {
-                $query->where($this->table . '.national', '=', true);
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['primary']), function ($query) use ($filters) {
                 $query->where($this->table . '.primary', '=', true);
@@ -237,18 +257,73 @@ class JobBoard extends Model
             ->when(!empty($filters['recruiter_industry_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.recruiter_industry_id', '=', intval($filters['recruiter_industry_id']));
             })
-            ->when(!empty($filters['regional']), function ($query) use ($filters) {
-                $query->where($this->table . '.regional', '=', true);
-            })
             ->when(!empty($filters['specialties']), function ($query) use ($filters) {
                 $query->where($this->table . '.specialties', 'like', '%' . $filters['specialties'] . '%');
             })
-            ->when(!empty($filters['staffing']), function ($query) use ($filters) {
-                $query->where($this->table . '.staffing', '=', true);
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
+
+        // add types
+        if (!empty($filters['free']) || !empty($filters['premium']) || !empty($filters['staffing']) || !empty($filters['freelance'])) {
+            $free      = boolval($filters['free'] ?? 0);
+            $premium   = boolval($filters['premium']?? 0);
+            $staffing  = boolval($filters['staffing'] ?? 0);
+            $freelance = boolval($filters['freelance'] ?? 0);
+            $query->where(function ($query) use ($free, $premium, $staffing, $freelance) {
+                if ($free) {
+                    $query->orWhere($this->table . '.free', '=', $free);
+                }
+                if ($premium) {
+                    $query->orWhere($this->table . '.premium', '=', $premium);
+                }
+                if ($staffing) {
+                    $query->orWhere($this->table . '.staffing', '=', $staffing);
+                }
+                if ($freelance) {
+                    $query->orWhere($this->table . '.freelance', '=', $freelance);
+                }
+            });
+        }
+
+        // add coverage areas
+        if (!empty($filters['local']) || !empty($filters['regional']) || !empty($filters['national']) || !empty($filters['international'])) {
+            $local         = boolval($filters['local'] ?? 0);
+            $regional      = boolval($filters['regional']?? 0);
+            $national      = boolval($filters['national'] ?? 0);
+            $international = boolval($filters['international'] ?? 0);
+            $query->where(function ($query) use ($local, $regional, $national, $international) {
+                if ($local) {
+                    $query->orWhere($this->table . '.local', '=', $local);
+                }
+                if ($regional) {
+                    $query->orWhere($this->table . '.regional', '=', $regional);
+                }
+                if ($national) {
+                    $query->orWhere($this->table . '.national', '=', $national);
+                }
+                if ($international) {
+                    $query->orWhere($this->table . '.international', '=', $international);
+                }
+            });
+        }
+
+        // add joins
+        $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', $this->table . '.country_id')
+            ->leftJoin( dbName('career_db') . '.recruiter_industries', 'recruiter_industries.id', '=', $this->table . '.recruiter_industry_id');
+
+        $query->select([
+            DB::raw('job_boards.*'),
+            DB::raw('recruiter_industries.name as industry_name'),
+            DB::raw('states.code as state_code'),
+            DB::raw('states.name as state_name'),
+            DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
+            DB::raw('countries.name as country_name'),
+        ] );
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);

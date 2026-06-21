@@ -1,6 +1,8 @@
 @php
 $companies = $companies ?? [];
 @endphp
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the company is disabled.</p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -16,11 +18,12 @@ $companies = $companies ?? [];
 
     @foreach ($companies as $company)
 
-        <tr data-id="{{ $company->id }}">
+        <tr data-id="{{ $company->id }}" {!! $company->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td data-field="name">
                 @include('admin.components.link', [
-                    'name' => htmlspecialchars($company->name),
-                    'href' => route('admin.career.company.show', $company)
+                    'name'  => htmlspecialchars($company->name),
+                    'href'  => route('admin.career.company.show', $company),
+                    'class' => $company->is_disabled ? [ 'disabled-text' ] : []
                 ])
             </td>
             <td data-field="industry.name">

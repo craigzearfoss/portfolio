@@ -54,7 +54,7 @@
                 {!! $adminGroups->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the admin group is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -116,7 +116,7 @@
 
                 @forelse ($adminGroups as $adminGroup)
 
-                    <tr data-id="{{ $adminGroup->id }}">
+                    <tr data-id="{{ $adminGroup->id }}" {!! $adminGroup->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminGroup->id }}

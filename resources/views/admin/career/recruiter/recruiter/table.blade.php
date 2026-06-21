@@ -19,9 +19,10 @@
             {!! $recruiters->links('vendor.pagination.bulma') !!}
         @endif
 
-        <?php /* <p class="admin-table-caption"></p> */ ?>
+        <p class="admin-table-caption">* An asterisk indicates a primary recruiter. <span class="sample-color-box-light-gray"></span> indicates the recruiter is disabled.</p>
 
         <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+
 
             @php
                 $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -34,7 +35,7 @@
                 <tr>
                     @if ($isRootAdmin)
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'id',
                                 'sort'  => 'id|asc',
@@ -42,14 +43,30 @@
                         </th>
                     @endif
                     <th>
-                        @include('guest.components.column-heading', [
+                        @include('admin.components.column-heading', [
                             'class' => $className,
                             'name'  => 'name',
                             'sort'  => 'name|asc',
                         ])
                     </th>
+                    <th>
+                        @include('admin.components.column-heading', [
+                            'class' => $className,
+                            'name'  => 'industry',
+                            'sort'  => 'industry_name|asc',
+                        ])
+                    </th>
                     <th style="white-space: nowrap;">coverage area</th>
+                    <th class="has-text-centered">
+                        @include('admin.components.column-heading', [
+                            'class' => $className,
+                            'name'  => 'founded',
+                            'sort'  => 'founded|desc',
+                        ])
+                    </th>
                     <th>location</th>
+                    <th style="display: none;">public</th>
+                    <th style="display: none;">disabled</th>
                     <th>actions</th>
                 </tr>
                 </{{ $labelElem }}>
@@ -60,7 +77,7 @@
 
             @forelse ($recruiters as $recruiter)
 
-                <tr data-id="{{ $recruiter->id }}">
+                <tr data-id="{{ $recruiter->id }}" {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
                     @if ($isRootAdmin)
                         <td data-field="id">
                             {{ $recruiter->id }}
@@ -68,20 +85,33 @@
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
                         @include('admin.components.link', [
-                            'name' => $recruiter->name . (!empty($recruiter->featured) ? '<span class="featured-splat">*</span>' : ''),
-                            'href' => route('admin.career.recruiter.show', $recruiter)
+                            'name'  => $recruiter->name . (!empty($recruiter->primary) ? '<span class="primary-splat">*</span>' : ''),
+                            'href'  => route('admin.career.recruiter.show', $recruiter),
+                            'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
                         ])
+                    </td>
+                    <td data-field="recruiter_industry_name" style="white-space: nowrap;">
+                        {{ $recruiter->recruiterIndustry->name ?? '' }}
                     </td>
                     <td data-field="international|national|regional|local" style="white-space: nowrap;">
                         {{ implode(', ', $recruiter->coverageAreas ?? []) }}
                     </td>
+                    <td data-field="founded" class="has-text-centered" style="white-space: nowrap;">
+                        {{ $recruiter->founded }}
+                    </td>
                     <td data-field="location" style="white-space: nowrap;">
-                        {{
-                            formatLocation([
-                                'city'    => htmlspecialchars($recruiter->city),
-                                'state'   => $recruiter->state->code ?? '',
-                            ])
-                        }}
+                        {!!
+                            !empty($recruiter->country->iso_alpha3) && ($recruiter->country->iso_alpha3 != 'USA')
+                                ? formatLocation([
+                                      'city'    => htmlspecialchars($recruiter->city),
+                                      'state'   => $recruiter->state->code ?? '',
+                                      'country' => $recruiter->country->iso_alpha3
+                                  ])
+                               : formatLocation([
+                                      'city'    => htmlspecialchars($recruiter->city),
+                                      'state'   => $recruiter->state->code ?? '',
+                              ])
+                        !!}
                     </td>
                     <td data-field="is_disabled" class="has-text-centered" style="display: none;">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->is_public ])
@@ -144,7 +174,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No recruiters found.</td>
+                    <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No recruiters found.</td>
                 </tr>
 
             @endforelse

@@ -3,6 +3,8 @@
 
     $events = $events ?? [];
 @endphp
+<p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the event is disabled.</p>
+
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -17,7 +19,7 @@
 
     @foreach ($events as $event)
 
-        <tr data-id="{{ $event->id }}">
+        <tr data-id="{{ $event->id }}" {!! $event->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td>
                 {!! htmlspecialchars($event->name) !!}
             </td>

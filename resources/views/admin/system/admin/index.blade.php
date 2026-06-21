@@ -62,7 +62,7 @@
                 {!! $allAdmins->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the admin is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -137,7 +137,7 @@
 
                 @forelse ($allAdmins as $thisAdmin)
 
-                    <tr data-id="{{ $thisAdmin->id }}">
+                    <tr data-id="{{ $thisAdmin->id }}" {!! $thisAdmin->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="id">
                             {{ $thisAdmin->id }}
                         </td>

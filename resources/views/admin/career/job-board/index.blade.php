@@ -48,7 +48,7 @@
                 {!! $jobBoards->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption">* An asterisk indicates a primary job board. <span class="sample-color-box-light-gray"></span> indicates the job board is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -77,36 +77,50 @@
                                 'sort'  => 'name|asc',
                             ])
                         </th>
-                        <th class="has-text-centered">primary</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'industry',
+                                'sort'  => 'industry_name|asc',
+                            ])
+                        </th>
                         <th style="white-space: nowrap;">coverage area</th>
-                        <th style="white-space: nowrap;">
+                        <th class="has-text-centered">
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'free',
                                 'sort'  => 'free|desc',
                             ])
                         </th>
-                        <th style="white-space: nowrap;">
+                        <th class="has-text-centered">
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'premium',
                                 'sort'  => 'premium|desc',
                             ])
                         </th>
-                        <th style="white-space: nowrap;">
+                        <th class="has-text-centered">
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'staffing',
                                 'sort'  => 'staffing|desc',
                             ])
                         </th>
-                        <th style="white-space: nowrap;">
+                        <th class="has-text-centered">
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'freelance',
                                 'sort'  => 'freelance|desc',
                             ])
                         </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'founded',
+                                'sort'  => 'founded|desc',
+                            ])
+                        </th>
+                        <th>location</th>
                         <th style="display: none;">public</th>
                         <th style="display: none;">disabled</th>
                         <th>actions</th>
@@ -119,7 +133,7 @@
 
                 @forelse ($jobBoards as $jobBoard)
 
-                    <tr data-id="{{ $jobBoard->id }}">
+                    <tr data-id="{{ $jobBoard->id }}" {!! $jobBoard->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id" style="width: 1rem;">
                                 {{ $jobBoard->id }}
@@ -127,12 +141,13 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap; width: 7rem;">
                             @include('admin.components.link', [
-                                'name' => $jobBoard->name,
-                                'href' => route('admin.career.job-board.show', $jobBoard)
+                                'name' => $jobBoard->name . (!empty($jobBoard->primary) ? '<span class="primary-splat">*</span>' : ''),
+                                'href' => route('admin.career.job-board.show', $jobBoard),
+                                'class' => $jobBoard->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
-                        <td data-field="primary" class="has-text-centered" style="width: 4rem;">
-                            @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
+                        <td data-field="recruiter_industry_name" style="white-space: nowrap;">
+                            {{ $jobBoard->recruiterIndustry->name ?? '' }}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap; width: 6rem;">
                             {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
@@ -148,6 +163,23 @@
                         </td>
                         <td data-field="freelance" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->freelance ])
+                        </td>
+                        <td data-field="founded" class="has-text-centered">
+                            {{ $jobBoard->founded }}
+                        </td>
+                        <td data-field="location" style="white-space: nowrap;">
+                            {!!
+                                !empty($recruiter->country->iso_alpha3) && ($jobBoard->country->iso_alpha3 != 'USA')
+                                    ? formatLocation([
+                                          'city'    => htmlspecialchars($jobBoard->city),
+                                          'state'   => $jobBoard->state->code ?? '',
+                                          'country' => $jobBoard->country->iso_alpha3
+                                      ])
+                                   : formatLocation([
+                                          'city'    => htmlspecialchars($jobBoard->city),
+                                          'state'   => $jobBoard->state->code ?? '',
+                                  ])
+                            !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $jobBoard->is_public ])
@@ -210,7 +242,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '12' : '11' }}">No job boards found.</td>
+                        <td colspan="{{ $isRootAdmin ? '13' : '12' }}">No job boards found.</td>
                     </tr>
 
                 @endforelse

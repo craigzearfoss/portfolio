@@ -49,7 +49,7 @@
                 {!! $userPhones->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /*<p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the user phone is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -104,7 +104,7 @@
 
                 @forelse ($userPhones as $userPhone)
 
-                    <tr data-id="{{ $userPhone->id }}">
+                    <tr data-id="{{ $userPhone->id }}" {!! $userPhone->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $userPhone->id }}

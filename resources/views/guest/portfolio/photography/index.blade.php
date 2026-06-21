@@ -85,12 +85,12 @@
 
                 @forelse ($photos as $photo)
 
-                    <tr>
+                    <tr {!! $video->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($photo->name),
                                 'href'  => route('guest.portfolio.photography.show', [$owner, $photo->slug]),
-                                'class' => $photo->featured ? 'has-text-weight-bold' : ''
+                                'class' => $photo->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td class="hide-at-480" style="white-space: nowrap;">

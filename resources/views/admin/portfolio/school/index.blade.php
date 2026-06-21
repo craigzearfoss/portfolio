@@ -48,6 +48,7 @@
             @endif
 
             <p class="is-size-7 mb-0"><i>cc - community college, hbcu -, tech - technical, med - medical, rel - religious, sem - seminary</i></p>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the school is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -90,7 +91,7 @@
                                 'sort'  => 'state_name|asc',
                             ])
                         </th>
-                        <th>
+                        <th class="has-text-centered">
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'founded',
@@ -113,7 +114,7 @@
 
                 @forelse ($schools as $school)
 
-                    <tr data-id="{{ $school->id }}">
+                    <tr data-id="{{ $school->id }}" {!! $school->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $school->id }}
@@ -121,8 +122,9 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $school->name,
-                                'href' => route('admin.portfolio.school.show', $school)
+                                'name'  => $school->name,
+                                'href'  => route('admin.portfolio.school.show', $school),
+                                'class' => $school->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="logo_small" style="display: none;">

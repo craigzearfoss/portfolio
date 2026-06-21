@@ -51,7 +51,7 @@
                 {!! $companies->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the company is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -105,28 +105,31 @@
 
                 @forelse ($companies as $company)
 
-                    <tr data-id="{{ $company->id }}">
+                    <tr data-id="{{ $company->id }}" {!! $company->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $company->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $company->owner->username,
-                                    'href' => route('admin.system.admin.show', $company->owner)
+                                    'name'  => $company->owner->username,
+                                    'href'  => route('admin.system.admin.show', $company->owner),
+                                    'class' => $company->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $company->name,
-                                'href' => route('admin.career.company.show', $company)
+                                'name'  => $company->name,
+                                'href'  => route('admin.career.company.show', $company),
+                                'class' => $company->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="industry.name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $company->industry->name,
-                                'href' => route('admin.career.industry.show', $company->industry)
+                                'name'  => $company->industry->name,
+                                'href'  => route('admin.career.industry.show', $company->industry),
+                                'class' => $company->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="location" style="white-space: nowrap;">

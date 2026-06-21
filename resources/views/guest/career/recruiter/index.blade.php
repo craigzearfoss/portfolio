@@ -31,9 +31,11 @@
     @endif
     */ ?>
 
+@include('guest.components.search-panel.career-recruiter')
+
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div" style="max-width: 60rem;">
+        <div class="show-container card floating-div" style="width: auto;">
 
             <p><i>{{ number_format($recruiters->total()) }} {{ ($recruiters->total() === 1) ? 'record' : 'records' }} found.</i></p>
 
@@ -50,14 +52,36 @@
 
                 @foreach ($labelElems as $labelElem)
 
-                    <{{ $labelElem }}>
-                    <tr>
-                        <th>name</th>
-                        <th style="white-space: nowrap;">coverage area</th>
-                        <th>location</th>
-                        <th class="has-text-centered" style="white-space: nowrap;">job openings</th>
-                    </tr>
-                    </{{ $labelElem }}>
+                <{{ $labelElem }}>
+                <tr>
+                    <th>
+                        @include('guest.components.column-heading', [
+                            'class' => $className,
+                            'name'  => 'name',
+                            'sort'  => 'name|asc',
+                        ])
+                    </th>
+                    <th>
+                        @include('guest.components.column-heading', [
+                            'class' => $className,
+                            'name'  => 'industry',
+                            'sort'  => 'industry_name|asc',
+                        ])
+                    </th>
+                    <th style="white-space: nowrap;">coverage area</th>
+                    <th class="has-text-centered">
+                        @include('guest.components.column-heading', [
+                            'class' => $className,
+                            'name'  => 'founded',
+                            'sort'  => 'founded|desc',
+                        ])
+                    </th>
+                    <th>location</th>
+                    <th style="display: none;">public</th>
+                    <th style="display: none;">disabled</th>
+                    <th class="has-text-centered" style="white-space: nowrap;">job openings</th>
+                </tr>
+                </{{ $labelElem }}>
 
                 @endforeach
 
@@ -65,12 +89,13 @@
 
                 @forelse ($recruiters as $recruiter)
 
-                    <tr>
+                    <tr {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             <span {!! $recruiter->primary ? 'class="has-text-weight-bold"' : '' !!}>
                                 @include('admin.components.link', [
-                                    'name' => $recruiter->name,
-                                    'href' => route('guest.career.recruiter.show', $recruiter->slug)
+                                    'name'  => $recruiter->name,
+                                    'href'  => route('guest.career.recruiter.show', $recruiter->slug),
+                                    'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </span>
                             @if (!empty($recruiter->link))
@@ -83,16 +108,34 @@
                                 ])
                             @endif
                         </td>
+                        <td data-field="recruiter_industry_name" style="white-space: nowrap;">
+                            {{ $recruiter->recruiterIndustry->name ?? '' }}
+                        </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap;">
                             {{ implode(', ', $recruiter->coverageAreas ?? []) }}
                         </td>
+                        <td data-field="founded" class="has-text-centered" style="white-space: nowrap;">
+                            {{ $recruiter->founded }}
+                        </td>
                         <td data-field="location" style="white-space: nowrap;">
-                            {{
-                                formatLocation([
-                                    'city'    => htmlspecialchars($recruiter->city),
-                                    'state'   => $recruiter->state->code ?? '',
-                                ])
-                            }}
+                            {!!
+                                !empty($recruiter->country->iso_alpha3) && ($recruiter->country->iso_alpha3 != 'USA')
+                                     ? formatLocation([
+                                         'city'    => htmlspecialchars($recruiter->city),
+                                          'state'   => $recruiter->state->code ?? '',
+                                          'country' => $recruiter->country->iso_alpha3
+                                      ])
+                                   : formatLocation([
+                                          'city'    => htmlspecialchars($recruiter->city),
+                                          'state'   => $recruiter->state->code ?? '',
+                                  ])
+                            !!}
+                        </td>
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
+                            @include('admin.components.checkmark', [ 'checked' => $recruiter->is_public ])
+                        </td>
+                        <td data-field="is_disabled" class="has-text-centered" style="display: none;">
+                            @include('admin.components.checkmark', [ 'checked' => $recruiter->is_disabled ])
                         </td>
                         <td class="has-text-centered">
                             @if (!empty($recruiter->jobs_url))

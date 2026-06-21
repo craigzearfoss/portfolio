@@ -59,12 +59,40 @@
 
                     <{{ $labelElem }}>
                     <tr>
-                        <th style="white-space: nowrap;">name</th>
-                        <th style="white-space: nowrap;">city</th>
-                        <th style="white-space: nowrap;">state</th>
-                        <th class="has-text-centered" style="white-space: nowrap;">founded</th>
-                        <th class="has-text-centered" style="white-space: nowrap;">type</th>
-                        <th>details</th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'name',
+                                'sort'  => 'name|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'city',
+                                'sort'  => 'city|asc',
+                            ])
+                        </th>
+                        <th>
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'state',
+                                'sort'  => 'state_name|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            @include('guest.components.column-heading', [
+                                'class' => $className,
+                                'name'  => 'founded',
+                                'sort'  => 'founded|asc',
+                            ])
+                        </th>
+                        <th class="has-text-centered">
+                            type
+                        </th>
+                        <th>
+                            details
+                        </th>
                     </tr>
                     </{{ $labelElem }}>
 
@@ -74,7 +102,7 @@
 
                 @forelse ($schools as $school)
 
-                    <tr>
+                    <tr {!! $school->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($school->name),

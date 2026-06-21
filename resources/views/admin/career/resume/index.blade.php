@@ -56,7 +56,7 @@
                 {!! $resumes->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the resume is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -113,23 +113,25 @@
 
                 @forelse ($resumes as $resume)
 
-                    <tr data-id="{{ $resume->id }}">
+                    <tr data-id="{{ $resume->id }}" {!! $resume->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $resume->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $resume->owner->username,
-                                    'href' => route('admin.system.admin.show', $resume->owner)
+                                    'name'  => $resume->owner->username,
+                                    'href'  => route('admin.system.admin.show', $resume->owner),
+                                    'class' => $resume->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $resume->name . (!empty($resume->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.career.resume.show', $resume)
-                            ])
+                                'name'  => $resume->name . (!empty($resume->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.career.resume.show', $resume),
+                                'class' => $resume->is_disabled ? [ 'disabled-text' ] : []
+                        ])
                         </td>
                         <td data-field="resume_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDate($resume->resume_date) }}

@@ -99,12 +99,12 @@
 
                 @forelse ($musics as $music)
 
-                    <tr data-id="{{ $music->id }}">
+                    <tr data-id="{{ $music->id }}" {!! $music->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($music->name),
                                 'href'  => route('guest.portfolio.music.show', [$owner, $music->slug]),
-                                'class' => $music->featured ? 'has-text-weight-bold' : ''
+                                'class' => $music->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">

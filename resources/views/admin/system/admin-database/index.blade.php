@@ -41,7 +41,7 @@
                 {!! $adminDatabases->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the admin database is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -158,7 +158,7 @@
 
                 @forelse ($adminDatabases as $adminDatabase)
 
-                    <tr data-id="{{ $adminDatabase->id }}">
+                    <tr data-id="{{ $adminDatabase->id }}" {!! $thisAdmin->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminDatabase->id }}

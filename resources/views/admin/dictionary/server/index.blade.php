@@ -37,6 +37,8 @@
                 {!! $servers->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the server is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -78,7 +80,7 @@
                         if ($server->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $server->id }}">
+                    <tr data-id="{{ $server->id }}" {!! $server->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $server->id }}

@@ -54,7 +54,7 @@
                 {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the recipe ingredient is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -115,28 +115,31 @@
 
                 @forelse ($recipeIngredients as $recipeIngredient)
 
-                    <tr data-id="{{ $recipeIngredient->id }}">
+                    <tr data-id="{{ $recipeIngredient->id }}" {!! $recipeIngredient->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $recipeIngredient->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $recipeIngredient->owner->username,
-                                    'href' => route('admin.system.admin.show', $recipeIngredient->owner)
+                                    'name'  => $recipeIngredient->owner->username,
+                                    'href'  => route('admin.system.admin.show', $recipeIngredient->owner),
+                                    'class' => $recipeIngredient->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="ingredient.name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $recipeIngredient->ingredient->name,
-                                'href' => route('admin.personal.ingredient.show', $recipeIngredient->ingredient)
+                                'name'  => $recipeIngredient->ingredient->name,
+                                'href'  => route('admin.personal.ingredient.show', $recipeIngredient->ingredient),
+                                'class' => $recipeIngredient->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="recipe.name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $recipeIngredient->recipe->name . (!empty($recipeIngredient->recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
+                                'name'  => $recipeIngredient->recipe->name . (!empty($recipeIngredient->recipe->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.personal.recipe.show', $recipeIngredient->recipe),
+                                'class' => $recipeIngredient->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="amount" class="has-text-centered">

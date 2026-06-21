@@ -60,7 +60,7 @@
                 {!! $allUsers->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the user is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -106,7 +106,7 @@
 
                 @forelse ($allUsers as $thisUser)
 
-                    <tr data-id="{{ $thisUser->id }}">
+                    <tr data-id="{{ $thisUser->id }}" {!! $thisUser->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $thisUser->id }}

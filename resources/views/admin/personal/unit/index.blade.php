@@ -39,7 +39,7 @@
                 {!! $units->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption"></p>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the unit is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -92,7 +92,7 @@
 
                 @forelse ($units as $unit)
 
-                    <tr data-id="{{ $unit->id }}">
+                    <tr data-id="{{ $unit->id }}" {!! $unit->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $unit->id ?? '' }}

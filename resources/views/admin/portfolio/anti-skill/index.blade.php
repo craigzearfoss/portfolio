@@ -51,7 +51,7 @@
                 {!! $antiSkills->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured skill.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured anti skill. <span class="sample-color-box-light-gray"></span> indicates the anti skill is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -120,24 +120,26 @@
 
                 @forelse ($antiSkills as $antiSkill)
 
-                    <tr data-id="{{ $antiSkill->id }}">
+                    <tr data-id="{{ $antiSkill->id }}" {!! $antiSkill->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $antiSkill->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $antiSkill->owner->username,
-                                    'href' => route('admin.system.admin.show', $antiSkill->owner)
+                                    'name'  => $antiSkill->owner->username,
+                                    'href'  => route('admin.system.admin.show', $antiSkill->owner),
+                                    'class' => $antiSkill->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $antiSkill->name
-                                            . (!empty($antiSkill->version) ? ' ' . $antiSkill->version : '')
-                                            . (!empty($antiSkill->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.anti-skill.show', $antiSkill)
+                                'name'  => $antiSkill->name
+                                             . (!empty($antiSkill->version) ? ' ' . $antiSkill->version : '')
+                                             . (!empty($antiSkill->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.portfolio.anti-skill.show', $antiSkill),
+                                'class' => $antiSkill->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">

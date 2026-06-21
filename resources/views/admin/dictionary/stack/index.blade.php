@@ -38,6 +38,8 @@
                 {!! $stacks->links('vendor.pagination.bulma') !!}
             @endif
 
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the stack is disabled.</p>
+
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @if ($top_column_headings)
@@ -79,7 +81,7 @@
                         if ($stack->name == 'other') continue;
                     @endphp
 
-                    <tr data-id="{{ $stack->id }}">
+                    <tr data-id="{{ $stack->id }}" {!! $stack->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $stack->id }}

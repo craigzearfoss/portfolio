@@ -19,8 +19,9 @@ $recruiters = $recruiters ?? [];
         <tr data-id="{{ $recruiter->id }}">
             <td data-field="name">
                 @include('admin.components.link', [
-                    'name' => htmlspecialchars($recruiter->name),
-                    'href' => route('admin.career.recruiter.show', $recruiter)
+                    'name'  => htmlspecialchars($recruiter->name),
+                    'href'  => route('admin.career.recruiter.show', $recruiter),
+                    'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
                 ])
             </td>
             <td data-field="international|national|regional|local">

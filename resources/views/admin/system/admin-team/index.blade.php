@@ -53,7 +53,7 @@
                 {!! $adminTeams->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the admin team is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -108,7 +108,7 @@
 
                 @forelse ($adminTeams as $adminTeam)
 
-                    <tr data-id="{{ $adminTeam->id }}">
+                    <tr data-id="{{ $adminTeam->id }}" {!! $adminTeam->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminTeam->id }}

@@ -222,7 +222,7 @@ div.ck.ck-sticky-panel__content {
 .search-container .control .field .select .form-select {
     padding: 0.1em !important;
     line-height: 1;
-    height: calc(1em + .75em) !important;
+    height: 1.8rem !important;
 }
 .search-form-control .field label.label {
     margin-bottom: 0;
@@ -232,6 +232,7 @@ form#searchForm div.floating-div-container div.floating-div {
 }
 form#searchForm div.floating-div-container div.floating-div div.search-form-control input {
     font-size: .75rem;
+    height: 1.8rem;
     padding: 0 0 0 4px;
     display: block;
 }
@@ -295,23 +296,22 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
     left: 12px;
     font-weight: 600;
 }
-.search-panel-controls .control.sort-control .field .label {
+.search-container .search-panel-controls .control.sort-control .label {
     display: inline-block;
     padding-top: 4px;
     margin-right: 0.2rem;
     font-size: 0.8rem !important;
 }
-.search-panel-controls .control.sort-control .field .select {
+.search-container .search-panel-controls .control.sort-control .select {
     display: inline-block;
     position: absolute;
-    min-width: 6rem !important;
+    min-width: 2rem !important;
     top: -1px;
     margin-left: 0.2rem;
 }
-.search-panel-controls .control.sort-control .field .select select {
+.search-container input,
+.search-container select {
     font-size: 0.9rem !important;
-    min-width: 6rem !important;
-    height: 1.8rem !important;
     padding-left: 4px !important;
     margin-top: 1px;
 }
@@ -619,7 +619,7 @@ table.table.admin-table.communications-table tbody td[data-field="from"] {
     max-width: 15rem;
 }
 
-span.featured-splat {
+span.featured-splat, span.primary-splat {
     font-weight: 800;
 }
 
@@ -1160,4 +1160,14 @@ ul.menu.hamburger-left-nav-system-container a  {
 }
 ul.menu.hamburger-left-nav-system-container a:hover  {
     background-color: #404040;
+}
+
+.disabled-text {
+    color: lightgray !important;
+}
+.sample-color-box-light-gray {
+    display: inline-block;
+    background-color: lightgray;
+    height: 12px;
+    width: 12px;
 }

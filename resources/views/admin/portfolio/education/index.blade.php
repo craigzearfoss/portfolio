@@ -52,7 +52,7 @@
                 {!! $educations->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured education.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured education. <span class="sample-color-box-light-gray"></span> indicates the education is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -134,15 +134,16 @@
 
                 @forelse ($educations as $education)
 
-                    <tr data-id="{{ $education->id }}">
+                    <tr data-id="{{ $education->id }}" {!! $education->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $education->id  }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $education->owner->username,
-                                    'href' => route('admin.system.admin.show', $education->owner)
+                                    'name'  => $education->owner->username,
+                                    'href'  => route('admin.system.admin.show', $education->owner),
+                                    'class' => $education->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif

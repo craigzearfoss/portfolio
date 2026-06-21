@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\DB;
 class Recruiter extends Model
 {
     /** @use HasFactory<RecruiterFactory> */
-    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, Notifiable, SoftDeletes;
 
     /**
      * @var string
@@ -94,7 +94,11 @@ class Recruiter extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'state_name'
+        'country_iso_alpha3',
+        'country_name',
+        'industry_name',
+        'state_code',
+        'state_name',
     ];
 
     /**
@@ -116,29 +120,27 @@ class Recruiter extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'city|asc'           => 'city',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'email|asc'          => 'email',
-        'founded|asc'        => 'founded',
-        'id|asc'             => 'id',
-        'industry|asc'       => 'industry',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'phone|asc'          => 'phone',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'state_id|asc'       => 'state',
+        'city|asc'          => 'city',
+        'country_name|asc'  => 'country',
+        'created_at|desc'   => 'datetime created',
+        'updated_at|desc'   => 'datetime updated',
+        'is_demo|desc'      => 'demo',
+        //'description|asc'   => 'description',
+        'is_disabled|desc'  => 'disabled',
+        'email|asc'         => 'email',
+        'founded|asc'       => 'founded',
+        'id|asc'            => 'id',
+        'industry_name|asc' => 'industry',
+        'link|asc'          => 'link',
+        'link_name|asc'     => 'link name',
+        'name|asc'          => 'name',
+        //'notes|asc'         => 'notes',
+        'phone|asc'         => 'phone',
+        'is_public|desc'    => 'public',
+        'is_readonly|desc'  => 'read-only',
+        'is_root|desc'      => 'root',
+        'sequence|asc'      => 'sequence',
+        'state_name|asc'    => 'state',
     ];
 
     /**
@@ -146,8 +148,8 @@ class Recruiter extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'industry', 'founded', 'name', 'state_name', ],
-        'guest' => [ 'city', 'industry', 'founded', 'name', 'state_name',  ],
+        'admin' => [ 'city', 'country_name', 'industry_name', 'founded', 'name', 'state_name' ],
+        'guest' => [ 'city', 'country_name', 'industry_name', 'founded', 'name', 'state_name' ],
     ];
 
     /**
@@ -188,19 +190,19 @@ class Recruiter extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = $this->getSearchQuery($filters, false)
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
+            })
             ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
                 if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
                     $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
                 } else {
-                    throw new Exception('Invalid audio_type "' . $filters['audio_type'] . '" specified.'
+                    throw new Exception('Invalid coverage_area "' . $filters['coverage_area'] . '" specified.'
                         . ' Valid coverage areas are "' . implode('", "', self::COVERAGE_AREAS) . '".');
                 }
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
-            })
-            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
@@ -214,8 +216,11 @@ class Recruiter extends Model
             ->when(!empty($filters['founded-max']), function ($query) use ($filters) {
                 $query->where($this->table . '.founded', '<=', $filters['founded-max']);
             })
-            ->when(!empty($filters['international']), function ($query) use ($filters) {
-                $query->where($this->table . '.international', '=', true);
+            ->when(!empty($filters['is_active']), function ($query) use ($filters) {
+                $query->where($this->table . '.is_disabled', '=', false);
+            })
+            ->when(!empty($filters['is_disabled']), function ($query) use ($filters) {
+                $query->where($this->table . '.is_disabled', '=', true);
             })
             ->when(!empty($filters['jobs_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.jobs_url', 'like', '%' . $filters['jobs_url'] . '%');
@@ -229,23 +234,17 @@ class Recruiter extends Model
             ->when(!empty($filters['linkedin_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.linkedin_url', 'like', '%' . $filters['linkedin_url'] . '%');
             })
-            ->when(!empty($filters['local']), function ($query) use ($filters) {
-                $query->where($this->table . '.local', '=', true);
-            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
-            })
-            ->when(!empty($filters['national']), function ($query) use ($filters) {
-                $query->where($this->table . '.national', '=', true);
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
+            ->when(!empty($filters['primary']), function ($query) use ($filters) {
+                $query->where($this->table . '.primary', '=', true);
+            })
             ->when(!empty($filters['recruiter_industry_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.recruiter_industry_id', '=', intval($filters['recruiter_industry_id']));
-            })
-            ->when(!empty($filters['regional']), function ($query) use ($filters) {
-                $query->where($this->table . '.regional', '=', true);
             })
             ->when(!empty($filters['specialties']), function ($query) use ($filters) {
                 $query->where($this->table . '.specialties', 'like', '%' . $filters['specialties'] . '%');
@@ -257,17 +256,40 @@ class Recruiter extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
+        // add coverage areas
+        if (!empty($filters['local']) || !empty($filters['regional']) || !empty($filters['national']) || !empty($filters['international'])) {
+            $local         = boolval($filters['local'] ?? 0);
+            $regional      = boolval($filters['regional']?? 0);
+            $national      = boolval($filters['national'] ?? 0);
+            $international = boolval($filters['international'] ?? 0);
+            $query->where(function ($query) use ($local, $regional, $national, $international) {
+                if ($local) {
+                    $query->orWhere($this->table . '.local', '=', $local);
+                }
+                if ($regional) {
+                    $query->orWhere($this->table . '.regional', '=', $regional);
+                }
+                if ($national) {
+                    $query->orWhere($this->table . '.national', '=', $national);
+                }
+                if ($international) {
+                    $query->orWhere($this->table . '.international', '=', $international);
+                }
+            });
+        }
+
         // add joins
-        $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'recruiters.state_id')
-            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'recruiters.country_id');
+        $query->leftJoin(dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id')
+            ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', $this->table . '.country_id')
+            ->leftJoin( dbName('career_db') . '.recruiter_industries', 'recruiter_industries.id', '=', $this->table . '.recruiter_industry_id');
 
         $query->select([
             DB::raw('recruiters.*'),
-            DB::raw('states.name as state_name'),
+            DB::raw('recruiter_industries.name as industry_name'),
             DB::raw('states.code as state_code'),
-            DB::raw('countries.name as country_name'),
-            DB::raw('countries.m49 as country_m49'),
+            DB::raw('states.name as state_name'),
             DB::raw('countries.iso_alpha3 as country_iso_alpha3'),
+            DB::raw('countries.name as country_name'),
         ] );
 
         // add additional filters
@@ -287,22 +309,6 @@ class Recruiter extends Model
     {
         return $this->belongsToMany(Contact::class)->withPivot('active')
             ->orderBy('name');
-    }
-
-    /**
-     * Get the system country that owns the recruiter.
-     */
-    public function country(): BelongsTo
-    {
-        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
-    }
-
-    /**
-     * Get the system state that owns the recruiter.
-     */
-    public function state(): BelongsTo
-    {
-        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
 
     /**
@@ -338,6 +344,22 @@ class Recruiter extends Model
     {
         return $this->hasMany(JobSearchLog::class, 'application_id')
             ->orderBy('time_logged', 'desc');
+    }
+
+    /**
+     * Get the system country that owns the recruiter.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the system state that owns the recruiter.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
 
     /**

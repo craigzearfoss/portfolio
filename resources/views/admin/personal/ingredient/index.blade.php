@@ -48,7 +48,7 @@
                 {!! $ingredients->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the ingredient is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -89,14 +89,15 @@
 
                 @forelse ($ingredients as $ingredient)
 
-                    <tr data-id="{{ $ingredient->id }}">
+                    <tr data-id="{{ $ingredient->id }}" {!! $ingredient->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="id">
                             {{ $ingredient->id }}
                         </td>
                         <td data-field="name" style="white-space: nowrap">
                             @include('admin.components.link', [
-                                'name' => $ingredient->name,
-                                'href' => route('admin.personal.ingredient.show', $ingredient)
+                                'name'  => $ingredient->name,
+                                'href'  => route('admin.personal.ingredient.show', $ingredient),
+                                'class' => $ingredient->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">

@@ -51,7 +51,7 @@
                 {!! $skills->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured skill.</p>
+            <p class="admin-table-caption">* An asterisk indicates a featured skill. <span class="sample-color-box-light-gray"></span> indicates the skill is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -120,24 +120,26 @@
 
                 @forelse ($skills as $skill)
 
-                    <tr data-id="{{ $skill->id }}">
+                    <tr data-id="{{ $skill->id }}" {!! $skill->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $skill->id }}
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $skill->owner->username,
-                                    'href' => route('admin.system.admin.show', $skill->owner)
+                                    'name'  => $skill->owner->username,
+                                    'href'  => route('admin.system.admin.show', $skill->owner),
+                                    'class' => $skill->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $skill->name
+                                'name'  => $skill->name
                                             . (!empty($skill->version) ? ' ' . $skill->version : '')
                                             . (!empty($skill->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.portfolio.skill.show', $skill)
+                                'href'  => route('admin.portfolio.skill.show', $skill),
+                                'class' => $skill->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">

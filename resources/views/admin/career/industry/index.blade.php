@@ -46,7 +46,7 @@
                 {!! $industries->links('vendor.pagination.bulma') !!}
             @endif
 
-            <?php /* <p class="admin-table-caption"></p> */ ?>
+            <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the industry is disabled.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -92,7 +92,7 @@
 
                 @forelse ($industries as $industry)
 
-                    <tr data-id="{{ $industry->id }}">
+                    <tr data-id="{{ $industry->id }}" {!! $industry->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $industry->id }}
@@ -100,8 +100,9 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $industry->name . (!empty($industry->featured) ? '<span class="featured-splat">*</span>' : ''),
-                                'href' => route('admin.career.industry.show', $industry)
+                                'name'  => $industry->name . (!empty($industry->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                'href'  => route('admin.career.industry.show', $industry),
+                                'class' => $industry->is_disabled ? [ 'disabled-text' ] : []
                             ])
                         </td>
                         <td data-field="abbreviation">
