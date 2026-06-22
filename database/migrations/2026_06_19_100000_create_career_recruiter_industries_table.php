@@ -75,6 +75,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(dbName($this->database_tag) . '.career_recruiter_industries');
+        Schema::connection($this->database_tag)->table('job_boards', function (Blueprint $table) {
+            $foreignKey = dbName($this->database_tag) . '_job_boards_recruiter_industry_id_foreign';
+            $table->dropForeign($foreignKey);
+        });
+
+        Schema::connection($this->database_tag)->table('recruiters', function (Blueprint $table) {
+            $foreignKey = dbName($this->database_tag) . '_recruiters_recruiter_industry_id_foreign';
+            $table->dropForeign($foreignKey);
+        });
+
+        Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };

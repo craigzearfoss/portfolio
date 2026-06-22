@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\JobBoard;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -276,6 +277,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::connection($this->database_tag)->table('job_boards', function (Blueprint $table) {
+            $foreignKey = dbName($this->database_tag) . '_job_boards_recruiter_id_foreign';
+            $table->dropForeign($foreignKey);
+        });
+
         Schema::connection($this->database_tag)->dropIfExists($this->table_name);
     }
 };
