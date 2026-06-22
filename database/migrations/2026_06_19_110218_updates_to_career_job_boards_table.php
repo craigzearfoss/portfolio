@@ -86,10 +86,8 @@ return new class extends Migration
         ];
 
         foreach ($data as $id=>$row) {
-            echo PHP_EOL . $id . ') ' . $row['name'];
-
             if (!$jobBoard = new JobBoard()->newQuery()->find($id)) {
-                echo ' *** NOT FOUND ***';
+                echo PHP_EOL . $id . ') ' . $row['name'] . ' *** NOT FOUND ***';
             }
 
             foreach ($row as $col=>$val) {
@@ -98,8 +96,6 @@ return new class extends Migration
 
             $jobBoard->save();
         }
-
-        echo PHP_EOL . 'Migration file complete.';
     }
 
     /**

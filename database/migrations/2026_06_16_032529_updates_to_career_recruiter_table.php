@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::connection('career_db')->table('recruiters', function (Blueprint $table) {
             $table->integer('founded')->nullable()->after('international');
             $table->string('linkedin_url', 500)->nullable()->after('founded');
-            $table->string('jobs_url', 500)->nullable()->after('linkedin_url');
         });
 
         // update recruiters
@@ -31,10 +30,8 @@ return new class extends Migration
         ];
 
         foreach ($data as $id=>$row) {
-            echo PHP_EOL . $id . ') ' . $row['name'];
-
             if (!$recruiter = new Recruiter()->newQuery()->find($id)) {
-                echo ' *** NOT FOUND ***';
+                echo PHP_EOL . $id . ') ' . $row['name'] . ' *** NOT FOUND ***';
             }
 
             foreach ($row as $col=>$val) {
@@ -43,8 +40,6 @@ return new class extends Migration
 
             $recruiter->save();
         }
-
-        echo PHP_EOL . 'Migration file complete.';
     }
 
     /**

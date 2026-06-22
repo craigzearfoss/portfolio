@@ -53,6 +53,7 @@ return new class extends Migration
             [ 'id' => 22, 'name' => 'Human Resources',                    'slug' => 'human-resources',                      'abbreviation' => 'HR'   ],
             [ 'id' => 23, 'name' => 'Business Consulting',                'slug' => 'business-consulting',                  'abbreviation' => 'BUS'  ],
             [ 'id' => 24, 'name' => 'Non Profit',                         'slug' => 'non-profit',                           'abbreviation' => 'NP'   ],
+            [ 'id' => 25, 'name' => 'Advertising & Marketing',            'slug' => 'advertising-and-marketing',            'abbreviation' => 'ADV'  ],
         ];
 
         DB::connection($this->database_tag)->table($this->table_name)->insert($data);

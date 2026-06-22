@@ -77,13 +77,10 @@ return new class extends Migration
             [ 'primary' => 0, 'founded' => 2018, 'recruiter_id' => 84, 'name' => 'CareerCircle', 'slug' => 'careercircle', 'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 1, 'street' => null, 'street2' => null, 'city' => 'Hanover', 'state_id' => 21, 'zip' => null, 'country_id' => 237, 'link' => 'https://www.careercircle.com/', 'linkedin_url' => 'https://www.linkedin.com/company/careercircle/', 'jobs_url' => 'https://www.careercircle.com/jobs', 'phone' => null, 'email' => null, 'recruiter_industry_id' => 8, 'specialties' => 'Staffing|Recruiting|Upskill|Career|Community|Employment|CareerSkill' ],
         ];
 
-        echo PHP_EOL;
-
         for ($i=0; $i<count($data); $i++) {
             $data[$i]['created_at'] = date('Y-m-m H:i:s');
             $data[$i]['updated_at'] = date('Y-m-m H:i:s');
 
-            echo $data[$i]['name'] . ' recruiter_id:' . $data[$i]['recruiter_id'] . PHP_EOL;
             DB::connection('career_db')->table('job_boards')->insert($data[$i]);
         }
     }

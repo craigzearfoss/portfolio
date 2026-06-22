@@ -94,15 +94,12 @@ return new class extends Migration
         ];
 
         foreach ($data as $i=>$row) {
-            echo PHP_EOL . $i . ') ' . $row['name'];
 
             $row['created_at'] = date('Y-m-d H:i:s');;
             $row['updated_at'] = date('Y-m-d H:i:s');;
 
             DB::connection('career_db')->table('recruiters')->insert($row);
         }
-
-        echo PHP_EOL . 'Migration file complete.';
     }
 
     /**

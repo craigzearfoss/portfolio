@@ -420,7 +420,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('form input[name="description"]').forEach((elem) => {
         elem.addEventListener('input', () =>  {
-            console.log('description changed');
             let inputDescriptionChangedElem = document.getElementById('inputDescriptionChanged');
             if (inputDescriptionChangedElem) {
                 inputDescriptionChangedElem.value = 1;
@@ -519,7 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let ids = localStorage.getItem(key);
             if ((ids !== null) && (ids.length > 0)) {
                 ids = JSON.parse(ids);
-                console.log('ids = ', ids);
                 elem.value = ids.join('|');
             }
         }
