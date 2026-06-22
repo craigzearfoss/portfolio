@@ -115,6 +115,14 @@
                         @endif
                         <td data-field="phone" style="white-space: nowrap;">
                             {{ $userPhone->phone }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.user_phone', 'data-id' => $userPhone->id ]
+                           ])
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
                             {{ $userPhone->label }}

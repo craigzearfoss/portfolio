@@ -48,7 +48,7 @@
 
                 @forelse ($databases as $database)
 
-                    <li>
+                    <li data-id="{{ $database->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $database,
                             'route' => route('guest.dictionary.database.show', $database->slug),

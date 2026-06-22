@@ -10,6 +10,7 @@
     $artist         = $artist ?? request()->query('artist');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
@@ -57,6 +58,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -69,7 +71,23 @@
                                 'name'    => 'artist',
                                 'value'   => $artist,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 30rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.art' ]
                             ])
                         </div>
 

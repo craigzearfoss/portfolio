@@ -9,6 +9,7 @@
     // get variables
     $action         = $action ?? url()->current();
     $audio_type     = $audio_type ?? request()->query('audio_type');
+    $favorites      = $favorites ?? request()->query('favorites');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $name           = $name ?? request()->query('name');
@@ -76,6 +77,21 @@
 
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-audio-audio_type')
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 30rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.audio' ]
+                            ])
                         </div>
 
                     </div>

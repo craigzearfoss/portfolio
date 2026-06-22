@@ -89,7 +89,7 @@
 
                 @forelse ($recruiters as $recruiter)
 
-                    <tr {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $recruiter->id }}" {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             <span {!! $recruiter->primary ? 'class="has-text-weight-bold"' : '' !!}>
                                 @include('admin.components.link', [
@@ -98,6 +98,14 @@
                                     'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </span>
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'career.recruiter', 'data-id' => $recruiter->id ]
+                            ])
                             @if (!empty($recruiter->link))
                                 @include('admin.components.link-icon', [
                                     'title'  => 'open link in new window',

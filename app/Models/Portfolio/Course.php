@@ -188,6 +188,9 @@ class Course extends Model
             ->when(!empty($filters['duration_hours']), function ($query) use ($filters) {
                 $query->where($this->table . '.duration_hours', '>=', floatval($filters['duration_hours']));
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })

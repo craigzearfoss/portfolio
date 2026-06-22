@@ -227,6 +227,9 @@ class Contact extends Model
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['link']), function ($query) use ($filters) {
                 $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
             })

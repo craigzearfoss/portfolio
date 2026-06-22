@@ -145,6 +145,14 @@
                                     'class' => $event->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.event', 'data-id' => $event->id ]
+                           ])
                         </td>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [

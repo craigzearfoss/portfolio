@@ -127,6 +127,14 @@
                                 'href'  => route('admin.personal.recipe.show', $recipe),
                                 'class' => $recipe->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'personal.recipe', 'data-id' => $recipe->id ]
+                           ])
                         </td>
                         <td data-field="types" style="white-space: nowrap;">
                             {{ implode(', ', $recipe->types()) }}

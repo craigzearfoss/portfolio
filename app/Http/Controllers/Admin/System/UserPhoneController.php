@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\EnvTypes;
 use App\Exports\System\UserPhonesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserPhonesRequest;
 use App\Http\Requests\System\UpdateUserPhonesRequest;
 use App\Models\System\UserPhone;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class UserPhoneController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'system.user_phone');
+    }
+
     /**
      * Display a listing of user phones.
      *

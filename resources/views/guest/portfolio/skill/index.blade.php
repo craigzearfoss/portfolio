@@ -92,13 +92,23 @@
 
                 @forelse ($skills as $skill)
 
-                    <tr {!! $skill->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $skill->id }}" {!! $skill->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @if ($skill->featured)
                                 <strong>{!! htmlspecialchars($skill->name) !!}</strong>
                             @else
                                 {!! htmlspecialchars($skill->name) !!}
                             @endif
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.skill', 'data-id' => $skill->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td class="hide-at-600" style="white-space: nowrap;">
                             {!! htmlspecialchars($skill->category->name ?? '') !!}

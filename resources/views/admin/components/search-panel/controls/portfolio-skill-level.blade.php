@@ -12,9 +12,9 @@
 <div class="control" style="max-width: 28rem;">
     @include('admin.components.form-select', [
         'name'  => 'level-min',
-        'label' => 'min level',
+        'label' => 'skill level',
         'value' => $level_min,
         'list'  => $levels,
-        'style' => 'width: 8rem;'
+        'style' => 'width: 4rem;'
     ])
 </div>

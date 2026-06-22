@@ -141,6 +141,14 @@
                                 'href'  => route('admin.portfolio.skill.show', $skill),
                                 'class' => $skill->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.skill', 'data-id' => $skill->id ]
+                           ])
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">
                              @if (!empty($skill->category->name))

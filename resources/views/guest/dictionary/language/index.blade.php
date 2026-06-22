@@ -48,7 +48,7 @@
 
                 @forelse ($languages as $language)
 
-                    <li>
+                    <li data-id="{{ $language->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $language,
                             'route' => route('guest.dictionary.language.show', $language->slug)

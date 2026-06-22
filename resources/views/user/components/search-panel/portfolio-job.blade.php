@@ -11,6 +11,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $end_date       = $end_date ?? request()->query('end_date');
+    $favorites      = $favorites ?? request()->query('favorites');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $role           = $role ?? request()->query('role');
     $start_date     = $start_date ?? request()->query('start_date');

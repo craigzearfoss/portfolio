@@ -410,6 +410,9 @@ class Application extends Model
             ->when(!empty($filters['estimated_hours']), function ($query) use ($filters) {
                 $query->where($this->table . '.estimated_hours', '<=', intval($filters['estimated_hours']));
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['fouroonek']), function ($query) use ($filters) {
                 $query->where($this->table . '.fouroonek', '=', true);
             })

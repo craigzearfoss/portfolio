@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreServersRequest;
 use App\Http\Requests\Dictionary\UpdateServersRequest;
 use App\Models\Dictionary\Server;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +18,13 @@ use Illuminate\View\View;
  */
 class ServerController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'dictionary.server');
+    }
+
     /**
      * Display a listing of servers.
      *

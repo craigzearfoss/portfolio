@@ -11,6 +11,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $subject        = $subject ?? request()->query('subject');

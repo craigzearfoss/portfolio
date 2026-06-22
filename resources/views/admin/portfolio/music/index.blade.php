@@ -146,6 +146,14 @@
                                 'href'  => route('admin.portfolio.music.show', $music),
                                 'class' => $music->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.music', 'data-id' => $music->id ]
+                           ])
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">
                             {{ $music->artist }}

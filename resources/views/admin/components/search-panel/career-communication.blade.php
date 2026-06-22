@@ -19,6 +19,7 @@
     $created_at_min             = $created_at_min ?? request()->query('created_at-min');
     $communication_datetime_max = $communication_datetime_max ?? request()->query('communication_datetime_max');
     $communication_datetime_min = $communication_datetime_min ?? request()->query('communication_datetime_min');
+    $favorites                  = $favorites ?? request()->query('favorites');
     $from                       = $from ?? request()->query('from');
     $owner_id                   = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $subject                    = $subject ?? request()->query('subject');
@@ -165,6 +166,21 @@
                             'communication-datetime-min' => $communication_datetime_min,
                             'communication-datetime-max' => $communication_datetime_max,
                         ])
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.communication' ]
+                            ])
+                        </div>
 
                     </div>
 

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\EnvTypes;
 use App\Exports\Career\CommunicationsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +22,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class CommunicationController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'career.communication');
+    }
+
     /**
      * Display a listing of communications.
      *

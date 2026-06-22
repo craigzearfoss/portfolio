@@ -61,6 +61,7 @@
                                 'sort'  => 'name|asc',
                             ])
                         </th>
+                        <th class="has-text-centered"><span title="job board">jb</span></th>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
@@ -121,6 +122,16 @@
                             <span {!! $jobBoard->featured ? 'class="has-text-weight-bold"' : '' !!}>
                                 {{ $jobBoard->name }}
                             </span>
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'career.job_board', 'data-id' => $jobBoard->id ]
+                            ])
+                        </td>
+                        <td class="has-text-centered">
                             @if (!empty($jobBoard->jobs_url) || !empty($jobBoard->link))
                                 @include('guest.components.link-icon', [
                                     'title'  => 'job openings',
@@ -177,7 +188,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">No job boards found.</td>
+                        <td colspan="6">No job boards found.</td>
                     </tr>
 
                 @endforelse

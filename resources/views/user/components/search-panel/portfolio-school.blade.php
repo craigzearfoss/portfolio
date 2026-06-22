@@ -11,6 +11,7 @@
     $community_college = $community_college ?? request()->query('community_college');
     $created_at_max    = $created_at_max ?? request()->query('created_at-max');
     $created_at_min    = $created_at_min ?? request()->query('created_at-min');
+    $favorites         = $favorites ?? request()->query('favorites');
     $gender            = $gender ?? request()->query('gender');
     $hbcu              = $hbcu ?? request()->query('hbcu');
     $medical           = $medical ?? request()->query('medical');

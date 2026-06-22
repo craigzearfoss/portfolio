@@ -15,7 +15,7 @@
 
     @foreach ($skills as $skill)
 
-        <tr>
+        <tr data-id="{{ $skill->id }}" {!! $skill->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td data-field="name" style="white-space: nowrap;">
                 {!! $skill->name !!}
             </td>

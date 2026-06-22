@@ -10,6 +10,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $database       = $database ?? request()->query('database');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = !empty($admin) && empty($admin->is_root)
         ? $admin->id
@@ -61,6 +62,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -70,6 +72,7 @@
                                 'name'    => 'database',
                                 'value'   => $database,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -82,6 +85,7 @@
                                 'name'    => 'tag',
                                 'value'   => $tag,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -92,6 +96,7 @@
                                 'label'   => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>

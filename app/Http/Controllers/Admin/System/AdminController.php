@@ -9,6 +9,7 @@ use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\System\UpdateAdminsRequest;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,6 +23,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class AdminController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'system.admin');
+    }
+
     /**
      * Display a listing of admins.
      *

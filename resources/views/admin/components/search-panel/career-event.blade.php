@@ -20,6 +20,7 @@
     $description        = $description ?? request()->query('description');
     $event_datetime_max = $event_datetime_max ?? request()->query('event_datetime_max');
     $event_datetime_min = $event_datetime_min ?? request()->query('event_datetime_min');
+    $favorites          = $favorites ?? request()->query('favorites');
     $location           = $location ?? request()->query('location');
     $name               = $name ?? request()->query('name');
     $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
@@ -169,6 +170,18 @@
                             'event-datetime-min' => $event_datetime_min,
                             'event-datetime-max' => $event_datetime_max,
                         ])
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.event' ]
+                            ])
+                        </div>
 
                     </div>
 

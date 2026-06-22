@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Exports\Portfolio\CoursesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCoursesRequest;
 use App\Http\Requests\Portfolio\UpdateCoursesRequest;
 use App\Models\Portfolio\Course;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class CourseController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'portfolio.course');
+    }
+
     /**
      * Display a listing of coursest.
      *

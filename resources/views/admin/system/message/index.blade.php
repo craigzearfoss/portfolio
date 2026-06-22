@@ -127,6 +127,14 @@
                         </td>
                         <td data-field="name">
                             {{ $thisMessage->name }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.message', 'data-id' => $thisMessage->id ]
+                           ])
                         </td>
                         <td data-field="email">
                             {{ $thisMessage->email }}

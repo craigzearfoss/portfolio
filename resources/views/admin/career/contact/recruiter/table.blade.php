@@ -16,7 +16,7 @@ $recruiters = $recruiters ?? [];
 
     @foreach ($recruiters as $recruiter)
 
-        <tr data-id="{{ $recruiter->id }}">
+        <tr data-id="{{ $recruiter->id }}" {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td data-field="name">
                 @include('admin.components.link', [
                     'name'  => htmlspecialchars($recruiter->name),

@@ -19,6 +19,7 @@
     $description        = $description ?? request()->query('description');
     $event_datetime_max = $event_datetime_max ?? request()->query('event_datetime_max');
     $event_datetime_min = $event_datetime_min ?? request()->query('event_datetime_min');
+    $favorites          = $favorites ?? request()->query('favorites');
     $location           = $location ?? request()->query('location');
     $name               = $name ?? request()->query('name');
     $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));

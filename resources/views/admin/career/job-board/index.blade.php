@@ -145,6 +145,14 @@
                                 'href' => route('admin.career.job-board.show', $jobBoard),
                                 'class' => $jobBoard->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.job_board', 'data-id' => $jobBoard->id ]
+                           ])
                         </td>
                         <td data-field="recruiter_industry_name" style="white-space: nowrap;">
                             {{ $jobBoard->recruiterIndustry->name ?? '' }}

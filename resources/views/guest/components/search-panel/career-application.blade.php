@@ -9,27 +9,27 @@
 
     // get variables
     $action         = $action ?? url()->current();
-    $owner_id       = $owner->id ?? null;
-    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
     $apply_date_max = $apply_date_max ?? request()->query('apply_date-max');
+    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
     $benefits       = $benefits ?? request()->query('benefits');
     $city           = $city ?? request()->query('city');
-    $close_date_min = $close_date_min ?? request()->query('close_date-min');
     $close_date_max = $close_date_max ?? request()->query('close_date-max');
+    $close_date_min = $close_date_min ?? request()->query('close_date-min');
     $company_name   = $company_name ?? request()->query('company_name');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $health         = $health ?? request()->query('health');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $post_date_min  = $post_date_min ?? request()->query('post_date-min');
     $post_date_max  = $post_date_max ?? request()->query('post_date-max');
+    $post_date_min  = $post_date_min ?? request()->query('post_date-min');
     $relocation     = $relocation ?? request()->query('relocation');
     $resume_name    = $resume_name ?? request()->query('resume_name');
     $role           = $role ?? request()->query('role');
     $wage_rate      = $wage_rate ?? request()->query('wage_rate');
-    $vacation       = $vacation ?? request()->query('vacation');
     $updated_at_max = $created_at_max ?? request()->query('created_at-max');
     $updated_at_min = $created_at_min ?? request()->query('created_at-min');
+    $vacation       = $vacation ?? request()->query('vacation');
     $w2             = $w2 ?? request()->query('w2');
 
     // set sort order
@@ -93,6 +93,7 @@
                                     'label'   => 'company',
                                     'value'   => $company_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
@@ -107,6 +108,7 @@
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -122,6 +124,7 @@
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem' ],
                                 ])
                             </div>
@@ -198,6 +201,18 @@
 
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.system-state')
+                        </div>
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.application' ]
+                            ])
                         </div>
 
                     </div>

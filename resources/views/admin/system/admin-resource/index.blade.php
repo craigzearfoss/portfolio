@@ -193,6 +193,14 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {{ $adminResource->name }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.admin_resource', 'data-id' => $adminResource->id ]
+                           ])
                         </td>
                         <td data-field="title" style="white-space: nowrap;">
                             {{ $adminResource->title }}

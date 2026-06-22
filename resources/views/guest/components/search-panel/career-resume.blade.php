@@ -10,6 +10,7 @@
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $is_public      = $is_public ?? request()->query('is_public');
     $name           = $name ?? request()->query('name');
     $primary        = $primary ?? request()->query('primary');
@@ -58,6 +59,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -86,6 +88,18 @@
                             'checked'  => $is_public,
                             'nohidden' => true,
                         ])
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.resume' ]
+                            ])
+                        </div>
 
                     </div>
 

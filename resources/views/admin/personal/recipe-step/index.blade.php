@@ -140,6 +140,14 @@
                                 'href'  => route('admin.personal.recipe-step.show', $recipeStep),
                                 'class' => $recipeStep->is_disabled ? [ 'disabled-text' ] : []
                            ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'personal.recipe_step', 'data-id' => $recipeStep->id ]
+                           ])
                         </td>
                         <td data-field="description">
                             {!! $recipeStep->description !!}

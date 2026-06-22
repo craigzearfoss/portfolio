@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Exports\Portfolio\JobCoworkersExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobCoworkersRequest;
 use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +22,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class JobCoworkerController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'portfolio.job_coworker');
+    }
+
     /**
      * Display a listing of job coworkers.
      *

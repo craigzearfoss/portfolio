@@ -124,6 +124,14 @@
                                     'href'  => route('admin.system.admin.show', $art->owner),
                                     'class' => $art->is_disabled ? [ 'disabled-text' ] : []
                                 ])
+                                @include('admin.components.link-icon', [
+                                   'title'      => 'add to favorites',
+                                   'icon'       => 'fa-heart',
+                                   'border'     => false,
+                                   'target'     => '_blank',
+                                   'class'      => 'add-to-favorites',
+                                   'attributes' => [ 'data-resource' => 'portfolio.art', 'data-id' => $art->id ]
+                               ])
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">

@@ -6,6 +6,7 @@ use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,6 +16,13 @@ use Illuminate\View\View;
  */
 class AdminController extends BaseGuestController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::GUEST);
+
+        view()->share('resourceType', 'system.admin');
+    }
+
     /**
      * Display the guest candidates page.
      *

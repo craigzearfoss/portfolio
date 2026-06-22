@@ -109,8 +109,6 @@
 
                 @endforeach
 
-
-
                 <tbody>
 
                 @forelse ($projects as $project)
@@ -133,6 +131,14 @@
                                 'href'  => route('admin.portfolio.project.show', $project),
                                 'class' => $project->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.project', 'data-id' => $project->id ]
+                           ])
                         </td>
                         <td data-field="language" style="white-space: nowrap;">
                             {{ !empty($project->language)

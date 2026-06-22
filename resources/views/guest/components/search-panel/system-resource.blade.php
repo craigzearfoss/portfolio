@@ -12,6 +12,7 @@
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $database_id    = $database_id ?? request()->query('database_id');
     $database_tag   = $database_tag ?? request()->query('database_tag');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = !empty($admin) && empty($admin->is_root)
         ? $admin->id

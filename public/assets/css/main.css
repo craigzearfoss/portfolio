@@ -1171,3 +1171,6 @@ ul.menu.hamburger-left-nav-system-container a:hover  {
     height: 12px;
     width: 12px;
 }
+.add-to-favorites.favorite {
+    color: red !important;
+}

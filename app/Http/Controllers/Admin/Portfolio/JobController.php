@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Exports\Portfolio\JobsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobsRequest;
 use App\Http\Requests\Portfolio\UpdateJobsRequest;
 use App\Models\Portfolio\Job;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class JobController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'portfolio.job');
+    }
+
     /**
      * Display a listing of jobs.
      *

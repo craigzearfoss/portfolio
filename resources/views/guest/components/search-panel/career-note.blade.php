@@ -15,6 +15,7 @@
     $company_name     = $company_name ?? request()->query('company_name');
     $created_at_max   = $created_at_max ?? request()->query('created_at-max');
     $created_at_min   = $created_at_min ?? request()->query('created_at-min');
+    $favorites        = $favorites ?? request()->query('favorites');
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));    $application_id   = $application_id ?? request()->query('application_id');
     $subject          = $subject ?? request()->query('subject');
     $updated_at_max   = $updated_at_max ?? request()->query('updated_at-max');
@@ -70,6 +71,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
@@ -87,6 +89,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
+                                        'class'   => [ 'submit-search-on-enter-key' ],
                                     ])
                                 </div>
                             @else
@@ -105,6 +108,7 @@
                                 'value'   => $subject,
                                 'message' => $message ?? '',
                                 'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -113,9 +117,23 @@
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        @include('guest.components.form-checkbox', [
+                            'id'         => 'favoritesCheckBox',
+                            'name'       => 'favorites',
+                            'value'      => 1,
+                            'checked'    => $favorites,
+                            'nohidden'   => true,
+                            'class'      => [ 'search-favorites' ],
+                            'attributes' => [ 'data-resource' => 'career.note' ]
+                        ])
 
                     </div>
                     <div class="floating-div">

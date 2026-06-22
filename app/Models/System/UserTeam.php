@@ -142,6 +142,9 @@ class UserTeam extends Model
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })

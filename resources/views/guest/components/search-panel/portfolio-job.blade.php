@@ -11,6 +11,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $end_date       = $end_date ?? request()->query('end_date');
+    $favorites      = $favorites ?? request()->query('favorites');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $role           = $role ?? request()->query('role');
     $start_date     = $start_date ?? request()->query('start_date');
@@ -59,6 +60,17 @@
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
+                                'style'   => [ 'width: 12rem'],
+                            ])
+                        </div>
+
+                        <div class="search-form-control">
+                            @include('guest.components.form-input', [
+                                'name'    => 'role',
+                                'value'   => $role,
+                                'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -66,17 +78,19 @@
                     </div>
                     <div class="floating-div">
 
-                        <div class="search-form-control">
-                            @include('guest.components.form-input', [
-                                'name'    => 'role',
-                                'value'   => $role,
-                                'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
+                        <div class="control" style="max-width: 30rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.job' ]
                             ])
                         </div>
 
                     </div>
-                    'style'   => [ 'width: 12rem'],
 
                 </div>
 

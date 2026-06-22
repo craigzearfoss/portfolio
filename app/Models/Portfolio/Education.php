@@ -182,6 +182,9 @@ class Education extends Model
             ->when(!empty($filters['enrollment_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.enrollment_date', '<=', $filters['enrollment_date']);
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })

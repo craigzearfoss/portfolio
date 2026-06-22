@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Exports\Portfolio\PhotographiesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePhotographyRequest;
 use App\Http\Requests\Portfolio\UpdatePhotographyRequest;
 use App\Models\Portfolio\Photography;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class PhotographyController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'portfolio.photography');
+    }
+
     /**
      * Display a listing of photos.
      *

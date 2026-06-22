@@ -1,7 +1,12 @@
 @php
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
 
-    $properties = $properties ?? [];
+    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    if (!in_array('form-check-input', $class)) $class[] = 'form-check-input';
+
+    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+
+    $attributes = $attributes ?? [];
 @endphp
 <div class="field mb-0">
     <div class="control">
@@ -15,8 +20,12 @@
                 name="{!! $name ?? 'name' !!}"
                 value="{!! $value ?? '0' !!}"
                 @if (!empty($checked))checked @endif
-                class="form-check-input {!! $class ?? '' !!}"
-                @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
+                @if (!empty($class))
+                    class="{{ implode(' ', $class) }}"
+                @endif
+                @if (!empty($style))
+                    style="{!! implode('; ', $style) !!}"
+                @endif
                 @if (!empty($autofocus))
                     autofocus
                 @endif

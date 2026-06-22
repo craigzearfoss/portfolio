@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\EnvTypes;
 use App\Exports\Personal\RecipeStepsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeStepsRequest;
 use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +22,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class RecipeStepController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'personal.recipe_step');
+    }
+
     /**
      * Display a listing of recipe steps.
      *

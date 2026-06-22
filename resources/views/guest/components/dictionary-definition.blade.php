@@ -5,7 +5,7 @@
 
 @if (isset($word->table_name))
     @if (!empty($word->table_slug))
-        (<a href="{!! route('guest.dictionary.'.$word->table_slug.'.index') !!}"><i>{!! $word->table_name !!}</i></a><i>)
+        (<a href="{!! route('guest.dictionary.'.$word->table_slug.'.index') !!}"><i>{!! $word->table_name !!}</i></a>)
     @else
         (<i>{!! $word->table_name !!}</i>)
     @endif

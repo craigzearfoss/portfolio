@@ -183,6 +183,9 @@ class Certificate extends Model
             ->when(!empty($filters['expiration']), function ($query) use ($filters) {
                 $query->where($this->table . '.expiration', '=', $filters['expiration']);
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })

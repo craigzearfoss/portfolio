@@ -10,6 +10,7 @@
     $category       = $category ?? request()->query('category');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $nominated_work = $nominated_work ?? request()->query('nominated_work');
     $organization   = $organization ?? request()->query('organization');

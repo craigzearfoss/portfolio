@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\EnvTypes;
 use App\Exports\Career\ApplicationsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
@@ -14,6 +15,7 @@ use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
 use App\Models\Portfolio\AntiSkill;
 use App\Models\Portfolio\Skill;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -28,6 +30,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ApplicationController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'career.application');
+    }
+
     /**
      * Display a listing of applications.
      *

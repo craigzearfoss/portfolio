@@ -146,6 +146,14 @@
                         </td>
                         <td data-field="username" style="white-space: nowrap;">
                             {{ $thisAdmin->username }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.admin', 'data-id' => $thisAdmin->id ]
+                           ])
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
                             {{ $thisAdmin->label }}

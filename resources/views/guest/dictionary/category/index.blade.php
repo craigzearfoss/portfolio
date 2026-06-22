@@ -48,7 +48,7 @@
 
                 @forelse ($categories as $category)
 
-                    <li>
+                    <li data-id="{{ $category->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $category,
                             'route' => route('guest.dictionary.category.show', $category->slug)

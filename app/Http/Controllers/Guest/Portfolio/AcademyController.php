@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Academy;
 use App\Models\System\Admin;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -15,6 +17,13 @@ use Illuminate\View\View;
  */
 class AcademyController extends BaseGuestController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::GUEST);
+
+        view()->share('resourceType', 'portfolio.academy');
+    }
+
     /**
      * Display a listing of readings.
      *

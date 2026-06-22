@@ -18,7 +18,7 @@
 
     @foreach ($coworkers as $coworker)
 
-        <tr>
+        <tr data-id="{{ $coworker->id }}" {!! $coworker->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td data-field="id" style="white-space: nowrap;">
                 @include('admin.components.link', [
                     'name'  => $coworker->name,

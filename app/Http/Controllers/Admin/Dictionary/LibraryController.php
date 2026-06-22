@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreLibrariesRequest;
 use App\Http\Requests\Dictionary\UpdateLibrariesRequest;
 use App\Models\Dictionary\Library;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +18,13 @@ use Illuminate\View\View;
  */
 class LibraryController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'dictionary.library');
+    }
+
     /**
      * Display a listing of libraries.
      *

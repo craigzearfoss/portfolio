@@ -18,6 +18,7 @@
     $created_at_min             = $created_at_min ?? request()->query('created_at-min');
     $communication_datetime_max = $communication_datetime_max ?? request()->query('communication_datetime_max');
     $communication_datetime_min = $communication_datetime_min ?? request()->query('communication_datetime_min');
+    $favorites                  = $favorites ?? request()->query('favorites');
     $from                       = $from ?? request()->query('from');
     $owner_id                   = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $subject                    = $subject ?? request()->query('subject');
@@ -75,6 +76,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
+                                    'class'   => [ 'submit-search-on-enter-key' ],
                                     'style'   => [ 'width: 12rem'],
                                 ])
                             </div>
@@ -91,6 +93,7 @@
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
+                                        'class'   => [ 'submit-search-on-enter-key' ],
                                         'message' => $message ?? '',
                                     ])
                                 </div>
@@ -108,6 +111,7 @@
                             @include('guest.components.form-input-with-icon', [
                                 'name'    => 'from',
                                 'value'   => $from,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -116,6 +120,7 @@
                             @include('guest.components.form-input-with-icon', [
                                 'name'    => 'to',
                                 'value'   => $to,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -127,6 +132,7 @@
                             @include('guest.components.form-input-with-icon', [
                                 'name'    => 'subject',
                                 'value'   => $subject,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -135,6 +141,7 @@
                             @include('guest.components.form-input-with-icon', [
                                 'name'    => 'body',
                                 'value'   => $body,
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -146,6 +153,21 @@
                             'communication-datetime-min' => $communication_datetime_min,
                             'communication-datetime-max' => $communication_datetime_max,
                         ])
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.communication' ]
+                            ])
+                        </div>
 
                     </div>
 

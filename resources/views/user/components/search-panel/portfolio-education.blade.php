@@ -10,6 +10,7 @@
     $created_at_max  = $created_at_max ?? request()->query('created_at-max');
     $created_at_min  = $created_at_min ?? request()->query('created_at-min');
     $enrollment_date = $enrollment_date ?? request()->query('enrollment_date');
+    $favorites      = $favorites ?? request()->query('favorites');
     $graduation_date = $graduation_date ?? request()->query('graduation_date');
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');

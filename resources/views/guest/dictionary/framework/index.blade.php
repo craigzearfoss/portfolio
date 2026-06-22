@@ -48,7 +48,7 @@
 
                 @forelse ($frameworks as $framework)
 
-                    <li>
+                    <li data-id="{{ $framework->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $framework,
                             'route' => route('guest.dictionary.framework.show', $framework->slug)

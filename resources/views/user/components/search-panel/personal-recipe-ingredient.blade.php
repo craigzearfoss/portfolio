@@ -9,6 +9,7 @@
     $action          = $action ?? url()->current();
     $created_at_max  = $created_at_max ?? request()->query('created_at-max');
     $created_at_min  = $created_at_min ?? request()->query('created_at-min');
+    $favorites       = $favorites ?? request()->query('favorites');
     $ingredient_name = $ingredient_name ?? request()->query('ingredient_name');
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $recipe_id       = $recipe_id ?? request()->query('recipe_id');

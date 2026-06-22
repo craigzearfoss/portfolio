@@ -7,9 +7,7 @@
     <link rel="shortcut icon" href="{{ asset('images/site/favicon.ico') }}">
     <title>
         @php
-            $pageTitle = !empty($pageTitle)
-                ? $pageTitle
-                : $title ?? ''
+            $pageTitle = !empty($pageTitle) ? $pageTitle : $title ?? ''
         @endphp
         @if (!empty($pageTitle) && ($pageTitle !== config('app.name')))
             {{$pageTitle}} -
@@ -52,3 +50,7 @@
 
 </head>
 @include('user.components.google-tag')
+
+<script type="text/javascript">
+    document.resourceType = {!! !empty($resourceType) ? 'resourceType = "' . $resourceType . '";' : '' !!}
+</script>

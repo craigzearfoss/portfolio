@@ -137,6 +137,14 @@
                                 'href'  => route('admin.career.contact.show', $contact),
                                 'class' => $contact->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.contact', 'data-id' => $contact->id ]
+                           ])
                         </td>
                         <td data-field="contact.company.names" style="white-space: nowrap;">
                             @php

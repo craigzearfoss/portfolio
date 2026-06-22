@@ -48,7 +48,7 @@
 
                 @forelse ($servers as $server)
 
-                    <li>
+                    <li data-id="{{ $server->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $server,
                             'route' => route('guest.dictionary.server.show', $server->slug)

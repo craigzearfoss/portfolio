@@ -99,6 +99,14 @@
                                 'href'  => route('admin.personal.ingredient.show', $ingredient),
                                 'class' => $ingredient->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'personal.ingredient', 'data-id' => $ingredient->id ]
+                           ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $ingredient->is_public ])

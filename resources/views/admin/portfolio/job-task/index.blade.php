@@ -91,6 +91,7 @@
                                 'sort'  => 'company_name|asc',
                             ])
                         </th>
+                        <th></th>
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
@@ -127,6 +128,16 @@
                             @if ($jobTask->job)
                                 {{ $jobTask->job->company ?? '' }}
                             @endif
+                        </td>
+                        <td data-field="favorites">
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.job_task', 'data-id' => $jobTask->id ]
+                           ])
                         </td>
                         <td data-field="summary">
                             {{ $jobTask->summary }}

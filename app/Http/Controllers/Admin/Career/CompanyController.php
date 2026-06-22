@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\EnvTypes;
 use App\Exports\Career\CompaniesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\Career\StoreCompaniesRequest;
 use App\Http\Requests\Career\UpdateCompaniesRequest;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,6 +23,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class CompanyController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'career.company');
+    }
+
     /**
      * Display a listing of companies.
      *

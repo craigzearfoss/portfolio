@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\EnvTypes;
 use App\Exports\System\ResourcesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
 use App\Models\System\Resource;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ResourceController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'system.resource');
+    }
+
     /**
      * Display a listing of resources.
      *

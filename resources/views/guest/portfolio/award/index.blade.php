@@ -99,13 +99,23 @@
 
                 @forelse ($awards as $award)
 
-                    <tr {!! $award->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $award->id }}" {!! $award->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($award->name),
                                 'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
                                 'class' => $award->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.award', 'data-id' => $award->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td style="white-space: nowrap;">
                             @if (!empty($award->category))

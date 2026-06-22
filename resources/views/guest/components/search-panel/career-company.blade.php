@@ -11,6 +11,7 @@
     $city           = $city ?? request()->query('city');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $industry_id    = $industry_id ?? request()->query('industry_id');
     $industry_name  = $industry_name ?? request()->query('industry_name');
     $name           = $name ?? request()->query('name');
@@ -60,6 +61,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -76,12 +78,28 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
 
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.system-state')
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.company' ]
+                            ])
                         </div>
 
                     </div>

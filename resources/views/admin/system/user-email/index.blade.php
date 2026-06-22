@@ -118,6 +118,14 @@
                         @endif
                         <td data-field="email" style="white-space: nowrap;">
                             {{ $userEmail->email }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.user_email', 'data-id' => $userEmail->id ]
+                           ])
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
                             {{ $userEmail->label }}

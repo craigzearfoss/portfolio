@@ -99,6 +99,14 @@
                                 'href'  => route('admin.portfolio.academy.show', $academy),
                                 'class' => $academy->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.academy', 'data-id' => $academy->id ]
+                            ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $academy->is_public ])

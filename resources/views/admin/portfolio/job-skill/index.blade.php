@@ -136,6 +136,14 @@
                                 'href'  => route('admin.portfolio.job-skill.show', $jobSkill),
                                 'class' => $jobSkill->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.job_skill', 'data-id' => $jobSkill->id ]
+                           ])
                         </td>
                         <td data-field="job.company" style="white-space: nowrap;">
                             @if ($jobSkill->job)

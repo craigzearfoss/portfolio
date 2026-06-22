@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Exports\Portfolio\ProjectsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreProjectsRequest;
 use App\Http\Requests\Portfolio\UpdateProjectsRequest;
 use App\Models\Portfolio\Project;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ProjectController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'portfolio.project');
+    }
+
     /**
      * Display a listing of projects.
      *

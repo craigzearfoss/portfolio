@@ -510,5 +510,101 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = url;
             }
         });
-    })
+    });
+
+    (document.querySelectorAll('.search-favorites') || []).forEach((elem) => {
+        let resource = elem.getAttribute('data-resource');
+        if ((resource !== null) && (resource.length > 0)) {
+            const key = 'favorites_' + resource;
+            let ids = localStorage.getItem(key);
+            if ((ids !== null) && (ids.length > 0)) {
+                ids = JSON.parse(ids);
+                console.log('ids = ', ids);
+                elem.value = ids.join('|');
+            }
+        }
+    });
+
+    (document.querySelectorAll('.add-to-favorites') || []).forEach((elem) => {
+
+        // make favorites red
+        const resourceType = document.resourceType;
+        if (resourceType === elem.getAttribute('data-resource')) {
+            const id = elem.getAttribute('data-id')
+            let favoriteIds = localStorage.getItem('favorites_' + resourceType);
+            if ((favoriteIds !== null) && (favoriteIds.length > 0)) {
+                if (favoriteIds.includes(id)) {
+                    elem.classList.add('favorite');
+                    elem.setAttribute('title', 'remove from favorites');
+                }
+            }
+        }
+
+        elem.addEventListener('click', (event)  => {
+            event.preventDefault();
+
+            let elem = event.target;
+            if (!elem.classList.contains('add-to-favorites')) {
+                elem = elem.parentElement;
+            }
+
+            if (elem.classList.contains('add-to-favorites')) {
+
+                const resource = elem.getAttribute('data-resource');
+                const id = elem.getAttribute('data-id');
+
+                if (((resource !== null) && (resource.length > 0)) && ((id !== null) && (id.length > 0))) {
+
+                    const key = 'favorites_' + resource;
+
+                    let favoriteIds = localStorage.getItem(key);
+                    favoriteIds = favoriteIds ? JSON.parse(favoriteIds) : [];
+
+                    if (elem.classList.contains('favorite')) {
+
+                        // remove from favorites
+                        if (favoriteIds.includes(id)) {
+                            favoriteIds.splice(favoriteIds.indexOf(id), 1);
+                            localStorage.setItem(key, JSON.stringify(favoriteIds));
+                        }
+
+                        // update the search_favorites checkbox on the page
+                        let favoritesCheckBox = document.getElementById('favoritesCheckBox');
+                        if (favoritesCheckBox) {
+                            favoritesCheckBox.value = favoriteIds.join('|');
+                        }
+
+                        elem.classList.remove('favorite');
+
+                    } else {
+
+                        // add to favorites
+
+                        if (favoriteIds) {
+
+                            // update local storage
+                            if (!favoriteIds.includes(id)) {
+                                favoriteIds.push(id)
+                            }
+                            localStorage.setItem(key, JSON.stringify(favoriteIds));
+
+                            // update the search_favorites checkbox on the page
+                            let favoritesCheckBox = document.getElementById('favoritesCheckBox');
+                            if (favoritesCheckBox) {
+                                favoritesCheckBox.value = favoriteIds.join('|');
+                            }
+
+                        } else {
+
+                            favoriteIds = [id]
+                            localStorage.setItem(key, JSON.stringify(favoriteIds));
+                        }
+
+                        elem.classList.add('favorite');
+                    }
+                }
+            }
+        });
+    });
 });
+

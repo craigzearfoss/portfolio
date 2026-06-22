@@ -92,13 +92,23 @@
 
                 @forelse ($courses as $course)
 
-                    <tr {!! $course->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $course->id }}" {!! $course->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($course->name),
                                 'href'  => route('guest.portfolio.course.show', [$owner, $course->slug]),
                                 'class' => $course->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.course', 'data-id' => $course->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td style="white-space: nowrap;">
                             @if (!empty($course->academy->link))

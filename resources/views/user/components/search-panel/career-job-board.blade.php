@@ -14,6 +14,7 @@
     $city                  = $city ?? request()->query('city');
     $country_id            = $country_id ?? request()->query('country_id');
     $email                 = $email ?? request()->query('email');
+    $favorites             = $favorites ?? request()->query('favorites');
     $founded               = $founded ?? request()->query('$founded');
     $founded_max           = $founded_max ?? request()->query('founded-max');
     $founded_min           = $founded_min ?? request()->query('founded-min');

@@ -12,6 +12,10 @@
     $community_college = $community_college ?? request()->query('community_college');
     $created_at_max    = $created_at_max ?? request()->query('created_at-max');
     $created_at_min    = $created_at_min ?? request()->query('created_at-min');
+    $favorites         = $favorites ?? request()->query('favorites');
+    $founded           = $founded ?? request()->query('$founded');
+    $founded_max       = $founded_max ?? request()->query('founded-max');
+    $founded_min       = $founded_min ?? request()->query('founded-min');
     $gender            = $gender ?? request()->query('gender');
     $hbcu              = $hbcu ?? request()->query('hbcu');
     $medical           = $medical ?? request()->query('medical');
@@ -91,15 +95,13 @@
                     <div class="floating-div">
 
                         <div class="control" style="max-width: 28rem;">
+
                             @include('admin.components.form-select', [
                                 'name'     => 'type',
                                 'value'    => $type,
                                 'list'     => new School()->typeListOptions(true),
                                 'style'    => [ 'width: 6rem' ],
                             ])
-                        </div>
-
-                        <div class="control" style="max-width: 28rem;">
                             @include('admin.components.form-select', [
                                 'name'     => 'gender',
                                 'value'    => $gender,
@@ -148,8 +150,30 @@
                         ])
 
                     </div>
+                    <div class="floating-div">
 
-                @if ($isRootAdmin)
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.school' ]
+                            ])
+                        </div>
+
+                        <div>
+                            @include('admin.components.search-panel.controls.career-recruiter-founded', [
+                                'founded_min' => $founded_min,
+                                'founded_max' => $founded_max,
+                            ])
+                        </div>
+
+                    </div>
+
+                    @if ($isRootAdmin)
                         <div class="floating-div">
 
                             @include('admin.components.search-panel.controls.timestamp-created-at', [

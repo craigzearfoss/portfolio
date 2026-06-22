@@ -134,6 +134,14 @@
                                 'href'  => route('admin.portfolio.photography.show', $photo),
                                 'class' => $photo->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.photo', 'data-id' => $photo->id ]
+                           ])
                         </td>
                         <td data-field="credit" style="white-space: nowrap;">
                             {{ $photo->credit }}

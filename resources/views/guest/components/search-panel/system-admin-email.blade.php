@@ -10,6 +10,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
+    $favorites      = $favorites ?? request()->query('favorites');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $search_label   = $search_label ?? request()->query('label');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
@@ -56,6 +57,7 @@
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -68,6 +70,7 @@
                                 'name'    => 'label',
                                 'value'   => $search_label,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>

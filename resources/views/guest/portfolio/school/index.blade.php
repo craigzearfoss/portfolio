@@ -102,11 +102,19 @@
 
                 @forelse ($schools as $school)
 
-                    <tr {!! $school->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $school->id }}" {!! $school->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($school->name),
                                 'href'  => route('guest.portfolio.school.show', [$school->slug]),
+                            ])
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.school', 'data-id' => $school->id ]
                             ])
                             @if (!empty($school->link))
                                 @include('admin.components.link-icon', [

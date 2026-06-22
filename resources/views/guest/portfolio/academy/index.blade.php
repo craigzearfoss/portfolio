@@ -75,11 +75,21 @@
 
                 @forelse ($academies as $academy)
 
-                    <tr {!! $academy->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $academy->id }}" {!! $academy->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             <span {!! $academy->featured ? 'class="has-text-weight-bold"' : '' !!}>
                                 {{ $academy->name }}
                             </span>
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.academy', 'data-id' => $academy->id ]
+                            ])
+                            */ ?>
                             @if (!empty($academy->link))
                                 @include('admin.components.link-icon', [
                                     'title'  => 'open link in new window',

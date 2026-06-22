@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\Category;
+use App\Services\PermissionService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,6 +15,13 @@ use Illuminate\View\View;
  */
 class CategoryController extends BaseGuestController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::GUEST);
+
+        view()->share('resourceType', 'dictionary.category');
+    }
+
     /**
      * Display a listing of categories.
      *

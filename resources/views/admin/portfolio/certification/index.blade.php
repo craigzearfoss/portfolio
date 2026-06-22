@@ -115,6 +115,14 @@
                                 'href'  => route('admin.portfolio.certification.show', $certification),
                                 'class' => $certification->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.certification', 'data-id' => $certification->id ]
+                           ])
                         </td>
                         <td data-field="abbreviation" style="white-space: nowrap;">
                             {{ $certification->abbreviation }}

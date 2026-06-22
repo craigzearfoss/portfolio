@@ -10,6 +10,7 @@
     $created_at_max  = $created_at_max ?? request()->query('created_at-max');
     $created_at_min  = $created_at_min ?? request()->query('created_at-min');
     $enrollment_date = $enrollment_date ?? request()->query('enrollment_date');
+    $favorites       = $favorites ?? request()->query('favorites');
     $graduation_date = $graduation_date ?? request()->query('graduation_date');
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');
@@ -68,12 +69,10 @@
                                 'label'   => 'school',
                                 'value'   => $school_name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
-
-                    </div>
-                    <div class="floating-div">
 
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.portfolio-education-degree-type', [ 'owner_id' => $owner_id ])
@@ -87,6 +86,7 @@
                                 'name'    => 'major',
                                 'value'   => $major,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -96,7 +96,23 @@
                                 'name'    => 'minor',
                                 'value'   => $minor,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 30rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.education' ]
                             ])
                         </div>
 

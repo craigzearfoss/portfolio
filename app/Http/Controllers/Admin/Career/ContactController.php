@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\EnvTypes;
 use App\Exports\Career\ContactsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
@@ -12,6 +13,7 @@ use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
 use App\Models\Career\RecruiterContact;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,6 +26,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ContactController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'career.contact');
+    }
+
     /**
      * Display a listing of contacts.
      *

@@ -139,6 +139,14 @@
                                 'href'  => route('admin.portfolio.award.show', $award),
                                 'class' => $award->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.award', 'data-id' => $award->id ]
+                           ])
                         </td>
                             <td data-field="category">
                                 {{ $award->category }}

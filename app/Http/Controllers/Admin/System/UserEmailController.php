@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\EnvTypes;
 use App\Exports\System\UserEmailsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserEmailsRequest;
 use App\Http\Requests\System\UpdateUserEmailsRequest;
 use App\Models\System\UserEmail;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class UserEmailController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'system.user_email');
+    }
+
     /**
      * Display a listing of user emails.
      *

@@ -131,7 +131,15 @@
                                 'name'  => $resume->name . (!empty($resume->featured) ? '<span class="featured-splat">*</span>' : ''),
                                 'href'  => route('admin.career.resume.show', $resume),
                                 'class' => $resume->is_disabled ? [ 'disabled-text' ] : []
-                        ])
+                            ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.resume', 'data-id' => $resume->id ]
+                           ])
                         </td>
                         <td data-field="resume_date" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDate($resume->resume_date) }}

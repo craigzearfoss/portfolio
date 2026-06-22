@@ -9,6 +9,7 @@
     $action         = $action ?? url()->current();
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $phone          = $phone ?? request()->query('phone');
     $search_label   = $search_label ?? request()->query('label');
@@ -57,6 +58,7 @@
                                 'name'    => 'phone',
                                 'value'   => $phone,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>
@@ -69,6 +71,7 @@
                                 'name'    => 'label',
                                 'value'   => $search_label,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 12rem;',
                             ])
                         </div>

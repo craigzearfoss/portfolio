@@ -48,7 +48,7 @@
 
                 @forelse ($stacks as $stack)
 
-                    <li>
+                    <li data-id="{{ $stack->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $stack,
                             'route' => route('guest.dictionary.stack.show', $stack->slug)

@@ -12,6 +12,7 @@
     $catalog_number = $catalog_number ?? request()->query('catalog_number');
     $created_at_max = $created_at_max ?? request()->query('created_at_max');
     $created_at_min = $created_at_min ?? request()->query('created_at_min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $search_label   = $search_label ?? request()->query('search_label');
@@ -73,9 +74,6 @@
                             ])
                         </div>
 
-                    </div>
-                    <div class="floating-div">
-
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'artist',
@@ -99,9 +97,7 @@
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
-                    </div>
 
-                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'catalog_number',
@@ -110,6 +106,21 @@
                                 'message' => $message ?? '',
                                 'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 30rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.music' ]
                             ])
                         </div>
 

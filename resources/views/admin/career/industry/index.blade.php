@@ -104,6 +104,14 @@
                                 'href'  => route('admin.career.industry.show', $industry),
                                 'class' => $industry->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.industry', 'data-id' => $industry->id ]
+                           ])
                         </td>
                         <td data-field="abbreviation">
                             {!! htmlspecialchars($industry->abbreviation) !!}

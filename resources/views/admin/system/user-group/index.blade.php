@@ -130,6 +130,14 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {{ $userGroup->name }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.user_group', 'data-id' => $userGroup->id ]
+                           ])
                         </td>
                         <td data-field="team.name" style="white-space: nowrap;">
                             {{ $userGroup->team->name ?? '' }}

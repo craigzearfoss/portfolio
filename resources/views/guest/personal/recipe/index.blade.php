@@ -84,13 +84,21 @@
 
                 @forelse ($recipes as $recipe)
 
-                    <tr {!! $recipe->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $recipe->id }}"  {!! $recipe->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($recipe->name),
                                 'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
                                 'class' => $recipe->featured ? [ 'has-text-weight-bold' ] : [],
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'personal.recipe', 'data-id' => $recipe->id ]
+                           ])
                         </td>
                         <td data-field="types" style="white-space: nowrap;">
                             {{ implode(', ', $recipe->types()) }}

@@ -139,16 +139,16 @@ class Skill extends Model
      *
      */
     const array LEVELS = [
-        1 => '1 star',
-        2 => '2 stars',
-        3 => '3 stars',
-        4 => '4 stars',
-        5 => '5 stars',
-        6 => '6 stars',
-        7 => '7 stars',
-        8 => '8 stars',
-        9 => '9 stars',
-        10 => '10 stars',
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5',
+        6 => '6',
+        7 => '7',
+        8 => '8',
+        9 => '9',
+        10 => '10',
     ];
 
     /**
@@ -217,6 +217,9 @@ class Skill extends Model
             })
             ->when(!empty($filters['end_year']), function ($query) use ($filters) {
                 $query->where($this->table . '.end_year', '=', intval($filters['end_year']));
+            })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);

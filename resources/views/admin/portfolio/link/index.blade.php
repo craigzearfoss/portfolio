@@ -126,6 +126,14 @@
                                 'href'  => route('admin.portfolio.link.show', $link),
                                 'class' => $link->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.link', 'data-id' => $link->id ]
+                           ])
                         </td>
                         <td style="white-space: nowrap;">
                             @include('admin.components.link', [

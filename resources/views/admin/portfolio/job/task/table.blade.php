@@ -14,7 +14,7 @@
 
     @foreach ($tasks as $task)
 
-        <tr>
+        <tr data-id="{{ $task->id }}" {!! $task->is_disabled ? 'class="disabled-text"' : '' !!}>
             <td data-field="summary">
                 {{ $task->summary ?? '' }}
             </td>

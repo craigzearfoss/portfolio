@@ -6,10 +6,11 @@
     $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action         = $action ?? url()->current();
+    $favorites      = $favorites ?? request()->query('favorites');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
-    $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $created_at_max = $created_at_max ?? request()->query('created_at-max');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recipe::SEARCH_ORDER_BY[0], Recipe::SEARCH_ORDER_BY[1] ]);

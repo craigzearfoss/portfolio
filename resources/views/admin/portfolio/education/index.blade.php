@@ -152,6 +152,14 @@
                         </td>
                         <td data-field="major" style="white-space: nowrap;">
                             {{ $education->major }}{!! !empty($education->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.education', 'data-id' => $education->id ]
+                           ])
                         </td>
                         <td data-field="minor" style="white-space: nowrap;">
                             {{ $education->minor }}

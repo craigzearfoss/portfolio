@@ -99,6 +99,16 @@
                                 'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
                                 'class' => $publication->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.publication', 'data-id' => $publication->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td data-field="publication_name" class="hide-at-480" style="white-space: nowrap;">
                             {!! htmlspecialchars($publication->publication_name) !!}

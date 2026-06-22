@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Job;
 use App\Models\System\Admin;
+use App\Services\PermissionService;
 use App\Services\ResumeService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,6 +18,13 @@ use Illuminate\View\View;
  */
 class JobController extends BaseGuestController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::GUEST);
+
+        view()->share('resourceType', 'portfolio.job');
+    }
+
     /**
      * Display a listing of jobs.
      *

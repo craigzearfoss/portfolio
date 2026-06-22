@@ -141,6 +141,14 @@
                                 'href'  => route('admin.portfolio.course.show', $course),
                                 'class' => $course->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.course', 'data-id' => $course->id ]
+                           ])
                         </td>
                         <td data-field="academy_id">
                             @if (!empty($course->academy))

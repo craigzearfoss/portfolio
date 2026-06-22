@@ -48,7 +48,7 @@
 
                 @forelse ($libraries as $library)
 
-                    <li>
+                    <li data-id="{{ $library->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $library,
                             'route' => route('guest.dictionary.library.show', $library->slug)

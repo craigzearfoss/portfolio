@@ -150,6 +150,14 @@
                                     'class' => $communication->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             @endif
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.communication', 'data-id' => $communication->id ]
+                           ])
                         </td>
                         <td data-field="communication_type_id">
                             {{ htmlspecialchars($communication->communicationType->name ?? '') }}

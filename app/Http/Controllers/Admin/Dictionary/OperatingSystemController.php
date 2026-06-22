@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreOperatingSystemsRequest;
 use App\Http\Requests\Dictionary\UpdateOperatingSystemsRequest;
 use App\Models\Dictionary\OperatingSystem;
+use App\Services\PermissionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,6 +17,13 @@ use Illuminate\View\View;
  */
 class OperatingSystemController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'dictionary.operating_system');
+    }
+
     /**
      * Display a listing of operations systems.
      *

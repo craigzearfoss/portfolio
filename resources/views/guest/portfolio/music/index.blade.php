@@ -106,6 +106,16 @@
                                 'href'  => route('guest.portfolio.music.show', [$owner, $music->slug]),
                                 'class' => $music->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.music', 'data-id' => $music->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td data-field="artist" style="white-space: nowrap;">
                             {!! htmlspecialchars($music->artist) !!}

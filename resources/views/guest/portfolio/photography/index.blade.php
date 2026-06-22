@@ -85,13 +85,23 @@
 
                 @forelse ($photos as $photo)
 
-                    <tr {!! $video->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $photo->id }}" {!! $video->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($photo->name),
                                 'href'  => route('guest.portfolio.photography.show', [$owner, $photo->slug]),
                                 'class' => $photo->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.photo', 'data-id' => $photo->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td class="hide-at-480" style="white-space: nowrap;">
                             {!! htmlspecialchars($photo->credit) !!}

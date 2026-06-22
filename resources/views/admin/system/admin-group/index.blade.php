@@ -140,6 +140,14 @@
                             @else
                                 ?
                             @endif
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.admin_group', 'data-id' => $adminGroup->id ]
+                           ])
                         </td>
                         <td data-field="abbreviation">
                             {{ $adminGroup->abbreviation }}

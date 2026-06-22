@@ -120,6 +120,9 @@ class AdminEmail extends Model
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })

@@ -158,7 +158,7 @@
 
                 @forelse ($adminDatabases as $adminDatabase)
 
-                    <tr data-id="{{ $adminDatabase->id }}" {!! $thisAdmin->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $adminDatabase->id }}" {!! $adminDatabase->is_disabled ? 'class="disabled-text"' : '' !!}>
                         @if ($isRootAdmin)
                             <td data-field="id">
                                 {{ $adminDatabase->id }}
@@ -172,6 +172,14 @@
                         @endif
                         <td data-field="name">
                             {{ $adminDatabase->name }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.admin_database', 'data-id' => $adminDatabase->id ]
+                           ])
                         </td>
                         @if ($isRootAdmin)
                             <td data-field="tag">

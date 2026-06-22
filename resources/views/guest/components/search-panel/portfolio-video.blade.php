@@ -10,6 +10,7 @@
     $company        = $company ?? request()->query('company');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $show           = $show ?? request()->query('show');
@@ -76,9 +77,6 @@
                             ])
                         </div>
 
-                    </div>
-                    <div class="floating-div">
-
                         <div class="search-form-control">
                             @include('guest.components.form-input-with-icon', [
                                 'name'    => 'company',
@@ -86,6 +84,21 @@
                                 'message' => $message ?? '',
                                 'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.video' ]
                             ])
                         </div>
 

@@ -214,6 +214,9 @@ class User extends Authenticatable
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where($this->table . '.employer', 'like', '%' . $filters['employer'] . '%');
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['label']), function ($query) use ($filters) {
                 $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
             })

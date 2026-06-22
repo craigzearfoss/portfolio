@@ -239,6 +239,9 @@ class Resource extends Model
             ->when(!empty($filters['database_title']), function ($query) use ($filters) {
                 $query->where('databases.title', '=', $filters['database_title']);
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
                 $query->where($this->table . '.has_owner', '=', true);
             })

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\EnvTypes;
 use App\Exports\Career\ResumesExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreResumesRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\Career\UpdateResumesRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Resume;
 use App\Models\System\Admin;
+use App\Services\PermissionService;
 use App\Services\ResumeService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -24,6 +26,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ResumeController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'career.resume');
+    }
+
     /**
      * Display a listing of resumes.
      *

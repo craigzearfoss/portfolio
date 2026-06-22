@@ -122,6 +122,14 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {{ $adminTeam->name }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.admin_team', 'data-id' => $adminTeam->id ]
+                           ])
                         </td>
                         <td data-field="abbreviation" style="white-space: nowrap;">
                             {{ $adminTeam->abbreviation }}

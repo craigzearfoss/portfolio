@@ -7,6 +7,7 @@
 
     // get variables
     $admin_id = $admin_id ?? request()->query('admin_id');
+    $favorites      = $favorites ?? request()->query('favorites');
     $user_id  = $user_id ?? request()->query('user_id');
 
     // set sort order

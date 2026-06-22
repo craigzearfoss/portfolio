@@ -132,6 +132,14 @@
                                 'href'  => route('admin.career.company.show', $coverLetter->application->company),
                                 'class' => $coverLetter->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.cover_letter', 'data-id' => $coverLetter->id ]
+                           ])
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
                             @include('admin.components.link', [

@@ -99,6 +99,16 @@
                                 'href'  => route('guest.portfolio.video.show', [$owner, $video->slug]),
                                 'class' => $video->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.video', 'data-id' => $video->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-480">
                             {!! $video->video_year !!}

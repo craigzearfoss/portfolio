@@ -161,6 +161,14 @@
                                 'href'  => route('admin.portfolio.certificate.show', $certificate),
                                 'class' => $certificate->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.certificate', 'data-id' => $certificate->id ]
+                           ])
                         </td>
                         <td data-field="academy.name">
                             @if (!empty($certificate->academy))

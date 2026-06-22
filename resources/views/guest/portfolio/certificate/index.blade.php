@@ -106,13 +106,23 @@
 
                 @forelse ($certificates as $certificate)
 
-                    <tr {!! $certificate->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $certificate->id }}" {!! $certificate->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($certificate->name),
                                 'href'  => route('guest.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
                                 'class' => $certificate->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.certificate', 'data-id' => $certificate->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td style="white-space: nowrap;">
                             @if (!empty($certificate->academy->link))

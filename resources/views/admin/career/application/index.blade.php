@@ -269,6 +269,14 @@
                                 'href'  => route('admin.career.application.show', $application),
                                 'class' => $application->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.application', 'data-id' => $application->id ]
+                           ])
                         </td>
                         <td data-field="active" class="has-text-centered hide-at-1400">
                             @include('admin.components.checkmark', [ 'checked' => $application->active ])

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreUnitsRequest;
 use App\Http\Requests\Personal\UpdateUnitsRequest;
 use App\Models\Personal\Unit;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +18,13 @@ use Illuminate\View\View;
  */
 class UnitController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'personal.unit');
+    }
+
     /**
      * Display a listing of units.
      *

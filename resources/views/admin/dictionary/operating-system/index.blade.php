@@ -88,6 +88,14 @@
                         @endif
                         <td data-field="name">
                             {!! htmlspecialchars($operatingSystem->name) !!}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'dictionary.operating_system', 'data-id' => $operatingSystem->id ]
+                           ])
                         </td>
                         <td data-field="abbreviation">
                             {!! htmlspecialchars($operatingSystem->abbreviation) !!}

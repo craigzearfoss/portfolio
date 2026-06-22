@@ -86,7 +86,7 @@
 
                 @forelse ($educations as $education)
 
-                    <tr {!! $education->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $education->id }}" {!! $education->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="major" style="white-space: nowrap;">
                             @if ($education->featured)
                                 <strong>
@@ -103,7 +103,19 @@
                             @endif
                         </td>
                         <td data-field="degreeType.name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($education->degreeType->name ?? '') !!}
+                            @if (!empty($education->degreeType->name))
+                            {!! htmlspecialchars($education->degreeType->name) !!}
+                                <?php /*
+                                @include('admin.components.link-icon', [
+                                    'title'      => 'add to favorites',
+                                    'icon'       => 'fa-heart',
+                                    'border'     => false,
+                                    'target'     => '_blank',
+                                    'class'      => 'add-to-favorites',
+                                    'attributes' => [ 'data-resource' => 'portfolio.course', 'data-id' => $course->id ]
+                                ])
+                                */ ?>
+                            @endif
                         </td>
                         <td data-field="school.name" style="white-space: nowrap;">
                             {!! htmlspecialchars($education->school->name ?? '') !!}

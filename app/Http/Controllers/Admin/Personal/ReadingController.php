@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\EnvTypes;
 use App\Exports\Personal\ReadingsExport;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreReadingsRequest;
 use App\Http\Requests\Personal\UpdateReadingsRequest;
 use App\Models\Personal\Reading;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ReadingController extends BaseAdminController
 {
+    public function __construct(PermissionService $permissionService)
+    {
+        parent::__construct($permissionService, EnvTypes::ADMIN);
+
+        view()->share('resourceType', 'personal.reading');
+    }
+
     /**
      * Display a listing of readings.
      *

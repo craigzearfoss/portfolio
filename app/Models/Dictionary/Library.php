@@ -136,6 +136,9 @@ class Library extends Model
             ->when(!empty($filters['definition']), function ($query) use ($filters) {
                 $query->where($this->table . '.definition', 'like', '%' . $filters['definition'] . '%');
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $name = $filters['name'];
                 $query->orWhere(function ($query) use ($name) {

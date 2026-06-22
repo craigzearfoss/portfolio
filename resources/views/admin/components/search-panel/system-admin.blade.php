@@ -9,15 +9,16 @@
 
     // get variables
     $action         = $action ?? url()->current();
-    $this_admin_id  = $isRootAdmin
-        ? $this_admin_id ?? request()->query('id')
-        : $admin->id;
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $search_label   = $search_label ?? request()->query('label');
     $team_id        = $team_id ?? request()->query('team_id');
+    $this_admin_id  = $isRootAdmin
+        ? $this_admin_id ?? request()->query('id')
+        : $admin->id;
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
 
@@ -108,6 +109,21 @@
 
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.system-admin-team')
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'system.admin' ]
+                            ])
                         </div>
 
                     </div>

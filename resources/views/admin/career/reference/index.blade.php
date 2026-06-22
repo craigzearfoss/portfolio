@@ -130,6 +130,14 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {!! htmlspecialchars($reference->name) !!}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'career.reference', 'data-id' => $reference->id ]
+                           ])
                         </td>
                         <td data-field="relation" style="white-space: nowrap;">
                             {{ $reference->relation }}

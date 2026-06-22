@@ -255,6 +255,9 @@ class School extends Model
             ->when(!empty($filters['enrollment']), function ($query) use ($filters) {
                 $query->where($this->table . '.enrollment', '=', intval($filters['enrollment']));
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['former_names']), function ($query) use ($filters) {
                 $query->where($this->table . '.former_names', 'like', '%' . $filters['former_names'] . '%');
             })

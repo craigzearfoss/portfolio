@@ -88,6 +88,16 @@
                                 'href'  => route('guest.portfolio.audio.show', [$owner, $audio->slug]),
                                 'class' => $audio->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.audio', 'data-id' => $audio->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td data-field="clip|podcast" class="hide-at-600" style="white-space: nowrap;">
                             @php

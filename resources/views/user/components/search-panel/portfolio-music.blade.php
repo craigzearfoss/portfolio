@@ -11,6 +11,7 @@
     $catalog_number = $catalog_number ?? request()->query('catalog_number');
     $created_at_max = $created_at_max ?? request()->query('created_at_max');
     $created_at_min = $created_at_min ?? request()->query('created_at_min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $search_label   = $search_label ?? request()->query('search_label');

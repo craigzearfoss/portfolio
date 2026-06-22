@@ -65,7 +65,7 @@
 
                 @forelse ($users as $user)
 
-                    <tr data-id="{{ $user->id }}">
+                    <tr data-id="{{ $user->id }} {!! $user->is_disabled ? 'class="disabled-text"' : '' !!}">
                         <td data-field="thumbnail" style="width: 32px;">
                             @if (!empty($user->thumbnail))
                                 @include('guest.components.link', [
@@ -84,6 +84,16 @@
                                 'name' => htmlspecialchars(!empty($user->name) ? $user->name : $user->label),
                                 'href' => route('guest.user.show', $user),
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'system.user', 'data-id' => $user->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td data-field="role">
                             {!! htmlspecialchars($user->role) !!}

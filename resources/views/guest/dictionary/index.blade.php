@@ -39,7 +39,7 @@
 
                 @forelse ($words as $word)
 
-                    <li>
+                    <li data-table="{{ $word->table_slug }}" data-id="{{ $word->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $word,
                             'route' => route('guest.dictionary.'.$word->table_slug.'.show', $word->slug)

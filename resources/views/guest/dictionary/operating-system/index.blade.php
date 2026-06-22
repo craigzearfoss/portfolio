@@ -48,7 +48,7 @@
 
                 @forelse ($operatingSystems as $operatingSystem)
 
-                    <li>
+                    <li data-id="{{ $operatingSystem->id }}">
                         @include('guest.components.dictionary-definition', [
                             'word'  => $operatingSystem,
                             'route' => route('guest.dictionary.operating-system.show', $operatingSystem->slug)

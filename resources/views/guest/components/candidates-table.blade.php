@@ -34,7 +34,7 @@
 
         @forelse ($candidates as $candidate)
 
-            <tr data-id="{{ $candidate->id }}">
+            <tr data-id="{{ $candidate->id }}" {!! $candidate->is_disabled ? 'class="disabled-text"' : '' !!}>
                 <td data-field="thumbnail" style="width: 6rem;">
                     @if (!empty($candidate->thumbnail))
                         @include('guest.components.link', [
@@ -53,6 +53,16 @@
                         'name' => !empty($candidate->name) ? $candidate->name : $candidate->label,
                         'href' => route('guest.admin.show', $candidate),
                     ])
+                    <?php /*
+                    @include('admin.components.link-icon', [
+                        'title'      => 'add to favorites',
+                        'icon'       => 'fa-heart',
+                        'border'     => false,
+                        'target'     => '_blank',
+                        'class'      => 'add-to-favorites',
+                        'attributes' => [ 'data-resource' => 'system.admin', 'data-id' => $candidate->id ]
+                    ])
+                    */ ?>
                 </td>
                 <td data-field="role">
                     {{ $candidate->role ?? '' }}

@@ -150,6 +150,9 @@ class AdminDatabase extends Model
             ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
                 $query->where($this->table . '.has_owner', '=', true);
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['icon']), function ($query) use ($filters) {
                 $query->where($this->table . '.icon', '=', ['icon']);
             })

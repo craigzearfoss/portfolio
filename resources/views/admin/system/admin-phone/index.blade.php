@@ -117,6 +117,14 @@
                         @endif
                         <td data-field="phone" style="white-space: nowrap;">
                             {{ $adminPhone->phone }}
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'system.admin_phone', 'data-id' => $adminPhone->id ]
+                           ])
                         </td>
                         <td data-field="label" style="white-space: nowrap;">
                             {{ $adminPhone->label }}
@@ -124,9 +132,9 @@
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminPhone->is_public ])
                         </td>
-                            <td data-field="is_disabled" class="has-text-centered">
-                                @include('admin.components.checkmark', [ 'checked' => $adminPhone->is_disabled ])
-                            </td>
+                        <td data-field="is_disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $adminPhone->is_disabled ])
+                        </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">

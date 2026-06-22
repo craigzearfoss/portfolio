@@ -85,13 +85,23 @@
 
                 @forelse ($arts as $art)
 
-                    <tr {!! $art->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $art->id }}" {!! $art->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($art->name),
                                 'href'  => route('guest.portfolio.art.show', [$owner, $art->slug]),
                                 'class' => $art->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.art', 'data-id' => $art->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td style="white-space: nowrap;">
                             {!! htmlspecialchars($art->artist) !!}

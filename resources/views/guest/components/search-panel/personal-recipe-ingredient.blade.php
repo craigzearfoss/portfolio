@@ -9,6 +9,7 @@
     $action          = $action ?? url()->current();
     $created_at_max  = $created_at_max ?? request()->query('created_at-max');
     $created_at_min  = $created_at_min ?? request()->query('created_at-min');
+    $favorites       = $favorites ?? request()->query('favorites');
     $ingredient_name = $ingredient_name ?? request()->query('ingredient_name');
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $recipe_id       = $recipe_id ?? request()->query('recipe_id');
@@ -59,6 +60,7 @@
                                 'label'   => 'ingredient',
                                 'value'   => $ingredient_name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -72,7 +74,23 @@
                                 'label'   => 'recipe',
                                 'value'   => $recipe_name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'personal.recipe_ingredient' ]
                             ])
                         </div>
 

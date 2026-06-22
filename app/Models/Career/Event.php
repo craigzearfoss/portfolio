@@ -210,6 +210,9 @@ class Event extends Model
             ->when(!empty($filters['event_datetime-min']), function ($query) use ($filters) {
                 $query->where($this->table . '.event_datetime', '<=', $filters['event_datetime-min']);
             })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
+            })
             ->when(!empty($filters['link']), function ($query) use ($filters) {
                 $query->where($this->table . '.link', 'like', '%' . $filters['link'] . '%');
             })

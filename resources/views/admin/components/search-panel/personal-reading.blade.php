@@ -12,6 +12,7 @@
     $author         = $author ?? request()->query('author');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
+    $favorites      = $favorites ?? request()->query('favorites');
     $fiction        = boolval($fiction ?? request()->query('fiction'));
     $nonfiction     = boolval($nonfiction ?? request()->query('nonfiction'));
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
@@ -95,12 +96,9 @@
                                 'value'   => $search_title,
                                 'message' => $message ?? '',
                                 'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'style'   => [ 'width: 16rem' ],
                             ])
                         </div>
-
-                    </div>
-                    <div class="floating-div">
 
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
@@ -115,9 +113,24 @@
                                         false,
                                         [ 'author', 'asc' ]
                                     ),
-                                    'style'    => 'min-width: 15rem;'
+                                    'style'    => [ 'min-width: 15rem', 'max-width: 16rem' ]
                                 ])
                             </div>
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'personal.reading' ]
+                            ])
                         </div>
 
                     </div>

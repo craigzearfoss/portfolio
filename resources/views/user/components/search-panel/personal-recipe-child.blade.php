@@ -9,6 +9,7 @@
     $owner_id        = $owner->id ?? -1;
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $created_at_max   = $created_at_max ?? request()->query('created_at-max');
+    $favorites      = $favorites ?? request()->query('favorites');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recipe::SEARCH_ORDER_BY[0], Recipe::SEARCH_ORDER_BY[1] ]);

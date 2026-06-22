@@ -6,8 +6,9 @@
     $admin = $admin ?? null;
 
     // get variables
-    $admin_id = $admin_id ?? request()->query('admin_id');
-    $user_id  = $user_id ?? request()->query('user_id');
+    $admin_id  = $admin_id ?? request()->query('admin_id');
+    $favorites = $favorites ?? request()->query('favorites');
+    $user_id   = $user_id ?? request()->query('user_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Session::SEARCH_ORDER_BY[0], Session::SEARCH_ORDER_BY[1] ]);

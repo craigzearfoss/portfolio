@@ -13,6 +13,7 @@
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
     $name           = $name ?? request()->query('name');
+    $favorites      = $favorites ?? request()->query('favorites');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $phone          = $phone ?? request()->query('phone');
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
@@ -60,6 +61,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -76,6 +78,7 @@
                                 'name'    => 'email',
                                 'value'   => $email,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -85,6 +88,7 @@
                                 'name'    => 'phone',
                                 'value'   => $phone,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -98,6 +102,7 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>

@@ -8,8 +8,9 @@
     // get variables
     $action         = $action ?? url()->current();
     $author         = $author ?? request()->query('author');
-    $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
+    $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $prep_time_max  = $prep_time_max ?? request()->query('prep_time-max');
@@ -59,18 +60,17 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
-
-                    </div>
-                    <div class="floating-div">
 
                         <div class="search-form-control">
                             @include('guest.components.form-input', [
                                 'name'    => 'author',
                                 'value'   => $author,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
                             ])
                         </div>
@@ -96,6 +96,7 @@
                                 'value'       => $prep_time_max,
                                 'placeholder' => '(minutes)',
                                 'message'     => $message ?? '',
+                                'class'        => [ 'submit-search-on-enter-key' ],
                                 'style'       => 'width: 5rem;',
                                 'title'       => 'Maximum prep time in minutes.',
                             ])
@@ -109,7 +110,23 @@
                                 'placeholder' => '(minutes)',
                                 'message'     => $message ?? '',
                                 'style'       => 'width: 5rem;',
+                                'class'       => [ 'submit-search-on-enter-key' ],
                                 'title'       => 'Maximum total time in minutes.',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'personal.recipe' ]
                             ])
                         </div>
 

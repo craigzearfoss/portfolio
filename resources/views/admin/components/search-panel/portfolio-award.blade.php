@@ -11,6 +11,7 @@
     $category       = $category ?? request()->query('category');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $nominated_work = $nominated_work ?? request()->query('nominated_work');
     $organization   = $organization ?? request()->query('organization');
@@ -72,9 +73,10 @@
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'category',
@@ -98,9 +100,7 @@
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
-                    </div>
 
-                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'organization',
@@ -108,6 +108,21 @@
                                 'message' => $message ?? '',
                                 'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 30rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.award' ]
                             ])
                         </div>
 

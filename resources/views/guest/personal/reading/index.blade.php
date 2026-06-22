@@ -99,13 +99,21 @@
 
                 @forelse ($readings as $reading)
 
-                    <tr {!! $reading->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $reading->id }}"  {!! $reading->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
                                 'name'  => htmlspecialchars($reading->title),
                                 'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
                                 'class' => $reading->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'personal.reading', 'data-id' => $reading->id ]
+                           ])
                         </td>
                         <td style="white-space: nowrap;">
                             {{ $reading->author }}

@@ -130,6 +130,14 @@
                                 'href'  => route('admin.portfolio.job-coworker.show', $jobCoworker),
                                 'class' => $jobCoworker->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.job_coworker', 'data-id' => $jobCoworker->id ]
+                           ])
                         </td>
                         <td data-field="level">
                             {{ $jobCoworker->level }}

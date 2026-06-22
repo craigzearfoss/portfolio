@@ -99,6 +99,16 @@
                                 'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
                                 'class' => $project->featured ? [ 'has-text-weight-bold' ] : []
                             ])
+                            <?php /*
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.project', 'data-id' => $project->id ]
+                            ])
+                            */ ?>
                         </td>
                         <td data-field="language" style="white-space: nowrap;">
                             {!! !empty($project->language)

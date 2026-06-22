@@ -93,6 +93,20 @@ class Reference extends Model
     ];
 
     /**
+     *
+     */
+    const array SALUTATIONS = [
+        'Dr.',
+        'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+        'Prof.',
+        'Rev.',
+        'Sir',
+    ];
+
+    /**
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
@@ -227,6 +241,9 @@ class Reference extends Model
             })
             ->when(!empty($filters['family']), function ($query) use ($filters) {
                 $query->where($this->table . '.family', '=', true);
+            })
+            ->when(!empty($filters['favorites']), function ($query) use ($filters) {
+                $query->whereIn($this->table . '.id', explode('|', $filters['favorites']));
             })
             ->when(!empty($filters['friend']), function ($query) use ($filters) {
                 $query->where($this->table . '.friend', '=', true);

@@ -126,6 +126,14 @@
                                 'href'  => route('admin.portfolio.audio.show', $audio),
                                 'class' => $audio->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.audio', 'data-id' => $audio->id ]
+                           ])
                         </td>
                         <td data-field="clip|podcast">
                             @php

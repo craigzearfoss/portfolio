@@ -139,6 +139,14 @@
                                 'href'  => route('admin.portfolio.video.show', $video),
                                 'class' => $video->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.video', 'data-id' => $video->id ]
+                           ])
                         </td>
                         <td data-field="video_year" style="white-space: nowrap;">
                             {{ $video->video_year }}

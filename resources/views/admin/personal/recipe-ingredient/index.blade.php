@@ -134,6 +134,14 @@
                                 'href'  => route('admin.personal.ingredient.show', $recipeIngredient->ingredient),
                                 'class' => $recipeIngredient->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'personal.recipe_ingredient', 'data-id' => $recipeIngredient->id ]
+                           ])
                         </td>
                         <td data-field="recipe.name" style="white-space: nowrap;">
                             @include('admin.components.link', [

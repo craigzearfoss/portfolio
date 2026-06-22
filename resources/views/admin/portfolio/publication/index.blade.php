@@ -139,6 +139,14 @@
                                 'href'  => route('admin.portfolio.publication.show', $publication),
                                 'class' => $publication->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.publication', 'data-id' => $publication->id ]
+                           ])
                         </td>
                         <td data-field="publication_name" style="white-space: nowrap;">
                             {{ $publication->publication_name }}

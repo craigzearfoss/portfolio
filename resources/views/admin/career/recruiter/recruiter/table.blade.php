@@ -23,7 +23,6 @@
 
         <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
-
             @php
                 $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
                 if ($bottom_column_headings ?? false) $labelElems[] = 'tfoot';
@@ -89,6 +88,14 @@
                             'href'  => route('admin.career.recruiter.show', $recruiter),
                             'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
                         ])
+                        @include('admin.components.link-icon', [
+                           'title'      => 'add to favorites',
+                           'icon'       => 'fa-heart',
+                           'border'     => false,
+                           'target'     => '_blank',
+                           'class'      => 'add-to-favorites',
+                           'attributes' => [ 'data-resource' => 'career.recruiter', 'data-id' => $recruiter->id ]
+                       ])
                     </td>
                     <td data-field="recruiter_industry_name" style="white-space: nowrap;">
                         {{ $recruiter->recruiterIndustry->name ?? '' }}

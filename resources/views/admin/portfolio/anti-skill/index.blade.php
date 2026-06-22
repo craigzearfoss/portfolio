@@ -132,6 +132,14 @@
                                     'class' => $antiSkill->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
+                            @include('admin.components.link-icon', [
+                                'title'      => 'add to favorites',
+                                'icon'       => 'fa-heart',
+                                'border'     => false,
+                                'target'     => '_blank',
+                                'class'      => 'add-to-favorites',
+                                'attributes' => [ 'data-resource' => 'portfolio.academy_skill', 'data-id' => $antiSkill->id ]
+                            ])
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [

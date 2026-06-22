@@ -51,3 +51,7 @@
 
 </head>
 @include('admin.components.google-tag')
+
+<script type="text/javascript">
+    document.resourceType = {!! !empty($resourceType) ? 'resourceType = "' . $resourceType . '";' : '' !!}
+</script>

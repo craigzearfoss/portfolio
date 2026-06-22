@@ -8,19 +8,20 @@
 
     // get variables
     $action                = $action ?? url()->current();
-    $name                  = $name ?? request()->query('name');
-    $created_at_max        = $created_at_max ?? request()->query('created_at-max');
-    $created_at_min        = $created_at_min ?? request()->query('created_at-min');
     $city                  = $city ?? request()->query('city');
     $country_id            = $country_id ?? request()->query('country_id');
+    $created_at_max        = $created_at_max ?? request()->query('created_at-max');
+    $created_at_min        = $created_at_min ?? request()->query('created_at-min');
     $email                 = $email ?? request()->query('email');
+    $favorites             = $favorites ?? request()->query('favorites');
     $founded               = $founded ?? request()->query('$founded');
     $founded_max           = $founded_max ?? request()->query('founded-max');
     $founded_min           = $founded_min ?? request()->query('founded-min');
+    $international         = $international ?? request()->query('international');
     $is_active             = $is_active ?? request()->query('is_active');
     $is_disabled           = $is_disabled ?? request()->query('is_disabled');
     $local                 = $local ?? request()->query('local');
-    $international         = $international ?? request()->query('international');
+    $name                  = $name ?? request()->query('name');
     $national              = $national ?? request()->query('national');
     $phone                 = $phone ?? request()->query('phone');
     $primary               = $primary ?? request()->query('primary');
@@ -106,6 +107,16 @@
 
                     </div>
                     <div class="floating-div" style="width: 13rem;">
+
+                        @include('guest.components.form-checkbox', [
+                            'id'         => 'searchFavorites',
+                            'name'       => 'favorites',
+                            'value'      => 1,
+                            'checked'    => $favorites,
+                            'nohidden'   => true,
+                            'class'      => [ 'search-favorites' ],
+                            'attributes' => [ 'data-resource' => 'career.recruiter' ]
+                        ])
 
                         @include('guest.components.form-checkbox', [
                             'name'     => 'primary',

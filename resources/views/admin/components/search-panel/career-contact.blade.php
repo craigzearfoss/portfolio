@@ -14,6 +14,7 @@
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $email          = $email ?? request()->query('email');
+    $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
     $phone          = $phone ?? request()->query('phone');
     $state_id       = $state_id ?? request()->query('state_id');
@@ -82,9 +83,6 @@
                         </div>
                         */ ?>
 
-                    </div>
-                    <div class="floating-div">
-
                         <div class="search-form-control">
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'company_name',
@@ -116,6 +114,21 @@
                                 'message' => $message ?? '',
                                 'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem' ],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.company' ]
                             ])
                         </div>
 

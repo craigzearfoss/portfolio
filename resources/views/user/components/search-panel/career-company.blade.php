@@ -11,6 +11,7 @@
     $city           = $city ?? request()->query('city');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
+    $favorites      = $favorites ?? request()->query('favorites');
     $industry_id    = $industry_id ?? request()->query('industry_id');
     $industry_name  = $industry_name ?? request()->query('industry_name');
     $name           = $name ?? request()->query('name');
