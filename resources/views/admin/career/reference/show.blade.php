@@ -39,6 +39,10 @@
 
     <div class="show-container card form-container p-4">
 
+        @if ($isRootAdmin)
+            @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $reference->favorite_count ])
+        @endif
+
         @include('admin.components.show-row', [
             'name'  => 'id',
             'value' => $reference->id,

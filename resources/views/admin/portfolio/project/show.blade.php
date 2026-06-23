@@ -37,133 +37,139 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $project->id,
-            'hide'  => !$isRootAdmin,
-        ])
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $project->favorite_count ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $project->owner->username,
-            'hide'  => !$isRootAdmin,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $project->id,
+                'hide'  => !$isRootAdmin,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $project->name
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $project->owner->username,
+                'hide'  => !$isRootAdmin,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $project->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $project->name
+            ])
 
-        @include('admin.components.show-row-checkmark', [
-            'name'    => 'featured',
-            'checked' => $project->featured
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $project->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $project->summary
-        ])
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'featured',
+                'checked' => $project->featured
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $project->project_year
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $project->summary
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'language',
-            'value' => $project->language
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'year',
+                'value' => $project->project_year
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'language version',
-            'value' => $project->language_version
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'language',
+                'value' => $project->language
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'repository url',
-            'value' => $project->repository_url
-                       . (!empty($project->repository_url)
-                            ? view('admin.components.link-icon', [
-                                  'title'  => 'open link in new window',
-                                  'href'   => $project->repository_url,
-                                  'icon'   => 'fa-external-link',
-                                  'border' => false,
-                                  'target' => '_blank',
-                                  'style'  => [ 'margin-top: -4px' ]
-                              ])
-                           : '')
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'language version',
+                'value' => $project->language_version
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'repository name',
-            'value' => $project->repository_name,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'repository url',
+                'value' => $project->repository_url
+                           . (!empty($project->repository_url)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $project->repository_url,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link',
-            'value' => $project->link
-                       . (!empty($project->link)
-                            ? view('admin.components.link-icon', [
-                                  'title'  => 'open link in new window',
-                                  'href'   => $project->link,
-                                  'icon'   => 'fa-external-link',
-                                  'border' => false,
-                                  'target' => '_blank',
-                                  'style'  => [ 'margin-top: -4px' ]
-                              ])
-                           : '')
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'repository name',
+                'value' => $project->repository_name,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $project->link_name,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'link',
+                'value' => $project->link
+                           . (!empty($project->link)
+                                ? view('admin.components.link-icon', [
+                                      'title'  => 'open link in new window',
+                                      'href'   => $project->link,
+                                      'icon'   => 'fa-external-link',
+                                      'border' => false,
+                                      'target' => '_blank',
+                                      'style'  => [ 'margin-top: -4px' ]
+                                  ])
+                               : '')
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $project->description
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $project->link_name,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($project->disclaimer)
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $project->description
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $project,
-            'upload'   => true,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => htmlspecialchars($project->disclaimer)
+                           ])
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($project->notes))
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $project,
+                'upload'   => true,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row-visibility', [
-            'resource' => $project,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => nl2br(htmlspecialchars($project->notes))
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($project->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $project,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($project->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($project->created_at)
+            ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($project->updated_at)
+            ])
+
+        </div>
     </div>
 
 @endsection

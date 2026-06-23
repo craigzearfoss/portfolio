@@ -36,6 +36,10 @@
 
     <div class="show-container card p-4" style="max-width: 60rem;">
 
+        @if ($isRootAdmin)
+            @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $jobBoard->favorite_count ])
+        @endif
+
         @include('admin.components.show-row', [
             'name'  => 'id',
             'value' => $jobBoard->id,

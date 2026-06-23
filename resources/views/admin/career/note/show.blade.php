@@ -44,6 +44,10 @@
 
         <div class="floating-div-container" style="max-width: 60rem;">
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $note->favorite_count ])
+            @endif
+
             <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll">
 
                 @include('admin.components.show-row', [

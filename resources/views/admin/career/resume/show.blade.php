@@ -71,6 +71,10 @@
 
                             <div class="show-container card p-4">
 
+                                @if ($isRootAdmin)
+                                    @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $resume->favorite_count ])
+                                @endif
+
                                 @include('admin.components.show-row', [
                                     'name'  => 'id',
                                     'value' => $resume->id,

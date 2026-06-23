@@ -40,6 +40,10 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $music->favorite_count ])
+            @endif
+
             @include('admin.components.show-row', [
                 'name'  => 'id',
                 'value' => $music->id,

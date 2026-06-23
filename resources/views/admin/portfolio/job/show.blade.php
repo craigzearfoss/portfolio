@@ -69,6 +69,10 @@
 
                             <div class="card p-4">
 
+                                @if ($isRootAdmin)
+                                    @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $job->favorite_count ])
+                                @endif
+
                                 <h3 class="is-size-5 title mb-3">Overview</h3>
 
                                 <hr class="navbar-divider">

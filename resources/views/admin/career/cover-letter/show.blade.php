@@ -67,6 +67,10 @@
 
                         <div id="cover-letter">
 
+                            @if ($isRootAdmin)
+                                @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $coverLetter->favorite_count ])
+                            @endif
+
                             <div class="show-container card p-4">
 
                                 @include('admin.components.show-row', [
