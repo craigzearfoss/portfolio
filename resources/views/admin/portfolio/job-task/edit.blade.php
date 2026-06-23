@@ -55,6 +55,14 @@
                     'value' => referer('admin.portfolio.job-task.index')
                 ])
 
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $jobTask->favorite_count,
+                    ])
+                @endif
+
                 @include('admin.components.form-text-horizontal', [
                     'name'  => 'id',
                     'value' => $jobTask->id,

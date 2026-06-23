@@ -49,6 +49,14 @@
                 'value' => referer('admin.personal.recipe-ingredient.index')
             ])
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $recipeIngredient->favorite_count,
+                ])
+            @endif
+
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
                 'value' => $recipeIngredient->id,

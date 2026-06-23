@@ -44,6 +44,14 @@
                 'value' => referer('admin.system.user-phone.index')
             ])
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $userPhone->favorite_count,
+                ])
+            @endif
+
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
                 'value' => $userPhone->id,

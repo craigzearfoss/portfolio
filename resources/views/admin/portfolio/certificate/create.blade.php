@@ -44,6 +44,14 @@
             ])
 
             @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $certificate->favorite_count,
+                ])
+            @endif
+
+            @if ($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

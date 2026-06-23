@@ -47,6 +47,14 @@
                 'value' => referer('admin.career.contact.index')
             ])
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $contact->favorite_count,
+                ])
+            @endif
+
             <?php /* note that you CANNOT change the owner of a communication */ ?>
             @include('admin.components.form-hidden', [
                 'name'  => 'owner_id',
@@ -60,7 +68,7 @@
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
-@php dd($recruiters); @endphp
+
             @if (!empty($recruiter_id))
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'recruiter_id',

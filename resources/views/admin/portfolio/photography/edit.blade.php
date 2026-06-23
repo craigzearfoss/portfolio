@@ -42,6 +42,14 @@
                 'value' => referer('admin.portfolio.photography.index')
             ])
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $photo->favorite_count,
+                ])
+            @endif
+
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
                 'value' => $photo->id,

@@ -4,6 +4,7 @@
     $value = $value ?? '';
 
     $type  = !empty($type) ? $type : 'text';
+    $min   = $min ?? null;
 
     $required = $required ?? false;
 
@@ -65,7 +66,7 @@
     @if (!empty($maxlength))
         maxlength="{{ $maxlength }}"
     @endif
-    @if (!empty($min))
+    @if (($min === '0') || ($min === 0) || !empty($min))
         min="{{ $min }}"
     @endif
     @if (!empty($multiple))

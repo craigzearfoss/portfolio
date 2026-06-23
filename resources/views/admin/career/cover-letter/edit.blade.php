@@ -57,6 +57,14 @@
                     'value' => referer('admin.career.cover-letter.index')
                 ])
 
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $coverLetter->favorite_count,
+                    ])
+                @endif
+
                 @include('admin.components.form-text-horizontal', [
                     'name'  => 'id',
                     'value' => $coverLetter->id

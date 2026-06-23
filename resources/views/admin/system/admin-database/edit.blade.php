@@ -59,6 +59,14 @@
             ])
 
             @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $adminDatabase->favorite_count,
+                ])
+            @endif
+
+            @if ($isRootAdmin)
 
                 @include('admin.components.form-text-horizontal', [
                     'name'  => 'id',

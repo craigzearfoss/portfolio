@@ -48,6 +48,14 @@
                 'value' => referer('admin.career.resume.index')
             ])
 
+            @if ($isRootAdmin)
+                @include('admin.components.favorites-box-form-input', [
+                    'name'  => 'favorite_count',
+                    'label' => 'favorites',
+                    'value' => old('favorite_count') ?? $resume->favorite_count,
+                ])
+            @endif
+
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
                 'value' => $resume->id,

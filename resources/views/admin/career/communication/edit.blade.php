@@ -58,6 +58,14 @@
                     'value' => request()->query('referer') ?? referer('admin.career.communication.index')
                 ])
 
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $communication->favorite_count,
+                    ])
+                @endif
+
                 <div class="floating-div-container">
 
                     <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
