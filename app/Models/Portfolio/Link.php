@@ -60,6 +60,7 @@ class Link extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -73,7 +74,8 @@ class Link extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'url', 'notes', 'link', 'link_name',
-        'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -85,25 +87,26 @@ class Link extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'url|asc'            => 'url',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'url|asc'             => 'url',
     ];
 
     /**
@@ -111,7 +114,7 @@ class Link extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'name', 'is_public', 'url', ],
+        'admin' => [ 'is_disabled', 'favorite_count', 'name', 'is_public', 'url', ],
         'guest' => [ 'name', 'url', ],
     ];
 

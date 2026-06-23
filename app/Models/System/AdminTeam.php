@@ -52,6 +52,7 @@ class AdminTeam extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -65,7 +66,7 @@ class AdminTeam extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'abbreviation', 'description', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -77,15 +78,16 @@ class AdminTeam extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'abbreviation|asc'   => 'abbreviation',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        //'description|asc'    => 'description',
-        'id|asc'             => 'id',
-        'name|asc'           => 'name',
-        'owner_username|asc' => 'owner',
-        'owner_id|asc'       => 'owner id',
-        'sequence|asc'       => 'sequence',
+        'abbreviation|asc'    => 'abbreviation',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        //'description|asc'     => 'description',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'name|asc'            => 'name',
+        'owner_username|asc'  => 'owner',
+        'owner_id|asc'        => 'owner id',
+        'sequence|asc'        => 'sequence',
     ];
 
     /**
@@ -93,7 +95,7 @@ class AdminTeam extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'abbreviation', 'name', ],
+        'admin' => [ 'abbreviation', 'favorite_count', 'name', ],
         'guest' => [ 'abbreviation', 'name', ],
     ];
 

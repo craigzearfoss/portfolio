@@ -88,6 +88,7 @@ class Publication extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -104,7 +105,7 @@ class Publication extends Model
         'publication_date', 'publication_year', 'credit', 'fiction', 'nonfiction', 'technical', 'research', 'freelance',
         'online', 'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'poetry', 'notes', 'link',
         'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'created_at', 'updated_at'
+        'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -121,6 +122,7 @@ class Publication extends Model
         'is_demo|desc'         => 'demo',
         //'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
+        'favorite_count|desc'  => 'favorite count',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
         'link|asc'             => 'link',
@@ -144,8 +146,9 @@ class Publication extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'publication_name', 'publisher', 'title', 'is_public', 'publication_year', ],
-        'guest' => [ 'publication_name', 'publisher', 'title', 'publication_year', ],
+        'admin' => [ 'is_disabled', 'favorite_count', 'publication_name', 'publisher', 'title', 'is_public',
+            'publication_year' ],
+        'guest' => [ 'publication_name', 'publisher', 'title', 'publication_year' ],
     ];
 
     /**

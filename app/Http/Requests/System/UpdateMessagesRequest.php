@@ -36,7 +36,7 @@ class UpdateMessagesRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => [
+            'owner_id'       => [
                 'filled',
                 'integer',
                 Rule::in(array_unique(array_merge(
@@ -44,17 +44,18 @@ class UpdateMessagesRequest extends UpdateAppBaseRequest
                     [ $this->ownerId ]
                 )))
             ],
-            'from_admin'  => ['integer', 'between:0,1'],
-            'name'        => ['filled', 'string', 'max:255'],
-            'email'       => ['filled', 'email:rfc,dns', 'max:255'],
-            'subject'     => ['filled', 'string', 'max:500'],
-            'body'        => ['filled'],
-            'is_public'   => ['integer', 'between:0,1'],
-            'is_readonly' => ['integer', 'between:0,1'],
-            'is_root'     => ['integer', 'between:0,1'],
-            'is_disabled' => ['integer', 'between:0,1'],
-            'is_demo'     => ['integer', 'between:0,1'],
-            'sequence'    => ['integer', 'min:0', 'nullable'],
+            'from_admin'     => ['integer', 'between:0,1'],
+            'name'           => ['filled', 'string', 'max:255'],
+            'email'          => ['filled', 'email:rfc,dns', 'max:255'],
+            'subject'        => ['filled', 'string', 'max:500'],
+            'body'           => ['filled'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'favorite_count' => ['integer', 'min:0'],
         ];
     }
 

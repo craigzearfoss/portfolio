@@ -57,6 +57,7 @@ class JobTask extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -72,8 +73,8 @@ class JobTask extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'job_id', 'featured', 'summary', 'notes', 'link', 'link_name',
-        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
-        'updated_at'
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence',
+        'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -85,24 +86,25 @@ class JobTask extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'company_name|asc'   => 'company',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
+        'company_name|asc'    => 'company',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
     ];
 
     /**
@@ -110,7 +112,7 @@ class JobTask extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'company_name', 'is_disabled', 'summary', 'is_public', ],
+        'admin' => [ 'company_name', 'is_disabled', 'favorite_count', 'summary', 'is_public', ],
         'guest' => [ 'company_name', 'summary', ],
     ];
 

@@ -69,6 +69,7 @@ class Skill extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -84,7 +85,8 @@ class Skill extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'featured', 'summary', 'type_id', 'level',
         'dictionary_category_id', 'start_year', 'end_year', 'years', 'notes', 'link', 'link_name', 'description',
-        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -102,6 +104,7 @@ class Skill extends Model
         'is_demo|desc'                 => 'demo',
         //'description|asc'              => 'description',
         'is_disabled|desc'             => 'disabled',
+        'favorite_count|desc'          => 'favorite count',
         'featured|desc'                => 'featured',
         'id|asc'                       => 'id',
         'level|desc'                   => 'level',
@@ -126,7 +129,8 @@ class Skill extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'dictionary_category_name', 'is_disabled', 'level', 'name', 'is_public', 'years', ],
+        'admin' => [ 'dictionary_category_name', 'is_disabled', 'favorite_count', 'level', 'name', 'is_public',
+            'years', ],
         'guest' => [ 'dictionary_category_name', 'level', 'name', 'years', ],
     ];
 

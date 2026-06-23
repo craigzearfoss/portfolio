@@ -38,7 +38,7 @@ class UpdateAdminGroupsRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'      => [
+            'owner_id'       => [
                 'filled',
                 'integer',
                 Rule::in(array_unique(array_merge(
@@ -46,8 +46,8 @@ class UpdateAdminGroupsRequest extends UpdateAppBaseRequest
                     [ $this->ownerId ]
                 )))
             ],
-            'admin_team_id' => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
-            'name'          => [
+            'admin_team_id'  => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
+            'name'           => [
                 'filled',
                 'string',
                 'min:3',
@@ -58,7 +58,7 @@ class UpdateAdminGroupsRequest extends UpdateAppBaseRequest
                         ->whereNot('id',  $this['admin_group']['id']);
                 })
             ],
-            'slug'          => [
+            'slug'           => [
                 'filled',
                 'string',
                 'min:3',
@@ -69,7 +69,7 @@ class UpdateAdminGroupsRequest extends UpdateAppBaseRequest
                         ->whereNot('id', $this['admin_group']['id']);
                 })
             ],
-            'abbreviation'  => [
+            'abbreviation'   => [
                 'filled',
                 'string',
                 'max:20',
@@ -80,13 +80,14 @@ class UpdateAdminGroupsRequest extends UpdateAppBaseRequest
                 }),
                 'nullable',
             ],
-            'description'   => ['nullable'],
-            'is_public'     => ['integer', 'between:0,1'],
-            'is_readonly'   => ['integer', 'between:0,1'],
-            'is_root'       => ['integer', 'between:0,1'],
-            'is_disabled'   => ['integer', 'between:0,1'],
-            'is_demo'       => ['integer', 'between:0,1'],
-            'sequence'      => ['integer', 'min:0', 'nullable'],
+            'description'    => ['nullable'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'favorite_count' => ['integer', 'min:0'],
         ];
     }
 

@@ -74,7 +74,7 @@ class ApplicationAntiSkill extends Model
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'application_id', 'name', 'level', 'dictionary_category_id',
         'dictionary_term_id', 'start_year', 'end_year', 'years', 'notes', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**

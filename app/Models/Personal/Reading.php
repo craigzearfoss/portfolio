@@ -64,6 +64,7 @@ class Reading extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -78,7 +79,8 @@ class Reading extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'author', 'featured', 'summary', 'publication_year',
         'fiction', 'nonfiction', 'paper', 'audio', 'wishlist', 'notes', 'link', 'link_name',  'description',
-        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -97,6 +99,7 @@ class Reading extends Model
         'is_demo|desc'         => 'demo',
         'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
+        'favorite_count|desc'  => 'favorite count',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
         'link|asc'             => 'link',
@@ -120,7 +123,7 @@ class Reading extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'author', 'is_disabled', 'published', 'title', 'is_public', 'publication_year', ],
+        'admin' => [ 'author', 'is_disabled', 'favorite_count', 'published', 'title', 'is_public', 'publication_year', ],
         'guest' => [ 'author', 'published', 'title', 'publication_year', ],
     ];
 

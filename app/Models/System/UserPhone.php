@@ -40,6 +40,7 @@ class UserPhone extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -53,7 +54,7 @@ class UserPhone extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',  'created_at', 'updated_at'
     ];
 
     /**
@@ -65,16 +66,17 @@ class UserPhone extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc'   => 'datetime created',
-        'updated_at|desc'   => 'datetime updated',
-        //'description|asc'   => 'description',
-        'id|asc'            => 'id',
-        'label|asc'         => 'label',
-        //'notes|asc'         => 'notes',
-        'phone|asc'         => 'phone',
-        'sequence|asc'      => 'sequence',
-        'user_username|asc' => 'username',
-        'user_id|asc'       => 'user id',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        //'description|asc'     => 'description',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'label|asc'           => 'label',
+        //'notes|asc'           => 'notes',
+        'phone|asc'           => 'phone',
+        'sequence|asc'        => 'sequence',
+        'user_username|asc'   => 'username',
+        'user_id|asc'         => 'user id',
     ];
 
     /**
@@ -82,7 +84,7 @@ class UserPhone extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'label', 'phone', 'is_public', ],
+        'admin' => [ 'favorite_count', 'label', 'phone', 'is_public', ],
         'guest' => [ 'label', 'phone', 'is_public', ],
     ];
 

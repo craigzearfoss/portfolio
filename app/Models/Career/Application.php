@@ -111,6 +111,7 @@ class Application extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -131,7 +132,8 @@ class Application extends Model
         'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
         'health', 'fouroonek', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'link2', 'link2_name', 'description',
-        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo','sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -156,11 +158,12 @@ class Application extends Model
         'is_demo|desc'              => 'demo',
         //'description|asc'           => 'description',
         'is_disabled|desc'          => 'disabled',
+        'favorite_count|desc'       => 'favorite count',
         'id|asc'                    => 'id',
         'link|asc'                  => 'link',
         'link_name|asc'             => 'link name',
-        //'notes|asc'                 => 'notes',
         'job_location_type_name'    => 'location',
+        //'notes|asc'                 => 'notes',
         'owner_id|asc'              => 'owner id',
         'owner_name|asc'            => 'owner name',
         'owner_username|asc'        => 'owner username',
@@ -179,10 +182,10 @@ class Application extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'active', 'city', 'company_name', 'wage_rate', 'apply_date', 'is_disabled', 'job_location_type',
-            'rating', 'role', 'state_name', 'is_public', 'job_employment_type' ],
-        'guest' => [ 'active', 'company_name', 'wage_rate', 'apply_date', 'job_location_type', 'rating', 'role',
-            'state_name', 'job_employment_type', ],
+        'admin' => [ 'active', 'city', 'company_name', 'apply_date', 'favorite_count', 'is_disabled',
+            'job_location_type', 'rating', 'role', 'state_name', 'is_public', 'job_employment_type', 'wage_rate' ],
+        'guest' => [ 'active', 'company_name', 'apply_date', 'job_location_type', 'rating', 'role',
+            'state_name', 'job_employment_type', 'wage_rate' ],
     ];
 
     /**

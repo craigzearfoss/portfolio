@@ -69,6 +69,7 @@ class Course extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -85,7 +86,7 @@ class Course extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'course_year', 'completed',
         'completion_date', 'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'certificate_url',
         'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -104,6 +105,7 @@ class Course extends Model
         'is_demo|desc'         => 'demo',
         //'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
+        'favorite_count|desc'  => 'favorite count',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
         'instructor|asc'       => 'instructor',
@@ -125,7 +127,8 @@ class Course extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'academy_name', 'completion_date', 'is_disabled', 'instructor', 'name', 'is_public', 'course_year', ],
+        'admin' => [ 'academy_name', 'completion_date', 'is_disabled', 'favorite_count', 'instructor', 'name',
+            'is_public', 'course_year', ],
         'guest' => [ 'academy_name', 'completion_date', 'instructor', 'name', 'course_year', ],
     ];
 

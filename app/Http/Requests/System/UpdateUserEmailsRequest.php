@@ -82,8 +82,8 @@ class UpdateUserEmailsRequest extends UpdateAppBaseRequest
         }
 
         return [
-            'user_id'      => ['filled', 'integer', 'exists:system_db.users,id'],
-            'email'        => [
+            'user_id'        => ['filled', 'integer', 'exists:system_db.users,id'],
+            'email'          => [
                 'filled',
                 'string',
                 'lowercase',
@@ -94,15 +94,16 @@ class UpdateUserEmailsRequest extends UpdateAppBaseRequest
                         ->where('email', $this['email']);
                 })
             ],
-            'label'        => ['string', 'max:100', 'nullable'],
-            'description'  => ['nullable'],
-            'notes'        => ['nullable'],
-            'is_public'    => ['integer', 'between:0,1'],
-            'is_readonly'  => ['integer', 'between:0,1'],
-            'is_root'      => ['integer', 'between:0,1'],
-            'is_disabled'  => ['integer', 'between:0,1'],
-            'is_demo'      => ['integer', 'between:0,1'],
-            'sequence'     => ['integer', 'min:0', 'nullable'],
+            'label'          => ['string', 'max:100', 'nullable'],
+            'description'    => ['nullable'],
+            'notes'          => ['nullable'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'favorite_count' => ['integer', 'min:0'],
         ];
     }
 

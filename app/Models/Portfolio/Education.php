@@ -64,6 +64,7 @@ class Education extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -83,7 +84,7 @@ class Education extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id', 'featured',
         'summary', 'enrollment_date', 'graduated', 'graduation_date', 'currently_enrolled', 'summary', 'notes',
         'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo', 'created_at', 'updated_at'
+        'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -100,6 +101,7 @@ class Education extends Model
         'degree_type_name|asc'  => 'degree',
         //'description|asc'       => 'description',
         'enrollment_date|desc'  => 'enrollment date',
+        'favorite_count|desc'   => 'favorite count',
         'graduation_date|desc'  => 'graduation date',
         'id|asc'                => 'id',
         'link|asc'              => 'link',
@@ -116,7 +118,8 @@ class Education extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'degree_type_name', 'enrollment_date', 'expiration', 'graduated', 'graduation_date', 'major', 'minor', 'school_name', ],
+        'admin' => [ 'degree_type_name', 'enrollment_date', 'expiration', 'favorite_count', 'graduated',
+            'graduation_date', 'major', 'minor', 'school_name', ],
         'guest' => [ 'degree_type_name', 'graduation_date', 'major', 'school_name', ],
     ];
 

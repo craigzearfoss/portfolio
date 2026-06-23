@@ -79,6 +79,7 @@ class Video extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -95,7 +96,7 @@ class Video extends Model
         'clip', 'public_access', 'source_recording', 'video_date', 'video_year', 'company', 'credit', 'show',
         'location', 'video_url', 'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name',
         'review_link3', 'review_link3_name', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -107,30 +108,31 @@ class Video extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'company|asc'        => 'company',
-        'credit|asc'         => 'credit',
-        'video_date|desc'    => 'date',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'location|asc'       => 'location',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'show|asc'           => 'show',
-        'video_year|asc'     => 'year',
+        'company|asc'         => 'company',
+        'credit|asc'          => 'credit',
+        'video_date|desc'     => 'date',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'location|asc'        => 'location',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'show|asc'            => 'show',
+        'video_year|asc'      => 'year',
     ];
 
     /**
@@ -138,7 +140,7 @@ class Video extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'company', 'is_disabled', 'name', 'show', 'is_public', 'video_year', ],
+        'admin' => [ 'company', 'is_disabled', 'favorite_count',  'name', 'show', 'is_public', 'video_year', ],
         'guest' => [ 'company', 'name', 'show', 'video_year', ],
     ];
 

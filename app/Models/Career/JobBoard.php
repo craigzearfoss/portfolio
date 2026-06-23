@@ -90,17 +90,16 @@ class JobBoard extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'country_iso_alpha3',
-        'country_name',
+        'country_iso_alpha3', 'country_name',
         'industry_name',
-        'state_code',
-        'state_name',
+        'state_code', 'state_name'
     ];
 
     /**
@@ -111,7 +110,7 @@ class JobBoard extends Model
         'founded', 'linkedin_url', 'jobs_url', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id',
         'latitude', 'longitude', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'notes','link', 'link_name', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo'
+        'is_disabled', 'is_demo', 'sequence', 'favorite_count'
     ];
 
     /**
@@ -123,31 +122,32 @@ class JobBoard extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'city|asc'          => 'city',
-        'country_name|asc'  => 'country',
-        'created_at|desc'   => 'datetime created',
-        'updated_at|desc'   => 'datetime updated',
-        'is_demo|desc'      => 'demo',
-        //'description|asc'   => 'description',
-        'is_disabled|desc'  => 'disabled',
-        'email|asc'         => 'email',
-        'founded|asc'       => 'founded',
-        'free|desc'         => 'free',
-        'freelance'         => 'freelance',
-        'id|asc'            => 'id',
-        'industry_name|asc' => 'industry',
-        'link|asc'          => 'link',
-        'link_name|asc'     => 'link name',
-        'name|asc'          => 'name',
-        //'notes|asc'         => 'notes',
-        'phone|asc'         => 'phone',
-        'premium|desc'      => 'premium',
-        'is_public|desc'    => 'public',
-        'is_readonly|desc'  => 'read-only',
-        'is_root|desc'      => 'root',
-        'sequence|asc'      => 'sequence',
-        'staffing|desc'     => 'staffing',
-        'state_name|asc'    => 'state',
+        'city|asc'            => 'city',
+        'country_name|asc'    => 'country',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'email|asc'           => 'email',
+        'favorite_count|desc' => 'favorite count',
+        'founded|asc'         => 'founded',
+        'free|desc'           => 'free',
+        'freelance'           => 'freelance',
+        'id|asc'              => 'id',
+        'industry_name|asc'   => 'industry',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'phone|asc'           => 'phone',
+        'premium|desc'        => 'premium',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'staffing|desc'       => 'staffing',
+        'state_name|asc'      => 'state',
     ];
 
     /**
@@ -155,7 +155,8 @@ class JobBoard extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'country_name', 'founded', 'id', 'industry_name', 'name', 'state_name' ],
+        'admin' => [ 'city', 'country_name', 'favorite_count', 'founded', 'free', 'freelance', 'id', 'industry_name',
+            'name', 'premium', 'staffing', 'state_name' ],
         'guest' => [ 'city', 'country_name', 'founded', 'free', 'freelance', 'industry_name', 'name',
             'premium', 'staffing', 'state_name' ],
     ];

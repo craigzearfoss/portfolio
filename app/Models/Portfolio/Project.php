@@ -64,6 +64,7 @@ class Project extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -78,7 +79,8 @@ class Project extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'project_year', 'language',
         'language_version', 'repository_url', 'repository_name', 'notes', 'link', 'link_name', 'description',
-        'disclaimer',  'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'disclaimer',  'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -90,27 +92,28 @@ class Project extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description demo',
-        'is_disabled|desc'   => 'disabled',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'language|asc'       => 'language',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'repository_url|asc' => 'repository',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'project_year|desc'  => 'year',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description demo',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'language|asc'        => 'language',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'repository_url|asc'  => 'repository',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'project_year|desc'   => 'year',
     ];
 
     /**
@@ -118,8 +121,9 @@ class Project extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'language', 'name', 'is_public', 'repository_url', 'project_year', ],
-        'guest' => [ 'language', 'name', 'repository_url', 'project_year', ],
+        'admin' => [ 'is_disabled', 'favorite_count', 'language', 'name', 'is_public', 'repository_url',
+            'project_year' ],
+        'guest' => [ 'language', 'name', 'repository_url', 'project_year' ],
     ];
 
     /**

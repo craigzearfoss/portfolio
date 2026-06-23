@@ -64,6 +64,7 @@ class CoverLetter extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -71,11 +72,8 @@ class CoverLetter extends Model
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
         'owner_name', 'owner_username', 'owner_email',
-        'application_apply_date',
-        'application_post_date',
-        'application_role',
-        'company_id',
-        'company_name',
+        'application_apply_date', 'application_post_date', 'application_role',
+        'company_id', 'company_name'
     ];
 
     /**
@@ -83,7 +81,7 @@ class CoverLetter extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'cover_letter_datetime', 'filepath',
         'content', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -106,6 +104,7 @@ class CoverLetter extends Model
         'is_demo|desc'                => 'demo',
         //'description|asc'             => 'description',
         'is_disabled|desc'            => 'disabled',
+        'favorite_count|desc'         => 'favorite count',
         'id|asc'                      => 'id',
         'link|asc'                    => 'link',
         'link_name|asc'               => 'name',
@@ -126,8 +125,10 @@ class CoverLetter extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'application_active', 'application_id', 'application_apply_date', 'company_name', 'date_applied', 'application_role' ],
-        'guest' => [ 'application_active', 'application_id', 'application_apply_date', 'company_name', 'date_applied', 'application_role' ]
+        'admin' => [ 'application_active', 'application_id', 'application_apply_date', 'company_name',
+            'favorite_count', 'date_applied', 'application_role' ],
+        'guest' => [ 'application_active', 'application_id', 'application_apply_date', 'company_name', 'date_applied',
+            'application_role' ]
     ];
 
     /**

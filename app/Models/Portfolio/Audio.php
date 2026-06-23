@@ -79,6 +79,7 @@ class Audio extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -95,7 +96,8 @@ class Audio extends Model
         'featured', 'summary', 'full_episode', 'clip', 'podcast', 'source_recording', 'audio_date', 'audio_year',
         'company', 'credit', 'show', 'location', 'audio_url', 'review_link1', 'review_link1_name', 'review_link2',
         'review_link2_name', 'review_link3', 'review_link3_name', 'notes', 'link', 'link_name', 'description',
-        'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'created_at', 'updated_at'
+        'disclaimer', 'public', 'readonly', 'root', 'disabled', 'demo', 'sequence', 'favorite_count', 'created_at',
+        'updated_at'
     ];
 
     /**
@@ -107,25 +109,26 @@ class Audio extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
         //'description|asc'    => 'description',
-        'featured|desc'      => 'featured',
-        'is_disabled|desc'   => 'disabled',
-        'id|asc'             => 'id',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'audio_year|asc'     => 'year',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'audio_year|asc'      => 'year',
     ];
 
     /**
@@ -133,7 +136,7 @@ class Audio extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_disabled', 'name', 'is_public', 'audio_year', ],
+        'admin' => [ 'is_disabled', 'favorite_count', 'name', 'is_public', 'audio_year', ],
         'guest' => [ 'name', 'audio_year' ],
     ];
 

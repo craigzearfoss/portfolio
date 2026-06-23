@@ -69,6 +69,7 @@ class Resume extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -106,7 +107,7 @@ class Resume extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'resume_date', 'primary', 'active', 'doc_filepath',
         'doc_datetime', 'pdf_filepath', 'pdf_datetime', 'other_filepath', 'other_datetime', 'content', 'notes',
         'link', 'link_name', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo', 'created_at', 'updated_at'
+        'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -129,6 +130,7 @@ class Resume extends Model
         'is_demo|desc'        => 'demo',
         'description|asc'     => 'description',
         'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
         'id|asc'              => 'id',
         'link|asc'            => 'link',
         'link_name|asc'       => 'link name',

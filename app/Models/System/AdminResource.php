@@ -135,14 +135,15 @@ class AdminResource extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email', 'database_tag', 'database_name', 'database_database',
-        'database_title',
+        'owner_name', 'owner_username', 'owner_email',
+        'database_tag', 'database_name', 'database_database', 'database_title',
     ];
 
     /**
@@ -151,7 +152,7 @@ class AdminResource extends Model
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'resource_id', 'database_id', 'admin_database_id',
         'name', 'table_name', 'class', 'title', 'plural', 'has_owner', 'has_user', 'guest', 'user', 'admin', 'menu',
         'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo',
-        'sequence', 'created_at', 'updated_at', 'owner_username'
+        'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -170,6 +171,7 @@ class AdminResource extends Model
         'database_tag|asc'      => 'database tag',
         'created_at|desc'       => 'datetime created',
         'updated_at|desc'       => 'datetime updated',
+        'favorite_count|desc'   => 'favorite count',
         'icon|asc'              => 'icon',
         'id|asc'                => 'id',
         'menu|desc'             => 'menu',
@@ -190,8 +192,11 @@ class AdminResource extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'admin', 'class', 'database', 'database_id', 'database_name', 'database_tag', 'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'owner_username', 'is_public', 'sequence', 'table', 'title', 'user', ],
-        'guest' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'guest', 'icon', 'menu', 'menu_level', 'name', 'sequence', 'table', 'title', 'user', ],
+        'admin' => [ 'admin', 'class', 'database', 'database_id', 'database_name', 'database_tag', 'favorite_count',
+            'is_disabled', 'guest', 'icon', 'menu', 'menu_level', 'name', 'owner_username', 'is_public', 'sequence',
+            'table', 'title', 'user', ],
+        'guest' => [ 'admin', 'class', 'database_id', 'database_name', 'database_tag', 'guest', 'icon', 'menu',
+            'menu_level', 'name', 'sequence', 'table', 'title', 'user', ],
     ];
 
     /**

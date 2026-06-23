@@ -82,6 +82,7 @@ class Contact extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -102,7 +103,9 @@ class Contact extends Model
      * These are columns that are used in searches that should NOT be prepended with the table.
      */
     const array PREDEFINED_SEARCH_COLUMNS = [
-        'owner_name', 'owner_username', 'owner_email', 'company_name', 'recruiter_name'
+        'owner_name', 'owner_username', 'owner_email',
+        'company_name',
+        'recruiter_name'
     ];
 
     /**
@@ -111,7 +114,7 @@ class Contact extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'salutation', 'title', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'birthday', 'notes', 'link', 'link_name', 'description', 'is_public',
-        'is_readonly', 'is_root','is_disabled','is_demo', 'created_at', 'updated_at'
+        'is_readonly', 'is_root','is_disabled','is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -123,29 +126,30 @@ class Contact extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        //'application_id|asc' => 'application id',
-        'city|asc'           => 'city',
-        'company_name|asc'   => 'company',
-        'created_at|desc'    => 'datetime created',
-        'email|asc'          => 'email',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'id|asc'             => 'id',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'phone|asc'          => 'phone',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'state_id|asc'       => 'state',
+        //'application_id|asc'  => 'application id',
+        'city|asc'            => 'city',
+        'company_name|asc'    => 'company',
+        'created_at|desc'     => 'datetime created',
+        'email|asc'           => 'email',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'phone|asc'           => 'phone',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'state_id|asc'        => 'state',
     ];
 
     /**
@@ -153,7 +157,7 @@ class Contact extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'city', 'company_name', 'email', 'name', 'phone', 'state_id', ],
+        'admin' => [ 'city', 'company_name', 'email', 'favorite_count', 'name', 'phone', 'state_id', ],
         'guest' => [ 'city', 'company_name', 'email', 'name', 'phone', 'state_id', ],
     ];
 

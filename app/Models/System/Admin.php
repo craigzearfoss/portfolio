@@ -111,6 +111,7 @@ class Admin extends Authenticatable
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -158,8 +159,8 @@ class Admin extends Authenticatable
     const array SEARCH_COLUMNS = [ 'id', 'name', 'username', 'admin_team_id', 'username', 'name', 'label', 'salutation',
         'title', 'role', 'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'email', 'birthday', 'bio', 'notes', 'link', 'link_name', 'description', 'disclaimer',
-        'requires_relogin', 'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
-        'updated_at'
+        'requires_relogin', 'status', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence',
+        'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -171,24 +172,25 @@ class Admin extends Authenticatable
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        //'bio|asc'          => 'bio',
-        'created_at|desc'  => 'datetime created',
-        'updated_at|desc'  => 'datetime updated',
-        'is_demo|desc '    => 'demo',
-        //'description|asc'  => 'description',
-        'is_disabled|desc' => 'disabled',
-        'email|asc'        => 'email',
-        'employer|asc'     => 'employer',
-        'id|asc'           => 'id',
-        'label|asc'        => 'label',
-        'link|asc'         => 'link',
-        'link_name|asc'    => 'link name',
-        'name|asc'         => 'name',
-        //'notes|asc'        => 'notes',
-        'role|asc'         => 'role',
-        'is_root|desc'     => 'root',
-        'sequence|asc'     => 'sequence',
-        'username|asc'     => 'username',
+        //'bio|asc'             => 'bio',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'email|asc'           => 'email',
+        'employer|asc'        => 'employer',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'label|asc'           => 'label',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'role|asc'            => 'role',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'username|asc'        => 'username',
     ];
 
     /**
@@ -196,7 +198,8 @@ class Admin extends Authenticatable
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_demo', 'is_disabled', 'email', 'employer', 'label', 'name', 'role', 'is_root', 'status', 'team_name', 'username', ],
+        'admin' => [ 'is_demo', 'is_disabled', 'email', 'employer', 'favorite_count', 'label', 'name', 'role',
+            'is_root', 'status', 'team_name', 'username', ],
         'guest' => [ 'email', 'employer', 'label', 'name', 'role', 'status', 'team_name', 'username', ],
     ];
 

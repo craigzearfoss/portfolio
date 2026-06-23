@@ -51,6 +51,7 @@ class Ingredient extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -62,7 +63,7 @@ class Ingredient extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'full_name', 'name', 'description', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -74,11 +75,12 @@ class Ingredient extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc' => 'date created',
-        'updated_at|desc' => 'date updated',
-        'id|asc'          => 'id',
-        'name|asc'        => 'name',
-        'sequence|asc'    => 'sequence',
+        'created_at|desc'     => 'date created',
+        'updated_at|desc'     => 'date updated',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'name|asc'            => 'name',
+        'sequence|asc'        => 'sequence',
 ];
     /**
      * The sort fields that are displayed for different environments.

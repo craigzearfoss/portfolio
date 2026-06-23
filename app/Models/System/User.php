@@ -83,6 +83,7 @@ class User extends Authenticatable
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -128,7 +129,7 @@ class User extends Authenticatable
     const array SEARCH_COLUMNS = [ 'id', 'user_id', 'user_team_id', 'username', 'name', 'label', 'salutation', 'title',
         'role', 'employer', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'birthday',
         'link', 'link_name', 'bio', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -141,22 +142,23 @@ class User extends Authenticatable
      */
     const array SORT_OPTIONS = [
         //'bio|asc'          => 'bio',
-        'created_at|desc'  => 'datetime created',
-        'updated_at|desc'  => 'datetime updated',
-        'is_demo|desc '    => 'demo',
-        //'description|asc'  => 'description',
-        'is_disabled|desc' => 'disabled',
-        'email|asc'        => 'email',
-        'employer|asc'     => 'employer',
-        'id|asc'           => 'id',
-        'label|asc'        => 'label',
-        'link|asc'         => 'link',
-        'link_name|asc'    => 'link_name',
-        'name|asc'         => 'name',
-        'role|asc'         => 'role',
-        'is_root|desc'     => 'root',
-        'sequence|asc'     => 'sequence',
-        'username|asc'     => 'username',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc '       => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'email|asc'           => 'email',
+        'employer|asc'        => 'employer',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'label|asc'           => 'label',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link_name',
+        'name|asc'            => 'name',
+        'role|asc'            => 'role',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'username|asc'        => 'username',
     ];
 
     /**
@@ -164,8 +166,9 @@ class User extends Authenticatable
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'is_demo', 'is_disabled', 'email', 'employer', 'label', 'name', 'role', 'username', ],
-        'guest' => [ 'email', 'employer', 'label', 'name', 'role', 'username', ],
+        'admin' => [ 'is_demo', 'is_disabled', 'email', 'employer', 'favorite_count', 'label', 'name', 'role',
+            'username' ],
+        'guest' => [ 'email', 'employer', 'label', 'name', 'role', 'username' ],
     ];
 
     /**

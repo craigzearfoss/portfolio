@@ -66,6 +66,7 @@ class Certificate extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -81,7 +82,8 @@ class Certificate extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'organization', 'academy_id',
         'certificate_year', 'received', 'expiration', 'certificate_url', 'notes', 'link', 'link_name', 'description',
-        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -100,6 +102,7 @@ class Certificate extends Model
         //'description|asc'      => 'description',
         'is_disabled|desc'     => 'disabled',
         'expiration|asc'       => 'expiration',
+        'favorite_count|desc'  => 'favorite count',
         'featured|desc'        => 'featured',
         'id|asc'               => 'id',
         'link|asc'             => 'link',
@@ -123,7 +126,8 @@ class Certificate extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'academy_name', 'is_disabled', 'expiration', 'name', 'organization', 'is_public', 'received','certificate_year', ],
+        'admin' => [ 'academy_name', 'is_disabled', 'expiration', 'favorite_count', 'name', 'organization',
+            'is_public', 'received','certificate_year', ],
         'guest' => [ 'academy_name', 'expiration', 'name', 'organization', 'received','certificate_year', ],
     ];
 

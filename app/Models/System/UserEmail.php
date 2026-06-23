@@ -40,6 +40,7 @@ class UserEmail extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -52,8 +53,8 @@ class UserEmail extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'email', 'label', 'description', 'notes', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'email', 'label', 'description', 'notes', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -65,16 +66,17 @@ class UserEmail extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'created_at|desc'   => 'datetime created',
-        'updated_at|desc'   => 'datetime updated',
-        //'description|asc'   => 'description',
-        'email|asc'         => 'email',
-        'id|asc'            => 'id',
-        'label|asc'         => 'label',
-        //'notes|asc'         => 'notes',
-        'sequence|asc'      => 'sequence',
-        'user_username|asc' => 'username',
-        'user_id|asc'       => 'user id',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        //'description|asc'     => 'description',
+        'email|asc'           => 'email',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'label|asc'           => 'label',
+        //'notes|asc'           => 'notes',
+        'sequence|asc'        => 'sequence',
+        'user_username|asc'   => 'username',
+        'user_id|asc'         => 'user id',
     ];
 
     /**
@@ -82,7 +84,7 @@ class UserEmail extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'email', 'label', 'is_public', ],
+        'admin' => [ 'email', 'favorite_count', 'label', 'is_public', ],
         'guest' => [ 'email', 'label', 'is_public', ],
     ];
 

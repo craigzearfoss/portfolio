@@ -36,24 +36,25 @@ class UpdateAdminPhonesRequest extends UpdateAppBaseRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => [
+            'owner_id'       => [
                 'filled',
                 'integer',
                 Rule::in(array_unique(array_merge(
-                    new Admin()->where('is_root', true)->get()->pluck('id')->toArray(),
+                    new Admin()->newQuery()->where('is_root', true)->get()->pluck('id')->toArray(),
                     [ $this->ownerId ]
                 )))
             ],
-            'phone'        => ['filled', 'string', 'max:20',],
-            'label'        => ['string', 'max:100', 'nullable'],
-            'description'  => ['nullable'],
-            'notes'        => ['nullable'],
-            'is_public'    => ['integer', 'between:0,1'],
-            'is_readonly'  => ['integer', 'between:0,1'],
-            'is_root'      => ['integer', 'between:0,1'],
-            'is_disabled'  => ['integer', 'between:0,1'],
-            'is_demo'      => ['integer', 'between:0,1'],
-            'sequence'     => ['integer', 'min:0', 'nullable'],
+            'phone'          => ['filled', 'string', 'max:20',],
+            'label'          => ['string', 'max:100', 'nullable'],
+            'description'    => ['nullable'],
+            'notes'          => ['nullable'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'favorite_count' => ['integer', 'min:0'],
         ];
     }
 

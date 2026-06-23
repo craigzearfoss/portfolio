@@ -61,6 +61,7 @@ class Art extends Model
         'disabled',
         'demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -76,7 +77,7 @@ class Art extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'owner_name', 'owner_username', 'name', 'artist', 'slug',
         'featured', 'summary', 'art_year', 'notes', 'link', 'link_name', 'description', 'disclaimer', 'image',
         'image_credit', 'image_source', 'thumbnail', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'demo',
-        'sequence', 'created_at', 'updated_at'
+        'sequence', 'favorite_count','created_at', 'updated_at'
     ];
 
     /**
@@ -88,26 +89,27 @@ class Art extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'artist|asc'         => 'artist',
-        'created_at|desc'    => 'date created',
-        'updated_at|desc'    => 'date updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'is_public|desc'     => 'public',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'art_year|asc'       => 'year',
+        'artist|asc'          => 'artist',
+        'created_at|desc'     => 'date created',
+        'updated_at|desc'     => 'date updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'is_public|desc'      => 'public',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'art_year|asc'        => 'year',
     ];
 
     /**
@@ -115,7 +117,7 @@ class Art extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'is_disabled', 'name', 'is_public', 'art_year', ],
+        'admin' => [ 'artist', 'is_disabled', 'favorite_count', 'name', 'is_public', 'art_year', ],
         'guest' => [ 'artist', 'name', 'art_year' ],
     ];
 

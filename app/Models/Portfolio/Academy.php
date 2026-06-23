@@ -73,6 +73,7 @@ class Academy extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -86,7 +87,8 @@ class Academy extends Model
     const array SEARCH_COLUMNS = [ 'id', 'name', 'primary', 'summary', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id', 'latitude', 'longitude', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
         'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'link', 'link_name', 'description',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count',
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -98,13 +100,14 @@ class Academy extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'description|asc' => 'description',
-        'id|asc'          => 'id',
-        'link|asc'        => 'link',
-        'link_name|asc'   => 'link name',
-        'name|asc'        => 'name',
-        'notes|asc'       => 'notes',
-        'sequence|asc'    => 'sequence',
+        'description|asc'     => 'description',
+        'id|asc'              => 'id',
+        'favorite_count|desc' => 'favorite count',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        'notes|asc'           => 'notes',
+        'sequence|asc'        => 'sequence',
     ];
 
     /**
@@ -112,7 +115,7 @@ class Academy extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'name', 'is_public', 'is_disabled' ],
+        'admin' => [ 'favorite_count', 'name', 'is_public', 'is_disabled' ],
         'guest' => [ 'name' ],
     ];
 

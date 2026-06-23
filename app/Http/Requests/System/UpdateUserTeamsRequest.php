@@ -81,8 +81,8 @@ class UpdateUserTeamsRequest extends UpdateAppBaseRequest
         }
 
         return [
-            'user_id'      => ['filled', 'integer', 'exists:system_db.users,id'],
-            'name'         => [
+            'user_id'        => ['filled', 'integer', 'exists:system_db.users,id'],
+            'name'           => [
                 'filled',
                 'string',
                 'min:3',
@@ -93,7 +93,7 @@ class UpdateUserTeamsRequest extends UpdateAppBaseRequest
                         ->whereNot('id', $this['user_team']['id']);
                 })
             ],
-            'slug'          => [
+            'slug'           => [
                 'filled',
                 'string',
                 'min:3',
@@ -104,7 +104,7 @@ class UpdateUserTeamsRequest extends UpdateAppBaseRequest
                         ->whereNot('id', $this['user_team']['id']);
                 })
             ],
-            'abbreviation'  => [
+            'abbreviation'   => [
                 'filled',
                 'string',
                 'max:20',
@@ -115,19 +115,20 @@ class UpdateUserTeamsRequest extends UpdateAppBaseRequest
                 }),
                 'nullable',
             ],
-            'description'  => ['nullable'],
-            'image'        => ['string', 'max:500', 'nullable'],
-            'image_credit' => ['string', 'max:255', 'nullable'],
-            'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:500', 'nullable'],
-            'logo'         => ['string', 'max:500', 'nullable'],
-            'logo_small'   => ['string', 'max:500', 'nullable'],
-            'is_public'    => ['integer', 'between:0,1'],
-            'is_readonly'  => ['integer', 'between:0,1'],
-            'is_root'      => ['integer', 'between:0,1'],
-            'is_disabled'  => ['integer', 'between:0,1'],
-            'is_demo'      => ['integer', 'between:0,1'],
-            'sequence'     => ['integer', 'min:0', 'nullable'],
+            'description'    => ['nullable'],
+            'image'          => ['string', 'max:500', 'nullable'],
+            'image_credit'   => ['string', 'max:255', 'nullable'],
+            'image_source'   => ['string', 'max:255', 'nullable'],
+            'thumbnail'      => ['string', 'max:500', 'nullable'],
+            'logo'           => ['string', 'max:500', 'nullable'],
+            'logo_small'     => ['string', 'max:500', 'nullable'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'favorite_count' => ['integer', 'min:0'],
         ];
     }
 

@@ -54,6 +54,7 @@ class UserGroup extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -67,7 +68,8 @@ class UserGroup extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'user_id', 'user_team_id', 'name', 'abbreviation', 'description',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at', 'updated_at'
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence', 'favorite_count', 'created_at',
+        'updated_at'
     ];
 
     /**
@@ -79,17 +81,18 @@ class UserGroup extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'abbreviation|asc'   => 'abbreviation',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        //'description|asc'    => 'description',
-        'id|asc'             => 'id',
-        'name|asc'           => 'name',
-        'sequence|asc'       => 'sequence',
-        'user_username|asc'  => 'owner',
-        'user_id|asc'        => 'owner id',
-        'user_team_name|asc' => 'team',
-        'user_team_id|asc'   => 'team id',
+        'abbreviation|asc'    => 'abbreviation',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        //'description|asc'     => 'description',
+        'favorite_count|desc' => 'favorite count',
+        'id|asc'              => 'id',
+        'name|asc'            => 'name',
+        'sequence|asc'        => 'sequence',
+        'user_username|asc'   => 'owner',
+        'user_id|asc'         => 'owner id',
+        'user_team_name|asc'  => 'team',
+        'user_team_id|asc'    => 'team id',
     ];
 
     /**
@@ -97,7 +100,7 @@ class UserGroup extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'abbreviation', 'name', 'user_team_name', ],
+        'admin' => [ 'abbreviation', 'favorite_count', 'name', 'user_team_name', ],
         'guest' => [ 'abbreviation', 'name', 'user_team_name', ],
     ];
 

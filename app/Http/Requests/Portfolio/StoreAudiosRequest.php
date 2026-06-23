@@ -104,6 +104,7 @@ class StoreAudiosRequest extends StoreAppBaseRequest
             'is_disabled'       => ['integer', 'between:0,1'],
             'is_demo'           => ['integer', 'between:0,1'],
             'sequence'          => ['integer', 'min:0', 'nullable'],
+            'favorite_count'    => ['integer', 'min:0'],
         ];
     }
 

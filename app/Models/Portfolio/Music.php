@@ -70,6 +70,7 @@ class Music extends Model
         'is_disabled',
         'is_demo',
         'sequence',
+        'favorite_count',
     ];
 
     /**
@@ -84,8 +85,8 @@ class Music extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'name', 'artist', 'featured', 'summary', 'collection',
         'track', 'label', 'catalog_number', 'music_year', 'release_date', 'audio_url', 'notes', 'link', 'link_name',
-        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'created_at',
-        'updated_at'
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo', 'sequence',
+        'favorite_count', 'created_at', 'updated_at'
     ];
 
     /**
@@ -97,28 +98,29 @@ class Music extends Model
      * These are the options in the sort select list on the search panel.
      */
     const array SORT_OPTIONS = [
-        'artist|asc'         => 'artist',
-        'catalog_number|asc' => 'catalog number',
-        'created_at|desc'    => 'datetime created',
-        'updated_at|desc'    => 'datetime updated',
-        'is_demo|desc'       => 'demo',
-        //'description|asc'    => 'description',
-        'is_disabled|desc'   => 'disabled',
-        'featured|desc'      => 'featured',
-        'id|asc'             => 'id',
-        'label|asc'          => 'label',
-        'link|asc'           => 'link',
-        'link_name|asc'      => 'link name',
-        'name|asc'           => 'name',
-        //'notes|asc'          => 'notes',
-        'owner_id|asc'       => 'owner id',
-        'owner_name|asc'     => 'owner name',
-        'owner_username|asc' => 'owner username',
-        'is_public|desc'     => 'public',
-        'is_readonly|desc'   => 'read-only',
-        'is_root|desc'       => 'root',
-        'sequence|asc'       => 'sequence',
-        'music_year|asc'     => 'year',
+        'artist|asc'          => 'artist',
+        'catalog_number|asc'  => 'catalog number',
+        'created_at|desc'     => 'datetime created',
+        'updated_at|desc'     => 'datetime updated',
+        'is_demo|desc'        => 'demo',
+        //'description|asc'     => 'description',
+        'is_disabled|desc'    => 'disabled',
+        'favorite_count|desc' => 'favorite count',
+        'featured|desc'       => 'featured',
+        'id|asc'              => 'id',
+        'label|asc'           => 'label',
+        'link|asc'            => 'link',
+        'link_name|asc'       => 'link name',
+        'name|asc'            => 'name',
+        //'notes|asc'           => 'notes',
+        'owner_id|asc'        => 'owner id',
+        'owner_name|asc'      => 'owner name',
+        'owner_username|asc'  => 'owner username',
+        'is_public|desc'      => 'public',
+        'is_readonly|desc'    => 'read-only',
+        'is_root|desc'        => 'root',
+        'sequence|asc'        => 'sequence',
+        'music_year|asc'      => 'year',
     ];
 
     /**
@@ -126,7 +128,8 @@ class Music extends Model
      * For root admins in the admin area they see all possible sort field.s
      */
     const array SORT_FIELDS = [
-        'admin' => [ 'artist', 'catalog_number', 'is_disabled', 'label', 'name', 'is_public', 'music_year', ],
+        'admin' => [ 'artist', 'catalog_number', 'is_disabled', 'favorite_count', 'label', 'name', 'is_public',
+            'music_year', ],
         'guest' => [ 'artist', 'catalog_number','label', 'name', 'music_year', ],
     ];
 
