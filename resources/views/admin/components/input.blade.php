@@ -2,9 +2,11 @@
     $id    = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
     $name  = $name ?? null;
     $value = $value ?? '';
-
     $type  = !empty($type) ? $type : 'text';
-    $min   = $min ?? null;
+
+    $min       = $min ?? null;
+    $max       = $min ?? null;
+    $maxlength = $min ?? null;
 
     $required = $required ?? false;
 

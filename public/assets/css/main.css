@@ -1198,15 +1198,19 @@ form.admin-form .floating-div.card.admin-form-card div.field.is-horizontal div.f
     max-width: 8rem;
     white-space: nowrap;
 }
+
 form.admin-form input,
 form.admin-form select,
 form.admin-form textarea {
-    height: 2em !important;
     padding-bottom: calc(0.2em - 1px) !important;
     /* padding-left: calc(0.5em - 1px) !important; */
     padding-right: calc(0.5em - 1px) !important;
     padding-top: calc(0.2em - 1px) !important;
     max-width: 36em;
+}
+form.admin-form input,
+form.admin-form select {
+    height: 2em !important;
 }
 form.admin-form .field.is-horizontal {
     margin-bottom: .25rem;

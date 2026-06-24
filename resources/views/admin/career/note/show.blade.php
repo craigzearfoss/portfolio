@@ -83,7 +83,7 @@
 
                 @include('admin.components.show-row', [
                     'name'  => 'body',
-                    'value' => htmlspecialchars($note->body)
+                    'value' => $note->body
                 ])
 
             </div>

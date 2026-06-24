@@ -3,16 +3,20 @@
     $name  = $name ?? null;
     $label = $label ?? $name ?? null;
     $title = $title ?? null;
-    $value   = $value ?? '';
+    $value  = $value ?? '';
+    $type   = !empty($type) ? $type : 'text';
 
-    $type    = !empty($type) ? $type : 'text';
+    $min       = $min ?? null;
+    $max       = $min ?? null;
+    $maxlength = $min ?? null;
 
     $required = $required ?? false;
 
     $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
     if (!in_array('input', $class)) $class[] = 'input';
 
-    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $style = !empty($style)
+        ? (!is_array($style) ? explode(';', $style) : $style) : [];
 
     $labelClass = [ 'label' ];
     if ($required && !in_array('label-required', $labelClass)) $labelClass[] = 'label-required';
@@ -63,8 +67,9 @@
                     'autofocus'    => $autofocus ?? false,
                     'form'         => $form ?? null,
                     'height'       => $height ?? null,
-                    'max'          => $max ?? null,
-                    'maxlength'    => $maxlength ?? null,
+                    'min'          => $min,
+                    'max'          => $max,
+                    'maxlength'    => $maxlength,
                     'multiple'     => $multiple ?? null,
                     'pattern'      => $pattern ?? null,
                     'placeholder'  => $placeholder ?? null,

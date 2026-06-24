@@ -21,7 +21,7 @@
                 <textarea id="{!! $id !!}"
                           name="{!! $name ?? 'name' !!}"
                           @if (!empty($class))
-                              style="{{ implode('; ', $class) }}"
+                              class="{{ implode(' ', $class) }}"
                           @endif
                           @if (!empty($style))
                               style="{{ implode('; ', $style) }}"

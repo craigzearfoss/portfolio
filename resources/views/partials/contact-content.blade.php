@@ -15,6 +15,7 @@
             <form action="{{ $envType == EnvTypes::ADMIN
                                     ? route('admin.contact.storeContactMessage')
                                     : route('guest.contact.storeContactMessage') }}"
+                  class="admin-form"
                   method="POST"
             >
                 @csrf
@@ -62,7 +63,7 @@
                     'value'       => old('subject') ?? '',
                     'required'    => true,
                     'maxlength'   => 500,
-                    'style'       => 'width: 30rem;',
+                    'style'       => [ 'width: 30rem;' ],
                     'placeholder' => 'Subject',
                     'message  '   => $message ?? '',
                 ])
@@ -74,8 +75,10 @@
                     'name'        => 'body',
                     'value'       => old('body') ?? '',
                     'required'    => true,
-                    'cols'        => 60,
+                    'cols'        => 70,
+                    'rows'        => 10,
                     'placeholder' => 'Your Message',
+                    'style'       => [ 'width: 30rem;' ],
                     'message  '   => $message ?? '',
                 ])
 

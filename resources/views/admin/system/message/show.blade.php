@@ -38,7 +38,7 @@
         <div class="show-container card floating-div" style="width: 40rem;">
 
             @if ($isRootAdmin)
-                @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $thissMessage->favorite_count ])
+                @include('admin.components.favorites-box', [ 'label' => 'favorites', 'count' => $thisMessage->favorite_count ])
             @endif
 
             @include('admin.components.show-row', [
