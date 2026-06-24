@@ -105,7 +105,6 @@
                                                         'name'   => !empty($menu2Items[$i2]->plural) ? $menu2Items[$i2]->plural : $menu2Items[$i2]->title,
                                                         'href'   => !empty($menu2Items[$i2]->url) ? $menu2Items[$i2]->url: false,
                                                         'active' => $menu2Items[$i2]->active,
-                                                        'active' => $menu2Items[$i2]->active,
                                                         'icon'   => !empty($menu2Items[$i2]->icon) ? $menu2Items[$i2]->icon : 'fa-circle'
                                                     ])
                                                 </li>

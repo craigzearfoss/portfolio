@@ -12,7 +12,7 @@
 
     $menuItems = !empty( $menuService) ? $menuService->leftMenu() : [];
 @endphp
-
+<?php /*
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
     <div class="aside-tools">
         <div class="aside-tools-label has-text-left has-text-centered" style="width: 100%;">
@@ -61,4 +61,4 @@
     ])
 
 </aside>
-
+*/ ?>

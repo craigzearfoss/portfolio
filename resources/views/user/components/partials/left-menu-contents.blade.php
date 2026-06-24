@@ -7,6 +7,7 @@
 
     $menuItems = !empty($menuService) ? $menuService->leftMenu() : [];
 @endphp
+<?php /*
 <div class="control ml-2 mt-2">
 
     @if (!config('app.single_admin_mode'))
@@ -82,3 +83,4 @@
     </ul>
 
 @endfor
+*/ ?>
