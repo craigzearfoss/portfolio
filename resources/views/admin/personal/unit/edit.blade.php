@@ -41,64 +41,88 @@
                 'value' => referer('admin.personal.unit.index')
             ])
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $unit->id,
-                'hide'  => !$isRootAdmin,
-            ])
+            <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $unit->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $unit->abbreviation,
-                'maxlength' => 10,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-text-horizontal', [
+                        'name'  => 'id',
+                        'value' => $unit->id,
+                        'hide'  => !$isRootAdmin,
+                    ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'system',
-                'value'   => old('system') ?? $unit->system,
-                'list'    => new Unit()->listOptions([], 'system', 'system', true),
-                'message' => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'name',
+                        'value'     => old('name') ?? $unit->name,
+                        'required'  => true,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $unit->link,
-                'name' => old('link_name') ?? $unit->link_name,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'abbreviation',
+                        'value'     => old('abbreviation') ?? $unit->abbreviation,
+                        'maxlength' => 10,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $unit->description,
-                'message' => $message ?? '',
-            ])
+                    @include('admin.components.form-select-horizontal', [
+                        'name'    => 'system',
+                        'value'   => old('system') ?? $unit->system,
+                        'list'    => new Unit()->listOptions([], 'system', 'system', true),
+                        'message' => $message ?? '',
+                    ])
 
-            @include('admin.components.show-row-images', [
-                'resource' => $unit,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+                </div>
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $unit->is_public,
-                'is_readonly' => old('is_readonly') ?? $unit->is_readonly,
-                'is_root'     => old('is_root')     ?? $unit->root,
-                'is_disabled' => old('is_disabled') ?? $unit->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $unit->is_demo,
-                'sequence'    => old('sequence')    ?? $unit->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
+
+            <div class="floating-div-container">
+
+                <div class="floating-div card admin-form-card">
+
+                    @include('admin.components.form-link-horizontal', [
+                        'link' => old('link') ?? $unit->link,
+                        'name' => old('link_name') ?? $unit->link_name,
+                        'message'   => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'    => 'description',
+                        'id'      => 'inputEditor',
+                        'value'   => old('description') ?? $unit->description,
+                        'message' => $message ?? '',
+                    ])
+
+                </div>
+
+            </div>
+
+            <div class="floating-div-container">
+
+                <div class="floating-div card admin-form-card">
+
+                    @include('admin.components.show-row-images', [
+                        'resource' => $unit,
+                        'upload'   => false,
+                        'download' => true,
+                        'external' => true,
+                        'editPage' => true,
+                    ])
+
+                    @include('admin.components.form-visibility-horizontal', [
+                        'is_public'   => old('is_public')   ?? $unit->is_public,
+                        'is_readonly' => old('is_readonly') ?? $unit->is_readonly,
+                        'is_root'     => old('is_root')     ?? $unit->root,
+                        'is_disabled' => old('is_disabled') ?? $unit->is_disabled,
+                        'is_demo'     => old('is_demo')     ?? $unit->is_demo,
+                        'sequence'    => old('sequence')    ?? $unit->sequence,
+                        'message'     => $message           ?? '',
+                    ])
+
+                </div>
+
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

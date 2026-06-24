@@ -47,7 +47,10 @@
 
         <div class="edit-container card form-container p-4">
 
-            <form action="{{ route('admin.career.event.update', array_merge([$event], request()->all())) }}" method="POST">
+            <form action="{{ route('admin.career.event.update', array_merge([$event], request()->all())) }}"
+                  class="admin-form"
+                  method="POST"
+            >
                 @csrf
                 @method('PUT')
 
@@ -56,17 +59,17 @@
                     'value' => request()->query('referer') ?? referer('admin.career.event.index')
                 ])
 
-                @if ($isRootAdmin)
-                    @include('admin.components.favorites-box-form-input', [
-                        'name'  => 'favorite_count',
-                        'label' => 'favorites',
-                        'value' => old('favorite_count') ?? $event->favorite_count,
-                    ])
-                @endif
-
                 <div class="floating-div-container">
 
-                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="width: 60rem;">
+                    <div class="floating-div card admin-form-card">
+
+                        @if ($isRootAdmin)
+                            @include('admin.components.favorites-box-form-input', [
+                                'name'  => 'favorite_count',
+                                'label' => 'favorites',
+                                'value' => old('favorite_count') ?? $event->favorite_count,
+                            ])
+                        @endif
 
                         @include('admin.components.form-text-horizontal', [
                             'name'  => 'id',
@@ -130,7 +133,7 @@
                 </div>
                 <div class="floating-div-container">
 
-                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
+                    <div class="floating-div card admin-form-card">
 
                         @include('admin.components.form-link-horizontal', [
                             'link' => old('link') ?? $event->link,
@@ -145,12 +148,13 @@
                             'message' => $message ?? '',
                         ])
 
+
                     </div>
 
                 </div>
                 <div class="floating-div-container">
 
-                    <div class="floating-div card has-background-white-ter p-4 m-2 no-x-scroll" style="min-width: 60rem;">
+                    <div class="floating-div card admin-form-card">
 
                         @include('admin.components.form-input-horizontal', [
                             'name'        => 'disclaimer',
@@ -178,18 +182,11 @@
                     </div>
 
                 </div>
-                <div class="floating-div-container">
 
-                    <div class="floating-div has-text-right m-2" style="width: 60rem;">
-
-                        @include('admin.components.form-button-submit-horizontal', [
-                            'label'      => 'Save',
-                            'cancel_url' => referer('admin.career.event.index')
-                        ])
-
-                    </div>
-
-                </div>
+                @include('admin.components.form-button-submit-horizontal', [
+                    'label'      => 'Save',
+                    'cancel_url' => referer('admin.career.event.index')
+                ])
 
             </form>
 

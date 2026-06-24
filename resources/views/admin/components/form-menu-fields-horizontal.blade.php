@@ -4,7 +4,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <strong>menu</strong>
+        <label class="label">menu</label>
     </div>
     <div class="field-body">
         <div class="field">

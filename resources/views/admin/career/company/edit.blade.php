@@ -38,7 +38,9 @@
     <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.career.company.update', array_merge([$company], request()->all())) }}"
-              method="POST">
+              class="admin-form"
+              method="POST"
+        >
             @csrf
             @method('PUT')
 
@@ -47,17 +49,17 @@
                 'value' => referer('admin.career.company.index')
             ])
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $company->favorite_count,
-                ])
-            @endif
-
             <div class="floating-div-container">
 
-                <div class="floating-div card has-background-white-ter p-4 m-2">
+                <div class="floating-div card admin-form-card mr-2" style="width: 36rem;">
+
+                    @if ($isRootAdmin)
+                        @include('admin.components.favorites-box-form-input', [
+                            'name'  => 'favorite_count',
+                            'label' => 'favorites',
+                            'value' => old('favorite_count') ?? $company->favorite_count,
+                        ])
+                    @endif
 
                     @include('admin.components.form-text-horizontal', [
                         'name'  => 'id',
@@ -77,10 +79,11 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
+                        'style'     => [ 'width: 18rem ']
                     ])
 
                 </div>
-                <div class="floating-div card has-background-white-ter p-4 m-2">
+                <div class="floating-div card admin-form-card" style="width: 35rem;">
 
                     @include('admin.components.form-select-horizontal', [
                         'name'     => 'industry_id',
@@ -105,7 +108,7 @@
             </div>
             <div class="floating-div-container">
 
-                <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+                <div class="floating-div card admin-form-card">
 
                     @include('admin.components.form-location-horizontal', [
                         'street'     => old('street') ?? $company->street,
@@ -130,7 +133,7 @@
             </div>
             <div class="floating-div-container">
 
-                <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+                <div class="floating-div card admin-form-card">
 
                     @include('admin.components.form-phone-horizontal', [
                         'phone' => old('phone') ?? $company->phone,
@@ -163,12 +166,13 @@
             </div>
             <div class="floating-div-container">
 
-                <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+                <div class="floating-div card admin-form-card">
 
                     @include('admin.components.form-link-horizontal', [
-                        'link' => old('link') ?? $company->link,
-                        'name' => old('link_name') ?? $company->link_name,
-                        'message'   => $message ?? '',
+                        'link'    => old('link') ?? $company->link,
+                        'name'    => old('link_name') ?? $company->link_name,
+                        'class'   => [ 'form-input-url' ],
+                        'message' => $message ?? '',
                     ])
 
                     @include('admin.components.form-link-horizontal', [
@@ -176,6 +180,7 @@
                         'label'              => 'linkedin url',
                         'link'               => old('linkedin_url') ?? $company->linkedin_url,
                         'include_name_field' => false,
+                        'class'              => [ 'form-input-url' ],
                         'message'            => $message ?? '',
                     ])
 
@@ -183,6 +188,7 @@
                         'name'    => 'description',
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $company->description,
+                        'class'   => [ 'form-textarea-description' ],
                         'message' => $message ?? '',
                     ])
 
@@ -191,7 +197,7 @@
             </div>
             <div class="floating-div-container">
 
-                <div class="floating-div card has-background-white-ter p-4 m-2" style="width: 100%;">
+                <div class="floating-div card admin-form-card">
 
                     @include('admin.components.form-input-horizontal', [
                         'name'        => 'disclaimer',
@@ -227,18 +233,11 @@
                 </div>
 
             </div>
-            <div class="floating-div-container">
 
-                <div class="floating-div has-text-right m-2" style="width: 100%;">
-
-                    @include('admin.components.form-button-submit-horizontal', [
-                        'label'      => 'Save',
-                        'cancel_url' => referer('admin.career.company.index')
-                    ])
-
-                </div>
-
-            </div>
+            @include('admin.components.form-button-submit-horizontal', [
+                'label'      => 'Save',
+                'cancel_url' => referer('admin.career.company.index')
+            ])
 
         </form>
 

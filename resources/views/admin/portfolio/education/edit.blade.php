@@ -34,174 +34,196 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.portfolio.education.update', array_merge([$education], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.portfolio.education.update', array_merge([$education], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.portfolio.education.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.education.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $education->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $education->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $education->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $education->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of an education */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $education->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of an education */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $education->owner_id
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'     => 'degree_type_id',
+                    'label'    => 'degree type',
+                    'value'    => old('degree_type_id') ?? $education->degree_type_id,
+                    'required' => true,
+                    'list'     => new DegreeType()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
+                    'message'  => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'degree_type_id',
-                'label'    => 'degree type',
-                'value'    => old('degree_type_id') ?? $education->degree_type_id,
-                'required' => true,
-                'list'     => new DegreeType()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
-                'message'  => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'major',
+                    'value'     => old('major') ?? $education->major,
+                    'required'  => false,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'major',
-                'value'     => old('major') ?? $education->major,
-                'required'  => false,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'minor',
+                    'value'     => old('minor') ?? $education->minor,
+                    'required'  => false,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'minor',
-                'value'     => old('minor') ?? $education->minor,
-                'required'  => false,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'      => 'school_id',
+                    'label'     => 'school',
+                    'value'     => old('school_id') ?? $education->school_id,
+                    'list'      => new School()->listOptions([], 'id', 'name', true),
+                    'required'  => true,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'school_id',
-                'label'     => 'school',
-                'value'     => old('school_id') ?? $education->school_id,
-                'list'      => new School()->listOptions([], 'id', 'name', true),
-                'required'  => true,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'month',
+                    'name'      => 'enrollment_date',
+                    'label'     => 'enrollment date',
+                    'value'     => old('enrollment_date') ?? !empty($education->enrollment_date)
+                                                                 ? substr($education->enrollment_date, 0, -3)
+                                                                 : '',
+                    'min'       => '1970-01',
+                    'max'       => date("Y-m"),
+                    'message'   => $message ?? '',
+                    'style'     => 'width: 12rem;',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'month',
-                'name'      => 'enrollment_date',
-                'label'     => 'enrollment date',
-                'value'     => old('enrollment_date') ?? !empty($education->enrollment_date)
-                                                             ? substr($education->enrollment_date, 0, -3)
-                                                             : '',
-                'min'       => '1970-01',
-                'max'       => date("Y-m"),
-                'message'   => $message ?? '',
-                'style'     => 'width: 12rem;',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'graduated',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('graduated') ?? $education->graduated,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'graduated',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('graduated') ?? $education->graduated,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'month',
+                    'name'      => 'graduation_date',
+                    'label'     => 'graduation date',
+                    'value'     => old('graduation_date') ?? !empty($education->graduation_date)
+                                                                 ? substr($education->graduation_date, 0, -3)
+                                                                 : '',
+                    'min'       => '1970-01',
+                    'max'       => date("Y-m"),
+                    'message'   => $message ?? '',
+                    'style'     => 'width: 12rem;',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'month',
-                'name'      => 'graduation_date',
-                'label'     => 'graduation date',
-                'value'     => old('graduation_date') ?? !empty($education->graduation_date)
-                                                             ? substr($education->graduation_date, 0, -3)
-                                                             : '',
-                'min'       => '1970-01',
-                'max'       => date("Y-m"),
-                'message'   => $message ?? '',
-                'style'     => 'width: 12rem;',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'currently_enrolled',
+                    'label'           => 'currently enrolled',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('currently_enrolled') ?? $education->currently_enrolled,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'currently_enrolled',
-                'label'           => 'currently enrolled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('currently_enrolled') ?? $education->currently_enrolled,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $education->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'style'     => [ 'max-width: 40rem !important' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $education->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+            </div>
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $education->link,
-                'name' => old('link_name') ?? $education->link_name,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $education->description,
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $education->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.show-row-images', [
-                'resource' => $education,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $education->link,
+                    'name' => old('link_name') ?? $education->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $education->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $education->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $education->is_public,
-                'is_readonly' => old('is_readonly') ?? $education->is_readonly,
-                'is_root'     => old('is_root')     ?? $education->root,
-                'is_disabled' => old('is_disabled') ?? $education->is_disabled,
-                'is_emo'      => old('is_demo')     ?? $education->is_demo,
-                'sequence'    => old('sequence')    ?? $education->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.education.index')
-            ])
+        </div>
 
-        </form>
+        <div class="floating-div-container">
 
-    </div>
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $education->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $education,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $education->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $education->is_public,
+                    'is_readonly' => old('is_readonly') ?? $education->is_readonly,
+                    'is_root'     => old('is_root')     ?? $education->root,
+                    'is_disabled' => old('is_disabled') ?? $education->is_disabled,
+                    'is_emo'      => old('is_demo')     ?? $education->is_demo,
+                    'sequence'    => old('sequence')    ?? $education->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.portfolio.education.index')
+        ])
+
+    </form>
 
 @endsection

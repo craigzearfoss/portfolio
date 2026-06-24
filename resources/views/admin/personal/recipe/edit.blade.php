@@ -1,5 +1,8 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
+    use App\Models\Personal\Ingredient;
+    use App\Models\Personal\Unit;
+
     $admin       = $admin ?? null;
     $owner       = $owner ?? null;
     $isRootAdmin = $isRootAdmin ?? false;
@@ -31,239 +34,273 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.personal.recipe.update', array_merge([$recipe], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.personal.recipe.update', array_merge([$recipe], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.personal.recipe.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.personal.recipe.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $recipe->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $recipe->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $recipe->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $recipe->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of a recipe */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $recipe->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of a recipe */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $recipe->owner_id
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $recipe->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $recipe->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'featured',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('featured') ?? $recipe->featured,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $recipe->featured,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $recipe->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'style'     => [ 'max-width: 40rem !important' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $recipe->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'source',
+                    'value'     => old('source') ?? $recipe->source,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'source',
-                'value'     => old('source') ?? $recipe->source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'author',
+                    'value'     => old('author') ?? $recipe->author,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'author',
-                'value'     => old('author') ?? $recipe->author,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'prep_time',
+                    'label'     => 'prep time (minutes)',
+                    'value'     => old('prep_time') ?? $recipe->prep_time,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'prep_time',
-                'label'     => 'prep time (minutes)',
-                'value'     => old('prep_time') ?? $recipe->prep_time,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'total_time',
+                    'label'     => 'total time (minutes)',
+                    'value'     => old('total_time') ?? $recipe->total_time,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'total_time',
-                'label'     => 'total time (minutes)',
-                'value'     => old('total_time') ?? $recipe->total_time,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'main',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('main') ?? $recipe->main,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'side',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('side') ?? $recipe->side,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'dessert',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('dessert') ?? $recipe->dessert,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'appetizer',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('appetizer') ?? $recipe->appetizer,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'beverage',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('beverage') ?? $recipe->beverage,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
             </div>
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
+        </div>
 
-                        <div class="checkbox-container card form-container p-4">
+        <div class="floating-div-container">
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'breakfast',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('breakfast') ?? $recipe->breakfast,
-                                'message'         => $message ?? '',
-                            ])
+            <div class="floating-div card admin-form-card">
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'lunch',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('lunch') ?? $recipe->lunch,
-                                'message'         => $message ?? '',
-                            ])
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'dinner',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('dinner') ?? $recipe->dinner,
-                                'message'         => $message ?? '',
-                            ])
+                            <div class="checkbox-container card form-container p-4">
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'snack',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('snack') ?? $recipe->snack,
-                                'message'         => $message ?? '',
-                            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'main',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('main') ?? $recipe->main,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'side',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('side') ?? $recipe->side,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'dessert',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('dessert') ?? $recipe->dessert,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'appetizer',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('appetizer') ?? $recipe->appetizer,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'beverage',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('beverage') ?? $recipe->beverage,
+                                    'message'         => $message ?? '',
+                                ])
+
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+
+                            <div class="checkbox-container card form-container p-4">
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'breakfast',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('breakfast') ?? $recipe->breakfast,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'lunch',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('lunch') ?? $recipe->lunch,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'dinner',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('dinner') ?? $recipe->dinner,
+                                    'message'         => $message ?? '',
+                                ])
+
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'snack',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('snack') ?? $recipe->snack,
+                                    'message'         => $message ?? '',
+                                ])
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $recipe->link,
-                'name' => old('link_name') ?? $recipe->link_name,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $recipe->description,
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $recipe->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.show-row-images', [
-                'resource' => $recipe,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $recipe->link,
+                    'name' => old('link_name') ?? $recipe->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $recipe->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $recipe->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $recipe->is_public,
-                'is_readonly' => old('is_readonly') ?? $recipe->is_readonly,
-                'is_root'     => old('is_root')     ?? $recipe->root,
-                'is_disabled' => old('is_disabled') ?? $recipe->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $recipe->is_demo,
-                'sequence'    => old('sequence')    ?? $recipe->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
 
-            <div class="card p-4">
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $recipe->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $recipe,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $recipe->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $recipe->is_public,
+                    'is_readonly' => old('is_readonly') ?? $recipe->is_readonly,
+                    'is_root'     => old('is_root')     ?? $recipe->root,
+                    'is_disabled' => old('is_disabled') ?? $recipe->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $recipe->is_demo,
+                    'sequence'    => old('sequence')    ?? $recipe->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card" style="padding: 1rem !important;">
 
                 <h2 class="subtitle">
                     Ingredients
@@ -280,8 +317,8 @@
 
                         <li>
                             {{ $ingredient['amount'] }}
-                            {{ \App\Models\Personal\Unit::find($ingredient['unit_id'])->abbreviation }}
-                            {{ \App\Models\Personal\Ingredient::find($ingredient['ingredient_id'])->name }}
+                            {{ Unit::find($ingredient['unit_id'])->abbreviation }}
+                            {{ Ingredient::find($ingredient['ingredient_id'])->name }}
                             @if (!empty($ingredient['qualifier']))
                                 - {{ $ingredient['qualifier'] }}
                             @endif
@@ -293,7 +330,11 @@
 
             </div>
 
-            <div class="card p-4">
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card" style="padding: 1rem !important;">
 
                 <h2 class="subtitle">
                     Instructions
@@ -305,7 +346,7 @@
                     </a>
                 </h2>
 
-                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="padding: 2rem; max-width: 70rem;">
                     <tbody>
 
                     @foreach ($recipe->steps as $step)
@@ -326,13 +367,13 @@
 
             </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.personal.recipe.index')
-            ])
+        </div>
 
-        </form>
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.personal.recipe.index')
+        ])
 
-    </div>
+    </form>
 
 @endsection

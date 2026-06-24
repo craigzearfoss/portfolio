@@ -128,7 +128,7 @@
                                 ])
                             </td>
                         @endif
-                        <td data-field="name" style="white-space: nowrap;" style="white-space: nowrap;">
+                        <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
                                 'name'  => $photo->name . (!empty($photo->featured) ? '<span class="featured-splat">*</span>' : ''),
                                 'href'  => route('admin.portfolio.photography.show', $photo),

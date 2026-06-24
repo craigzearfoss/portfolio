@@ -32,103 +32,109 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.system.user-team.update', array_merge([$userTeam], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.system.user-team.update', array_merge([$userTeam], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.system.user-team.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.system.user-team.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $userTeam->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $userTeam->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $userTeam->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $userTeam->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $userTeam->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions(
+                            [],
+                            'id',
+                            'username',
+                            true,
+                            false,
+                            [ 'username', 'asc' ]
+                        ),
+                        'message'  => $message ?? '',
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $userTeam->owner_id
+                    ])
+                @endif
 
-            @if ($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $userTeam->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions(
-                        [],
-                        'id',
-                        'username',
-                        true,
-                        false,
-                        [ 'username', 'asc' ]
-                    ),
-                    'message'  => $message ?? '',
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $userTeam->name,
+                    'required'  => true,
+                    'minlength' => 3,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
                 ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $userTeam->owner_id
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'abbreviation',
+                    'value'     => old('abbreviation') ?? $userTeam->abbreviation,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
                 ])
-            @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $userTeam->name,
-                'required'  => true,
-                'minlength' => 3,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $userTeam->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $userTeam->abbreviation,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.show-row-images', [
+                    'resource' => $userTeam,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $userTeam->description,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $userTeam->is_public,
+                    'is_readonly' => old('is_readonly') ?? $userTeam->is_readonly,
+                    'is_root'     => old('is_root')     ?? $userTeam->root,
+                    'is_disabled' => old('is_disabled') ?? $userTeam->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $userTeam->is_demo,
+                    'sequence'    => old('sequence')    ?? $userTeam->sequence,
+                    'message'     => $message           ?? '',
+                ])
 
-            @include('admin.components.show-row-images', [
-                'resource' => $userTeam,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+            </div>
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $userTeam->is_public,
-                'is_readonly' => old('is_readonly') ?? $userTeam->is_readonly,
-                'is_root'     => old('is_root')     ?? $userTeam->root,
-                'is_disabled' => old('is_disabled') ?? $userTeam->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $userTeam->is_demo,
-                'sequence'    => old('sequence')    ?? $userTeam->sequence,
-                'message'     => $message           ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.user-team.index')
-            ])
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.system.user-team.index')
+        ])
 
-        </form>
-
-    </div>
+    </form>
 
 @endsection

@@ -30,7 +30,10 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.library.update', array_merge([$library], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.dictionary.library.update', array_merge([$library], request()->all())) }}"
+              class="admin-form"
+              method="POST"
+        >
             @csrf
             @method('PUT')
 
@@ -39,119 +42,158 @@
                 'value' => referer('admin.dictionary.index')
             ])
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $library->id,
-                'hide'  => !$isRootAdmin,
-            ])
+            <div class="floating-div-container">
 
-            <?php /* note that you CANNOT change the owner of a dictionary library */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $library->owner_id
-            ])
+                <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'full_name',
-                'label'     => 'full name',
-                'value'     => old('full_name') ?? $library->full_name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-text-horizontal', [
+                        'name'  => 'id',
+                        'value' => $library->id,
+                        'hide'  => !$isRootAdmin,
+                    ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $library->name,
-                'required'  => true,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                    <?php /* note that you CANNOT change the owner of a dictionary library */ ?>
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $library->owner_id
+                    ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $library->abbreviation,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'full_name',
+                        'label'     => 'full name',
+                        'value'     => old('full_name') ?? $library->full_name,
+                        'required'  => true,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'definition',
-                'value'     => old('definition') ?? $library->definition,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'name',
+                        'value'     => old('name') ?? $library->name,
+                        'required'  => true,
+                        'maxlength' => 100,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'open_source',
-                'label'           => 'open source',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('open_source') ?? $library->open_source,
-                'message'         => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'abbreviation',
+                        'value'     => old('abbreviation') ?? $library->abbreviation,
+                        'maxlength' => 20,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'proprietary',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('proprietary') ?? $library->proprietary,
-                'message'         => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'definition',
+                        'value'     => old('definition') ?? $library->definition,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'compiled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('compiled') ?? $library->compiled,
-                'message'         => $message ?? '',
-            ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'owner',
-                'value'     => old('owner') ?? $library->owner,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'wikipedia',
-                'label'     => 'wikipedia',
-                'value'     => old('wikipedia') ?? $library->wikipedia,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                                <div class="checkbox-container card form-container p-4" style="max-width: 26rem;">
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $library->link,
-                'name' => old('link_name') ?? $library->link_name,
-                'message'   => $message ?? '',
-            ])
+                                    @include('admin.components.form-checkbox', [
+                                        'name'            => 'open_source',
+                                        'label'           => 'open source',
+                                        'value'           => 1,
+                                        'unchecked_value' => 0,
+                                        'checked'         => old('open_source') ?? $library->open_source,
+                                        'message'         => $message ?? '',
+                                    ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $library->description,
-                'message' => $message ?? '',
-            ])
+                                    @include('admin.components.form-checkbox', [
+                                        'name'            => 'proprietary',
+                                        'value'           => 1,
+                                        'unchecked_value' => 0,
+                                        'checked'         => old('proprietary') ?? $library->proprietary,
+                                        'message'         => $message ?? '',
+                                    ])
 
-            @include('admin.components.show-row-images', [
-                'resource' => $library,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+                                    @include('admin.components.form-checkbox', [
+                                        'name'            => 'compiled',
+                                        'value'           => 1,
+                                        'unchecked_value' => 0,
+                                        'checked'         => old('compiled') ?? $library->compiled,
+                                        'message'         => $message ?? '',
+                                    ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $library->is_public,
-                'is_readonly' => old('is_readonly') ?? $library->is_readonly,
-                'is_root'     => old('is_root')     ?? $library->root,
-                'is_disabled' => old('is_disabled') ?? $library->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $library->is_demo,
-                'sequence'    => old('sequence')    ?? $library->sequence,
-                'message'     => $message           ?? '',
-            ])
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'owner',
+                        'value'     => old('owner') ?? $library->owner,
+                        'maxlength' => 100,
+                        'message'   => $message ?? '',
+                    ])
+
+                </div>
+
+            </div>
+
+            <div class="floating-div-container">
+
+                <div class="floating-div card admin-form-card">
+
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'wikipedia',
+                        'label'     => 'wikipedia',
+                        'value'     => old('wikipedia') ?? $library->wikipedia,
+                        'maxlength' => 500,
+                        'message'   => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-link-horizontal', [
+                        'link' => old('link') ?? $library->link,
+                        'name' => old('link_name') ?? $library->link_name,
+                        'message'   => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'    => 'description',
+                        'id'      => 'inputEditor',
+                        'value'   => old('description') ?? $library->description,
+                        'message' => $message ?? '',
+                    ])
+
+                </div>
+
+            </div>
+
+            <div class="floating-div-container">
+
+                <div class="floating-div card admin-form-card">
+
+                    @include('admin.components.show-row-images', [
+                        'resource' => $library,
+                        'upload'   => false,
+                        'download' => true,
+                        'external' => true,
+                        'editPage' => true,
+                    ])
+
+                    @include('admin.components.form-visibility-horizontal', [
+                        'is_public'   => old('is_public')   ?? $library->is_public,
+                        'is_readonly' => old('is_readonly') ?? $library->is_readonly,
+                        'is_root'     => old('is_root')     ?? $library->root,
+                        'is_disabled' => old('is_disabled') ?? $library->is_disabled,
+                        'is_demo'     => old('is_demo')     ?? $library->is_demo,
+                        'sequence'    => old('sequence')    ?? $library->sequence,
+                        'message'     => $message           ?? '',
+                    ])
+
+                </div>
+
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

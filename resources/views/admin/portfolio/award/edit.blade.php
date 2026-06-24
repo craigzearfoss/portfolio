@@ -18,7 +18,7 @@
     if ($isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',                        'href' => route('admin.system.admin.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Portfolio',                         'href' => route('admin.portfolio.index') ];
+    $breadcrumbs[] = [ 'name' => 'Portfol7io',                         'href' => route('admin.portfolio.index') ];
     $breadcrumbs[] = [ 'name' => 'Awards',                            'href' => route('admin.portfolio.award.index') ];
     $breadcrumbs[] = [ 'name' => getResourcePageTitle($award, false), 'href' => route('admin.portfolio.award.show', $award) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
@@ -33,169 +33,198 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.portfolio.award.update', array_merge([$award], request()->all())) }}"
+          class="admin-form"
+          method="POST">
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.portfolio.award.update', array_merge([$award], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.portfolio.award.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.award.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $award->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $award->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $award->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $award->id,
-                'hide'  => !$isRootAdmin,
-            ])
-
-            <?php /* note that you CANNOT change the owner of a award */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $award->owner_id
-            ])
-
-            @if ($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $award->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
-                ])
-            @else
+                <?php /* note that you CANNOT change the owner of a award */ ?>
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
                     'value' => $award->owner_id
                 ])
-            @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $award->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $award->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $award->owner_id
+                    ])
+                @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'category',
-                'value'     => old('category') ?? $award->category,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $award->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'nominated_work',
-                'label'     => 'nominated work',
-                'value'     => old('nominated_work') ?? $award->nominated_work,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'category',
+                    'value'     => old('category') ?? $award->category,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $award->featured,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'nominated_work',
+                    'label'     => 'nominated work',
+                    'value'     => old('nominated_work') ?? $award->nominated_work,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $award->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'featured',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('featured') ?? $award->featured,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'award_year',
-                'label'     => 'year',
-                'value'     => old('award_year') ?? $award->award_year,
-                'min'       => -2000,
-                'max'       => date("Y"),
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $award->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'style'     => [ 'max-width: 40rem !important' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'date',
-                'name'    => 'received',
-                'label'   => 'received',
-                'value'   => old('received') ?? $award->received,
-                'message' => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'organization',
-                'value'     => old('organization') ?? $award->organization,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $award->link,
-                'name' => old('link_name') ?? $award->link_name,
-                'message'   => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $award->description,
-                'message' => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $award->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'award_year',
+                    'label'     => 'year',
+                    'value'     => old('award_year') ?? $award->award_year,
+                    'min'       => -2000,
+                    'max'       => date("Y"),
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.show-row-images', [
-                'resource' => $award,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'    => 'date',
+                    'name'    => 'received',
+                    'label'   => 'received',
+                    'value'   => old('received') ?? $award->received,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $award->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'organization',
+                    'value'     => old('organization') ?? $award->organization,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $award->is_public,
-                'is_readonly' => old('is_readonly') ?? $award->is_readonly,
-                'is_root'     => old('is_root')     ?? $award->is_root,
-                'is_disabled' => old('is_disabled') ?? $award->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $award->is_demo,
-                'sequence'    => old('sequence')    ?? $award->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.award.index')
-            ])
+        </div>
 
-        </form>
+        <div class="floating-div-container">
 
-    </div>
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $award->link,
+                    'name' => old('link_name') ?? $award->link_name,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $award->description,
+                    'message' => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $award->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $award,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $award->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $award->is_public,
+                    'is_readonly' => old('is_readonly') ?? $award->is_readonly,
+                    'is_root'     => old('is_root')     ?? $award->is_root,
+                    'is_disabled' => old('is_disabled') ?? $award->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $award->is_demo,
+                    'sequence'    => old('sequence')    ?? $award->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.portfolio.award.index')
+        ])
+
+    </form>
 
 @endsection

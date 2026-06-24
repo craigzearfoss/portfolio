@@ -110,7 +110,7 @@
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $adminPhone->$userTeam->username,
+                                    'name' => $adminPhone->owner->username,
                                     'href' => route('admin.system.admin.show', $adminPhone->owner)
                                 ])
                             </td>

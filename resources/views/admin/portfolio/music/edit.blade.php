@@ -33,191 +33,229 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.portfolio.music.update', array_merge([$music], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.portfolio.music.update', array_merge([$music], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.portfolio.music.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.music.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $music->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $music->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $music->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $music->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of a music */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $music->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of a music */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $music->owner_id
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $music->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $music->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'artist',
+                    'value'     => old('artist') ?? $music->artist,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? $music->artist,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'parent_id',
+                    'label'   => 'parent',
+                    'value'   => old('parent_id') ?? $music->parent_id,
+                    'list'    => new Music()->listOptions([ 'id <>' => $music->id ], 'id', 'name', true),
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'parent_id',
-                'label'   => 'parent',
-                'value'   => old('parent_id') ?? $music->parent_id,
-                'list'    => new Music()->listOptions([ 'id <>' => $music->id ], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'featured',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('featured') ?? $music->featured,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $music->featured,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $music->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'style'     => [ 'max-width: 40rem !important' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $music->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+            </div>
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'collection',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('collection') ?? $music->collection,
-                'message'         => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'track',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('track') ?? $music->track,
-                'message'         => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'label',
-                'value'     => old('label') ?? $music->label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'catalog_number',
-                'label'     => 'catalog number',
-                'value'     => old('catalog_number') ?? $music->catalog_number,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'collection',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('collection') ?? $music->collection,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'music_year',
-                'label'     => 'year',
-                'value'     => old('music_year') ?? '',
-                'min'       => 1900,
-                'max'       => 2050,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'track',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('track') ?? $music->track,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'release_date',
-                'label'     => 'release date',
-                'value'     => old('release_date') ?? $music->release_date,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'label',
+                    'value'     => old('label') ?? $music->label,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'embed',
-                'value'   => old('embed') ?? $music->embed,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'catalog_number',
+                    'label'     => 'catalog number',
+                    'value'     => old('catalog_number') ?? $music->catalog_number,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'audio_url',
-                'label'     => 'audio_url url',
-                'value'     => old('audio_url') ?? $music->audio_url,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'music_year',
+                    'label'     => 'year',
+                    'value'     => old('music_year') ?? '',
+                    'min'       => 1900,
+                    'max'       => 2050,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $music->link,
-                'name' => old('link_name') ?? $music->link_name,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'date',
+                    'name'      => 'release_date',
+                    'label'     => 'release date',
+                    'value'     => old('release_date') ?? $music->release_date,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $music->description,
-                'message' => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $music->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.show-row-images', [
-                'resource' => $music,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $music->notes,
-                'message' => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $music->is_public,
-                'is_readonly' => old('is_readonly') ?? $music->is_readonly,
-                'is_root'     => old('is_root')     ?? $music->root,
-                'is_disabled' => old('is_disabled') ?? $music->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $music->is_demo,
-                'sequence'    => old('sequence')    ?? $music->sequence,
-                'message'     => $message           ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'embed',
+                    'value'   => old('embed') ?? $music->embed,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.music.index')
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'audio_url',
+                    'label'     => 'audio url',
+                    'value'     => old('audio_url') ?? $music->audio_url,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
 
-        </form>
+            </div>
 
-    </div>
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $music->link,
+                    'name' => old('link_name') ?? $music->link_name,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $music->description,
+                    'message' => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $music->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $music,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $music->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $music->is_public,
+                    'is_readonly' => old('is_readonly') ?? $music->is_readonly,
+                    'is_root'     => old('is_root')     ?? $music->root,
+                    'is_disabled' => old('is_disabled') ?? $music->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $music->is_demo,
+                    'sequence'    => old('sequence')    ?? $music->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.portfolio.music.index')
+        ])
+
+    </form>
 
 @endsection

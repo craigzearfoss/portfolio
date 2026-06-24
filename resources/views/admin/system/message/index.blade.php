@@ -118,14 +118,14 @@
                         </td>
                         <td data-field="name">
                             @include('admin.components.link', [
-                                'name' => $thisMessage->$userTeam->username,
+                                'name' => $thisMessage->owner->username,
                                 'href' => route('admin.system.admin.show', $thisMessage->owner)
                             ])
                         </td>
                         <td class="has-text-centered" data-field="from_admin">
                             @include('admin.components.checkmark', [ 'checked' => $thisMessage->from_admin ])
                         </td>
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {{ $thisMessage->name }}
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',

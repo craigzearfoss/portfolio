@@ -36,123 +36,129 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.system.resource.update', array_merge([$resource], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.system.resource.update', array_merge([$resource], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.system.resource.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.system.resource.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $resource->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $resource->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $resource->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $resource->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of a resource */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $resource->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of a resource */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $resource->owner_id
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $resource->name,
+                    'unique'    => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $resource->name,
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'     => 'resource_database_id',
+                    'label'    => 'database',
+                    'value'    => old('resource_db_id') ?? $resource->database_id,
+                    'required' => true,
+                    'list'     => new Database()->listOptions([]),
+                    'message'  => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'resource_database_id',
-                'label'    => 'database',
-                'value'    => old('resource_db_id') ?? $resource->database_id,
-                'required' => true,
-                'list'     => new Database()->listOptions([]),
-                'message'  => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'table',
+                    'value'     => old('table') ?? $resource->table,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'table',
-                'value'     => old('table') ?? $resource->table,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'class',
+                    'value'     => old('class') ?? $resource->class,
+                    'unique'    => true,
+                    'maxlength' => 255,
+                    'disabled'  => true,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'class',
-                'value'     => old('class') ?? $resource->class,
-                'unique'    => true,
-                'maxlength' => 255,
-                'disabled'  => true,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('title') ?? $resource->title,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'title',
-                'value'     => old('title') ?? $resource->title,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'plural',
+                    'value'     => old('plural') ?? $resource->plural,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'plural',
-                'value'     => old('plural') ?? $resource->plural,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'icon',
+                    'value'     => old('icon') ?? $resource->icon,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'icon',
-                'value'     => old('icon') ?? $resource->icon,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-environments-horizontal', [
+                    'guest'  => old('guest')  ?? $resource->guest,
+                    'user'   => old('user')   ?? $resource->user,
+                    'admin'  => old('admin')  ?? $resource->admin,
+                ])
 
-            @include('admin.components.form-environments-horizontal', [
-                'guest'  => old('guest')  ?? $resource->guest,
-                'user'   => old('user')   ?? $resource->user,
-                'admin'  => old('admin')  ?? $resource->admin,
-            ])
+                @include('admin.components.form-menu-fields-horizontal', [
+                    'menu'       => old('menu')       ?? $resource->menu,
+                    'menu_level' => old('menu_level') ?? $resource->menu_level,
+                ])
 
-            @include('admin.components.form-menu-fields-horizontal', [
-                'menu'       => old('menu')       ?? $resource->menu,
-                'menu_level' => old('menu_level') ?? $resource->menu_level,
-            ])
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $resource->is_public,
+                    'is_readonly' => old('is_readonly') ?? $resource->is_readonly,
+                    'is_root'     => old('is_root')     ?? $resource->root,
+                    'is_disabled' => old('is_disabled') ?? $resource->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $resource->is_demo,
+                    'sequence'    => old('sequence')    ?? $resource->sequence,
+                    'message'     => $message           ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $resource->is_public,
-                'is_readonly' => old('is_readonly') ?? $resource->is_readonly,
-                'is_root'     => old('is_root')     ?? $resource->root,
-                'is_disabled' => old('is_disabled') ?? $resource->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $resource->is_demo,
-                'sequence'    => old('sequence')    ?? $resource->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.resource.index')
-            ])
+        </div>
 
-        </form>
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.system.resource.index')
+        ])
 
-    </div>
+    </form>
 
 @endsection

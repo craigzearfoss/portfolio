@@ -30,110 +30,131 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.portfolio.certification.update', array_merge([$certification], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form
-            action="{{ route('admin.portfolio.certification.update', array_merge([$certification], request()->all())) }}"
-            method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.portfolio.certification.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.certification.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $certification->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $certification->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $certification->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $certification->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $certification->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $certification->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'abbreviation',
+                    'label'     => 'abbreviation',
+                    'value'     => old('abbreviation') ?? $certification->abbreviation,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'label'     => 'abbreviation',
-                'value'     => old('abbreviation') ?? $certification->abbreviation,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'     => 'certification_type_id',
+                    'label'    => 'certification type',
+                    'value'    => old('certification_type_id') ?? $certification->certification_type_id,
+                    'required' => true,
+                    'list'     => new CertificationType()->listOptions([], 'id', 'name', true),
+                    'message'  => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'certification_type_id',
-                'label'    => 'certification type',
-                'value'    => old('certification_type_id') ?? $certification->certification_type_id,
-                'required' => true,
-                'list'     => new CertificationType()->listOptions([], 'id', 'name', true),
-                'message'  => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'organization',
+                    'label'     => 'organization',
+                    'value'     => old('organization') ?? $certification->organization,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'organization',
-                'label'     => 'organization',
-                'value'     => old('organization') ?? $certification->organization,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $certification->link,
-                'name' => old('link_name') ?? $certification->link_name,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $certification->description,
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.show-row-images', [
-                'resource' => $certification,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $certification->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $certification->link,
+                    'name' => old('link_name') ?? $certification->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $certification->is_public,
-                'is_readonly' => old('is_readonly') ?? $certification->is_readonly,
-                'is_root'     => old('is_root')     ?? $certification->root,
-                'is_disabled' => old('is_disabled') ?? $certification->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $certification->is_demo,
-                'sequence'    => old('sequence')    ?? $certification->sequence,
-                'message'     => $message           ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $certification->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.certification.index')
-            ])
+            </div>
 
-        </form>
+        </div>
 
-    </div>
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $certification,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $certification->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $certification->is_public,
+                    'is_readonly' => old('is_readonly') ?? $certification->is_readonly,
+                    'is_root'     => old('is_root')     ?? $certification->root,
+                    'is_disabled' => old('is_disabled') ?? $certification->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $certification->is_demo,
+                    'sequence'    => old('sequence')    ?? $certification->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.portfolio.certification.index')
+        ])
+
+    </form>
 
 @endsection

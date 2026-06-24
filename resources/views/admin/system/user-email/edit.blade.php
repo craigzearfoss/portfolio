@@ -32,94 +32,100 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.system.user-email.update', array_merge([$userEmail], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.system.user-email.update', array_merge([$userEmail], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.system.user-email.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.system.user-email.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $userEmail->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $userEmail->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $userEmail->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $userEmail->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'user_id',
+                        'label'    => 'user',
+                        'value'    => old('user_id') ?? $userEmail->user_id,
+                        'required' => true,
+                        'list'     => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'user_id',
+                        'value' => $admin->id ?? null,
+                    ])
+                @endif
 
-            @if ($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'user_id',
-                    'label'    => 'user',
-                    'value'    => old('user_id') ?? $userEmail->user_id,
-                    'required' => true,
-                    'list'     => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'email',
+                    'value'     => old('email') ?? $userEmail->email,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
                 ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'user_id',
-                    'value' => $admin->id ?? null,
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'label',
+                    'value'     => old('label') ?? $userEmail->label,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
                 ])
-            @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email',
-                'value'     => old('email') ?? $userEmail->email,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $userEmail->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'label',
-                'value'     => old('label') ?? $userEmail->label,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'id'      => 'inputNotes',
+                    'value'   => old('notes') ?? $userEmail->notes,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $userEmail->description,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $userEmail->is_public,
+                    'is_readonly' => old('is_readonly') ?? $userEmail->is_readonly,
+                    'is_root'     => old('is_root')     ?? $userEmail->root,
+                    'is_disabled' => old('is_disabled') ?? $userEmail->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $userEmail->is_demo,
+                    'sequence'    => old('sequence')    ?? $userEmail->sequence,
+                    'message'     => $message           ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'id'      => 'inputNotes',
-                'value'   => old('notes') ?? $userEmail->notes,
-                'message' => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $userEmail->is_public,
-                'is_readonly' => old('is_readonly') ?? $userEmail->is_readonly,
-                'is_root'     => old('is_root')     ?? $userEmail->root,
-                'is_disabled' => old('is_disabled') ?? $userEmail->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $userEmail->is_demo,
-                'sequence'    => old('sequence')    ?? $userEmail->sequence,
-                'message'     => $message           ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.user-email.index')
-            ])
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.system.user-email.index')
+        ])
 
-        </form>
-
-    </div>
+    </form>
 
 @endsection

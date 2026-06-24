@@ -33,7 +33,10 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.academy.update', array_merge([$academy], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.portfolio.academy.update', array_merge([$academy], request()->all())) }}"
+              method="POST"
+              class="admin-form"
+        >
             @csrf
             @method('PUT')
 
@@ -42,124 +45,156 @@
                 'value' => referer('admin.portfolio.academy.index')
             ])
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $academy->favorite_count,
-                ])
-            @endif
+            <div class="floating-div-container">
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $academy->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $academy->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                    @if ($isRootAdmin)
+                        @include('admin.components.favorites-box-form-input', [
+                            'name'  => 'favorite_count',
+                            'label' => 'favorites',
+                            'value' => old('favorite_count') ?? $academy->favorite_count,
+                        ])
+                    @endif
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'primary',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('primary') ?? $academy->primary,
-                'message'         => $message ?? '',
-            ])
+                    @include('admin.components.form-text-horizontal', [
+                        'name'  => 'id',
+                        'value' => $academy->id,
+                        'hide'  => !$isRootAdmin,
+                    ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $academy->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'name',
+                        'value'     => old('name') ?? $academy->name,
+                        'required'  => true,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-location-horizontal', [
-                'street'     => old('street') ?? $academy->street,
-                'street2'    => old('street2') ?? $academy->street2,
-                'city'       => old('city') ?? $academy->city,
-                'state_id'   => old('state_id') ?? $academy->state_id,
-                'states'     => new State()->listOptions([], 'id', 'name', true),
-                'zip'        => old('zip') ?? $academy->zip,
-                'country_id' => old('country_id') ?? $academy->country_id,
-                'countries'  => new Country()->listOptions([], 'id', 'name', true),
-                'message'    => $message ?? '',
-            ])
+                    @include('admin.components.form-checkbox-horizontal', [
+                        'name'            => 'primary',
+                        'value'           => 1,
+                        'unchecked_value' => 0,
+                        'checked'         => old('primary') ?? $academy->primary,
+                        'message'         => $message ?? '',
+                    ])
 
-            @include('admin.components.form-coordinates-horizontal', [
-                'latitude'  => old('latitude') ?? $academy->latitude,
-                'longitude' => old('longitude') ?? $academy->longitude,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'summary',
+                        'value'     => old('summary') ?? $academy->summary,
+                        'maxlength' => 500,
+                        'message'   => $message ?? '',
+                        'style'     => [ 'max-width: 40rem !important' ]
+                    ])
 
-            @include('admin.components.form-phone-horizontal', [
-                'phone' => old('phone') ?? $academy->phone,
-                'label' => old('phone_label') ?? $academy->phone_label,
-                'message' => $message ?? '',
-            ])
+                </div>
 
-            @include('admin.components.form-phone-horizontal', [
-                'phone'   => old('alt_phone') ?? $academy->alt_phone,
-                'label'   => old('alt_phone_label') ?? $academy->alt_phone_label,
-                'alt'     => true,
-                'message' => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-email-horizontal', [
-                'email'   => old('email') ?? $academy->email,
-                'label'   => old('email_label') ?? $academy->email_label,
-                'message' => $message ?? '',
-            ])
+            <div class="floating-div-container">
 
-            @include('admin.components.form-email-horizontal', [
-                'email'   => old('alt_email') ?? $academy->alt_email,
-                'label'   => old('alt_email_table') ?? $academy->alt_email_label,
-                'alt'     => true,
-                'message' => $message ?? '',
-            ])
+                <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $academy->notes,
-                'message' => $message ?? '',
-            ])
+                    @include('admin.components.form-location-horizontal', [
+                        'street'     => old('street') ?? $academy->street,
+                        'street2'    => old('street2') ?? $academy->street2,
+                        'city'       => old('city') ?? $academy->city,
+                        'state_id'   => old('state_id') ?? $academy->state_id,
+                        'states'     => new State()->listOptions([], 'id', 'name', true),
+                        'zip'        => old('zip') ?? $academy->zip,
+                        'country_id' => old('country_id') ?? $academy->country_id,
+                        'countries'  => new Country()->listOptions([], 'id', 'name', true),
+                        'message'    => $message ?? '',
+                    ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $academy->link,
-                'name' => old('link_name') ?? $academy->link_name,
-                'message'   => $message ?? '',
-            ])
+                    @include('admin.components.form-coordinates-horizontal', [
+                        'latitude'  => old('latitude') ?? $academy->latitude,
+                        'longitude' => old('longitude') ?? $academy->longitude,
+                        'message'   => $message ?? '',
+                    ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $academy->description,
-                'message' => $message ?? '',
-            ])
+                </div>
 
-            @include('admin.components.show-row-images', [
-                'resource' => $academy,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+            </div>
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $academy->is_public,
-                'is_readonly' => old('is_readonly') ?? $academy->is_readonly,
-                'is_root'     => old('is_root')     ?? $academy->root,
-                'is_disabled' => old('is_disabled') ?? $academy->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $academy->is_demo,
-                'sequence'    => old('sequence')    ?? $academy->sequence,
-                'message'     => $message           ?? '',
-            ])
+            <div class="floating-div-container">
+
+                <div class="floating-div card admin-form-card">
+
+                    @include('admin.components.form-phone-horizontal', [
+                        'phone' => old('phone') ?? $academy->phone,
+                        'label' => old('phone_label') ?? $academy->phone_label,
+                        'message' => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-phone-horizontal', [
+                        'phone'   => old('alt_phone') ?? $academy->alt_phone,
+                        'label'   => old('alt_phone_label') ?? $academy->alt_phone_label,
+                        'alt'     => true,
+                        'message' => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-email-horizontal', [
+                        'email'   => old('email') ?? $academy->email,
+                        'label'   => old('email_label') ?? $academy->email_label,
+                        'message' => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-email-horizontal', [
+                        'email'   => old('alt_email') ?? $academy->alt_email,
+                        'label'   => old('alt_email_table') ?? $academy->alt_email_label,
+                        'alt'     => true,
+                        'message' => $message ?? '',
+                    ])
+
+                </div>
+
+            </div>
+
+            <div class="floating-div-container">
+
+                <div class="floating-div card admin-form-card">
+
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'    => 'notes',
+                        'value'   => old('notes') ?? $academy->notes,
+                        'message' => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-link-horizontal', [
+                        'link' => old('link') ?? $academy->link,
+                        'name' => old('link_name') ?? $academy->link_name,
+                        'message'   => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'    => 'description',
+                        'id'      => 'inputEditor',
+                        'value'   => old('description') ?? $academy->description,
+                        'message' => $message ?? '',
+                    ])
+
+                    @include('admin.components.show-row-images', [
+                        'resource' => $academy,
+                        'upload'   => false,
+                        'download' => true,
+                        'external' => true,
+                        'editPage' => true,
+                    ])
+
+                    @include('admin.components.form-visibility-horizontal', [
+                        'is_public'   => old('is_public')   ?? $academy->is_public,
+                        'is_readonly' => old('is_readonly') ?? $academy->is_readonly,
+                        'is_root'     => old('is_root')     ?? $academy->root,
+                        'is_disabled' => old('is_disabled') ?? $academy->is_disabled,
+                        'is_demo'     => old('is_demo')     ?? $academy->is_demo,
+                        'sequence'    => old('sequence')    ?? $academy->sequence,
+                        'message'     => $message           ?? '',
+                    ])
+
+                </div>
+
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

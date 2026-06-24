@@ -101,7 +101,7 @@
                     <div class="floating-div">
 
                         <div class="control" style="max-width: 28rem;">
-                            @include('amdin.components.form-checkbox', [
+                            @include('admin.components.form-checkbox', [
                                 'id'         => 'favoritesCheckBox',
                                 'name'       => 'favorites',
                                 'value'      => 1,

@@ -33,229 +33,258 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.portfolio.video.update', array_merge([$video], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.portfolio.video.update', array_merge([$video], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.portfolio.video.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.video.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $video->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $video->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $video->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $video->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of a video */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $video->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of a video */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $video->owner_id
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $video->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $video->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'parent_id',
+                    'label'   => 'parent',
+                    'value'   => old('parent_id') ?? $video->parent_id,
+                    'list'    => new Video()->listOptions([ 'id <>' => $video->id ], 'id', 'name', true),
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'parent_id',
-                'label'   => 'parent',
-                'value'   => old('parent_id') ?? $video->parent_id,
-                'list'    => new Video()->listOptions([ 'id <>' => $video->id ], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'featured',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('featured') ?? $video->featured,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $video->featured,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $video->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'style'     => [ 'max-width: 40rem !important' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $video->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
+                            <div class="checkbox-container card form-container p-4">
 
-                        <div class="checkbox-container card form-container p-4">
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'full_episode',
+                                    'label'           => 'full episode',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('full_episode') ?? $video->full_episode,
+                                    'message'         => $message ?? '',
+                                ])
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'full_episode',
-                                'label'           => 'full episode',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('full_episode') ?? $video->full_episode,
-                                'message'         => $message ?? '',
-                            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'clip',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('clip') ?? $video->clip,
+                                    'message'         => $message ?? '',
+                                ])
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'clip',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('clip') ?? $video->clip,
-                                'message'         => $message ?? '',
-                            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'public_access',
+                                    'label'           => 'public access',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('public_access') ?? $video->is_public_access,
+                                    'message'         => $message ?? '',
+                                ])
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public_access',
-                                'label'           => 'public access',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public_access') ?? $video->is_public_access,
-                                'message'         => $message ?? '',
-                            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'source_recording',
+                                    'label'           => 'source recording',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('source_recording') ?? $video->source_recording,
+                                    'message'         => $message ?? '',
+                                ])
 
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'source_recording',
-                                'label'           => 'source recording',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('source_recording') ?? $video->source_recording,
-                                'message'         => $message ?? '',
-                            ])
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
+
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'date',
+                    'name'      => 'video_date',
+                    'label'     => 'video_date',
+                    'value'     => old('video_date') ?? $video->video_date,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'video_year',
+                    'label'     => 'year',
+                    'value'     => old('video_year') ?? $video->video_year,
+                    'min'       => 1950,
+                    'max'       => date('Y'),
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'company',
+                    'value'     => old('company') ?? $video->company,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'credit',
+                    'value'   => old('credit') ?? $video->credit,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'show',
+                    'value'     => old('show') ?? $video->show,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'location',
+                    'value'     => old('location') ?? $video->location,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
             </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'video_date',
-                'label'     => 'video_date',
-                'value'     => old('video_date') ?? $video->video_date,
-                'message'   => $message ?? '',
-            ])
+        </div>
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'video_year',
-                'label'     => 'year',
-                'value'     => old('video_year') ?? $video->video_year,
-                'min'       => 1950,
-                'max'       => date('Y'),
-                'message'   => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'company',
-                'value'     => old('company') ?? $video->company,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'embed',
+                    'value'   => old('embed') ?? $video->embed,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'credit',
-                'value'   => old('credit') ?? $video->credit,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'video_url',
+                    'label'     => 'video url',
+                    'value'     => old('video_url') ?? $video->video_url,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'show',
-                'value'     => old('show') ?? $video->show,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'location',
-                'value'     => old('location') ?? $video->location,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'embed',
-                'value'   => old('embed') ?? $video->embed,
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'video_url',
-                'label'     => 'video url',
-                'value'     => old('video_url') ?? $video->video_url,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $video->link,
-                'name' => old('link_name') ?? $video->link_name,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $video->link,
+                    'name' => old('link_name') ?? $video->link_name,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $video->description,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $video->description,
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $video->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.show-row-images', [
-                'resource' => $video,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $video->notes,
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $video->is_public,
-                'is_readonly' => old('is_readonly') ?? $video->is_readonly,
-                'is_root'     => old('is_root')     ?? $video->root,
-                'is_disabled' => old('is_disabled') ?? $video->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $video->is_demo,
-                'sequence'    => old('sequence')    ?? $video->sequence,
-                'message'     => $message           ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.video.index')
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $video->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
 
-        </form>
+                @include('admin.components.show-row-images', [
+                    'resource' => $video,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
 
-    </div>
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $video->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $video->is_public,
+                    'is_readonly' => old('is_readonly') ?? $video->is_readonly,
+                    'is_root'     => old('is_root')     ?? $video->root,
+                    'is_disabled' => old('is_disabled') ?? $video->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $video->is_demo,
+                    'sequence'    => old('sequence')    ?? $video->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.portfolio.video.index')
+        ])
+
+    </form>
 
 @endsection

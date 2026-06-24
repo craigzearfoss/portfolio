@@ -164,7 +164,7 @@ div.field.is-horizontal div.field-label label.label {
 }
 .checkbox-container div.field {
     display: inline-block;
-    width: 9em;
+    width: 8em;
 }
 .checkbox-container div.field-label,
 .checkbox-container div.field-body {
@@ -1178,3 +1178,49 @@ card.favorites-box {
     border-color: #888888;
     border-width: 1px;
 }
+
+form.admin-form .floating-div.card.admin-form-card {
+    width: 100%;
+    max-width: 72rem;
+    padding: .5rem !important;
+    margin-bottom: .5rem !important;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-color: rgb(245, 245, 245);
+}
+
+form.admin-form .floating-div.card.admin-form-card div.field.is-horizontal div.field-label {
+    margin-right: 12px;
+}
+form.admin-form .floating-div.card.admin-form-card div.field.is-horizontal div.field-label label.label {
+    width: 8rem !important;
+    min-width: 8rem;
+    max-width: 8rem;
+    white-space: nowrap;
+}
+form.admin-form input,
+form.admin-form select,
+form.admin-form textarea {
+    height: 2em !important;
+    padding-bottom: calc(0.2em - 1px) !important;
+    /* padding-left: calc(0.5em - 1px) !important; */
+    padding-right: calc(0.5em - 1px) !important;
+    padding-top: calc(0.2em - 1px) !important;
+    max-width: 36em;
+}
+form.admin-form .field.is-horizontal {
+    margin-bottom: .25rem;
+}
+form.admin-form .field-body .field .select {
+    height: 2em;
+}
+form.admin-form input.form-input-label {
+    max-width: 36em !important;
+}
+form.admin-form input.form-input-url {
+    max-width: 36em !important;
+}
+form.admin-form textarea.form-textarea-description {
+    max-width: 20em !important;
+}
+

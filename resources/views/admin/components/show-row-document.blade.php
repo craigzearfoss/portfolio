@@ -78,7 +78,7 @@
 >
     <div class="{{ $editPage ? 'field-label' : 'column is-2 label' }}" style="min-width: 6rem;">
 
-        <strong>{!! $label ?? 'file' !!}</strong>
+        <label class="label">{!! $label ?? 'file' !!}</label>
 
         @if (!empty($resource->{$column}))
             @include('admin.components.download-links', [

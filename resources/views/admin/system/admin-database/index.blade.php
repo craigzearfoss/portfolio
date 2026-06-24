@@ -165,12 +165,12 @@
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $adminDatabase->$userTeam->username,
+                                    'name' => $adminDatabase->owner->username,
                                     'href' => route('admin.system.admin.show', $adminDatabase->owner)
                                 ])
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {{ $adminDatabase->name }}
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',

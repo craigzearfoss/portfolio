@@ -48,7 +48,9 @@
         <div class="edit-container card form-container p-4">
 
             <form action="{{ route('admin.career.cover-letter.update', array_merge([$coverLetter], request()->all())) }}"
-                  method="POST">
+                  class="admin-form"
+                  method="POST"
+            >
                 @csrf
                 @method('PUT')
 
@@ -57,94 +59,110 @@
                     'value' => referer('admin.career.cover-letter.index')
                 ])
 
-                @if ($isRootAdmin)
-                    @include('admin.components.favorites-box-form-input', [
-                        'name'  => 'favorite_count',
-                        'label' => 'favorites',
-                        'value' => old('favorite_count') ?? $coverLetter->favorite_count,
-                    ])
-                @endif
+                <div class="floating-div-container">
 
-                @include('admin.components.form-text-horizontal', [
-                    'name'  => 'id',
-                    'value' => $coverLetter->id
-                ])
+                    <div class="floating-div card admin-form-card">
 
-                <?php /* note that you CANNOT change the owner of a cover letter */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $coverLetter->owner_id
-                ])
+                        @if ($isRootAdmin)
+                            @include('admin.components.favorites-box-form-input', [
+                                'name'  => 'favorite_count',
+                                'label' => 'favorites',
+                                'value' => old('favorite_count') ?? $coverLetter->favorite_count,
+                            ])
+                        @endif
 
-                <?php /* note you CANNOT change the application for a cover letter */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'application_id',
-                    'value' => $coverLetter->application_id,
-                ])
+                        @include('admin.components.form-text-horizontal', [
+                            'name'  => 'id',
+                            'value' => $coverLetter->id
+                        ])
 
-                @include('admin.components.form-input-horizontal', [
-                    'type'    => 'date',
-                    'name'    => 'cover_letter_datetime',
-                    'label'   => 'date',
-                    'value'   => old('cover_letter_datetime') ?? $coverLetter->cover_letter_datetime,
-                    'message' => $message ?? '',
-                ])
+                        <?php /* note that you CANNOT change the owner of a cover letter */ ?>
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $coverLetter->owner_id
+                        ])
 
-                @include('admin.components.show-row-document', [
-                    'resource' => $coverLetter,
-                    'column'   => 'filepath',
-                    'label'    => 'file',
-                    'filename' => $coverLetter->name,
-                    'upload'   => false,
-                    'download' => true,
-                    'external' => true,
-                    'editPage' => true,
-                ])
+                        <?php /* note you CANNOT change the application for a cover letter */ ?>
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'application_id',
+                            'value' => $coverLetter->application_id,
+                        ])
 
-                <?php /*
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'content',
-                    'id'      => 'inputEditor',
-                    'value'   => old('content') ?? $coverLetter->content,
-                    'message' => $message ?? '',
-                ])
-                */ ?>
+                        @include('admin.components.form-input-horizontal', [
+                            'type'    => 'date',
+                            'name'    => 'cover_letter_datetime',
+                            'label'   => 'date',
+                            'value'   => old('cover_letter_datetime') ?? $coverLetter->cover_letter_datetime,
+                            'message' => $message ?? '',
+                        ])
 
-                @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $coverLetter->link,
-                    'name' => old('link_name') ?? $coverLetter->link_name,
-                    'message'   => $message ?? '',
-                ])
+                        @include('admin.components.show-row-document', [
+                            'resource' => $coverLetter,
+                            'column'   => 'filepath',
+                            'label'    => 'file',
+                            'filename' => $coverLetter->name,
+                            'upload'   => false,
+                            'download' => true,
+                            'external' => true,
+                            'editPage' => true,
+                        ])
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'description',
-                    'id'      => 'inputEditor',
-                    'value'   => old('description') ?? $coverLetter->description,
-                    'message' => $message ?? '',
-                ])
+                        <?php /*
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'content',
+                            'id'      => 'inputEditor',
+                            'value'   => old('content') ?? $coverLetter->content,
+                            'message' => $message ?? '',
+                        ])
+                        */ ?>
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'        => 'disclaimer',
-                    'value'       => old('disclaimer') ?? $coverLetter->disclaimer,
-                    'maxlength'   => 500,
-                    'message'     => $message ?? '',
-                ])
+                    </div>
 
-                @include('admin.components.form-textarea-horizontal', [
-                    'name'    => 'notes',
-                    'value'   => old('notes') ?? $coverLetter->notes,
-                    'message' => $message ?? '',
-                ])
+                </div>
+                <div class="floating-div-container">
 
-                @include('admin.components.form-visibility-horizontal', [
-                    'is_public'   => old('is_public')   ?? $coverLetter->is_public,
-                    'is_readonly' => old('is_readonly') ?? $coverLetter->is_readonly,
-                    'is_root'     => old('is_root')     ?? $coverLetter->root,
-                    'is_disabled' => old('is_disabled') ?? $coverLetter->is_disabled,
-                    'is_demo'     => old('is_demo')     ?? $coverLetter->is_demo,
-                    'sequence'    => old('sequence')    ?? $coverLetter->sequence,
-                    'message'     => $message           ?? '',
-                ])
+                    <div class="floating-div card admin-form-card">
+
+
+                    @include('admin.components.form-link-horizontal', [
+                            'link' => old('link') ?? $coverLetter->link,
+                            'name' => old('link_name') ?? $coverLetter->link_name,
+                            'message'   => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'description',
+                            'id'      => 'inputEditor',
+                            'value'   => old('description') ?? $coverLetter->description,
+                            'message' => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-input-horizontal', [
+                            'name'        => 'disclaimer',
+                            'value'       => old('disclaimer') ?? $coverLetter->disclaimer,
+                            'maxlength'   => 500,
+                            'message'     => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-textarea-horizontal', [
+                            'name'    => 'notes',
+                            'value'   => old('notes') ?? $coverLetter->notes,
+                            'message' => $message ?? '',
+                        ])
+
+                        @include('admin.components.form-visibility-horizontal', [
+                            'is_public'   => old('is_public')   ?? $coverLetter->is_public,
+                            'is_readonly' => old('is_readonly') ?? $coverLetter->is_readonly,
+                            'is_root'     => old('is_root')     ?? $coverLetter->root,
+                            'is_disabled' => old('is_disabled') ?? $coverLetter->is_disabled,
+                            'is_demo'     => old('is_demo')     ?? $coverLetter->is_demo,
+                            'sequence'    => old('sequence')    ?? $coverLetter->sequence,
+                            'message'     => $message           ?? '',
+                        ])
+
+                    </div>
+
+                </div>
 
                 @include('admin.components.form-button-submit-horizontal', [
                     'label'      => 'Save',

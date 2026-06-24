@@ -19,7 +19,7 @@
     <div class="field-body">
         <div class="field" style="flex-grow: 0;">
 
-            <div class="checkbox-container card form-container p-4">
+            <div class="checkbox-container card form-container p-4" style="height: 2.8rem;">
 
                 @include('guest.components.form-checkbox', [
                     'name'            => 'is_public',
@@ -69,11 +69,11 @@
                     'message'         => $message ?? '',
                 ])
 
-                <div style="display: inline-block; width: 10em;">
-                    <label class="label" for="inputSequence" style="display: inline-block !important;">sequence</label>
+                <div style="display: inline-block; width: 10em; position: relative; top: -8px;">
+                    <label class="label" for="inputSequence" style="display: inline-block !important;;">sequence</label>
                     <span class="control ">
                         <input class="input"
-                               style="margin-top: -4px;"
+                               style="margin-top: -4px; width: 4rem"
                                type="number"
                                id="inputSequence"
                                name="sequence"

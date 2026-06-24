@@ -123,7 +123,7 @@
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $userGroup->$userTeam->username,
+                                    'name' => $userGroup->owner->username,
                                     'href' => route('admin.system.admin.show', $userGroup->owner)
                                 ])
                             </td>

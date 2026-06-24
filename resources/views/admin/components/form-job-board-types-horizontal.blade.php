@@ -13,7 +13,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <strong>type(s)</strong>
+        <label class="label">type(s)</label>
     </div>
     <div class="field-body">
         <div class="field" style="flex-grow: 0;">

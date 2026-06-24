@@ -33,229 +33,274 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.portfolio.audio.update', array_merge([$audio], request()->all())) }}"
+          class="admin-form"
+          method="POST">
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.portfolio.audio.update', array_merge([$audio], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.portfolio.audio.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.portfolio.audio.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $audio->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $audio->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $audio->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $audio->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of an audio */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $audio->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of an audio */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $audio->owner_id
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $audio->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $audio->name,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'parent_id',
+                    'label'   => 'parent',
+                    'value'   => old('parent_id') ?? $audio->parent_id,
+                    'list'    => new Audio()->listOptions([ 'id <>' => $audio->id ], 'id', 'name', true),
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'parent_id',
-                'label'   => 'parent',
-                'value'   => old('parent_id') ?? $audio->parent_id,
-                'list'    => new Audio()->listOptions([ 'id <>' => $audio->id ], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'featured',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('featured') ?? $audio->featured,
+                    'message'         => $message ?? '',
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $audio->featured,
-                'message'         => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? $audio->summary,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'style'     => [ 'max-width: 40rem !important' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $audio->summary,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'full_episode',
-                                'label'           => 'full episode',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('full_episode') ?? $audio->full_episode,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'clip',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('clip') ?? $audio->clip,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'podcast',
-                                'label'           => 'podcast',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('podcast') ?? $audio->podcast,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'source_recording',
-                                'label'           => 'source recording',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('source_recording') ?? $audio->source_recording,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
             </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'audio_date',
-                'label'     => 'date',
-                'value'     => old('audio_date') ?? $audio->audio_date,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'audio_year',
-                'label'     => 'year',
-                'value'     => old('audio_year') ?? $audio->audio_year,
-                'min'       => 1950,
-                'max'       => date('Y'),
-                'message'   => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'company',
-                'value'     => old('company') ?? $audio->company,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'credit',
-                'value'   => old('credit') ?? $audio->credit,
-                'message' => $message ?? '',
-            ])
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'show',
-                'value'     => old('show') ?? $audio->show,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                            <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'location',
-                'value'     => old('location') ?? $audio->location,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'full_episode',
+                                    'label'           => 'full episode',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('full_episode') ?? $audio->full_episode,
+                                    'message'         => $message ?? '',
+                                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'embed',
-                'value'   => old('embed') ?? $audio->embed,
-                'message' => $message ?? '',
-            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'clip',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('clip') ?? $audio->clip,
+                                    'message'         => $message ?? '',
+                                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'audio_url',
-                'label'     => 'audio url',
-                'value'     => old('audio_url') ?? $audio->audio_url,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'podcast',
+                                    'label'           => 'podcast',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('podcast') ?? $audio->podcast,
+                                    'message'         => $message ?? '',
+                                ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $audio->link,
-                'name' => old('link_name') ?? $audio->link_name,
-                'message'   => $message ?? '',
-            ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'source_recording',
+                                    'label'           => 'source recording',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('source_recording') ?? $audio->source_recording,
+                                    'message'         => $message ?? '',
+                                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $audio->description,
-                'message' => $message ?? '',
-            ])
+                            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $audio->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+                        </div>
+                    </div>
+                </div>
 
-            @include('admin.components.show-row-images', [
-                'resource' => $audio,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'date',
+                    'name'      => 'audio_date',
+                    'label'     => 'date',
+                    'value'     => old('audio_date') ?? $audio->audio_date,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? $audio->notes,
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'audio_year',
+                    'label'     => 'year',
+                    'value'     => old('audio_year') ?? $audio->audio_year,
+                    'min'       => 1950,
+                    'max'       => date('Y'),
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $audio->is_public,
-                'is_readonly' => old('is_readonly') ?? $audio->is_readonly,
-                'is_root'     => old('is_root')     ?? $audio->root,
-                'is_disabled' => old('is_disabled') ?? $audio->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $audio->is_demo,
-                'sequence'    => old('sequence')    ?? $audio->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.audio.index')
-            ])
+        </div>
 
-        </form>
+        <div class="floating-div-container">
 
-    </div>
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'company',
+                    'value'     => old('company') ?? $audio->company,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'    => 'credit',
+                    'value'   => old('credit') ?? $audio->credit,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'show',
+                    'value'     => old('show') ?? $audio->show,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'location',
+                    'value'     => old('location') ?? $audio->location,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'embed',
+                    'value'   => old('embed') ?? $audio->embed,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'audio_url',
+                    'label'     => 'audio url',
+                    'value'     => old('audio_url') ?? $audio->audio_url,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-link-horizontal', [
+                    'link' => old('link') ?? $audio->link,
+                    'name' => old('link_name') ?? $audio->link_name,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $audio->description,
+                    'message' => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'disclaimer',
+                    'value'       => old('disclaimer') ?? $audio->disclaimer,
+                    'maxlength'   => 500,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $audio,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $audio->notes,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $audio->is_public,
+                    'is_readonly' => old('is_readonly') ?? $audio->is_readonly,
+                    'is_root'     => old('is_root')     ?? $audio->root,
+                    'is_disabled' => old('is_disabled') ?? $audio->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $audio->is_demo,
+                    'sequence'    => old('sequence')    ?? $audio->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.portfolio.audio.index')
+        ])
+
+    </form>
 
 @endsection

@@ -42,133 +42,138 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.system.admin-resource.update', array_merge([$adminResource], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form
-            action="{{ route('admin.system.admin-resource.update', array_merge([$adminResource], request()->all())) }}"
-            method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.system.resource.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.system.resource.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $adminResource->favorite_count,
-                ])
-            @endif
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $adminResource->id,
-                'hide'  => !$isRootAdmin,
-            ])
-
-            <?php /* note that you CANNOT change the owner of an admin resource */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $adminResource->owner_id
-            ])
-
-            @include('admin.components.form-text-horizontal', [
-                'name'      => 'name',
-                'value'     => $adminResource->name,
-            ])
-
-            @if ($isRootAdmin)
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $adminResource->favorite_count,
+                    ])
+                @endif
 
                 @include('admin.components.form-text-horizontal', [
-                    'name'      => 'database',
-                    'value'     => $adminResource->database['name'] ?? '?',
+                    'name'  => 'id',
+                    'value' => $adminResource->id,
+                    'hide'  => !$isRootAdmin,
+                ])
+
+                <?php /* note that you CANNOT change the owner of an admin resource */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $adminResource->owner_id
                 ])
 
                 @include('admin.components.form-text-horizontal', [
-                    'name'      => 'table',
-                    'value'     => $adminResource->table_name,
+                    'name'      => 'name',
+                    'value'     => $adminResource->name,
                 ])
 
-                @include('admin.components.form-text-horizontal', [
-                    'name'      => 'class',
-                    'value'     => $adminResource->class,
+                @if ($isRootAdmin)
+
+                    @include('admin.components.form-text-horizontal', [
+                        'name'      => 'database',
+                        'value'     => $adminResource->database['name'] ?? '?',
+                    ])
+
+                    @include('admin.components.form-text-horizontal', [
+                        'name'      => 'table',
+                        'value'     => $adminResource->table_name,
+                    ])
+
+                    @include('admin.components.form-text-horizontal', [
+                        'name'      => 'class',
+                        'value'     => $adminResource->class,
+                    ])
+
+                @endif
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('title') ?? $adminResource->title,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
                 ])
 
-            @endif
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'plural',
+                    'value'     => old('plural') ?? $adminResource->plural,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'title',
-                'value'     => old('title') ?? $adminResource->title,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'icon',
+                    'value'     => old('icon') ?? $adminResource->icon,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'plural',
-                'value'     => old('plural') ?? $adminResource->plural,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @if ($isRootAdmin)
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'icon',
-                'value'     => old('icon') ?? $adminResource->icon,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @if ($isRootAdmin)
-
-                <div class="field is-horizontal">
-                    <div class="field-label">
-                        <label class="label" for="has_owner">has owner</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control ">
-                                <span>
-                                    @include('admin.components.checkbox', [ 'checked' => $adminResource->has_owner ])
-                                </span>
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label" for="has_owner">has owner</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control ">
+                                    <span>
+                                        @include('admin.components.checkbox', [ 'checked' => $adminResource->has_owner ])
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            @endif
+                @endif
 
-            @include('admin.components.form-environments-horizontal', [
-                'guest'  => old('guest')  ?? $adminResource->guest,
-                'user'   => old('user')   ?? $adminResource->user,
-                'admin'  => old('admin')  ?? $adminResource->admin,
-            ])
+                @include('admin.components.form-environments-horizontal', [
+                    'guest'  => old('guest')  ?? $adminResource->guest,
+                    'user'   => old('user')   ?? $adminResource->user,
+                    'admin'  => old('admin')  ?? $adminResource->admin,
+                ])
 
-            @include('admin.components.form-menu-fields-horizontal', [
-                'menu'       => old('menu')       ?? $adminResource->menu,
-                'menu_level' => old('menu_level') ?? $adminResource->menu_level,
-            ])
+                @include('admin.components.form-menu-fields-horizontal', [
+                    'menu'       => old('menu')       ?? $adminResource->menu,
+                    'menu_level' => old('menu_level') ?? $adminResource->menu_level,
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $adminResource->is_public,
-                'is_readonly' => old('is_readonly') ?? $adminResource->is_readonly,
-                'is_root'     => old('is_root')     ?? $adminResource->is_root,
-                'is_disabled' => old('is_disabled') ?? $adminResource->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $adminResource->is_demo,
-                'sequence'    => old('sequence')    ?? $adminResource->sequence,
-                'message'     => $message           ?? '',
-            ])
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $adminResource->is_public,
+                    'is_readonly' => old('is_readonly') ?? $adminResource->is_readonly,
+                    'is_root'     => old('is_root')     ?? $adminResource->is_root,
+                    'is_disabled' => old('is_disabled') ?? $adminResource->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $adminResource->is_demo,
+                    'sequence'    => old('sequence')    ?? $adminResource->sequence,
+                    'message'     => $message           ?? '',
+                ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.resource.index', ($isRootAdmin && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
-            ])
+            </div>
 
-        </form>
+        </div>
 
-    </div>
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.system.resource.index', ($isRootAdmin && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
+        ])
+
+    </form>
 
 @endsection

@@ -22,20 +22,20 @@
     </div>
     <div class="field-body{{ !$horizontal ? ' not-horizontal' : '' }}" >
 
-        <div class="mr-2{{ !$horizontal ? ' mb-1' : '' }}">
-            <div class="select">
+        <div class="mr-21">
+            <div class="select mb-1">
                 @include('admin.components.select-list', [
                     'name'    => 'job_board_id',
                     'label'   => 'job board',
                     'value'   => $job_board_id,
                     'list'    => $jobListOptions,
-                    'style'   => [ 'display: inline-block'],
+                    'style'   => [ 'display: inline-block' ],
                     'message' => $message ?? '',
                 ])
             </div>
-        </div>
 
-        <div class="mr-2">
+            <br>
+
             <div class="select" >
                 @include('admin.components.select-list', [
                     'name'    => 'job_board_id2',

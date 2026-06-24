@@ -32,94 +32,116 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.system.admin-group.update', array_merge([$adminGroup], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.system.admin-group.update', array_merge([$adminGroup], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.system.admin-group.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.system.admin-group.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $adminEmail->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $adminGroup->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $adminGroup->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $adminGroup->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of am admin group */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $adminGroup->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of am admin group */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $adminGroup->owner_id
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_team_id',
+                    'label'   => 'team',
+                    'value'   => old('admin_team_id') ?? $adminGroup->team['id'] ?? '',
+                    'list'    => new AdminTeam()->listOptions(),
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'admin_team_id',
-                'label'   => 'team',
-                'value'   => old('admin_team_id') ?? $adminGroup->team['id'] ?? '',
-                'list'    => new AdminTeam()->listOptions(),
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $adminGroup->name,
+                    'required'  => true,
+                    'minlength' => 3,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $adminGroup->name,
-                'required'  => true,
-                'minlength' => 3,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'abbreviation',
+                    'value'     => old('abbreviation') ?? $adminGroup->abbreviation,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $adminGroup->abbreviation,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $adminGroup->description,
-                'message' => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.show-row-images', [
-                'resource' => $adminGroup,
-                'upload'   => false,
-                'download' => true,
-                'external' => true,
-                'editPage' => true,
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $adminGroup->is_public,
-                'is_readonly' => old('is_readonly') ?? $adminGroup->is_readonly,
-                'is_root'     => old('is_root')     ?? $adminGroup->root,
-                'is_disabled' => old('is_disabled') ?? $adminGroup->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $adminGroup->is_demo,
-                'sequence'    => old('sequence')    ?? $adminGroup->sequence,
-                'message'     => $message           ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.admin-group.index')
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $adminGroup->description,
+                    'message' => $message ?? '',
+                ])
 
-        </form>
+            </div>
 
-    </div>
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $adminGroup,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $adminGroup->is_public,
+                    'is_readonly' => old('is_readonly') ?? $adminGroup->is_readonly,
+                    'is_root'     => old('is_root')     ?? $adminGroup->root,
+                    'is_disabled' => old('is_disabled') ?? $adminGroup->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $adminGroup->is_demo,
+                    'sequence'    => old('sequence')    ?? $adminGroup->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.system.admin-group.index')
+        ])
+
+    </form>
 
 @endsection

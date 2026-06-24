@@ -175,7 +175,7 @@
                             </td>
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @include('admin.components.link', [
-                                    'name' => $resource->$userTeam->username,
+                                    'name' => $resource->owner->username,
                                     'href' => route('admin.system.admin.show', $resource->owner)
                                 ])
                             </td>

@@ -163,11 +163,11 @@
                         </td>
                         <td data-field="owner.username" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name' => $database->$userTeam->username,
+                                'name' => $database->owner->username,
                                 'href' => route('admin.system.admin.show', $database->owner)
                             ])
                         </td>
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {{ $database->name }}
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',

@@ -47,7 +47,7 @@
      @endif
 >
     <div class="{{ $editPage ? 'field-label' : 'column is-2 label' }}">
-        <strong>images</strong>
+        <label class="label">images</label>
     </div>
     <div class="{{ $editPage ? 'field-body' : 'column is-10 value' }}">
 

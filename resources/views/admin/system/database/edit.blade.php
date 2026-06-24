@@ -35,113 +35,119 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.system.database.update', array_merge([$database], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.system.database.update', array_merge([$database], request()->all())) }}"
-              method="POST">
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.system.database.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.system.database.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? $database->favorite_count,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $database->favorite_count,
+                    ])
+                @endif
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $database->id,
+                    'hide'  => !$isRootAdmin,
                 ])
-            @endif
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $database->id,
-                'hide'  => !$isRootAdmin,
-            ])
+                <?php /* note that you CANNOT change the owner of a database */ ?>
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $database->owner_id
+                ])
 
-            <?php /* note that you CANNOT change the owner of a database */ ?>
-            @include('admin.components.form-hidden', [
-                'name'  => 'owner_id',
-                'value' => $database->owner_id
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $database->name,
+                    'unique'    => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $database->name,
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'database',
+                    'value'     => old('database') ?? $database->database,
+                    'unique'    => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'database',
-                'value'     => old('database') ?? $database->database,
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'tag',
+                    'value'     => old('tag') ?? $database->tag,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'tag',
-                'value'     => old('tag') ?? $database->tag,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('title') ?? $database->title,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'title',
-                'value'     => old('title') ?? $database->title,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'plural',
+                    'value'     => old('plural') ?? $database->plural,
+                    'required'  => true,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'plural',
-                'value'     => old('plural') ?? $database->plural,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'icon',
+                    'value'     => old('icon') ?? $database->icon,
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'icon',
-                'value'     => old('icon') ?? $database->icon,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-environments-horizontal', [
+                    'guest'  => old('guest')  ?? $database->guest,
+                    'user'   => old('user')   ?? $database->user,
+                    'admin'  => old('admin')  ?? $database->admin,
+                ])
 
-            @include('admin.components.form-environments-horizontal', [
-                'guest'  => old('guest')  ?? $database->guest,
-                'user'   => old('user')   ?? $database->user,
-                'admin'  => old('admin')  ?? $database->admin,
-            ])
+                @include('admin.components.form-menu-fields-horizontal', [
+                    'menu'       => old('menu')       ?? $database->menu,
+                    'menu_level' => old('menu_level') ?? $database->menu_level,
+                ])
 
-            @include('admin.components.form-menu-fields-horizontal', [
-                'menu'       => old('menu')       ?? $database->menu,
-                'menu_level' => old('menu_level') ?? $database->menu_level,
-            ])
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $database->is_public,
+                    'is_readonly' => old('is_readonly') ?? $database->is_readonly,
+                    'is_root'     => old('is_root')     ?? $database->root,
+                    'is_disabled' => old('is_disabled') ?? $database->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $database->is_demo,
+                    'sequence'    => old('sequence')    ?? $database->sequence,
+                    'message'     => $message           ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $database->is_public,
-                'is_readonly' => old('is_readonly') ?? $database->is_readonly,
-                'is_root'     => old('is_root')     ?? $database->root,
-                'is_disabled' => old('is_disabled') ?? $database->is_disabled,
-                'is_demo'     => old('is_demo')     ?? $database->is_demo,
-                'sequence'    => old('sequence')    ?? $database->sequence,
-                'message'     => $message           ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.database.index')
-            ])
+        </div>
 
-        </form>
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.system.database.index')
+        ])
 
-    </div>
+    </form>
 
 @endsection
