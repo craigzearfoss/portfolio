@@ -44,7 +44,7 @@
                 {!! $certificates->links('vendor.pagination.bulma') !!}
             @endif
 
-            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}" style="min-width: 40rem; max-width: 80rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

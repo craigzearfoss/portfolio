@@ -106,7 +106,7 @@
                         <th>{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}:</th>
                         <td>
                             @include('guest.components.link', [
-                                'name'   => !empty($recipe->link_name) ? htmlspecialchars($recipe->link_name) : 'link',
+                                'name'   => $recipe->link,
                                 'href'   => $recipe->link,
                                 'target' => '_blank'
                             ])

@@ -55,7 +55,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the note is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 70rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -123,11 +123,13 @@
                         <td data-field="application_id" style="white-space: nowrap;">
                             @if (!empty($note->application))
                                 @include('admin.components.link', [
-                                    'name'  => htmlspecialchars($note->application->name ?? ''),
-                                    'href'  => route('admin.career.application.show',
-                                                    Application::find($note->application->id)
-                                              ),
-                                    'class' => $note->is_disabled ? [ 'disabled-text' ] : []
+                                    'name'            => htmlspecialchars($note->application->name ?? ''),
+                                    'href'            => route('admin.career.application.show',
+                                                          Application::find($note->application->id)
+                                                      ),
+                                    'class'           => $note->is_disabled ? [ 'disabled-text' ] : [],
+                                    'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                                    'title_attribute' => $note->application->name,
                                 ])
                             @endif
                             @include('admin.components.link-icon', [
@@ -141,9 +143,11 @@
                         </td>
                         <td data-field="subject" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name'  => $note->subject,
-                                'href'  => route('admin.career.note.show', $note),
-                                'class' => $note->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => $note->subject,
+                                'href'            => route('admin.career.note.show', $note),
+                                'class'           => $note->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                                'title_attribute' => $note->subject,
                             ])
                         </td>
                         <td data-field="created_at" style="white-space: nowrap;">

@@ -46,7 +46,7 @@
             @if (!empty($reading->author))
                 <tr>
                     <th>author:</th>
-                    <td>{!! htmlspecialchars($reading->author_) !!}</td>
+                    <td>{!! htmlspecialchars($reading->author) !!}</td>
                 </tr>
            @endif
 
@@ -103,7 +103,7 @@
                     <th>{{ !empty($reading->link_name) ? $reading->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => !empty($reading->link_name) ? htmlspecialchars($reading->link_name) : 'link',
+                            'name'   => $reading->link,
                             'href'   => $reading->link,
                             'target' => '_blank'
                         ])

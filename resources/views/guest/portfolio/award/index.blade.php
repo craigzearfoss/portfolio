@@ -44,7 +44,7 @@
                 {!! $awards->links('vendor.pagination.bulma') !!}
             @endif
 
-            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}" style="min-width: 30rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

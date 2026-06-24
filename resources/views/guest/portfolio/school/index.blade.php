@@ -48,7 +48,7 @@
 
             <p class="is-size-7 mb-0"><i>cc - community college, hbcu -, tech - technical, med - medical, rel - religious, sem - seminary</i></p>
 
-            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}" style="min-width: 30rem; max-width: 70rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

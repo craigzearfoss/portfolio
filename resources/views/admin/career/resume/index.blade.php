@@ -58,7 +58,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the resume is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 80rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

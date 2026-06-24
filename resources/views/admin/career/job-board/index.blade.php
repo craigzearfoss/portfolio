@@ -50,7 +50,7 @@
 
             <p class="admin-table-caption">* An asterisk indicates a primary job board. <span class="sample-color-box-light-gray"></span> indicates the job board is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -141,9 +141,11 @@
                         @endif
                         <td data-field="name" style="white-space: nowrap; width: 7rem;">
                             @include('admin.components.link', [
-                                'name' => $jobBoard->name . (!empty($jobBoard->primary) ? '<span class="primary-splat">*</span>' : ''),
-                                'href' => route('admin.career.job-board.show', $jobBoard),
-                                'class' => $jobBoard->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => $jobBoard->name . (!empty($jobBoard->primary) ? '<span class="primary-splat">*</span>' : ''),
+                                'href'            => route('admin.career.job-board.show', $jobBoard),
+                                'class'           => $jobBoard->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                                'title_attribute' => $jobBoard->name,
                             ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',

@@ -54,7 +54,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the communication is disabled.</p>
 
-            <table class="table admin-table communications-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table communications-table {{ $adminTableClasses ?? '' }}" style="min-width: 30rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -143,11 +143,12 @@
                         <td data-field="application_id">
                             @if (!empty($communication->application))
                                 @include('admin.components.link', [
-                                    'name'  => htmlspecialchars($communication->application->name),
-                                    'href'  => route('admin.career.application.show',
-                                                    Application::find($communication->application->id)
-                                               ),
-                                    'class' => $communication->is_disabled ? [ 'disabled-text' ] : []
+                                    'name'             => htmlspecialchars($communication->application->name),
+                                    'href'             => route('admin.career.application.show',
+                                                              Application::find($communication->application->id)
+                                                         ),
+                                    'class'           => $communication->is_disabled ? [ 'disabled-text' ] : [],
+                                    'title_attribute' => $communication->application->name,
                                 ])
                             @endif
                             @include('admin.components.link-icon', [
@@ -164,9 +165,11 @@
                         </td>
                         <td data-field="subject">
                             @include('admin.components.link', [
-                                'name'  => $communication->subject,
-                                'href'  => route('admin.career.communication.show', $communication),
-                                'class' => $communication->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => $communication->subject,
+                                'href'            => route('admin.career.communication.show', $communication),
+                                'class'           => $communication->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                                'title_attribute' => $communication->subject,
                             ])
                         </td>
                         <td data-field="to">

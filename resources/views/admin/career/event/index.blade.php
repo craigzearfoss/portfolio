@@ -56,7 +56,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the event is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -138,13 +138,24 @@
                         <td data-field="application_id" style="white-space: nowrap;">
                             @if (!empty($event->application))
                                 @include('admin.components.link', [
-                                    'name'  => htmlspecialchars($event->application->name),
-                                    'href'  => route('admin.career.application.show',
-                                                    Application::find($event->application->id)
-                                               ),
-                                    'class' => $event->is_disabled ? [ 'disabled-text' ] : []
+                                    'name'            => htmlspecialchars($event->application->name),
+                                    'href'            => route('admin.career.application.show',
+                                                          Application::find($event->application->id)
+                                                      ),
+                                    'class'           => $event->is_disabled ? [ 'disabled-text' ] : [],
+                                    'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                                    'title_attribute' => $event->application->name,
                                 ])
                             @endif
+                        </td>
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name'            => $event->name,
+                                'href'            => route('admin.career.event.show', $event),
+                                'class'           => $event->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                                'title_attribute' => $event->name,
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',
@@ -153,13 +164,6 @@
                                'class'      => 'add-to-favorites',
                                'attributes' => [ 'data-resource' => 'career.event', 'data-id' => $event->id ]
                            ])
-                        </td>
-                        <td data-field="name" style="white-space: nowrap;">
-                            @include('admin.components.link', [
-                                'name'  => $event->name,
-                                'href'  => route('admin.career.event.show', $event),
-                                'class' => $event->is_disabled ? [ 'disabled-text' ] : []
-                            ])
                         </td>
                         <td data-field="event_datetime" class="has-text-centered" style="white-space: nowrap;">
                             {{ shortDateTime($event->event_datetime) }}

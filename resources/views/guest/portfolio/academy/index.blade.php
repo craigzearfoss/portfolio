@@ -40,7 +40,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div" style="width: 20rem;">
+        <div class="show-container card floating-div">
 
             <p><i>{{ number_format($academies->total()) }} {{ ($academies->total() === 1) ? 'academy' : 'academies' }} found.</i></p>
 
@@ -48,7 +48,7 @@
                 {!! $academies->links('vendor.pagination.bulma') !!}
             @endif
 
-            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}" style="width: 20rem;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

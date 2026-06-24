@@ -54,7 +54,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the cover letter is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 30rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -128,9 +128,11 @@
                         @endif
                         <td data-field="company.name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name'  => $coverLetter->application->company->name,
-                                'href'  => route('admin.career.company.show', $coverLetter->application->company),
-                                'class' => $coverLetter->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => $coverLetter->application->company->name,
+                                'href'            => route('admin.career.company.show', $coverLetter->application->company),
+                                'title_attribute' => $coverLetter->application->company->name,
+                                'class'           => $coverLetter->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ]
                             ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
@@ -143,9 +145,11 @@
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name'  => $coverLetter->application->role,
-                                'href'  => route('admin.career.application.show', $coverLetter->application),
-                                'class' => $coverLetter->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => $coverLetter->application->role,
+                                'href'            => route('admin.career.application.show', $coverLetter->application),
+                                'title_attribute' => $coverLetter->application->role,
+                                'class'           => $coverLetter->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ]
                             ])
                         </td>
                         <td data-field="post_date" style="white-space: nowrap;">

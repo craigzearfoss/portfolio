@@ -62,7 +62,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the application is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 30rem; overflow-x: auto; overflow-y: hidden;">
 
                 @if ($top_column_headings)
                     <thead>
@@ -258,16 +258,20 @@
                         </td>
                         <td data-field="company.name" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name'  => htmlspecialchars($application->company->name ?? ''),
-                                'href'  => route('admin.career.company.show', $application->company),
-                                'class' => $application->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => htmlspecialchars($application->company->name ?? ''),
+                                'href'            => route('admin.career.company.show', $application->company),
+                                'class'           => $application->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 10rem', 'overflow-x: hidden' ],
+                                'title_attribute' => $application->company->name,
                             ])
                         </td>
                         <td data-field="role" style="white-space: nowrap;">
                             @include('admin.components.link', [
-                                'name'  => htmlspecialchars($application->role ?? ''),
-                                'href'  => route('admin.career.application.show', $application),
-                                'class' => $application->is_disabled ? [ 'disabled-text' ] : []
+                                'name'            => htmlspecialchars($application->role ?? ''),
+                                'href'            => route('admin.career.application.show', $application),
+                                'class'           => $application->is_disabled ? [ 'disabled-text' ] : [],
+                                'style'           => [ 'display: inline-block', 'max-width: 10rem', 'overflow-x: hidden' ],
+                                'title_attribute' => $application->role,
                             ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',

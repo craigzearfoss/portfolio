@@ -38,7 +38,7 @@
 
         <div class="show-container card floating-div">
 
-            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}" style="min-width: 30rem; max-width: 60rem; overflow-x: auto; overflow-y: hidden;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

@@ -36,7 +36,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="min-width: 30rem; max-width: 50rem; overflow-x: auto; overflow-y: hidden;">
 
             <p><i>{{ number_format($skills->total()) }} {{ ($skills->total() === 1) ? 'skill' : 'skills' }} found.</i></p>
 

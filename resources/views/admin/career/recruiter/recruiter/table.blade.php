@@ -21,7 +21,7 @@
 
         <p class="admin-table-caption">* An asterisk indicates a primary recruiter. <span class="sample-color-box-light-gray"></span> indicates the recruiter is disabled.</p>
 
-        <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+        <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
 
             @php
                 $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -84,9 +84,11 @@
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
                         @include('admin.components.link', [
-                            'name'  => $recruiter->name . (!empty($recruiter->primary) ? '<span class="primary-splat">*</span>' : ''),
-                            'href'  => route('admin.career.recruiter.show', $recruiter),
-                            'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
+                            'name'            => $recruiter->name . (!empty($recruiter->primary) ? '<span class="primary-splat">*</span>' : ''),
+                            'href'            => route('admin.career.recruiter.show', $recruiter),
+                            'class'           => $recruiter->is_disabled ? [ 'disabled-text' ] : [],
+                            'style'           => [ 'display: inline-block', 'max-width: 20rem', 'overflow-x: hidden' ],
+                            'title_attribute' => $recruiter->name,
                         ])
                         @include('admin.components.link-icon', [
                            'title'      => 'add to favorites',
