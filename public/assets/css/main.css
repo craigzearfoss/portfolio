@@ -372,6 +372,11 @@ ul.menu p.menu-label span {
     width: 100%;
     font-size: .9rem;
 }
+ul.menu p.menu-label a.selected,
+ul.menu p.menu-label span.selected {
+    background: #52595D;
+    color: #00d1b2 !important
+}
 ul.menu p.menu-label a:hover {
     /* background-color: #404040; */
 }
@@ -1069,6 +1074,12 @@ div.card.job-analyzer-skill-list div.card-body {
     background-color: rgb(209, 255, 248);
     color: rgb(0, 56, 48) !important;
 }
+.candidate-left-nav-container.card.selected,
+.candidate-left-nav-container.card .menu-list a.selected,
+.candidate-left-nav-container.card .menu .menu-label a.selected {
+    background-color: #E0FFFF !important;
+    color: #00d1b2 !important
+}
 .candidate-left-nav-container.card .menu-list a,
 .candidate-left-nav-container.card .menu .menu-label a {
     padding: .2rem .4rem .2rem .6rem;
@@ -1119,9 +1130,14 @@ div.card.job-analyzer-skill-list div.card-body {
 .tools-left-nav-container.card ul.menu .menu-label a {
     color: #ffffff;
     margin: 0;
-    padding: .1rem .4rem .1rem .8rem;
+    padding: .3rem .4rem .1rem .8rem;
     font-size: .9rem;
     font-weight: 700;
+}
+.resources-left-nav-container.card ul.menu .menu-label a.selected,
+.tools-left-nav-container.card ul.menu .menu-label a.selected {
+    background-color: #848482;
+    color: #00d1b2 !important;
 }
 .candidate-left-nav-container.card .menu .menu-label,
 .candidate-left-nav-container.card .menu .menu-list .menu-label, .candidate-left-nav-container.card .menu .menu-list .menu-label a,
