@@ -32,8 +32,8 @@ $companies = $companies ?? [];
             <td data-field="location" style="white-space: nowrap;">
                 {!!
                     formatLocation([
-                        'city'    => htmlspecialchars($company->city),
-                        'state'   => $company->state['code'] ?? null,
+                        'city'  => $company->city,
+                        'state' => $company->state['code'] ?? null,
                     ])
                 !!}
             </td>

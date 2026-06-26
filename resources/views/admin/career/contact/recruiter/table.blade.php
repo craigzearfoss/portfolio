@@ -30,8 +30,8 @@ $recruiters = $recruiters ?? [];
             <td data-field="location" style="white-space: nowrap;">
                 {!!
                     formatLocation([
-                        'city'    => htmlspecialchars($recruiter->city),
-                        'state'   => $recruiter->state['code'] ?? null,
+                        'city'  => $recruiter->city,
+                        'state' => $recruiter->state['code'] ?? null,
                     ])
                 !!}
             </td>

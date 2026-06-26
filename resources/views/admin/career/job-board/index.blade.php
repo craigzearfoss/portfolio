@@ -191,13 +191,13 @@
                             {!!
                                 !empty($jobBoard->country->iso_alpha3) && ($jobBoard->country->iso_alpha3 != 'USA')
                                     ? formatLocation([
-                                          'city'    => htmlspecialchars($jobBoard->city),
+                                          'city'    => $jobBoard->city,
                                           'state'   => $jobBoard->state->code ?? '',
                                           'country' => $jobBoard->country->iso_alpha3
                                       ])
                                    : formatLocation([
-                                          'city'    => htmlspecialchars($jobBoard->city),
-                                          'state'   => $jobBoard->state->code ?? '',
+                                          'city'  => $jobBoard->city,
+                                          'state' => $jobBoard->state->code ?? '',
                                   ])
                             !!}
                         </td>

@@ -320,8 +320,8 @@
                         <td data-field="location" class="hide-at-1400">
                             {{
                                 formatLocation([
-                                    'city'    => htmlspecialchars($application->city),
-                                    'state'   => $application->state->code ?? '',
+                                    'city'  => $application->city,
+                                    'state' => $application->state->code ?? '',
                                 ])
                             }}
                         </td>

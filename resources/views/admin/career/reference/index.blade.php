@@ -151,8 +151,8 @@
                         <td data-field="location" style="white-space: nowrap;">
                             {{
                                 formatLocation([
-                                    'city'    => htmlspecialchars($reference->city),
-                                    'state'   => $reference->state->code ?? '',
+                                    'city'  => $reference->city,
+                                    'state' => $reference->state->code ?? '',
                                 ])
                             }}
                         </td>

@@ -120,7 +120,7 @@
                     <div class="floating-div card admin-form-card">
 
                         @include('admin.components.form-link-horizontal', [
-                            'link' => old('link') ?? $note->link,
+                            'link'      => old('link') ?? $note->link,
                             'link_name' => old('link_name') ?? $note->link_name,
                             'message'   => $message ?? '',
                         ])

@@ -67,11 +67,22 @@
                     'hide'  => !$isRootAdmin,
                 ])
 
-                <?php /* note that you CANNOT change the owner of a recipe ingredient */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $recipeIngredient->owner_id
-                ])
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $recipeIngredient->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $recipeIngredient->owner_id
+                    ])
+                @endif
 
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'recipe_id',
@@ -126,6 +137,7 @@
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $recipeIngredient->description,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
                 ])
 
             </div>

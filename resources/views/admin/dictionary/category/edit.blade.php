@@ -150,9 +150,9 @@
                 ])
 
                 @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $category->link,
-                    'name' => old('link_name') ?? $category->link_name,
-                    'message'   => $message ?? '',
+                    'link'    => old('link') ?? $category->link,
+                    'name'    => old('link_name') ?? $category->link_name,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-textarea-horizontal', [

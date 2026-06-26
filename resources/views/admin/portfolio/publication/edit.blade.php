@@ -311,9 +311,9 @@
                 ])
 
                 @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $publication->link,
-                    'name' => old('link_name') ?? $publication->link_name,
-                    'message'   => $message ?? '',
+                    'link'    => old('link') ?? $publication->link,
+                    'name'    => old('link_name') ?? $publication->link_name,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-textarea-horizontal', [

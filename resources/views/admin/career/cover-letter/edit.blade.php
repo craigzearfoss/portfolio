@@ -125,9 +125,9 @@
 
 
                     @include('admin.components.form-link-horizontal', [
-                            'link' => old('link') ?? $coverLetter->link,
-                            'name' => old('link_name') ?? $coverLetter->link_name,
-                            'message'   => $message ?? '',
+                            'link'    => old('link') ?? $coverLetter->link,
+                            'name'    => old('link_name') ?? $coverLetter->link_name,
+                            'message' => $message ?? '',
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [

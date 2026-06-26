@@ -122,13 +122,13 @@
                         {!!
                             !empty($recruiter->country->iso_alpha3) && ($recruiter->country->iso_alpha3 != 'USA')
                                 ? formatLocation([
-                                      'city'    => htmlspecialchars($recruiter->city),
+                                      'city'    => $recruiter->city,
                                       'state'   => $recruiter->state->code ?? '',
                                       'country' => $recruiter->country->iso_alpha3
                                   ])
                                : formatLocation([
-                                      'city'    => htmlspecialchars($recruiter->city),
-                                      'state'   => $recruiter->state->code ?? '',
+                                      'city'  => $recruiter->city,
+                                      'state' => $recruiter->state->code ?? '',
                               ])
                         !!}
                     </td>

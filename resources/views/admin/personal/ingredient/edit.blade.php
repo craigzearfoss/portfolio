@@ -65,6 +65,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -73,6 +74,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
             </div>
@@ -84,8 +86,8 @@
             <div class="floating-div card admin-form-card">
 
                 @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $ingredient->link,
-                    'name' => old('link_name') ?? $ingredient->link_name,
+                    'link'      => old('link') ?? $ingredient->link,
+                    'name'      => old('link_name') ?? $ingredient->link_name,
                     'message'   => $message ?? '',
                 ])
 
@@ -94,6 +96,7 @@
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $ingredient->description,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
                 ])
 
             </div>

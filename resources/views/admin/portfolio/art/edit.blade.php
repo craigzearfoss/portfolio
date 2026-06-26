@@ -130,9 +130,9 @@
             <div class="floating-div card admin-form-card">
 
                 @include('admin.components.form-link-horizontal', [
-                    'link' => old('link') ?? $art->link,
-                    'name' => old('link_name') ?? $art->link_name,
-                    'message'   => $message ?? '',
+                    'link'    => old('link') ?? $art->link,
+                    'name'    => old('link_name') ?? $art->link_name,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-textarea-horizontal', [

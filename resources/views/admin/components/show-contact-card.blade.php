@@ -40,11 +40,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'          => htmlspecialchars($resource->street ?? ''),
-                'street2'         => htmlspecialchars($resource->street2 ?? ''),
-                'city'            => htmlspecialchars($resource->city ?? ''),
+                'street'          => $resource->street,
+                'street2'         => $resource->street2,
+                'city'            => $resource->city,
                 'state'           => $resource->state->code ?? '',
-                'zip'             => htmlspecialchars($resource->zip ?? ''),
+                'zip'             => $resource->zip,
                 'country'         => $resource->country->iso_alpha3 ?? '',
                 'streetSeparator' => '<br>',
             ])
