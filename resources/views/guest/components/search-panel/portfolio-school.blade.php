@@ -3,7 +3,8 @@
     use App\Models\Portfolio\School;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action            = $action ?? url()->current();
@@ -42,7 +43,6 @@
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => new School()->getSortOptions($sort),
-                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

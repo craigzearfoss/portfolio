@@ -1,5 +1,4 @@
 @php
-    $href = $href ?? '';
     $class      = !empty($class)
                       ? array_merge((!is_array($class) ? explode(' ', $class) : $class), [ 'button', 'is-small', 'px-1', 'py-0' ])
 		      : [ 'button', 'is-small', 'px-1', 'py-0' ];
@@ -7,6 +6,8 @@
     $style      = !empty($style)
                       ? (is_array($style) ? $style : explode(';', $style))
                       : [];
+
+    $href = $href ?? '';
     $icon       = $icon ?? null;
     $href       = $href ?? '';
     $target     = $target ?? '';

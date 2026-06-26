@@ -4,15 +4,9 @@
 
     $href = $href ?? null;
     $filename = $filename ?? '';
-    if (empty($file)) {
-        abort(500, 'No $file parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'download-links.blade.php.');
+    if (empty($filename)) {
+        abort(500, 'No $filename parameter specified in ' . base_path() . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'download-links.blade.php.');
     }
-@endphp
-
-@php
-
-//    $filepath  = !empty($src) ? imageUrl($src) : null;
-//    $filename  = ($filename ?? 'download') . (!empty($extension) ? '.'. $extension : '');
 @endphp
 <div style="display: inline-block;">
 
@@ -36,27 +30,3 @@
     @endif
 
 </div>
-<?php /*
-<div id="download-image-controls" class="has-text-right">
-
-    @if (!empty($download))
-        <a class="download-link text-xl"
-            title="{!! $title ?? 'download file'!!}"
-            data-url="{!! $imageUrl !!}"
-            data-filename="{!! $filename ?? '' !!}"
-        >
-            <i class="fa fa-download"></i>
-        </a>
-    @endif
-    @if (!empty($external))
-        <a class="certificate text-xl"
-       href="{!! $imageUrl !!}"
-           title="{{ $title ?? 'open file in a new window' }}"
-           target="_blank"
-        >
-            <i class="fa fa-external-link"></i>
-        </a>
-    @endif
-
-</div>
-*/ ?>

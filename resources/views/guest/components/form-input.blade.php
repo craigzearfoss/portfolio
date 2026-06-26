@@ -12,10 +12,13 @@
 
     $required = $required ?? false;
 
-    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
-    if (!in_array('input', $class)) $class[] = 'input';
+    $class = !empty($class)
+        ? (!is_array($class) ? explode(' ', $class) : $class)
+        : [];
 
-    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $style = !empty($style)
+        ? (!is_array($style) ? explode(';', $style) : $style)
+        : [];
 
     $labelClass = [ 'label' ];
     if ($required && !in_array('label-required', $labelClass)) $labelClass[] = 'label-required';

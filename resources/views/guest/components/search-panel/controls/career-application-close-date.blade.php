@@ -15,6 +15,7 @@
                 'label'   => '',
                 'value'   => $close_date_min,
                 'message' => $message ?? '',
+                'class'   => [ 'submit-search-on-enter-key' ],
                 'style'   => [ 'width: 6rem' ],
             ])
         </div>
@@ -30,6 +31,7 @@
                 'label'   => '',
                 'value'   => $close_date_max,
                 'message' => $message ?? '',
+                'class'   => [ 'submit-search-on-enter-key' ],
                 'style'   => [ 'width: 6rem' ],
             ])
         </div>

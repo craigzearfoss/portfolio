@@ -14,6 +14,7 @@
                 'name'    => 'apply_date-min',
                 'label'   => '',
                 'value'   => $apply_date_min,
+                'class'   => [ 'submit-search-on-enter-key' ],
                 'message' => $message ?? '',
                 'style'   => [ 'width: 6rem' ],
             ])
@@ -30,6 +31,7 @@
                 'label'   => '',
                 'value'   => $apply_date_max,
                 'message' => $message ?? '',
+                'class'   => [ 'submit-search-on-enter-key' ],
                 'style'   => [ 'width: 6rem' ],
             ])
         </div>

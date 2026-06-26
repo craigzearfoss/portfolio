@@ -7,6 +7,8 @@
     $class  = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
+    if (!in_array('input', $class)) $class[] = 'input';
+
     $style = !empty($style)
         ? (is_array($style) ? $style : explode(';', $style))
         : [];
@@ -19,7 +21,7 @@
 
         <div class="content mb-0 mr-2">
             <div class="control has-icons-left">
-                <input class="input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
+                <input class="input-link {{ implode(' ', $class) }}@error('role') is-invalid @enderror"
                        type="text"
                        id="{{ 'input' . ucfirst($name) }}"
                        name="{{ $name }}"
@@ -43,7 +45,7 @@
 
             <div class="content mb-0 ">
                 <div class="control">
-                    <input class="input {!! implode(' ', $class) !!} @error('role') is-invalid @enderror"
+                    <input class="input-link-name {{ implode(' ', $class) }}@error('role') is-invalid @enderror"
                            type="text"
                            id="{{ 'input' . ucfirst($name) . '_name' }}"
                            name="{{ $name . '_name' }}"

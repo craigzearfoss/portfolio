@@ -15,6 +15,7 @@
                 'label'   => '',
                 'value'   => $communication_datetime_min,
                 'message' => $message ?? '',
+                'class'   => [ 'submit-search-on-enter-key' ],
                 'style'   => [ 'width: 10rem' ],
             ])
         </div>
@@ -30,6 +31,7 @@
                 'label'   => '',
                 'value'   => $communication_datetime_max,
                 'message' => $message ?? '',
+                'class'   => [ 'submit-search-on-enter-key' ],
                 'style'   => [ 'width: 10rem' ],
             ])
         </div>

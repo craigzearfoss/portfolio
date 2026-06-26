@@ -1,7 +1,8 @@
 @php
-    $resourceType = $resourceType ?? '';
-    $resources = $resources ?? [];
+    $resourceType     = $resourceType ?? '';
+    $resources        = $resources ?? [];
     $currentMenuLevel = 1;
+    $owner_id         = $owner_id ?? null;
 @endphp
 
 <ul class="menu-list" data-menu-level="{{ $currentMenuLevel }}" style="max-width: 20em;">

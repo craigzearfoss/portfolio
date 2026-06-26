@@ -6,7 +6,7 @@
     $types = [ '' => '' ];
 
     foreach (Recipe::TYPES as $key=>$value) {
-        $types[$value] = $value;
+        $types[$key] = $value;
     }
 @endphp
 <div class="control" style="max-width: 28rem;">

@@ -5,7 +5,14 @@
 
     if (!empty($school)) {
 
-        //if (!empty($school->gender)) $schoolDetails[] = $school->gender;
+        /*
+        if ($school->male || $school->female) {
+            $schoolDetails[] = ($school->female && $school->male)
+                            ? 'coed'
+                            : ($school->male ? 'male' : 'female');
+        }
+        */
+
         if ($school->community_college) $schoolDetails[] = 'cc';
         if ($school->hbcu) $schoolDetails[] = 'hbcu';
         if ($school->technical) $schoolDetails[] = 'tech';

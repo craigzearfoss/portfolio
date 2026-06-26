@@ -5,7 +5,8 @@
     use App\Models\Career\Note;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action           = $action ?? url()->current();
@@ -43,7 +44,6 @@
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => new Note()->getSortOptions($sort),
-                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
                     ])
 
                     <?php /*
@@ -61,6 +61,16 @@
                 </div>
 
                 <div class="floating-div-container">
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+                    */ ?>
 
                     <div class="floating-div">
 

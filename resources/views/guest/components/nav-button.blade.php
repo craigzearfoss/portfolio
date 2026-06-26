@@ -11,7 +11,7 @@
     // get classes
     $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class)) : ['is-small is-dark my-0'];
-    if ($active ?? false) $class[] = 'selected';
+    if ($active ?? false) $class[] = 'has-text-primary';
     $class[] = 'nav-button';
     $class = implode(' ', $class);
 

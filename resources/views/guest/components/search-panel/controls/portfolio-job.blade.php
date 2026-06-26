@@ -1,7 +1,8 @@
 @php
     use App\Models\Portfolio\Job;
 
-    $owner_id   = $owner->id ?? -1;
+    $owner_id   = $owner_id ?? request()->query('owner_id');
+    $isRootAmin = $isRootAmin ?? false;
     $job_id     = $job_id ?? request()->query('job_id');
 @endphp
 <div class="control" style="max-width: 28rem;">

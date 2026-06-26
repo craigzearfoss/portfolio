@@ -4,7 +4,6 @@
     $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
-    if (!in_array('input', $class)) $class[] = 'input';
     if (!in_array('textarea', $class)) $class[] = 'textarea';
 
     $style = !empty($style)
@@ -44,7 +43,9 @@
                           @if (!empty($readonly))
                               readonly
                           @endif
-                          @if (!empty($required))required @endif
+                          @if (!empty($required))
+                              required
+                          @endif
                           @if (!empty($rows))
                               rows="{{ $rows }}"
                           @endif

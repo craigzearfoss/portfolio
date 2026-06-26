@@ -4,7 +4,8 @@
     use App\Models\System\Resource;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action         = $action ?? url()->current();
@@ -38,7 +39,6 @@
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => new Resource()->getSortOptions($sort),
-                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*
@@ -56,6 +56,16 @@
                 </div>
 
                 <div class="floating-div-container">
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+                    */ ?>
 
                     <div class="floating-div">
 
@@ -100,6 +110,29 @@
                     </div>
                     <div class="floating-div">
 
+                        <?php /*
+                        @if ($isRootAdmin)
+                            <div class="search-form-control">
+                                <div class="control" style="max-width: 28rem;">
+                                    @include('admin.components.form-select', [
+                                        'name'  => 'table_name',
+                                        'label' => 'table',
+                                        'value' => $table_name,
+                                        'list'  => new Resource()->listOptions(
+                                                       [ 'owner_id' => 1 ],
+                                                       'table_name',
+                                                       'table_name',
+                                                       true,
+                                                       false,
+                                                       [ 'table_name', 'asc' ]
+                                                   ),
+                                        'style' => 'width: 12rem;'
+                                    ])
+                                </div>
+                            </div>
+                        @endif
+                        */ ?>
+
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('guest.components.form-select', [
@@ -137,6 +170,24 @@
                         </div>
 
                     </div>
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+                    */ ?>
 
                 </div>
 

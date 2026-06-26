@@ -1,7 +1,8 @@
 @php
     use App\Models\Career\Company;
 
-    $owner_id   = $owner->id ?? -1;
+    $owner_id   = $owner_id ?? request()->query('owner_id');
+    $isRootAmin = $isRootAmin ?? false;
     $company_id = $company_id ?? request()->query('company_id');
 @endphp
 <div class="control" style="max-width: 28rem;">

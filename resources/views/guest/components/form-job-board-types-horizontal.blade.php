@@ -1,8 +1,8 @@
 @php
-    $free ?? true;
-    $premium ?? false;
-    $staffing ?? false;
-    $freelance ?? false;
+    $free      = $free ?? true;
+    $premium   = $premium ?? false;
+    $staffing  = $staffing ?? false;
+    $freelance = $freelance ?? false;
 
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
@@ -13,7 +13,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <strong>type(s)</strong>
+        <label class="label">type(s)</label>
     </div>
     <div class="field-body">
         <div class="field" style="flex-grow: 0;">

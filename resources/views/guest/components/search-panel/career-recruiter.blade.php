@@ -49,7 +49,6 @@
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => new Recruiter()->getSortOptions($sort, EnvTypes::GUEST),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
                     ])
 
                     <?php /*

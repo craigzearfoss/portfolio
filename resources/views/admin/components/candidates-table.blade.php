@@ -1,5 +1,7 @@
 <div class="card p-4">
 
+    <p><i>{{ number_format($candidates->total()) }} {{ ($candidates->total() === 1) ? 'candidate' : 'candidates' }} found.</i></p>
+
     @if (!empty($candidates) && $pagination_top)
         {!! $candidates->links('vendor.pagination.bulma') !!}
     @endif
@@ -50,6 +52,14 @@
                     @include('admin.components.link', [
                         'name' => !empty($candidate->name) ? $candidate->name : $candidate->label,
                         'href' => route('admin.system.admin.profile', $candidate),
+                    ])
+                    @include('admin.components.link-icon', [
+                        'title'      => 'add to favorites',
+                        'icon'       => 'fa-heart',
+                        'border'     => false,
+                        'target'     => '_blank',
+                        'class'      => 'add-to-favorites',
+                        'attributes' => [ 'data-resource' => 'system.admin', 'data-id' => $candidate->id ]
                     ])
                 </td>
                 <td data-field="role">

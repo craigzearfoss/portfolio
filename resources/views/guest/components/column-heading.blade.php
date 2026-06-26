@@ -24,7 +24,7 @@
 @endphp
 
 @if (empty($sort))
-    <span class="col-heading">{{ $name }}</span>
+    <span class="col-heading">{!! $name !!}</span>
 @else
     @php
         $sort = $sortField . '|' . $sortDir;

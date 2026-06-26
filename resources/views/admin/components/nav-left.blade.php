@@ -4,8 +4,10 @@
     $admin = $admin ?? null;
     $user  = $user ?? null;
     $owner = $owner ?? null;
+
+    $menuItems = !empty( $menuService) ? $menuService->leftMenu() : [];
 @endphp
-@if ($menuItems = $menuService->leftMenu())
+@if ($menuItems)
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
