@@ -24,7 +24,7 @@
 @endphp
 
 @if (empty($sort))
-    <span class="col-heading">{{ $name }}</span>
+    <span class="col-heading">{!! $name !!}</span>
 @else
     @php
         $sort = $sortField . '|' . $sortDir;
@@ -32,7 +32,7 @@
     <a href="{{ route(Route::currentRouteName(), array_merge($params, ['sort' => $sort])) }}"
        class="col-heading"
     >
-        {{ $name }}
+        {!! $name !!}
         @if ($sortField == $currentSortField)
             <i class="fa fa-sort-{{ $sortDir }}" aria-hidden="true"></i>
         @endif

@@ -74,11 +74,22 @@
                         'hide'  => !$isRootAdmin,
                     ])
 
-                        <?php /* note that you CANNOT change the owner of a job coworker */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $jobCoworker->owner_id
-                    ])
+                    @if ($isRootAdmin)
+                        @include('admin.components.form-select-horizontal', [
+                            'name'     => 'owner_id',
+                            'label'    => 'owner',
+                            'value'    => old('owner_id') ?? $jobCoworker->owner_id,
+                            'required' => true,
+                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                            'message'  => $message ?? '',
+                            'class'    => [ 'select-owner' ]
+                        ])
+                    @else
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $jobCoworker->owner_id
+                        ])
+                    @endif
 
                     @include('admin.components.form-select-horizontal', [
                         'name'      => 'job_id',
@@ -95,6 +106,7 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-name' ]
                     ])
 
                     @include('admin.components.form-input-horizontal', [
@@ -102,6 +114,7 @@
                         'value'     => old('title') ?? $jobCoworker->title,
                         'maxlength' => 100,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-name' ]
                     ])
 
                     @include('admin.components.form-select-horizontal', [
@@ -127,6 +140,7 @@
                         'value'     => old('work_phone') ?? $jobCoworker->work_phone,
                         'maxlength' => 50,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-phone' ]
                     ])
 
                     @include('admin.components.form-input-horizontal', [
@@ -136,14 +150,16 @@
                         'value'     => old('personal_phone') ?? $jobCoworker->personal_phone,
                         'maxlength' => 50,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-phone' ]
                     ])
 
                     @include('admin.components.form-input-horizontal', [
                         'name'      => 'work_email',
-                        'label'      => 'work email',
+                        'label'     => 'work email',
                         'value'     => old('work_email') ?? $jobCoworker->work_email,
                         'maxlength' => 20,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-email' ]
                     ])
 
                     @include('admin.components.form-input-horizontal', [
@@ -152,6 +168,7 @@
                         'value'     => old('personal_email') ?? $jobCoworker->personal_email,
                         'maxlength' => 20,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-email' ]
                     ])
 
                 </div>
@@ -173,6 +190,7 @@
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $jobCoworker->description,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ]
                     ])
 
                 </div>
@@ -184,10 +202,11 @@
                 <div class="floating-div card admin-form-card">
 
                     @include('admin.components.form-input-horizontal', [
-                        'name'        => 'disclaimer',
-                        'value'       => old('disclaimer') ?? $jobCoworker->disclaimer,
-                        'maxlength'   => 500,
-                        'message'     => $message ?? '',
+                        'name'      => 'disclaimer',
+                        'value'     => old('disclaimer') ?? $jobCoworker->disclaimer,
+                        'maxlength' => 500,
+                        'message'   => $message ?? '',
+                        'class'     => [ 'input-disclaimer' ]
                     ])
 
                     @include('admin.components.show-row-images', [
@@ -203,6 +222,7 @@
                         'id'      => 'notes',
                         'value'   => old('notes') ?? $jobCoworker->notes,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ]
                     ])
 
                     @include('admin.components.form-visibility-horizontal', [

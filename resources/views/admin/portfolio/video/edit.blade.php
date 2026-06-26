@@ -63,11 +63,22 @@
                     'hide'  => !$isRootAdmin,
                 ])
 
-                <?php /* note that you CANNOT change the owner of a video */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $video->owner_id
-                ])
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $publication->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $video ?? '',
+                        'class'    => [ 'select-owner' ]
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $video->owner_id
+                    ])
+                @endif
 
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'name',
@@ -75,6 +86,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-select-horizontal', [
@@ -98,7 +110,7 @@
                     'value'     => old('summary') ?? $video->summary,
                     'maxlength' => 500,
                     'message'   => $message ?? '',
-                    'style'     => [ 'max-width: 40rem !important' ]
+                    'class'     => [ 'input-summary' ]
                 ])
 
                 <div class="field is-horizontal">
@@ -173,12 +185,14 @@
                     'value'     => old('company') ?? $video->company,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-textarea-horizontal', [
                     'name'    => 'credit',
                     'value'   => old('credit') ?? $video->credit,
                     'message' => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -186,6 +200,7 @@
                     'value'     => old('show') ?? $video->show,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -193,6 +208,7 @@
                     'value'     => old('location') ?? $video->location,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
             </div>
@@ -235,6 +251,7 @@
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $video->description,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
                 ])
 
             </div>
@@ -246,10 +263,11 @@
             <div class="floating-div card admin-form-card">
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'        => 'disclaimer',
-                    'value'       => old('disclaimer') ?? $video->disclaimer,
-                    'maxlength'   => 500,
-                    'message'     => $message ?? '',
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? $video->disclaimer,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-disclaimer' ]
                 ])
 
                 @include('admin.components.show-row-images', [
@@ -264,6 +282,7 @@
                     'name'    => 'notes',
                     'value'   => old('notes') ?? $video->notes,
                     'message' => $message ?? '',
+                    'class'     => [ 'textarea-notes' ]
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

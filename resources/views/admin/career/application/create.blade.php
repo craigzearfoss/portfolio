@@ -400,7 +400,7 @@
                             'label'     => 'link 2',
                             'link'      => old('link2') ?? '',
                             'link_name' => old('link2_name') ?? '',
-                            'message'    => $message ?? '',
+                            'message'   => $message ?? '',
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [

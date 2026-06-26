@@ -615,4 +615,20 @@ class Resource extends Model
 
         $resource['database'] = $database;
     }
+
+    public static function getResource($databaseTag, $resourceName)
+    {
+        return new Database()->newQuery()
+            ->select(
+                DB::raw('databases.database as database_datbase'),
+                DB::raw('databases.name as database_name'),
+                DB::raw('databases.title as database_title'),
+                DB::raw('databases.plural as database_plural'),
+                'resources.*'
+            )
+            ->join('resources', 'resources.database_id', '=', 'databases.id')
+            ->where('databases.tag', '=', $databaseTag)
+            ->where('resources.name', '=', $resourceName)
+            ->first();
+    }
 }

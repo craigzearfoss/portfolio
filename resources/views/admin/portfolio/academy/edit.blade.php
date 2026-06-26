@@ -69,6 +69,7 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-name' ]
                     ])
 
                     @include('admin.components.form-checkbox-horizontal', [
@@ -84,7 +85,7 @@
                         'value'     => old('summary') ?? $academy->summary,
                         'maxlength' => 500,
                         'message'   => $message ?? '',
-                        'style'     => [ 'max-width: 40rem !important' ]
+                        'class'     => [ 'input-summary' ],
                     ])
 
                 </div>
@@ -159,6 +160,7 @@
                         'name'    => 'notes',
                         'value'   => old('notes') ?? $academy->notes,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-notes' ]
                     ])
 
                     @include('admin.components.form-link-horizontal', [
@@ -172,6 +174,7 @@
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $academy->description,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ]
                     ])
 
                     @include('admin.components.show-row-images', [

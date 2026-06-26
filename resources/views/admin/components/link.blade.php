@@ -2,8 +2,14 @@
     $name = $name ?? '';
     $href = $href ?? '';
 
-    $class           = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
-    $style           = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $class  = !empty($class)
+        ? (is_array($class) ? $class : explode(' ', $class))
+        : [];
+
+    $style = !empty($style)
+        ? (is_array($style) ? $style : explode(';', $style))
+        : [];
+
     $icon            = $icon ?? null;
     $href            = $href ?? '';
     $target          = $target ?? '';

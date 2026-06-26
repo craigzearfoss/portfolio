@@ -68,6 +68,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -75,7 +76,7 @@
                     'value'     => old('summary') ?? $school->summary,
                     'maxlength' => 500,
                     'message'   => $message ?? '',
-                    'style'     => [ 'max-width: 40rem !important' ]
+                    'class'     => [ 'input-summary' ]
                 ])
 
                 @include('admin.components.form-select-horizontal', [
@@ -155,6 +156,7 @@
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $school->description,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea description' ]
                 ])
 
             </div>
@@ -177,6 +179,7 @@
                     'name'    => 'notes',
                     'value'   => old('notes') ?? $school->notes,
                     'message' => $message ?? '',
+                    'class'    => [ 'textarea-notes' ]
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

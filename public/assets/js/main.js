@@ -574,6 +574,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         elem.classList.remove('favorite');
 
+                        let url = '/v1/api/favorite/remove/' + encodeURIComponent(resource) + '/' + encodeURIComponent(id);
+                        fetch(url, { method: 'GET'});
+
                     } else {
 
                         // add to favorites
@@ -599,6 +602,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         elem.classList.add('favorite');
+
+                        let url = '/v1/api/favorite/add/' + encodeURIComponent(resource) + '/' + encodeURIComponent(id);
+                        fetch(url, { method: 'GET'});
                     }
                 }
             }

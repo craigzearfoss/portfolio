@@ -69,6 +69,13 @@
                                     'sort'  => 'id|asc',
                                 ])
                             </th>
+                            <th class="has-text-centered">
+                                @include('admin.components.column-heading', [
+                                    'class' => $className,
+                                    'name'  => '<i class="fa fa-heart"></i>',
+                                    'sort'  => 'favorite_count|desc',
+                                ])
+                            </th>
                         @endif
                         <th>
                             @include('guest.components.column-heading', [
@@ -137,6 +144,9 @@
                         @if ($isRootAdmin)
                             <td data-field="id" style="width: 1rem;">
                                 {{ $jobBoard->id }}
+                            </td>
+                            <td class="has-text-centered">
+                                {{ $recruiter->favorite_count }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; width: 7rem;">
@@ -252,7 +262,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '13' : '12' }}">No job boards found.</td>
+                        <td colspan="{{ $isRootAdmin ? '14' : '12' }}">No job boards found.</td>
                     </tr>
 
                 @endforelse

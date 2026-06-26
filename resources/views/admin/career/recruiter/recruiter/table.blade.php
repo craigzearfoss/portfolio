@@ -40,6 +40,13 @@
                                 'sort'  => 'id|asc',
                             ])
                         </th>
+                        <th class="has-text-centered">
+                            @include('admin.components.column-heading', [
+                                'class' => $className,
+                                'name'  => '<i class="fa fa-heart"></i>',
+                                'sort'  => 'favorite_count|desc',
+                            ])
+                        </th>
                     @endif
                     <th>
                         @include('admin.components.column-heading', [
@@ -80,6 +87,9 @@
                     @if ($isRootAdmin)
                         <td data-field="id">
                             {{ $recruiter->id }}
+                        </td>
+                        <td class="has-text-centered">
+                            {{ $recruiter->favorite_count }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
@@ -183,7 +193,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No recruiters found.</td>
+                    <td colspan="{{ $isRootAdmin ? '10' : '8' }}">No recruiters found.</td>
                 </tr>
 
             @endforelse

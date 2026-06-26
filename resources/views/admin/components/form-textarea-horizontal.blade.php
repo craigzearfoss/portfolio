@@ -4,7 +4,6 @@
     $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
-    if (!in_array('input', $class)) $class[] = 'input';
     if (!in_array('textarea', $class)) $class[] = 'textarea';
 
     $style = !empty($style)

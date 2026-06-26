@@ -34,7 +34,7 @@
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
                         'list'  => new RecipeStep()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
+                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
                     ])
 
                     <?php /*

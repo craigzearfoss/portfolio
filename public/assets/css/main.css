@@ -68,10 +68,6 @@ div.field.is-horizontal div.field-label label.label {
     content: " *";
     color: red;
 }
-.edit-container input[name="summary"], .edit-container input[name="disclaimer"] {
-    width: 100% !important;
-    max-width: 100% !important;
-}
 .edit-container .select,
 .edit-container select {
     height: 2em !important;
@@ -141,7 +137,7 @@ div.field.is-horizontal div.field-label label.label {
 .edit-container input[name="birthday"] {
     width: 12em;
 }
-
+/*
 .edit-container input[name="link"],
 .edit-container input[name="link2"],
 .edit-container input[name="image_source"],
@@ -153,7 +149,7 @@ div.field.is-horizontal div.field-label label.label {
 {
     width: 40em;
 }
-
+*/
 .edit-container input[name="disclaimer"] {
     width: 50em;
 }
@@ -1130,7 +1126,7 @@ div.card.job-analyzer-skill-list div.card-body {
 .tools-left-nav-container.card ul.menu .menu-label a {
     color: #ffffff;
     margin: 0;
-    padding: .3rem .4rem .1rem .8rem;
+    padding: .1rem .4rem .1rem .8rem;
     font-size: .9rem;
     font-weight: 700;
 }
@@ -1242,5 +1238,18 @@ form.admin-form input.form-input-url {
 }
 form.admin-form textarea.form-textarea-description {
     max-width: 20em !important;
+}
+form.admin-form input.input-link {
+    width: 40rem;
+}
+form.admin-form input.input-link-name {
+    width: 20rem;
+}
+form.admin-form input.input-name {
+    width: 30rem;
+}
+form.admin-form input.input-summary {
+    width: 100%;
+    max-width: 40rem;
 }
 

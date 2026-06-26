@@ -1474,3 +1474,21 @@ if (! function_exists('formatJobDuration')) {
         return implode('', $parts);
     }
 }
+
+if (! function_exists('getStyleProperties')) {
+    /**
+     * Returns type style properties from a list of styles.
+     *
+     * @param array $styles
+     * @return array
+     */
+    function getStyleProperties(array $styles): array
+    {
+        return  array_map(
+            function ($val) {
+                return explode(':', $val)[0];
+            },
+            $styles
+        );
+    }
+}

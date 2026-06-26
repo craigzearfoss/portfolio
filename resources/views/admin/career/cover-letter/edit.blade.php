@@ -135,19 +135,22 @@
                             'id'      => 'inputEditor',
                             'value'   => old('description') ?? $coverLetter->description,
                             'message' => $message ?? '',
+                            'class'   => [ 'textarea-description' ]
                         ])
 
                         @include('admin.components.form-input-horizontal', [
-                            'name'        => 'disclaimer',
-                            'value'       => old('disclaimer') ?? $coverLetter->disclaimer,
-                            'maxlength'   => 500,
-                            'message'     => $message ?? '',
+                            'name'      => 'disclaimer',
+                            'value'     => old('disclaimer') ?? $coverLetter->disclaimer,
+                            'maxlength' => 500,
+                            'message'   => $message ?? '',
+                            'class'     => [ 'input-disclaimer' ]
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [
                             'name'    => 'notes',
                             'value'   => old('notes') ?? $coverLetter->notes,
                             'message' => $message ?? '',
+                            'class'   => [ 'textarea-notes' ]
                         ])
 
                         @include('admin.components.form-visibility-horizontal', [

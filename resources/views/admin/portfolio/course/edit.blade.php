@@ -64,12 +64,6 @@
                     'hide'  => !$isRootAdmin,
                 ])
 
-                <?php /* note that you CANNOT change the owner of a course */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $course->owner_id
-                ])
-
                 @if ($isRootAdmin)
                     @include('admin.components.form-select-horizontal', [
                         'name'     => 'owner_id',
@@ -78,6 +72,7 @@
                         'required' => true,
                         'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
                     ])
                 @else
                     @include('admin.components.form-hidden', [
@@ -92,6 +87,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-checkbox-horizontal', [
@@ -107,7 +103,8 @@
                     'value'     => old('summary') ?? $course->summary,
                     'maxlength' => 500,
                     'message'   => $message ?? '',
-                    'style'     => [ 'max-width: 40rem !important' ]
+                    'style'     => [ 'max-width: 40rem !important' ],
+                    'class'     => [ 'input-summary' ]
                 ])
 
             </div>
@@ -172,6 +169,7 @@
                     'value'     => old('school') ?? $course->school,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -179,6 +177,7 @@
                     'value'     => old('instructor') ?? $course->instructor,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -186,6 +185,7 @@
                     'value'     => old('sponsor') ?? $course->sponsor,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
             </div>
@@ -215,6 +215,7 @@
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $course->description,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
                 ])
 
             </div>
@@ -226,10 +227,11 @@
             <div class="floating-div card admin-form-card">
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'        => 'disclaimer',
-                    'value'       => old('disclaimer') ?? $course->disclaimer,
-                    'maxlength'   => 500,
-                    'message'     => $message ?? '',
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? $course->disclaimer,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-disclaimer' ]
                 ])
 
                 @include('admin.components.show-row-images', [
@@ -244,6 +246,7 @@
                     'name'    => 'notes',
                     'value'   => old('notes') ?? $course->notes,
                     'message' => $message ?? '',
+                    'class'     => [ 'textarea-notes' ]
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [

@@ -66,6 +66,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -91,6 +92,7 @@
                     'value'     => old('organization') ?? $certification->organization,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
 
             </div>
@@ -112,6 +114,7 @@
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $certification->description,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
                 ])
 
             </div>
@@ -134,6 +137,7 @@
                     'name'    => 'notes',
                     'value'   => old('notes') ?? $certification->notes,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-notes' ]
                 ])
 
                 @include('admin.components.form-visibility-horizontal', [
