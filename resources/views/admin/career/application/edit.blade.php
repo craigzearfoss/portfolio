@@ -34,6 +34,27 @@
     $navButtons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.career.application.index') ])->render(),
     ];
+
+    // get label for cover letter filepath
+    if ($parts = explode(DIRECTORY_SEPARATOR, $application->coverLetter['filepath'])) {
+        $coverLetterFilepathLabel = $parts[count($parts) - 1];
+    } else {
+        $coverLetterFilepathLabel = '(None)';
+    }
+
+    // get label for doc resume filepath
+    if ($parts = explode(DIRECTORY_SEPARATOR, $application->resume['doc_filepath'])) {
+        $docResumeFilepathLabel = $parts[count($parts) - 1];
+    } else {
+        $docResumeFilepathLabel = '(None)';
+    }
+
+    // get label for pdf resume filepath
+    if ($parts = explode(DIRECTORY_SEPARATOR, $application->resume['pdf_filepath'])) {
+        $pdfResumeFilepathLabel = $parts[count($parts) - 1];
+    } else {
+        $pdfResumeFilepathLabel = '(None)';
+    }
 @endphp
 
 @extends('admin.layouts.default')
@@ -123,11 +144,10 @@
                     ])
 
                     @include('admin.components.form-text-horizontal', [
-                        'name'        => 'cover letter',
-                        'value'       => !empty($application->coverLetter['filepath'])
-                                            ? '<ul><li>' . ($application->coverLetter['filepath'] ?? '') . '</li></ul>'
-                                            : '<ul><li><i>(None)</i></li></ul>',
-                        'message'     => $message ?? '',
+                        'name'       => 'cover letter',
+                        'value'      => '<ul><li>' . $coverLetterFilepathLabel . '</li></ul>',
+                        'message'    => $message ?? '',
+                        'text_title' => $application->coverLetter['filepath']
                     ])
 
                     <?php /*
@@ -144,10 +164,10 @@
                     @php
                         $resumeLinks = [];
                         if (!empty($application->resume['pdf_filepath'])) {
-                            $resumeLinks[] = '<li><strong>PDF file</strong>: ' . ($application->resume['pdf_filepath'] ?? '') . '</li>';
+                             $resumeLinks[] = '<li><strong>PDF file</strong>: <span title="' . $application->resume['pdf_filepath'] . '">' . $pdfResumeFilepathLabel . '</span></li>';
                         }
                         if (!empty($application->resume['doc_filepath'])) {
-                            $resumeLinks[] = '<li><strong>MS Word file</strong>: ' . ($application->resume['doc_filepath'] ?? '') . '</li>';
+                            $resumeLinks[] = '<li><strong>MS Word file</strong>: <span title="' . $application->resume['doc_filepath'] . '">' . $docResumeFilepathLabel . '</span></li>';
                         }
                     @endphp
                     @include('admin.components.form-text-horizontal', [
