@@ -146,7 +146,7 @@
                                 {{ $jobBoard->id }}
                             </td>
                             <td class="has-text-centered">
-                                {{ $recruiter->favorite_count }}
+                                {{ $jobBoard->favorite_count }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap; width: 7rem;">
@@ -189,7 +189,7 @@
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {!!
-                                !empty($recruiter->country->iso_alpha3) && ($jobBoard->country->iso_alpha3 != 'USA')
+                                !empty($jobBoard->country->iso_alpha3) && ($jobBoard->country->iso_alpha3 != 'USA')
                                     ? formatLocation([
                                           'city'    => htmlspecialchars($jobBoard->city),
                                           'state'   => $jobBoard->state->code ?? '',
