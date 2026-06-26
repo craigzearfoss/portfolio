@@ -6,7 +6,7 @@
         ? is_array($class) ? $class : explode(';', $class)
         : [];
     $classes[] = 'navbar-item';
-    if ($active ?? false) $classes[] = 'has-text-primary';
+    if ($active ?? false) $classes[] = 'selected';
 
     // get styles
     $styles = !empty($style)

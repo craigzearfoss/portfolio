@@ -1,8 +1,8 @@
 @php
-    $free ?? true;
-    $premium ?? false;
-    $staffing ?? false;
-    $freelance ?? false;
+    $free      = $free ?? true;
+    $premium   = $premium ?? false;
+    $staffing  = $staffing ?? false;
+    $freelance = $freelance ?? false;
 
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
