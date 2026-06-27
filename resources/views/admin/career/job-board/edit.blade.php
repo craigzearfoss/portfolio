@@ -71,6 +71,7 @@
                         'required'  => true,
                         'maxlength' => 100,
                         'message'   => $message ?? '',
+                        'class'   => [ 'input-name' ],
                     ])
 
                     @include('admin.components.form-checkbox-horizontal', [
@@ -81,12 +82,14 @@
                         'message'         => $message ?? '',
                     ])
 
-                    @include('admin.components.form-input-horizontal', [
+                    @include('admin.components.form-textarea-horizontal', [
                         'name'      => 'summary',
                         'value'     => old('summary') ?? $jobBoard->summary,
                         'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 5,
                         'message'   => $message ?? '',
-                        'style'     => [ 'max-width: 40rem !important' ]
+                        'class'     => [ 'textarea-summary' ],
                     ])
 
                     @include('admin.components.form-input-horizontal', [

@@ -28,179 +28,180 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.dictionary.operating-system.update', array_merge([$operatingSystem], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.dictionary.operating-system.update', array_merge([$operatingSystem], request()->all())) }}"
-              class="admin-form"
-              method="POST"
-        >
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.dictionary.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.dictionary.index')
-            ])
+        <div class="floating-div-container">
 
-            <div class="floating-div-container">
+            <div class="floating-div card admin-form-card">
 
-                <div class="floating-div card admin-form-card">
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $operatingSystem->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-                    @include('admin.components.form-text-horizontal', [
-                        'name'  => 'id',
-                        'value' => $operatingSystem->id,
-                        'hide'  => !$isRootAdmin,
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'full_name',
+                    'label'     => 'full name',
+                    'value'     => old('full_name') ?? $operatingSystem->full_name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
-                    <?php /* note that you CANNOT change the owner of a dictionary operating system */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $operatingSystem->owner_id
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $operatingSystem->name,
+                    'required'  => true,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'full_name',
-                        'label'     => 'full name',
-                        'value'     => old('full_name') ?? $operatingSystem->full_name,
-                        'required'  => true,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'abbreviation',
+                    'value'     => old('abbreviation') ?? $operatingSystem->abbreviation,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-abbreviation' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'name',
-                        'value'     => old('name') ?? $operatingSystem->name,
-                        'required'  => true,
-                        'maxlength' => 100,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'definition',
+                    'value'     => old('definition') ?? $operatingSystem->definition,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-definition' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'abbreviation',
-                        'value'     => old('abbreviation') ?? $operatingSystem->abbreviation,
-                        'maxlength' => 20,
-                        'message'   => $message ?? '',
-                    ])
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'definition',
-                        'value'     => old('definition') ?? $operatingSystem->definition,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                    ])
+                            <div class="checkbox-container card form-container p-4" style="max-width: 26rem;">
 
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'open_source',
+                                    'label'           => 'open source',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('open_source') ?? $operatingSystem->open_source,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                <div class="checkbox-container card form-container p-4" style="max-width: 26rem;">
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'proprietary',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('proprietary') ?? $operatingSystem->proprietary,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'open_source',
-                                        'label'           => 'open source',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('open_source') ?? $operatingSystem->open_source,
-                                        'message'         => $message ?? '',
-                                    ])
-
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'proprietary',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('proprietary') ?? $operatingSystem->proprietary,
-                                        'message'         => $message ?? '',
-                                    ])
-
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'compiled',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('compiled') ?? $operatingSystem->compiled,
-                                        'message'         => $message ?? '',
-                                    ])
-
-                                </div>
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'compiled',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('compiled') ?? $operatingSystem->compiled,
+                                    'message'         => $message ?? '',
+                                ])
 
                             </div>
+
                         </div>
                     </div>
-
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'owner',
-                        'value'     => old('owner') ?? $operatingSystem->owner,
-                        'maxlength' => 100,
-                        'message'   => $message ?? '',
-                    ])
-
                 </div>
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'owner',
+                    'value'     => old('owner') ?? $operatingSystem->owner,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'wikipedia',
-                        'label'     => 'wikipedia',
-                        'value'     => old('wikipedia') ?? $operatingSystem->wikipedia,
-                        'maxlength' => 500,
-                        'message'   => $message ?? '',
-                    ])
+            <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-link-horizontal', [
-                        'link'    => old('link') ?? $operatingSystem->link,
-                        'name'    => old('link_name') ?? $operatingSystem->link_name,
-                        'message' => $message ?? '',
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'wikipedia',
+                    'label'       => 'wikipedia',
+                    'value'       => old('wikipedia') ?? $operatingSystem->wikipedia,
+                    'maxlength'   => 500,
+                    'placeholder' => 'wikipedia link',
+                    'message'     => $message ?? '',
+                    'class'       => [ 'input-link' ],
+                ])
 
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'description',
-                        'id'      => 'inputEditor',
-                        'value'   => old('description') ?? $operatingSystem->description,
-                        'message' => $message ?? '',
-                    ])
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? $operatingSystem->link,
+                    'name'    => old('link_name') ?? $operatingSystem->link_name,
+                    'message' => $message ?? '',
+                ])
 
-                </div>
-
-            </div>
-
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.show-row-images', [
-                        'resource' => $operatingSystem,
-                        'upload'   => false,
-                        'download' => true,
-                        'external' => true,
-                        'editPage' => true,
-                    ])
-
-                    @include('admin.components.form-visibility-horizontal', [
-                        'is_public'   => old('is_public')   ?? $operatingSystem->is_public,
-                        'is_readonly' => old('is_readonly') ?? $operatingSystem->is_readonly,
-                        'is_root'     => old('is_root')     ?? $operatingSystem->root,
-                        'is_disabled' => old('is_disabled') ?? $operatingSystem->is_disabled,
-                        'is_demo'     => old('is_demo')     ?? $operatingSystem->is_demo,
-                        'sequence'    => old('sequence')    ?? $operatingSystem->sequence,
-                        'message'     => $message           ?? '',
-                    ])
-
-                </div>
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $operatingSystem->description,
+                    'cols'    => 54,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
 
             </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.dictionary.index')
-            ])
+        </div>
 
-        </form>
+        <div class="floating-div-container">
 
-    </div>
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $operatingSystem,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $operatingSystem->is_public,
+                    'is_readonly' => old('is_readonly') ?? $operatingSystem->is_readonly,
+                    'is_root'     => old('is_root')     ?? $operatingSystem->root,
+                    'is_disabled' => old('is_disabled') ?? $operatingSystem->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $operatingSystem->is_demo,
+                    'sequence'    => old('sequence')    ?? $operatingSystem->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.dictionary.index')
+        ])
+
+    </form>
 
 @endsection

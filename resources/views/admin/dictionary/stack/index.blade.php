@@ -87,8 +87,11 @@
                                 {{ $stack->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($stack->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $stack->name,
+                                'href' => route('admin.dictionary.stack.show', $stack)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

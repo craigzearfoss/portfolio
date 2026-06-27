@@ -80,12 +80,14 @@
                         'message'         => $message ?? '',
                     ])
 
-                    @include('admin.components.form-input-horizontal', [
+                    @include('admin.components.form-textarea-horizontal', [
                         'name'      => 'summary',
                         'value'     => old('summary') ?? $academy->summary,
                         'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 5,
                         'message'   => $message ?? '',
-                        'class'     => [ 'input-summary' ],
+                        'class'     => [ 'textarea-summary' ],
                     ])
 
                 </div>
@@ -152,7 +154,7 @@
 
             </div>
 
-            <div class="floating-div-container">
+            <div class="floating-div-container" style="z-index: 99999;">
 
                 <div class="floating-div card admin-form-card">
 

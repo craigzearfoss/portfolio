@@ -86,8 +86,11 @@
                                 {{ $framework->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($framework->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $framework->name,
+                                'href' => route('admin.dictionary.framework.show', $framework)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

@@ -36,104 +36,130 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <form action="{{ route('admin.personal.recipe-ingredient.store', request()->all()) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
 
-        <form action="{{ route('admin.personal.recipe-ingredient.store', request()->all()) }}" method="POST">
-            @csrf
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.personal.recipe-ingredient.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.personal.recipe-ingredient.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? 0,
-                ])
-            @endif
+            <div class="floating-div card admin-form-card">
 
-            @if ($isRootAdmin)
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? 0,
+                    ])
+                @endif
+
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? '',
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $admin->id ?? null,
+                    ])
+                @endif
+
                 @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
+                    'name'     => 'recipe_id',
+                    'label'    => 'recipe',
+                    'value'    => old('recipe_id') ?? '',
                     'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                    'list'     => new Recipe()->listOptions([], 'id', 'name', true),
                     'message'  => $message ?? '',
                 ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $admin->id ?? null,
+
+                @include('admin.components.form-select-horizontal', [
+                    'name'     => 'ingredient_id',
+                    'label'    => 'ingredient',
+                    'value'    => old('ingredient_id') ?? '',
+                    'required' => true,
+                    'list'     => new Ingredient()->listOptions([], 'id', 'name', true),
+                    'message'  => $message ?? '',
                 ])
-            @endif
 
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'recipe_id',
-                'label'    => 'recipe',
-                'value'    => old('recipe_id') ?? '',
-                'required' => true,
-                'list'     => new Recipe()->listOptions([], 'id', 'name', true),
-                'message'  => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'amount',
+                    'value'     => old('amount') ?? '',
+                    'maxlength' => 50,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'ingredient_id',
-                'label'    => 'ingredient',
-                'value'    => old('ingredient_id') ?? '',
-                'required' => true,
-                'list'     => new Ingredient()->listOptions([], 'id', 'name', true),
-                'message'  => $message ?? '',
-            ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'unit_id',
+                    'label'   => 'unit',
+                    'value'   => old('unit_id') ?? '',
+                    'list'    => new Unit()->listOptions([], 'id', 'name', false),
+                    'message' => $message ?? '',
+                    'style'     => [ 'width: 10rem' ]
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'amount',
-                'value'     => old('amount') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'qualifier',
+                    'value'     => old('qualifier') ?? '',
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'unit_id',
-                'label'   => 'unit',
-                'value'   => old('unit_id') ?? '',
-                'list'    => new Unit()->listOptions([], 'id', 'name', false),
-                'message' => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'qualifier',
-                'value'     => old('qualifier') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? 0,
-                'is_readonly' => old('is_readonly') ?? 0,
-                'is_root'     => old('is_root')     ?? 0,
-                'is_disabled' => old('is_disabled') ?? 0,
-                'is_demo'     => old('is_demo')     ?? 0,
-                'sequence'    => old('sequence')    ?? 0,
-                'message'     => $message           ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.personal.recipe-ingredient.index')
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? '',
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
 
-        </form>
+            </div>
 
-    </div>
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? 0,
+                    'is_readonly' => old('is_readonly') ?? 0,
+                    'is_root'     => old('is_root')     ?? 0,
+                    'is_disabled' => old('is_disabled') ?? 0,
+                    'is_demo'     => old('is_demo')     ?? 0,
+                    'sequence'    => old('sequence')    ?? 0,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.personal.recipe-ingredient.index')
+        ])
+
+    </form>
 
 @endsection

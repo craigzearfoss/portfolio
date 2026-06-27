@@ -86,8 +86,11 @@
                                 {{ $language->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($language->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $language->name,
+                                'href' => route('admin.dictionary.language.show', $language)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

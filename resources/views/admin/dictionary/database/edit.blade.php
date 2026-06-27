@@ -28,178 +28,179 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.dictionary.database.update', array_merge([$database], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.dictionary.database.update', array_merge([$database], request()->all())) }}"
-              class="admin-form"
-              method="POST"
-        >
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.dictionary.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.dictionary.index')
-            ])
+        <div class="floating-div-container">
 
-            <div class="floating-div-container">
+            <div class="floating-div card admin-form-card">
 
-                <div class="floating-div card admin-form-card">
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $database->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-                    @include('admin.components.form-text-horizontal', [
-                        'name'  => 'id',
-                        'value' => $database->id,
-                        'hide'  => !$isRootAdmin,
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'full_name',
+                    'label'     => 'full name',
+                    'value'     => old('full_name') ?? $database->full_name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
-                    <?php /* note that you CANNOT change the owner of a dictionary database */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $database->owner_id
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $database->name,
+                    'required'  => true,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'full_name',
-                        'label'     => 'full name',
-                        'value'     => old('full_name') ?? $database->full_name,
-                        'required'  => true,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'abbreviation',
+                    'value'     => old('abbreviation') ?? $database->abbreviation,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-abbreviation' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'name',
-                        'value'     => old('name') ?? $database->name,
-                        'required'  => true,
-                        'maxlength' => 100,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'definition',
+                    'value'     => old('definition') ?? $database->definition,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-definition' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'abbreviation',
-                        'value'     => old('abbreviation') ?? $database->abbreviation,
-                        'maxlength' => 20,
-                        'message'   => $message ?? '',
-                    ])
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'definition',
-                        'value'     => old('definition') ?? $database->definition,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                    ])
+                            <div class="checkbox-container card form-container p-4" style="max-width: 26rem;">
 
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'open_source',
+                                    'label'           => 'open source',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('open_source') ?? $database->open_source,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                <div class="checkbox-container card form-container p-4" style="max-width: 26rem;">
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'proprietary',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('proprietary') ?? $database->proprietary,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'open_source',
-                                        'label'           => 'open source',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('open_source') ?? $database->open_source,
-                                        'message'         => $message ?? '',
-                                    ])
-
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'proprietary',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('proprietary') ?? $database->proprietary,
-                                        'message'         => $message ?? '',
-                                    ])
-
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'compiled',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('compiled') ?? $database->compiled,
-                                        'message'         => $message ?? '',
-                                    ])
-
-                                </div>
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'compiled',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('compiled') ?? $database->compiled,
+                                    'message'         => $message ?? '',
+                                ])
 
                             </div>
+
                         </div>
                     </div>
-
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'owner',
-                        'value'     => old('owner') ?? $database->owner,
-                        'maxlength' => 100,
-                        'message'   => $message ?? '',
-                    ])
-
                 </div>
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'owner',
+                    'value'     => old('owner') ?? $database->owner,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'wikipedia',
-                        'label'     => 'wikipedia',
-                        'value'     => old('wikipedia') ?? $database->wikipedia,
-                        'maxlength' => 500,
-                        'message'   => $message ?? '',
-                    ])
+            <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-link-horizontal', [
-                        'link'    => old('link') ?? $database->link,
-                        'name'    => old('link_name') ?? $database->link_name,
-                        'message' => $message ?? '',
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'        => 'wikipedia',
+                    'label'       => 'wikipedia',
+                    'value'       => old('wikipedia') ?? $database->wikipedia,
+                    'maxlength'   => 500,
+                    'placeholder' => 'wikipedia link',
+                    'message'     => $message ?? '',
+                    'class'       => [ 'input-link' ],
+                ])
 
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'description',
-                        'id'      => 'inputEditor',
-                        'value'   => old('description') ?? $database->description,
-                        'message' => $message ?? '',
-                    ])
-                </div>
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? $database->link,
+                    'name'    => old('link_name') ?? $database->link_name,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $database->description,
+                    'cols'    => 54,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $database,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $database->is_public,
+                    'is_readonly' => old('is_readonly') ?? $database->is_readonly,
+                    'is_root'     => old('is_root')     ?? $database->root,
+                    'is_disabled' => old('is_disabled') ?? $database->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $database->is_demo,
+                    'sequence'    => old('sequence')    ?? $database->sequence,
+                    'message'     => $message           ?? '',
+                ])
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.dictionary.index')
+        ])
 
-                    @include('admin.components.show-row-images', [
-                        'resource' => $database,
-                        'upload'   => false,
-                        'download' => true,
-                        'external' => true,
-                        'editPage' => true,
-                    ])
-
-                    @include('admin.components.form-visibility-horizontal', [
-                        'is_public'   => old('is_public')   ?? $database->is_public,
-                        'is_readonly' => old('is_readonly') ?? $database->is_readonly,
-                        'is_root'     => old('is_root')     ?? $database->root,
-                        'is_disabled' => old('is_disabled') ?? $database->is_disabled,
-                        'is_demo'     => old('is_demo')     ?? $database->is_demo,
-                        'sequence'    => old('sequence')    ?? $database->sequence,
-                        'message'     => $message           ?? '',
-                    ])
-
-                </div>
-
-            </div>
-
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.dictionary.index')
-            ])
-
-        </form>
-
-    </div>
+    </form>
 
 @endsection

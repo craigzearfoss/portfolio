@@ -32,79 +32,108 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.personal.reading.store', request()->all()) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
 
-        <form action="{{ route('admin.personal.reading.store', request()->all()) }}" method="POST">
-            @csrf
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.personal.reading.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.personal.reading.index')
-            ])
+        <div class="floating-div-container">
 
-            @if ($isRootAdmin)
-                @include('admin.components.favorites-box-form-input', [
-                    'name'  => 'favorite_count',
-                    'label' => 'favorites',
-                    'value' => old('favorite_count') ?? 0,
+            <div class="floating-div card admin-form-card">
+
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? 0,
+                    ])
+                @endif
+
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? '',
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
+                    ])
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $admin->id ?? null,
+                    ])
+                @endif
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('title') ?? '',
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
-            @endif
 
-            @if ($isRootAdmin)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'author',
+                    'value'     => old('author') ?? '',
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
                 ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $admin->id ?? null,
+
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'featured',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('featured') ?? 0,
+                    'message'         => $message ?? '',
                 ])
-            @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'title',
-                'value'     => old('title') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'summary',
+                    'value'     => old('summary') ?? '',
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-summary' ],
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'author',
-                'value'     => old('author') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'number',
+                    'name'      => 'publication_year',
+                    'label'     => 'publication year',
+                    'value'     => old('publication_year') ?? null,
+                    'required'  => true,
+                    'min'       => -3000,
+                    'max'       => 2050,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-year' ]
+                ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? 0,
-                'message'         => $message ?? '',
-            ])
+            </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-                'style'     => [ 'max-width: 40rem !important' ]
-            ])
+        </div>
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
+        <div class="floating-div-container">
 
-                        <div class="checkbox-container card form-container p-4">
+            <div class="floating-div card admin-form-card">
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+
+                        <div class="floating-div card checkbox-container readings-checkbox-container">
 
                             @include('admin.components.form-checkbox', [
                                 'name'            => 'fiction',
@@ -124,27 +153,7 @@
 
                         </div>
 
-                    </div>
-                </div>
-            </div>
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'publication_year',
-                'label'     => 'publication year',
-                'value'     => old('publication_year') ?? '',
-                'min'       => -3000,
-                'max'       => 2050,
-                'message'   => $message ?? '',
-            ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
+                        <div class="floating-div card checkbox-container readings-checkbox-container">
 
                             @include('admin.components.form-checkbox', [
                                 'name'            => 'paper',
@@ -174,51 +183,73 @@
 
                     </div>
                 </div>
+
             </div>
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? '',
-                'name' => old('link_name') ?? '',
-                'message'   => $message ?? '',
-            ])
+        </div>
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
-                'message' => $message ?? '',
-            ])
+        <div class="floating-div-container">
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? '',
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
+            <div class="floating-div card admin-form-card">
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? '',
-                'message' => $message ?? '',
-            ])
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? '',
+                    'name'    => old('link_name') ?? '',
+                    'message' => $message ?? '',
+                ])
 
-            @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? 0,
-                'is_readonly' => old('is_readonly') ?? 0,
-                'is_root'     => old('is_root')     ?? 0,
-                'is_disabled' => old('is_disabled') ?? 0,
-                'is_demo'     => old('is_demo')     ?? 0,
-                'sequence'    => old('sequence')    ?? 0,
-                'message'     => $message           ?? '',
-            ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? '',
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Reading',
-                'cancel_url' => referer('admin.personal.reading.index')
-            ])
+            </div>
 
-        </form>
+        </div>
 
-    </div>
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? '',
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-disclaimer' ],
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? '',
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-notes' ]
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? 0,
+                    'is_readonly' => old('is_readonly') ?? 0,
+                    'is_root'     => old('is_root')     ?? 0,
+                    'is_disabled' => old('is_disabled') ?? 0,
+                    'is_demo'     => old('is_demo')     ?? 0,
+                    'sequence'    => old('sequence')    ?? 0,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Add Reading',
+            'cancel_url' => referer('admin.personal.reading.index')
+        ])
+
+    </form>
 
 @endsection

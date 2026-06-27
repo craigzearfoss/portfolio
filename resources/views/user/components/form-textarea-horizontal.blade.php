@@ -4,12 +4,28 @@
     $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
-    if (!in_array('input', $class)) $class[] = 'input';
     if (!in_array('textarea', $class)) $class[] = 'textarea';
 
     $style = !empty($style)
         ? (is_array($style) ? $style : explode(';', $style))
         : [];
+
+    // determine width
+    $width = $width ?? null;
+
+    if (empty($width)) {
+        if (in_array('textarea-description', $class)) {
+            $width = '54rem';
+        } elseif (in_array('textarea-notes', $class)) {
+            $width = '54rem';
+        } elseif (in_array('textarea-definition', $class)) {
+            $width = '30rem';
+        } elseif (in_array('textarea-disclaimer', $class)) {
+            $width = '30rem';
+        } elseif (in_array('textarea-summary', $class)) {
+            $width = '30rem';
+        }
+    }
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
@@ -17,7 +33,11 @@
     </div>
     <div class="field-body">
         <div class="field">
-            <div class="control">
+            <div class="control textarea-container"
+                 @if (!empty($width))
+                     style="width: {{ $width }};"
+                 @endif
+            >
                 <textarea id="{!! $id !!}"
                           name="{!! $name ?? 'name' !!}"
                           @if (!empty($class))
@@ -44,7 +64,9 @@
                           @if (!empty($readonly))
                               readonly
                           @endif
-                          @if (!empty($required))required @endif
+                          @if (!empty($required))
+                              required
+                          @endif
                           @if (!empty($rows))
                               rows="{{ $rows }}"
                           @endif

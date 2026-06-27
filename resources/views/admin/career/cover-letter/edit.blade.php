@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\Application;
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin         = $admin ?? null;
@@ -76,11 +77,22 @@
                             'value' => $coverLetter->id
                         ])
 
-                        <?php /* note that you CANNOT change the owner of a cover letter */ ?>
-                        @include('admin.components.form-hidden', [
-                            'name'  => 'owner_id',
-                            'value' => $coverLetter->owner_id
-                        ])
+                        @if ($isRootAdmin)
+                            @include('admin.components.form-select-horizontal', [
+                                'name'     => 'owner_id',
+                                'label'    => 'owner',
+                                'value'    => old('owner_id') ?? $coverLetter->owner_id,
+                                'required' => true,
+                                'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                                'message'  => $message ?? '',
+                                'class'    => [ 'select-owner' ]
+                            ])
+                        @else
+                            @include('admin.components.form-hidden', [
+                                'name'  => 'owner_id',
+                                'value' => $coverLetter->owner_id
+                            ])
+                        @endif
 
                         <?php /* note you CANNOT change the application for a cover letter */ ?>
                         @include('admin.components.form-hidden', [
@@ -138,12 +150,14 @@
                             'class'   => [ 'textarea-description' ]
                         ])
 
-                        @include('admin.components.form-input-horizontal', [
+                        @include('admin.components.form-textarea-horizontal', [
                             'name'      => 'disclaimer',
                             'value'     => old('disclaimer') ?? $coverLetter->disclaimer,
                             'maxlength' => 500,
+                            'cols'      => 30,
+                            'rows'      => 3,
                             'message'   => $message ?? '',
-                            'class'     => [ 'input-disclaimer' ]
+                            'class'     => [ 'textarea-disclaimer' ],
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [

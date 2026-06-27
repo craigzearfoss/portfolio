@@ -246,11 +246,14 @@
 
             <div class="floating-div card admin-form-card">
 
-                @include('admin.components.form-input-horizontal', [
-                    'name'        => 'disclaimer',
-                    'value'       => old('disclaimer') ?? $thisAdmin->disclaimer,
-                    'maxlength'   => 500,
-                    'message'     => $message ?? '',
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? $thisAdmin->disclaimer,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-disclaimer' ],
                 ])
 
                 @include('admin.components.show-row-images', [

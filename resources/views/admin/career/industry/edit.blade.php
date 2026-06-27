@@ -58,6 +58,7 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
+                        'class'   => [ 'input-name' ],
                     ])
 
                     @include('admin.components.form-input-horizontal', [

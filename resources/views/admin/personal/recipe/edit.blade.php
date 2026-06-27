@@ -1,4 +1,6 @@
 @php
+    use App\Models\System\Owner;
+
     // make sure all template variables are defined (this is mostly for the IDE parser)
     use App\Models\Personal\Ingredient;
     use App\Models\Personal\Unit;
@@ -98,12 +100,14 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'summary',
                     'value'     => old('summary') ?? $recipe->summary,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
                     'message'   => $message ?? '',
-                    'class'     => [ 'input-summary' ]
+                    'class'     => [ 'textarea-summary' ],
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -127,8 +131,9 @@
                     'name'      => 'prep_time',
                     'label'     => 'prep time (minutes)',
                     'value'     => old('prep_time') ?? $recipe->prep_time,
-                    'maxlength' => 255,
+                    'maxlength' => 3,
                     'message'   => $message ?? '',
+                    'style'     => [ 'width: 4rem' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -136,8 +141,9 @@
                     'name'      => 'total_time',
                     'label'     => 'total time (minutes)',
                     'value'     => old('total_time') ?? $recipe->total_time,
-                    'maxlength' => 255,
+                    'maxlength' => 3,
                     'message'   => $message ?? '',
+                    'style'     => [ 'width: 4rem' ]
                 ])
 
             </div>
@@ -154,7 +160,7 @@
                     <div class="field-body">
                         <div class="field">
 
-                            <div class="checkbox-container card form-container p-4">
+                            <div class="checkbox-container card form-container p-4" style="width: 44rem;">
 
                                 @include('admin.components.form-checkbox', [
                                     'name'            => 'main',
@@ -208,7 +214,7 @@
                     <div class="field-body">
                         <div class="field">
 
-                            <div class="checkbox-container card form-container p-4">
+                            <div class="checkbox-container card form-container p-4" style="width: 36rem;">
 
                                 @include('admin.components.form-checkbox', [
                                     'name'            => 'breakfast',
@@ -278,12 +284,14 @@
 
             <div class="floating-div card admin-form-card">
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'disclaimer',
                     'value'     => old('disclaimer') ?? $recipe->disclaimer,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
                     'message'   => $message ?? '',
-                    'class'     => [ 'input-disclaimer' ]
+                    'class'     => [ 'textarea-disclaimer' ],
                 ])
 
                 @include('admin.components.show-row-images', [

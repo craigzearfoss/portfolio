@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\Application;
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
@@ -77,11 +78,22 @@
                             'hide'  => !$isRootAdmin,
                         ])
 
-                        <?php /* note that you CANNOT change the owner of a note */ ?>
-                        @include('admin.components.form-hidden', [
-                            'name'  => 'owner_id',
-                            'value' => $note->owner_id
-                        ])
+                        @if ($isRootAdmin)
+                            @include('admin.components.form-select-horizontal', [
+                                'name'     => 'owner_id',
+                                'label'    => 'owner',
+                                'value'    => old('owner_id') ?? $note->owner_id,
+                                'required' => true,
+                                'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                                'message'  => $message ?? '',
+                                'class'    => [ 'select-owner' ]
+                            ])
+                        @else
+                            @include('admin.components.form-hidden', [
+                                'name'  => 'owner_id',
+                                'value' => $note->owner_id
+                            ])
+                        @endif
 
                         <?php /* note you CANNOT change the application for a note */ ?>
                         @include('admin.components.form-hidden', [
@@ -103,6 +115,7 @@
                             'required'  => true,
                             'maxlength' => 255,
                             'message'   => $message ?? '',
+                            'class'     => [ 'input-name' ]
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [
@@ -110,6 +123,7 @@
                             'id'      => 'inputEditor',
                             'value'   => old('body') ?? $note->body,
                             'message' => $message ?? '',
+                            'class'   => [ 'textarea-body' ]
                         ])
 
                     </div>
@@ -130,6 +144,7 @@
                             'id'      => 'inputEditor',
                             'value'   => old('description') ?? $note->description,
                             'message' => $message ?? '',
+                            'class'   => [ 'textarea-description' ],
                         ])
 
                     </div>
@@ -139,17 +154,21 @@
 
                     <div class="floating-div card admin-form-card">
 
-                        @include('admin.components.form-input-horizontal', [
+                        @include('admin.components.form-textarea-horizontal', [
                             'name'        => 'disclaimer',
                             'value'       => old('disclaimer') ?? $note->disclaimer,
-                            'maxlength'   => 500,
-                            'message'     => $message ?? '',
+                            'maxlength' => 500,
+                            'cols'      => 30,
+                            'rows'      => 3,
+                            'message'   => $message ?? '',
+                            'class'     => [ 'textarea-disclaimer' ],
                         ])
 
                         @include('admin.components.form-textarea-horizontal', [
                             'name'    => 'notes',
                             'value'   => old('notes') ?? $note->notes,
                             'message' => $message ?? '',
+                            'class'   => [ 'textarea-notes' ],
                         ])
 
                         @include('admin.components.form-visibility-horizontal', [

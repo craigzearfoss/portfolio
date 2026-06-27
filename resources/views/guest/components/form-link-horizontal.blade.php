@@ -19,7 +19,7 @@
     </div>
     <div class="field-body">
 
-        <div class="content mb-0 mr-2">
+        <div class="content mb-0 mr-1">
             <div class="control has-icons-left">
                 <input class="input-link {{ implode(' ', $class) }}@error('role') is-invalid @enderror"
                        type="text"
@@ -43,14 +43,14 @@
 
         @if ($include_name_field)
 
-            <div class="content mb-0 ">
+            <div class="content mb-0 mr-1">
                 <div class="control">
                     <input class="input-link-name {{ implode(' ', $class) }}@error('role') is-invalid @enderror"
                            type="text"
                            id="{{ 'input' . ucfirst($name) . '_name' }}"
                            name="{{ $name . '_name' }}"
                            value="{!! $link_name !!}"
-                           placeholder="name"
+                           placeholder="link name"
                            maxlength="255"
                            @if (!empty($style))
                                {!! implode('; ', $style) !!}

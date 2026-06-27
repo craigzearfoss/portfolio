@@ -1,5 +1,6 @@
 @php
     use App\Models\Career\Resume;
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
@@ -69,11 +70,22 @@
                         'hide'  => !$isRootAdmin,
                     ])
 
-                    <?php /* note that you CANNOT change the owner of a resume */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $resume->owner_id
-                    ])
+                    @if ($isRootAdmin)
+                        @include('admin.components.form-select-horizontal', [
+                            'name'     => 'owner_id',
+                            'label'    => 'owner',
+                            'value'    => old('owner_id') ?? $resume->owner_id,
+                            'required' => true,
+                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                            'message'  => $message ?? '',
+                            'class'    => [ 'select-owner' ]
+                        ])
+                    @else
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $resume->owner_id
+                        ])
+                    @endif
 
                     @include('admin.components.form-input-horizontal', [
                         'name'      => 'name',
@@ -81,6 +93,7 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-name' ]
                     ])
 
                     @include('admin.components.form-checkbox-horizontal', [
@@ -119,6 +132,7 @@
                         'name'    => 'content',
                         'value'   => old('content') ?? $resume->content,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-content' ]
                     ])
 
                     <div class="field is-horizontal">
@@ -217,6 +231,7 @@
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $resume->description,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ]
                     ])
 
                 </div>
@@ -227,11 +242,14 @@
 
                 <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'        => 'disclaimer',
-                        'value'       => old('disclaimer') ?? $resume->disclaimer,
-                        'maxlength'   => 500,
-                        'message'     => $message ?? '',
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'      => 'disclaimer',
+                        'value'     => old('disclaimer') ?? $resume->disclaimer,
+                        'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 3,
+                        'message'   => $message ?? '',
+                        'class'     => [ 'textarea-disclaimer' ],
                     ])
 
                     @include('admin.components.show-row-images', [
@@ -246,6 +264,7 @@
                         'name'    => 'notes',
                         'value'   => old('notes') ?? $resume->notes,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-notes' ]
                     ])
 
                     @include('admin.components.form-visibility-horizontal', [

@@ -98,13 +98,14 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'summary',
                     'value'     => old('summary') ?? $course->summary,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
                     'message'   => $message ?? '',
-                    'style'     => [ 'max-width: 40rem !important' ],
-                    'class'     => [ 'input-summary' ]
+                    'class'     => [ 'textarea-summary' ],
                 ])
 
             </div>

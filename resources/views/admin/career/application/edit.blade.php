@@ -2,10 +2,9 @@
     use App\Models\Career\Company;
     use App\Models\Career\CompensationUnit;
     use App\Models\Career\JobEmploymentType;
-    use App\Models\Career\JobBoard;
     use App\Models\Career\JobLocationType;
-    use App\Models\Career\Resume;
     use App\Models\System\Country;
+    use App\Models\System\Owner;
     use App\Models\System\State;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
@@ -93,11 +92,22 @@
                         'hide'  => !$isRootAdmin,
                     ])
 
-                    <?php /* note that you CANNOT change the owner of an application */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $application->owner_id
-                    ])
+                        @if ($isRootAdmin)
+                            @include('admin.components.form-select-horizontal', [
+                                'name'     => 'owner_id',
+                                'label'    => 'owner',
+                                'value'    => old('owner_id') ?? $application->owner_id,
+                                'required' => true,
+                                'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                                'message'  => $message ?? '',
+                                'class'    => [ 'select-owner' ]
+                            ])
+                        @else
+                            @include('admin.components.form-hidden', [
+                                'name'  => 'owner_id',
+                                'value' => $application->owner_id
+                            ])
+                        @endif
 
                     @include('admin.components.form-select-horizontal', [
                         'name'     => 'company_id',
@@ -446,17 +456,21 @@
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $application->description,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ],
                     ])
                     <input type="hidden" id="inputDescriptionChanged" name="description_changed" value="0">
 
                 </div>
                 <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'        => 'disclaimer',
-                        'value'       => old('disclaimer') ?? $application->disclaimer,
-                        'maxlength'   => 500,
-                        'message'     => $message ?? '',
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'      => 'disclaimer',
+                        'value'     => old('disclaimer') ?? $application->disclaimer,
+                        'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 3,
+                        'message'   => $message ?? '',
+                        'class'     => [ 'textarea-disclaimer' ],
                     ])
 
                     @include('admin.components.show-row-images', [

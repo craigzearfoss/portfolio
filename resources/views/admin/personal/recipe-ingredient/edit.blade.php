@@ -2,6 +2,7 @@
     use App\Models\Personal\Ingredient;
     use App\Models\Personal\Recipe;
     use App\Models\Personal\Unit;
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin            = $admin ?? null;
@@ -36,10 +37,9 @@
 
 @section('content')
 
-    <form
-        action="{{ route('admin.personal.recipe-ingredient.update', array_merge([$recipeIngredient], request()->all())) }}"
-        class="admin-form"
-        method="POST"
+    <form action="{{ route('admin.personal.recipe-ingredient.update', array_merge([$recipeIngredient], request()->all())) }}"
+          class="admin-form"
+          method="POST"
     >
         @csrf
         @method('PUT')
@@ -105,7 +105,7 @@
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'amount',
                     'value'     => old('amount') ?? $recipeIngredient->amount,
-                    'maxlength' => 255,
+                    'maxlength' => 50,
                     'message'   => $message ?? '',
                 ])
 
@@ -115,6 +115,7 @@
                     'value'   => old('unit_id') ?? $recipeIngredient->unit_id,
                     'list'    => new Unit()->listOptions([], 'id', 'name', false),
                     'message' => $message ?? '',
+                    'style'     => [ 'width: 10rem' ]
                 ])
 
                 @include('admin.components.form-input-horizontal', [

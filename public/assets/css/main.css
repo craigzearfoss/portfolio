@@ -646,6 +646,15 @@ div.floating-div-container div.floating-div.card {
 div.floating-div-container div.floating-div.card.no-x-scroll {
     overflow: hidden;
 }
+
+div.floating-div-container div.floating-div.card.readings-checkbox-container {
+    width: 11rem;
+    max-width: 11rem;
+    padding: .7rem !important;
+    padding-bottom: .2rem !important;
+    margin-bottom: 0 !important;
+}
+
 div.floating-div-container.settings div.floating-div {
     max-width: 8rem;
     white-space: nowrap;
@@ -1019,13 +1028,24 @@ div.card.job-analyzer-skill-list div.card-body {
 
 .typeahead-dropdown {
     position: absolute;
-    width: 100%;
+    width: auto;
+    max-width: 36rem;
     display: none;
     border: 1px solid #ccc;
     background: #fff;
     z-index: 1000;
     max-height: 200px;
     overflow-y: auto;
+}
+.typeahead-dropdown#typeahead-input_state_id {
+    z-index: 99999;
+    width: 36rem;
+    max-width: 36rem;
+}
+.typeahead-dropdown#typeahead-input_country_id {
+    z-index: 99999;
+    width: 36rem;
+    max-width: 36rem;
 }
 
 .visibility-checkboxes-container.card,
@@ -1233,23 +1253,39 @@ form.admin-form .field-body .field .select {
 form.admin-form input.form-input-label {
     max-width: 36em !important;
 }
-form.admin-form input.form-input-url {
-    max-width: 36em !important;
+
+form.admin-form input.input {
+    margin-right: 1px;
 }
-form.admin-form textarea.form-textarea-description {
-    max-width: 20em !important;
+
+form.admin-form input.input-abbreviation {
+    width: 10rem;
+}
+form.admin-form input.input-date {
+    width: 6rem;
+}
+form.admin-form input.input-datetime {
+    width: 15rem;
 }
 form.admin-form input.input-link {
-    width: 40rem;
+    width: 30rem;
 }
 form.admin-form input.input-link-name {
-    width: 20rem;
+    width: 15rem;
 }
 form.admin-form input.input-name {
     width: 30rem;
 }
-form.admin-form input.input-summary {
-    width: 100%;
-    max-width: 40rem;
+form.admin-form input.input-year {
+    width: 5rem;
 }
 
+form.admin-form textarea.textarea-description,
+form.admin-form textarea.textarea-notes {
+    width: 54rem;
+}
+form.admin-form textarea.textarea-summary,
+form.admin-form textarea.textarea-disclaimer,
+form.admin-form textarea.textarea-definition {
+    width: 30rem;
+}

@@ -86,8 +86,11 @@
                                 {{ $category->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($category->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $category->name,
+                                'href' => route('admin.dictionary.category.show', $category)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

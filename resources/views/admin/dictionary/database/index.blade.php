@@ -86,8 +86,11 @@
                                 {{ $database->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($database->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $database->name,
+                                'href' => route('admin.dictionary.database.show', $database)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

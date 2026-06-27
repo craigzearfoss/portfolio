@@ -109,12 +109,14 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-summary-horizontal', [
                     'name'      => 'summary',
                     'value'     => old('summary') ?? $job->summary,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
                     'message'   => $message ?? '',
-                    'style'     => [ 'max-width: 40rem !important' ]
+                    'class'     => [ 'textarea-summary' ],
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -217,12 +219,14 @@
 
             <div class="floating-div card admin-form-card">
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'disclaimer',
                     'value'     => old('disclaimer') ?? $job->disclaimer,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
                     'message'   => $message ?? '',
-                    'class'     => [ 'input-disclaimer' ]
+                    'class'     => [ 'textarea-disclaimer' ],
                 ])
 
                 @include('admin.components.show-row-images', [

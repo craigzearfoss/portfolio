@@ -86,8 +86,11 @@
                                 {{ $server->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($server->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $server->name,
+                                'href' => route('admin.dictionary.server.show', $server)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

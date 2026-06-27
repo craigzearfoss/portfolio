@@ -50,12 +50,6 @@
                     'hide'  => !$isRootAdmin,
                 ])
 
-                <?php /* note that you CANNOT change the owner of a dictionary category */ ?>
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $category->owner_id
-                ])
-
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'full_name',
                     'label'     => 'full name',
@@ -63,6 +57,7 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                    'class'   => [ 'input-name' ],
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -71,6 +66,7 @@
                     'required'  => true,
                     'maxlength' => 100,
                     'message'   => $message ?? '',
+                    'class'   => [ 'input-name' ],
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -78,13 +74,17 @@
                     'value'     => old('abbreviation') ?? $category->abbreviation,
                     'maxlength' => 20,
                     'message'   => $message ?? '',
+                    'class'   => [ 'input-abbreviation' ],
                 ])
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'definition',
                     'value'     => old('definition') ?? $category->definition,
-                    'maxlength' => 255,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
                     'message'   => $message ?? '',
+                    'class'     => [ 'textarea-definition' ],
                 ])
 
                 <div class="field is-horizontal">
@@ -131,6 +131,7 @@
                     'value'     => old('owner') ?? $category->owner,
                     'maxlength' => 100,
                     'message'   => $message ?? '',
+                    'class'   => [ 'input-name' ],
                 ])
 
             </div>
@@ -142,24 +143,28 @@
             <div class="floating-div card admin-form-card">
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'      => 'wikipedia',
-                    'label'     => 'wikipedia',
-                    'value'     => old('wikipedia') ?? $category->wikipedia,
-                    'maxlength' => 500,
-                    'message'   => $message ?? '',
+                    'name'        => 'wikipedia',
+                    'label'       => 'wikipedia',
+                    'value'       => old('wikipedia') ?? $category->wikipedia,
+                    'maxlength'   => 500,
+                    'placeholder' => 'wikipedia link',
+                    'message'     => $message ?? '',
+                    'class'       => [ 'input-link' ],
                 ])
 
                 @include('admin.components.form-link-horizontal', [
                     'link'    => old('link') ?? $category->link,
                     'name'    => old('link_name') ?? $category->link_name,
                     'message' => $message ?? '',
-                ])
+        ])
 
                 @include('admin.components.form-textarea-horizontal', [
                     'name'    => 'description',
                     'id'      => 'inputEditor',
                     'value'   => old('description') ?? $category->description,
+                    'cols'    => 54,
                     'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
                 ])
 
             </div>

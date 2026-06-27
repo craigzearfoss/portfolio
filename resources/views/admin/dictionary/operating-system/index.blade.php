@@ -86,8 +86,11 @@
                                 {{ $operatingSystem->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($operatingSystem->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $operatingSystem->name,
+                                'href' => route('admin.dictionary.operating-system.show', $operatingSystem)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

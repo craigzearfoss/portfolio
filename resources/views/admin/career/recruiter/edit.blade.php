@@ -70,6 +70,7 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
+                        'class'     => [ 'input-name' ]
                     ])
 
                     @include('admin.components.form-checkbox-horizontal', [
@@ -80,12 +81,14 @@
                         'message'         => $message ?? '',
                     ])
 
-                    @include('admin.components.form-input-horizontal', [
+                    @include('admin.components.form-textarea-horizontal', [
                         'name'      => 'summary',
                         'value'     => old('summary') ?? $recruiter->summary,
                         'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 5,
                         'message'   => $message ?? '',
-                        'style'     => [ 'max-width: 40rem !important' ]
+                        'class'     => [ 'textarea-summary' ],
                     ])
 
                     @include('admin.components.form-select-horizontal', [
@@ -232,6 +235,7 @@
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $recruiter->description,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ]
                     ])
 
                 </div>

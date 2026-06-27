@@ -2,6 +2,7 @@
     use App\Models\System\Admin;
     use App\Models\System\Country;
     use App\Models\System\State;
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin         = $admin ?? null;
@@ -61,11 +62,22 @@
                         ])
                     @endif
 
-                    <?php /* note that you CANNOT change the owner of a communication */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $contact->owner_id
-                    ])
+                    @if ($isRootAdmin)
+                        @include('admin.components.form-select-horizontal', [
+                            'name'     => 'owner_id',
+                            'label'    => 'owner',
+                            'value'    => old('owner_id') ?? $contact->owner_id,
+                            'required' => true,
+                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                            'message'  => $message ?? '',
+                            'class'    => [ 'select-owner' ]
+                        ])
+                    @else
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $contact->owner_id
+                        ])
+                    @endif
 
                     @include('admin.components.form-input-horizontal', [
                         'name'      => 'name',
@@ -73,7 +85,7 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
-                        'style'     => [ 'width: 18rem ']
+                        'class'     => [ 'input-name' ],
                     ])
 
                     @if (!empty($recruiter_id))
@@ -184,13 +196,17 @@
                         'id'      => 'inputEditor',
                         'value'   => old('description') ?? $contact->description,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-description' ],
                     ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'        => 'disclaimer',
-                        'value'       => old('disclaimer') ?? $contact->disclaimer,
-                        'maxlength'   => 500,
-                        'message'     => $message ?? '',
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'      => 'disclaimer',
+                        'value'     => old('disclaimer') ?? $contact->disclaimer,
+                        'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 3,
+                        'message'   => $message ?? '',
+                        'class'     => [ 'textarea-disclaimer' ],
                     ])
 
                 </div>
@@ -212,6 +228,7 @@
                         'name'    => 'notes',
                         'value'   => old('notes') ?? $contact->notes,
                         'message' => $message ?? '',
+                        'class'   => [ 'textarea-notes' ],
                     ])
 
                     @include('admin.components.form-visibility-horizontal', [

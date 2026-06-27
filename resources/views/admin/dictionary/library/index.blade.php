@@ -86,8 +86,11 @@
                                 {{ $library->id }}
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! htmlspecialchars($library->name) !!}
+                        <td data-field="name" style="white-space: nowrap;">
+                            @include('admin.components.link', [
+                                'name' => $library->name,
+                                'href' => route('admin.dictionary.library.show', $library)
+                            ])
                             @include('admin.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',

@@ -1,4 +1,5 @@
 @php
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;
@@ -105,12 +106,14 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'summary',
                     'value'     => old('summary') ?? $reading->summary,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 5,
                     'message'   => $message ?? '',
-                    'class'     => [ 'input-summary' ]
+                    'class'     => [ 'textarea-summary' ],
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -122,6 +125,7 @@
                     'min'       => -3000,
                     'max'       => 2050,
                     'message'   => $message ?? '',
+                    'class'     => [ 'input-year' ]
                 ])
 
             </div>
@@ -136,67 +140,55 @@
                     <div class="field-label is-normal">
                     </div>
                     <div class="field-body">
-                        <div class="field">
 
-                            <div class="checkbox-container card form-container p-4">
+                        <div class="floating-div card checkbox-container readings-checkbox-container">
 
-                                @include('admin.components.form-checkbox', [
-                                    'name'            => 'fiction',
-                                    'value'           => 1,
-                                    'unchecked_value' => 0,
-                                    'checked'         => old('fiction') ?? $reading->fiction,
-                                    'message'         => $message ?? '',
-                                ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'fiction',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('fiction') ?? $reading->fiction,
+                                'message'         => $message ?? '',
+                            ])
 
-                                @include('admin.components.form-checkbox', [
-                                    'name'            => 'nonfiction',
-                                    'value'           => 1,
-                                    'unchecked_value' => 0,
-                                    'checked'         => old('nonfiction') ?? $reading->nonfiction,
-                                    'message'         => $message ?? '',
-                                ])
-
-                            </div>
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'nonfiction',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('nonfiction') ?? $reading->nonfiction,
+                                'message'         => $message ?? '',
+                            ])
 
                         </div>
-                    </div>
-                </div>
 
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
+                        <div class="floating-div card checkbox-container readings-checkbox-container">
 
-                            <div class="checkbox-container card form-container p-4">
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'paper',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('paper') ?? $reading->paper,
+                                'message'         => $message ?? '',
+                            ])
 
-                                @include('admin.components.form-checkbox', [
-                                    'name'            => 'paper',
-                                    'value'           => 1,
-                                    'unchecked_value' => 0,
-                                    'checked'         => old('paper') ?? $reading->paper,
-                                    'message'         => $message ?? '',
-                                ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'audio',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('audio') ?? $reading->audio,
+                                'message'         => $message ?? '',
+                            ])
 
-                                @include('admin.components.form-checkbox', [
-                                    'name'            => 'audio',
-                                    'value'           => 1,
-                                    'unchecked_value' => 0,
-                                    'checked'         => old('audio') ?? $reading->audio,
-                                    'message'         => $message ?? '',
-                                ])
-
-                                @include('admin.components.form-checkbox', [
-                                    'name'            => 'wishlist',
-                                    'value'           => 1,
-                                    'unchecked_value' => 0,
-                                    'checked'         => old('wishlist') ?? $reading->wishlist,
-                                    'message'         => $message ?? '',
-                                ])
-
-                            </div>
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'wishlist',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('wishlist') ?? $reading->wishlist,
+                                'message'         => $message ?? '',
+                            ])
 
                         </div>
+
                     </div>
                 </div>
 
@@ -208,19 +200,19 @@
 
             <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-link-horizontal', [
-                        'link'    => old('link') ?? $reading->link,
-                        'name'    => old('link_name') ?? $reading->link_name,
-                        'message' => $message ?? '',
-                    ])
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? $reading->link,
+                    'name'    => old('link_name') ?? $reading->link_name,
+                    'message' => $message ?? '',
+                ])
 
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'description',
-                        'id'      => 'inputEditor',
-                        'value'   => old('description') ?? $reading->description,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-description' ]
-                    ])
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $reading->description,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
 
             </div>
 
@@ -230,12 +222,14 @@
 
             <div class="floating-div card admin-form-card">
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-textarea-horizontal', [
                     'name'      => 'disclaimer',
                     'value'     => old('disclaimer') ?? $reading->disclaimer,
                     'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
                     'message'   => $message ?? '',
-                    'class'     => [ 'input-disclaimer' ]
+                    'class'     => [ 'textarea-disclaimer' ],
                 ])
 
                 @include('admin.components.show-row-images', [

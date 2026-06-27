@@ -1,6 +1,7 @@
 @php
     use App\Models\System\Country;
     use App\Models\Career\Industry;
+    use App\Models\System\Owner;
     use App\Models\System\State;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
@@ -67,11 +68,22 @@
                         'hide'  => !$isRootAdmin,
                     ])
 
-                    <?php /* note that you CANNOT change the owner of a communication */ ?>
-                    @include('admin.components.form-hidden', [
-                        'name'  => 'owner_id',
-                        'value' => $company->owner_id
-                    ])
+                    @if ($isRootAdmin)
+                        @include('admin.components.form-select-horizontal', [
+                            'name'     => 'owner_id',
+                            'label'    => 'owner',
+                            'value'    => old('owner_id') ?? $company->owner_id,
+                            'required' => true,
+                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                            'message'  => $message ?? '',
+                            'class'    => [ 'select-owner' ]
+                        ])
+                    @else
+                        @include('admin.components.form-hidden', [
+                            'name'  => 'owner_id',
+                            'value' => $company->owner_id
+                        ])
+                    @endif
 
                     @include('admin.components.form-input-horizontal', [
                         'name'      => 'name',
@@ -79,7 +91,8 @@
                         'required'  => true,
                         'maxlength' => 255,
                         'message'   => $message ?? '',
-                        'style'     => [ 'width: 18rem ']
+                        'class'     => [ 'input-name' ],
+                        'style'     => [ 'width: 26rem' ]
                     ])
 
                 </div>
@@ -199,11 +212,14 @@
 
                 <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'        => 'disclaimer',
-                        'value'       => old('disclaimer') ?? $company->disclaimer,
-                        'maxlength'   => 500,
-                        'message'     => $message ?? '',
+                    @include('admin.components.form-textarea-horizontal', [
+                        'name'      => 'disclaimer',
+                        'value'     => old('disclaimer') ?? $company->disclaimer,
+                        'maxlength' => 500,
+                        'cols'      => 30,
+                        'rows'      => 3,
+                        'message'   => $message ?? '',
+                        'class'     => [ 'textarea-disclaimer' ],
                     ])
 
                     @include('admin.components.show-row-images', [
