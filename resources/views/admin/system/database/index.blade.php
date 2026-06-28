@@ -27,7 +27,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.system.database.export', request()->except([ 'page' ])),
@@ -54,49 +54,49 @@
                     <{{ $labelElem }}>
                     <tr>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'id',
                                 'sort'  => 'id|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'owner',
                                 'sort'  => 'owner_username|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'name',
                                 'sort'  => 'name|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'tag',
                                 'sort'  => 'tag|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'database',
                                 'sort'  => 'database|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'title',
                                 'sort'  => 'title|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'plural',
                                 'sort'  => 'plural|asc',
@@ -104,42 +104,42 @@
                         </th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'guest',
                                 'sort'  => 'guest|desc',
                             ])
                         </th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'user',
                                 'sort'  => 'user|desc',
                             ])
                         </th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'admin',
                                 'sort'  => 'admin|desc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'sequence',
                                 'sort'  => 'sequence|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'menu',
                                 'sort'  => 'menu|desc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'menu<br>level',
                                 'sort'  => 'menu_level|asc',

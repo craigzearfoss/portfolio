@@ -54,7 +54,7 @@
 
                         <div class="show-container card floating-div">
                             <span>
-                                @include('admin.components.checkmark', [ 'checked' => !empty($resource->{$column}) ])
+                                @include('guest.components.checkmark', [ 'checked' => !empty($resource->{$column}) ])
                             </span>
                             <span><strong>{{ $label }}</strong></span>
                         </div>

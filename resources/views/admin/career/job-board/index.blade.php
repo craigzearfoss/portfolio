@@ -50,7 +50,7 @@
 
             <p class="admin-table-caption">* An asterisk indicates a primary job board. <span class="sample-color-box-light-gray"></span> indicates the job board is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -63,7 +63,7 @@
                     <tr>
                         @if ($isRootAdmin)
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'id',
                                     'sort'  => 'id|asc',
@@ -78,14 +78,14 @@
                             </th>
                         @endif
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'name',
                                 'sort'  => 'name|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'industry',
                                 'sort'  => 'industry_name|asc',
@@ -93,35 +93,35 @@
                         </th>
                         <th style="white-space: nowrap;">coverage area</th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'free',
                                 'sort'  => 'free|desc',
                             ])
                         </th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'premium',
                                 'sort'  => 'premium|desc',
                             ])
                         </th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'staffing',
                                 'sort'  => 'staffing|desc',
                             ])
                         </th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'freelance',
                                 'sort'  => 'freelance|desc',
                             ])
                         </th>
                         <th class="has-text-centered">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'founded',
                                 'sort'  => 'founded|desc',

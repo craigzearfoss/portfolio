@@ -108,7 +108,7 @@
 
     <div style="display: block; width: 100%; padding: 5px;">
         @if (!empty($resource->{$column}))
-            @include('admin.components.link', [
+            @include('guest.components.link', [
                 'name'   => $resource->{$column},
                 'value'  => $resource->{$column},
                 'target' => '_blank',

@@ -18,6 +18,6 @@
                           false,
                           [ 'company_name', 'asc' ]
                       ),
-        'style'    => 'min-width: 12rem;'
+        'class'    => [ 'input-name' ]
     ])
 </div>

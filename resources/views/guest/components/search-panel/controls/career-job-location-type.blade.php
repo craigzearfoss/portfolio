@@ -16,6 +16,6 @@
                           false,
                           [ 'name', 'asc' ]
                       ),
-        'style'    => 'width: 9rem;'
+        'style'    => [ 'width: 9rem' ]
     ])
 </div>

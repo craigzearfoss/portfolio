@@ -1,6 +1,7 @@
 @php
     use App\Models\Portfolio\School;
     use App\Models\System\Country;
+    use App\Models\System\Owner;
     use App\Models\System\State;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)

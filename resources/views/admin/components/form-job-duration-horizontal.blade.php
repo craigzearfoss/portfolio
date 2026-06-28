@@ -20,7 +20,7 @@
         'required' => true,
         'list'     => new JobDurationType()->listOptions([], 'id', 'name', true),
         'message'  => $message ?? '',
-        'style'    => [ 'width: 8rem'],
+        'style'    => [ 'width: 9rem'],
     ]);
 
     $durationUnitSelectList = view('admin.components.form-select', [
@@ -29,7 +29,7 @@
         'value'    => old('job_duration_unit_id') ?? $job_duration_unit_id,
         'list'     => new JobDurationUnit()->listOptions([], 'id', 'name', true),
         'message'  => $message ?? '',
-        'style'    => [ 'width: 6rem'],
+        'style'    => [ 'width: 7rem'],
     ])
 @endphp
 

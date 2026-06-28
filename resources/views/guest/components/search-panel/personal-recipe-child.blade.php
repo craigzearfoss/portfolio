@@ -19,7 +19,10 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action !!}" method="get">
+        <form id="searchForm" action="{!! $action !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
@@ -30,7 +33,7 @@
                         <?php /*
                         @if ($isRootAdmin)
 
-                            @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
                         @endif
                         */ ?>
@@ -69,7 +72,7 @@
                     </div>
 
                     <div class="floating-div">
-                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                        @include('guest.components.search-panel.controls.timestamp-created-at', [
                             'created_at-min' => $created_at_min,
                             'created_at-max'   => $created_at_max,
                         ])

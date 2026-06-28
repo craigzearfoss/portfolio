@@ -36,14 +36,14 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 80em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.system.user-email.export', request()->except([ 'page' ])),
                 'filename' => 'user_emails_' . date("Y-m-d-His") . '.xlsx',
             ])
 
-            <p><i>{{ number_format($userEmails->total()) }} {{ $isRootAdmin ? 'user ' : '' }}{{ ($allUsers->total() === 1) ? 'email' : 'emails' }} found.</i></p>
+            <p><i>{{ number_format($userEmails->total()) }} {{ $isRootAdmin ? 'user ' : '' }}{{ ($userEmails->total() === 1) ? 'email' : 'emails' }} found.</i></p>
 
             @if (!empty($pagination_top))
                 {!! $userEmails->links('vendor.pagination.bulma') !!}

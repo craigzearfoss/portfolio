@@ -36,304 +36,300 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.career.reference.update', array_merge([$reference], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.career.reference.update', array_merge([$reference], request()->all())) }}"
-              class="admin-form"
-              method="POST"
-        >
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.career.reference.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.career.reference.index')
-            ])
+        <div class="floating-div-container">
 
-            <div class="floating-div-container">
+            <div class="floating-div card admin-form-card">
 
-                <div class="floating-div card admin-form-card">
-
-                    @if ($isRootAdmin)
-                        @include('admin.components.favorites-box-form-input', [
-                            'name'  => 'favorite_count',
-                            'label' => 'favorites',
-                            'value' => old('favorite_count') ?? $reference->favorite_count,
-                        ])
-                    @endif
-
-                    @include('admin.components.form-text-horizontal', [
-                        'name'  => 'id',
-                        'value' => $reference->id,
-                        'hide'  => !$isRootAdmin,
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $reference->favorite_count,
                     ])
+                @endif
 
-                    @if ($isRootAdmin)
-                        @include('admin.components.form-select-horizontal', [
-                            'name'     => 'owner_id',
-                            'label'    => 'owner',
-                            'value'    => old('owner_id') ?? $reference->owner_id,
-                            'required' => true,
-                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                            'message'  => $message ?? '',
-                            'class'    => [ 'select-owner' ]
-                        ])
-                    @else
-                        @include('admin.components.form-hidden', [
-                            'name'  => 'owner_id',
-                            'value' => $reference->owner_id
-                        ])
-                    @endif
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $reference->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'name',
-                        'value'     => old('name') ?? $reference->name,
-                        'required'  => true,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                        'class'     => [ 'input-name' ]
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $reference->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
                     ])
-
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'title',
-                        'value'     => old('title') ?? $reference->title,
-                        'maxlength' => 100,
-                        'message'   => $message ?? '',
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $reference->owner_id
                     ])
+                @endif
 
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $reference->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
+                ])
 
-                </div>
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('title') ?? $reference->title,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                ])
+
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    <div class="edit-container field is-horizontal">
+            <div class="floating-div card admin-form-card">
 
-                        <div class="field-label is-normal">
-                            <label class="label"></label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
+                <div class="edit-container field is-horizontal">
 
-                                <div class="checkbox-container card form-container p-4">
+                    <div class="field-label is-normal">
+                        <label class="label"></label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'friend',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('friend') ?? $reference->friend,
-                                        'message'         => $message ?? '',
-                                    ])
+                            <div class="checkbox-container card form-container p-4">
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'family',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('family') ?? $reference->family,
-                                        'message'         => $message ?? '',
-                                    ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'friend',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('friend') ?? $reference->friend,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'coworker',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('coworker') ?? $reference->coworker,
-                                        'message'         => $message ?? '',
-                                    ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'family',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('family') ?? $reference->family,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'supervisor',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('supervisor') ?? $reference->supervisor,
-                                        'message'         => $message ?? '',
-                                    ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'coworker',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('coworker') ?? $reference->coworker,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'subordinate',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('subordinate') ?? $reference->subordinate,
-                                        'message'         => $message ?? '',
-                                    ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'supervisor',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('supervisor') ?? $reference->supervisor,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'professional',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('professional') ?? $reference->professional,
-                                        'message'         => $message ?? '',
-                                    ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'subordinate',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('subordinate') ?? $reference->subordinate,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                    @include('admin.components.form-checkbox', [
-                                        'name'            => 'other',
-                                        'value'           => 1,
-                                        'unchecked_value' => 0,
-                                        'checked'         => old('other') ?? $reference->other,
-                                        'message'         => $message ?? '',
-                                    ])
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'professional',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('professional') ?? $reference->professional,
+                                    'message'         => $message ?? '',
+                                ])
 
-                                </div>
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'other',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('other') ?? $reference->other,
+                                    'message'         => $message ?? '',
+                                ])
 
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
-                    @include('admin.components.form-select-horizontal', [
-                        'name'    => 'company_id',
-                        'label'   => 'company',
-                        'value'   => old('company_id') ?? $reference->company_id,
-                        'list'    => new Company()->listOptions([], 'id', 'name', true),
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-input-horizontal', [
-                        'type'    => 'date',
-                        'name'    => 'birthday',
-                        'value'   => old('birthday') ?? $reference->birthday,
-                        'message' => $message ?? '',
-                    ])
-
                 </div>
+
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'company_id',
+                    'label'   => 'company',
+                    'value'   => old('company_id') ?? $reference->company_id,
+                    'list'    => new Company()->listOptions([], 'id', 'name', true),
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'type'    => 'date',
+                    'name'    => 'birthday',
+                    'value'   => old('birthday') ?? $reference->birthday,
+                    'message' => $message ?? '',
+                ])
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    @include('admin.components.form-location-horizontal', [
-                        'street'     => old('street') ?? $reference->street,
-                        'street2'    => old('street2') ?? $reference->street2,
-                        'city'       => old('city') ?? $reference->city,
-                        'state_id'   => old('state_id') ?? $reference->state_id,
-                        'states'     => new State()->listOptions([], 'id', 'name', true),
-                        'zip'        => old('zip') ?? $reference->zip,
-                        'country_id' => old('country_id') ?? $reference->country_id,
-                        'countries'  => new Country()->listOptions([], 'id', 'name', true),
-                        'message'    => $message ?? '',
-                    ])
+            <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-coordinates-horizontal', [
-                        'latitude'  => old('latitude') ?? $reference->latitude,
-                        'longitude' => old('longitude') ?? $reference->longitude,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-location-horizontal', [
+                    'street'     => old('street') ?? $reference->street,
+                    'street2'    => old('street2') ?? $reference->street2,
+                    'city'       => old('city') ?? $reference->city,
+                    'state_id'   => old('state_id') ?? $reference->state_id,
+                    'states'     => new State()->listOptions([], 'id', 'name', true),
+                    'zip'        => old('zip') ?? $reference->zip,
+                    'country_id' => old('country_id') ?? $reference->country_id,
+                    'countries'  => new Country()->listOptions([], 'id', 'name', true),
+                    'message'    => $message ?? '',
+                ])
 
-                </div>
-
-            </div>
-
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.form-phone-horizontal', [
-                        'phone' => old('phone') ?? $reference->phone,
-                        'label' => old('phone_label') ?? $reference->phone_label,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-phone-horizontal', [
-                        'phone'   => old('alt_phone') ?? $reference->alt_phone,
-                        'label'   => old('alt_phone_label') ?? $reference->alt_phone_label,
-                        'alt'     => true,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-email-horizontal', [
-                        'email'   => old('email') ?? $reference->email,
-                        'label'   => old('email_label') ?? $reference->email_label,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-email-horizontal', [
-                        'email'   => old('alt_email') ?? $reference->alt_email,
-                        'label'   => old('alt_email_table') ?? $reference->alt_email_label,
-                        'alt'     => true,
-                        'message' => $message ?? '',
-                    ])
-
-                </div>
+                @include('admin.components.form-coordinates-horizontal', [
+                    'latitude'  => old('latitude') ?? $reference->latitude,
+                    'longitude' => old('longitude') ?? $reference->longitude,
+                    'message'   => $message ?? '',
+                ])
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    @include('admin.components.form-link-horizontal', [
-                        'link'    => old('link') ?? $reference->link,
-                        'name'    => old('link_name') ?? $reference->link_name,
-                        'message' => $message ?? '',
-                    ])
+            <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'description',
-                        'id'      => 'inputEditor',
-                        'value'   => old('description') ?? $reference->description,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-description' ]
-                    ])
+                @include('admin.components.form-phone-horizontal', [
+                    'phone' => old('phone') ?? $reference->phone,
+                    'label' => old('phone_label') ?? $reference->phone_label,
+                    'message' => $message ?? '',
+                ])
 
-                </div>
+                @include('admin.components.form-phone-horizontal', [
+                    'phone'   => old('alt_phone') ?? $reference->alt_phone,
+                    'label'   => old('alt_phone_label') ?? $reference->alt_phone_label,
+                    'alt'     => true,
+                    'message' => $message ?? '',
+                ])
 
-            </div>
+                @include('admin.components.form-email-horizontal', [
+                    'email'   => old('email') ?? $reference->email,
+                    'label'   => old('email_label') ?? $reference->email_label,
+                    'message' => $message ?? '',
+                ])
 
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'      => 'disclaimer',
-                        'value'     => old('disclaimer') ?? $reference->disclaimer,
-                        'maxlength' => 500,
-                        'cols'      => 30,
-                        'rows'      => 3,
-                        'message'   => $message ?? '',
-                        'class'     => [ 'textarea-disclaimer' ],
-                    ])
-
-                    @include('admin.components.show-row-images', [
-                        'resource' => $reference,
-                        'upload'   => false,
-                        'download' => true,
-                        'external' => true,
-                        'editPage' => true,
-                    ])
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'notes',
-                        'value'   => old('notes') ?? $reference->notes,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-notes' ]
-                    ])
-
-                    @include('admin.components.form-visibility-horizontal', [
-                        'is_public'   => old('is_public')   ?? $reference->is_public,
-                        'is_readonly' => old('is_readonly') ?? $reference->is_readonly,
-                        'is_root'     => old('is_root')     ?? $reference->root,
-                        'is_disabled' => old('is_disabled') ?? $reference->is_disabled,
-                        'is_demo'     => old('is_demo')     ?? $reference->is_demo,
-                        'sequence'    => old('sequence')    ?? $reference->sequence,
-                        'message'     => $message           ?? '',
-                    ])
-
-                </div>
+                @include('admin.components.form-email-horizontal', [
+                    'email'   => old('alt_email') ?? $reference->alt_email,
+                    'label'   => old('alt_email_table') ?? $reference->alt_email_label,
+                    'alt'     => true,
+                    'message' => $message ?? '',
+                ])
 
             </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.career.reference.index')
-            ])
+        </div>
 
-        </form>
+        <div class="floating-div-container">
 
-    </div>
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? $reference->link,
+                    'name'    => old('link_name') ?? $reference->link_name,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $reference->description,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
+
+            </div>
+
+        </div>
+
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? $reference->disclaimer,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-disclaimer' ],
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $reference,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $reference->notes,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-notes' ]
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $reference->is_public,
+                    'is_readonly' => old('is_readonly') ?? $reference->is_readonly,
+                    'is_root'     => old('is_root')     ?? $reference->root,
+                    'is_disabled' => old('is_disabled') ?? $reference->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $reference->is_demo,
+                    'sequence'    => old('sequence')    ?? $reference->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.career.reference.index')
+        ])
+
+    </form>
 
 @endsection

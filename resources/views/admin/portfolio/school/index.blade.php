@@ -32,9 +32,9 @@
 
     @include('admin.components.search-panel.portfolio-school')
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 60em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.school.export', request()->except([ 'page' ])),

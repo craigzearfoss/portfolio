@@ -67,7 +67,7 @@
             'target'    => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('guest.components.show-row-link', [
             'link_name' => !empty($server->link_name) ? htmlspecialchars($server->link_name) : 'link',
             'name'      => $server->link,
             'href'      => $server->link,

@@ -19,11 +19,11 @@
     $classes = array_merge([ 'remove-image-button', 'button', 'is-small', 'px-1', 'py-0' ], $classes);
 
 @endphp
-<button @if (!empty($title))title="{!! $title !!}" @endif
-    @if (!empty($classes))class="{!! implode(' ', $classes) !!}" @endif
+<button @if (!empty($title))title="{{ $title }}" @endif
+    @if (!empty($classes))class="{{ implode(' ', $classes) }}" @endif
     @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
     @if (!empty($disabled))style="cursor: default; opacity: 0.5;" @endif
-    @if (!empty($href))href="{!! $href !!}" @endif
+    @if (!empty($href))href="{{ $href }}" @endif
     @if (!empty($onclick))
         onclick="{!! $onclick !!}"
     @endif

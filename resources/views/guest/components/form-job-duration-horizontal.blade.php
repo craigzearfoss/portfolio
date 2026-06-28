@@ -13,23 +13,23 @@
         $style = '';
     }
 
-    $durationTypeSelectList = view('admin.components.form-select', [
+    $durationTypeSelectList = view('guest.components.form-select', [
         'name'     => 'job_duration_type_id',
         'label'    => '',
         'value'    => old('job_duration_type_id') ?? $job_duration_type_id,
         'required' => true,
         'list'     => new JobDurationType()->listOptions([], 'id', 'name', true),
         'message'  => $message ?? '',
-        'style'    => [ 'width: 8rem'],
+        'style'    => [ 'width: 9rem'],
     ]);
 
-    $durationUnitSelectList = view('admin.components.form-select', [
+    $durationUnitSelectList = view('guest.components.form-select', [
         'name'     => 'job_duration_unit_id',
         'label'    => '',
         'value'    => old('job_duration_unit_id') ?? $job_duration_unit_id,
         'list'     => new JobDurationUnit()->listOptions([], 'id', 'name', true),
         'message'  => $message ?? '',
-        'style'    => [ 'width: 6rem'],
+        'style'    => [ 'width: 7rem'],
     ])
 @endphp
 
@@ -48,7 +48,7 @@
         </div>
 
         <div id="durationLengthDiv" class="field mr-1" style="flex-grow: 0;{{ empty($job_duration_type_id) || ($job_duration_type_id == 2) ? 'display: none;' : '' }}">
-            @include('admin.components.input', [
+            @include('guest.components.input', [
                 'id'      => 'job_duration_length',
                 'name'    => 'job_duration_length',
                 'value'   =>  $job_duration_length,

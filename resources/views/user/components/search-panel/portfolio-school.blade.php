@@ -3,7 +3,8 @@
     use App\Models\Portfolio\School;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action            = $action ?? url()->current();
@@ -12,6 +13,9 @@
     $created_at_max    = $created_at_max ?? request()->query('created_at-max');
     $created_at_min    = $created_at_min ?? request()->query('created_at-min');
     $favorites         = $favorites ?? request()->query('favorites');
+    $founded           = $founded ?? request()->query('$founded');
+    $founded_max       = $founded_max ?? request()->query('founded-max');
+    $founded_min       = $founded_min ?? request()->query('founded-min');
     $gender            = $gender ?? request()->query('gender');
     $hbcu              = $hbcu ?? request()->query('hbcu');
     $medical           = $medical ?? request()->query('medical');
@@ -30,16 +34,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new School()->getSortOptions($sort, $envTypes::USER),
-                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
+                        'list'  => new School()->getSortOptions($sort),
                     ])
 
                     <?php /*
@@ -56,7 +62,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
 
@@ -74,12 +80,11 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input-with-icon', [
+                            @include('user.components.form-input-with-icon', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-city', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -91,15 +96,13 @@
                     <div class="floating-div">
 
                         <div class="control" style="max-width: 28rem;">
+
                             @include('user.components.form-select', [
                                 'name'     => 'type',
                                 'value'    => $type,
                                 'list'     => new School()->typeListOptions(true),
                                 'style'    => [ 'width: 6rem' ],
                             ])
-                        </div>
-
-                        <div class="control" style="max-width: 28rem;">
                             @include('user.components.form-select', [
                                 'name'     => 'gender',
                                 'value'    => $gender,
@@ -148,20 +151,46 @@
                         ])
 
                     </div>
-
                     <div class="floating-div">
 
-                        @include('user.components.search-panel.controls.timestamp-created-at', [
-                            'created_at-min' => $created_at_min,
-                            'created_at-max' => $created_at_max,
-                        ])
+                        <div class="control" style="max-width: 28rem;">
+                            @include('user.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.school' ]
+                            ])
+                        </div>
 
-                        @include('user.components.search-panel.controls.timestamp-updated-at', [
-                            'updated_at-min' => $updated_at_min,
-                            'updated_at-max' => $updated_at_max,
-                        ])
+                        <div>
+                            @include('user.components.search-panel.controls.career-recruiter-founded', [
+                                'founded_min' => $founded_min,
+                                'founded_max' => $founded_max,
+                            ])
+                        </div>
 
                     </div>
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+                    */ ?>
 
                 </div>
 

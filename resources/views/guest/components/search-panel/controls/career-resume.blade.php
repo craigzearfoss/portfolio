@@ -19,5 +19,6 @@
                           false,
                           [ 'name', 'desc' ]
                       ),
+        'class' => [ 'select-name' ]
     ])
 </div>

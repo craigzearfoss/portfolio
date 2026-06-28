@@ -33,9 +33,9 @@
 
     @include('admin.components.search-panel.personal-ingredient')
 
-    <div class="floating-div-container" style="max-width: 40em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 50em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.personal.ingredient.export', request()->except([ 'page' ])),

@@ -53,7 +53,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the reference is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -66,14 +66,14 @@
                     <tr>
                         @if ($isRootAdmin)
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'id',
                                     'sort'  => 'id|asc',
                                 ])
                             </th>
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'owner',
                                     'sort'  => 'owner_username|asc',
@@ -81,7 +81,7 @@
                             </th>
                         @endif
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'name',
                                 'sort'  => 'name|asc',
@@ -89,14 +89,14 @@
                         </th>
                         <th>relation</th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'phone',
                                 'sort'  => 'phone|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'email',
                                 'sort'  => 'email|asc',

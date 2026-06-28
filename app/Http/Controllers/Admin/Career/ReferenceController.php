@@ -100,19 +100,18 @@ class ReferenceController extends BaseAdminController
             if (!empty($companyId)) {
                 CompanyReference::query()->insert([
                     'owner_id'   => $reference->owner_id,
-                    'contact_id' => $reference->id,
+                    'contact_id' => $reference['id'],
                     'company_id' => $companyId,
                     'active'     => true,
                 ]);
             }
-
         }
 
         if ($referer = $request->input('referer')) {
             return redirect($referer)->with('success', $reference['name'] . ' successfully added.');
-        } elseif (!empty($referenceId)) {
+        } else {
             return redirect()->route('admin.career.reference.show', $reference)
-                ->with('success', $reference->name . ' successfully added.');
+                ->with('success', $reference['name'] . ' successfully added.');
         }
     }
 
@@ -126,7 +125,7 @@ class ReferenceController extends BaseAdminController
     {
         readGate($reference, $this->admin);
 
-        $companies = new CompanyReference()->newQuery()->where('reference_id', $reference->id)
+        $companies = new CompanyReference()->newQuery()->where('id', $reference->id)
             ->leftJoin(dbName('career_db' ) . '.companies', 'companies.id', '=', 'company_reference.company_id')
             ->get();
 

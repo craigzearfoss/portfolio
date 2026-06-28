@@ -3,10 +3,12 @@
     use App\Models\Career\Resume;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action         = $action ?? url()->current();
+    $active         = $active ?? request()->query('active');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
@@ -24,16 +26,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls" style="width: 25rem;">
+                <div class="search-panel-header" style="width: 25rem;">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Resume()->getSortOptions($sort, $envTypes::USER),
-                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                        'list'  => new Resume()->getSortOptions($sort),
                     ])
 
                     <?php /*
@@ -50,7 +54,17 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+                    */ ?>
 
                     <div class="floating-div">
 
@@ -59,36 +73,70 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
                     </div>
                     <div class="floating-div">
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'active',
-                            'value'    => 1,
-                            'checked'  => $active,
-                            'nohidden' => true,
-                        ])
+                        <div class="card search-control-group">
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'primary',
-                            'value'    => 1,
-                            'checked'  => $primary,
-                            'nohidden' => true,
-                        ])
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'active',
+                                'value'    => 1,
+                                'checked'  => $active,
+                                'nohidden' => true,
+                            ])
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'is_public',
-                            'label'    => 'public',
-                            'value'    => 1,
-                            'checked'  => $is_public,
-                            'nohidden' => true,
-                        ])
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'primary',
+                                'value'    => 1,
+                                'checked'  => $primary,
+                                'nohidden' => true,
+                            ])
+
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'is_public',
+                                'label'    => 'public',
+                                'value'    => 1,
+                                'checked'  => $is_public,
+                                'nohidden' => true,
+                            ])
+
+                            <div class="control" style="max-width: 28rem;">
+                                @include('user.components.form-checkbox', [
+                                    'id'         => 'favoritesCheckBox',
+                                    'name'       => 'favorites',
+                                    'value'      => 1,
+                                    'checked'    => $favorites,
+                                    'nohidden'   => true,
+                                    'class'      => [ 'search-favorites' ],
+                                    'attributes' => [ 'data-resource' => 'career.resume' ]
+                                ])
+                            </div>
+
+                        </div>
 
                     </div>
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+                    */ ?>
 
                 </div>
 

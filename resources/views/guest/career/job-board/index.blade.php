@@ -122,7 +122,7 @@
                             <span {!! $jobBoard->featured ? 'class="has-text-weight-bold"' : '' !!}>
                                 {{ $jobBoard->name }}
                             </span>
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                 'title'      => 'add to favorites',
                                 'icon'       => 'fa-heart',
                                 'border'     => false,

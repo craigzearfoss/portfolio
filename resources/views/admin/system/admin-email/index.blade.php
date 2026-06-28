@@ -35,7 +35,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 80em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.system.admin-email.export', request()->except([ 'page' ])),

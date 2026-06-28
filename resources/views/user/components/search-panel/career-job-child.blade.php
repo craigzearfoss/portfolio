@@ -2,7 +2,8 @@
     use App\Models\Portfolio\Job;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action          = $action ?? url()->current();
@@ -17,13 +18,24 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
+                        <?php /*
+                        @if ($isRootAdmin)
+
+                            @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+
+                        @endif
+                        */ ?>
 
                         @if (!empty($owner))
 

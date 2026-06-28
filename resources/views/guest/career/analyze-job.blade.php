@@ -30,7 +30,7 @@
                 <p>
                     Add a comma-separated list of skills that you want to match.
                 </p>
-                @include('admin.components.input', [
+                @include('guest.components.input', [
                     'id'    => 'skills-list',
                     'name'  => 'skills_list',
                     'value' => '',
@@ -39,14 +39,14 @@
                 ])
                 <div class="mt-1 pb-4" >
                     <span style="float: right;">
-                        @include('admin.components.nav-button', [
+                        @include('guest.components.nav-button', [
                             'id'    => 'submit-add-skills-modal-button',
                             'name'  => 'Add',
                             'class' => 'submit-add-skills-modal button is-small is-dark'
                         ])
                     </span>
                     <span style="float: right;">
-                        @include('admin.components.nav-button', [
+                        @include('guest.components.nav-button', [
                             'id'    => 'cancel-add-skills-modal-button',
                             'name'  => 'Cancel',
                             'class' => 'cancel-add-skills-modal button is-small is-dark mr-1'
@@ -68,7 +68,7 @@
                 <p>
                     Add a comma-separated list of skills that you do NOT want to match.
                 </p>
-                @include('admin.components.input', [
+                @include('guest.components.input', [
                     'name'  => 'anti_skills_list',
                     'id'    => 'anti-skills-list',
                     'value' => '',
@@ -77,14 +77,14 @@
                 ])
                 <div class="mt-1 pb-4" >
                     <span style="float: right;">
-                        @include('admin.components.nav-button', [
+                        @include('guest.components.nav-button', [
                             'id'    => 'submit-add-anti-skills-modal-button',
                             'name'  => 'Add',
                             'class' => 'submit-add-anti-skills-modal button is-small is-dark'
                         ])
                     </span>
                     <span style="float: right;">
-                        @include('admin.components.nav-button', [
+                        @include('guest.components.nav-button', [
                             'id'    => 'cancel-add-anti-skills-modal-button',
                             'name'  => 'Cancel',
                             'class' => 'cancel-add-anti-skills-modal button is-small is-dark mr-1'
@@ -103,7 +103,7 @@
 
             <div class="p-4">
 
-                <form action="{{ route('admin.career.application.analyze-post') }}" method="post">
+                <form action="{{ route('guest.career.application.analyze-post') }}" method="post">
                     @csrf
 
                     <!-- tabbed content -->

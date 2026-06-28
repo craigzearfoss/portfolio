@@ -42,13 +42,16 @@
 @endphp
 <div class="mb-2" style="display: flex;">
 
-    <div class="search-container card p-2">
+    <div class="search-container card">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
@@ -69,7 +72,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     @if ($isRootAdmin)
                         <div class="floating-div">
@@ -88,8 +91,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
-                                    'class'   => [ 'submit-search-on-enter-key' ],
-                                    'style'   => [ 'width: 12rem'],
+                                    'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -105,8 +107,8 @@
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
-                                        'class'   => [ 'submit-search-on-enter-key' ],
                                         'message' => $message ?? '',
+                                        'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                     ])
                                 </div>
                             @else
@@ -123,8 +125,8 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'from',
                                 'value'   => $from,
-                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -132,8 +134,8 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'to',
                                 'value'   => $to,
-                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -144,8 +146,8 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'subject',
                                 'value'   => $subject,
-                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -153,8 +155,8 @@
                             @include('admin.components.form-input-with-icon', [
                                 'name'    => 'body',
                                 'value'   => $body,
-                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'message' => $message ?? '',
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -166,10 +168,7 @@
                             'communication-datetime-max' => $communication_datetime_max,
                         ])
 
-                    </div>
-                    <div class="floating-div">
-
-                        <div class="control" style="max-width: 28rem;">
+                        <div class="card search-control-group">
                             @include('admin.components.form-checkbox', [
                                 'id'         => 'favoritesCheckBox',
                                 'name'       => 'favorites',

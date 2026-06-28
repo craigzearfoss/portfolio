@@ -39,7 +39,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.career.cover-letter.export', request()->except([ 'page' ])),
@@ -54,7 +54,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the cover letter is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 30rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -67,14 +67,14 @@
                     <tr>
                         @if ($isRootAdmin)
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'id',
                                     'sort'  => 'id|asc',
                                 ])
                             </th>
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'owner',
                                     'sort'  => 'owner_username|asc',
@@ -82,21 +82,21 @@
                             </th>
                         @endif
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'company',
                                 'sort'  => 'company_name|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'role',
                                 'sort'  => 'application_role|asc',
                             ])
                         </th>
                         <th style="white-space: nowrap;">
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'apply date',
                                 'sort'  => 'application_apply_date|desc',

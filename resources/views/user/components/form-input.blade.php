@@ -12,10 +12,14 @@
 
     $required = $required ?? false;
 
-    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    $class = !empty($class)
+        ? (!is_array($class) ? explode(' ', $class) : $class)
+        : [];
     if (!in_array('input', $class)) $class[] = 'input';
 
-    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+    $style = !empty($style)
+        ? (!is_array($style) ? explode(';', $style) : $style)
+        : [];
 
     $labelClass = [ 'label' ];
     if ($required && !in_array('label-required', $labelClass)) $labelClass[] = 'label-required';
@@ -30,53 +34,49 @@
     ]);
 @endphp
 
-<div class="control" style="max-width: 30rem;">
-    <div class="field">
+<div class="field">
 
-        @if (isset($label) && ($label === '') )
-        @else
+    @if (isset($label) && ($label === '') )
+    @else
+        <label
+            @if ($id)
+                for="{{ $id }}"
+            @endif
+            class="{{ implode(' ', $labelClass) }}"
+            @if ($title)
+                title="{{ $title }}"
+            @endif
+        >
+            {!! $label ?? $name !!}
+        </label>
+    @endif
 
-            <label
-                @if ($id)
-                    for="{{ $id }}"
-                @endif
-                class="{{ implode(' ', $labelClass) }}"
-                @if ($title)
-                    title="{{ $title }}"
-                @endif
-            >
-                {!! $label ?? $name !!}
-            </label>
+    <div class="control">
 
-        @endif
+        @include('user.components.input', [
+            'type'         => $type,
+            'id'           => $id,
+            'name'         => $name,
+            'label'        => $label,
+            'title'        => $title,
+            'class'        => $class,
+            'style'        => $style,
+            'autocomplete' => $autocomplete ?? false,
+            'autofocus'    => $autofocus ?? false,
+            'form'         => $form ?? null,
+            'height'       => $height ?? null,
+            'min'          => $min,
+            'max'          => $max,
+            'maxlength'    => $maxlength,
+            'multiple'     => $multiple ?? null,
+            'pattern'      => $pattern ?? null,
+            'placeholder'  => $placeholder ?? null,
+            'readonly'     => $readonly ?? null,
+            'required'     => $required ?? null,
+            'step'         => $step ?? false,
+            'width'         => $width ?? false,
+        ])
 
-        <div class="input">
-
-            @include('user.components.input', [
-                'type'         => $type,
-                'id'           => $id,
-                'name'         => $name,
-                'label'        => $label,
-                'title'        => $title,
-                'class'        => $class,
-                'style'        => $style,
-                'autocomplete' => $autocomplete ?? false,
-                'autofocus'    => $autofocus ?? false,
-                'form'         => $form ?? null,
-                'height'       => $height ?? null,
-                'min'          => $min,
-                'max'          => $max,
-                'maxlength'    => $maxlength,
-                'multiple'     => $multiple ?? null,
-                'pattern'      => $pattern ?? null,
-                'placeholder'  => $placeholder ?? null,
-                'readonly'     => $readonly ?? null,
-                'required'     => $required ?? null,
-                'step'         => $step ?? false,
-                'width'         => $width ?? false,
-            ])
-
-        </div>
     </div>
 
 </div>

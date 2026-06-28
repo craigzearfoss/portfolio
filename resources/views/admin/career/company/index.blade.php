@@ -38,7 +38,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.career.company.export', request()->except([ 'page' ])),
@@ -53,7 +53,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the company is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 30rem; max-width: 80rem; overflow-x: auto; overflow-y: hidden;">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -66,14 +66,14 @@
                     <tr>
                         @if ($isRootAdmin)
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'id',
                                     'sort'  => 'id|asc',
                                 ])
                             </th>
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'owner',
                                     'sort'  => 'owner_username|asc',
@@ -81,14 +81,14 @@
                             </th>
                         @endif
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'name',
                                 'sort'  => 'name|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'industry',
                                 'sort'  => 'industry_name|asc',

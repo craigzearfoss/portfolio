@@ -33,9 +33,9 @@
 
     @include('admin.components.search-panel.portfolio-certification', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 80em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.certification.export', request()->except([ 'page' ])),

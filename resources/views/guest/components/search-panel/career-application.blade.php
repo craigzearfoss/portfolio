@@ -46,11 +46,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
@@ -71,14 +74,14 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
 
                         <?php /*
                         @if ($isRootAdmin)
                             <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.system-owner')
+                                @include('guest.components.search-panel.controls.system-owner')
                             </div>
                         @endif
                         */ ?>
@@ -101,8 +104,7 @@
                                     'label'   => 'company',
                                     'value'   => $company_name,
                                     'message' => $message ?? '',
-                                    'class'   => [ 'submit-search-on-enter-key' ],
-                                    'style'   => [ 'width: 12rem'],
+                                    'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -116,8 +118,7 @@
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -132,8 +133,7 @@
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
                                     'message' => $message ?? '',
-                                    'class'   => [ 'submit-search-on-enter-key' ],
-                                    'style'   => [ 'width: 12rem' ],
+                                    'class'   => [ 'select-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -160,40 +160,44 @@
                     </div>
                     <div class="floating-div">
 
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'w2',
-                            'value'    => 1,
-                            'checked'  => $w2,
-                            'nohidden' => true,
-                        ])
+                        <div class="card search-control-group">
 
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'relocation',
-                            'value'    => 1,
-                            'checked'  => $relocation,
-                            'nohidden' => true,
-                        ])
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'w2',
+                                'value'    => 1,
+                                'checked'  => $w2,
+                                'nohidden' => true,
+                            ])
 
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'benefits',
-                            'value'    => 1,
-                            'checked'  => $benefits,
-                            'nohidden' => true,
-                        ])
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'relocation',
+                                'value'    => 1,
+                                'checked'  => $relocation,
+                                'nohidden' => true,
+                            ])
 
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'vacation',
-                            'value'    => 1,
-                            'checked'  => $vacation,
-                            'nohidden' => true,
-                        ])
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'benefits',
+                                'value'    => 1,
+                                'checked'  => $benefits,
+                                'nohidden' => true,
+                            ])
 
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'health',
-                            'value'    => 1,
-                            'checked'  => $health,
-                            'nohidden' => true,
-                        ])
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'vacation',
+                                'value'    => 1,
+                                'checked'  => $vacation,
+                                'nohidden' => true,
+                            ])
+
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'health',
+                                'value'    => 1,
+                                'checked'  => $health,
+                                'nohidden' => true,
+                            ])
+
+                        </div>
 
                     </div>
                     <div class="floating-div">
@@ -203,7 +207,7 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-city', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -211,7 +215,7 @@
                             @include('guest.components.search-panel.controls.system-state')
                         </div>
 
-                        <div class="control" style="max-width: 28rem;">
+                        <div class="card search-control-group">
                             @include('guest.components.form-checkbox', [
                                 'id'         => 'favoritesCheckBox',
                                 'name'       => 'favorites',
@@ -247,12 +251,12 @@
                     @if ($isRootAdmin)
                         <div class="floating-div">
 
-                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            @include('guest.components.search-panel.controls.timestamp-created-at', [
                                 'created_at-min' => $created_at_min,
                                 'created_at-max' => $created_at_max,
                             ])
 
-                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
                                 'updated_at-min' => $updated_at_min,
                                 'updated_at-max' => $updated_at_max,
                             ])

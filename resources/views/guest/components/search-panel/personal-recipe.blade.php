@@ -26,11 +26,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
@@ -51,13 +54,13 @@
 
                 </div>
 
-                <div class="floating-div-container">
-                    <?php /*
+                <div class="search-panel-body floating-div-container">
 
+                    <?php /*
                     @if ($isRootAdmin)
                         <div class="floating-div">
                             <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
                         </div>
                     @endif
@@ -146,12 +149,12 @@
                     @if ($isRootAdmin)
                         <div class="floating-div">
 
-                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            @include('guest.components.search-panel.controls.timestamp-created-at', [
                                 'created_at-min' => $created_at_min,
                                 'created_at-max' => $created_at_max,
                             ])
 
-                            @include('admin.components.search-panel.controls.timestamp-updated-at', [
+                            @include('guest.components.search-panel.controls.timestamp-updated-at', [
                                 'updated_at-min' => $updated_at_min,
                                 'updated_at-max' => $updated_at_max,
                             ])

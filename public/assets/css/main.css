@@ -9,7 +9,7 @@ p {
 .field .field-body .control span.text-field {
     display: inline-block !important;
     margin-top: 0.4em !important;
-    margin-left: 0.5em !important
+    margin-left: 0.5em !important;
 }
 
 div.field.is-horizontal div.field-label label.label {
@@ -53,6 +53,7 @@ div.field.is-horizontal div.field-label label.label {
 .message-header p {
     margin-bottom: 0 !important;
 }
+
 /* edit container */
 .edit-container .input,
 .edit-container span.file-cta,
@@ -68,18 +69,31 @@ div.field.is-horizontal div.field-label label.label {
     content: " *";
     color: red;
 }
+/*
 .edit-container .select,
 .edit-container select {
     height: 2em !important;
     padding-bottom: calc(0.1em - 1px) !important;
     padding-top: calc(0.1em - 1px) !important;
 }
+*/
 .edit-container span.file-name {
     height: 2em;
 }
 .edit-container .field:not(:last-child) {
     margin-bottom: .5rem;
 }
+
+input[type="date"] {
+    width: 7rem ;
+}
+input[type="datetime-local"], form.admin-form input[type="datetime-local"] {
+    width: 15rem;
+}
+form#searchForm input[type="datetime-local"] {
+    width: 10rem;
+}
+
 .edit-container input[name="level"],
 .edit-container input[name="rating"] {
     width: 4em   ;
@@ -92,26 +106,16 @@ div.field.is-horizontal div.field-label label.label {
 .edit-container input[name="year"],
 .edit-container input[name="start_year"],
 .edit-container input[name="end_year"] {
-    width: 5em   ;
+    width: 5em;
 }
 .edit-container input[name="duration_hours"],
 .edit-container input[name="compensation_max"],
 .edit-container input[name="compensation_min"],
 .edit-container input[name="zip"] {
-    width: 8em   ;
+    width: 8em;
 }
 .edit-container input[name="abbreviation"],
-.edit-container input[name="apply_date"],
 .edit-container input[name="catalog_number"],
-.edit-container input[name="close_date"],
-.edit-container input[name="completion_date"],
-.edit-container input[name="cvoer_letter_date"],
-.edit-container input[name="date"],
-.edit-container input[name="expiration"],
-.edit-container input[name="post_date"],
-.edit-container input[name="received"],
-.edit-container input[name="release_date"],
-.edit-container input[name="date"],
 .edit-container input[name="version"] {
     width: 10em   ;
 }
@@ -136,22 +140,6 @@ div.field.is-horizontal div.field-label label.label {
 
 .edit-container input[name="birthday"] {
     width: 12em;
-}
-/*
-.edit-container input[name="link"],
-.edit-container input[name="link2"],
-.edit-container input[name="image_source"],
-.edit-container input[name="linkedin_url"],
-.edit-container input[name="jobs_url"],
-.edit-container input[name="audio_url"],
-.edit-container input[name="video_url"]
-
-{
-    width: 40em;
-}
-*/
-.edit-container input[name="disclaimer"] {
-    width: 50em;
 }
 
 /* checkbox-container */
@@ -201,132 +189,6 @@ div.ck.ck-sticky-panel__content {
     list-style: none !important;
 }
 
-.search-container {
-    min-width: 30rem;
-}
-.search-container .control {
-    display: inline-block;
-    padding: 0.2em 0.3em;
-}
-.search-container .control label,
-.search-container .control .field {
-    margin-bottom: 0.1em;
-}
-.search-container .control .field .input {
-    margin-bottom: 0 !important;
-}
-.search-container .control .field .select .form-select {
-    padding: 0.1em !important;
-    line-height: 1;
-    height: 1.8rem !important;
-}
-.search-form-control .field label.label {
-    margin-bottom: 0;
-}
-form#searchForm div.floating-div-container div.floating-div {
-    width: auto;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control input {
-    font-size: .75rem;
-    height: 1.8rem;
-    padding: 0 0 0 4px;
-    display: block;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control {
-    padding: 0;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control.search-checkbox-container div.field div.control {
-    height: 2.1em;
-    margin-top: 0.4em;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field {
-    margin-bottom: 0;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field label {
-    margin-bottom: 0;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div {
-    height: 2.1em;
-    margin-bottom: 0;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div.input {
-    height: 28px;
-    padding: 0;
-    margin-bottom: 0.6em;
-    border-width: 0;
-}
-form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div.input input {
-    height: 28px;
-    padding-left: 0.2em;
-    margin-bottom: 0;
-}
-
-.search-button, .clear-button {
-    height: 30px;
-    margin-left: .25rem;
-    margin-right: .25rem;
-    font-size: .75rem;
-    background-color: #363636;
-    border-color: rgba(0, 0, 0, 0);
-    color: #fff;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    border-width: 1px;
-    border-radius: 2px;
-    cursor: pointer;
-    justify-content: center;
-    padding: 0.4em 1em;
-    text-align: center;
-    white-space: nowrap;
-}
-.search-panel-controls {
-    background-color: rgb(208,208,208);
-    text-align: right !important;
-    padding: .3rem !important;
-    margin-bottom: 0.3rem !important;
-    min-width: 40rem;
-    width: 100% !important;
-}
-.search-panel-controls .control.sort-control {
-    position: absolute;
-    left: 12px;
-    font-weight: 600;
-}
-.search-container .search-panel-controls .control.sort-control .label {
-    display: inline-block;
-    padding-top: 4px;
-    margin-right: 0.2rem;
-    font-size: 0.8rem !important;
-}
-.search-container .search-panel-controls .control.sort-control .select {
-    display: inline-block;
-    position: absolute;
-    min-width: 2rem !important;
-    top: -1px;
-    margin-left: 0.2rem;
-}
-.search-container input,
-.search-container select {
-    font-size: 0.9rem !important;
-    padding-left: 4px !important;
-    margin-top: 1px;
-}
-
-.min-max-search-controls {
-    padding: 2px 8px 8px 8px;
-    margin-bottom: 0.5rem !important;
-}
-.min-max-search-controls label {
-    font-weight: 700;
-    padding-left: 40px;
-}
-.min-max-search-controls div div {
-    display: inline-flex;
-}
-.min-max-search-controls span.min-label, .min-max-search-controls span.max-label {
-    font-weight: 700;
-    width: 35px;
-}
 
 .top-pinned-message {
     position: fixed;
@@ -540,9 +402,12 @@ nav.pagination span.pagination-next {
 table.table.admin-table,
 table.table.user-table,
 table.table.guest-table {
+    width: auto;
+    table-layout: auto;
     border: 0 rgb(128, 128, 128) inset;
     border-collapse: collapse;
-    margin-bottom: .75rem !important;
+    margin: 0 0 .75rem 0;
+
 }
 
 table.admin-table thead tr th {
@@ -633,6 +498,7 @@ table.table.guest-table {
 div.floating-div-container {
     /*max-width: 80rem !important;*/
 }
+
 div.floating-div-container div.floating-div {
     display: inline-block;
     vertical-align: top;
@@ -1206,11 +1072,214 @@ ul.menu.hamburger-left-nav-system-container a:hover  {
 .add-to-favorites.favorite {
     color: red !important;
 }
-card.favorites-box {
-    border-color: #888888;
-    border-width: 1px;
+.card.favorites-box {
+    border-color: #f5f5f5;
+    border-width: 2px;
 }
 
+.search-container.card {
+    min-width: 30rem;
+    padding: .5rem;
+    border: 1px solid rgba(24, 28, 33, .06);
+    font-size: .9rem;
+}
+
+.search-container.card label, span.label {
+    color: #363636;
+    display: block;
+    font-size: .9rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.search-container.card .control {
+    display: inline-block;
+}
+.search-container.card .select {
+    height: 2.1em;
+    margin-bottom: 0;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    vertical-align: top;
+}
+.search-container.card .control .field .select .form-select {
+    padding: 0.1em .1rem .1rem .2rem;
+    line-height: 1;
+    height: 1.8rem !important;
+    font-size: 0.9rem !important;
+    margin-top: 1px;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    display: block;
+    max-width: 100%;
+    outline: none;
+    background-color: #ffffff;
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    color: #363636;
+}
+.search-container.card .control input.input {
+    padding: 0.1em .1rem .1rem .2rem;
+    line-height: 1;
+    height: 1.8rem !important;
+    font-size: 0.9rem !important;
+    margin-top: 1px;
+    margin-bottom: .2rem !important;
+    cursor: pointer;
+    display: block;
+    max-width: 100%;
+    outline: none;
+    background-color: #ffffff;
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    color: #363636;
+}
+
+
+.search-container.card .control label, .search-container .control .field {
+    margin-bottom: 0;
+}
+.search-container.card .search-container input, .search-container .search-container select {
+    font-size: 0.9rem !important;
+    padding-left: 4px !important;
+    margin-top: 1px;
+}
+
+.search-container.card .search-panel-header {
+    background-color: rgb(208,208,208);
+    text-align: right !important;
+    padding: .3rem !important;
+    margin-bottom: 0.3rem !important;
+    min-width: 40rem;
+    width: 100% !important;
+}
+.search-container.card .search-panel-header .control.sort-control {
+    position: absolute;
+    left: 12px;
+    font-weight: 600;
+}
+.search-container.card .search-panel-header .control.sort-control .select {
+    display: inline-block;
+    position: absolute;
+    min-width: 2rem !important;
+    top: -1px;
+    margin-left: 0.2rem;
+}
+.search-container.card .search-panel-header .control.sort-control .label {
+    display: inline-block;
+    padding-top: 4px;
+    margin-right: 0.2rem;
+    font-size: 0.8rem !important;
+}
+.search-container.card .search-panel-body div.floating-div {
+    display: inline-block;
+    vertical-align: top;
+    width: auto;
+}
+.search-container.card .search-panel-body div.floating-div.card {
+    padding: 1rem !important;
+    margin-bottom: .5rem !important;
+    overflow-y: auto;
+}
+.search-container.card .search-panel-body div.floating-div.card.no-x-scroll {
+    overflow: hidden;
+}
+.search-container.card .search-panel-body div.floating-div.card.readings-checkbox-container {
+    width: 11rem;
+    max-width: 11rem;
+    padding: .7rem !important;
+    padding-bottom: .2rem !important;
+    margin-bottom: 0 !important;
+}
+.search-container .control .field .input {
+    margin-bottom: 0 !important;
+}
+.search-form-control .field label {
+    margin-bottom: 0;
+}
+
+.search-button, .clear-button {
+    height: 30px;
+    margin-left: .25rem;
+    margin-right: .25rem;
+    font-size: .75rem;
+    background-color: #363636;
+    border-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-width: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0.4em 1em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+/*
+form.admin-form input,
+form.admin-form select,
+form.admin-form textarea {
+    padding-bottom: calc(0.2em - 1px) !important;
+    /* padding-left: calc(0.5em - 1px) !important; * /
+    padding-right: calc(0.5em - 1px) !important;
+    padding-top: calc(0.2em - 1px) !important;
+    max-width: 36em;
+}
+*/
+
+form.admin-form .control.has-icons-left input.input, form.admin-form .control.has-icons-left select.select {
+    padding-left: 2.5em !important;
+}
+/* ------------------------------------ */
+/*         admin form styles           */
+/* ------------------------------------ */
+form.admin-form .card .control {
+    display: inline-block;
+}
+form.admin-form .card .select {
+    height: 2.1em;
+    margin-bottom: 0;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    vertical-align: top;
+}
+form.admin-form .card .control .field .select .form-select {
+    padding: 0.1em .1rem .1rem .2rem;
+    line-height: 1;
+    height: 2rem !important;
+    font-size: 0.9rem !important;
+    margin-top: 1px;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    display: block;
+    max-width: 100%;
+    outline: none;
+    background-color: #ffffff;
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    color: #363636;
+}
+form.admin-form .card .control input.input {
+    padding: 0.1em .1rem .1rem .2rem;
+    line-height: 1;
+    height: 2rem !important;
+    font-size: 0.9rem !important;
+    margin-top: 1px;
+    margin-bottom: .2rem !important;
+    cursor: pointer;
+    display: block;
+    max-width: 100%;
+    outline: none;
+    background-color: #ffffff;
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    color: #363636;
+}
 form.admin-form .floating-div.card.admin-form-card {
     width: 100%;
     max-width: 72rem;
@@ -1220,7 +1289,6 @@ form.admin-form .floating-div.card.admin-form-card {
     overflow-y: auto;
     background-color: rgb(245, 245, 245);
 }
-
 form.admin-form .floating-div.card.admin-form-card div.field.is-horizontal div.field-label {
     margin-right: 12px;
 }
@@ -1230,22 +1298,24 @@ form.admin-form .floating-div.card.admin-form-card div.field.is-horizontal div.f
     max-width: 8rem;
     white-space: nowrap;
 }
-
+form.admin-form label,
 form.admin-form input,
 form.admin-form select,
 form.admin-form textarea {
-    padding-bottom: calc(0.2em - 1px) !important;
-    /* padding-left: calc(0.5em - 1px) !important; */
-    padding-right: calc(0.5em - 1px) !important;
-    padding-top: calc(0.2em - 1px) !important;
-    max-width: 36em;
+    font-size: 0.9rem !important;
+    padding-left: 4px !important;
+    margin-top: 1px;
+    line-height: 1;
 }
-form.admin-form input,
-form.admin-form select {
+form.form-admin div.field-label {
+    width: 110px !important;
+}
+
+form.admin-form input, form.admin-form select {
     height: 2em !important;
 }
 form.admin-form .field.is-horizontal {
-    margin-bottom: .25rem;
+    margin-bottom: .1rem;
 }
 form.admin-form .field-body .field .select {
     height: 2em;
@@ -1253,19 +1323,20 @@ form.admin-form .field-body .field .select {
 form.admin-form input.form-input-label {
     max-width: 36em !important;
 }
-
 form.admin-form input.input {
     margin-right: 1px;
 }
-
 form.admin-form input.input-abbreviation {
     width: 10rem;
+}
+form.admin-form input.input-city {
+    width: 15rem;
 }
 form.admin-form input.input-date {
     width: 6rem;
 }
 form.admin-form input.input-datetime {
-    width: 15rem;
+    width: 10rem;
 }
 form.admin-form input.input-link {
     width: 30rem;
@@ -1276,10 +1347,23 @@ form.admin-form input.input-link-name {
 form.admin-form input.input-name {
     width: 30rem;
 }
+form.admin-form input.input-street {
+    width: 34.2rem;
+}
 form.admin-form input.input-year {
-    width: 5rem;
+    width: 7rem;
+}
+form.admin-form input.input-zip {
+    width: 8em;
 }
 
+form.admin-form select.select-company {
+    width: 22rem;
+}
+form.admin-form select.select-country,
+form.admin-form select.select-state {
+    width: 10rem;
+}
 form.admin-form textarea.textarea-description,
 form.admin-form textarea.textarea-notes {
     width: 54rem;
@@ -1289,3 +1373,127 @@ form.admin-form textarea.textarea-disclaimer,
 form.admin-form textarea.textarea-definition {
     width: 30rem;
 }
+form.admin-form .field.images-section {
+    font-size: .9rem;
+}
+
+
+/* ------------------------------------ */
+/*         search form styles           */
+/* ------------------------------------ */
+.search-control-group {
+    padding: .5rem !important;
+    margin-bottom: 0.3rem !important;
+}
+form.search-form input, form.search-form select, form.search-form textarea {
+    height: 1em !important;
+}
+form.search-form .field.is-horizontal {
+    margin-bottom: .1rem;
+}
+form.search-form .field-body .field .select {
+    height: 2em;
+}
+form.search-form input.form-input-label {
+    max-width: 36em !important;
+}
+form.search-form input.input {
+    margin-right: 1px;
+}
+form.search-form input.input-abbreviation {
+    width: 10rem;
+}
+form.search-form input.input-city {
+    width: 10rem;
+}
+form.search-form input.input-date {
+    width: 6rem;
+}
+form.search-form input.input-datetime {
+    width: 10rem;
+}
+form.search-form input.input-link {
+    width: 30rem;
+}
+form.search-form input.input-link-name {
+    width: 15rem;
+}
+form.search-form input.input-name {
+    width: 12rem;
+}
+form.search-form input.input-phone {
+    width: 10rem;
+}
+form.search-form input.input-year {
+    width: 7rem;
+}
+
+form.search-form select.select-country,
+form.search-form select.select-state {
+    width: 10rem;
+}
+form.search-form select.select-name {
+    width: 12rem;
+}
+form.search-form select.select-owner {
+    width: 10rem;
+}
+
+
+/*
+form.admin-form, form.admin-form input, form.admin-form select, form.admin-form label,
+form#searchForm, form#searchForm input, form#searchForm select, form#searchForm label,
+form#searchForm div.floating-div-container div.floating-div div.search-form-control input {
+    font-size: .9rem;
+    height: 1.5rem;
+    padding: 0 0 0 4px;
+    display: block;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control {
+    padding: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control.search-checkbox-container div.field div.control {
+    height: 2.1em;
+    margin-top: 0.4em;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field {
+    margin-bottom: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field label {
+    margin-bottom: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div {
+    height: 2.1em;
+    margin-bottom: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div.input {
+    height: 28px;
+    padding: 0;
+    margin-bottom: 0.6em;
+    border-width: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div.input input {
+    height: 28px;
+    padding-left: 0.2em;
+    margin-bottom: 0;
+}
+
+.search-container input,
+.search-container select {
+    font-size: 0.9rem !important;
+    padding-left: 4px !important;
+    margin-top: 1px;
+}
+
+.min-max-search-controls label {
+    font-weight: 700;
+    padding-left: 40px;
+}
+.min-max-search-controls div div {
+    display: inline-flex;
+}
+.min-max-search-controls span.min-label, .min-max-search-controls span.max-label {
+    font-weight: 700;
+    width: 35px;
+}
+*/

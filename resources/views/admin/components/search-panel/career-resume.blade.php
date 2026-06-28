@@ -26,11 +26,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls" style="width: 25rem;">
+                <div class="search-panel-header" style="width: 25rem;">
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
@@ -51,7 +54,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     @if ($isRootAdmin)
                         <div class="floating-div">
@@ -68,46 +71,49 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
                     </div>
                     <div class="floating-div">
 
-                        @include('admin.components.form-checkbox', [
-                            'name'     => 'active',
-                            'value'    => 1,
-                            'checked'  => $active,
-                            'nohidden' => true,
-                        ])
+                        <div class="card search-control-group">
 
-                        @include('admin.components.form-checkbox', [
-                            'name'     => 'primary',
-                            'value'    => 1,
-                            'checked'  => $primary,
-                            'nohidden' => true,
-                        ])
-
-                        @include('admin.components.form-checkbox', [
-                            'name'     => 'is_public',
-                            'label'    => 'public',
-                            'value'    => 1,
-                            'checked'  => $is_public,
-                            'nohidden' => true,
-                        ])
-
-                        <div class="control" style="max-width: 28rem;">
                             @include('admin.components.form-checkbox', [
-                                'id'         => 'favoritesCheckBox',
-                                'name'       => 'favorites',
-                                'value'      => 1,
-                                'checked'    => $favorites,
-                                'nohidden'   => true,
-                                'class'      => [ 'search-favorites' ],
-                                'attributes' => [ 'data-resource' => 'career.resume' ]
+                                'name'     => 'active',
+                                'value'    => 1,
+                                'checked'  => $active,
+                                'nohidden' => true,
                             ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'     => 'primary',
+                                'value'    => 1,
+                                'checked'  => $primary,
+                                'nohidden' => true,
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'     => 'is_public',
+                                'label'    => 'public',
+                                'value'    => 1,
+                                'checked'  => $is_public,
+                                'nohidden' => true,
+                            ])
+
+                            <div class="control" style="max-width: 28rem;">
+                                @include('admin.components.form-checkbox', [
+                                    'id'         => 'favoritesCheckBox',
+                                    'name'       => 'favorites',
+                                    'value'      => 1,
+                                    'checked'    => $favorites,
+                                    'nohidden'   => true,
+                                    'class'      => [ 'search-favorites' ],
+                                    'attributes' => [ 'data-resource' => 'career.resume' ]
+                                ])
+                            </div>
+
                         </div>
 
                     </div>

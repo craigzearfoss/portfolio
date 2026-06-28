@@ -33,7 +33,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 50em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.career.industry.export', request()->except([ 'page' ])),
@@ -48,7 +48,7 @@
 
             <p class="admin-table-caption"><span class="sample-color-box-light-gray"></span> indicates the industry is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 30rem; max-width: 40rem; overflow-x: auto; overflow-y: hidden;">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];
@@ -61,7 +61,7 @@
                     <tr>
                         @if ($isRootAdmin)
                             <th>
-                                @include('guest.components.column-heading', [
+                                @include('admin.components.column-heading', [
                                     'class' => $className,
                                     'name'  => 'id',
                                     'sort'  => 'id|asc',
@@ -69,14 +69,14 @@
                             </th>
                         @endif
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'name',
                                 'sort'  => 'name|asc',
                             ])
                         </th>
                         <th>
-                            @include('guest.components.column-heading', [
+                            @include('admin.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'abbreviation',
                                 'sort'  => 'abbreviation|asc',

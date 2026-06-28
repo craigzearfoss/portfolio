@@ -70,7 +70,7 @@
                     ]) . ($userTeam->id == $thisUser->team->id ? ' (current team)' : '');
                 }
             @endphp
-            @include('user.components.show-row', [
+            @include('admin.components.show-row', [
                 'name'  => 'teams',
                 'value' => !empty($userTeamListItems) ? implode('<br>', $userTeamListItems) : '',
             ])

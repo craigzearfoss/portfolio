@@ -4,7 +4,8 @@
     use App\Models\System\UserGroup;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $user = $user ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $abbreviation   = $abbreviation ?? request()->query('abbreviation');
@@ -25,16 +26,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action !!}" method="get">
+        <form id="searchForm" action="{!! $action !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new UserGroup()->getSortOptions($sort, $envTypes::USER),
-                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
+                        'list'  => new UserGroup()->getSortOptions($sort),
                     ])
 
                     <?php /*
@@ -51,7 +54,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
 
@@ -73,6 +76,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 15rem;',
                             ])
                         </div>
@@ -82,6 +86,7 @@
                                 'name'    => 'abbreviation',
                                 'value'   => $abbreviation,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => 'width: 15rem;',
                             ])
                         </div>
@@ -94,6 +99,24 @@
                         </div>
 
                     </div>
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+                    */ ?>
 
                 </div>
 

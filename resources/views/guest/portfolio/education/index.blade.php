@@ -106,7 +106,7 @@
                             @if (!empty($education->degreeType->name))
                             {!! htmlspecialchars($education->degreeType->name) !!}
                                 <?php /*
-                                @include('admin.components.link-icon', [
+                                @include('guest.components.link-icon', [
                                     'title'      => 'add to favorites',
                                     'icon'       => 'fa-heart',
                                     'border'     => false,

@@ -3,7 +3,7 @@
 
     $state_id = $state_id ?? request()->query('state_id');
 @endphp
-<div class="control" style="max-width: 28rem;">
+<div class="control">
     @include('admin.components.form-select', [
         'name'  => 'state_id',
         'label' => 'state',
@@ -16,6 +16,6 @@
                        false,
                        [ 'name', 'asc' ]
                    ),
-        'style' => 'min-width: 6rem;'
+        'class' => [ 'select-state' ]
     ])
 </div>

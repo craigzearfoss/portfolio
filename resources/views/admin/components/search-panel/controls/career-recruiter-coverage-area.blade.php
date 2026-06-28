@@ -9,7 +9,7 @@
     <div class="card-header pr-2 pl-2 pt-1 pb-1">
         <span title="Coverage Areas"><strong>coverage</strong></span>
     </div>
-    <div class="card-body pr-2 pl-2 pt-1 pb-0">
+    <div class="card-body pr-2 pl-2 pt-1 pb-2">
 
         @include('admin.components.form-checkbox', [
             'name'     => 'local',

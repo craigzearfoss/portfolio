@@ -40,11 +40,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
@@ -65,7 +68,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
 
@@ -89,8 +92,7 @@
                                 'label'   => 'specialty',
                                 'value'   => $specialties,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -105,50 +107,50 @@
                         ])
 
                     </div>
-                    <div class="floating-div" style="width: 13rem;">
+                    <div class="floating-div" style="width: 12rem;">
 
-                        @include('guest.components.form-checkbox', [
-                            'id'         => 'searchFavorites',
-                            'name'       => 'favorites',
-                            'value'      => 1,
-                            'checked'    => $favorites,
-                            'nohidden'   => true,
-                            'class'      => [ 'search-favorites' ],
-                            'attributes' => [ 'data-resource' => 'career.recruiter' ]
-                        ])
+                        <div class="card search-control-group">
 
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'primary',
-                            'value'    => 1,
-                            'checked'  => $primary,
-                            'nohidden' => true,
-                        ])
-
-                        <?php /*
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'is_active',
-                            'label'    => 'active',
-                            'value'    => 1,
-                            'checked'  => $is_active,
-                            'nohidden' => true,
-                        ])
-                        */ ?>
-
-                        <?php /*
-                        @include('guest.components.form-checkbox', [
-                            'name'     => 'is_disabled',
-                            'label'    => 'disabled',
-                            'value'    => 1,
-                            'checked'  => $is_disabled,
-                            'nohidden' => true,
-                        ])
-                        */ ?>
-
-                        <div>
-                            @include('guest.components.search-panel.controls.career-recruiter-founded', [
-                                'founded_min' => $founded_min,
-                                'founded_max' => $founded_max,
+                            @include('guest.components.form-checkbox', [
+                                'id'         =>'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.recruiter' ]
                             ])
+
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'primary',
+                                'value'    => 1,
+                                'checked'  => $primary,
+                                'nohidden' => true,
+                            ])
+
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'is_active',
+                                'label'    => 'active',
+                                'value'    => 1,
+                                'checked'  => $is_active,
+                                'nohidden' => true,
+                            ])
+
+                            @include('guest.components.form-checkbox', [
+                                'name'     => 'is_disabled',
+                                'label'    => 'disabled',
+                                'value'    => 1,
+                                'checked'  => $is_disabled,
+                                'nohidden' => true,
+                            ])
+
+                            <div>
+                                @include('guest.components.search-panel.controls.career-recruiter-founded', [
+                                    'founded_min' => $founded_min,
+                                    'founded_max' => $founded_max,
+                                ])
+                            </div>
+
                         </div>
 
                     </div>
@@ -159,8 +161,7 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-city', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 

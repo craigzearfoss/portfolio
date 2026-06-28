@@ -47,7 +47,7 @@ $style = !empty($style)
                            style="{!! implode('; ', $style) !!}"
                        @endif
                 >
-                <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+                <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-envelope"></i></span>
             </div>
 
             @error($emailName ?? 'name')

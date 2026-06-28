@@ -5,7 +5,8 @@
     use App\Models\Career\Note;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action           = $action ?? url()->current();
@@ -34,16 +35,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Note()->getSortOptions($sort, EnvTypes::ADMIN, $envTypes::USER),
-                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                        'list'  => new Note()->getSortOptions($sort),
                     ])
 
                     <?php /*
@@ -60,7 +63,17 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+                    */ ?>
 
                     <div class="floating-div">
 
@@ -71,7 +84,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
-                                    'style'   => [ 'width: 12rem'],
+                                    'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -88,6 +101,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
+                                        'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                     ])
                                 </div>
                             @else
@@ -105,7 +119,7 @@
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -114,7 +128,22 @@
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="card search-control-group">
+                            @include('user.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.note' ]
                             ])
                         </div>
 

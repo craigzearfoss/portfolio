@@ -38,9 +38,9 @@
 
     <p class="admin-table-caption">* An asterisk indicates a featured photo.</p>
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 70em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.photography.export', request()->except([ 'page' ])),

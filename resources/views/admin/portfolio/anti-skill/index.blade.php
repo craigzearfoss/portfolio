@@ -36,9 +36,9 @@
 
     @include('admin.components.search-panel.portfolio-skill', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.anti-skill.export', request()->except([ 'page' ])),
@@ -132,23 +132,23 @@
                                     'class' => $antiSkill->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </td>
-                            @include('admin.components.link-icon', [
-                                'title'      => 'add to favorites',
-                                'icon'       => 'fa-heart',
-                                'border'     => false,
-                                'target'     => '_blank',
-                                'class'      => 'add-to-favorites',
-                                'attributes' => [ 'data-resource' => 'portfolio.academy_skill', 'data-id' => $antiSkill->id ]
-                            ])
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             @include('admin.components.link', [
                                 'name'  => $antiSkill->name
-                                             . (!empty($antiSkill->version) ? ' ' . $antiSkill->version : '')
-                                             . (!empty($antiSkill->featured) ? '<span class="featured-splat">*</span>' : ''),
+                                            . (!empty($antiSkill->version) ? ' ' . $antiSkill->version : '')
+                                            . (!empty($antiSkill->featured) ? '<span class="featured-splat">*</span>' : ''),
                                 'href'  => route('admin.portfolio.anti-skill.show', $antiSkill),
                                 'class' => $antiSkill->is_disabled ? [ 'disabled-text' ] : []
                             ])
+                            @include('admin.components.link-icon', [
+                               'title'      => 'add to favorites',
+                               'icon'       => 'fa-heart',
+                               'border'     => false,
+                               'target'     => '_blank',
+                               'class'      => 'add-to-favorites',
+                               'attributes' => [ 'data-resource' => 'portfolio.anti-skill', 'data-id' => $antiSkill->id ]
+                           ])
                         </td>
                         <td data-field="dictionary_category_id" style="white-space: nowrap;">
                              @if (!empty($antiSkill->category->name))

@@ -7,80 +7,29 @@
 
     $menuItems = !empty($menuService) ? $menuService->leftMenu() : [];
 @endphp
-<?php /*
-<div class="control ml-2 mt-2">
 
-    @if (!config('app.single_admin_mode'))
+@include('user.components.nav-left-candidate-card', [
+    'candidateItems' => $menuItems['candidate'],
+    'owner'          => $owner,
+])
 
-        <div class="has-text-light">candidates</div>
+@include('user.components.nav-left-resources-card', [
+    'resourceItems' => $menuItems['resources'] ?? [],
+    'owner'         => $owner,
+])
 
-        @include('user.components.select-list', [
-            'value'    => !empty($owner->label) ? $owner->label : '',
-            'list'     => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
-            'style'    => 'font-size: 1.1rem; font-weight: 700',
-            'onchange' => 'loadSelectedAdmin(this.value, \'/#adminId#\')'
-        ])
+@include('user.components.nav-left-tools-card', [
+    'toolItems' => $menuItems['tools'] ?? [],
+    'owner'     => $owner,
+])
 
-    @endif
+@include('user.components.nav-left-dictionary-card', [
+    'dictionaryItems' => $menuItems['dictionary'] ?? [],
+    'owner'           => $owner,
+])
 
-</div>
+@include('user.components.nav-left-system-items', [
+    'systemItems' => $menuItems['system'],
+    'owner'       => $owner,
+])
 
-@for ($i = 0; $i < count($menuItems); $i++)
-
-    <ul class="menu is-menu-main" style="font-size: 1rem;">
-
-        <p class="menu-label menu-label-left">
-            @include('user.components.nav-link-left', [
-                'level'  => 1,
-                'name'   => $menuItems[$i]->title,
-                'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
-                'active' => $menuItems[$i]->active,
-                'class'  => 'has-text-white'
-            ])
-        </p>
-
-        @if (!empty($menuItems[$i]->children))
-
-            <ul class="menu-list pl-2" style="margin-left: 1em;">
-
-                @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
-                    <li>
-                        @include('guest.components.nav-link-left', [
-                            'level'  => 2,
-                            'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
-                            'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
-                            'active' => $menu2Item->active,
-                            'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
-                        ])
-
-                        @if (!empty($menu2Item->children))
-                            @php //@TODO: This isn't working @endphp
-                            <ul class="menu-list pl-2" style="margin-left: 1em;">
-
-                                @foreach ($menu2Item->children as $menu3Item)
-                                    <li>
-                                        @include('user.components.nav-link-left', [
-                                            'level'  => 3,
-                                            'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
-                                            'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
-                                            'active' => $menu3Item->active,
-                                            'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
-                                        ])
-                                    </li>
-                                @endforeach
-
-                            </ul>
-
-                        @endif
-
-                    </li>
-                @endforeach
-
-            </ul>
-
-        @endif
-
-    </ul>
-
-@endfor
-*/ ?>

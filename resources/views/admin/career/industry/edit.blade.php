@@ -28,58 +28,54 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.career.industry.update', array_merge([$industry], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.career.industry.update', array_merge([$industry], request()->all())) }}"
-              class="admin-form"
-              method="POST"
-        >
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.career.industry.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.career.industry.index')
-            ])
+        <div class="floating-div-container">
 
-            <div class="floating-div-container">
+            <div class="floating-div card admin-form-card">
 
-                <div class="floating-div card admin-form-card">
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $industry->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-                    @include('admin.components.form-text-horizontal', [
-                        'name'  => 'id',
-                        'value' => $industry->id,
-                        'hide'  => !$isRootAdmin,
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $industry->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'   => [ 'input-name' ],
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'name',
-                        'value'     => old('name') ?? $industry->name,
-                        'required'  => true,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                        'class'   => [ 'input-name' ],
-                    ])
-
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'abbreviation',
-                        'value'     => old('abbreviation') ?? $industry->abbreviation,
-                        'required'  => true,
-                        'maxlength' => 20,
-                        'message'   => $message ?? '',
-                    ])
-
-                </div>
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'abbreviation',
+                    'value'     => old('abbreviation') ?? $industry->abbreviation,
+                    'required'  => true,
+                    'maxlength' => 20,
+                    'message'   => $message ?? '',
+                ])
 
             </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.career.industry.index')
-            ])
+        </div>
 
-        </form>
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.career.industry.index')
+        ])
 
-    </div>
+    </form>
 
 @endsection

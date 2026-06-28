@@ -67,7 +67,7 @@
             'target'    => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('guest.components.show-row-link', [
             'link_name' => !empty($database->link_name) ? htmlspecialchars($database->link_name) : 'link',
             'name'      => $database->link,
             'href'      => $database->link,

@@ -35,11 +35,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('guest.components.search-sort-select', [
                         'sort'  => $sort,
@@ -60,13 +63,13 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <?php /*
                     @if ($isRootAdmin)
                         <div class="floating-div">
                             <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
                         </div>
                     @endif
@@ -81,8 +84,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
-                                    'class'   => [ 'submit-search-on-enter-key' ],
-                                    'style'   => [ 'width: 12rem'],
+                                    'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -99,7 +101,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
-                                        'class'   => [ 'submit-search-on-enter-key' ],
+                                        'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                     ])
                                 </div>
                             @else
@@ -117,8 +119,7 @@
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
-                                'class'   => [ 'submit-search-on-enter-key' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -127,23 +128,24 @@
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
                     </div>
                     <div class="floating-div">
 
-                        @include('guest.components.form-checkbox', [
-                            'id'         => 'favoritesCheckBox',
-                            'name'       => 'favorites',
-                            'value'      => 1,
-                            'checked'    => $favorites,
-                            'nohidden'   => true,
-                            'class'      => [ 'search-favorites' ],
-                            'attributes' => [ 'data-resource' => 'career.note' ]
-                        ])
+                        <div class="card search-control-group">
+                            @include('guest.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.note' ]
+                            ])
+                        </div>
 
                     </div>
                     <div class="floating-div">

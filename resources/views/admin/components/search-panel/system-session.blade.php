@@ -18,11 +18,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
@@ -43,7 +46,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
                         @include('admin.components.search-panel.controls.system-admin', [ 'admin_id' => $admin_id ])

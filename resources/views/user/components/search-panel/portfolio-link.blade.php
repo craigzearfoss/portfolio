@@ -3,7 +3,8 @@
     use App\Models\Portfolio\Link;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action         = $action ?? url()->current();
@@ -11,10 +12,10 @@
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $favorites      = $favorites ?? request()->query('favorites');
     $name           = $name ?? request()->query('name');
+    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $updated_at_max = $updated_at_max ?? request()->query('updated_at-max');
     $updated_at_min = $updated_at_min ?? request()->query('updated_at-min');
     $url            = $url ?? request()->query('url');
-    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Link::SEARCH_ORDER_BY[0], Link::SEARCH_ORDER_BY[1] ]);
@@ -23,16 +24,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Link()->getSortOptions($sort, $envTypes::USER),
-                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important' ]
+                        'list'  => new Link()->getSortOptions($sort),
                     ])
 
                     <?php /*
@@ -49,7 +52,17 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        </div>
+                    @endif
+                    */ ?>
 
                     <div class="floating-div">
 
@@ -58,6 +71,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
@@ -70,11 +84,45 @@
                                 'name'    => 'url',
                                 'value'   => $url,
                                 'message' => $message ?? '',
+                                'class'   => [ 'submit-search-on-enter-key' ],
                                 'style'   => [ 'width: 12rem'],
                             ])
                         </div>
 
                     </div>
+                    <div class="floating-div">
+
+                        <div class="control" style="max-width: 30rem;">
+                            @include('user.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'portfolio.link' ]
+                            ])
+                        </div>
+
+                    </div>
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+                    */ ?>
 
                 </div>
 

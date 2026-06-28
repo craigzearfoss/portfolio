@@ -11,6 +11,7 @@
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
+    $classes[] ='images-section';
     if ($editPage) {
         $classes[] ='field';
         $classes[] ='is-horizontal';
@@ -40,7 +41,7 @@
     }
 @endphp
 <div @if (!empty($classes))
-         class="{!! implode(' ', $classes) !!}"
+         class="{{ implode(' ', $classes) }}"
      @endif
      @if (!empty($styles))
          style="{!! implode(' ', $styles) !!}"

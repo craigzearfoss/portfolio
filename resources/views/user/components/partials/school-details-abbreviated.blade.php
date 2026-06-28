@@ -9,7 +9,7 @@
         if ($school->male || $school->female) {
             $schoolDetails[] = ($school->female && $school->male)
                             ? 'coed'
-                            : ($school->male ? 'male<' : 'female');
+                            : ($school->male ? 'male' : 'female');
         }
         */
 

@@ -106,7 +106,7 @@
                                 'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
                                 'class' => $reading->featured ? [ 'has-text-weight-bold' ] : []
                             ])
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',
                                'border'     => false,

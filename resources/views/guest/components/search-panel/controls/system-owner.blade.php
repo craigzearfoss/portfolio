@@ -18,8 +18,8 @@
             false,
             [ 'username', 'asc' ]
         ),
-        'style'      =>'width: 12rem',
         'attributes' => $attributes,
         'onchange'   => $onchange,
+        'class'      => [ 'select-owner' ]
     ])
 </div>

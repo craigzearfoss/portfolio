@@ -37,9 +37,9 @@
 
     @include('admin.components.search-panel.portfolio-education', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 80em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.education.export', request()->except([ 'page' ])),
@@ -81,7 +81,7 @@
                                 ])
                             </th>
                         @endif
-                        <th class="has-text-centered">
+                        <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
                                 'name'  => 'degree',

@@ -3,7 +3,7 @@
 
     $country_id = $country_id ?? request()->query('country_id');
 @endphp
-<div class="control" style="max-width: 28rem;">
+<div class="control">
     @include('admin.components.form-select', [
         'name'  => 'country_id',
         'label' => 'country',
@@ -16,6 +16,6 @@
                        false,
                        [ 'name', 'asc' ]
                    ),
-        'style' => 'min-width: 6rem;'
+        'class' => [ 'select-country']
     ])
 </div>

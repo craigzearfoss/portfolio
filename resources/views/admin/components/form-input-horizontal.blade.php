@@ -83,22 +83,22 @@
                 ])
 
                 @if ($name === 'username')
-                    <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+                    <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-user"></i></span>
                 @endif
                 @if (in_array($name, ['password', 'confirm_password']))
-                    <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+                    <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-key"></i></span>
                 @endif
                 @if (in_array($name, ['link', 'postings_url', 'website', 'wikipedia']))
-                    <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
+                    <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-link"></i></span>
                 @endif
                 @if (in_array($name, ['phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone']))
-                    <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+                    <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-phone"></i></span>
                 @endif
                 @if (in_array($name, ['email', 'alt_email', 'work_email', 'personal_email']))
-                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+                    <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-envelope"></i></span>
                 @endif
                 @if (in_array($name, ['birthday']))
-                    <span class="icon is-small is-left"><i class="fas fa-birthday-cake"></i></span>
+                    <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-birthday-cake"></i></span>
                 @endif
 
             </div>

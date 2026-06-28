@@ -6,7 +6,7 @@
 
 <div>
 
-    <div class="show-container card floating-div p-4">
+    <div class="show-container card floating-div p-4" style="max-width: 90em !important;">
 
         @include('admin.components.export-buttons-container', [
             'href'     => route('admin.career.recruiter.export', request()->except([ 'page' ])),
@@ -21,7 +21,7 @@
 
         <p class="admin-table-caption">* An asterisk indicates a primary recruiter. <span class="sample-color-box-light-gray"></span> indicates the recruiter is disabled.</p>
 
-        <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="min-width: 60rem; max-width: 90rem; overflow-x: auto; overflow-y: hidden;">
+        <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
             @php
                 $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

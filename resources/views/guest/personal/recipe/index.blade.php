@@ -91,7 +91,7 @@
                                 'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
                                 'class' => $recipe->featured ? [ 'has-text-weight-bold' ] : [],
                             ])
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                'title'      => 'add to favorites',
                                'icon'       => 'fa-heart',
                                'border'     => false,

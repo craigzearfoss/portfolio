@@ -1,5 +1,6 @@
 @php
     use App\Models\Dictionary\Category;
+    use App\Models\System\Owner;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $admin       = $admin ?? null;

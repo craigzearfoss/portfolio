@@ -5,32 +5,32 @@
     use App\Models\Career\Resume;
 
     // make sure all template variables are defined (this is mostly for the IDE parser)
-    $admin = $admin ?? null;
+    $admin       = $admin ?? null;
+    $isRootAdmin = $isRootAdmin ?? false;
 
     // get variables
     $action         = $action ?? url()->current();
-    $owner_id       = $owner->id ?? null;
-    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
     $apply_date_max = $apply_date_max ?? request()->query('apply_date-max');
+    $apply_date_min = $apply_date_min ?? request()->query('apply_date-min');
     $benefits       = $benefits ?? request()->query('benefits');
     $city           = $city ?? request()->query('city');
-    $close_date_min = $close_date_min ?? request()->query('close_date-min');
     $close_date_max = $close_date_max ?? request()->query('close_date-max');
+    $close_date_min = $close_date_min ?? request()->query('close_date-min');
     $company_name   = $company_name ?? request()->query('company_name');
     $created_at_max = $created_at_max ?? request()->query('created_at-max');
     $created_at_min = $created_at_min ?? request()->query('created_at-min');
     $favorites      = $favorites ?? request()->query('favorites');
     $health         = $health ?? request()->query('health');
     $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $post_date_min  = $post_date_min ?? request()->query('post_date-min');
     $post_date_max  = $post_date_max ?? request()->query('post_date-max');
+    $post_date_min  = $post_date_min ?? request()->query('post_date-min');
     $relocation     = $relocation ?? request()->query('relocation');
     $resume_name    = $resume_name ?? request()->query('resume_name');
     $role           = $role ?? request()->query('role');
     $wage_rate      = $wage_rate ?? request()->query('wage_rate');
-    $vacation       = $vacation ?? request()->query('vacation');
     $updated_at_max = $created_at_max ?? request()->query('created_at-max');
     $updated_at_min = $created_at_min ?? request()->query('created_at-min');
+    $vacation       = $vacation ?? request()->query('vacation');
     $w2             = $w2 ?? request()->query('w2');
 
     // set sort order
@@ -46,16 +46,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new Application()->getSortOptions($sort, $envTypes::USER),
-                        'style' => [ 'width: 10rem !important', 'max-width: 10rem !important'],
+                        'list'  => new Application()->getSortOptions($sort),
                     ])
 
                     <?php /*
@@ -72,9 +74,17 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
+
+                        <?php /*
+                        @if ($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner')
+                            </div>
+                        @endif
+                        */ ?>
 
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.career-application-status')
@@ -87,14 +97,14 @@
                     </div>
                     <div class="floating-div">
 
-                        @if ($isRootAdmin || $companyCount > 20)
+                        @if ($companyCount > 20)
                             <div class="search-form-control">
                                 @include('user.components.form-input-with-icon', [
                                     'name'    => 'company_name',
                                     'label'   => 'company',
                                     'value'   => $company_name,
                                     'message' => $message ?? '',
-                                    'style'   => [ 'width: 12rem'],
+                                    'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -108,7 +118,7 @@
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -116,14 +126,14 @@
                             @include('user.components.search-panel.controls.career-job-board')
                         </div>
 
-                        @if ($isRootAdmin || $resumeCount > 20)
+                        @if ($resumeCount > 20)
                             <div class="search-form-control">
                                 @include('user.components.form-input-with-icon', [
                                     'name'    => 'resume_name',
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
                                     'message' => $message ?? '',
-                                    'style'   => [ 'width: 12rem' ],
+                                    'class'   => [ 'select-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -150,40 +160,44 @@
                     </div>
                     <div class="floating-div">
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'w2',
-                            'value'    => 1,
-                            'checked'  => $w2,
-                            'nohidden' => true,
-                        ])
+                        <div class="card search-control-group">
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'relocation',
-                            'value'    => 1,
-                            'checked'  => $relocation,
-                            'nohidden' => true,
-                        ])
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'w2',
+                                'value'    => 1,
+                                'checked'  => $w2,
+                                'nohidden' => true,
+                            ])
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'benefits',
-                            'value'    => 1,
-                            'checked'  => $benefits,
-                            'nohidden' => true,
-                        ])
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'relocation',
+                                'value'    => 1,
+                                'checked'  => $relocation,
+                                'nohidden' => true,
+                            ])
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'vacation',
-                            'value'    => 1,
-                            'checked'  => $vacation,
-                            'nohidden' => true,
-                        ])
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'benefits',
+                                'value'    => 1,
+                                'checked'  => $benefits,
+                                'nohidden' => true,
+                            ])
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'health',
-                            'value'    => 1,
-                            'checked'  => $health,
-                            'nohidden' => true,
-                        ])
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'vacation',
+                                'value'    => 1,
+                                'checked'  => $vacation,
+                                'nohidden' => true,
+                            ])
+
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'health',
+                                'value'    => 1,
+                                'checked'  => $health,
+                                'nohidden' => true,
+                            ])
+
+                        </div>
 
                     </div>
                     <div class="floating-div">
@@ -193,12 +207,24 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-city', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.system-state')
+                        </div>
+
+                        <div class="card search-control-group">
+                            @include('user.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.application' ]
+                            ])
                         </div>
 
                     </div>
@@ -220,6 +246,24 @@
                         ])
 
                     </div>
+
+                    <?php /*
+                    @if ($isRootAdmin)
+                        <div class="floating-div">
+
+                            @include('user.components.search-panel.controls.timestamp-created-at', [
+                                'created_at-min' => $created_at_min,
+                                'created_at-max' => $created_at_max,
+                            ])
+
+                            @include('user.components.search-panel.controls.timestamp-updated-at', [
+                                'updated_at-min' => $updated_at_min,
+                                'updated_at-max' => $updated_at_max,
+                            ])
+
+                        </div>
+                    @endif
+                    */ ?>
 
                 </div>
 

@@ -38,256 +38,252 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.career.resume.update', array_merge([$resume], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.career.resume.update', array_merge([$resume], request()->all())) }}"
-              class="admin-form"
-              method="POST"
-        >
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.career.resume.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.career.resume.index')
-            ])
+        <div class="floating-div-container">
 
-            <div class="floating-div-container">
+            <div class="floating-div card admin-form-card">
 
-                <div class="floating-div card admin-form-card">
-
-                    @if ($isRootAdmin)
-                        @include('admin.components.favorites-box-form-input', [
-                            'name'  => 'favorite_count',
-                            'label' => 'favorites',
-                            'value' => old('favorite_count') ?? $resume->favorite_count,
-                        ])
-                    @endif
-
-                    @include('admin.components.form-text-horizontal', [
-                        'name'  => 'id',
-                        'value' => $resume->id,
-                        'hide'  => !$isRootAdmin,
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $resume->favorite_count,
                     ])
+                @endif
 
-                    @if ($isRootAdmin)
-                        @include('admin.components.form-select-horizontal', [
-                            'name'     => 'owner_id',
-                            'label'    => 'owner',
-                            'value'    => old('owner_id') ?? $resume->owner_id,
-                            'required' => true,
-                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                            'message'  => $message ?? '',
-                            'class'    => [ 'select-owner' ]
-                        ])
-                    @else
-                        @include('admin.components.form-hidden', [
-                            'name'  => 'owner_id',
-                            'value' => $resume->owner_id
-                        ])
-                    @endif
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $resume->id,
+                    'hide'  => !$isRootAdmin,
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'name',
-                        'value'     => old('name') ?? $resume->name,
-                        'required'  => true,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                        'class'     => [ 'input-name' ]
+                @if ($isRootAdmin)
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $resume->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
                     ])
-
-                    @include('admin.components.form-checkbox-horizontal', [
-                        'name'            => 'active',
-                        'value'           => 1,
-                        'unchecked_value' => 0,
-                        'checked'         => old('active') ?? $resume->active,
-                        'message'         => $message ?? '',
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $resume->owner_id
                     ])
+                @endif
 
-                    @include('admin.components.form-checkbox-horizontal', [
-                        'name'            => 'primary',
-                        'value'           => 1,
-                        'unchecked_value' => 0,
-                        'checked'         => old('primary') ?? $resume->primary,
-                        'message'         => $message ?? '',
-                    ])
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $resume->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ]
+                ])
 
-                    @include('admin.components.form-input-horizontal', [
-                        'type'      => 'date',
-                        'name'      => 'resume_date',
-                        'label'     => 'date',
-                        'value'     => old('resume_date') ?? $resume->resume_date,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'active',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('active') ?? $resume->active,
+                    'message'         => $message ?? '',
+                ])
 
-                </div>
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'primary',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('primary') ?? $resume->primary,
+                    'message'         => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'date',
+                    'name'      => 'resume_date',
+                    'label'     => 'date',
+                    'value'     => old('resume_date') ?? $resume->resume_date,
+                    'message'   => $message ?? '',
+                ])
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'content',
-                        'value'   => old('content') ?? $resume->content,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-content' ]
-                    ])
+            <div class="floating-div card admin-form-card">
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label class="label">PDF file</label>:
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control ">
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'content',
+                    'value'   => old('content') ?? $resume->content,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-content' ]
+                ])
 
-                                    @if (!empty($resume->pdf_filepath))
-                                        {{ substr(strrchr($resume->pdf_filepath, DIRECTORY_SEPARATOR), 1) }}
-                                        @include('admin.components.download-links', [
-                                            'name'     => 'image',
-                                            'href'     => imageUrl($resume->pdf_filepath),
-                                            'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
-                                                              . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
-                                            'download' => true,
-                                            'external' => true,
-                                        ])
-                                    @else
-                                        <i>none (Add via the show page.)</i>
-                                    @endif
-                                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">PDF file</label>:
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control ">
+
+                                @if (!empty($resume->pdf_filepath))
+                                    {{ substr(strrchr($resume->pdf_filepath, DIRECTORY_SEPARATOR), 1) }}
+                                    @include('admin.components.download-links', [
+                                        'name'     => 'image',
+                                        'href'     => imageUrl($resume->pdf_filepath),
+                                        'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
+                                                          . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                        'download' => true,
+                                        'external' => true,
+                                    ])
+                                @else
+                                    <i>none (Add via the show page.)</i>
+                                @endif
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label class="label">MS Word file</label>:
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control ">
-                                    @if (!empty($resume->doc_filepath))
-                                        {{ substr(strrchr($resume->doc_filepath, DIRECTORY_SEPARATOR), 1) }}
-                                        @include('admin.components.download-links', [
-                                            'name'     => 'image',
-                                            'href'     => imageUrl($resume->doc_filepath),
-                                            'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
-                                                              . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
-                                            'download' => true,
-                                            'external' => false,
-                                        ])
-                                    @else
-                                        <i>none (Add via the show page.)</i>
-                                    @endif
-                                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">MS Word file</label>:
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control ">
+                                @if (!empty($resume->doc_filepath))
+                                    {{ substr(strrchr($resume->doc_filepath, DIRECTORY_SEPARATOR), 1) }}
+                                    @include('admin.components.download-links', [
+                                        'name'     => 'image',
+                                        'href'     => imageUrl($resume->doc_filepath),
+                                        'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
+                                                          . '.' . substr(strrchr($resume->pdf_filepath, '.'), 1),
+                                        'download' => true,
+                                        'external' => false,
+                                    ])
+                                @else
+                                    <i>none (Add via the show page.)</i>
+                                @endif
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <label class="label">other file</label>:
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control ">
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label">other file</label>:
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control ">
 
-                                    @if (!empty($resume->other_filepath))
-                                        {{ substr(strrchr($resume->other_filepath, DIRECTORY_SEPARATOR), 1) }}
-                                        @include('admin.components.download-links', [
-                                            'name'     => 'image',
-                                            'href'     => imageUrl($resume->other_filepath),
-                                            'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
-                                                              . '.' . substr(strrchr($resume->other_filepath, '.'), 1),
-                                            'download' => true,
-                                            'external' => true,
-                                        ])
-                                    @else
-                                        <i>none (Add via the show page.)</i>
-                                    @endif
-                                </div>
+                                @if (!empty($resume->other_filepath))
+                                    {{ substr(strrchr($resume->other_filepath, DIRECTORY_SEPARATOR), 1) }}
+                                    @include('admin.components.download-links', [
+                                        'name'     => 'image',
+                                        'href'     => imageUrl($resume->other_filepath),
+                                        'filename' => Str::slug(str_replace('Resume: ', '', getResourcePageTitle($resume)))
+                                                          . '.' . substr(strrchr($resume->other_filepath, '.'), 1),
+                                        'download' => true,
+                                        'external' => true,
+                                    ])
+                                @else
+                                    <i>none (Add via the show page.)</i>
+                                @endif
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
 
-            <div class="floating-div-container">
+        </div>
 
-                <div class="floating-div card admin-form-card">
+        <div class="floating-div-container">
 
-                    @include('admin.components.form-link-horizontal', [
-                        'link'    => old('link') ?? $resume->link,
-                        'name'    => old('link_name') ?? $resume->link_name,
-                        'message' => $message ?? '',
-                    ])
+            <div class="floating-div card admin-form-card">
 
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'description',
-                        'id'      => 'inputEditor',
-                        'value'   => old('description') ?? $resume->description,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-description' ]
-                    ])
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? $resume->link,
+                    'name'    => old('link_name') ?? $resume->link_name,
+                    'message' => $message ?? '',
+                ])
 
-                </div>
-
-            </div>
-
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'      => 'disclaimer',
-                        'value'     => old('disclaimer') ?? $resume->disclaimer,
-                        'maxlength' => 500,
-                        'cols'      => 30,
-                        'rows'      => 3,
-                        'message'   => $message ?? '',
-                        'class'     => [ 'textarea-disclaimer' ],
-                    ])
-
-                    @include('admin.components.show-row-images', [
-                        'resource' => $resume,
-                        'upload'   => false,
-                        'download' => true,
-                        'external' => true,
-                        'editPage' => true,
-                    ])
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'notes',
-                        'value'   => old('notes') ?? $resume->notes,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-notes' ]
-                    ])
-
-                    @include('admin.components.form-visibility-horizontal', [
-                        'is_public'   => old('is_public')   ?? $resume->is_public,
-                        'is_readonly' => old('is_readonly') ?? $resume->is_readonly,
-                        'is_root'     => old('is_root')     ?? $resume->root,
-                        'is_disabled' => old('is_disabled') ?? $resume->is_disabled,
-                        'is_demo'     => old('is_demo')     ?? $resume->is_demo,
-                        'sequence'    => old('sequence')    ?? $resume->sequence,
-                        'message'     => $message           ?? '',
-                    ])
-
-                </div>
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $resume->description,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ]
+                ])
 
             </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.career.resume.index')
-            ])
+        </div>
 
-        </form>
+        <div class="floating-div-container">
 
-    </div>
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? $resume->disclaimer,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-disclaimer' ],
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $resume,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $resume->notes,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-notes' ]
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $resume->is_public,
+                    'is_readonly' => old('is_readonly') ?? $resume->is_readonly,
+                    'is_root'     => old('is_root')     ?? $resume->root,
+                    'is_disabled' => old('is_disabled') ?? $resume->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $resume->is_demo,
+                    'sequence'    => old('sequence')    ?? $resume->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.career.resume.index')
+        ])
+
+    </form>
 
 @endsection

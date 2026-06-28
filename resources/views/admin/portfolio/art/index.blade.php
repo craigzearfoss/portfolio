@@ -36,9 +36,9 @@
 
     @include('admin.components.search-panel.portfolio-art', [ 'owner_id' => $isRootAdmin ? null : $owner->id])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 80em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.art.export', request()->except([ 'page' ])),
@@ -53,7 +53,8 @@
 
             <p class="admin-table-caption">* An asterisk indicates a featured art. <span class="sample-color-box-light-gray"></span> indicates the art is disabled.</p>
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}" style="width: auto;
+            table-layout: auto;">
 
                 @php
                     $labelElems = $top_column_headings ?? false ? [ 'thead' ] : [];

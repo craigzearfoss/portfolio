@@ -86,7 +86,7 @@
                     <td>
                         {!! $recruiter->link !!}
                         <div class="mb-2" style="display: inline-block; line-height: 2;">
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',
                                 'href'   => $recruiter->link,
                                 'icon'   => 'fa-external-link',
@@ -104,7 +104,7 @@
                     <td>
                         {!! $recruiter->linkedin_url !!}
                         <div class="mb-2" style="display: inline-block; line-height: 2;">
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',
                                 'href'   => $recruiter->linkedin_url,
                                 'icon'   => 'fa-external-link',
@@ -122,7 +122,7 @@
                     <td>
                         {!! $recruiter->jobs_url !!}
                         <div class="mb-2" style="display: inline-block; line-height: 2;">
-                        @include('admin.components.link-icon', [
+                        @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $recruiter->jobs_url,
                             'icon'   => 'fa-external-link',

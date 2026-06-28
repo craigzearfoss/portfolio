@@ -92,13 +92,13 @@
                     <tr data-id="{{ $recruiter->id }}" {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
                         <td data-field="name" style="white-space: nowrap;">
                             <span {!! $recruiter->primary ? 'class="has-text-weight-bold"' : '' !!}>
-                                @include('admin.components.link', [
+                                @include('guest.components.link', [
                                     'name'  => $recruiter->name,
                                     'href'  => route('guest.career.recruiter.show', $recruiter->slug),
                                     'class' => $recruiter->is_disabled ? [ 'disabled-text' ] : []
                                 ])
                             </span>
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                 'title'      => 'add to favorites',
                                 'icon'       => 'fa-heart',
                                 'border'     => false,
@@ -107,7 +107,7 @@
                                 'attributes' => [ 'data-resource' => 'career.recruiter', 'data-id' => $recruiter->id ]
                             ])
                             @if (!empty($recruiter->link))
-                                @include('admin.components.link-icon', [
+                                @include('guest.components.link-icon', [
                                     'title'  => 'open link in new window',
                                     'href'   => $recruiter->link,
                                     'icon'   => 'fa-external-link',
@@ -140,14 +140,14 @@
                             !!}
                         </td>
                         <td data-field="is_disabled" class="has-text-centered" style="display: none;">
-                            @include('admin.components.checkmark', [ 'checked' => $recruiter->is_public ])
+                            @include('guest.components.checkmark', [ 'checked' => $recruiter->is_public ])
                         </td>
                         <td data-field="is_disabled" class="has-text-centered" style="display: none;">
-                            @include('admin.components.checkmark', [ 'checked' => $recruiter->is_disabled ])
+                            @include('guest.components.checkmark', [ 'checked' => $recruiter->is_disabled ])
                         </td>
                         <td class="has-text-centered">
                             @if (!empty($recruiter->jobs_url))
-                                @include('admin.components.link-icon', [
+                                @include('guest.components.link-icon', [
                                     'title'  => 'open link in new window',
                                     'href'   => $recruiter->jobs_url,
                                     'icon'   => 'fa-briefcase',

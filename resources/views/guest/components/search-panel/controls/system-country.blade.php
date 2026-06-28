@@ -16,6 +16,6 @@
                        false,
                        [ 'name', 'asc' ]
                    ),
-        'style' => 'min-width: 6rem;'
+        'class' => [ 'select-country']
     ])
 </div>

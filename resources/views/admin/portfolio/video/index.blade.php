@@ -36,9 +36,9 @@
 
     @include('admin.components.search-panel.portfolio-video', [ 'owner_id'   => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.video.export', request()->except([ 'page' ])),
@@ -108,8 +108,8 @@
                                 'sort'  => 'company|asc',
                             ])
                         </th>
-                        <th>public</th>
-                        <th>disabled</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
                     </{{ $labelElem }}>

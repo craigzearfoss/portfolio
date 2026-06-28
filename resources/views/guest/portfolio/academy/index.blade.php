@@ -81,7 +81,7 @@
                                 {{ $academy->name }}
                             </span>
                             <?php /*
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                 'title'      => 'add to favorites',
                                 'icon'       => 'fa-heart',
                                 'border'     => false,
@@ -91,7 +91,7 @@
                             ])
                             */ ?>
                             @if (!empty($academy->link))
-                                @include('admin.components.link-icon', [
+                                @include('guest.components.link-icon', [
                                     'title'  => 'open link in new window',
                                     'href'   => $academy->link,
                                     'icon'   => 'fa-external-link',

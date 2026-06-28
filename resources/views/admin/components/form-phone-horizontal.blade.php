@@ -47,7 +47,7 @@ $style = !empty($style)
                            style="{!! implode('; ', $style) !!}"
                        @endif
                 >
-                <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+                <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-phone"></i></span>
             </div>
 
             @error($phoneName ?? 'name')

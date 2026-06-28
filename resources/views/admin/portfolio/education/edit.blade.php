@@ -1,4 +1,5 @@
 @php
+    use App\Models\System\Owner;
     use App\Models\Portfolio\DegreeType;
     use App\Models\Portfolio\School;
 

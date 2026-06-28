@@ -18,6 +18,6 @@
                           false,
                           [ 'name', 'asc' ]
                       ),
-        'style'    => 'min-width: 12rem;'
+        'class'    => [ 'select-name' ]
     ])
 </div>

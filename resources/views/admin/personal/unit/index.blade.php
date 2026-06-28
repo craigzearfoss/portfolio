@@ -31,9 +31,9 @@
 
 @section('content')
 
-    <div class="floating-div-container" style="max-width: 40em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 40em !important;">
 
             @if (!empty($pagination_top))
                 {!! $units->links('vendor.pagination.bulma') !!}

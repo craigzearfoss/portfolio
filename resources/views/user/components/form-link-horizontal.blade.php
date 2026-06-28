@@ -32,7 +32,7 @@
                            {!! implode('; ', $style) !!}
                        @endif
                 >
-                <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
+                <span class="icon is-small is-left" style="top: -4px;"><i class="fas fa-link"></i></span>
             </div>
 
             @error('link')

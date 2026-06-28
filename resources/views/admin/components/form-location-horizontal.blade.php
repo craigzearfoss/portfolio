@@ -55,13 +55,13 @@
     </div>
 </div>
 
-<div class="field is-horizontal mb-0">
-    <div class="field-label mb-2">
+<div class="field is-horizontal">
+    <div class="field-label">
         <label class="label" for="inputCity" style="min-width: 10em !important;"></label>
     </div>
     <div class="field-body has-text-left">
 
-        <div class="mr-2 mb-2">
+        <div>
             @include('admin.components.input', [
                 'name'        => 'city',
                 'id'          => 'inputCity',
@@ -84,7 +84,7 @@
             'class'       => array_merge($class, [ 'select', 'select-state' ])
         ])
 
-        <div class="field mr-0 mb-2">
+        <div class="field">
             @include('admin.components.input', [
                 'name'        => 'zip',
                 'id'          => 'inputZip',

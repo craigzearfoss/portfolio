@@ -40,7 +40,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.course.export', request()->except([ 'page' ])),
@@ -106,7 +106,7 @@
                         <th>
                             @include('guest.components.column-heading', [
                                 'class' => $className,
-                                'name'  => 'completion date',
+                                'name'  => 'completed',
                                 'sort'  => 'completion_date|asc',
                             ])
                         </th>
@@ -159,10 +159,10 @@
                                 ])
                             @endif
                         </td>
-                        <td data-field="instructor">
+                        <td data-field="instructor" style="white-space: nowrap;">
                             {{ $course->instructor }}
                         </td>
-                        <td data-field="completion_date" class="has-text-centered">
+                        <td data-field="completion_date">
                             {{ shortDate($course->completion_date) }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

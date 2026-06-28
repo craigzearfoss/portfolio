@@ -31,9 +31,9 @@
 
 @section('content')
 
-    <div class="floating-div-container" style="max-width: 40em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 40em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.academy.export', request()->except([ 'page' ])),

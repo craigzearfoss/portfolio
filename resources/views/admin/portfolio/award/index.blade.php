@@ -36,9 +36,9 @@
 
     @include('admin.components.search-panel.portfolio-award', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 100em !important;">
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="max-width: 90em !important;">
 
             @include('admin.components.export-buttons-container', [
                 'href'     => route('admin.portfolio.award.export', request()->except([ 'page' ])),

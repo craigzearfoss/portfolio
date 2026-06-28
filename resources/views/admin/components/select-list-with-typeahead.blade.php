@@ -45,7 +45,7 @@
     @endphp
 @enderror
 
-<div class="typeahead-container field mb-0 mr-2">
+<div class="typeahead-container">
 
     <input type="text"
            id="typeahead-input_{{ $name }}"

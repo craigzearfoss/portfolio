@@ -47,7 +47,7 @@
                     <div class="card p-2 border-1">
 
                         <div class="mr-4" style="display: inline-block;">
-                            @include('guest.components.form-checkbox', [
+                            @include('admin.components.form-checkbox', [
                                 'id'              => 'active-resumes',
                                 'name'            => 'active',
                                 'value'           => 1,
@@ -58,7 +58,7 @@
                             ])
                         </div>
                         <div class="mr-4" style="display: inline-block;">
-                            @include('guest.components.form-checkbox', [
+                            @include('admin.components.form-checkbox', [
                                 'id'              => 'primary-resumes',
                                 'name'            => 'primary',
                                 'label'           => 'primary',
@@ -70,7 +70,7 @@
                             ])
                         </div>
                         <div style="display: inline-block;">
-                            @include('guest.components.form-checkbox', [
+                            @include('admin.components.form-checkbox', [
                                 'id'              => 'public-resumes',
                                 'name'            => 'public',
                                 'value'           => 1,
@@ -81,7 +81,7 @@
                             ])
                         </div>
                         <div style="display: inline-block;">
-                            @include('guest.components.form-checkbox', [
+                            @include('admin.components.form-checkbox', [
                                 'id'              => 'word-resumes',
                                 'name'            => 'word',
                                 'value'           => 1,
@@ -92,7 +92,7 @@
                             ])
                         </div>
                         <div style="display: inline-block;">
-                            @include('guest.components.form-checkbox', [
+                            @include('admin.components.form-checkbox', [
                                 'id'              => 'pdf-resumes',
                                 'name'            => 'pdf',
                                 'value'           => 1,

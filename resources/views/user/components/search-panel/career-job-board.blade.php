@@ -8,11 +8,10 @@
 
     // get variables
     $action                = $action ?? url()->current();
-    $name                  = $name ?? request()->query('name');
-    $created_at_max        = $created_at_max ?? request()->query('created_at-max');
-    $created_at_min        = $created_at_min ?? request()->query('created_at-min');
     $city                  = $city ?? request()->query('city');
     $country_id            = $country_id ?? request()->query('country_id');
+    $created_at_max        = $created_at_max ?? request()->query('created_at-max');
+    $created_at_min        = $created_at_min ?? request()->query('created_at-min');
     $email                 = $email ?? request()->query('email');
     $favorites             = $favorites ?? request()->query('favorites');
     $founded               = $founded ?? request()->query('$founded');
@@ -20,10 +19,11 @@
     $founded_min           = $founded_min ?? request()->query('founded-min');
     $free                  = $free ?? request()->query('free');
     $freelance             = $freelance ?? request()->query('freelance');
+    $international         = $international ?? request()->query('international');
     $is_active             = $is_active ?? request()->query('is_active');
     $is_disabled           = $is_disabled ?? request()->query('is_disabled');
     $local                 = $local ?? request()->query('local');
-    $international         = $international ?? request()->query('international');
+    $name                  = $name ?? request()->query('name');
     $national              = $national ?? request()->query('national');
     $phone                 = $phone ?? request()->query('phone');
     $premium               = $premium ?? request()->query('premium');
@@ -44,16 +44,18 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              method="get"
+              class="search-form"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('user.components.search-sort-select', [
                         'sort'  => $sort,
-                        'list'  => new JobBoard()->getSortOptions($sort, EnvTypes::ADMIN, $isRootAdmin),
-                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ]
+                        'list'  => new JobBoard()->getSortOptions($sort, EnvTypes::GUEST),
                     ])
 
                     <?php /*
@@ -64,13 +66,13 @@
                     ])
                     */ ?>
 
-                    @include('admin.components.button-search', [
+                    @include('user.components.button-search', [
                         'id' =>'performSearch',
                     ])
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     <div class="floating-div">
 
@@ -79,8 +81,7 @@
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -94,8 +95,7 @@
                                 'label'   => 'specialty',
                                 'value'   => $specialties,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -120,36 +120,50 @@
                         ])
 
                     </div>
-                    <div class="floating-div" style="width: 13rem;">
+                    <div class="floating-div" style="width: 12rem;">
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'primary',
-                            'value'    => 1,
-                            'checked'  => $primary,
-                            'nohidden' => true,
-                        ])
+                        <div class="card search-control-group">
 
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'is_active',
-                            'label'    => 'active',
-                            'value'    => 1,
-                            'checked'  => $is_active,
-                            'nohidden' => true,
-                        ])
-
-                        @include('user.components.form-checkbox', [
-                            'name'     => 'is_disabled',
-                            'label'    => 'disabled',
-                            'value'    => 1,
-                            'checked'  => $is_disabled,
-                            'nohidden' => true,
-                        ])
-
-                        <div>
-                            @include('user.components.search-panel.controls.career-recruiter-founded', [
-                                'founded_min' => $founded_min,
-                                'founded_max' => $founded_max,
+                            @include('user.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.job_board' ]
                             ])
+
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'primary',
+                                'value'    => 1,
+                                'checked'  => $primary,
+                                'nohidden' => true,
+                            ])
+
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'is_active',
+                                'label'    => 'active',
+                                'value'    => 1,
+                                'checked'  => $is_active,
+                                'nohidden' => true,
+                            ])
+
+                            @include('user.components.form-checkbox', [
+                                'name'     => 'is_disabled',
+                                'label'    => 'disabled',
+                                'value'    => 1,
+                                'checked'  => $is_disabled,
+                                'nohidden' => true,
+                            ])
+
+                            <div>
+                                @include('user.components.search-panel.controls.career-recruiter-founded', [
+                                    'founded_min' => $founded_min,
+                                    'founded_max' => $founded_max,
+                                ])
+                            </div>
+
                         </div>
 
                     </div>
@@ -160,8 +174,7 @@
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem' ],
+                                'class'   => [ 'input-city', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -175,6 +188,7 @@
 
                     </div>
 
+                    <?php /*
                     @if ($isRootAdmin)
                         <div class="floating-div">
 
@@ -190,6 +204,7 @@
 
                         </div>
                     @endif
+                    */ ?>
 
                 </div>
 

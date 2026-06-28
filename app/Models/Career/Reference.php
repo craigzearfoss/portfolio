@@ -299,7 +299,7 @@ class Reference extends Model
 
 
         // add joins
-        $query->leftJoin(dbName('career_db') . '.company_reference', 'company_reference.reference_id', '=', $this->table . '.id')
+        $query->leftJoin(dbName('career_db') . '.company_reference', 'company_reference.contact_id', '=', $this->table . '.id')
             ->leftJoin(dbName('career_db') . '.companies', 'companies.id', '=', 'company_reference.company_id')
             ->leftJoin(dbName('system_db') . '.states', 'states.id', '=', 'references.state_id')
             ->leftJoin(dbName('system_db') . '.countries', 'countries.id', '=', 'references.country_id');

@@ -108,7 +108,7 @@
                                 'name'  => htmlspecialchars($school->name),
                                 'href'  => route('guest.portfolio.school.show', [$school->slug]),
                             ])
-                            @include('admin.components.link-icon', [
+                            @include('guest.components.link-icon', [
                                 'title'      => 'add to favorites',
                                 'icon'       => 'fa-heart',
                                 'border'     => false,
@@ -117,7 +117,7 @@
                                 'attributes' => [ 'data-resource' => 'portfolio.school', 'data-id' => $school->id ]
                             ])
                             @if (!empty($school->link))
-                                @include('admin.components.link-icon', [
+                                @include('guest.components.link-icon', [
                                     'title'  => 'open link in new window',
                                     'href'   => $school->link,
                                     'icon'   => 'fa-external-link',
@@ -139,7 +139,7 @@
                             {{ $school->type }}
                         </td>
                         <td data-field="details" style="min-width: 20rem;">
-                            @include('admin.components.partials.school-details-abbreviated', [ 'school' => $school ])
+                            @include('guest.components.partials.school-details-abbreviated', [ 'school' => $school ])
                         </td>
                     </tr>
 

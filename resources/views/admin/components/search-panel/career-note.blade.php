@@ -39,11 +39,14 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
-                <div class="search-panel-controls">
+                <div class="search-panel-header">
 
                     @include('admin.components.search-sort-select', [
                         'sort'  => $sort,
@@ -64,7 +67,7 @@
 
                 </div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-body floating-div-container">
 
                     @if ($isRootAdmin)
                         <div class="floating-div">
@@ -83,8 +86,7 @@
                                     'label'   => 'application',
                                     'value'   => $application_name,
                                     'message' => $message ?? '',
-                                    'class'   => [ 'submit-search-on-enter-key' ],
-                                    'style'   => [ 'width: 12rem'],
+                                    'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                 ])
                             </div>
                         @else
@@ -101,7 +103,7 @@
                                         'label'   => 'company',
                                         'value'   => $company_name,
                                         'message' => $message ?? '',
-                                        'class'   => [ 'submit-search-on-enter-key' ],
+                                        'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                                     ])
                                 </div>
                             @else
@@ -119,8 +121,7 @@
                                 'name'    => 'subject',
                                 'value'   => $subject,
                                 'message' => $message ?? '',
-                                'style'   => [ 'width: 12rem'],
-                                'class'   => [ 'submit-search-on-enter-key' ],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
@@ -129,23 +130,24 @@
                                 'name'    => 'body',
                                 'value'   => $body,
                                 'message' => $message ?? '',
-                                'class'   => [ 'submit-search-on-enter-key' ],
-                                'style'   => [ 'width: 12rem'],
+                                'class'   => [ 'input-name', 'submit-search-on-enter-key' ],
                             ])
                         </div>
 
                     </div>
                     <div class="floating-div">
 
-                        @include('admin.components.form-checkbox', [
-                            'id'         => 'favoritesCheckBox',
-                            'name'       => 'favorites',
-                            'value'      => 1,
-                            'checked'    => $favorites,
-                            'nohidden'   => true,
-                            'class'      => [ 'search-favorites' ],
-                            'attributes' => [ 'data-resource' => 'career.note' ]
-                        ])
+                        <div class="card search-control-group">
+                            @include('admin.components.form-checkbox', [
+                                'id'         => 'favoritesCheckBox',
+                                'name'       => 'favorites',
+                                'value'      => 1,
+                                'checked'    => $favorites,
+                                'nohidden'   => true,
+                                'class'      => [ 'search-favorites' ],
+                                'attributes' => [ 'data-resource' => 'career.note' ]
+                            ])
+                        </div>
 
                     </div>
                     <div class="floating-div">

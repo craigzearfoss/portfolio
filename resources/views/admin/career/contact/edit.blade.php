@@ -36,222 +36,218 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4">
+    <form action="{{ route('admin.career.contact.update', array_merge([$contact], request()->all())) }}"
+          class="admin-form"
+          method="POST"
+    >
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.career.contact.update', array_merge([$contact], request()->all())) }}"
-              class="admin-form"
-              method="POST"
-        >
-            @csrf
-            @method('PUT')
+        @include('admin.components.form-hidden', [
+            'name'  => 'referer',
+            'value' => referer('admin.career.contact.index')
+        ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => 'referer',
-                'value' => referer('admin.career.contact.index')
-            ])
+        <div class="floating-div-container">
 
-            <div class="floating-div-container">
+            <div class="floating-div card admin-form-card">
 
-                <div class="floating-div card admin-form-card">
-
-                    @if ($isRootAdmin)
-                        @include('admin.components.favorites-box-form-input', [
-                            'name'  => 'favorite_count',
-                            'label' => 'favorites',
-                            'value' => old('favorite_count') ?? $contact->favorite_count,
-                        ])
-                    @endif
-
-                    @if ($isRootAdmin)
-                        @include('admin.components.form-select-horizontal', [
-                            'name'     => 'owner_id',
-                            'label'    => 'owner',
-                            'value'    => old('owner_id') ?? $contact->owner_id,
-                            'required' => true,
-                            'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                            'message'  => $message ?? '',
-                            'class'    => [ 'select-owner' ]
-                        ])
-                    @else
-                        @include('admin.components.form-hidden', [
-                            'name'  => 'owner_id',
-                            'value' => $contact->owner_id
-                        ])
-                    @endif
-
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'name',
-                        'value'     => old('name') ?? $contact->name,
-                        'required'  => true,
-                        'maxlength' => 255,
-                        'message'   => $message ?? '',
-                        'class'     => [ 'input-name' ],
+                @if ($isRootAdmin)
+                    @include('admin.components.favorites-box-form-input', [
+                        'name'  => 'favorite_count',
+                        'label' => 'favorites',
+                        'value' => old('favorite_count') ?? $contact->favorite_count,
                     ])
+                @endif
 
-                    @if (!empty($recruiter_id))
-                        @include('admin.components.form-select-horizontal', [
-                            'name'     => 'recruiter_id',
-                            'label'    => 'recruiting firm',
-                            'value'    => old('recruiter_id') ?? $contact->recruiter['id'] ?? '',
-                            'required' => true,
-                            'list'     => new Recruiter()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
-                            'message'  => $message ?? '',
-                        ])
-                    @endif
-
+                @if ($isRootAdmin)
                     @include('admin.components.form-select-horizontal', [
-                        'name'    => 'salutation',
-                        'value'   => old('salutation') ?? $contact->salutation,
-                        'list'    => new Admin()->salutationListOptions(true),
-                        'message' => $message ?? '',
+                        'name'     => 'owner_id',
+                        'label'    => 'owner',
+                        'value'    => old('owner_id') ?? $contact->owner_id,
+                        'required' => true,
+                        'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                        'message'  => $message ?? '',
+                        'class'    => [ 'select-owner' ]
                     ])
-
-                    @include('admin.components.form-input-horizontal', [
-                        'name'      => 'title',
-                        'value'     => old('role') ?? $contact->title,
-                        'maxlength' => 100,
-                        'message'   => $message ?? '',
+                @else
+                    @include('admin.components.form-hidden', [
+                        'name'  => 'owner_id',
+                        'value' => $contact->owner_id
                     ])
+                @endif
 
-                </div>
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $contact->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'input-name' ],
+                ])
 
-            </div>
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.form-location-horizontal', [
-                        'street'     => old('street') ?? $contact->street,
-                        'street2'    => old('street2') ?? $contact->street2,
-                        'city'       => old('city') ?? $contact->city,
-                        'state_id'   => old('state_id') ?? $contact->state_id,
-                        'states'     => new State()->listOptions([], 'id', 'name', true),
-                        'zip'        => old('zip') ?? $contact->zip,
-                        'country_id' => old('country_id') ?? $contact->country_id,
-                        'countries'  => new Country()->listOptions([], 'id', 'name', true),
-                        'message'    => $message ?? '',
+                @if (!empty($recruiter_id))
+                    @include('admin.components.form-select-horizontal', [
+                        'name'     => 'recruiter_id',
+                        'label'    => 'recruiting firm',
+                        'value'    => old('recruiter_id') ?? $contact->recruiter['id'] ?? '',
+                        'required' => true,
+                        'list'     => new Recruiter()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
+                        'message'  => $message ?? '',
                     ])
+                @endif
 
-                    @include('admin.components.form-coordinates-horizontal', [
-                        'latitude'  => old('latitude') ?? $contact->latitude,
-                        'longitude' => old('longitude') ?? $contact->longitude,
-                        'message'   => $message ?? '',
-                    ])
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'salutation',
+                    'value'   => old('salutation') ?? $contact->salutation,
+                    'list'    => new Admin()->salutationListOptions(true),
+                    'message' => $message ?? '',
+                ])
 
-                </div>
-
-            </div>
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.form-phone-horizontal', [
-                        'phone' => old('phone') ?? $contact->phone,
-                        'label' => old('phone_label') ?? $contact->phone_label,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-phone-horizontal', [
-                        'phone'   => old('alt_phone') ?? $contact->alt_phone,
-                        'label'   => old('alt_phone_label') ?? $contact->alt_phone_label,
-                        'alt'     => true,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-email-horizontal', [
-                        'email'   => old('email') ?? $contact->email,
-                        'label'   => old('email_label') ?? $contact->email_label,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-email-horizontal', [
-                        'email'   => old('alt_email') ?? $contact->alt_email,
-                        'label'   => old('alt_email_table') ?? $contact->alt_email_label,
-                        'alt'     => true,
-                        'message' => $message ?? '',
-                    ])
-
-                </div>
-
-            </div>
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.form-input-horizontal', [
-                        'type'    => 'date',
-                        'name'    => 'birthday',
-                        'value'   => old('birthday') ?? $contact->birthday,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-link-horizontal', [
-                        'link'    => old('link') ?? $contact->link,
-                        'name'    => old('link_name') ?? $contact->link_name,
-                        'message' => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'description',
-                        'id'      => 'inputEditor',
-                        'value'   => old('description') ?? $contact->description,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-description' ],
-                    ])
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'      => 'disclaimer',
-                        'value'     => old('disclaimer') ?? $contact->disclaimer,
-                        'maxlength' => 500,
-                        'cols'      => 30,
-                        'rows'      => 3,
-                        'message'   => $message ?? '',
-                        'class'     => [ 'textarea-disclaimer' ],
-                    ])
-
-                </div>
-
-            </div>
-            <div class="floating-div-container">
-
-                <div class="floating-div card admin-form-card">
-
-                    @include('admin.components.show-row-images', [
-                        'resource' => $contact,
-                        'upload'   => false,
-                        'download' => true,
-                        'external' => true,
-                        'editPage' => true,
-                    ])
-
-                    @include('admin.components.form-textarea-horizontal', [
-                        'name'    => 'notes',
-                        'value'   => old('notes') ?? $contact->notes,
-                        'message' => $message ?? '',
-                        'class'   => [ 'textarea-notes' ],
-                    ])
-
-                    @include('admin.components.form-visibility-horizontal', [
-                        'is_public'   => old('is_public')   ?? $contact->is_public,
-                        'is_readonly' => old('is_readonly') ?? $contact->is_readonly,
-                        'is_root'     => old('is_root')     ?? $contact->root,
-                        'is_disabled' => old('is_disabled') ?? $contact->is_disabled,
-                        'is_demo'     => old('is_demo')     ?? $contact->is_demo,
-                        'sequence'    => old('sequence')    ?? $contact->sequence,
-                        'message'     => $message           ?? '',
-                    ])
-
-                </div>
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'title',
+                    'value'     => old('role') ?? $contact->title,
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                ])
 
             </div>
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.career.contact.index')
-            ])
+        </div>
+        <div class="floating-div-container">
 
-        </form>
+            <div class="floating-div card admin-form-card">
 
-    </div>
+                @include('admin.components.form-location-horizontal', [
+                    'street'     => old('street') ?? $contact->street,
+                    'street2'    => old('street2') ?? $contact->street2,
+                    'city'       => old('city') ?? $contact->city,
+                    'state_id'   => old('state_id') ?? $contact->state_id,
+                    'states'     => new State()->listOptions([], 'id', 'name', true),
+                    'zip'        => old('zip') ?? $contact->zip,
+                    'country_id' => old('country_id') ?? $contact->country_id,
+                    'countries'  => new Country()->listOptions([], 'id', 'name', true),
+                    'message'    => $message ?? '',
+                ])
+
+                @include('admin.components.form-coordinates-horizontal', [
+                    'latitude'  => old('latitude') ?? $contact->latitude,
+                    'longitude' => old('longitude') ?? $contact->longitude,
+                    'message'   => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-phone-horizontal', [
+                    'phone' => old('phone') ?? $contact->phone,
+                    'label' => old('phone_label') ?? $contact->phone_label,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-phone-horizontal', [
+                    'phone'   => old('alt_phone') ?? $contact->alt_phone,
+                    'label'   => old('alt_phone_label') ?? $contact->alt_phone_label,
+                    'alt'     => true,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-email-horizontal', [
+                    'email'   => old('email') ?? $contact->email,
+                    'label'   => old('email_label') ?? $contact->email_label,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-email-horizontal', [
+                    'email'   => old('alt_email') ?? $contact->alt_email,
+                    'label'   => old('alt_email_table') ?? $contact->alt_email_label,
+                    'alt'     => true,
+                    'message' => $message ?? '',
+                ])
+
+            </div>
+
+        </div>
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.form-input-horizontal', [
+                    'type'    => 'date',
+                    'name'    => 'birthday',
+                    'value'   => old('birthday') ?? $contact->birthday,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-link-horizontal', [
+                    'link'    => old('link') ?? $contact->link,
+                    'name'    => old('link_name') ?? $contact->link_name,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $contact->description,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-description' ],
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'      => 'disclaimer',
+                    'value'     => old('disclaimer') ?? $contact->disclaimer,
+                    'maxlength' => 500,
+                    'cols'      => 30,
+                    'rows'      => 3,
+                    'message'   => $message ?? '',
+                    'class'     => [ 'textarea-disclaimer' ],
+                ])
+
+            </div>
+
+        </div>
+        <div class="floating-div-container">
+
+            <div class="floating-div card admin-form-card">
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $contact,
+                    'upload'   => false,
+                    'download' => true,
+                    'external' => true,
+                    'editPage' => true,
+                ])
+
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $contact->notes,
+                    'message' => $message ?? '',
+                    'class'   => [ 'textarea-notes' ],
+                ])
+
+                @include('admin.components.form-visibility-horizontal', [
+                    'is_public'   => old('is_public')   ?? $contact->is_public,
+                    'is_readonly' => old('is_readonly') ?? $contact->is_readonly,
+                    'is_root'     => old('is_root')     ?? $contact->root,
+                    'is_disabled' => old('is_disabled') ?? $contact->is_disabled,
+                    'is_demo'     => old('is_demo')     ?? $contact->is_demo,
+                    'sequence'    => old('sequence')    ?? $contact->sequence,
+                    'message'     => $message           ?? '',
+                ])
+
+            </div>
+
+        </div>
+
+        @include('admin.components.form-button-submit-horizontal', [
+            'label'      => 'Save',
+            'cancel_url' => referer('admin.career.contact.index')
+        ])
+
+    </form>
 
 @endsection
