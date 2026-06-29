@@ -103,7 +103,7 @@
 
             <div class="p-4">
 
-                <form action="{{ route('guest.career.application.analyze-post') }}" method="post">
+                <form action="{{ route('analyze-job') }}" method="post">
                     @csrf
 
                     <!-- tabbed content -->
