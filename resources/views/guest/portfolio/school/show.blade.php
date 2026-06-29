@@ -122,7 +122,11 @@
                 <tr>
                     <th>wikipedia:</th>
                     <td>
-                        {{ $school->wikipedia }}
+                        @include('guest.components.link', [
+                            'name'   => $school->wikipedia,
+                            'href'   => $school->wikipedia,
+                            'target' => '_blank'
+                        ])
                         @if (!empty($school->wikipedia))
                             @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',
