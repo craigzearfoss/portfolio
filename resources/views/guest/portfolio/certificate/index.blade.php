@@ -142,10 +142,10 @@
                             {{ $certificate->certificate_year }}
                         </td>
                         <td class="has-text-centered hide-at-1200">
-                            {{ shortDate($certificate->received }}
+                            {{ shortDate($certificate->received) }}
                         </td>
                         <td class="has-text-centered hide-at-750">
-                            {{ shortDate($certificate->expiration }}
+                            {{ shortDate($certificate->expiration) }}
                         </td>
                     </tr>
 

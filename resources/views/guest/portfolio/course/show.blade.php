@@ -136,10 +136,14 @@
                 <tr>
                     <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $course->link_name,
+                        {{ $course->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $course->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

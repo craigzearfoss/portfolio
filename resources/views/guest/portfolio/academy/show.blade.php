@@ -89,10 +89,14 @@
                 <tr>
                     <th>{{ !empty($academy->link_name) ? $academy->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => !empty($academy->link_name) ? $academy->link_name : 'link',
+                        {{ $academy->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $academy->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

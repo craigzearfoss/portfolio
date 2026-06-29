@@ -57,7 +57,7 @@ Route::get('job-board', [GuestCareerJobBoardController::class, 'index'])->name('
 Route::get('job-boards/{jobBoard}', [GuestCareerJobBoardController::class, 'show'])->name('guest.career.job-board.show');
 Route::get('staffing-firm', [GuestCareerRecruiterController::class, 'index'])->name('guest.career.recruiter.index');
 Route::get('staffing-firm/{recruiter}', [GuestCareerRecruiterController::class, 'show'])->name('guest.career.recruiter.show');
-Route::get('academy', [GuestPortfolioAcademyController::class, 'index'])->name('guest.portfolio.academy.index');
+Route::get('online-learning', [GuestPortfolioAcademyController::class, 'index'])->name('guest.portfolio.academy.index');
 Route::get('school', [GuestPortfolioSchoolController::class, 'index'])->name('guest.portfolio.school.index');
 Route::get('school/{school}', [GuestPortfolioSchoolController::class, 'show'])->name('guest.portfolio.school.show');
 

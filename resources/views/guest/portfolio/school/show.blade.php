@@ -8,14 +8,9 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    $breadcrumbs = $publicAdminCount < 2
-        ? []
-        : [
-            [ 'name' => 'Home',       'href' => route('guest.index') ],
-            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'School',     'href' => route('guest.portfolio.school.index', $owner) ],
+    $breadcrumbs = [
+            [ 'name' => 'Home',    'href' => route('guest.index') ],
+            [ 'name' => 'Schools', 'href' => route('guest.portfolio.school.index', $owner) ],
             [ 'name' => $school->name ],
           ];
 
@@ -58,7 +53,7 @@
             @if (!empty($school->former_names))
                 <tr>
                     <th style="white-space: nowrap;">former names:</th>
-                    <td>{{ str_replace(',', '<br>', $school->former_names) }}</td>
+                    <td>{!! str_replace(',', '<br>', $school->former_names) !!}</td>
                 </tr>
             @endif
 
@@ -102,13 +97,19 @@
 
             @if (!empty($school->link))
                 <tr>
-                    <th>link:</th>
+                    <th>website:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $school->link,
-                            'href'   => $school->link,
-                            'target' => '_blank'
-                        ])
+                        {{ $school->link }}
+                        @if (!empty($school->link))
+                            @include('guest.components.link-icon', [
+                                'title'  => 'open link in new window',
+                                'href'   => $school->link,
+                                'icon'   => 'fa-external-link',
+                                'border' => false,
+                                'target' => '_blank',
+                                'style'  => [ 'margin-top: -4px' ]
+                            ])
+                        @endif
                     </td>
                 </tr>
             @endif
@@ -117,24 +118,17 @@
                 <tr>
                     <th>wikipedia:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $school->wikipedia,
-                            'href'   => $school->wikipedia,
-                            'target' => '_blank'
-                        ])
-                    </td>
-                </tr>
-            @endif
-
-            @if (!empty($school->link))
-                <tr>
-                    <th>{{ !empty($school->link_name) ? $school->link_name : 'link' }}:</th>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'   => !empty($school->link_name) ? $school->link_name : 'link',
-                            'href'   => $school->link,
-                            'target' => '_blank'
-                        ])
+                        {{ $school->wikipedia }}
+                        @if (!empty($school->wikipedia))
+                            @include('guest.components.link-icon', [
+                                'title'  => 'open link in new window',
+                                'href'   => $school->wikipedia,
+                                'icon'   => 'fa-external-link',
+                                'border' => false,
+                                'target' => '_blank',
+                                'style'  => [ 'margin-top: -4px' ]
+                            ])
+                        @endif
                     </td>
                 </tr>
             @endif

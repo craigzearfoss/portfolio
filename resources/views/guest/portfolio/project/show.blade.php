@@ -75,10 +75,14 @@
                 <tr>
                     <th>repository:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $project->repository_url,
+                        {{ $project->repository_url }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $project->repository_url,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>
@@ -88,9 +92,14 @@
                 <tr>
                     <th>{{ !empty($project->link_name) ? $project->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
+                        {{ $project->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $project->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

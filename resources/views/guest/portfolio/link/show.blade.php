@@ -54,10 +54,14 @@
                 <tr>
                     <th>url:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $link->url,
+                        {{ $link->url }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $link->url,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>
@@ -67,10 +71,14 @@
                 <tr>
                     <th>{{ !empty($link->link_name) ? $link->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $link->link,
+                        {{ $link->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $link->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

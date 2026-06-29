@@ -176,10 +176,14 @@
                 <tr>
                     <th>{{ !empty($audio->link_name) ? $audio->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
+                        {{ $audio->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $audio->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

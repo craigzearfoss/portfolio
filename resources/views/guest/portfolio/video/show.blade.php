@@ -176,9 +176,14 @@
                 <tr>
                     <th>video url:</th>
                     <td>
-                        @include('guest.components.link', [
+                        {{ $video->video_url }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $video->video_url,
-                            'target' => 'blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>
@@ -188,10 +193,14 @@
                 <tr>
                     <th>{{ !empty($video->link_name) ? $video->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $video->link_name,
+                        {{ $video->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $video->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

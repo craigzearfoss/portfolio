@@ -121,10 +121,14 @@
                         </td>
                         <td data-field="year" class="hide-at-1024" style="white-space: nowrap;">
                             @if (!empty($project->repository_url))
-                                @include('guest.components.link', [
-                                    'name'   => $project->repository_name,
+                                {{ $project->repository_name ?? $project->repository_url }}
+                                @include('guest.components.link-icon', [
+                                    'title'  => 'open link in new window',
                                     'href'   => $project->repository_url,
-                                    'target' => '_blank'
+                                    'icon'   => 'fa-external-link',
+                                    'border' => false,
+                                    'target' => '_blank',
+                                    'style'  => [ 'margin-top: -4px' ]
                                 ])
                             @endif
                         </td>

@@ -258,14 +258,18 @@
                 </tr>
             @endif
 
-            @if (!empty($certificate->publication_url))
+            @if (!empty($publication->publication_url))
                 <tr>
                     <th>publication url:</th>
                     <td>
-                        @include('guest.components.link', [
+                        {{ $publication->publication_url }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $publication->publication_url,
-                            'target' => '_blank'
-                        ])
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>
@@ -275,9 +279,14 @@
                 <tr>
                     <th>{{ !empty($publication->link_name) ? $publication->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
+                        {{ $publication->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $publication->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

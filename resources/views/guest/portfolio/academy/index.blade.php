@@ -96,7 +96,8 @@
                                     'href'   => $academy->link,
                                     'icon'   => 'fa-external-link',
                                     'border' => false,
-                                    'target' => '_blank'
+                                    'target' => '_blank',
+                                    'style'  => [ 'margin-top: -4px' ]
                                 ])
                             @endif
                         </td>

@@ -97,10 +97,14 @@
                 <tr>
                     <th>{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
+                        {{ $certificate->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $certificate->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

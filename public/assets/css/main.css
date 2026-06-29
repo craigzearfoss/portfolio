@@ -272,7 +272,9 @@ ul.menu-list a:hover {
 table tbody tr td p {
     margin-bottom: 0 !important;
 }
-
+.table td, .table th {
+    vertical-align: middle;
+}
 div.action-button-panel {
     white-space: nowrap;
 }

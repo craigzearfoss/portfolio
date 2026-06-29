@@ -97,10 +97,14 @@
                             */ ?>
                         </td>
                         <td style="white-space: nowrap;">
-                            @include('guest.components.link', [
-                                'name'   => $link->url,
+                            {{ $link->url }}
+                            @include('guest.components.link-icon', [
+                                'title'  => 'open link in new window',
                                 'href'   => $link->url,
+                                'icon'   => 'fa-external-link',
+                                'border' => false,
                                 'target' => '_blank',
+                                'style'  => [ 'margin-top: -4px' ]
                             ])
                         </td>
                     </tr>

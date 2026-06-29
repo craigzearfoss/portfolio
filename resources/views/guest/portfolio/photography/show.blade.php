@@ -108,9 +108,14 @@
                 <tr>
                     <th>{{ !empty($photo->link_name) ? $photo->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.link', [
+                        {{ $photo->link }}
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
                             'href'   => $photo->link,
-                            'target' => '_blank'
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
                         ])
                     </td>
                 </tr>

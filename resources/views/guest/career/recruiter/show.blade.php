@@ -86,15 +86,14 @@
                     <th>website</th>
                     <td>
                         {{ $recruiter->link }}
-                        <div class="mb-2" style="display: inline-block; line-height: 2;">
-                            @include('guest.components.link-icon', [
-                                'title'  => 'open link in new window',
-                                'href'   => $recruiter->link,
-                                'icon'   => 'fa-external-link',
-                                'border' => false,
-                                'target' => '_blank',
-                            ])
-                        </div>
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
+                            'href'   => $recruiter->link,
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px;' ]
+                        ])
                     </td>
                 </tr>
            @endif
@@ -104,15 +103,14 @@
                     <th>LinkedIn profile</th>
                     <td>
                         {{ $recruiter->linkedin_url }}
-                        <div class="mb-2" style="display: inline-block; line-height: 2;">
-                            @include('guest.components.link-icon', [
-                                'title'  => 'open link in new window',
-                                'href'   => $recruiter->linkedin_url,
-                                'icon'   => 'fa-external-link',
-                                'border' => false,
-                                'target' => '_blank',
-                            ])
-                        </div>
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
+                            'href'   => $recruiter->linkedin_url,
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px;' ]
+                        ])
                     </td>
                 </tr>
             @endif
@@ -122,13 +120,13 @@
                     <th>job openings</th>
                     <td>
                         {{ $recruiter->jobs_url }}
-                        <div class="mb-2" style="display: inline-block; line-height: 2;">
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $recruiter->jobs_url,
                             'icon'   => 'fa-external-link',
                             'border' => false,
                             'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px;' ]
                         ])
                     </td>
                 </tr>
