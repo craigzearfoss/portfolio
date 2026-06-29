@@ -4,19 +4,19 @@
     $course           = $course ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Course: ' . htmlspecialchars($course->name), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Course: ' . $course->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Courses',                      'href' => route('guest.portfolio.course.index', $owner) ],
-            [ 'name' => htmlspecialchars($course->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Courses',    'href' => route('guest.portfolio.course.index', $owner) ],
+            [ 'name' => $course->name ],
           ];
 
     // set navigation buttons
@@ -29,24 +29,24 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($course->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $course->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($course->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($course->name) !!}</td>
+                    <td>{{ $course->name }}</td>
                 </tr>
             @endif
 
             @if (!empty($course->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($course->summary) !!}</td>
+                    <td>{!! $course->summary !!}</td>
                 </tr>
             @endif
 
@@ -87,7 +87,7 @@
                     <th>academy:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name' => htmlspecialchars($course->academy['name']),
+                            'name' => $course->academy['name'],
                             'href' => $course->academy['link'],
                             'target' =>'_blank'
                         ])
@@ -98,21 +98,21 @@
             @if (!empty($course->school))
                 <tr>
                     <th>school:</th>
-                    <td>{!! htmlspecialchars($course->school) !!}</td>
+                    <td>{{ $course->school }}</td>
                 </tr>
             @endif
 
             @if (!empty($course->instructor))
                 <tr>
                     <th>instructor:</th>
-                    <td>{!! htmlspecialchars($course->instructor) !!}</td>
+                    <td>{{ $course->instructor }}</td>
                 </tr>
             @endif
 
             @if (!empty($course->sponsor))
                 <tr>
                     <th>sponsor:</th>
-                    <td>{!! htmlspecialchars($course->sponsor) !!}</td>
+                    <td>{{ $course->sponsor }}</td>
                 </tr>
             @endif
 
@@ -134,10 +134,10 @@
 
             @if (!empty($course->link))
                 <tr>
-                    <th>{{ !empty($course->link_name) ? htmlspecialchars($course->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($course->link_name),
+                            'name'   => $course->link_name,
                             'href'   => $course->link,
                             'target' => '_blank'
                         ])
@@ -158,13 +158,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $course->image,
-                            'alt'          => htmlspecialchars($course->name),
+                            'alt'          => $course->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($course),
-                            'image_credit' => htmlspecialchars($course->image_credit),
-                            'image_source' => htmlspecialchars($course->image_source),
+                            'image_credit' => $course->image_credit,
+                            'image_source' => $course->image_source,
                         ])
                     </td>
                 </tr>

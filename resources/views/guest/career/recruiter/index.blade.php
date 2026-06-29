@@ -26,7 +26,7 @@
     <?php /*
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
     */ ?>
@@ -89,9 +89,9 @@
 
                 @forelse ($recruiters as $recruiter)
 
-                    <tr data-id="{{ $recruiter->id }}" {!! $recruiter->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $recruiter->id }}" {{ $recruiter->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="name" style="white-space: nowrap;">
-                            <span {!! $recruiter->primary ? 'class="has-text-weight-bold"' : '' !!}>
+                            <span {{ $recruiter->primary ? 'class="has-text-weight-bold"' : '' }}>
                                 @include('guest.components.link', [
                                     'name'  => $recruiter->name,
                                     'href'  => route('guest.career.recruiter.show', $recruiter->slug),
@@ -129,12 +129,12 @@
                             {!!
                                 !empty($recruiter->country->iso_alpha3) && ($recruiter->country->iso_alpha3 != 'USA')
                                      ? formatLocation([
-                                         'city'    => htmlspecialchars($recruiter->city),
+                                         'city'    => $recruiter->city,
                                           'state'   => $recruiter->state->code ?? '',
                                           'country' => $recruiter->country->iso_alpha3
                                       ])
                                    : formatLocation([
-                                          'city'    => htmlspecialchars($recruiter->city),
+                                          'city'    => $recruiter->city,
                                           'state'   => $recruiter->state->code ?? '',
                                   ])
                             !!}

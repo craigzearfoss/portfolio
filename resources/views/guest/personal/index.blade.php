@@ -13,9 +13,9 @@
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
             [ 'name' => 'Personal' ],
           ];
 
@@ -29,7 +29,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 

@@ -3,7 +3,7 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ??  !empty($owner->name) ? htmlspecialchars($owner->name) : $owner->username;
+    $title    = $pageTitle ??  !empty($owner->name) ? $owner->name : $owner->username;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -12,7 +12,7 @@
         : [
             [ 'name' => 'Home',       'href' => route('guest.index') ],
             [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-            [ 'name' => !empty($owner->name) ? htmlspecialchars($owner->name) : $owner->username ]
+            [ 'name' => !empty($owner->name) ? $owner->name : $owner->username ]
           ];
 
     // set navigation buttons
@@ -23,7 +23,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($owner->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $owner->disclaimer ])
 
     <div class="floating-div-container">
 
@@ -56,18 +56,18 @@
                 </div>
 
                 <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
-                    <strong>{!! htmlspecialchars($owner->name) !!}</strong>
+                    <strong>{{ $owner->name }}</strong>
                 </p>
 
                 @if (!empty($owner->role))
                     <p class="has-text-centered has-text-weight-semibold mb-0">
-                        <strong>{!! htmlspecialchars($owner->role) !!}</strong>
+                        <strong>{{ $owner->role }}</strong>
                     </p>
                 @endif
 
                 @if (!empty($owner->employer))
                     <p class="has-text-centered has-text-weight-medium mb-0">
-                        <strong>{!! htmlspecialchars($owner->employer) !!}
+                        <strong>{{ $owner->employer }}
                             @if ($owner->employment_status_id == 6)
                                 (contracting)
                             @endif
@@ -96,7 +96,7 @@
             <div class="card floating-div m-2 p-4">
 
                 <div class="card-head" style="border-bottom: #5c636a 2px outset;">
-                    <strong>{!! htmlspecialchars($title) !!}</strong>
+                    <strong>{{ $title }}</strong>
                 </div>
                 <div class="card-body">
                     <div class="list is-hoverable">
@@ -108,7 +108,7 @@
 
                                     <li class="list-item">
                                         @include('guest.components.link', [
-                                            'name'  => htmlspecialchars($resource->plural),
+                                            'name'  => $resource->plural,
                                             'href'  => $resource->url,
                                             'class' => 'list-item',
                                             'icon'  => $resource->icon,

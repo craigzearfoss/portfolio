@@ -178,7 +178,7 @@
                                             'title'    => $imageTitle,
                                             'src'      => $src,
                                             'filename' => $filename,
-                                            'alt'      => htmlspecialchars($downloadType),
+                                            'alt'      => $downloadType,
                                             'width'    => $width,
                                             'download' => false, // download link is created above the image
                                             'external' => false, // external link is created above the image

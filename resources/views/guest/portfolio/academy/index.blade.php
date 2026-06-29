@@ -11,10 +11,10 @@
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Online Learning' ],
           ];
 
@@ -29,7 +29,7 @@
     <?php /*
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
     */ ?>
@@ -75,9 +75,9 @@
 
                 @forelse ($academies as $academy)
 
-                    <tr data-id="{{ $academy->id }}" {!! $academy->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $academy->id }}" {{ $academy->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td style="white-space: nowrap;">
-                            <span {!! $academy->featured ? 'class="has-text-weight-bold"' : '' !!}>
+                            <span {{ $academy->featured ? 'class="has-text-weight-bold"' : '' }}>
                                 {{ $academy->name }}
                             </span>
                             <?php /*

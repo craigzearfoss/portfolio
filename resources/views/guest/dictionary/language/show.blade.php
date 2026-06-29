@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $language = $language ?? null;
 
-    $title    = 'Dictionary: ' . htmlspecialchars($language->name);
+    $title    = 'Dictionary: ' . $language->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Languages',  'href' => route('guest.dictionary.language.index') ],
-        [ 'name' => htmlspecialchars($language->name) ],
+        [ 'name' => $language->name ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($language->full_name)
+            'value' => $language->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($language->name)
+            'value' => $language->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($language->abbreviation)
+            'value' => $language->abbreviation
         ])
 
         @include('guest.components.show-row', [
@@ -68,7 +68,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'link_name' => !empty($language->link_name) ? htmlspecialchars($language->link_name) : 'link',
+            'link_name' => !empty($language->link_name) ? $language->link_name : 'link',
             'name'      => $language->link,
             'href'      => $language->link,
             'target'    => '_blank',
@@ -84,13 +84,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $language->image,
-                'alt'          => htmlspecialchars($language->name),
+                'alt'          => $language->name,
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($language),
-                'image_credit' => htmlspecialchars($language->image_credit),
-                'image_source' => htmlspecialchars($language->image_source),
+                'image_credit' => $language->image_credit,
+                'image_source' => $language->image_source,
             ])
 
         @endif

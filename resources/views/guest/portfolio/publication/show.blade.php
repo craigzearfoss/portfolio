@@ -4,19 +4,19 @@
     $publication      = $publication ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title = $pageTitle ?? filteredPageTitle('Publication: ' . htmlspecialchars($publication->title), htmlspecialchars($owner->name));
+    $title = $pageTitle ?? filteredPageTitle('Publication: ' . $publication->title, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Publications',                 'href' => route('guest.portfolio.publication.index', $owner) ],
-            [ 'name' => htmlspecialchars($publication->title) ],
+            [ 'name' => 'Home',         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',   'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name,   'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Publications', 'href' => route('guest.portfolio.publication.index', $owner) ],
+            [ 'name' => $publication->title ],
           ];
 
     // set navigation buttons
@@ -29,17 +29,17 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($publication->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $publication->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($publication->title))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($publication->title) !!}</td>
+                    <td>{{ $publication->title }}</td>
                 </tr>
             @endif
 
@@ -48,7 +48,7 @@
                     <th>parent:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name' => htmlspecialchars($publication->parent->title ?? ''),
+                            'name' => $publication->parent->title ?? '',
                             'href' => route('guest.portfolio.publication.show', $owner, $publication->parent->slug)
                         ])
                     </td>
@@ -58,7 +58,7 @@
             @if (!empty($publication->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($publication->summary) !!}</td>
+                    <td>{!! $publication->summary !!}</td>
                 </tr>
             @endif
 
@@ -70,7 +70,7 @@
                             @foreach ($publication->children as $child)
                                 <li>
                                     @include('guest.components.link', [
-                                        'name' => htmlspecialchars($child->name),
+                                        'name' => $child->name,
                                         'href' => route('guest.portfolio.publication.show', [$owner, $child->slug])
                                     ])
                                 </li>
@@ -83,14 +83,14 @@
             @if (!empty($publication->publication_name))
                 <tr>
                     <th>publication name:</th>
-                    <td>{!! htmlspecialchars($publication->publication_name) !!}</td>
+                    <td>{{ $publication->publication_name }}</td>
                 </tr>
             @endif
 
             @if (!empty($publication->publisher))
                 <tr>
                     <th>publisher:</th>
-                    <td>{!! htmlspecialchars($publication->publisher) !!}</td>
+                    <td>{{ $publication->publisher }}</td>
                 </tr>
             @endif
 
@@ -111,7 +111,7 @@
             @if (!empty($publication->credit))
                 <tr>
                     <th>credit:</th>
-                    <td>{!! htmlspecialchars($publication->credit) !!}</td>
+                    <td>{{ $publication->credit }}</td>
                 </tr>
             @endif
 
@@ -273,7 +273,7 @@
 
             @if (!empty($publication->link))
                 <tr>
-                    <th>{{ !empty($publication->link_name) ? htmlspecialchars($publication->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($publication->link_name) ? $publication->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
                             'href'   => $publication->link,
@@ -296,13 +296,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $publication->image,
-                            'alt'          => htmlspecialchars($publication->publication_name),
+                            'alt'          => $publication->publication_name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($publication),
-                            'image_credit' => htmlspecialchars($publication->image_credit),
-                            'image_source' => htmlspecialchars($publication->image_source),
+                            'image_credit' => $publication->image_credit,
+                            'image_source' => $publication->image_source,
                         ])
                     </td>
                 </tr>

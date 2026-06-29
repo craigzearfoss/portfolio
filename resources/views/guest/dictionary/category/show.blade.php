@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $category = $category ?? null;
 
-    $title    = 'Dictionary: ' . htmlspecialchars($category->name);
+    $title    = 'Dictionary: ' . $category->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Categories', 'href' => route('guest.dictionary.category.index') ],
-        [ 'name' => htmlspecialchars($category->name) ],
+        [ 'name' => $category->name ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($category->full_name)
+            'value' => $category->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($category->name)
+            'value' => $category->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($category->abbreviation)
+            'value' => $category->abbreviation
         ])
 
         @include('guest.components.show-row', [
@@ -68,7 +68,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'link_name' => !empty($category->link_name) ? htmlspecialchars($category->link_name) : 'link',
+            'link_name' => !empty($category->link_name) ? $category->link_name : 'link',
             'name'      => $category->link,
             'href'      => $category->link,
             'target'    => '_blank',
@@ -84,13 +84,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $category->image,
-                'alt'          => htmlspecialchars($category->name),
+                'alt'          => $category->name,
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($category),
-                'image_credit' => htmlspecialchars($category->image_credit),
-                'image_source' => htmlspecialchars($category->image_source),
+                'image_credit' => $category->image_credit,
+                'image_source' => $category->image_source,
             ])
 
         @endif

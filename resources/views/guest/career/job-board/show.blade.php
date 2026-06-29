@@ -1,36 +1,36 @@
 @php
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $owner            = $owner ?? null;
-    $recruiter        = $recruiter ?? null;
+    $jobBoard         = $jobBoard ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title = $pageTitle ?? $recruiter->name;
+    $title    = $pageTitle ?? $jobBoard->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                        'href' => route('guest.index') ],
-        [ 'name' => 'Staffing & Recruiting Firms', 'href' => route('guest.career.recruiter.index') ],
-        [ 'name' => $recruiter->name ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
+        [ 'name' => 'Job Boards', 'href' => route('guest.career.job-board.index') ],
+        [ 'name' => $jobBoard->name ],
     ];
 
     // set navigation buttons
     $navButtons = [
-        view('guest.components.nav-button-back',  ['href' => referer('guest.career.recruiter.index', $owner)])->render(),
+        view('guest.components.nav-button-back',  ['href' => referer('guest.career.job-board.index', $owner)])->render(),
     ];
 
     $regions = [];
-    if ($recruiter->local) $regions[] = 'local';
-    if ($recruiter->regional) $regions[] = 'regional';
-    if ($recruiter->national) $regions[] = 'national';
-    if ($recruiter->international) $regions[] = 'international';
+    if ($jobBoard->local) $regions[] = 'local';
+    if ($jobBoard->regional) $regions[] = 'regional';
+    if ($jobBoard->national) $regions[] = 'national';
+    if ($jobBoard->international) $regions[] = 'international';
 @endphp
 
 @extends('guest.layouts.default')
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $recruiter->disclaimer ])
+    @include('guest.components.disclaimer', [ 'value' => $jobBoard->disclaimer ])
 
     <div class="show-container p-4">
 
@@ -38,32 +38,39 @@
             <tbody>
 
             <?php /*
-            @if (!empty($recruiter->name))
+            @if (!empty($jobBoard->name))
                 <tr>
                     <th>name</th>
-                    <td>{{ $recruiter->name }}</td>
+                    <td>{{ $jobBoard->name }}</td>
                 </tr>
             @endif
             */ ?>
 
-            @if (!empty($recruiter->summary))
+            @if (!empty($jobBoard->summary))
                 <tr>
                     <th>summary</th>
-                    <td>{!! $recruiter->summary !!}</td>
+                    <td>{!! $jobBoard->summary !!}</td>
                 </tr>
            @endif
 
-            @if (!empty($recruiter->recruiter_industry_id))
+            @if (!empty($jobBoard->recruiter_industry_id))
                 <tr>
                     <th>industry</th>
-                    <td>{{ $recruiter->recruiterIndustry['name'] ?? '' }}</td>
+                    <td>{{ $jobBoard->recruiterIndustry['name'] ?? '' }}</td>
                 </tr>
             @endif
 
-            @if (!empty($recruiter->specialties))
+            @if (!empty($jobBoard->specialties))
                 <tr>
                     <th>specialties</th>
-                    <td>{{ str_replace('|', ', ', $recruiter->specialties) }}</td>
+                    <td>{{ str_replace('|', ', ', $jobBoard->specialties) }}</td>
+                </tr>
+            @endif
+
+            @if (!empty($jobBoardTypes))
+                <tr>
+                    <th>type(s)</th>
+                    <td>{{ implode(', ', $jobBoardTypes) }}</td>
                 </tr>
             @endif
 
@@ -74,22 +81,22 @@
                 </tr>
             @endif
 
-            @if (!empty($recruiter->founded))
+            @if (!empty($jobBoard->founded))
                 <tr>
                     <th>founded</th>
-                    <td>{{ $recruiter->founded }}</td>
+                    <td>{{ $jobBoard->founded }}</td>
                 </tr>
             @endif
 
-            @if (!empty($recruiter->link))
+            @if (!empty($jobBoard->link))
                 <tr>
                     <th>website</th>
                     <td>
-                        {{ $recruiter->link }}
+                        {{ $jobBoard->link }}
                         <div class="mb-2" style="display: inline-block; line-height: 2;">
                             @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',
-                                'href'   => $recruiter->link,
+                                'href'   => $jobBoard->link,
                                 'icon'   => 'fa-external-link',
                                 'border' => false,
                                 'target' => '_blank',
@@ -99,15 +106,15 @@
                 </tr>
            @endif
 
-            @if (!empty($recruiter->linkedin_url))
+            @if (!empty($jobBoard->linkedin_url))
                 <tr>
                     <th>LinkedIn profile</th>
                     <td>
-                        {{ $recruiter->linkedin_url }}
+                        {{ $jobBoard->linkedin_url }}
                         <div class="mb-2" style="display: inline-block; line-height: 2;">
                             @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',
-                                'href'   => $recruiter->linkedin_url,
+                                'href'   => $jobBoard->linkedin_url,
                                 'icon'   => 'fa-external-link',
                                 'border' => false,
                                 'target' => '_blank',
@@ -117,15 +124,15 @@
                 </tr>
             @endif
 
-            @if (!empty($recruiter->jobs_url))
+            @if (!empty($jobBoard->jobs_url))
                 <tr>
                     <th>job openings</th>
                     <td>
-                        {{ $recruiter->jobs_url }}
+                        {{ $jobBoard->jobs_url }}
                         <div class="mb-2" style="display: inline-block; line-height: 2;">
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
-                            'href'   => $recruiter->jobs_url,
+                            'href'   => $jobBoard->jobs_url,
                             'icon'   => 'fa-external-link',
                             'border' => false,
                             'target' => '_blank',
@@ -134,20 +141,20 @@
                 </tr>
             @endif
 
-            @if (!empty($recruiter->street) || !empty($recruiter->street2) || !empty($recruiter->city) || !empty($recruiter->zip)
-                || !empty($recruiter->state->code ?? '') || !empty($recruiter->country->iso_alpha3 ?? ''))
+            @if (!empty($jobBoard->street) || !empty($jobBoard->street2) || !empty($jobBoard->city) || !empty($jobBoard->zip)
+                || !empty($jobBoard->state->code ?? '') || !empty($jobBoard->country->iso_alpha3 ?? ''))
 
                 <tr>
                     <th>location</th>
                     <td>
                         {!!
                             formatLocation([
-                               'street'          => $recruiter->street,
-                               'street2'         => $recruiter->street2,
-                               'city'            => $recruiter->city,
-                               'state'           => $recruiter->state->code ?? '',
-                               'zip'             => $recruiter->zip,
-                               'country'         => $recruiter->country->iso_alpha3 ?? '',
+                               'street'          => $jobBoard->street,
+                               'street2'         => $jobBoard->street2,
+                               'city'            => $jobBoard->city,
+                               'state'           => $jobBoard->state->code ?? '',
+                               'zip'             => $jobBoard->zip,
+                               'country'         => $jobBoard->country->iso_alpha3 ?? '',
                                'streetSeparator' => '<br>',
                             ])
                         !!}
@@ -156,33 +163,33 @@
 
             @endif
 
-            @if (!empty($recruiter->phone) || !empty($recruiter->alt_phone) || !empty($recruiter->email) || !empty($recruiter->alt_email))
+            @if (!empty($jobBoard->phone) || !empty($jobBoard->alt_phone) || !empty($jobBoard->email) || !empty($jobBoard->alt_email))
 
-                @if (!empty($recruiter->phone))
+                @if (!empty($jobBoard->phone))
                     <tr>
-                        <th>{{ !empty($recruiter->phone_label) ? $recruiter->phone_label: 'phone' }}</th>
-                        <td>{{ $recruiter->phone }}</td>
+                        <th>{{ !empty($jobBoard->phone_label) ? $jobBoard->phone_label: 'phone' }}</th>
+                        <td>{{ $jobBoard->phone }}</td>
                     </tr>
                 @endif
 
-                @if (!empty($recruiter->alt_phone))
+                @if (!empty($jobBoard->alt_phone))
                     <tr>
-                        <th>{{ !empty($recruiter->alt_phone_label) ? $recruiter->alt_phone_label: 'alt phone' }}</th>
-                        <td>{{ $recruiter->alt_phone }}</td>
+                        <th>{{ !empty($jobBoard->alt_phone_label) ? $jobBoard->alt_phone_label: 'alt phone' }}</th>
+                        <td>{{ $jobBoard->alt_phone }}</td>
                     </tr>
                 @endif
 
-                @if (!empty($recruiter->email))
+                @if (!empty($jobBoard->email))
                     <tr>
-                        <th>{{ !empty($recruiter->email_label) ? $recruiter->email_label: 'email' }}</th>
-                        <td>{{ $recruiter->email }}</td>
+                        <th>{{ !empty($jobBoard->email_label) ? $jobBoard->email_label: 'email' }}</th>
+                        <td>{{ $jobBoard->email }}</td>
                     </tr>
                 @endif
 
                 @if (!empty($jobBoard->alt_email))
                     <tr>
-                        <th>{{ !empty($recruiter->alt_email_label) ? $recruiter->alt_email_label: 'alt email' }}</th>
-                        <td>{{ $recruiter->alt_email }}</td>
+                        <th>{{ !empty($jobBoard->alt_email_label) ? $jobBoard->alt_email_label: 'alt email' }}</th>
+                        <td>{{ $jobBoard->alt_email }}</td>
                     </tr>
                 @endif
 

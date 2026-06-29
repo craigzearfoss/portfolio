@@ -6,17 +6,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('readings', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('readings', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Personal',                     'href' => route('guest.personal.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
             [ 'name' => 'Readings' ],
           ];
 
@@ -30,7 +30,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -99,10 +99,10 @@
 
                 @forelse ($readings as $reading)
 
-                    <tr data-id="{{ $reading->id }}"  {!! $reading->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $reading->id }}"  {{ $reading->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($reading->title),
+                                'name'  => $reading->title,
                                 'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
                                 'class' => $reading->featured ? [ 'has-text-weight-bold' ] : []
                             ])

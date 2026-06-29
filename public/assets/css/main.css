@@ -1497,3 +1497,12 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
     width: 35px;
 }
 */
+
+
+table.guest-resource-table {
+
+}
+table.guest-resource-table tr th {
+    white-space: nowrap;
+    font-weight: 700;
+}

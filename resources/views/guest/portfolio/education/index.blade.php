@@ -6,17 +6,17 @@
 
     use Illuminate\Support\Carbon;
 
-    $title    = $pageTitle ?? filteredPageTitle('education', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('education', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Education' ],
           ];
 
@@ -30,7 +30,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -86,25 +86,25 @@
 
                 @forelse ($educations as $education)
 
-                    <tr data-id="{{ $education->id }}" {!! $education->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $education->id }}" {{ $education->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="major" style="white-space: nowrap;">
                             @if ($education->featured)
                                 <strong>
-                                    {!! htmlspecialchars($education->major) !!}
+                                    {{ $education->major }}
                                     @if (!empty($education->minor)) {
-                                        ({!! htmlspecialchars($education->minor) !!} minor)
+                                        ({{ $education->minor }} minor)
                                     @endif
                                 </strong>
                             @else
-                                {!! htmlspecialchars($education->major) !!}
+                                {{ $education->major }}
                                 @if (!empty($education->minor))
-                                    ({!! htmlspecialchars($education->minor) !!} minor)
+                                    ({{ $education->minor }} minor)
                                 @endif
                             @endif
                         </td>
                         <td data-field="degreeType.name" style="white-space: nowrap;">
                             @if (!empty($education->degreeType->name))
-                            {!! htmlspecialchars($education->degreeType->name) !!}
+                            {{ $education->degreeType->name }}
                                 <?php /*
                                 @include('guest.components.link-icon', [
                                     'title'      => 'add to favorites',
@@ -118,7 +118,7 @@
                             @endif
                         </td>
                         <td data-field="school.name" style="white-space: nowrap;">
-                            {!! htmlspecialchars($education->school->name ?? '') !!}
+                            {{ $education->school->name ?? '' }}
                         </td>
                         <td data-field="graduation_date" class="has-text-centered hide-at-480" style="white-space: nowrap;">
                             @if (!empty($education->graduation_date))

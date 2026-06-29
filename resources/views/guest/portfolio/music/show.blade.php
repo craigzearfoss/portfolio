@@ -4,19 +4,19 @@
     $music            = $music ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Music: ' . htmlspecialchars($music->name) . (!empty($music->artist) ? ' - ' . htmlspecialchars($music->artist) : ''), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''), $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Music',                        'href' => route('guest.portfolio.music.index', $owner) ],
-            [ 'name' => htmlspecialchars($music->name) . (!empty($music->artist) ? ' - ' . htmlspecialchars($music->artist) : '') ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Music',      'href' => route('guest.portfolio.music.index', $owner) ],
+            [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
           ];
 
     // set navigation buttons
@@ -29,11 +29,11 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($music->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $music->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($music->embed))
@@ -45,14 +45,14 @@
             @if (!empty($music->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($music->name) !!}</td>
+                    <td>{{ $music->name }}</td>
                 </tr>
             @endif
 
             @if (!empty($music->artist))
                 <tr>
                     <th>artist:</th>
-                    <td>{!! htmlspecialchars($music->artist) !!}</td>
+                    <td>{{ $music->artist }}</td>
                 </tr>
             @endif
 
@@ -61,7 +61,7 @@
                     <th>parent:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name' => htmlspecialchars($music->parent->name),
+                            'name' => $music->parent->name,
                             'href' => route('guest.portfolio.music.show', [$owner, $music->parent->slug])
                         ])
                     </td>
@@ -71,7 +71,7 @@
             @if (!empty($music->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($music->summary) !!}</td>
+                    <td>{!! $music->summary !!}</td>
                 </tr>
             @endif
 
@@ -83,7 +83,7 @@
                             @foreach ($music->children as $child)
                                 <li>
                                     @include('guest.components.link', [
-                                        'name' => htmlspecialchars($child->name),
+                                        'name' => $child->name,
                                         'href' => route('guest.portfolio.music.show', [$owner, $child->slug])
                                     ])
                                 </li>
@@ -118,14 +118,14 @@
             @if (!empty($music->label))
                 <tr>
                     <th>label:</th>
-                    <td>{!! htmlspecialchars($music->label) !!}</td>
+                    <td>{{ $music->label }}</td>
                 </tr>
             @endif
 
             @if (!empty($music->catalog_number))
                 <tr>
                     <th>catalog number:</th>
-                    <td>{!! htmlspecialchars($music->catalog_number) !!}</td>
+                    <td>{{ $music->catalog_number }}</td>
                 </tr>
             @endif
 
@@ -148,7 +148,7 @@
                     <th>audio url:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($music->audio_url),
+                            'name'   => $music->audio_url,
                             'href'   => $music->audio_url,
                             'target' => '_blank'
                         ])
@@ -158,7 +158,7 @@
 
             @if (!empty($music->link))
                 <tr>
-                    <th>{{ !empty($music->link_name) ? htmlspecialchars($music->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($music->link_name) ? $music->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
                             'href'   => $music->link,
@@ -181,13 +181,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $music->image,
-                            'alt'          => htmlspecialchars($music->name),
+                            'alt'          => $music->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($music),
-                            'image_credit' => htmlspecialchars($music->image_credit),
-                            'image_source' => htmlspecialchars($music->image_source),
+                            'image_credit' => $music->image_credit,
+                            'image_source' => $music->image_source,
                         ])
                     </td>
                 </tr>

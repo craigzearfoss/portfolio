@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('links', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('links', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Links' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -78,10 +78,10 @@
 
                 @forelse ($links as $link)
 
-                    <tr data-id="{{ $link->id }}" {!! $link->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $link->id }}" {{ $link->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($link->name),
+                                'name'  => $link->name,
                                 'href'  => route('guest.portfolio.link.show', [$owner, $link->slug]),
                                 'class' => $link->featured ? [ 'has-text-weight-bold' ] : []
                             ])
@@ -98,7 +98,7 @@
                         </td>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'   => htmlspecialchars($link->url),
+                                'name'   => $link->url,
                                 'href'   => $link->url,
                                 'target' => '_blank',
                             ])

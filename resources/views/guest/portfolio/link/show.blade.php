@@ -4,19 +4,19 @@
     $link             = $link ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Link: ' . htmlspecialchars($link->name), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Link: ' . $link->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Links',                        'href' => route('guest.portfolio.link.index', $owner) ],
-            [ 'name' => htmlspecialchars($link->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Links',      'href' => route('guest.portfolio.link.index', $owner) ],
+            [ 'name' => $link->name ],
           ];
 
     // set navigation buttons
@@ -29,24 +29,24 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($link->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $link->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($link->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($link->name) !!}</td>
+                    <td>{{ $link->name }}</td>
                 </tr>
             @endif
 
             @if (!empty($link->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($link->summary) !!}</td>
+                    <td>{!! $link->summary !!}</td>
                 </tr>
             @endif
 
@@ -55,7 +55,7 @@
                     <th>url:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($link->url),
+                            'name'   => $link->url,
                             'href'   => $link->url,
                             'target' => '_blank'
                         ])
@@ -65,10 +65,10 @@
 
             @if (!empty($link->link))
                 <tr>
-                    <th>{{ !empty($link->link_name) ? htmlspecialchars($link->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($link->link_name) ? $link->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($link->link),
+                            'name'   => $link->link,
                             'href'   => $link->link,
                             'target' => '_blank'
                         ])
@@ -89,13 +89,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $link->image,
-                            'alt'          => htmlspecialchars($link->name),
+                            'alt'          => $link->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($link),
-                            'image_credit' => htmlspecialchars($link->image_credit),
-                            'image_source' => htmlspecialchars($link->image_source),
+                            'image_credit' => $link->image_credit,
+                            'image_source' => $link->image_source,
                         ])
                     </td>
                 </tr>

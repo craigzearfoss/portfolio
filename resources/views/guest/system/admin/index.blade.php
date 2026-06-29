@@ -23,7 +23,7 @@
 @section('content')
 
     @if ($disclaimerMessage = config('app.demo_disclaimer'))
-        @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+        @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
     @endif
 
     <div class="floating-div-container">

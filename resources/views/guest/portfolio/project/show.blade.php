@@ -4,19 +4,19 @@
     $project          = $project ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Project: ' . htmlspecialchars($project->name), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Project: ' . $project->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Projects',                     'href' => route('guest.portfolio.project.index', $owner) ],
-            [ 'name' => htmlspecialchars($project->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Projects',   'href' => route('guest.portfolio.project.index', $owner) ],
+            [ 'name' => $project->name ],
           ];
 
     // set navigation buttons
@@ -29,24 +29,24 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($project->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $project->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($project->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($project->name) !!}</td>
+                    <td>{{ $project->name }}</td>
                 </tr>
            @endif
 
             @if (!empty($project->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($project->summary) !!}</td>
+                    <td>{!! $project->summary !!}</td>
                 </tr>
             @endif
 
@@ -60,14 +60,14 @@
             @if (!empty($project->language))
                 <tr>
                     <th>language:</th>
-                    <td>{!! htmlspecialchars($project->language) !!}</td>
+                    <td>{{ $project->language }}</td>
                 </tr>
             @endif
 
             @if (!empty($project->language_version))
                 <tr>
                     <th>language version:</th>
-                    <td>{!! htmlspecialchars($project->language_version) !!}</td>
+                    <td>{{ $project->language_version }}</td>
                 </tr>
             @endif
 
@@ -76,7 +76,7 @@
                     <th>repository:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($project->repository_url),
+                            'name'   => $project->repository_url,
                             'href'   => $project->repository_url,
                             'target' => '_blank'
                         ])
@@ -86,7 +86,7 @@
 
             @if (!empty($project->link))
                 <tr>
-                    <th>{{ !empty($project->link_name) ? htmlspecialchars($project->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($project->link_name) ? $project->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
                             'href'   => $project->link,
@@ -109,13 +109,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $project->image,
-                            'alt'          => htmlspecialchars($project->name),
+                            'alt'          => $project->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($project),
-                            'image_credit' => htmlspecialchars($project->image_credit),
-                            'image_source' => htmlspecialchars($project->image_source),
+                            'image_credit' => $project->image_credit,
+                            'image_source' => $project->image_source,
                         ])
                     </td>
                 </tr>

@@ -134,6 +134,7 @@
                                 'attributes' => [ 'data-resource' => 'career.job_board' ]
                             ])
 
+                            <?php /*
                             @include('guest.components.form-checkbox', [
                                 'name'     => 'primary',
                                 'value'    => 1,
@@ -156,6 +157,7 @@
                                 'checked'  => $is_disabled,
                                 'nohidden' => true,
                             ])
+                            */ ?>
 
                             <div>
                                 @include('guest.components.search-panel.controls.career-recruiter-founded', [

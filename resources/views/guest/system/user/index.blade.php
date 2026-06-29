@@ -24,7 +24,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -81,7 +81,7 @@
                         </td>
                         <td data-field="name">
                             @include('guest.components.link', [
-                                'name' => htmlspecialchars(!empty($user->name) ? $user->name : $user->label),
+                                'name' => !empty($user->name) ? $user->name : $user->label,
                                 'href' => route('guest.user.show', $user),
                             ])
                             <?php /*
@@ -96,10 +96,10 @@
                             */ ?>
                         </td>
                         <td data-field="role">
-                            {!! htmlspecialchars($user->role) !!}
+                            {{$user->role }}
                         </td>
                         <td data-field="employer">
-                            {!! htmlspecialchars($user->employer) !!}
+                            {{ $user->employer }}
                     </tr>
 
                 @empty

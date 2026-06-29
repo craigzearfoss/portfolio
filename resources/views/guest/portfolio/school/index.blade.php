@@ -11,10 +11,10 @@
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Schools' ],
           ];
 
@@ -29,7 +29,7 @@
     <?php /*
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
     */ ?>
@@ -102,11 +102,11 @@
 
                 @forelse ($schools as $school)
 
-                    <tr data-id="{{ $school->id }}" {!! $school->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $school->id }}" {{ $school->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($school->name),
-                                'href'  => route('guest.portfolio.school.show', [$school->slug]),
+                                'name'  => $school->name,
+                                'href'  => route('guest.portfolio.school.show', [ $school->slug ]),
                             ])
                             @include('guest.components.link-icon', [
                                 'title'      => 'add to favorites',

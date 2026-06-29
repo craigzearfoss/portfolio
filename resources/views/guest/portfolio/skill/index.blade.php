@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('skills', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('skills', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Skills' ],
         ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -92,12 +92,12 @@
 
                 @forelse ($skills as $skill)
 
-                    <tr data-id="{{ $skill->id }}" {!! $skill->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $skill->id }}" {{ $skill->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td style="white-space: nowrap;">
                             @if ($skill->featured)
-                                <strong>{!! htmlspecialchars($skill->name) !!}</strong>
+                                <strong>{{ $skill->name }}</strong>
                             @else
-                                {!! htmlspecialchars($skill->name) !!}
+                                {{ $skill->name }}
                             @endif
                             <?php /*
                             @include('guest.components.link-icon', [
@@ -111,7 +111,7 @@
                             */ ?>
                         </td>
                         <td class="hide-at-600" style="white-space: nowrap;">
-                            {!! htmlspecialchars($skill->category->name ?? '') !!}
+                            {{ $skill->category->name ?? '' }}
                         </td>
                         <td data-field="level" style="white-space: nowrap;" class="font-size-12px-at-480 font-size-14px-at-600">
                             @if (!empty($skill->level))
@@ -122,7 +122,7 @@
                             @endif
                         </td>
                         <td class="has-text-centered hide-at-480">
-                            {!! $skill->years !!}
+                            {{ $skill->years }}
                         </td>
                     </tr>
 

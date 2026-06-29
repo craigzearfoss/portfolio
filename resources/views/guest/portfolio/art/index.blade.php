@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('art', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('art', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Art' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -85,11 +85,11 @@
 
                 @forelse ($arts as $art)
 
-                    <tr data-id="{{ $art->id }}" {!! $art->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $art->id }}" {{ $art->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($art->name),
-                                'href'  => route('guest.portfolio.art.show', [$owner, $art->slug]),
+                                'name'  => $art->name,
+                                'href'  => route('guest.portfolio.art.show', [ $owner, $art->slug ]),
                                 'class' => $art->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                             <?php /*
@@ -104,10 +104,10 @@
                             */ ?>
                         </td>
                         <td style="white-space: nowrap;">
-                            {!! htmlspecialchars($art->artist) !!}
+                            {{ $art->artist }}
                         </td>
                         <td class="has-text-centered hide-at-480">
-                            {!! $art->art_year !!}
+                            {{ $art->art_year }}
                         </td>
                     </tr>
 

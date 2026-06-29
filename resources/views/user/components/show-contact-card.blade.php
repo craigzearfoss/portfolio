@@ -40,11 +40,11 @@
         @include('user.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'          => htmlspecialchars($resource->street ?? ''),
-                'street2'         => htmlspecialchars($resource->street2 ?? ''),
-                'city'            => htmlspecialchars($resource->city ?? ''),
+                'street'          => $resource->street ?? '',
+                'street2'         => $resource->street2 ?? '',
+                'city'            => $resource->city ?? '',
                 'state'           => $resource->state->code ?? '',
-                'zip'             => htmlspecialchars($resource->zip ?? ''),
+                'zip'             => $resource->zip ?? '',
                 'country'         => $resource->country->iso_alpha3 ?? '',
                 'streetSeparator' => '<br>',
             ])
@@ -59,29 +59,29 @@
 
         @if ($resource->hasAttribute('phone'))
             @include('user.components.show-row', [
-                'name'  => htmlspecialchars($resource->phone_label ?? 'phone'),
-                'value' => htmlspecialchars($resource->phone)
+                'name'  => $resource->phone_label ?? 'phone',
+                'value' => $resource->phone ?? ''
             ])
         @endif
 
         @if ($resource->hasAttribute('alt_phone'))
             @include('user.components.show-row', [
-                'name'  => htmlspecialchars($resource->alt_phone_label ?? 'alt phone'),
-                'value' => htmlspecialchars($resource->alt_phone)
+                'name'  => $resource->alt_phone_label ?? 'alt phone',
+                'value' => $resource->alt_phone ?? ''
             ])
         @endif
 
         @if ($resource->hasAttribute('email'))
             @include('user.components.show-row', [
-                'name'  => htmlspecialchars($resource->email_label ?? 'email'),
-                'value' => htmlspecialchars($resource->email)
+                'name'  => $resource->email_label ?? 'email',
+                'value' => $resource->email ?? ''
             ])
         @endif
 
         @if ($resource->hasAttribute('alt_email'))
             @include('user.components.show-row', [
-                'name'  => htmlspecialchars($resource->alt_email_label ?? 'alt email'),
-                'value' => htmlspecialchars($resource->alt_email)
+                'name'  => $resource->alt_email_label ?? 'alt email',
+                'value' => $resource->alt_email ?? ''
             ])
             @endif
 

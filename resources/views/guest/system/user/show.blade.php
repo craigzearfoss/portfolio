@@ -3,7 +3,7 @@
     $user             = $user ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ??  !empty($user->name) ? htmlspecialchars($user->name) : $user->username;
+    $title    = $pageTitle ??  !empty($user->name) ? $user->name : $user->username;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -12,7 +12,7 @@
         : [
             [ 'name' => 'Home',  'href' => route('guest.index') ],
             [ 'name' => 'Users', 'href' => route('guest.user.index') ],
-            [ 'name' => !empty($user->name) ? htmlspecialchars($user->name) : $user->username ]
+            [ 'name' => !empty($user->name) ? $user->name : $user->username ]
           ];
 
     // set navigation buttons
@@ -23,7 +23,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($user->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $user->disclaimer ])
 
     <div class="card column p-4">
 
@@ -34,7 +34,7 @@
                 @include('guest.components.image', [
                     'name'     => 'image',
                     'src'      => $user->image,
-                    'alt'      => htmlspecialchars($user->name),
+                    'alt'      => $user->name,
                     'width'    => '300px',
                     'filename' => generateDownloadFilename($user)
                 ])
@@ -56,14 +56,14 @@
                     @if (!empty($user->role))
                         @include('guest.components.show-row', [
                             'name'  => 'role',
-                            'value' => htmlspecialchars($user->role)
+                            'value' => $user->role
                         ])
                     @endif
 
                     @if (!empty($user->employer))
                         @include('guest.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . htmlspecialchars($user->employer)
+                            'value' => '<br>' . $user->employer
                         ])
                     @endif
 

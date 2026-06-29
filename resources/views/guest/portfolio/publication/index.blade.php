@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('publications', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('publications', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Publications' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -92,10 +92,10 @@
 
                 @forelse ($publications as $publication)
 
-                    <tr data-id="{{ $publication->id }}" {!! $publication->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $publication->id }}" {{ $publication->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="title" style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($publication->title),
+                                'name'  => $publication->title,
                                 'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
                                 'class' => $publication->featured ? [ 'has-text-weight-bold' ] : []
                             ])
@@ -111,13 +111,13 @@
                             */ ?>
                         </td>
                         <td data-field="publication_name" class="hide-at-480" style="white-space: nowrap;">
-                            {!! htmlspecialchars($publication->publication_name) !!}
+                            {{ $publication->publication_name }}
                         </td>
                         <td data-field="publisher" class="hide-at-1200" style="white-space: nowrap;">
-                            {!! htmlspecialchars($publication->publisher) !!}
+                            {{ $publication->publisher }}
                         </td>
                         <td data-field="publication_year" class="has-text-centered hide-at-750">
-                            {!! $publication->publication_year !!}
+                            {{ $publication->publication_year }}
                         </td>
                     </tr>
 

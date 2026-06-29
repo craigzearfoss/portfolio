@@ -4,19 +4,19 @@
     $audio            = $audio ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Audio: ' . htmlspecialchars($audio->name), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Audio: ' . $audio->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Audio',                        'href' => route('guest.portfolio.audio.index', $owner) ],
-            [ 'name' => htmlspecialchars($audio->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Audio',      'href' => route('guest.portfolio.audio.index', $owner) ],
+            [ 'name' => $audio->name ],
           ];
 
     // set navigation buttons
@@ -29,17 +29,17 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($audio->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $audio->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($audio->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($audio->name) !!}</td>
+                    <td>{{ $audio->nam }}</td>
                 </tr>
             @endif
 
@@ -48,7 +48,7 @@
                     <th>parent:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name' => htmlspecialchars($audio->parent->name ?? ''),
+                            'name' => $audio->parent->name ?? '',
                             'href' => route('guest.portfolio.audio.show', [$owner, $audio->parent->slug])
                         ])
                     </td>
@@ -58,7 +58,7 @@
             @if (!empty($audio->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($audio->summary) !!}</td>
+                    <td>{{ $audio->summary }}</td>
                 </tr>
             @endif
 
@@ -70,7 +70,7 @@
                             @foreach ($audio->children as $child)
                                 <li>
                                     @include('guest.components.link', [
-                                        'name' => htmlspecialchars($child->name),
+                                        'name' => $child->name,
                                         'href' => route('guest.portfolio.audio.show', [$owner, $child->slug])
                                     ])
                                 </li>
@@ -133,14 +133,14 @@
             @if (!empty($audio->company))
                 <tr>
                     <th>company:</th>
-                    <td>{{ htmlspecialchars($audio->company) }}</td>
+                    <td>{{ $audio->company }}</td>
                 </tr>
             @endif
 
             @if (!empty($audio->credit))
                 <tr>
                     <th>credit:</th>
-                    <td>{{ htmlspecialchars($audio->credit) }}</td>
+                    <td>{{ $audio->credit }}</td>
                 </tr>
             @endif
 
@@ -154,7 +154,7 @@
             @if (!empty($audio->location))
                 <tr>
                     <th>location:</th>
-                    <td>{{ htmlspecialchars($audio->location) }}</td>
+                    <td>{{ $audio->location }}</td>
                 </tr>
             @endif
 
@@ -174,7 +174,7 @@
 
             @if (!empty($audio->link))
                 <tr>
-                    <th>{{ !empty($audio->link_name) ? htmlspecialchars($audio->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($audio->link_name) ? $audio->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
                             'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
@@ -198,13 +198,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $audio->image,
-                            'alt'          => htmlspecialchars($audio->name),
+                            'alt'          => $audio->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($audio),
-                            'image_credit' => htmlspecialchars($audio->image_credit),
-                            'image_source' => htmlspecialchars($audio->image_source),
+                            'image_credit' => $audio->image_credit,
+                            'image_source' => $audio->image_source,
                         ])
                     </td>
                 </tr>

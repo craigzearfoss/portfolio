@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $framework = $framework ?? null;
 
-    $title   = 'Dictionary: ' . htmlspecialchars($framework->name);
+    $title   = 'Dictionary: ' . $framework->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Frameworks', 'href' => route('guest.dictionary.framework.index') ],
-        [ 'name' => htmlspecialchars($framework->name) ],
+        [ 'name' => $framework->name ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($framework->full_name)
+            'value' => $framework->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($framework->name)
+            'value' => $framework->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($framework->abbreviation)
+            'value' => $framework->abbreviation
         ])
 
         @include('guest.components.show-row', [
@@ -68,7 +68,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'link_name' => !empty($framework->link_name) ? htmlspecialchars($framework->link_name) : 'link',
+            'link_name' => !empty($framework->link_name) ? $framework->link_name : 'link',
             'name'      => $framework->link,
             'href'      => $framework->link,
             'target'    => '_blank',
@@ -84,13 +84,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $framework->image,
-                'alt'          => htmlspecialchars($framework->name),
+                'alt'          => $framework->name,
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($framework),
-                'image_credit' => htmlspecialchars($framework->image_credit),
-                'image_source' => htmlspecialchars($framework->image_source),
+                'image_credit' => $framework->image_credit,
+                'image_source' => $framework->image_source,
             ])
 
         @endif

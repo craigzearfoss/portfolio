@@ -2,7 +2,7 @@
     // make sure all template variables are defined (this is mostly for the IDE parser)
     $server = $server ?? null;
 
-    $title    = 'Dictionary: ' . htmlspecialchars($server->name);
+    $title    = 'Dictionary: ' . $server->name;
     $subtitle = $title;
 
     // set breadcrumbs
@@ -10,7 +10,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Servers',    'href' => route('guest.dictionary.server.index') ],
-        [ 'name' => htmlspecialchars($server->name) ],
+        [ 'name' => $server->name ],
     ];
 
     // set navigation buttons
@@ -27,17 +27,17 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($server->full_name)
+            'value' => $server->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($server->name)
+            'value' => $server->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($server->abbreviation)
+            'value' => $server->abbreviation
         ])
 
         @include('guest.components.show-row', [
@@ -68,7 +68,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'link_name' => !empty($server->link_name) ? htmlspecialchars($server->link_name) : 'link',
+            'link_name' => !empty($server->link_name) ? $server->link_name : 'link',
             'name'      => $server->link,
             'href'      => $server->link,
             'target'    => '_blank',
@@ -84,13 +84,13 @@
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $server->image,
-                'alt'          => htmlspecialchars($server->name),
+                'alt'          => $server->name,
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
                 'filename'     => generateDownloadFilename($server),
-                'image_credit' => htmlspecialchars($server->image_credit),
-                'image_source' => htmlspecialchars($server->image_source),
+                'image_credit' => $server->image_credit,
+                'image_source' => $server->image_source,
             ])
 
         @endif

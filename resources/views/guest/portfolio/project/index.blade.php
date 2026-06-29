@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('projects', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('projects', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Projects' ],
         ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -92,11 +92,11 @@
 
                 @forelse ($projects as $project)
 
-                    <tr data-id="{{ $project->id }}" {!! $project->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $project->id }}" {{ $project->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($project->name),
-                                'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
+                                'name'  => $project->name,
+                                'href'  => route('guest.portfolio.project.show', [ $project->owner->label, $project->slug ]),
                                 'class' => $project->featured ? [ 'has-text-weight-bold' ] : []
                             ])
                             <?php /*
@@ -111,18 +111,18 @@
                             */ ?>
                         </td>
                         <td data-field="language" style="white-space: nowrap;">
-                            {!! !empty($project->language)
-                                ? (htmlspecialchars($project->language) . (!empty($project->language_version) ? (' ' . htmlspecialchars($project->language_version)) : ''))
+                            {{ !empty($project->language)
+                                ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                                 : ''
-                            !!}
+                            }}
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-600">
-                            {!! $project->project_year !!}
+                            {{ $project->project_year }}
                         </td>
                         <td data-field="year" class="hide-at-1024" style="white-space: nowrap;">
                             @if (!empty($project->repository_url))
                                 @include('guest.components.link', [
-                                    'name'   => htmlspecialchars($project->repository_name),
+                                    'name'   => $project->repository_name,
                                     'href'   => $project->repository_url,
                                     'target' => '_blank'
                                 ])

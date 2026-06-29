@@ -4,19 +4,19 @@
     $school            = $school ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('School: ' . htmlspecialchars($school->name));
+    $title    = $pageTitle ?? filteredPageTitle('School: ' . $school->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'School',                        'href' => route('guest.portfolio.school.index', $owner) ],
-            [ 'name' => htmlspecialchars($school->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'School',     'href' => route('guest.portfolio.school.index', $owner) ],
+            [ 'name' => $school->name ],
           ];
 
     // set navigation buttons
@@ -29,24 +29,24 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($school->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $school->disclaimer ])
 
     <div class="show-container p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($school->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($school->name) !!}</td>
+                    <td>{{ $school->name }}</td>
                 </tr>
             @endif
 
             @if (!empty($school->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($school->summary) !!}</td>
+                    <td>{!! $school->summary !!}</td>
                 </tr>
             @endif
 
@@ -58,7 +58,7 @@
             @if (!empty($school->former_names))
                 <tr>
                     <th style="white-space: nowrap;">former names:</th>
-                    <td>{!! str_replace(',', '<br>', htmlspecialchars($school->former_names)) !!}</td>
+                    <td>{{ str_replace(',', '<br>', $school->former_names) }}</td>
                 </tr>
             @endif
 
@@ -79,7 +79,7 @@
             @if (!empty($school->colors))
                 <tr>
                     <th>colors:</th>
-                    <td>{!! str_replace('|', ', ', htmlspecialchars($school->colors)) !!}</td>
+                    <td>{{ str_replace('|', ', ', $school->colors) }}</td>
                 </tr>
             @endif
 
@@ -131,7 +131,7 @@
                     <th>{{ !empty($school->link_name) ? $school->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => !empty($school->link_name) ? htmlspecialchars($school->link_name) : 'link',
+                            'name'   => !empty($school->link_name) ? $school->link_name : 'link',
                             'href'   => $school->link,
                             'target' => '_blank'
                         ])
@@ -152,13 +152,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $school->image,
-                            'alt'          => htmlspecialchars($school->name) . (!empty($school->artist) ? ', ' . htmlspecialchars($school->artist) : ''),
+                            'alt'          => $school->name . (!empty($school->artist) ? ', ' . $school->artist : ''),
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($school),
-                            'image_credit' => htmlspecialchars($school->image_credit),
-                            'image_source' => htmlspecialchars($school->image_source),
+                            'image_credit' => $school->image_credit,
+                            'image_source' => $school->image_source,
                         ])
                     </td>
                 </tr>

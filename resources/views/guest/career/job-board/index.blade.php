@@ -26,7 +26,7 @@
     <?php /*
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
     */ ?>
@@ -117,10 +117,14 @@
 
                 @forelse ($jobBoards as $jobBoard)
 
-                    <tr data-id="{{ $jobBoard->id }}" {!! $jobBoard->is_disabled ? 'class="disabled-text"' : '' !!}>
-                        <td style="white-space: nowrap;{{ $jobBoard->primary ? ' font-weight: 700;' : '' }}">
-                            <span {!! $jobBoard->featured ? 'class="has-text-weight-bold"' : '' !!}>
-                                {{ $jobBoard->name }}
+                    <tr data-id="{{ $jobBoard->id }}" {{ $jobBoard->is_disabled ? 'class="disabled-text"' : '' }}>
+                        <td data-field="name" style="white-space: nowrap;">
+                            <span {{ $jobBoard->primary ? 'class="has-text-weight-bold"' : '' }}>
+                                @include('guest.components.link', [
+                                    'name'  => $jobBoard->name,
+                                    'href'  => route('guest.career.job-board.show', $jobBoard->slug),
+                                    'class' => $jobBoard->is_disabled ? [ 'disabled-text' ] : []
+                                ])
                             </span>
                             @include('guest.components.link-icon', [
                                 'title'      => 'add to favorites',
@@ -146,7 +150,7 @@
                             {{ $jobBoard->recruiterIndustry->name ?? '' }}
                         </td>
                         <td data-field="international|national|regional|local" style="white-space: nowrap; width: 6rem;">
-                            {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
+                            {{ implode(', ', $jobBoard->coverageAreas ?? []) }}
                         </td>
                         <td class="has-text-centered">
                             @include('guest.components.checkmark', [ 'checked' => $jobBoard->free ])
@@ -167,12 +171,12 @@
                             {!!
                                 !empty($recruiter->country->iso_alpha3) && ($jobBoard->country->iso_alpha3 != 'USA')
                                     ? formatLocation([
-                                          'city'    => htmlspecialchars($jobBoard->city),
+                                          'city'    => $jobBoard->city,
                                           'state'   => $jobBoard->state->code ?? '',
                                           'country' => $jobBoard->country->iso_alpha3
                                       ])
                                    : formatLocation([
-                                          'city'    => htmlspecialchars($jobBoard->city),
+                                          'city'    => $jobBoard->city,
                                           'state'   => $jobBoard->state->code ?? '',
                                   ])
                             !!}

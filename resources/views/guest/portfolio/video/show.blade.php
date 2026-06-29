@@ -4,19 +4,19 @@
     $video            = $video ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Video: ' . htmlspecialchars($video->name), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Video: ' . $video->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Videos',                       'href' => route('guest.portfolio.video.index', $owner) ],
-            [ 'name' => htmlspecialchars($video->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Videos',     'href' => route('guest.portfolio.video.index', $owner) ],
+            [ 'name' => $video->name ],
           ];
 
     // set navigation buttons
@@ -29,11 +29,11 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($video->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $video->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($video->embed))
@@ -45,7 +45,7 @@
             @if (!empty($video->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($video->name) !!}</td>
+                    <td>{{ $video->name }}</td>
                 </tr>
             @endif
 
@@ -54,8 +54,8 @@
                     <th>parent:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name' => htmlspecialchars($video->parent->name),
-                            'href' => route('guest.portfolio.video.show', [$owner, $video->parent->slug])
+                            'name' => $video->parent->name,
+                            'href' => route('guest.portfolio.video.show', [ $owner, $video->parent->slug ])
                         ])
                     s</td>
                 </tr>
@@ -64,7 +64,7 @@
             @if (!empty($video->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($video->summary) !!}</td>
+                    <td>{!! $video->summary !!}</td>
                 </tr>
             @endif
 
@@ -76,8 +76,8 @@
                             @foreach ($video->children as $child)
                                 <li>
                                     @include('guest.components.link', [
-                                        'name' => htmlspecialchars($child->name),
-                                        'href' => route('guest.portfolio.video.show', [$owner, $child->slug])
+                                        'name' => $child->name,
+                                        'href' => route('guest.portfolio.video.show', [ $owner, $child->slug ])
                                     ])
                                 </li>
                             @endforeach
@@ -147,28 +147,28 @@
             @if (!empty($video->company))
                 <tr>
                     <th>company:</th>
-                    <td>{!! htmlspecialchars($video->company) !!}</td>
+                    <td>{{ $video->company }}</td>
                 </tr>
             @endif
 
             @if (!empty($video->credit))
                 <tr>
                     <th>credit:</th>
-                    <td>{!! htmlspecialchars($video->credit) !!}</td>
+                    <td>{{ $video->credit }}</td>
                 </tr>
             @endif
 
             @if (!empty($video->show))
                 <tr>
                     <th>show:</th>
-                    <td>{!! htmlspecialchars($video->show) !!}</td>
+                    <td>{{ $video->show }}</td>
                 </tr>
             @endif
 
             @if (!empty($video->location))
                 <tr>
                     <th>location:</th>
-                    <td>{!! htmlspecialchars($video->location) !!}</td>
+                    <td>{{ $video->location }}</td>
                 </tr>
             @endif
 
@@ -186,10 +186,10 @@
 
             @if (!empty($video->link))
                 <tr>
-                    <th>{{ !empty($video->link_name) ? htmlspecialchars($video->link_name) : 'link' }}:</th>
+                    <th>{{ !empty($video->link_name) ? $video->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($video->link_name),
+                            'name'   => $video->link_name,
                             'href'   => $video->link,
                             'target' => '_blank'
                         ])
@@ -210,13 +210,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $video->image,
-                            'alt'          => htmlspecialchars($video->name),
+                            'alt'          => $video->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($video),
-                            'image_credit' => htmlspecialchars($video->image_credit),
-                            'image_source' => htmlspecialchars($video->image_source),
+                            'image_credit' => $video->image_credit,
+                            'image_source' => $video->image_source,
                         ])
                     </td>
                 </tr>

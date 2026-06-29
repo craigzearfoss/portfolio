@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('videos', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('videos', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Videos' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -92,10 +92,10 @@
 
                 @forelse ($videos as $video)
 
-                    <tr data-id="{{ $video->id }}" {!! $video->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $video->id }}" {{ $video->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($video->name),
+                                'name'  => $video->name,
                                 'href'  => route('guest.portfolio.video.show', [$owner, $video->slug]),
                                 'class' => $video->featured ? [ 'has-text-weight-bold' ] : []
                             ])
@@ -111,13 +111,13 @@
                             */ ?>
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-480">
-                            {!! $video->video_year !!}
+                            {{ $video->video_year }}
                         </td>
                         <td data-field="show" class="hide-at-600" style="white-space: nowrap;">
-                            {!! htmlspecialchars($video->show) !!}
+                            {{ $video->show }}
                         </td>
                         <td data-field="company" class="hide-at-1200" style="white-space: nowrap;">
-                            {!! htmlspecialchars($video->company) !!}
+                            {{ $video->company }}
                         </td>
                     </tr>
 

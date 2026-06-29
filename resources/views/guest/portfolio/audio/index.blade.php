@@ -4,17 +4,17 @@
     $owner            = $owner ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('audio', htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('audio', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
             [ 'name' => 'Audio' ],
           ];
 
@@ -28,7 +28,7 @@
 
     @if ($owner->is_demo)
         @if ($disclaimerMessage = config('app.demo_disclaimer'))
-            @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($disclaimerMessage) ])
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
@@ -81,10 +81,10 @@
 
                 @forelse ($audios as $audio)
 
-                    <tr data-id="{{ $audio->id }}" {!! $audio->is_disabled ? 'class="disabled-text"' : '' !!}>
+                    <tr data-id="{{ $audio->id }}" {{ $audio->is_disabled ? 'class="disabled-text"' : '' }}>
                         <td data-field="name" style="white-space: nowrap;">
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($audio->name),
+                                'name'  => $audio->name,
                                 'href'  => route('guest.portfolio.audio.show', [$owner, $audio->slug]),
                                 'class' => $audio->featured ? [ 'has-text-weight-bold' ] : []
                             ])
@@ -105,10 +105,10 @@
                                 if ($audio->podcast) $types[] = 'podcast';
                                 if ($audio->clip) $types[] = 'clip';
                             @endphp
-                            {!! implode(', ', $types) !!}
+                            {{ implode(', ', $types) }}
                         </td>
                         <td data-field="year" class="has-text-centered hide-at-480">
-                            {!! $audio->audio_year !!}
+                            {{ $audio->audio_year }}
                         </td>
                     </tr>
 

@@ -4,19 +4,19 @@
     $certificate      = $certificate ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? filteredPageTitle('Certificate: ' . htmlspecialchars($certificate->name), htmlspecialchars($owner->name));
+    $title    = $pageTitle ?? filteredPageTitle('Certificate: ' . $certificate->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Certificates',                 'href' => route('guest.portfolio.certificate.index', $owner) ],
-            [ 'name' => htmlspecialchars($certificate->name) ],
+            [ 'name' => 'Home',         'href' => route('guest.index') ],
+            [ 'name' => 'Candidates',   'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name,   'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Certificates', 'href' => route('guest.portfolio.certificate.index', $owner) ],
+            [ 'name' => $certificate->name ],
           ];
 
     // set navigation buttons
@@ -29,31 +29,31 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($certificate->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $certificate->disclaimer ])
 
     <div class="show-container card p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($certificate->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($certificate->name) !!}</td>
+                    <td>{{ $certificate->name }}</td>
                 </tr>
            @endif
 
             @if (!empty($certificate->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($certificate->summary) !!}</td>
+                    <td>{!! $certificate->summary !!}</td>
                 </tr>
             @endif
 
             @if (!empty($certificate->organization))
                 <tr>
                     <th>organization:</th>
-                    <td>{!! htmlspecialchars($certificate->organization) !!}</td>
+                    <td>{{ $certificate->organization }}</td>
                 </tr>
             @endif
 
@@ -69,7 +69,7 @@
                     <th>academy:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => htmlspecialchars($certificate->academy['name']),
+                            'name'   => $certificate->academy['name'],
                             'href'   => $certificate->academy['link'],
                             'target' => '_blank',
                         ])
@@ -98,7 +98,7 @@
                     <th>{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => !empty($certificate->link_name) ? htmlspecialchars($certificate->link_name) : 'link',
+                            'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
                             'href'   => $certificate->link,
                             'target' => '_blank'
                         ])
@@ -119,13 +119,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $certificate->image,
-                            'alt'          => htmlspecialchars($certificate->name),
+                            'alt'          => $certificate->name,
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($certificate),
-                            'image_credit' => htmlspecialchars($certificate->image_credit),
-                            'image_source' => htmlspecialchars($certificate->image_source),
+                            'image_credit' => $certificate->image_credit,
+                            'image_source' => $certificate->image_source,
                         ])
                     </td>
                 </tr>

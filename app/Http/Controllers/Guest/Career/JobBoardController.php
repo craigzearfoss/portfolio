@@ -38,7 +38,7 @@ class JobBoardController extends BaseGuestController
         $jobBoards = new JobBoard()->searchQuery(
             request()->except('id', 'sort'),
             request()->input('sort') ?? implode('|', JobBoard::SEARCH_ORDER_BY),
-            $this->owner ?? null
+            null
         )
         ->where('job_boards.name', '!=', 'other')
         ->where('job_boards.name', '!=', 'COMPANY WEBSITE')
@@ -60,8 +60,7 @@ class JobBoardController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$jobBoard = JobBoard::query()->where('owner_id', '=', $admin['id'])
-            ->where('slug', '=', $slug)->first()
+        if (!$jobBoard = JobBoard::query()->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();
         }

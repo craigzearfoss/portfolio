@@ -4,19 +4,19 @@
     $academy          = $academy ?? null;
     $publicAdminCount = $publicAdminCount ?? 0;
 
-    $title    = $pageTitle ?? 'Academy: ' . htmlspecialchars($academy->name);
+    $title    = $pageTitle ?? 'Academy: ' . $academy->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = $publicAdminCount < 2
         ? []
         : [
-            [ 'name' => 'Home',                         'href' => route('guest.index') ],
-            [ 'name' => 'Candidates',                   'href' => route('guest.admin.index') ],
-            [ 'name' => htmlspecialchars($owner->name), 'href' => route('guest.admin.show', $owner)],
-            [ 'name' => 'Portfolio',                    'href' => route('guest.portfolio.index', $owner) ],
-            [ 'name' => 'Academies',                    'href' => route('guest.portfolio.academy.index', $owner) ],
-            [ 'name' => htmlspecialchars($academy->name) ],
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Academies',  'href' => route('guest.portfolio.academy.index', $owner) ],
+            [ 'name' => $academy->name ],
           ];
 
     // set navigation buttons
@@ -29,38 +29,38 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => htmlspecialchars($academy->disclaimer) ])
+    @include('guest.components.disclaimer', [ 'value' => $academy->disclaimer ])
 
     <div class="show-container p-4">
 
-        <table>
+        <table class="table guest-resource-table is-striped is-bordered" style="width: 40rem;">
             <tbody>
 
             @if (!empty($academy->name))
                 <tr>
                     <th>name:</th>
-                    <td>{!! htmlspecialchars($academy->name) !!}</td>
+                    <td>{{ $academy->name }}</td>
                 </tr>
             @endif
 
             @if (!empty($academy->category))
                 <tr>
                     <th>category:</th>
-                    <td>{!! htmlspecialchars($academy->category) !!}</td>
+                    <td>{{ $academy->category }}</td>
                 </tr>
             @endif
 
             @if (!empty($academy->nominated_work))
                 <tr>
                     <th>nominated work:</th>
-                    <td>{!! htmlspecialchars($academy->nominated_work) !!}</td>
+                    <td>{{ $academy->nominated_work }}</td>
                 </tr>
             @endif
 
             @if (!empty($academy->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{!! htmlspecialchars($academy->summary) !!}</td>
+                    <td>{!! $academy->summary !!}</td>
                 </tr>
             @endif
 
@@ -81,7 +81,7 @@
             @if (!empty($academy->organization))
                 <tr>
                     <th>organization:</th>
-                    <td>{!! htmlspecialchars($academy->organization) !!}</td>
+                    <td>{{ $academy->organization }}</td>
                 </tr>
             @endif
 
@@ -90,7 +90,7 @@
                     <th>{{ !empty($academy->link_name) ? $academy->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => !empty($academy->link_name) ? htmlspecialchars($academy->link_name) : 'link',
+                            'name'   => !empty($academy->link_name) ? $academy->link_name : 'link',
                             'href'   => $academy->link,
                             'target' => '_blank'
                         ])
@@ -111,13 +111,13 @@
                         @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $academy->image,
-                            'alt'          => htmlspecialchars($academy->name) . (!empty($academy->artist) ? ', ' . htmlspecialchars($academy->artist) : ''),
+                            'alt'          => $academy->name . (!empty($academy->artist) ? ', ' . $academy->artist : ''),
                             'width'        => '300px',
                             'download'     => true,
                             'external'     => true,
                             'filename'     => generateDownloadFilename($academy),
-                            'image_credit' => htmlspecialchars($academy->image_credit),
-                            'image_source' => htmlspecialchars($academy->image_source),
+                            'image_credit' => $academy->image_credit,
+                            'image_source' => $academy->image_source,
                         ])
                     </td>
                 </tr>
