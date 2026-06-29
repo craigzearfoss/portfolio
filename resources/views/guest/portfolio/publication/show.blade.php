@@ -262,7 +262,11 @@
                 <tr>
                     <th>publication url:</th>
                     <td>
-                        {{ $publication->publication_url }}
+                        @include('guest.components.link', [
+                            'name'   => $publication->publication_url,
+                            'href'   => $publication->publication_url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $publication->publication_url,
@@ -279,7 +283,11 @@
                 <tr>
                     <th>{{ !empty($publication->link_name) ? $publication->link_name : 'link' }}:</th>
                     <td>
-                        {{ $publication->link }}
+                        @include('guest.components.link', [
+                            'name'   => $publication->link,
+                            'href'   => $publication->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $publication->link,

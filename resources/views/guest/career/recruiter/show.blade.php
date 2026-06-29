@@ -85,7 +85,11 @@
                 <tr>
                     <th>website</th>
                     <td>
-                        {{ $recruiter->link }}
+                        @include('guest.components.link', [
+                            'name'   => $recruiter->link,
+                            'href'   => $recruiter->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $recruiter->link,
@@ -102,7 +106,11 @@
                 <tr>
                     <th>LinkedIn profile</th>
                     <td>
-                        {{ $recruiter->linkedin_url }}
+                        @include('guest.components.link', [
+                            'name'   => $recruiter->linkedin_url,
+                            'href'   => $recruiter->linkedin_url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $recruiter->linkedin_url,
@@ -119,7 +127,11 @@
                 <tr>
                     <th>job openings</th>
                     <td>
-                        {{ $recruiter->jobs_url }}
+                        @include('guest.components.link', [
+                            'name'   => $recruiter->jobs_url,
+                            'href'   => $recruiter->jobs_url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $recruiter->jobs_url,

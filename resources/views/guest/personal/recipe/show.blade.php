@@ -105,7 +105,11 @@
                     <tr>
                         <th>{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}:</th>
                         <td>
-                            {{ $recipe->link }}
+                            @include('guest.components.link', [
+                                'name'   => $recipe->link,
+                                'href'   => $recipe->link,
+                                'target' => '_blank'
+                            ])
                             @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',
                                 'href'   => $recipe->link,

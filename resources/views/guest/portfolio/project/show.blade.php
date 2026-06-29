@@ -75,7 +75,11 @@
                 <tr>
                     <th>repository:</th>
                     <td>
-                        {{ $project->repository_url }}
+                        @include('guest.components.link', [
+                            'name'   => $project->repository_url,
+                            'href'   => $project->repository_url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $project->repository_url,
@@ -92,7 +96,11 @@
                 <tr>
                     <th>{{ !empty($project->link_name) ? $project->link_name : 'link' }}:</th>
                     <td>
-                        {{ $project->link }}
+                        @include('guest.components.link', [
+                            'name'   => $project->link,
+                            'href'   => $project->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $project->link,

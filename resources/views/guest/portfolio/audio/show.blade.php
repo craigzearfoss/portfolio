@@ -168,7 +168,21 @@
             @if (!empty($audio->audio_url))
                 <tr>
                     <th>audio url:</th>
-                    <td>{{ $audio->audio_url }}</td>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $audio->audio_url,
+                            'href'   => $audio->audio_url,
+                            'target' => '_blank'
+                        ])
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
+                            'href'   => $audio->audio_url,
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
+                        ])
+                    </td>
                 </tr>
             @endif
 
@@ -176,7 +190,11 @@
                 <tr>
                     <th>{{ !empty($audio->link_name) ? $audio->link_name : 'link' }}:</th>
                     <td>
-                        {{ $audio->link }}
+                        @include('guest.components.link', [
+                            'name'   => $audio->link,
+                            'href'   => $audio->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $audio->link,

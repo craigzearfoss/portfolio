@@ -92,16 +92,19 @@
                 <tr>
                     <th>website</th>
                     <td>
-                        {{ $jobBoard->link }}
-                        <div class="mb-2" style="display: inline-block; line-height: 2;">
-                            @include('guest.components.link-icon', [
-                                'title'  => 'open link in new window',
-                                'href'   => $jobBoard->link,
-                                'icon'   => 'fa-external-link',
-                                'border' => false,
-                                'target' => '_blank',
-                            ])
-                        </div>
+                        @include('guest.components.link', [
+                            'name'   => $jobBoard->link,
+                            'href'   => $jobBoard->link,
+                            'target' => '_blank'
+                        ])
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
+                            'href'   => $jobBoard->link,
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top:-4px' ]
+                        ])
                     </td>
                 </tr>
            @endif
@@ -110,16 +113,19 @@
                 <tr>
                     <th>LinkedIn profile</th>
                     <td>
-                        {{ $jobBoard->linkedin_url }}
-                        <div class="mb-2" style="display: inline-block; line-height: 2;">
-                            @include('guest.components.link-icon', [
-                                'title'  => 'open link in new window',
-                                'href'   => $jobBoard->linkedin_url,
-                                'icon'   => 'fa-external-link',
-                                'border' => false,
-                                'target' => '_blank',
-                            ])
-                        </div>
+                        @include('guest.components.link', [
+                            'name'   => $jobBoard->linkedin_url,
+                            'href'   => $jobBoard->linkedin_url,
+                            'target' => '_blank'
+                        ])
+                        @include('guest.components.link-icon', [
+                            'title'  => 'open link in new window',
+                            'href'   => $jobBoard->linkedin_url,
+                            'icon'   => 'fa-external-link',
+                            'border' => false,
+                            'target' => '_blank',
+                            'style'  => [ 'margin-top: -4px' ]
+                        ])
                     </td>
                 </tr>
             @endif
@@ -128,8 +134,11 @@
                 <tr>
                     <th>job openings</th>
                     <td>
-                        {{ $jobBoard->jobs_url }}
-                        <div class="mb-2" style="display: inline-block; line-height: 2;">
+                        @include('guest.components.link', [
+                            'name'   => $jobBoard->jobs_url,
+                            'href'   => $jobBoard->jobs_url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $jobBoard->jobs_url,

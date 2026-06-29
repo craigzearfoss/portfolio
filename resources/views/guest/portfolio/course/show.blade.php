@@ -136,7 +136,11 @@
                 <tr>
                     <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
                     <td>
-                        {{ $course->link }}
+                        @include('guest.components.link', [
+                            'name'   => $course->link,
+                            'href'   => $course->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $course->link,

@@ -89,7 +89,11 @@
                 <tr>
                     <th>{{ !empty($award->link_name) ? $award->link_name : 'link' }}:</th>
                     <td>
-                        {{ $award->link }}
+                        @include('guest.components.link', [
+                            'name'   => $award->link,
+                            'href'   => $award->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $award->link,

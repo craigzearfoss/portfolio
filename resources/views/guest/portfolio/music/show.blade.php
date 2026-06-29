@@ -147,7 +147,11 @@
                 <tr>
                     <th>audio url:</th>
                     <td>
-                        {{ $music->audio_url }}
+                        @include('guest.components.link', [
+                            'name'   => $music->audio_url,
+                            'href'   => $music->audio_url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $music->audio_url,
@@ -164,7 +168,11 @@
                 <tr>
                     <th>{{ !empty($music->link_name) ? $music->link_name : 'link' }}:</th>
                     <td>
-                        {{ $music->link }}
+                        @include('guest.components.link', [
+                            'name'   => $music->link,
+                            'href'   => $music->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $music->link,

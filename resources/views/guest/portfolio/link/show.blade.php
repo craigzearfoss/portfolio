@@ -54,7 +54,11 @@
                 <tr>
                     <th>url:</th>
                     <td>
-                        {{ $link->url }}
+                        @include('guest.components.link', [
+                            'name'   => $link->url,
+                            'href'   => $link->url,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $link->url,
@@ -71,7 +75,11 @@
                 <tr>
                     <th>{{ !empty($link->link_name) ? $link->link_name : 'link' }}:</th>
                     <td>
-                        {{ $link->link }}
+                        @include('guest.components.link', [
+                            'name'   => $link->link,
+                            'href'   => $link->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $link->link,

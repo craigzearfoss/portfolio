@@ -99,7 +99,11 @@
                 <tr>
                     <th>website:</th>
                     <td>
-                        {{ $school->link }}
+                        @include('guest.components.link', [
+                            'name'   => $school->link,
+                            'href'   => $school->link,
+                            'target' => '_blank'
+                        ])
                         @if (!empty($school->link))
                             @include('guest.components.link-icon', [
                                 'title'  => 'open link in new window',

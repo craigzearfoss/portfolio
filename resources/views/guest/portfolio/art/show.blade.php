@@ -86,7 +86,11 @@
                 <tr>
                     <th>{{ !empty($art->link_name) ? $art->link_name : 'link' }}:</th>
                     <td>
-                        {{ $art->link }}
+                        @include('guest.components.link', [
+                            'name'   => $art->link,
+                            'href'   => $art->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $art->link,

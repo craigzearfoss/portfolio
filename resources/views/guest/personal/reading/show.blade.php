@@ -102,7 +102,11 @@
                 <tr>
                     <th>{{ !empty($reading->link_name) ? $reading->link_name : 'link' }}:</th>
                     <td>
-                        {{ $reading->link }}
+                        @include('guest.components.link', [
+                            'name'   => $reading->link,
+                            'href'   => $reading->link,
+                            'target' => '_blank'
+                        ])
                         @include('guest.components.link-icon', [
                             'title'  => 'open link in new window',
                             'href'   => $reading->link,
