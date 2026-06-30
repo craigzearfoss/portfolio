@@ -128,7 +128,7 @@
                         @else
                             @include('admin.components.form-hidden', [
                                 'name'  => 'owner_id',
-                                'value' => null
+                                'value' => $admin->id ?? null
                             ])
                         @endif
 
