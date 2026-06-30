@@ -16,7 +16,7 @@
     @if ($featuredAdmin)
         <h2 class="title p-2 mb-2">{{ $featuredAdmin->name }} Portfolio</h2>
     @else
-        <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}!</h2>
+        <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}</h2>
     @endif
 
     <div class="floating-div-container">

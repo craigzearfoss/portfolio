@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}!</h2>
+    <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}</h2>
 
     <div class="floating-div-container">
 
