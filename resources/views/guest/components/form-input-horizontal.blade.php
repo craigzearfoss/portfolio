@@ -7,8 +7,8 @@
     $type   = !empty($type) ? $type : 'text';
 
     $min       = $min ?? null;
-    $max       = $min ?? null;
-    $maxlength = $min ?? null;
+    $max       = $max ?? null;
+    $maxlength = $maxlength ?? null;
 
     $required = $required ?? false;
 
