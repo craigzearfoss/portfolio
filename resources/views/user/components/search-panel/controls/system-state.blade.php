@@ -1,21 +1,21 @@
 @php
     use App\Models\System\State;
 
-    $state_id = $state_id ?? request()->query('state_id');dd($state_id);
+    $state_id = $state_id ?? request()->query('state_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('user.components.form-select', [
-        'name'     => 'state_id',
-        'label'    => 'state',
-        'value'    => $state_id,
-        'list'     => new State()->listOptions(
-                          [],
-                          'id',
-                          'name',
-                          true,
-                          false,
-                          [ 'name', 'asc' ]
-                      ),
-        'style'    => 'min-width: 6rem;'
+        'name'  => 'state_id',
+        'label' => 'state',
+        'value' => $state_id,
+        'list'  => new State()->listOptions(
+                       [],
+                       'id',
+                       'name',
+                       true,
+                       false,
+                       [ 'name', 'asc' ]
+                   ),
+        'class' => [ 'select-state' ]
     ])
 </div>

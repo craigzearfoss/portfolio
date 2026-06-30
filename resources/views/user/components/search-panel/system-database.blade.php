@@ -69,7 +69,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'database',
                                 'value'   => $database,
                                 'message' => $message ?? '',
@@ -92,7 +92,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'tag',
                                 'value'   => $tag,
                                 'message' => $message ?? '',
@@ -102,7 +102,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'title',
                                 'value'   => $search_title,
                                 'message' => $message ?? '',

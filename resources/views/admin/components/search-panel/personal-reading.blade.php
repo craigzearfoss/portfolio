@@ -92,7 +92,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('admin.components.form-input-with-icon', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'title',
                                 'label'   => 'title',
                                 'value'   => $search_title,

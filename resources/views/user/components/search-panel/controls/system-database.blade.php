@@ -1,7 +1,8 @@
 @php
     use App\Models\System\Database;
 
-    $owner_id   = $owner->id ?? -1;
+    $owner_id   = $owner_id ?? request()->query('owner_id');
+    $isRootAmin = $isRootAmin ?? false;
     $id         = $id ?? request()->query('id');
 @endphp
 <div class="control" style="max-width: 28rem;">

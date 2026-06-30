@@ -25,7 +25,10 @@
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}"
+              class="search-form"
+              method="get"
+        >
 
             <div>
 
@@ -65,7 +68,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'ingredient_name',
                                 'label'   => 'ingredient',
                                 'value'   => $ingredient_name,
@@ -79,7 +82,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'recipe_name',
                                 'label'   => 'recipe',
                                 'value'   => $recipe_name,

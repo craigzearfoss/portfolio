@@ -10,7 +10,7 @@
         <tr>
             <th><span class="pr-1">from</span></th>
             <td>
-                @include('guest.components.form-input-with-icon', [
+                @include('guest.components.form-input', [
                     'type'    => 'datetime-local',
                     'name'    => 'communication_datetime-min',
                     'label'   => '',

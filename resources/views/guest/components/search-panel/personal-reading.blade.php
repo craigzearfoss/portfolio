@@ -94,7 +94,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input-with-icon', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'title',
                                 'label'   => 'title',
                                 'value'   => $search_title,

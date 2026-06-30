@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.form-input-with-icon', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'label',
                                 'value'   => $search_label,
                                 'message' => $message ?? '',

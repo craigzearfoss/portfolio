@@ -10,7 +10,7 @@
         <tr>
             <th><span class="pr-1">from</span></th>
             <td>
-                @include('admin.components.form-input-with-icon', [
+                @include('admin.components.form-input', [
                     'type'    => 'datetime-local',
                     'name'    => 'deleted_at-min',
                     'label'   => '',

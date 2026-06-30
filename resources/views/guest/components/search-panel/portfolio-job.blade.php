@@ -69,7 +69,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input-with-icon', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'company',
                                 'value'   => $company,
                                 'message' => $message ?? '',

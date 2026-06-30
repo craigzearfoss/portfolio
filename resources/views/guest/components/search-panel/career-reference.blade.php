@@ -70,7 +70,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input-with-icon', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -108,7 +108,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('guest.components.form-input-with-icon', [
+                            @include('guest.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

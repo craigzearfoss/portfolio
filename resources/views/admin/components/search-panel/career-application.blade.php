@@ -101,7 +101,7 @@
 
                         @if ($isRootAdmin || $companyCount > 20)
                             <div class="search-form-control">
-                                @include('admin.components.form-input-with-icon', [
+                                @include('admin.components.form-input', [
                                     'name'    => 'company_name',
                                     'label'   => 'company',
                                     'value'   => $company_name,
@@ -116,7 +116,7 @@
                         @endif
 
                         <div class="search-form-control">
-                            @include('admin.components.form-input-with-icon', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'role',
                                 'value'   => $role,
                                 'message' => $message ?? '',
@@ -130,7 +130,7 @@
 
                         @if ($isRootAdmin || $resumeCount > 20)
                             <div class="search-form-control">
-                                @include('admin.components.form-input-with-icon', [
+                                @include('admin.components.form-input', [
                                     'name'    => 'resume_name',
                                     'label'   => 'resume',
                                     'value'   => $resume_name,
@@ -205,7 +205,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('admin.components.form-input-with-icon', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'city',
                                 'value'   => $city,
                                 'message' => $message ?? '',

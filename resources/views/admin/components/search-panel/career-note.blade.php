@@ -81,7 +81,7 @@
 
                         @if (!$isRootAdmin || $applicationCount > 20)
                             <div class="search-form-control">
-                                @include('admin.components.form-input-with-icon', [
+                                @include('admin.components.form-input', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,

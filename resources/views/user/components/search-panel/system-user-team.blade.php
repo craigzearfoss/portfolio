@@ -71,7 +71,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'abbreviation',
                                 'value'   => $abbreviation,
                                 'message' => $message ?? '',

@@ -10,7 +10,7 @@
         <tr>
             <th><span class="pr-1">from</span></th>
             <td>
-                @include('admin.components.form-input-with-icon', [
+                @include('admin.components.form-input', [
                     'type'    => 'date',
                     'name'    => 'apply_date_min',
                     'label'   => '',

@@ -79,7 +79,7 @@
 
                         @if ($applicationCount > 20)
                             <div class="search-form-control">
-                                @include('guest.components.form-input-with-icon', [
+                                @include('guest.components.form-input', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,

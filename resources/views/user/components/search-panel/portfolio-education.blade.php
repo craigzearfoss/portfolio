@@ -77,7 +77,7 @@
                         */ ?>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'school_name',
                                 'label'   => 'school',
                                 'value'   => $school_name,
@@ -95,7 +95,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'major',
                                 'value'   => $major,
                                 'message' => $message ?? '',
@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'minor',
                                 'value'   => $minor,
                                 'message' => $message ?? '',

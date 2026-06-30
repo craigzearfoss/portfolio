@@ -68,7 +68,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'recipe_name',
                                 'label'   => 'recipe',
                                 'value'   => $recipe_name,
@@ -82,7 +82,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'summary',
                                 'label'   => 'summary',
                                 'value'   => $summary,

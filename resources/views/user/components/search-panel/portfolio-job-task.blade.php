@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'company_name',
                                 'label'   => 'company',
                                 'value'   => $company_name,

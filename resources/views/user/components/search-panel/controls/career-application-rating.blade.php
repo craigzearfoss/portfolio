@@ -15,6 +15,6 @@
         'label' => 'min rating',
         'value' => $min_rating,
         'list'  => $ratings,
-        'style' => 'width: 8rem;'
+        'style' => [ 'width: 8rem' ]
     ])
 </div>

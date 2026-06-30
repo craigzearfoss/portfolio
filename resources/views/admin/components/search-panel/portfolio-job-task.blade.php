@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('admin.components.form-input-with-icon', [
+                            @include('admin.components.form-input', [
                                 'name'    => 'company_name',
                                 'label'   => 'company',
                                 'value'   => $company_name,

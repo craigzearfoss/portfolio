@@ -82,7 +82,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
@@ -92,7 +92,7 @@
 
                         @if ($isRootAdmin || $applicationCount > 20)
                             <div class="search-form-control">
-                                @include('user.components.form-input-with-icon', [
+                                @include('user.components.form-input', [
                                     'name'    => 'application_name',
                                     'label'   => 'application',
                                     'value'   => $application_name,
@@ -110,7 +110,7 @@
 
                             @if ($companyCount > 20)
                                 <div class="search-form-control">
-                                    @include('user.components.form-input-with-icon', [
+                                    @include('user.components.form-input', [
                                         'name'    => 'company_name',
                                         'label'   => 'company',
                                         'value'   => $company_name,
@@ -130,7 +130,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'application_role',
                                 'label'   => 'role',
                                 'value'   => $application_role,
@@ -140,7 +140,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'content',
                                 'value'   => $content,
                                 'message' => $message ?? '',
@@ -152,7 +152,7 @@
                     <div class="floating-div">
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'description',
                                 'value'   => $description,
                                 'message' => $message ?? '',
@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="search-form-control">
-                            @include('user.components.form-input-with-icon', [
+                            @include('user.components.form-input', [
                                 'name'    => 'notes',
                                 'value'   => $notes,
                                 'message' => $message ?? '',

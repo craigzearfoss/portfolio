@@ -1,7 +1,8 @@
 @php
     use App\Models\Career\Application;
 
-    $owner_id        = $owner->id ?? -1;
+    $owner_id        = $owner_id ?? request()->query('owner_id');
+    $isRootAmin      = $isRootAmin ?? false;
     $application_id  = $application_id ?? request()->query('application_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
@@ -17,6 +18,6 @@
                           false,
                           [ 'company_name', 'asc' ]
                       ),
-        'style'    => 'min-width: 12rem;'
+        'class'    => [ 'input-name' ]
     ])
 </div>
