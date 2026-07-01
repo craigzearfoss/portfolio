@@ -235,6 +235,9 @@ class School extends Model
             ->when(!empty($filters['active']), function ($query) use ($filters) {
                 $query->where($this->table . '.active', '=', true);
             })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
+            })
             ->when(!empty($filters['closed']), function ($query) use ($filters) {
                 $query->where($this->table . '.closed', '=', intval($filters['closed']));
             })
