@@ -16,7 +16,7 @@ class UpdateSiteSettingsRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'site_settings',
         'key'          => 'site_setting',
         'name'         => 'site-setting',

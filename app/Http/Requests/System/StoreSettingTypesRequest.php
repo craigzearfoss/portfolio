@@ -17,7 +17,7 @@ class StoreSettingTypesRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'setting_types',
         'key'          => 'setting_type',
         'name'         => 'setting-type',

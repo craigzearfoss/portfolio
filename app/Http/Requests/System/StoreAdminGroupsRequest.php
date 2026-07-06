@@ -19,7 +19,7 @@ class StoreAdminGroupsRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'admin_groups',
         'key'          => 'admin_group',
         'name'         => 'admin-group',

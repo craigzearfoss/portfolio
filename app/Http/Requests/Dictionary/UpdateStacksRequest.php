@@ -16,7 +16,7 @@ class UpdateStacksRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'career_db',
+        'database_tag' => 'dictionary_db',
         'table'        => 'stacks',
         'key'          => 'stack',
         'name'         => 'stack',

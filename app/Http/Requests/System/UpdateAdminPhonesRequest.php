@@ -18,7 +18,7 @@ class UpdateAdminPhonesRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'admin_phones',
         'key'          => 'admin_phone',
         'name'         => 'admin-phone',

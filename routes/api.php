@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CandidateController as CandidateController;
+use App\Http\Controllers\Api\V1\CommentController as CommentController;
 use App\Http\Controllers\Api\V1\FavoriteController as FavoriteController;
 use App\Http\Controllers\Api\V1\MenuController as MenuController;
 
@@ -33,8 +34,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->name('api.v1.')->group(function () {
 
     Route::get('candidate/{owner}', [CandidateController::class, 'show'])->name('candidate.show');
-    Route::get('favorite/add/{resourceName}/{id}', [FavoriteController::class, 'add'])->name('favorite.add');
-    Route::get('favorite/remove/{resourceName}/{id}', [FavoriteController::class, 'remove'])->name('favorite.remove');
+    Route::resource('comment', CommentController::class);
+    Route::get('favorite/{resourceName}/{id}/add', [FavoriteController::class, 'add'])->name('favorite.add');
+    Route::get('favorite/{resourceName}/{id}/remove', [FavoriteController::class, 'remove'])->name('favorite.remove');
     Route::get('menu/{owner}', [MenuController::class, 'show'])->name('menu.show');
 
     Route::get('career/industries', [CareerIndustryController::class, 'index'])->name('career.job-industry.index');

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGr
 use App\Http\Controllers\Admin\System\AdminPhoneController as AdminSystemAdminPhoneController;
 use App\Http\Controllers\Admin\System\AdminResourceController as AdminSystemAdminResourceController;
 use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
+use App\Http\Controllers\Admin\System\CommentController as AdminSystemCommentController;
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
 use App\Http\Controllers\Admin\System\LogController as AdminSystemLogController;
@@ -185,6 +186,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
             Route::resource('admin-phone', AdminSystemAdminPhoneController::class)->parameter('admin-phone', 'admin_phone');
             Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
+            Route::resource('comment', AdminSystemCommentController::class);
             Route::resource('database', AdminSystemDatabaseController::class);
             Route::resource('admin-database', AdminSystemAdminDatabaseController::class)->parameter('admin-database', 'admin_database');
             Route::resource('log', AdminSystemLogController::class);

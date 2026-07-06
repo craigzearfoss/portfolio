@@ -20,7 +20,7 @@ class StoreAdminEmailsRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'admin_emails',
         'key'          => 'admin_email',
         'name'         => 'admin-email',

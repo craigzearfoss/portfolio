@@ -19,7 +19,7 @@ class UpdateAdminTeamsRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'admin_teams',
         'key'          => 'admin_team',
         'name'         => 'admin-team',

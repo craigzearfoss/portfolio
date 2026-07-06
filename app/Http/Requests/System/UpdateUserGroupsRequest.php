@@ -19,7 +19,7 @@ class UpdateUserGroupsRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'user_groups',
         'key'          => 'user_group',
         'name'         => 'user-group',

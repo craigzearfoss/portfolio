@@ -19,7 +19,7 @@ class StoreAdminResourcesRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'admin_resources',
         'key'          => 'admin_resource',
         'name'         => 'admin-resource',

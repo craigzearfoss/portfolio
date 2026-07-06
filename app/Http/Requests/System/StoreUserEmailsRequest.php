@@ -18,7 +18,7 @@ class StoreUserEmailsRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'user_emails',
         'key'          => 'user_email',
         'name'         => 'user-email',

@@ -19,7 +19,7 @@ class UpdateResourceSettingsRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'resource_settings',
         'key'          => 'resource_setting',
         'name'         => 'resource-setting',

@@ -51,7 +51,7 @@
                     <th>summary</th>
                     <td>{!! $jobBoard->summary !!}</td>
                 </tr>
-           @endif
+            @endif
 
             @if (!empty($jobBoard->recruiter_industry_id))
                 <tr>
@@ -107,7 +107,7 @@
                         ])
                     </td>
                 </tr>
-           @endif
+            @endif
 
             @if (!empty($jobBoard->linkedin_url))
                 <tr>
@@ -200,12 +200,16 @@
                         <th>{{ !empty($jobBoard->alt_email_label) ? $jobBoard->alt_email_label: 'alt email' }}</th>
                         <td>{{ $jobBoard->alt_email }}</td>
                     </tr>
-                @endif
+            @endif
 
             @endif
 
         </table>
 
     </div>
+
+    @include('guest.components.modals.add-comment', [
+        'resource' => $jobBoard,
+    ]);
 
 @endsection

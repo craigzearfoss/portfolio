@@ -24,7 +24,7 @@ class StoreAdminsRequest extends StoreAppBaseRequest
      */
     protected array $props = [
         'owner_id'     => ['integer', 'exists:system_db.admins,id', 'nullable'],
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'admins',
         'key'          => 'admin',
         'name'         => 'admin',

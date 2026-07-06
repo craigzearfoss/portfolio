@@ -17,7 +17,7 @@ class StoreLibrariesRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'career_db',
+        'database_tag' => 'dictionary_db',
         'table'        => 'libraries',
         'key'          => 'library',
         'name'         => 'library',

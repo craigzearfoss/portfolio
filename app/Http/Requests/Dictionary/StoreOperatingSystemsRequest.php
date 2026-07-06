@@ -17,7 +17,7 @@ class StoreOperatingSystemsRequest extends StoreAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'career_db',
+        'database_tag' => 'dictionary_db',
         'table'        => 'operating_systems',
         'key'          => 'operating_system',
         'name'         => 'operating-system',

@@ -610,5 +610,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    /* add a comment */
+    (document.querySelectorAll('.modal-button') || []).forEach((elem) => {
+
+        elem.addEventListener('click', (event)  => {
+            event.preventDefault();
+
+            let elem = event.target;
+            let modalId = elem.getAttribute('data-modal-id');
+            let target = document.getElementById(modalId);
+
+            if (target) {
+                // $("html").addClass("is-clipped");  //@@TODO what is this?
+                if (!target.classList.contains('is-active')) target.classList.add('is-active');
+            }
+
+//alert(modalId);
+            // var target = $(this).data("target");
+            // $("html").addClass("is-clipped");
+            // $(target).addClass("is-active");
+
+/*
+            showSkillCheckBoxes('skill');
+            showSkillCheckBoxes('anti-skill');
+            clearJobDescription();
+            */
+        })
+
+/*
+        let resource = elem.getAttribute('data-resource');
+        if ((resource !== null) && (resource.length > 0)) {
+            const key = 'favorites_' + resource;
+            let ids = localStorage.getItem(key);
+            if ((ids !== null) && (ids.length > 0)) {
+                ids = JSON.parse(ids);
+                elem.value = ids.join('|');
+            }
+        }
+        */
+    });
+
+
 });
 

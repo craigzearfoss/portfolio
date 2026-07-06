@@ -18,7 +18,7 @@ class UpdateMessagesRequest extends UpdateAppBaseRequest
      * @var array|string[]
      */
     protected array $props = [
-        'database_tag' => 'portfolio_db',
+        'database_tag' => 'system_db',
         'table'        => 'messages',
         'key'          => 'message',
         'name'         => 'message',
