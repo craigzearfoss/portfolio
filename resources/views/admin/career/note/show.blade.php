@@ -91,11 +91,11 @@
 
                 @include('admin.components.show-row', [
                     'name'  => 'link',
-                    'value' => $jobBoard->link
-                               . (!empty($jobBoard->link)
+                    'value' => $note->link
+                               . (!empty($note->link)
                                     ? view('admin.components.link-icon', [
                                           'title'  => 'open link in new window',
-                                          'href'   => $jobBoard->link,
+                                          'href'   => $note->link,
                                           'icon'   => 'fa-external-link',
                                           'border' => false,
                                           'target' => '_blank',
