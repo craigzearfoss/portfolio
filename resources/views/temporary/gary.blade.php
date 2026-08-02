@@ -14,9 +14,10 @@
 <html lang="en" dir="ltr">
 <head>
     <title>Gary "Butch" Zearfoss Celebration of Life</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="referrer" content=origin" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" type="text/css">
 </head>
 <body style="font-size: 2rem !important;">
