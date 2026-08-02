@@ -59,7 +59,7 @@
                                 <li>Mission BBQ</li>
                                 <li>hot dogs, rolls, and fixings</li>
                                 <li>paper plates, cups, utensils</li>
-                                <li>board, card, and lawn games</li>
+                                <li>board, card, and lawn games (Bring your favorites.)</li>
                             </ul>
                         </div>
                     </li>
