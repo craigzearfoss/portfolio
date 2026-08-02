@@ -19,7 +19,7 @@
     <meta name="referrer" content=origin" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" type="text/css">
 </head>
-<body style="font-family: arial,sans-serif;">
+<body style="font-size: 2rem !important;">
 <h3 class="subtitle mt-3 mb-2 ml-2">
     Gary "Butch" Zearfoss Celebration of Life
 </h3>
@@ -52,7 +52,7 @@
         <td>
             <div class="content">
                 <ul class="mt-0 ml-4">
-                    <li>We will only providing:
+                    <li>We will be providing:
                         <div class="content">
                             <ul>
                                 <li>Mission BBQ</li>
