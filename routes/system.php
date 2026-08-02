@@ -52,6 +52,12 @@ use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStac
 
 use App\Http\Controllers\Guest\Career\IndexController as GuestCareerIndexController;
 
+/**
+ * Place temporary routes here.
+ */
+
+Route::view('/gary', 'temporary.gary');
+
 Route::get('analyze-job/', [GuestCareerIndexController::class, 'analyzeJob'])->name('analyze-job');
 Route::get('job-board', [GuestCareerJobBoardController::class, 'index'])->name('guest.career.job-board.index');
 Route::get('job-boards/{jobBoard}', [GuestCareerJobBoardController::class, 'show'])->name('guest.career.job-board.show');
