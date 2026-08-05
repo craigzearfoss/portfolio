@@ -109,7 +109,7 @@
 
         <div class="column is-centered has-text-centered" style="max-width: 50rem;" >
             <div class="row box message">
-                This will be a day for the family to share memories and end enjoy time together.<br>
+                This will be a day for the family to share memories and enjoy time together.<br>
                 A number of table games and a few other activities will be available.
                 <br>(Bring your favorite games.)
             </div>
@@ -141,7 +141,7 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>Please bring your own drinks.</li>
+                                    <li><strong>Please bring your own drinks.</strong></li>
                                     <li style="display: none;">The park has 2 small charcoal grills that can be used or you can bring your own grill if you would like.</li>
                                     <li style="display: none;">The park has plenty of parking and a children's playground.</li>
                                     <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
