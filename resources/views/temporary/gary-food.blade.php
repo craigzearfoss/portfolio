@@ -121,7 +121,7 @@
             * If you are on a computer please add your item to this list, but you will not be able edit it from a phone or iPad.
         </div>
 
-        <div class="column is-centered has-text-centered">
+        <div class="column is-centered has-text-centered" style="height: 100%;">
             <div class="row">
 
                 <iframe
