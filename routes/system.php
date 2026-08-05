@@ -57,6 +57,7 @@ use App\Http\Controllers\Guest\Career\IndexController as GuestCareerIndexControl
  */
 
 Route::view('/gary', 'temporary.gary');
+Route::view('/gary/food', 'temporary.gary-food');
 
 Route::get('analyze-job/', [GuestCareerIndexController::class, 'analyzeJob'])->name('analyze-job');
 Route::get('job-board', [GuestCareerJobBoardController::class, 'index'])->name('guest.career.job-board.index');

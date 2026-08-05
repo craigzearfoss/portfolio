@@ -25,6 +25,9 @@
             font-size: 1.1rem !important;
             background-color: #d5c9c2;
         }
+        section.section.main {
+            padding-bottom: 0;
+        }
         div.box.title {
             background-color: #d8e3e1;
         }
@@ -36,22 +39,39 @@
         div.box.info {
             background-color: #ffffff;
         }
+        div.container.google-sheet-container {
+            background-color: #d5c9c2;
+            max-width: 60rem;
+        }
         iframe.spreadsheet-iframe {
-            width: 100%;
+            width: 30rem;
             height: 80rem;
             float: left;
             margin: 6px;
-            overflow: scroll;
             border: 1px solid black;
+        }
+        a.gary-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 24px;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            font-weight: 800;
+            background-color: #f4e1bb;
+        }
+        a.gary-button-float {
+            margin: 24px;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            font-weight: 800;
+            background-color: #f4e1bb;
         }
     </style>
 </head>
 <body>
 
-<div class="row has-text-centered mt-4">
-</div>
-
-<section class="section">
+<section class="section main p-2">
 
     <div class="container" style="max-width: 60rem;">
 
@@ -61,9 +81,13 @@
                 <h1 class="title is-2">
                     A Celebration of Life Picnic
                 </h1>
-                <h2 class="subtitle is-3">
+                <h2 class="subtitle is-3 mb-0">
                     Gary "Butch" Zearfoss
                 </h2>
+
+                <a class="gary-button" href="/gary/food">
+                    View<br>Food List
+                </a>
 
             </div>
         </div>
@@ -107,8 +131,8 @@
 
         </div>
 
-        <div class="column is-centered has-text-centered" style="max-width: 50rem;" >
-            <div class="row box message">
+        <div class="column is-centered has-text-centered m-0 p-2" style="max-width: 50rem;" >
+            <div class="row box message m-0 p-2">
                 This will be a day for the family to share memories and enjoy time together.<br>
                 A number of table games and a few other activities will be available.
                 <br>(Bring your favorite games.)
@@ -120,9 +144,9 @@
     <div class="container" style="max-width: 60rem;">
 
         <div class="column is-centered has-text-centered">
-            <div class="row box info">
+            <div class="row box info mb-0 pb-0">
 
-                <table class="table" style="max-width: 40rem;">
+                <table class="table" style="max-width: 60rem;">
                     <tr>
                         <th style="vertical-align: top;">Details</th>
                         <td>
@@ -130,7 +154,7 @@
                                 <ul class="mt-0 ml-4">
                                     <li>We will be providing:
                                         <div class="content">
-                                            <ul>
+                                             <ul>
                                                 <li>paper plates, cups, utensils</li>
                                                 <li>Mission BBQ sliders</li>
                                                 <li>hot dogs for the grill</li>
@@ -146,21 +170,18 @@
                                     <li style="display: none;">The park has plenty of parking and a children's playground.</li>
                                     <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
                                     <li>
-                                        We are not organizing food, but if you'd like to bring a side dish or dessert to share please add it to the spreadsheet below to help other people decide what they want to bring.
+                                        <p class="mb-1">
+                                            A small side dish or dessert to share would be welcomed, but not necessary.
+                                        </p>
+                                        <p class="mb-2">
+                                            Click on the button below to see what other people are bringing and add what your what you are bringing.
+                                        </p>
+                                        <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
+                                            Click Here to See the Food List
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-
-                            <iframe class="spreadsheet-iframe"
-                                    src="https://docs.google.com/spreadsheets/d/187jIxxYcjhX4jKvSfpRDo9ltPCRtry9Dl8bYohYhOCo/edit?gid=0#gid=0"
-                            >
-                            </iframe>
-
                         </td>
                     </tr>
                 </table>
