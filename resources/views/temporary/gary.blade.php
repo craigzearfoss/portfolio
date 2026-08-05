@@ -174,7 +174,7 @@
                                             A small side dish or dessert to share would be welcomed, but not necessary.
                                         </p>
                                         <p class="mb-2">
-                                            Click on the button below to see what other people are bringing and add what your what you are bringing.
+                                            Click on the button below to see what other people are bringing and add what you want to bring.
                                         </p>
                                         <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
                                             Click Here to See the Food List
