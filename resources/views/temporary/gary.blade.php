@@ -74,11 +74,6 @@
             div.max-540 {
                 display: block;
             }
-            /*
-            .container:not(.is-max-desktop):not(.is-max-widescreen) {
-                max-width: 100%;
-            }
-            */
         }
         @media screen and (min-width: 540px) {
             div.min-540 {

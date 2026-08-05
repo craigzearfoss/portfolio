@@ -68,6 +68,22 @@
             font-weight: 800;
             background-color: #f4e1bb;
         }
+        @media screen and (max-width: 540px) {
+            div.min-540 {
+                display: none;
+            }
+            div.max-540 {
+                display: block;
+            }
+        }
+        @media screen and (min-width: 540px) {
+            div.min-540 {
+                display: block;
+            }
+            div.max-540 {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
