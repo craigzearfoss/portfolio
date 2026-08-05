@@ -69,7 +69,7 @@
             background-color: #f4e1bb;
         }
         @media screen and (max-width: 540px) {
-            div.min-540 {
+            table.min-540 {
                 display: none;
             }
             div.max-540 {
@@ -77,7 +77,7 @@
             }
         }
         @media screen and (min-width: 540px) {
-            div.min-540 {
+            table.min-540 {
                 display: block;
             }
             div.max-540 {
