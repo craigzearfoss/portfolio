@@ -67,6 +67,27 @@
             font-weight: 800;
             background-color: #f4e1bb;
         }
+        @media screen and (max-width: 540px) {
+            div.min-540 {
+                display: none;
+            }
+            div.max-540 {
+                display: block;
+            }
+            /*
+            .container:not(.is-max-desktop):not(.is-max-widescreen) {
+                max-width: 100%;
+            }
+            */
+        }
+        @media screen and (min-width: 540px) {
+            div.min-540 {
+                display: block;
+            }
+            div.max-540 {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -146,7 +167,42 @@
         <div class="column is-centered has-text-centered">
             <div class="row box info mb-0 pb-0">
 
-                <table class="table" style="max-width: 60rem;">
+                <div class="max-540">
+                    <div class="content has-text-left" style="font-size: 16px; line-height: 1.1;">
+                        <ul class="mt-0 ml-4">
+                            <li>We will be providing:
+                                <div class="content">
+                                    <ul>
+                                        <li>paper plates, cups, utensils</li>
+                                        <li>Mission BBQ sliders</li>
+                                        <li>hot dogs for the grill</li>
+                                        <li>chips, Doritos, etc.</li>
+                                        <li>broccoli salad, cole slaw, & macaroni salad</li>
+                                        <li>mini cupcakes</li>
+                                        <li>table games and a few other activities (Bring your favorites.)</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><strong>Please bring your own drinks.</strong></li>
+                            <li style="display: none;">The park has 2 small charcoal grills that can be used or you can bring your own grill if you would like.</li>
+                            <li style="display: none;">The park has plenty of parking and a children's playground.</li>
+                            <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
+                            <li>
+                                <p class="mb-1">
+                                    A small side dish or dessert to share would be welcomed, but not necessary.
+                                </p>
+                                <p class="mb-2">
+                                    Click on the button below to see what other people are bringing and figure out you want to bring.
+                                </p>
+                                <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
+                                    Click Here to See the Food List
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <table class="table min-540" style="max-width: 60rem;">
                     <tr>
                         <th style="vertical-align: top;">Details</th>
                         <td>
@@ -174,7 +230,7 @@
                                             A small side dish or dessert to share would be welcomed, but not necessary.
                                         </p>
                                         <p class="mb-2">
-                                            Click on the button below to see what other people are bringing and add what you want to bring.
+                                            Click on the button below to see what other people are bringing and figure out you want to bring.
                                         </p>
                                         <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
                                             Click Here to See the Food List
