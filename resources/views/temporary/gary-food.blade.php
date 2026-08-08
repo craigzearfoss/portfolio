@@ -119,12 +119,12 @@
 
         <div class="has-text-centered" style="max-width: 40rem;">
             <p class=" pb-2">
-                You can bring small side dish or dessert to share if you would like, but it is not necessary.
+                You can bring a small side dish or dessert to share if you would like, but it is not necessary.
                 This a list of what people intend to bring.
             </p>
             <p>
                 <i>
-                    * If you are on a computer please add your item to this list, but you will not be able edit the list from a phone or iPad.
+                    * If you are on a computer please add your item to this list, but you will not be able to edit the list from a phone or iPad.
                 </i>
             </p>
         </div>

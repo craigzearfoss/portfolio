@@ -151,7 +151,7 @@
             <div class="row box message m-0 p-2">
                 This will be a day for the family to share memories and enjoy time together.<br>
                 A number of table games and a few other activities will be available.
-                <br>(Bring your favorite games.)
+                <br>(Bring your favorite game if you wish.)
             </div>
         </div>
 
@@ -173,7 +173,7 @@
                                         <li>chips, Doritos, etc.</li>
                                         <li>cole slaw</li>
                                         <li>mini cupcakes</li>
-                                        <li>table games and a few other activities (Bring your favorites.)</li>
+                                        <li>table games and a few other activities (Bring your favorite game if you wish.)</li>
                                     </ul>
                                 </div>
                             </li>
@@ -181,6 +181,7 @@
                             <li style="display: none;">The park has 2 small charcoal grills that can be used or you can bring your own grill if you would like.</li>
                             <li style="display: none;">The park has plenty of parking and a children's playground.</li>
                             <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
+                            <li>You may wish to bring lawn chairs to sit in the nearby shaded, wooded area.</li>
                             <li>
                                 <p class="mb-1">
                                     A small side dish or dessert to share would be welcomed, but not necessary.
@@ -218,6 +219,7 @@
                                     <li style="display: none;">The park has 2 small charcoal grills that can be used or you can bring your own grill if you would like.</li>
                                     <li style="display: none;">The park has plenty of parking and a children's playground.</li>
                                     <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
+                                    <li>You may wish to bring lawn chairs to sit in the nearby shaded, wooded area.</li>
                                     <li>
                                         <p class="mb-1">
                                             A small side dish or dessert to share would be welcomed, but not necessary.
