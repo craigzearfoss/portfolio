@@ -169,10 +169,9 @@
                                 <div class="content">
                                     <ul>
                                         <li>paper plates, cups, utensils</li>
-                                        <li>Mission BBQ sliders</li>
-                                        <li>hot dogs for the grill</li>
+                                        <li>Mission BBQ / slider rolls</li>
                                         <li>chips, Doritos, etc.</li>
-                                        <li>broccoli salad, cole slaw, & macaroni salad</li>
+                                        <li>cole slaw</li>
                                         <li>mini cupcakes</li>
                                         <li>table games and a few other activities (Bring your favorites.)</li>
                                     </ul>
@@ -187,7 +186,7 @@
                                     A small side dish or dessert to share would be welcomed, but not necessary.
                                 </p>
                                 <p class="mb-2">
-                                    Click on the button below to see what other people are bringing and figure out you want to bring.
+                                    Click on the button below to see what other people are bringing so you can figure out you want to bring.
                                 </p>
                                 <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
                                     Click Here to See the Food List
@@ -207,10 +206,9 @@
                                         <div class="content">
                                              <ul>
                                                 <li>paper plates, cups, utensils</li>
-                                                <li>Mission BBQ sliders</li>
-                                                <li>hot dogs for the grill</li>
+                                                <li>Mission BBQ / slider rolls</li>
                                                 <li>chips, Doritos, etc.</li>
-                                                <li>broccoli salad, cole slaw, & macaroni salad</li>
+                                                <li>cole slaw</li>
                                                 <li>mini cupcakes</li>
                                                 <li>table games and a few other activities (Bring your favorites.)</li>
                                             </ul>
@@ -225,7 +223,7 @@
                                             A small side dish or dessert to share would be welcomed, but not necessary.
                                         </p>
                                         <p class="mb-2">
-                                            Click on the button below to see what other people are bringing and figure out you want to bring.
+                                            Click on the button below to see what other people are bringing so you can figure out you want to bring.
                                         </p>
                                         <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
                                             Click Here to See the Food List

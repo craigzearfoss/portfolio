@@ -117,8 +117,16 @@
             </div>
         </div>
 
-        <div>
-            * If you are on a computer please add your item to this list, but you will not be able edit it from a phone or iPad.
+        <div class="has-text-centered" style="max-width: 40rem;">
+            <p class=" pb-2">
+                You can bring small side dish or dessert to share if you would like, but it is not necessary.
+                This a list of what people intend to bring.
+            </p>
+            <p>
+                <i>
+                    * If you are on a computer please add your item to this list, but you will not be able edit the list from a phone or iPad.
+                </i>
+            </p>
         </div>
 
         <div class="column is-centered has-text-centered" style="height: 100%;">
