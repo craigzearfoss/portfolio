@@ -124,7 +124,7 @@
             </p>
             <p>
                 <i>
-                    * If you are on a computer please add your item to this list, but you will not be able to edit the list from a phone or iPad.
+                    * You can add your item to this list from a computer. (You will probably not be able to edit the list from a phone or iPad.)
                 </i>
             </p>
         </div>

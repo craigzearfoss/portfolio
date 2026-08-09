@@ -131,8 +131,10 @@
                             <th style="vertical-align: top;">Location: </th>
                             <td>
                                 <strong>Cousler Park</strong>, Pavillions T & P, <br>
-                                1060 Church Rd.<br>
-                                York, PA 17404<br>
+                                    1060 Church Rd.<br>
+                                    York, PA 17404<br>
+                                    <strong>*Use the Greenbriar Rd. entrance</strong>
+
                                 <a target="_blank" href="https://www.mantwp.com/cousler-park/">https://www.mantwp.com/cousler-park/</a>
                                 <p class="mt-2" style="display: none;">
                                     Near the playground.<br>
@@ -168,7 +170,7 @@
                             <li>We will be providing:
                                 <div class="content">
                                     <ul>
-                                        <li>paper plates, cups, utensils</li>
+                                        <li>plates, cups, utensils, napkins</li>
                                         <li>Mission BBQ / slider rolls</li>
                                         <li>chips, Doritos, etc.</li>
                                         <li>cole slaw</li>
@@ -177,7 +179,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><strong>Please bring your own drinks.</strong></li>
+                            <li><strong>Please bring your own drinks.</strong>&nbsp;&nbsp;&nbsp;(Ice will be provided.)</li>
                             <li style="display: none;">The park has 2 small charcoal grills that can be used or you can bring your own grill if you would like.</li>
                             <li style="display: none;">The park has plenty of parking and a children's playground.</li>
                             <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
@@ -187,7 +189,7 @@
                                     A small side dish or dessert to share would be welcomed, but not necessary.
                                 </p>
                                 <p class="mb-2">
-                                    Click on the button below to see what other people are bringing so you can figure out you want to bring.
+                                    You can view the sign up list by clicking on the button below.
                                 </p>
                                 <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
                                     Click Here to See the Food List
@@ -206,7 +208,7 @@
                                     <li>We will be providing:
                                         <div class="content">
                                              <ul>
-                                                <li>paper plates, cups, utensils</li>
+                                                 <li>plates, cups, utensils, napkins</li>
                                                 <li>Mission BBQ / slider rolls</li>
                                                 <li>chips, Doritos, etc.</li>
                                                 <li>cole slaw</li>
@@ -215,7 +217,7 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li><strong>Please bring your own drinks.</strong></li>
+                                    <li><strong>Please bring your own drinks.</strong>&nbsp;&nbsp;&nbsp;(Ice will be provided.)</li>
                                     <li style="display: none;">The park has 2 small charcoal grills that can be used or you can bring your own grill if you would like.</li>
                                     <li style="display: none;">The park has plenty of parking and a children's playground.</li>
                                     <li style="display: none;">If you'd like to, feel free to bring food just for yourself.</li>
@@ -225,7 +227,7 @@
                                             A small side dish or dessert to share would be welcomed, but not necessary.
                                         </p>
                                         <p class="mb-2">
-                                            Click on the button below to see what other people are bringing so you can figure out you want to bring.
+                                            You can view the sign up list by clicking on the button below.
                                         </p>
                                         <a class="gary-button-float button mt-2 font-bold" href="/gary/food">
                                             Click Here to See the Food List
